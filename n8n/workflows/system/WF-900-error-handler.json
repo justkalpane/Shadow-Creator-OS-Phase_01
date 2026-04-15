@@ -7,22 +7,145 @@
       "name": "Manual Trigger",
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
-      "position": [260, 300]
+      "position": [240, 300]
     },
     {
       "parameters": {
-        "jsCode": "return [{ json: { workflow_id: 'WF-900', phase: 'phase1', action: 'normalize_error', replay_target: 'WF-010', status: 'ready_for_wiring' } }];"
+        "keepOnlySet": false,
+        "values": {
+          "string": [
+            {
+              "name": "workflow_id",
+              "value": "WF-900"
+            },
+            {
+              "name": "phase",
+              "value": "phase1"
+            },
+            {
+              "name": "error_code",
+              "value": "SE-P1-003"
+            },
+            {
+              "name": "error_title",
+              "value": "approval_rejected"
+            },
+            {
+              "name": "source_workflow",
+              "value": "WF-010"
+            },
+            {
+              "name": "dossier_id",
+              "value": "sample-dossier-001"
+            }
+          ]
+        }
       },
-      "id": "build_error_resolution",
-      "name": "Build Error Resolution",
+      "id": "set_error_envelope",
+      "name": "Set Error Envelope",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [500, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const code = $json.error_code || 'SE-P1-001';\nconst map = {\n  'SE-P1-001': { severity: 'warning', replayable: true, target: 'WF-001' },\n  'SE-P1-002': { severity: 'critical', replayable: false, target: 'WF-000' },\n  'SE-P1-003': { severity: 'warning', replayable: true, target: 'WF-010' }\n};\nconst info = map[code] || { severity: 'warning', replayable: false, target: 'WF-900' };\nreturn [{ json: { ...$json, severity: info.severity, replayable: info.replayable, replay_target: info.target, status: 'normalized_error_event' } }];"
+      },
+      "id": "normalize_error_event",
+      "name": "Normalize Error Event",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [540, 300]
+      "position": [760, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{ $json.replayable === true }}",
+              "operation": "true"
+            }
+          ]
+        }
+      },
+      "id": "if_replayable",
+      "name": "If Replayable",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [1020, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ json: { workflow_id: 'WF-900', phase: 'phase1', error_code: $json.error_code, severity: $json.severity, disposition: 'replay_or_remodify', replay_target: $json.replay_target, approval_state: 'replay_ready', status: 'recovery_instruction_emitted' } }];"
+      },
+      "id": "build_replay_instruction",
+      "name": "Build Replay Instruction",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1280, 220]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ json: { workflow_id: 'WF-900', phase: 'phase1', error_code: $json.error_code, severity: $json.severity, disposition: 'manual_escalation', replay_target: $json.replay_target, approval_state: 'pending_review', status: 'escalation_instruction_emitted' } }];"
+      },
+      "id": "build_escalation_instruction",
+      "name": "Build Escalation Instruction",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1280, 380]
     }
   ],
   "connections": {
     "Manual Trigger": {
-      "main": [[{ "node": "Build Error Resolution", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Set Error Envelope",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Error Envelope": {
+      "main": [
+        [
+          {
+            "node": "Normalize Error Event",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalize Error Event": {
+      "main": [
+        [
+          {
+            "node": "If Replayable",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If Replayable": {
+      "main": [
+        [
+          {
+            "node": "Build Replay Instruction",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Build Escalation Instruction",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "pinData": {},
@@ -30,7 +153,8 @@
     "workflow_id": "WF-900",
     "phase": "phase1",
     "purpose": "Normalize runtime failures, write error events, and route replay or remediation",
-    "writes": ["namespaces.runtime", "namespaces.approval"]
+    "writes": ["namespaces.runtime", "namespaces.approval"],
+    "depth_status": "starter_runtime_implementation"
   },
   "active": false,
   "settings": {}
