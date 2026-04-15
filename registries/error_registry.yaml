@@ -1,0 +1,17 @@
+version: 1
+errors:
+  - error_code: SE-P1-001
+    title: missing_required_field
+    severity: warning
+    owner: WF-001
+    remediation: populate required intake fields before proceeding
+  - error_code: SE-P1-002
+    title: local_model_unavailable
+    severity: critical
+    owner: WF-000
+    remediation: verify Ollama is running and the configured model is present
+  - error_code: SE-P1-003
+    title: approval_rejected
+    severity: warning
+    owner: WF-400
+    remediation: send packet to remodify path with reason codes
