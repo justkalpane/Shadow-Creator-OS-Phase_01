@@ -1,0 +1,9 @@
+{
+  "name": "WF-900 Error Handler",
+  "nodes": [],
+  "connections": {},
+  "meta": {
+    "workflow_id": "WF-900",
+    "purpose": "Normalize runtime failures, write error events, and route replay or remediation"
+  }
+}
