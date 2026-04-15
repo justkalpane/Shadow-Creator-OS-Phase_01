@@ -1,3 +1,4 @@
 route_id,purpose,entry_workflow,allowed_modes,blocked_capabilities
 ROUTE_PHASE1_STANDARD,governed path for topic to context packet,WF-010,local|hybrid,heavy_media_render
 ROUTE_PHASE1_FAST,creator-safe fast path for topic to script,WF-010,local|hybrid,heavy_media_render
+ROUTE_PHASE1_REPLAY,remodify and replay recovery path,WF-900,local|hybrid,heavy_media_render
