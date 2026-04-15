@@ -1,0 +1,2 @@
+runtime_id,dossier_id,current_workflow,health_state,last_event_at
+runtime-001,sample-dossier-001,WF-001,healthy,2026-04-15T00:00:00Z
