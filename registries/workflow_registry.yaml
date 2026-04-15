@@ -1,0 +1,28 @@
+version: 1
+phase: phase1
+mode: n8n-first
+workflows:
+  - workflow_id: WF-000
+    name: health_check
+    class: system
+    status: planned
+    source_file: n8n/workflows/system/WF-000-health-check.json
+    manifest_file: n8n/manifests/WF-000-health-check.manifest.yaml
+  - workflow_id: WF-900
+    name: error_handler
+    class: system
+    status: planned
+    source_file: n8n/workflows/system/WF-900-error-handler.json
+    manifest_file: n8n/manifests/WF-900-error-handler.manifest.yaml
+  - workflow_id: WF-001
+    name: dossier_create
+    class: parent
+    status: planned
+    source_file: n8n/workflows/parent/WF-001-dossier-create.json
+    manifest_file: n8n/manifests/WF-001-dossier-create.manifest.yaml
+  - workflow_id: WF-010
+    name: parent_orchestrator
+    class: parent
+    status: planned
+    source_file: n8n/workflows/parent/WF-010-parent-orchestrator.json
+    manifest_file: n8n/manifests/WF-010-parent-orchestrator.manifest.yaml
