@@ -1,0 +1,2 @@
+dossier_id,job_id,status,route_id,current_workflow
+sample-dossier-001,sample-job-001,created,ROUTE_PHASE1_STANDARD,WF-001
