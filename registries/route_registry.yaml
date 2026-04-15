@@ -1,0 +1,8 @@
+version: 1
+routes:
+  - route_id: ROUTE_PHASE1_FAST
+    entry_workflow: WF-010
+  - route_id: ROUTE_PHASE1_STANDARD
+    entry_workflow: WF-010
+  - route_id: ROUTE_PHASE1_REPLAY
+    entry_workflow: WF-900
