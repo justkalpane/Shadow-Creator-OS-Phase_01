@@ -1,0 +1,9 @@
+{
+  "name": "WF-000 Health Check",
+  "nodes": [],
+  "connections": {},
+  "meta": {
+    "workflow_id": "WF-000",
+    "purpose": "Validate local runtime, folders, Ollama reachability, and basic n8n readiness"
+  }
+}
