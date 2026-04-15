@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://shadow-empire.local/schemas/packets/script_draft.schema.json",
+  "title": "ScriptDraftPacket",
+  "type": "object",
+  "required": ["packet_id", "dossier_id", "title", "script_body"],
+  "properties": {
+    "packet_id": {"type": "string"},
+    "dossier_id": {"type": "string"},
+    "title": {"type": "string"},
+    "hook": {"type": "string"},
+    "script_body": {"type": "string"},
+    "version": {"type": "integer", "minimum": 1}
+  },
+  "additionalProperties": true
+}
