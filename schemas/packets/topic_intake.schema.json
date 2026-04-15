@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://shadow-empire.local/schemas/packets/topic_intake.schema.json",
+  "title": "TopicIntakePacket",
+  "type": "object",
+  "required": ["packet_id", "dossier_id", "topic", "source"],
+  "properties": {
+    "packet_id": {"type": "string"},
+    "dossier_id": {"type": "string"},
+    "topic": {"type": "string"},
+    "source": {"type": "string"},
+    "notes": {"type": "string"},
+    "priority": {"type": "string", "enum": ["low", "medium", "high"]}
+  },
+  "additionalProperties": true
+}
