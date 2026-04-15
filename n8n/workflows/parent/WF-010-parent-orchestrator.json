@@ -1,9 +1,37 @@
 {
   "name": "WF-010 Parent Orchestrator",
-  "nodes": [],
-  "connections": {},
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "manual_trigger",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [260, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ json: { workflow_id: 'WF-010', selected_route: 'ROUTE_PHASE1_STANDARD', next_pack: 'WF-100', status: 'ready_for_wiring' } }];"
+      },
+      "id": "build_orchestration_decision",
+      "name": "Build Orchestration Decision",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [560, 300]
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [[{ "node": "Build Orchestration Decision", "type": "main", "index": 0 }]]
+    }
+  },
+  "pinData": {},
   "meta": {
     "workflow_id": "WF-010",
-    "purpose": "Select the route and orchestrate downstream Phase-1 workflow packs"
-  }
+    "phase": "phase1",
+    "purpose": "Select the route and orchestrate downstream Phase-1 workflow packs",
+    "writes": ["namespaces.runtime", "namespaces.approval"]
+  },
+  "active": false,
+  "settings": {}
 }

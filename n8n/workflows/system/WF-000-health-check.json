@@ -1,9 +1,37 @@
 {
   "name": "WF-000 Health Check",
-  "nodes": [],
-  "connections": {},
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "manual_trigger",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [260, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ json: { workflow_id: 'WF-000', phase: 'phase1', checks: ['n8n_runtime', 'folders', 'ollama'], status: 'ready_for_wiring' } }];"
+      },
+      "id": "build_health_report",
+      "name": "Build Health Report",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [520, 300]
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [[{ "node": "Build Health Report", "type": "main", "index": 0 }]]
+    }
+  },
+  "pinData": {},
   "meta": {
     "workflow_id": "WF-000",
-    "purpose": "Validate local runtime, folders, Ollama reachability, and basic n8n readiness"
-  }
+    "phase": "phase1",
+    "purpose": "Validate local runtime, folders, Ollama reachability, and basic n8n readiness",
+    "writes": ["namespaces.runtime"]
+  },
+  "active": false,
+  "settings": {}
 }

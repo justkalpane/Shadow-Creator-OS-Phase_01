@@ -1,9 +1,37 @@
 {
   "name": "WF-001 Dossier Create",
-  "nodes": [],
-  "connections": {},
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "manual_trigger",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [260, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ json: { dossier_id: 'sample-dossier-generated', route_id: 'ROUTE_PHASE1_STANDARD', status: 'created', current_workflow: 'WF-001', namespaces: { system: {}, intake: {}, discovery: {}, research: {}, script: {}, context: {}, approval: {}, runtime: {} } } }];"
+      },
+      "id": "build_dossier_record",
+      "name": "Build Dossier Record",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [560, 300]
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [[{ "node": "Build Dossier Record", "type": "main", "index": 0 }]]
+    }
+  },
+  "pinData": {},
   "meta": {
     "workflow_id": "WF-001",
-    "purpose": "Create the initial dossier record and seed intake namespace state"
-  }
+    "phase": "phase1",
+    "purpose": "Create the initial dossier record and seed intake namespace state",
+    "writes": ["namespaces.system", "namespaces.intake"]
+  },
+  "active": false,
+  "settings": {}
 }
