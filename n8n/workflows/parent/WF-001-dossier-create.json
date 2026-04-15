@@ -1,0 +1,9 @@
+{
+  "name": "WF-001 Dossier Create",
+  "nodes": [],
+  "connections": {},
+  "meta": {
+    "workflow_id": "WF-001",
+    "purpose": "Create the initial dossier record and seed intake namespace state"
+  }
+}
