@@ -1,7 +1,11 @@
 workflow_id: WF-900
-name: error_handler
+name: wf900_error_handler
 class: system
 entry_mode: event_selected
+purpose: normalize runtime failures, write error events, and direct replay or remediation
+owner: shadow_empire_phase1
+route_bindings:
+  - ROUTE_PHASE1_REPLAY
 inputs:
   - error_event
 outputs:
@@ -10,5 +14,11 @@ outputs:
 writes:
   - namespaces.runtime
   - namespaces.approval
-owner: shadow_empire_phase1
+error_family:
+  - SE-P1-001
+  - SE-P1-002
+  - SE-P1-003
+validation:
+  - error envelope present
+  - remediation target resolved
 dependencies: []

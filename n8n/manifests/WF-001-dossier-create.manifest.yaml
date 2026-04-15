@@ -1,8 +1,25 @@
 workflow_id: WF-001
 name: wf001_dossier_create
 class: parent
+entry_mode: event_selected
+purpose: create the initial dossier record and seed system and intake namespaces
+owner: shadow_empire_phase1
+route_bindings:
+  - ROUTE_PHASE1_STANDARD
+  - ROUTE_PHASE1_FAST
 inputs:
   - intake_packet
 outputs:
   - dossier_record
-owner: shadow_empire_phase1
+writes:
+  - namespaces.system
+  - namespaces.intake
+error_family:
+  - SE-P1-001
+validation:
+  - dossier_id assigned
+  - route_id assigned
+  - intake namespace seeded
+dependencies:
+  - WF-000
+  - WF-900

@@ -1,12 +1,22 @@
 workflow_id: WF-000
-name: health_check
+name: wf000_health_check
 class: system
 entry_mode: event_selected
+purpose: validate local runtime prerequisites before any Phase-1 workflow execution
+owner: shadow_empire_phase1
+route_bindings:
+  - ROUTE_PHASE1_STANDARD
+  - ROUTE_PHASE1_FAST
 inputs:
   - health_probe_request
 outputs:
   - runtime_health_report
 writes:
   - namespaces.runtime
-owner: shadow_empire_phase1
+error_family:
+  - SE-P1-002
+validation:
+  - n8n runtime reachable
+  - expected folders resolved
+  - ollama endpoint reachable
 dependencies: []

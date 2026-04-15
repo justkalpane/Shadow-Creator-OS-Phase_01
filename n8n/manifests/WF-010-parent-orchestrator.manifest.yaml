@@ -1,9 +1,27 @@
 workflow_id: WF-010
 name: wf010_parent_orchestrator
 class: parent
+entry_mode: event_selected
+purpose: select the route and orchestrate downstream Phase-1 workflow packs
+owner: shadow_empire_phase1
+route_bindings:
+  - ROUTE_PHASE1_STANDARD
+  - ROUTE_PHASE1_FAST
+  - ROUTE_PHASE1_REPLAY
 inputs:
   - dossier_record
   - route_signal
 outputs:
   - orchestration_decision
-owner: shadow_empire_phase1
+writes:
+  - namespaces.runtime
+  - namespaces.approval
+error_family:
+  - SE-P1-003
+validation:
+  - route selected
+  - downstream pack selected
+  - orchestration decision emitted
+dependencies:
+  - WF-001
+  - WF-900
