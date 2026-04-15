@@ -1,0 +1,8 @@
+workflow_id: WF-001
+name: wf001_dossier_create
+class: parent
+inputs:
+  - intake_packet
+outputs:
+  - dossier_record
+owner: shadow_empire_phase1
