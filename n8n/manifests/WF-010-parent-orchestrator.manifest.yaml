@@ -1,0 +1,9 @@
+workflow_id: WF-010
+name: wf010_parent_orchestrator
+class: parent
+inputs:
+  - dossier_record
+  - route_signal
+outputs:
+  - orchestration_decision
+owner: shadow_empire_phase1
