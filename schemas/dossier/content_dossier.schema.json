@@ -2,17 +2,40 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://shadow-empire.local/schemas/dossier/content_dossier.schema.json",
   "title": "Phase1ContentDossier",
+  "description": "Schema for content dossier management across workflow stages",
   "type": "object",
   "required": ["dossier_id", "route_id", "status", "namespaces"],
   "properties": {
-    "dossier_id": {"type": "string"},
-    "route_id": {"type": "string"},
-    "status": {"type": "string"},
-    "current_workflow": {"type": "string"},
+    "dossier_id": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9_-]{1,255}$",
+      "description": "Unique identifier for the dossier"
+    },
+    "route_id": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9_-]{1,255}$",
+      "description": "Route identifier for workflow routing"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["pending", "in_progress", "review", "approved", "rejected", "archived"],
+      "description": "Current status of the dossier"
+    },
+    "current_workflow": {
+      "type": "string",
+      "description": "Current workflow stage identifier"
+    },
     "namespaces": {
       "type": "object",
+      "required": ["system"],
       "properties": {
-        "system": {"type": "object"},
+        "system": {
+          "type": "object",
+          "properties": {
+            "created_at": {"type": "string", "format": "date-time"},
+            "updated_at": {"type": "string", "format": "date-time"}
+          }
+        },
         "intake": {"type": "object"},
         "discovery": {"type": "object"},
         "research": {"type": "object"},
@@ -24,5 +47,5 @@
       "additionalProperties": false
     }
   },
-  "additionalProperties": true
+  "additionalProperties": false
 }
