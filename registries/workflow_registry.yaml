@@ -1,28 +1,49 @@
 version: 1
 phase: phase1
 mode: n8n-first
+lifecycle_status_model:
+  artifact_status_values:
+    - repo_stub
+    - starter_wired
+    - live_n8n_exported
+    - repo_synced
+  runtime_status_values:
+    - not_built_live
+    - built_live_in_n8n
+  validation_status_values:
+    - not_run
+    - repo_checks_present
+    - validated
 workflows:
   - workflow_id: WF-000
     name: health_check
     class: system
-    status: planned
+    artifact_status: starter_wired
+    runtime_status: not_built_live
+    validation_status: repo_checks_present
     source_file: n8n/workflows/system/WF-000-health-check.json
     manifest_file: n8n/manifests/WF-000-health-check.manifest.yaml
   - workflow_id: WF-900
     name: error_handler
     class: system
-    status: planned
+    artifact_status: starter_wired
+    runtime_status: not_built_live
+    validation_status: repo_checks_present
     source_file: n8n/workflows/system/WF-900-error-handler.json
     manifest_file: n8n/manifests/WF-900-error-handler.manifest.yaml
   - workflow_id: WF-001
     name: dossier_create
     class: parent
-    status: planned
+    artifact_status: starter_wired
+    runtime_status: not_built_live
+    validation_status: repo_checks_present
     source_file: n8n/workflows/parent/WF-001-dossier-create.json
     manifest_file: n8n/manifests/WF-001-dossier-create.manifest.yaml
   - workflow_id: WF-010
     name: parent_orchestrator
     class: parent
-    status: planned
+    artifact_status: starter_wired
+    runtime_status: not_built_live
+    validation_status: repo_checks_present
     source_file: n8n/workflows/parent/WF-010-parent-orchestrator.json
     manifest_file: n8n/manifests/WF-010-parent-orchestrator.manifest.yaml
