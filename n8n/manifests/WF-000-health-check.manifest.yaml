@@ -1,0 +1,12 @@
+workflow_id: WF-000
+name: health_check
+class: system
+entry_mode: event_selected
+inputs:
+  - health_probe_request
+outputs:
+  - runtime_health_report
+writes:
+  - namespaces.runtime
+owner: shadow_empire_phase1
+dependencies: []
