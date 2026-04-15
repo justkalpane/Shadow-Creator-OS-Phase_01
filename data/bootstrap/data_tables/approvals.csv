@@ -1,0 +1,2 @@
+approval_id,dossier_id,state,reason_codes,rejection_summary
+approval-001,sample-dossier-001,pending_review,,
