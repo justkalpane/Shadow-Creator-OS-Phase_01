@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://shadow-empire.local/schemas/dossier/content_dossier.schema.json",
+  "title": "Phase1ContentDossier",
+  "type": "object",
+  "required": ["dossier_id", "route_id", "status", "namespaces"],
+  "properties": {
+    "dossier_id": {"type": "string"},
+    "route_id": {"type": "string"},
+    "status": {"type": "string"},
+    "current_workflow": {"type": "string"},
+    "namespaces": {
+      "type": "object",
+      "properties": {
+        "system": {"type": "object"},
+        "intake": {"type": "object"},
+        "discovery": {"type": "object"},
+        "research": {"type": "object"},
+        "script": {"type": "object"},
+        "context": {"type": "object"},
+        "approval": {"type": "object"},
+        "runtime": {"type": "object"}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": true
+}
