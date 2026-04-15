@@ -1,0 +1,14 @@
+workflow_id: WF-900
+name: error_handler
+class: system
+entry_mode: event_selected
+inputs:
+  - error_event
+outputs:
+  - error_resolution
+  - replay_target
+writes:
+  - namespaces.runtime
+  - namespaces.approval
+owner: shadow_empire_phase1
+dependencies: []
