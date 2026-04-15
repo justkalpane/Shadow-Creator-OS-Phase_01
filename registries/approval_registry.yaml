@@ -1,0 +1,8 @@
+version: 1
+approval_states:
+  - pending_review
+  - approved
+  - rejected
+  - remodify_requested
+  - replay_ready
+  - replayed
