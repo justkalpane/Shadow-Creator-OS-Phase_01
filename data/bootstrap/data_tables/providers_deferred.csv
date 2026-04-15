@@ -1,0 +1,2 @@
+deferred_id,dossier_id,provider_type,reason,status
+provider-001,sample-dossier-001,heavy_media_render,deferred_in_phase1,queued
