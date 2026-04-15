@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://shadow-empire.local/schemas/packets/context_packet.schema.json",
+  "title": "ContextPacket",
+  "type": "object",
+  "required": ["packet_id", "dossier_id", "context_type", "payload"],
+  "properties": {
+    "packet_id": {"type": "string"},
+    "dossier_id": {"type": "string"},
+    "context_type": {"type": "string"},
+    "payload": {"type": "object"},
+    "target_module": {"type": "string"},
+    "status": {"type": "string", "enum": ["created", "approved", "rejected", "replayed"]}
+  },
+  "additionalProperties": true
+}
