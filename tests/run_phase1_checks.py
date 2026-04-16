@@ -11,6 +11,7 @@ scripts = [
 ]
 
 for script in scripts:
+    print(f'Running {script.name}...')
     runpy.run_path(str(script), run_name='__main__')
 
 print('All Phase-1 validation checks passed.')
