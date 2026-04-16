@@ -3,14 +3,44 @@
   "$id": "https://shadow-empire.local/schemas/packets/topic_intake.schema.json",
   "title": "TopicIntakePacket",
   "type": "object",
-  "required": ["packet_id", "dossier_id", "topic", "source"],
+  "required": [
+    "packet_id",
+    "dossier_id",
+    "topic",
+    "source",
+    "source_family",
+    "intake_mode",
+    "audience",
+    "route_hint",
+    "priority",
+    "status",
+    "created_at"
+  ],
   "properties": {
     "packet_id": {"type": "string"},
     "dossier_id": {"type": "string"},
-    "topic": {"type": "string"},
+    "topic": {"type": "string", "minLength": 3},
     "source": {"type": "string"},
+    "source_family": {
+      "type": "string",
+      "enum": ["manual", "rss", "web", "video", "notes", "research_cache"]
+    },
+    "intake_mode": {
+      "type": "string",
+      "enum": ["manual_seed", "discovery_feed", "forensic_extract", "replay"]
+    },
+    "audience": {"type": "string"},
+    "tone_seed": {"type": "string"},
+    "creator_intent": {"type": "string"},
+    "domain_hint": {"type": "string"},
+    "route_hint": {
+      "type": "string",
+      "enum": ["ROUTE_PHASE1_STANDARD", "ROUTE_PHASE1_FAST", "ROUTE_PHASE1_REPLAY"]
+    },
+    "priority": {"type": "string", "enum": ["low", "medium", "high"]},
     "notes": {"type": "string"},
-    "priority": {"type": "string", "enum": ["low", "medium", "high"]}
+    "status": {"type": "string", "enum": ["created", "validated", "rejected", "replayed"]},
+    "created_at": {"type": "string", "format": "date-time"}
   },
-  "additionalProperties": true
+  "additionalProperties": false
 }
