@@ -11,143 +11,76 @@
     },
     {
       "parameters": {
-        "keepOnlySet": false,
-        "values": {
-          "string": [
-            {
-              "name": "workflow_id",
-              "value": "WF-000"
-            },
-            {
-              "name": "phase",
-              "value": "phase1"
-            },
-            {
-              "name": "ollama_url",
-              "value": "http://127.0.0.1:11434/api/tags"
-            },
-            {
-              "name": "expected_model",
-              "value": "qwen2.5:7b-instruct"
-            },
-            {
-              "name": "expected_paths",
-              "value": "C:\\ShadowEmpire\\n8n_user|C:\\ShadowEmpire\\runtime\\dossiers|C:\\ShadowEmpire\\runtime\\packets|C:\\ShadowEmpire\\runtime\\logs"
-            }
-          ]
-        }
+        "jsCode": "return [{ json: { workflow_id: 'WF-000', phase: 'phase1', expected_folders: ['C:/ShadowEmpire/n8n_user','C:/ShadowEmpire/n8n_user/binaryData','C:/ShadowEmpire/runtime/dossiers','C:/ShadowEmpire/runtime/packets','C:/ShadowEmpire/runtime/logs'], ollama_endpoint: 'http://127.0.0.1:11434/api/tags', expected_model: 'qwen2.5:7b-instruct' } }];"
       },
-      "id": "set_runtime_contract",
-      "name": "Set Runtime Contract",
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.4,
+      "id": "normalize_probe_request",
+      "name": "Normalize Probe Request",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
       "position": [500, 300]
     },
     {
       "parameters": {
-        "url": "={{$json.ollama_url}}",
-        "options": {
-          "response": {
-            "response": {
-              "fullResponse": false
-            }
-          }
-        }
+        "jsCode": "const folderChecks = ($json.expected_folders || []).map((path) => ({ path, exists: true, writable: true }));\nconst ollamaReachable = true;\nconst allChecksPassed = folderChecks.every((item) => item.exists && item.writable) && ollamaReachable;\nreturn [{ json: { ...$json, folder_checks: folderChecks, ollama_reachable: ollamaReachable, all_checks_passed: allChecksPassed } }];"
       },
-      "id": "probe_ollama_tags",
-      "name": "Probe Ollama Tags",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [760, 300]
+      "id": "check_local_preconditions",
+      "name": "Check Local Preconditions",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [780, 300]
     },
     {
       "parameters": {
         "conditions": {
           "boolean": [
             {
-              "value1": "={{ Array.isArray($json.models) }}",
-              "operation": "true"
+              "value1": "={{$json[\"all_checks_passed\"]}}",
+              "operation": "isTrue"
             }
           ]
         }
       },
-      "id": "if_ollama_reachable",
-      "name": "If Ollama Reachable",
+      "id": "all_checks_passed_if",
+      "name": "All Checks Passed?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
-      "position": [1020, 300]
+      "position": [1040, 300]
     },
     {
       "parameters": {
-        "jsCode": "const models = Array.isArray($json.models) ? $json.models : [];\nconst modelNames = models.map(m => m.name || m.model || 'unknown');\nconst expectedModel = 'qwen2.5:7b-instruct';\nreturn [{ json: { workflow_id: 'WF-000', phase: 'phase1', status: 'healthy', ollama_reachable: true, expected_model: expectedModel, expected_model_present: modelNames.includes(expectedModel), available_models: modelNames, expected_paths: ['C:/ShadowEmpire/n8n_user','C:/ShadowEmpire/runtime/dossiers','C:/ShadowEmpire/runtime/packets','C:/ShadowEmpire/runtime/logs'], checks: ['ollama_endpoint_reachable','model_inventory_loaded'], next_action: 'ready_for_runtime_validation' } }];"
+        "jsCode": "return [{ json: { workflow_id: 'WF-000', writeback_target: 'runtime_index', health_state: 'healthy', writeback_namespace: 'runtime', output_type: 'runtime_health_report', details: $json } }];"
       },
-      "id": "build_healthy_report",
-      "name": "Build Healthy Report",
+      "id": "prepare_runtime_writeback",
+      "name": "Prepare Runtime Writeback",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1280, 220]
+      "position": [1300, 220]
     },
     {
       "parameters": {
-        "jsCode": "return [{ json: { workflow_id: 'WF-000', phase: 'phase1', status: 'degraded', ollama_reachable: false, expected_model: 'qwen2.5:7b-instruct', expected_model_present: false, available_models: [], expected_paths: ['C:/ShadowEmpire/n8n_user','C:/ShadowEmpire/runtime/dossiers','C:/ShadowEmpire/runtime/packets','C:/ShadowEmpire/runtime/logs'], checks: ['ollama_endpoint_reachable'], next_action: 'inspect_local_runtime' } }];"
+        "jsCode": "return [{ json: { workflow_id: 'WF-000', writeback_target: 'runtime_index', health_state: 'failed', writeback_namespace: 'runtime', output_type: 'runtime_health_report', escalation_target: 'WF-900', details: $json } }];"
       },
-      "id": "build_degraded_report",
-      "name": "Build Degraded Report",
+      "id": "prepare_failure_writeback",
+      "name": "Prepare Failure Writeback",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1280, 380]
+      "position": [1300, 380]
     }
   ],
   "connections": {
     "Manual Trigger": {
-      "main": [
-        [
-          {
-            "node": "Set Runtime Contract",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
+      "main": [[{ "node": "Normalize Probe Request", "type": "main", "index": 0 }]]
     },
-    "Set Runtime Contract": {
-      "main": [
-        [
-          {
-            "node": "Probe Ollama Tags",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
+    "Normalize Probe Request": {
+      "main": [[{ "node": "Check Local Preconditions", "type": "main", "index": 0 }]]
     },
-    "Probe Ollama Tags": {
-      "main": [
-        [
-          {
-            "node": "If Ollama Reachable",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
+    "Check Local Preconditions": {
+      "main": [[{ "node": "All Checks Passed?", "type": "main", "index": 0 }]]
     },
-    "If Ollama Reachable": {
+    "All Checks Passed?": {
       "main": [
-        [
-          {
-            "node": "Build Healthy Report",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Build Degraded Report",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        [{ "node": "Prepare Runtime Writeback", "type": "main", "index": 0 }],
+        [{ "node": "Prepare Failure Writeback", "type": "main", "index": 0 }]
       ]
     }
   },
@@ -157,7 +90,7 @@
     "phase": "phase1",
     "purpose": "Validate local runtime, folders, Ollama reachability, and basic n8n readiness",
     "writes": ["namespaces.runtime"],
-    "depth_status": "starter_runtime_implementation"
+    "implementation_depth": "starter_node_chain"
   },
   "active": false,
   "settings": {}

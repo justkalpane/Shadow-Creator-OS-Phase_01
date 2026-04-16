@@ -7,22 +7,114 @@
       "name": "Manual Trigger",
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
-      "position": [260, 300]
+      "position": [200, 300]
     },
     {
       "parameters": {
-        "jsCode": "return [{ json: { workflow_id: 'WF-010', selected_route: 'ROUTE_PHASE1_STANDARD', next_pack: 'WF-100', status: 'ready_for_wiring' } }];"
+        "jsCode": "return [{ json: { workflow_id: 'WF-010', phase: 'phase1', dossier_id: 'sample-dossier-generated', selected_route: 'ROUTE_PHASE1_STANDARD', approval_state: 'pending_review' } }];"
       },
-      "id": "build_orchestration_decision",
-      "name": "Build Orchestration Decision",
+      "id": "normalize_orchestration_input",
+      "name": "Normalize Orchestration Input",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [560, 300]
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const route = $json.selected_route || 'ROUTE_PHASE1_STANDARD';\nreturn [{ json: { ...$json, resolved_route: route, is_replay: route === 'ROUTE_PHASE1_REPLAY', is_fast: route === 'ROUTE_PHASE1_FAST' } }];"
+      },
+      "id": "resolve_route",
+      "name": "Resolve Route",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [740, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{$json[\"is_replay\"]}}",
+              "operation": "isTrue"
+            }
+          ]
+        }
+      },
+      "id": "route_is_replay_if",
+      "name": "Route Is Replay?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [1000, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ json: { workflow_id: 'WF-010', output_type: 'orchestration_decision', resolved_route: 'ROUTE_PHASE1_REPLAY', next_workflow_pack: 'WF-400', writeback_target: 'runtime_index', writeback_namespace: 'runtime', status: 'replay_ready', details: $json } }];"
+      },
+      "id": "prepare_replay_decision",
+      "name": "Prepare Replay Decision",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1260, 180]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{$json[\"is_fast\"]}}",
+              "operation": "isTrue"
+            }
+          ]
+        }
+      },
+      "id": "route_is_fast_if",
+      "name": "Route Is Fast?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [1260, 380]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ json: { workflow_id: 'WF-010', output_type: 'orchestration_decision', resolved_route: 'ROUTE_PHASE1_FAST', next_workflow_pack: 'WF-200', writeback_target: 'runtime_index', writeback_namespace: 'runtime', status: 'fast_path_selected', details: $json } }];"
+      },
+      "id": "prepare_fast_decision",
+      "name": "Prepare Fast Decision",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1520, 320]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ json: { workflow_id: 'WF-010', output_type: 'orchestration_decision', resolved_route: 'ROUTE_PHASE1_STANDARD', next_workflow_pack: 'WF-100', writeback_target: 'runtime_index', writeback_namespace: 'runtime', status: 'standard_path_selected', details: $json } }];"
+      },
+      "id": "prepare_standard_decision",
+      "name": "Prepare Standard Decision",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1520, 440]
     }
   ],
   "connections": {
     "Manual Trigger": {
-      "main": [[{ "node": "Build Orchestration Decision", "type": "main", "index": 0 }]]
+      "main": [[{ "node": "Normalize Orchestration Input", "type": "main", "index": 0 }]]
+    },
+    "Normalize Orchestration Input": {
+      "main": [[{ "node": "Resolve Route", "type": "main", "index": 0 }]]
+    },
+    "Resolve Route": {
+      "main": [[{ "node": "Route Is Replay?", "type": "main", "index": 0 }]]
+    },
+    "Route Is Replay?": {
+      "main": [
+        [{ "node": "Prepare Replay Decision", "type": "main", "index": 0 }],
+        [{ "node": "Route Is Fast?", "type": "main", "index": 0 }]
+      ]
+    },
+    "Route Is Fast?": {
+      "main": [
+        [{ "node": "Prepare Fast Decision", "type": "main", "index": 0 }],
+        [{ "node": "Prepare Standard Decision", "type": "main", "index": 0 }]
+      ]
     }
   },
   "pinData": {},
@@ -30,7 +122,8 @@
     "workflow_id": "WF-010",
     "phase": "phase1",
     "purpose": "Select the route and orchestrate downstream Phase-1 workflow packs",
-    "writes": ["namespaces.runtime", "namespaces.approval"]
+    "writes": ["namespaces.runtime", "namespaces.approval"],
+    "implementation_depth": "starter_node_chain"
   },
   "active": false,
   "settings": {}

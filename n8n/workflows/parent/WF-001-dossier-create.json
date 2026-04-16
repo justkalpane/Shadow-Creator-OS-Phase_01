@@ -7,22 +7,81 @@
       "name": "Manual Trigger",
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
-      "position": [260, 300]
+      "position": [220, 300]
     },
     {
       "parameters": {
-        "jsCode": "return [{ json: { dossier_id: 'sample-dossier-generated', route_id: 'ROUTE_PHASE1_STANDARD', status: 'created', current_workflow: 'WF-001', namespaces: { system: {}, intake: {}, discovery: {}, research: {}, script: {}, context: {}, approval: {}, runtime: {} } } }];"
+        "jsCode": "return [{ json: { workflow_id: 'WF-001', phase: 'phase1', topic: 'sample topic', source: 'manual_seed', audience: 'general', route_hint: 'ROUTE_PHASE1_STANDARD' } }];"
       },
-      "id": "build_dossier_record",
-      "name": "Build Dossier Record",
+      "id": "normalize_intake_packet",
+      "name": "Normalize Intake Packet",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [560, 300]
+      "position": [480, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const required = ['topic', 'source'];\nconst missing = required.filter((field) => !$json[field]);\nreturn [{ json: { ...$json, intake_valid: missing.length === 0, missing_fields: missing } }];"
+      },
+      "id": "validate_required_intake",
+      "name": "Validate Required Intake",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [760, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{$json[\"intake_valid\"]}}",
+              "operation": "isTrue"
+            }
+          ]
+        }
+      },
+      "id": "intake_valid_if",
+      "name": "Intake Valid?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [1020, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ json: { dossier_id: 'sample-dossier-generated', route_id: $json.route_hint || 'ROUTE_PHASE1_STANDARD', status: 'created', current_workflow: 'WF-001', output_type: 'dossier_record', writeback_target: 'dossiers', writeback_namespace: 'system', namespaces: { system: { created_by: 'WF-001' }, intake: { topic: $json.topic, source: $json.source, audience: $json.audience }, discovery: {}, research: {}, script: {}, context: {}, approval: {}, runtime: {} } } }];"
+      },
+      "id": "build_dossier_skeleton",
+      "name": "Build Dossier Skeleton",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1280, 220]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ json: { workflow_id: 'WF-001', output_type: 'intake_error', writeback_target: 'approvals', writeback_namespace: 'approval', status: 'rejected', reason_codes: $json.missing_fields, details: $json } }];"
+      },
+      "id": "prepare_intake_error",
+      "name": "Prepare Intake Error",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1280, 380]
     }
   ],
   "connections": {
     "Manual Trigger": {
-      "main": [[{ "node": "Build Dossier Record", "type": "main", "index": 0 }]]
+      "main": [[{ "node": "Normalize Intake Packet", "type": "main", "index": 0 }]]
+    },
+    "Normalize Intake Packet": {
+      "main": [[{ "node": "Validate Required Intake", "type": "main", "index": 0 }]]
+    },
+    "Validate Required Intake": {
+      "main": [[{ "node": "Intake Valid?", "type": "main", "index": 0 }]]
+    },
+    "Intake Valid?": {
+      "main": [
+        [{ "node": "Build Dossier Skeleton", "type": "main", "index": 0 }],
+        [{ "node": "Prepare Intake Error", "type": "main", "index": 0 }]
+      ]
     }
   },
   "pinData": {},
@@ -30,7 +89,8 @@
     "workflow_id": "WF-001",
     "phase": "phase1",
     "purpose": "Create the initial dossier record and seed intake namespace state",
-    "writes": ["namespaces.system", "namespaces.intake"]
+    "writes": ["namespaces.system", "namespaces.intake"],
+    "implementation_depth": "starter_node_chain"
   },
   "active": false,
   "settings": {}
