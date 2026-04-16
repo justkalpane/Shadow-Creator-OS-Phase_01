@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://shadow-empire.local/schemas/dossier/content_dossier_patch.schema.json",
+  "title": "ContentDossierPatch",
+  "type": "object",
+  "required": [
+    "patch_id",
+    "dossier_id",
+    "workflow_id",
+    "namespace",
+    "operation",
+    "patch_payload",
+    "applied_at"
+  ],
+  "properties": {
+    "patch_id": {"type": "string"},
+    "dossier_id": {"type": "string"},
+    "workflow_id": {"type": "string"},
+    "namespace": {
+      "type": "string",
+      "enum": ["system", "intake", "discovery", "research", "script", "context", "approval", "runtime"]
+    },
+    "operation": {
+      "type": "string",
+      "enum": ["seed", "append", "replace_object", "replace_scalar", "mark_status"]
+    },
+    "patch_payload": {"type": "object"},
+    "reason": {"type": "string"},
+    "requires_approval": {"type": "boolean"},
+    "previous_revision": {"type": "integer", "minimum": 0},
+    "next_revision": {"type": "integer", "minimum": 1},
+    "applied_at": {"type": "string", "format": "date-time"}
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://shadow-empire.local/schemas/governance/audit_event.schema.json",
+  "title": "AuditEvent",
+  "type": "object",
+  "required": [
+    "event_id",
+    "event_type",
+    "workflow_id",
+    "dossier_id",
+    "status",
+    "created_at"
+  ],
+  "properties": {
+    "event_id": {"type": "string"},
+    "event_type": {
+      "type": "string",
+      "enum": ["workflow_started", "workflow_completed", "workflow_failed", "patch_applied", "approval_requested", "approval_resolved", "replay_requested"]
+    },
+    "workflow_id": {"type": "string"},
+    "dossier_id": {"type": "string"},
+    "patch_id": {"type": "string"},
+    "status": {
+      "type": "string",
+      "enum": ["created", "in_progress", "completed", "failed", "approved", "rejected", "replayed"]
+    },
+    "severity": {
+      "type": "string",
+      "enum": ["info", "warning", "critical"]
+    },
+    "actor": {"type": "string"},
+    "details": {"type": "object"},
+    "created_at": {"type": "string", "format": "date-time"}
+  },
+  "additionalProperties": false
+}
