@@ -14,4 +14,4 @@ errors:
     title: approval_rejected
     severity: warning
     owner: WF-900
-    remediation: send packet to remodify or replay handling through the current Phase-1 recovery path
+    remediation: send packet to remodify path with reason codes
