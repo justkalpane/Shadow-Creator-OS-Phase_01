@@ -9,7 +9,7 @@
 - Workflow style: generic nodes first
 - State posture: n8n Data Tables for indexes/state, JSON/Markdown for larger artifacts
 
-## Current implementation stage
+## Intended implementation sequence
 1. Runtime stabilization
 2. Folder creation
 3. Ollama verification
@@ -22,6 +22,63 @@
 10. Build Script Intelligence pack
 11. Build Context Engineering pack
 12. Build Approval / Remodify / Replay pack
+
+## Current repo sync truth
+This repository is no longer only an early scaffold.
+It now contains starter-wired Phase-1 artifacts for the initial workflow estate and core governance layer.
+
+### Repo-present and starter-wired
+- root README updated for Phase-1 repo estate
+- docs, runbooks, and deployment posture files
+- workflow, route, approval, and error registries
+- dossier and packet schemas
+- dossier patch schema and audit event schema
+- WF-000 / WF-900 / WF-001 / WF-010 manifests
+- WF-000 / WF-900 / WF-001 / WF-010 starter node-chain workflow JSONs
+- five Data Table bootstrap CSVs
+- Windows bootstrap and Ollama verification scripts
+- starter validation scripts under `tests/`
+
+### Repo-validated layer present
+The repo now includes validation scripts for:
+- schemas
+- registries
+- workflows
+- a single Phase-1 validation runner
+
+## Lifecycle interpretation for the current repo
+- `starter_wired` means repo artifacts exist and include starter node-chain or contract depth
+- `not_built_live` means the workflow should not be treated as confirmed exported from a live n8n build yet
+- `repo_checks_present` means validation scripts exist in the repo, not that every runtime path has been executed live
+
+## Live vs repo boundary
+### Repo truth
+The repo currently preserves:
+- the Phase-1 static estate
+- starter node-chain workflow logic
+- governance contracts
+- bootstrap data
+- validation scripts
+
+### Live runtime truth
+The repo should not yet be interpreted as proof that all current starter workflows are live-exported from the local n8n instance.
+The repo contains build-usable starter implementations and governance artifacts, but live n8n execution depth may still differ.
+
+## Current visible workflow estate in repo
+Active repo-present workflow family:
+- WF-000 Health Check
+- WF-900 Error Handler
+- WF-001 Dossier Create
+- WF-010 Parent Orchestrator
+
+## Packs not yet repo-present
+The following intended Phase-1 packs are still roadmap items and are not yet committed as workflow manifest + JSON artifact families in this repo:
+- WF-100 Topic Intelligence Pack
+- WF-200 Script Intelligence Pack
+- WF-300 Context Engineering Pack
+- WF-400 Approval Pack
+
+Do not treat those packs as active repo import targets until they are committed.
 
 ## Explicitly deferred
 - Heavy media generation
