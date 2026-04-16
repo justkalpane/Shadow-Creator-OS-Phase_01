@@ -7,6 +7,7 @@ ROOT = Path(__file__).resolve().parent
 scripts = [
     ROOT / 'validate_schemas.py',
     ROOT / 'validate_registries.py',
+    ROOT / 'validate_manifests.py',
     ROOT / 'validate_workflows.py',
 ]
 
