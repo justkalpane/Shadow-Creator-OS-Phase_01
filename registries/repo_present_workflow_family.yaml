@@ -1,0 +1,15 @@
+version: 1
+canonical_rule: this file is the only canonical ordered register of repo-present workflow families for docs, validation, and import behavior
+repo_present_workflows:
+  - workflow_id: WF-000
+    manifest_file: n8n/manifests/WF-000-health-check.manifest.yaml
+    workflow_file: n8n/workflows/system/WF-000-health-check.json
+  - workflow_id: WF-900
+    manifest_file: n8n/manifests/WF-900-error-handler.manifest.yaml
+    workflow_file: n8n/workflows/system/WF-900-error-handler.json
+  - workflow_id: WF-001
+    manifest_file: n8n/manifests/WF-001-dossier-create.manifest.yaml
+    workflow_file: n8n/workflows/parent/WF-001-dossier-create.json
+  - workflow_id: WF-010
+    manifest_file: n8n/manifests/WF-010-parent-orchestrator.manifest.yaml
+    workflow_file: n8n/workflows/parent/WF-010-parent-orchestrator.json

@@ -1,19 +1,26 @@
 from __future__ import annotations
 
 import json
-import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 RUNBOOK = ROOT / 'docs/03-deployment/import-export-runbook.md'
-workflow_files = [
-    ROOT / 'n8n/workflows/system/WF-000-health-check.json',
-    ROOT / 'n8n/workflows/system/WF-900-error-handler.json',
-    ROOT / 'n8n/workflows/parent/WF-001-dossier-create.json',
-    ROOT / 'n8n/workflows/parent/WF-010-parent-orchestrator.json',
-]
-repo_present_workflows = ['WF-000', 'WF-900', 'WF-001', 'WF-010']
+DEPLOYMENT_STAGE = ROOT / 'docs/00-project-state/current-deployment-stage.md'
+CANONICAL_REGISTER = ROOT / 'registries/repo_present_workflow_family.yaml'
 repo_absent_packs = ['WF-100', 'WF-200', 'WF-300', 'WF-400']
+
+register_text = CANONICAL_REGISTER.read_text(encoding='utf-8')
+workflow_files = []
+canonical_ids = []
+for line in register_text.splitlines():
+    stripped = line.strip()
+    if stripped.startswith('workflow_id:'):
+        canonical_ids.append(stripped.split(':', 1)[1].strip())
+    elif stripped.startswith('workflow_file:'):
+        workflow_files.append(ROOT / stripped.split(':', 1)[1].strip())
+
+assert canonical_ids == ['WF-000', 'WF-900', 'WF-001', 'WF-010'], f'Unexpected canonical workflow order: {canonical_ids}'
+assert workflow_files, 'No workflow files resolved from canonical workflow family register'
 
 parsed: dict[str, dict] = {}
 
@@ -43,7 +50,6 @@ for required_node in [
 ]:
     assert required_node in node_names, f'WF-010 missing node: {required_node}'
 
-# WF-010 must not point to repo-absent packs as active outputs
 for decision_node_name in [
     'Prepare Replay Decision',
     'Prepare Fast Decision',
@@ -57,24 +63,16 @@ for decision_node_name in [
             f'{decision_node_name}: must not emit absent pack {absent_pack} as repo-present'
         )
 
-# Runbook active import order must match repo-present workflow family
-runbook_text = RUNBOOK.read_text(encoding='utf-8')
-active_section_match = re.search(
-    r'## Active import order for currently present repo artifacts\n(.*?)\n## Referenced but not yet present in this repo',
-    runbook_text,
-    flags=re.S,
-)
-assert active_section_match, 'Runbook active import section not found'
-active_lines = [
-    line.strip() for line in active_section_match.group(1).splitlines() if line.strip()
-]
-active_ids = []
-for line in active_lines:
-    match = re.match(r'\d+\.\s+(WF-\d+)', line)
-    assert match, f'Unexpected active import line format: {line}'
-    active_ids.append(match.group(1))
-assert active_ids == repo_present_workflows, (
-    f'Runbook active order mismatch. expected={repo_present_workflows} actual={active_ids}'
-)
+for doc in [RUNBOOK, DEPLOYMENT_STAGE]:
+    text = doc.read_text(encoding='utf-8')
+    assert 'registries/repo_present_workflow_family.yaml' in text, (
+        f'{doc}: missing canonical workflow family register reference'
+    )
 
-print('Validated workflow depth, WF-010 repo-truth outputs, and runbook import truth successfully.')
+runbook_text = RUNBOOK.read_text(encoding='utf-8')
+assert 'Only workflows listed in `registries/repo_present_workflow_family.yaml` count as active repo import targets.' in runbook_text
+
+deployment_text = DEPLOYMENT_STAGE.read_text(encoding='utf-8')
+assert 'Use this file as the only ordered truth for active repo-present workflows:' in deployment_text
+
+print('Validated canonical workflow family usage, workflow depth, WF-010 repo-truth outputs, and doc linkage successfully.')

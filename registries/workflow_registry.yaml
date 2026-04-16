@@ -1,6 +1,7 @@
 version: 1
 phase: phase1
 mode: n8n-first
+repo_present_workflow_family_register: registries/repo_present_workflow_family.yaml
 lifecycle_status_model:
   artifact_status_values:
     - repo_stub
