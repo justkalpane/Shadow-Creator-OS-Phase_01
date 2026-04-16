@@ -4,16 +4,53 @@ class: system
 entry_mode: event_selected
 purpose: normalize runtime failures, write error events, and direct replay or remediation
 owner: shadow_empire_phase1
+producer_expectations:
+  triggered_by:
+    - workflow failure envelope
+    - manual replay request
+consumer_expectations:
+  consumed_by:
+    - WF-001
+    - WF-010
+    - operator remediation review
 route_bindings:
   - ROUTE_PHASE1_REPLAY
 inputs:
   - error_event
+output_packet_family:
+  - error_resolution
+  - replay_instruction
 outputs:
   - error_resolution
   - replay_target
+reads:
+  - error_registry
+  - workflow_registry
 writes:
   - namespaces.runtime
   - namespaces.approval
+write_targets:
+  data_tables:
+    - approvals
+    - runtime_index
+  dossier_namespaces:
+    - runtime
+    - approval
+fallback_behavior:
+  on_unmapped_error:
+    - mark manual_review_required
+    - keep replay target at WF-010
+remodify_behavior:
+  when_approval_rejected:
+    - send packet to remodify path with reason codes
+replay_behavior: allowed for replay-eligible error families
+approval_insertion_points:
+  - replay_ready state
+  - remodify_required state
+done_criteria:
+  - error family resolved
+  - replay or manual remediation decision emitted
+  - writeback target prepared
 error_family:
   - SE-P1-001
   - SE-P1-002

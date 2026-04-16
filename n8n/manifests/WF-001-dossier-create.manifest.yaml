@@ -4,16 +4,50 @@ class: parent
 entry_mode: event_selected
 purpose: create the initial dossier record and seed system and intake namespaces
 owner: shadow_empire_phase1
+producer_expectations:
+  triggered_by:
+    - validated intake packet
+consumer_expectations:
+  consumed_by:
+    - WF-010
+    - dossier persistence layer
 route_bindings:
   - ROUTE_PHASE1_STANDARD
   - ROUTE_PHASE1_FAST
 inputs:
   - intake_packet
+output_packet_family:
+  - dossier_record
+  - intake_error
 outputs:
   - dossier_record
+reads:
+  - topic_intake_packet
+  - route_registry
 writes:
   - namespaces.system
   - namespaces.intake
+write_targets:
+  data_tables:
+    - dossiers
+  dossier_namespaces:
+    - system
+    - intake
+fallback_behavior:
+  on_invalid_intake:
+    - emit intake_error
+    - recommend WF-900 review if repeated
+remodify_behavior:
+  when_required_fields_missing:
+    - return reason codes to approval/remodify path
+replay_behavior: allowed after corrected intake packet is resubmitted
+approval_insertion_points:
+  - intake_error rejection state
+done_criteria:
+  - dossier_id assigned
+  - route_id assigned
+  - intake namespace seeded
+  - dossier writeback target prepared
 error_family:
   - SE-P1-001
 validation:

@@ -4,15 +4,43 @@ class: system
 entry_mode: event_selected
 purpose: validate local runtime prerequisites before any Phase-1 workflow execution
 owner: shadow_empire_phase1
+producer_expectations:
+  triggered_by:
+    - manual health check request
+    - preflight call before WF-001
+consumer_expectations:
+  consumed_by:
+    - WF-001
+    - operator health review
 route_bindings:
   - ROUTE_PHASE1_STANDARD
   - ROUTE_PHASE1_FAST
 inputs:
   - health_probe_request
+output_packet_family:
+  - runtime_health_report
 outputs:
   - runtime_health_report
+reads:
+  - local_runtime_configuration
 writes:
   - namespaces.runtime
+write_targets:
+  data_tables:
+    - runtime_index
+  dossier_namespaces:
+    - runtime
+fallback_behavior:
+  on_failure:
+    - emit failed runtime_health_report
+    - recommend escalation to WF-900
+remodify_behavior: none
+replay_behavior: allowed via manual rerun after remediation
+approval_insertion_points: []
+done_criteria:
+  - folder checks evaluated
+  - ollama reachability evaluated
+  - runtime health report emitted
 error_family:
   - SE-P1-002
 validation:

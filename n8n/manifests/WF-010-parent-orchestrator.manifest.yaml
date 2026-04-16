@@ -4,6 +4,14 @@ class: parent
 entry_mode: event_selected
 purpose: select the route and orchestrate downstream Phase-1 workflow packs
 owner: shadow_empire_phase1
+producer_expectations:
+  triggered_by:
+    - dossier_record
+    - replay return from WF-900
+consumer_expectations:
+  consumed_by:
+    - next repo-present workflow family when available
+    - operator route review
 route_bindings:
   - ROUTE_PHASE1_STANDARD
   - ROUTE_PHASE1_FAST
@@ -11,16 +19,45 @@ route_bindings:
 inputs:
   - dossier_record
   - route_signal
+output_packet_family:
+  - orchestration_decision
 outputs:
   - orchestration_decision
+reads:
+  - workflow_registry
+  - route_registry
 writes:
   - namespaces.runtime
   - namespaces.approval
+write_targets:
+  data_tables:
+    - runtime_index
+    - approvals
+  dossier_namespaces:
+    - runtime
+    - approval
+fallback_behavior:
+  when_downstream_pack_not_repo_present:
+    - emit orchestration_decision with next_workflow_pack null
+    - set next_pack_status to not_repo_present
+remodify_behavior:
+  when approval rejects route outcome:
+    - return to WF-900 remodify path
+replay_behavior: allowed for ROUTE_PHASE1_REPLAY through WF-900 mediated return
+approval_insertion_points:
+  - replay_ready decision
+  - fast_path_selected decision
+  - standard_path_selected decision
+done_criteria:
+  - route selected
+  - orchestration decision emitted
+  - writeback target prepared
+  - repo-truth preserved for absent downstream packs
 error_family:
   - SE-P1-003
 validation:
   - route selected
-  - downstream pack selected
+  - downstream pack selected or explicitly marked not_repo_present
   - orchestration decision emitted
 dependencies:
   - WF-001
