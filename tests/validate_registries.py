@@ -8,6 +8,7 @@ REGISTRY_DIR = ROOT / 'registries'
 ROUTES_CSV = ROOT / 'data/bootstrap/data_tables/routes.csv'
 CANONICAL_PRESENT_REGISTER = REGISTRY_DIR / 'repo_present_workflow_family.yaml'
 CANONICAL_ABSENT_REGISTER = REGISTRY_DIR / 'not_yet_repo_present_workflow_packs.yaml'
+LINEAGE_MATRIX = REGISTRY_DIR / 'phase1_workflow_lineage_handoff_matrix.yaml'
 
 
 def read_text(path: Path) -> str:
@@ -31,6 +32,7 @@ approval_registry = read_text(REGISTRY_DIR / 'approval_registry.yaml')
 error_registry = read_text(REGISTRY_DIR / 'error_registry.yaml')
 canonical_present_register = read_text(CANONICAL_PRESENT_REGISTER)
 canonical_absent_register = read_text(CANONICAL_ABSENT_REGISTER)
+lineage_matrix = read_text(LINEAGE_MATRIX)
 
 assert 'repo_present_workflows:' in canonical_present_register, 'Canonical workflow family register missing repo_present_workflows'
 canonical_ids = extract_field_values(canonical_present_register, 'workflow_id')
@@ -40,6 +42,23 @@ assert 'not_yet_repo_present_workflow_packs:' in canonical_absent_register, 'Can
 absent_pack_ids = extract_field_values(canonical_absent_register, 'workflow_pack_id')
 assert absent_pack_ids == ['WF-100', 'WF-200', 'WF-300', 'WF-400'], f'Unexpected absent-pack order: {absent_pack_ids}'
 assert not (set(canonical_ids) & set(absent_pack_ids)), 'Present and absent workflow registers must not overlap'
+
+assert 'primary_lineage:' in lineage_matrix, 'Lineage matrix missing primary_lineage'
+assert 'workflow_handoffs:' in lineage_matrix, 'Lineage matrix missing workflow_handoffs'
+lineage_ids = extract_field_values(lineage_matrix, 'workflow_id')
+assert lineage_ids == ['WF-000', 'WF-001', 'WF-010', 'WF-900'], f'Unexpected lineage workflow order: {lineage_ids}'
+for workflow_id in lineage_ids:
+    assert workflow_id in canonical_ids, f'Lineage workflow {workflow_id} is not repo-present'
+for token in [
+    'input_packet_family:',
+    'output_packet_family:',
+    'data_table_write_targets:',
+    'dossier_namespace_write_targets:',
+    'fallback_workflow:',
+    'replay_path:',
+    'remodify_path:',
+]:
+    assert token in lineage_matrix, f'Lineage matrix missing token: {token}'
 
 for token in [
     'repo_present_workflow_family_register: registries/repo_present_workflow_family.yaml',
@@ -91,4 +110,4 @@ for line in error_registry.splitlines():
 for token in ['version:', 'approval_states:']:
     assert token in approval_registry, f'approval_registry.yaml missing token: {token}'
 
-print('Validated canonical present/absent workflow registers, lifecycle truth, route alignment, and error-owner integrity successfully.')
+print('Validated canonical present/absent workflow registers, lineage matrix, lifecycle truth, route alignment, and error-owner integrity successfully.')

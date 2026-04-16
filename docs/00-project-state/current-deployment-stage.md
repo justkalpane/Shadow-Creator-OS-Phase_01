@@ -47,6 +47,10 @@ Use this file as the only ordered truth for active repo-present workflows:
 Use this file as the only ordered truth for intended packs that are still not repo-present:
 - `registries/not_yet_repo_present_workflow_packs.yaml`
 
+### Canonical Phase-1 workflow lineage and handoff matrix
+Use this file as the only ordered truth for primary lineage, packet family handoff, Data Table writes, dossier namespace writes, fallback workflow, and replay/remodify path mapping:
+- `registries/phase1_workflow_lineage_handoff_matrix.yaml`
+
 ### Repo-validated layer present
 The repo now includes validation scripts for:
 - schemas

@@ -1,0 +1,87 @@
+version: 1
+canonical_rule: this file is the only canonical Phase-1 workflow lineage and handoff matrix for ordered workflow flow, packet handoffs, data table writes, dossier namespace writes, fallback workflows, and replay/remodify paths
+primary_lineage:
+  - WF-000
+  - WF-001
+  - WF-010
+governance_support_workflows:
+  - WF-900
+workflow_handoffs:
+  - workflow_id: WF-000
+    stage_role: runtime_preflight
+    upstream_workflows: []
+    downstream_workflows:
+      - WF-001
+    input_packet_family:
+      - health_probe_request
+    output_packet_family:
+      - runtime_health_report
+    data_table_write_targets:
+      - runtime_index
+    dossier_namespace_write_targets:
+      - runtime
+    fallback_workflow: WF-900
+    replay_path: manual rerun after remediation
+    remodify_path: none
+  - workflow_id: WF-001
+    stage_role: dossier_seed_and_intake_validation
+    upstream_workflows:
+      - WF-000
+    downstream_workflows:
+      - WF-010
+    input_packet_family:
+      - intake_packet
+    output_packet_family:
+      - dossier_record
+      - intake_error
+    data_table_write_targets:
+      - dossiers
+    dossier_namespace_write_targets:
+      - system
+      - intake
+    fallback_workflow: WF-900
+    replay_path: corrected intake packet resubmitted to WF-001
+    remodify_path: approval or remodify path with reason codes
+  - workflow_id: WF-010
+    stage_role: parent_orchestration_and_route_selection
+    upstream_workflows:
+      - WF-001
+      - WF-900
+    downstream_workflows: []
+    input_packet_family:
+      - dossier_record
+      - route_signal
+    output_packet_family:
+      - orchestration_decision
+    data_table_write_targets:
+      - runtime_index
+      - approvals
+    dossier_namespace_write_targets:
+      - runtime
+      - approval
+    fallback_workflow: WF-900
+    replay_path: ROUTE_PHASE1_REPLAY through WF-900 mediated return
+    remodify_path: WF-900 remodify path after approval rejection or replay preparation
+  - workflow_id: WF-900
+    stage_role: governance_error_normalization_and_replay_control
+    upstream_workflows:
+      - WF-000
+      - WF-001
+      - WF-010
+    downstream_workflows:
+      - WF-001
+      - WF-010
+    input_packet_family:
+      - error_event
+    output_packet_family:
+      - error_resolution
+      - replay_instruction
+    data_table_write_targets:
+      - approvals
+      - runtime_index
+    dossier_namespace_write_targets:
+      - runtime
+      - approval
+    fallback_workflow: WF-010
+    replay_path: replay-eligible path routed back to WF-001 or WF-010 by error family
+    remodify_path: manual review or approval remodify routing with reason codes
