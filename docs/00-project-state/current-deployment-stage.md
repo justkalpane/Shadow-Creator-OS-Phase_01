@@ -43,6 +43,10 @@ It now contains starter-wired Phase-1 artifacts for the initial workflow estate 
 Use this file as the only ordered truth for active repo-present workflows:
 - `registries/repo_present_workflow_family.yaml`
 
+### Canonical not-yet-repo-present workflow pack register
+Use this file as the only ordered truth for intended packs that are still not repo-present:
+- `registries/not_yet_repo_present_workflow_packs.yaml`
+
 ### Repo-validated layer present
 The repo now includes validation scripts for:
 - schemas
@@ -71,13 +75,10 @@ The repo should not yet be interpreted as proof that all current starter workflo
 The repo contains build-usable starter implementations and governance artifacts, but live n8n execution depth may still differ.
 
 ## Packs not yet repo-present
-The following intended Phase-1 packs are still roadmap items and are not yet committed as workflow manifest + JSON artifact families in this repo:
-- WF-100 Topic Intelligence Pack
-- WF-200 Script Intelligence Pack
-- WF-300 Context Engineering Pack
-- WF-400 Approval Pack
+See the canonical register:
+- `registries/not_yet_repo_present_workflow_packs.yaml`
 
-Do not treat those packs as active repo import targets until they are committed.
+Do not treat any pack listed there as an active repo import target until it is moved into the repo-present workflow family register.
 
 ## Explicitly deferred
 - Heavy media generation

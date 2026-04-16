@@ -6,7 +6,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 REGISTRY_DIR = ROOT / 'registries'
 ROUTES_CSV = ROOT / 'data/bootstrap/data_tables/routes.csv'
-CANONICAL_REGISTER = REGISTRY_DIR / 'repo_present_workflow_family.yaml'
+CANONICAL_PRESENT_REGISTER = REGISTRY_DIR / 'repo_present_workflow_family.yaml'
+CANONICAL_ABSENT_REGISTER = REGISTRY_DIR / 'not_yet_repo_present_workflow_packs.yaml'
 
 
 def read_text(path: Path) -> str:
@@ -28,14 +29,21 @@ workflow_registry = read_text(REGISTRY_DIR / 'workflow_registry.yaml')
 route_registry = read_text(REGISTRY_DIR / 'route_registry.yaml')
 approval_registry = read_text(REGISTRY_DIR / 'approval_registry.yaml')
 error_registry = read_text(REGISTRY_DIR / 'error_registry.yaml')
-canonical_register = read_text(CANONICAL_REGISTER)
+canonical_present_register = read_text(CANONICAL_PRESENT_REGISTER)
+canonical_absent_register = read_text(CANONICAL_ABSENT_REGISTER)
 
-assert 'repo_present_workflows:' in canonical_register, 'Canonical workflow family register missing repo_present_workflows'
-canonical_ids = extract_field_values(canonical_register, 'workflow_id')
+assert 'repo_present_workflows:' in canonical_present_register, 'Canonical workflow family register missing repo_present_workflows'
+canonical_ids = extract_field_values(canonical_present_register, 'workflow_id')
 assert canonical_ids == ['WF-000', 'WF-900', 'WF-001', 'WF-010'], f'Unexpected canonical workflow order: {canonical_ids}'
+
+assert 'not_yet_repo_present_workflow_packs:' in canonical_absent_register, 'Canonical absent-pack register missing not_yet_repo_present_workflow_packs'
+absent_pack_ids = extract_field_values(canonical_absent_register, 'workflow_pack_id')
+assert absent_pack_ids == ['WF-100', 'WF-200', 'WF-300', 'WF-400'], f'Unexpected absent-pack order: {absent_pack_ids}'
+assert not (set(canonical_ids) & set(absent_pack_ids)), 'Present and absent workflow registers must not overlap'
 
 for token in [
     'repo_present_workflow_family_register: registries/repo_present_workflow_family.yaml',
+    'not_yet_repo_present_workflow_pack_register: registries/not_yet_repo_present_workflow_packs.yaml',
     'lifecycle_status_model:',
     'artifact_status_values:',
     'runtime_status_values:',
@@ -83,4 +91,4 @@ for line in error_registry.splitlines():
 for token in ['version:', 'approval_states:']:
     assert token in approval_registry, f'approval_registry.yaml missing token: {token}'
 
-print('Validated canonical workflow family register, lifecycle truth, route alignment, and error-owner integrity successfully.')
+print('Validated canonical present/absent workflow registers, lifecycle truth, route alignment, and error-owner integrity successfully.')
