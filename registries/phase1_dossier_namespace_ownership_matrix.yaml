@@ -1,0 +1,89 @@
+version: 1
+canonical_rule: this file is the only canonical Phase-1 dossier namespace ownership and write-authority matrix for owner workflow, allowed writers, read-only workflows, approval gating, and fallback or replay implications
+namespace_governance:
+  - namespace: system
+    current_phase_owner_workflow: WF-001
+    future_pack_owner: none
+    allowed_writers:
+      - WF-001
+    read_only_workflows:
+      - WF-010
+      - WF-900
+    approval_required_for_mutation: false
+    fallback_implication: invalid dossier seeding or mutation failure escalates to WF-900
+    replay_implication: replay usually re-enters WF-001 after corrected intake
+  - namespace: intake
+    current_phase_owner_workflow: WF-001
+    future_pack_owner: none
+    allowed_writers:
+      - WF-001
+    read_only_workflows:
+      - WF-010
+      - WF-900
+    approval_required_for_mutation: false
+    fallback_implication: invalid intake state escalates to WF-900 and preserves prior dossier state
+    replay_implication: corrected intake replay re-enters WF-001
+  - namespace: discovery
+    current_phase_owner_workflow: none
+    future_pack_owner: WF-100
+    allowed_writers: []
+    read_only_workflows:
+      - WF-010
+      - WF-900
+    approval_required_for_mutation: true
+    fallback_implication: until WF-100 is repo-present, discovery mutation must not occur and unresolved discovery intent returns to WF-900 or not_repo_present handling
+    replay_implication: replay returns to WF-100 when repo-present; until then only route state may be preserved externally
+  - namespace: research
+    current_phase_owner_workflow: none
+    future_pack_owner: WF-100
+    allowed_writers: []
+    read_only_workflows:
+      - WF-010
+      - WF-900
+    approval_required_for_mutation: true
+    fallback_implication: until WF-100 is repo-present, research mutation must not occur and unresolved research intent returns to WF-900 or not_repo_present handling
+    replay_implication: replay returns to WF-100 when repo-present; until then prior dossier state remains authoritative
+  - namespace: script
+    current_phase_owner_workflow: none
+    future_pack_owner: WF-200
+    allowed_writers: []
+    read_only_workflows:
+      - WF-010
+      - WF-900
+    approval_required_for_mutation: true
+    fallback_implication: until WF-200 is repo-present, script mutation must not occur and unresolved script intent returns to WF-900 or not_repo_present handling
+    replay_implication: replay returns to WF-200 when repo-present; until then prior dossier state remains authoritative
+  - namespace: context
+    current_phase_owner_workflow: none
+    future_pack_owner: WF-300
+    allowed_writers: []
+    read_only_workflows:
+      - WF-010
+      - WF-900
+    approval_required_for_mutation: true
+    fallback_implication: until WF-300 is repo-present, context mutation must not occur and unresolved context intent returns to WF-900 or not_repo_present handling
+    replay_implication: replay returns to WF-300 when repo-present; until then prior dossier state remains authoritative
+  - namespace: approval
+    current_phase_owner_workflow: WF-900
+    future_pack_owner: WF-400
+    allowed_writers:
+      - WF-900
+      - WF-010
+    read_only_workflows:
+      - WF-001
+      - WF-000
+    approval_required_for_mutation: false
+    fallback_implication: unresolved approval state defaults to manual review through WF-900
+    replay_implication: replay or remodify decisions remain governed by WF-900 until WF-400 is repo-present
+  - namespace: runtime
+    current_phase_owner_workflow: WF-000
+    future_pack_owner: none
+    allowed_writers:
+      - WF-000
+      - WF-900
+      - WF-010
+    read_only_workflows:
+      - WF-001
+    approval_required_for_mutation: false
+    fallback_implication: runtime degradation escalates to WF-900 and preserves most recent healthy state when possible
+    replay_implication: replay may rerun WF-000 or return through WF-900 depending on failure family

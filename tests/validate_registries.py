@@ -9,6 +9,7 @@ ROUTES_CSV = ROOT / 'data/bootstrap/data_tables/routes.csv'
 CANONICAL_PRESENT_REGISTER = REGISTRY_DIR / 'repo_present_workflow_family.yaml'
 CANONICAL_ABSENT_REGISTER = REGISTRY_DIR / 'not_yet_repo_present_workflow_packs.yaml'
 LINEAGE_MATRIX = REGISTRY_DIR / 'phase1_workflow_lineage_handoff_matrix.yaml'
+DOSSIER_NAMESPACE_MATRIX = REGISTRY_DIR / 'phase1_dossier_namespace_ownership_matrix.yaml'
 
 
 def read_text(path: Path) -> str:
@@ -33,6 +34,7 @@ error_registry = read_text(REGISTRY_DIR / 'error_registry.yaml')
 canonical_present_register = read_text(CANONICAL_PRESENT_REGISTER)
 canonical_absent_register = read_text(CANONICAL_ABSENT_REGISTER)
 lineage_matrix = read_text(LINEAGE_MATRIX)
+dossier_namespace_matrix = read_text(DOSSIER_NAMESPACE_MATRIX)
 
 assert 'repo_present_workflows:' in canonical_present_register, 'Canonical workflow family register missing repo_present_workflows'
 canonical_ids = extract_field_values(canonical_present_register, 'workflow_id')
@@ -59,6 +61,29 @@ for token in [
     'remodify_path:',
 ]:
     assert token in lineage_matrix, f'Lineage matrix missing token: {token}'
+
+assert 'namespace_governance:' in dossier_namespace_matrix, 'Dossier namespace matrix missing namespace_governance'
+namespace_ids = extract_field_values(dossier_namespace_matrix, 'namespace')
+assert namespace_ids == ['system', 'intake', 'discovery', 'research', 'script', 'context', 'approval', 'runtime'], f'Unexpected namespace order: {namespace_ids}'
+current_owners = extract_field_values(dossier_namespace_matrix, 'current_phase_owner_workflow')
+future_pack_owners = extract_field_values(dossier_namespace_matrix, 'future_pack_owner')
+for owner in current_owners:
+    assert owner == 'none' or owner in canonical_ids, f'Invalid current owner workflow: {owner}'
+for future_owner in future_pack_owners:
+    assert future_owner == 'none' or future_owner in absent_pack_ids, f'Invalid future pack owner: {future_owner}'
+for token in [
+    'allowed_writers:',
+    'read_only_workflows:',
+    'approval_required_for_mutation:',
+    'fallback_implication:',
+    'replay_implication:',
+]:
+    assert token in dossier_namespace_matrix, f'Dossier namespace matrix missing token: {token}'
+for line in dossier_namespace_matrix.splitlines():
+    stripped = line.strip()
+    if stripped.startswith('- WF-'):
+        workflow = stripped[2:].strip()
+        assert workflow in canonical_ids or workflow in absent_pack_ids, f'Unknown workflow reference in dossier namespace matrix: {workflow}'
 
 for token in [
     'repo_present_workflow_family_register: registries/repo_present_workflow_family.yaml',
@@ -110,4 +135,4 @@ for line in error_registry.splitlines():
 for token in ['version:', 'approval_states:']:
     assert token in approval_registry, f'approval_registry.yaml missing token: {token}'
 
-print('Validated canonical present/absent workflow registers, lineage matrix, lifecycle truth, route alignment, and error-owner integrity successfully.')
+print('Validated canonical present/absent workflow registers, lineage matrix, dossier namespace governance matrix, lifecycle truth, route alignment, and error-owner integrity successfully.')
