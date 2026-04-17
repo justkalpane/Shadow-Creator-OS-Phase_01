@@ -1,0 +1,20 @@
+version: 1
+mode: local_first
+repo_source_of_truth: GitHub
+runtime_repo_access: local_clone_preferred
+expected_windows_repo_root: C:\ShadowEmpire\Shadow-Creator-OS-Phase_01
+paths:
+  workflows_root: n8n/workflows
+  manifests_root: n8n/manifests
+  schemas_root: schemas
+  rules_root: rules
+  registries_root: registries
+  bindings_root: bindings
+  skills_root: skills
+consumption_rules:
+  - n8n should read static assets from the local repo clone whenever possible
+  - GitHub API access is optional fallback, not the primary Phase-1 path
+  - runtime-generated packets and dossier deltas remain outside the repo
+sync_rules:
+  - pull latest repo before import or validation session
+  - re-export workflows to repo only after stable checkpoint
