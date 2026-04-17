@@ -1,0 +1,22 @@
+{
+  "name": "CWF-120 Topic Qualification",
+  "nodes": [
+    { "parameters": {}, "id": "manual_trigger", "name": "Manual Trigger", "type": "n8n-nodes-base.manualTrigger", "typeVersion": 1, "position": [220, 300] },
+    { "parameters": { "jsCode": "return [{ json: { workflow_id: 'CWF-120', candidates: [], budget_profile: 'local_first', policy_mode: 'strict' } }];" }, "id": "normalize_candidates", "name": "Normalize Candidates", "type": "n8n-nodes-base.code", "typeVersion": 2, "position": [470, 300] },
+    { "parameters": { "jsCode": "return [{ json: { ...$json, qualification_result: 'APPROVED_FOR_SCORING', reject_log: [] } }];" }, "id": "run_qualification_checks", "name": "Run Qualification Checks", "type": "n8n-nodes-base.code", "typeVersion": 2, "position": [730, 300] },
+    { "parameters": { "jsCode": "return [{ json: { workflow_id: 'CWF-120', output_type: 'topic_qualification_packet', status: $json.qualification_result, details: $json } }];" }, "id": "build_qualification_packet", "name": "Build Qualification Packet", "type": "n8n-nodes-base.code", "typeVersion": 2, "position": [990, 300] }
+  ],
+  "connections": {
+    "Manual Trigger": { "main": [[{ "node": "Normalize Candidates", "type": "main", "index": 0 }]] },
+    "Normalize Candidates": { "main": [[{ "node": "Run Qualification Checks", "type": "main", "index": 0 }]] },
+    "Run Qualification Checks": { "main": [[{ "node": "Build Qualification Packet", "type": "main", "index": 0 }]] }
+  },
+  "meta": {
+    "workflow_id": "CWF-120",
+    "phase": "phase1",
+    "purpose": "Qualification gate for topic candidates",
+    "implementation_depth": "starter_node_chain"
+  },
+  "active": false,
+  "settings": {}
+}

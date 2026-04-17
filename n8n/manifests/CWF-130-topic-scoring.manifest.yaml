@@ -1,0 +1,38 @@
+workflow_id: CWF-130
+name: cwf130_topic_scoring
+class: child
+parent_pack: WF-100
+purpose: score approved topics and rank the final candidates for research synthesis
+primary_owner: Krishna
+supporting_directors:
+  - Narada
+  - Chanakya
+  - Chandra
+inputs:
+  - topic_qualification_packet
+output_packet_family:
+  - topic_scorecard
+  - topic_finalization_packet
+writes:
+  - namespaces.discovery
+  - namespaces.runtime
+write_targets:
+  dossier_namespaces:
+    - discovery
+    - runtime
+score_dimensions:
+  - trend_strength
+  - search_demand
+  - content_gap
+  - audience_pain_match
+  - longevity
+  - governance_risk
+  - budget_fit
+done_criteria:
+  - scorecard emitted
+  - ranked shortlist emitted
+  - final promotable topic selected
+fallback_behavior:
+  on_no_topic_above_threshold:
+    - emit needs_research_expansion
+    - return to CWF-110

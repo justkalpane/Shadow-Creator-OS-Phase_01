@@ -1,0 +1,36 @@
+workflow_id: CWF-140
+name: cwf140_research_synthesis
+class: child
+parent_pack: WF-100
+purpose: create a script-ready research synthesis for the selected topic
+primary_owner: Vyasa
+supporting_directors:
+  - Saraswati
+  - Durga
+  - Krishna
+inputs:
+  - topic_finalization_packet
+output_packet_family:
+  - research_synthesis_packet
+writes:
+  - namespaces.research
+  - namespaces.discovery
+write_targets:
+  dossier_namespaces:
+    - research
+    - discovery
+steps:
+  - collect source set
+  - validate source credibility
+  - summarize findings
+  - build claim-evidence pairs
+  - attach contradiction flags
+  - prepare handoff for WF-200
+done_criteria:
+  - research packet emitted
+  - claim-evidence pairs attached
+  - confidence score assigned
+fallback_behavior:
+  on_low_source_quality:
+    - emit research_expansion_required
+    - return to CWF-110 or CWF-120 as needed

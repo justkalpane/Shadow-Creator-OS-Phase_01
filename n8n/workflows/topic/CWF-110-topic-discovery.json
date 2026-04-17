@@ -1,0 +1,22 @@
+{
+  "name": "CWF-110 Topic Discovery",
+  "nodes": [
+    { "parameters": {}, "id": "manual_trigger", "name": "Manual Trigger", "type": "n8n-nodes-base.manualTrigger", "typeVersion": 1, "position": [220, 300] },
+    { "parameters": { "jsCode": "return [{ json: { workflow_id: 'CWF-110', topic_seed: 'sample', source_family: 'manual', audience: 'general' } }];" }, "id": "normalize_intake", "name": "Normalize Intake", "type": "n8n-nodes-base.code", "typeVersion": 2, "position": [470, 300] },
+    { "parameters": { "jsCode": "return [{ json: { ...$json, trend_signals: [], demand_signals: [], competitor_signals: [], audience_signals: [] } }];" }, "id": "collect_signals", "name": "Collect Signals", "type": "n8n-nodes-base.code", "typeVersion": 2, "position": [730, 300] },
+    { "parameters": { "jsCode": "return [{ json: { workflow_id: 'CWF-110', output_type: 'topic_candidate_board', candidates: [], status: 'candidate_board_ready', details: $json } }];" }, "id": "build_candidate_board", "name": "Build Candidate Board", "type": "n8n-nodes-base.code", "typeVersion": 2, "position": [990, 300] }
+  ],
+  "connections": {
+    "Manual Trigger": { "main": [[{ "node": "Normalize Intake", "type": "main", "index": 0 }]] },
+    "Normalize Intake": { "main": [[{ "node": "Collect Signals", "type": "main", "index": 0 }]] },
+    "Collect Signals": { "main": [[{ "node": "Build Candidate Board", "type": "main", "index": 0 }]] }
+  },
+  "meta": {
+    "workflow_id": "CWF-110",
+    "phase": "phase1",
+    "purpose": "Discovery of candidate topics with provenance",
+    "implementation_depth": "starter_node_chain"
+  },
+  "active": false,
+  "settings": {}
+}
