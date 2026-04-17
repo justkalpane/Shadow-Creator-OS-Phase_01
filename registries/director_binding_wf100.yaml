@@ -1,0 +1,35 @@
+workflow_pack: WF-100
+directors:
+  Narada:
+    owns:
+      - CWF-110-topic-discovery
+      - M-001
+      - M-006
+      - M-007
+      - M-018
+  Chanakya:
+    owns:
+      - CWF-120-topic-qualification
+      - M-016
+      - M-023
+  Krishna:
+    owns:
+      - CWF-130-topic-scoring
+      - M-024
+  Vyasa:
+    owns:
+      - CWF-140-research-synthesis
+      - M-020
+  Saraswati:
+    supports:
+      - M-015
+      - M-022
+      - M-025
+  Durga:
+    supports:
+      - M-021
+  Chandra:
+    supports:
+      - M-004
+      - M-012
+      - M-014
