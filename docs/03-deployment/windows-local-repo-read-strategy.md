@@ -38,3 +38,20 @@ Clone the repository under a stable local root such as:
 ## Practical note
 For Phase-1 on the Windows laptop, local filesystem read is the default integration mode.
 GitHub remains the authoritative source, but the local clone is the runtime-readable mirror.
+
+## Core Rule
+
+- GitHub is primary
+- Local repo is mirror
+- Sync is manual
+
+## Execution Flow
+
+1. Pull repo (on command)
+2. Validate repo
+3. n8n reads local files
+
+## Important
+
+No auto sync.
+No runtime writes into repo.
