@@ -1,0 +1,39 @@
+workflow_pack: WF-100
+
+child_bindings:
+
+  CWF-110-topic-discovery:
+    skills:
+      - M-001 Global Trend Scanner
+      - M-006 Viral Pattern Detector
+      - M-007 Algorithm Signal Monitor
+      - M-018 Trend Lifecycle Predictor
+      - M-002 Topic Opportunity Miner
+      - M-003 Keyword Intelligence Miner
+      - M-013 Search Demand Forecaster
+      - M-016 Content Gap Finder
+      - M-004 Audience Demographic Mapper
+      - M-012 Audience Interest Predictor
+      - M-014 Comment Sentiment Analyzer
+      - M-019 Audience Pain-Point Miner
+
+  CWF-120-topic-qualification:
+    skills:
+      - M-008 Topic Viability Scorer
+      - M-023 Trend Risk Evaluator
+      - M-015 Cultural Context Analyzer
+
+  CWF-130-topic-scoring:
+    skills:
+      - M-008 Topic Viability Scorer
+      - M-024 Topic Finalization Engine
+
+  CWF-140-research-synthesis:
+    skills:
+      - M-009 Knowledge Source Collector
+      - M-010 Source Credibility Validator
+      - M-011 Knowledge Dossier Builder
+      - M-020 Knowledge Summarization Engine
+      - M-021 Fact Cross-Verification Unit
+      - M-022 Knowledge Graph Builder
+      - M-025 Research Archive Manager
