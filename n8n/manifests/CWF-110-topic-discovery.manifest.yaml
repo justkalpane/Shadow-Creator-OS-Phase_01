@@ -1,0 +1,37 @@
+workflow_id: CWF-110
+name: cwf110_topic_discovery
+class: child
+parent_pack: WF-100
+purpose: identify candidate topics using trend, demand, competitor, audience, and source signals
+primary_owner: Narada
+supporting_directors:
+  - Chanakya
+  - Chandra
+inputs:
+  - dossier_record
+  - topic_intake_packet
+output_packet_family:
+  - topic_candidate_board
+writes:
+  - namespaces.discovery
+  - namespaces.research
+write_targets:
+  dossier_namespaces:
+    - discovery
+    - research
+steps:
+  - normalize intake constraints
+  - ingest trend signals
+  - ingest keyword demand signals
+  - ingest competitor/content-gap signals
+  - ingest audience signals
+  - deduplicate and cluster candidate topics
+  - attach provenance and source confidence
+done_criteria:
+  - candidate board emitted
+  - provenance attached
+  - weak duplicates removed
+fallback_behavior:
+  on_no_viable_candidates:
+    - emit candidate board with status empty
+    - request broader discovery scope

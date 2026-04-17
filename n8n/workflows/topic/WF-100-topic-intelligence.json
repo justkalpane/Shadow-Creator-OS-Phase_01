@@ -1,0 +1,64 @@
+{
+  "name": "WF-100 Topic Intelligence Pack",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "manual_trigger",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [220, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ json: { workflow_id: 'WF-100', dossier_id: 'sample-dossier-generated', resolved_route: 'ROUTE_PHASE1_STANDARD', pack_status: 'started' } }];"
+      },
+      "id": "normalize_pack_input",
+      "name": "Normalize Pack Input",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [470, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ json: { ...$json, next_child_workflow: 'CWF-110-topic-discovery' } }];"
+      },
+      "id": "prepare_discovery_call",
+      "name": "Prepare Discovery Call",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [730, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ json: { workflow_id: 'WF-100', output_type: 'topic_intelligence_result', next_stage: 'WF-200', status: 'topic_pack_ready', details: $json } }];"
+      },
+      "id": "prepare_pack_result",
+      "name": "Prepare Pack Result",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [990, 300]
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [[{ "node": "Normalize Pack Input", "type": "main", "index": 0 }]]
+    },
+    "Normalize Pack Input": {
+      "main": [[{ "node": "Prepare Discovery Call", "type": "main", "index": 0 }]]
+    },
+    "Prepare Discovery Call": {
+      "main": [[{ "node": "Prepare Pack Result", "type": "main", "index": 0 }]]
+    }
+  },
+  "pinData": {},
+  "meta": {
+    "workflow_id": "WF-100",
+    "phase": "phase1",
+    "purpose": "Parent pack for topic discovery, qualification, scoring, and research synthesis",
+    "writes": ["namespaces.discovery", "namespaces.research", "namespaces.runtime", "namespaces.approval"],
+    "implementation_depth": "starter_pack_chain"
+  },
+  "active": false,
+  "settings": {}
+}

@@ -1,0 +1,88 @@
+workflow_id: WF-100
+name: wf100_topic_intelligence_pack
+class: parent_pack
+entry_mode: event_selected
+purpose: run the full Phase-1 topic intelligence lane from discovery through qualified research synthesis
+owner: shadow_empire_phase1
+primary_director: Narada
+strategic_authority: Krishna
+governance_authority:
+  - Yama
+  - Kubera
+producer_expectations:
+  triggered_by:
+    - WF-010 orchestration_decision with resolved_route ROUTE_PHASE1_STANDARD
+    - WF-010 orchestration_decision with resolved_route ROUTE_PHASE1_FAST
+consumer_expectations:
+  consumed_by:
+    - WF-200 when topic is finalized and research packet is ready
+    - operator review when qualification or scoring rejects
+route_bindings:
+  - ROUTE_PHASE1_STANDARD
+  - ROUTE_PHASE1_FAST
+inputs:
+  - dossier_record
+  - orchestration_decision
+output_packet_family:
+  - topic_candidate_board
+  - topic_qualification_packet
+  - topic_scorecard
+  - research_synthesis_packet
+  - topic_finalization_packet
+outputs:
+  - topic_intelligence_result
+reads:
+  - route_registry
+  - workflow_registry
+  - skill_registry
+  - topic_intake_packet
+writes:
+  - namespaces.discovery
+  - namespaces.research
+  - namespaces.runtime
+  - namespaces.approval
+write_targets:
+  data_tables:
+    - runtime_index
+    - approvals
+  dossier_namespaces:
+    - discovery
+    - research
+    - runtime
+    - approval
+child_workflows:
+  - CWF-110-topic-discovery
+  - CWF-120-topic-qualification
+  - CWF-130-topic-scoring
+  - CWF-140-research-synthesis
+fallback_behavior:
+  on_low_signal:
+    - return topic_intelligence_result with status needs_more_signals
+    - allow replay to CWF-110
+  on_policy_or_budget_failure:
+    - emit rejection packet
+    - route to WF-900 if remediation needed
+remodify_behavior:
+  when qualification rejects:
+    - attach reason codes
+    - return to discovery with narrowed constraints
+replay_behavior: allowed for discovery, qualification, and scoring loops before script-stage promotion
+approval_insertion_points:
+  - topic_rejected
+  - final_topic_selected
+done_criteria:
+  - candidate board emitted
+  - qualification decision emitted
+  - scorecard emitted
+  - research synthesis emitted for promoted topic
+  - topic finalization packet prepared
+error_family:
+  - SE-P1-001
+  - SE-P1-003
+validation:
+  - all child workflow outputs typed
+  - each child writes bounded dossier delta
+  - only finalized topic may advance to WF-200
+dependencies:
+  - WF-010
+  - WF-900

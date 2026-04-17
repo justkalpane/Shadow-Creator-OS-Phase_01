@@ -1,0 +1,39 @@
+workflow_id: CWF-120
+name: cwf120_topic_qualification
+class: child
+parent_pack: WF-100
+purpose: reject weak, irrelevant, low-ROI, or off-strategy topics before scoring
+primary_owner: Chanakya
+supporting_directors:
+  - Krishna
+  - Yama
+  - Kubera
+inputs:
+  - topic_candidate_board
+output_packet_family:
+  - topic_qualification_packet
+writes:
+  - namespaces.discovery
+  - namespaces.approval
+write_targets:
+  dossier_namespaces:
+    - discovery
+    - approval
+decision_outputs:
+  - APPROVED_FOR_SCORING
+  - REJECTED
+  - NEEDS_RESEARCH_EXPANSION
+checks:
+  - demand_fit
+  - competition_fit
+  - longevity_fit
+  - audience_fit
+  - budget_fit
+  - policy_fit
+done_criteria:
+  - every candidate receives a decision
+  - reject reasons captured
+  - needs_research_expansion reasons captured
+fallback_behavior:
+  on_all_rejected:
+    - return to CWF-110 with narrowed discovery brief
