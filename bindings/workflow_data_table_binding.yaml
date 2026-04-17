@@ -1,0 +1,19 @@
+bindings:
+  WF-000: [runtime_index]
+  WF-900: [runtime_index, approvals]
+  WF-001: [dossiers]
+  WF-010: [runtime_index, approvals]
+  WF-100:
+    - runtime_index
+    - dossiers
+  CWF-110: [runtime_index]
+  CWF-120: [runtime_index]
+  CWF-130: [runtime_index]
+  CWF-140: [runtime_index]
+  WF-200:
+    - runtime_index
+    - approvals
+  CWF-210: [runtime_index]
+  CWF-220: [approvals]
+  CWF-230: [runtime_index]
+  CWF-240: [runtime_index]

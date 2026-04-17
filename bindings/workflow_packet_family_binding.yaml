@@ -1,0 +1,31 @@
+bindings:
+  WF-100:
+    outputs: [topic_intelligence_result]
+    next: WF-200
+  CWF-110:
+    outputs: [topic_candidate_board]
+    next: CWF-120
+  CWF-120:
+    outputs: [topic_qualification_packet]
+    next: CWF-130
+  CWF-130:
+    outputs: [topic_scorecard]
+    next: CWF-140
+  CWF-140:
+    outputs: [research_synthesis_packet]
+    next: WF-200
+  WF-200:
+    outputs: [script_intelligence_result]
+    next: WF-300
+  CWF-210:
+    outputs: [script_draft_packet]
+    next: CWF-220
+  CWF-220:
+    outputs: [script_debate_packet]
+    next: CWF-230
+  CWF-230:
+    outputs: [script_refinement_packet]
+    next: CWF-240
+  CWF-240:
+    outputs: [final_script_packet]
+    next: WF-300
