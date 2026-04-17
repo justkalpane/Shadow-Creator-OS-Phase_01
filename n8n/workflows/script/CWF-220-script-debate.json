@@ -1,0 +1,22 @@
+{
+  "name": "CWF-220 Script Debate",
+  "nodes": [
+    { "parameters": {}, "id": "manual_trigger", "name": "Manual Trigger", "type": "n8n-nodes-base.manualTrigger", "typeVersion": 1, "position": [220, 300] },
+    { "parameters": { "jsCode": "return [{ json: { workflow_id: 'CWF-220', draft_title: 'Sample Title', critique_mode: 'strict' } }];" }, "id": "normalize_debate_input", "name": "Normalize Debate Input", "type": "n8n-nodes-base.code", "typeVersion": 2, "position": [470, 300] },
+    { "parameters": { "jsCode": "return [{ json: { ...$json, critique_log: ['hook review','structure review','evidence review'], decision: 'APPROVED_FOR_REFINEMENT' } }];" }, "id": "run_script_debate", "name": "Run Script Debate", "type": "n8n-nodes-base.code", "typeVersion": 2, "position": [730, 300] },
+    { "parameters": { "jsCode": "return [{ json: { workflow_id: 'CWF-220', output_type: 'script_debate_packet', status: $json.decision, details: $json } }];" }, "id": "build_debate_packet", "name": "Build Debate Packet", "type": "n8n-nodes-base.code", "typeVersion": 2, "position": [990, 300] }
+  ],
+  "connections": {
+    "Manual Trigger": { "main": [[{ "node": "Normalize Debate Input", "type": "main", "index": 0 }]] },
+    "Normalize Debate Input": { "main": [[{ "node": "Run Script Debate", "type": "main", "index": 0 }]] },
+    "Run Script Debate": { "main": [[{ "node": "Build Debate Packet", "type": "main", "index": 0 }]] }
+  },
+  "meta": {
+    "workflow_id": "CWF-220",
+    "phase": "phase1",
+    "purpose": "Debate and critique the initial script draft",
+    "implementation_depth": "starter_node_chain"
+  },
+  "active": false,
+  "settings": {}
+}

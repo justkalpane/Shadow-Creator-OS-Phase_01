@@ -1,0 +1,30 @@
+workflow_id: CWF-230
+name: cwf230_script_refinement
+class: child
+parent_pack: WF-200
+purpose: refine the debated script draft by resolving critique points and improving clarity, retention, and support
+primary_owner: Saraswati
+supporting_directors:
+  - Krishna
+  - Vyasa
+inputs:
+  - script_debate_packet
+output_packet_family:
+  - script_refinement_packet
+writes:
+  - namespaces.script
+write_targets:
+  dossier_namespaces:
+    - script
+steps:
+  - normalize critique instructions
+  - revise hook, sections, and claim phrasing
+  - strengthen evidence links
+  - improve flow and clarity
+  - emit refinement packet
+done_criteria:
+  - critique points resolved or explicitly carried forward
+  - refinement packet emitted
+fallback_behavior:
+  on_unresolved_critical_issues:
+    - return to CWF-210 with narrowed rewrite brief

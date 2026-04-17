@@ -1,0 +1,22 @@
+{
+  "name": "CWF-210 Script Generation",
+  "nodes": [
+    { "parameters": {}, "id": "manual_trigger", "name": "Manual Trigger", "type": "n8n-nodes-base.manualTrigger", "typeVersion": 1, "position": [220, 300] },
+    { "parameters": { "jsCode": "return [{ json: { workflow_id: 'CWF-210', selected_topic: 'sample topic', research_summary: 'sample research summary' } }];" }, "id": "normalize_script_brief", "name": "Normalize Script Brief", "type": "n8n-nodes-base.code", "typeVersion": 2, "position": [470, 300] },
+    { "parameters": { "jsCode": "return [{ json: { ...$json, title: 'Sample Title', hook: 'Sample Hook', section_plan: ['intro','body','close'] } }];" }, "id": "derive_script_structure", "name": "Derive Script Structure", "type": "n8n-nodes-base.code", "typeVersion": 2, "position": [730, 300] },
+    { "parameters": { "jsCode": "return [{ json: { workflow_id: 'CWF-210', output_type: 'script_draft_packet', status: 'drafted', details: $json } }];" }, "id": "build_script_draft", "name": "Build Script Draft", "type": "n8n-nodes-base.code", "typeVersion": 2, "position": [990, 300] }
+  ],
+  "connections": {
+    "Manual Trigger": { "main": [[{ "node": "Normalize Script Brief", "type": "main", "index": 0 }]] },
+    "Normalize Script Brief": { "main": [[{ "node": "Derive Script Structure", "type": "main", "index": 0 }]] },
+    "Derive Script Structure": { "main": [[{ "node": "Build Script Draft", "type": "main", "index": 0 }]] }
+  },
+  "meta": {
+    "workflow_id": "CWF-210",
+    "phase": "phase1",
+    "purpose": "Generate the first structured script draft",
+    "implementation_depth": "starter_node_chain"
+  },
+  "active": false,
+  "settings": {}
+}
