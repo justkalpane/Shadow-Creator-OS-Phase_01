@@ -1,8 +1,12 @@
-version: 1
-mode: local_first
+version: 2
+mode: hybrid_github_local
+
 repo_source_of_truth: GitHub
-runtime_repo_access: local_clone_preferred
+runtime_repo_access: github_primary_local_mirror
+sync_mode: manual_command_driven
+
 expected_windows_repo_root: C:\ShadowEmpire\Shadow-Creator-OS-Phase_01
+
 paths:
   workflows_root: n8n/workflows
   manifests_root: n8n/manifests
@@ -11,10 +15,14 @@ paths:
   registries_root: registries
   bindings_root: bindings
   skills_root: skills
+
 consumption_rules:
-  - n8n should read static assets from the local repo clone whenever possible
-  - GitHub API access is optional fallback, not the primary Phase-1 path
-  - runtime-generated packets and dossier deltas remain outside the repo
-sync_rules:
-  - pull latest repo before import or validation session
-  - re-export workflows to repo only after stable checkpoint
+  - GitHub is the canonical source of truth
+  - local repo is runtime-readable mirror
+  - no automatic sync required
+  - sync happens only on command
+
+agent_behavior:
+  - agent reads live GitHub
+  - agent updates local mirror only when instructed
+
