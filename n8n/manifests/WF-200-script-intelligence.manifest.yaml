@@ -1,0 +1,83 @@
+workflow_id: WF-200
+name: wf200_script_intelligence_pack
+class: parent_pack
+entry_mode: event_selected
+purpose: convert topic-approved research into script drafts, debate outputs, refinement decisions, and final script packets
+owner: shadow_empire_phase1
+primary_director: Vyasa
+strategic_authority: Krishna
+governance_authority:
+  - Yama
+  - Kubera
+producer_expectations:
+  triggered_by:
+    - WF-100 topic_intelligence_result with promoted research packet
+consumer_expectations:
+  consumed_by:
+    - WF-300 when script packet is finalized
+    - operator review when script quality or governance checks fail
+route_bindings:
+  - ROUTE_PHASE1_STANDARD
+  - ROUTE_PHASE1_FAST
+inputs:
+  - topic_finalization_packet
+  - research_synthesis_packet
+  - orchestration_decision
+output_packet_family:
+  - script_draft_packet
+  - script_debate_packet
+  - script_refinement_packet
+  - final_script_packet
+outputs:
+  - script_intelligence_result
+reads:
+  - workflow_registry
+  - skill_registry
+  - research_synthesis_packet
+writes:
+  - namespaces.script
+  - namespaces.runtime
+  - namespaces.approval
+write_targets:
+  data_tables:
+    - runtime_index
+    - approvals
+  dossier_namespaces:
+    - script
+    - runtime
+    - approval
+child_workflows:
+  - CWF-210-script-generation
+  - CWF-220-script-debate
+  - CWF-230-script-refinement
+  - CWF-240-final-script-shaping
+fallback_behavior:
+  on_script_quality_failure:
+    - emit script_intelligence_result with status needs_refinement
+    - allow replay to CWF-210 or CWF-220
+  on_governance_failure:
+    - emit rejection packet
+    - route to WF-900 if remediation needed
+remodify_behavior:
+  when debate rejects draft:
+    - attach critique reasons
+    - return to generation with narrowed constraints
+replay_behavior: allowed for generation, debate, and refinement loops before promotion to WF-300
+approval_insertion_points:
+  - draft_rejected
+  - final_script_selected
+done_criteria:
+  - script draft emitted
+  - debate output emitted
+  - refinement output emitted
+  - final script packet prepared
+error_family:
+  - SE-P1-001
+  - SE-P1-003
+validation:
+  - all child workflow outputs typed
+  - each child writes bounded dossier delta
+  - only finalized script may advance to WF-300
+dependencies:
+  - WF-100
+  - WF-900

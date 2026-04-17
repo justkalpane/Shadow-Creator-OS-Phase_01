@@ -1,0 +1,38 @@
+workflow_id: CWF-220
+name: cwf220_script_debate
+class: child
+parent_pack: WF-200
+purpose: challenge the script draft for weak hooks, weak structure, unsupported claims, and retention risks
+primary_owner: Krishna
+supporting_directors:
+  - Durga
+  - Yama
+  - Saraswati
+inputs:
+  - script_draft_packet
+output_packet_family:
+  - script_debate_packet
+writes:
+  - namespaces.script
+  - namespaces.approval
+write_targets:
+  dossier_namespaces:
+    - script
+    - approval
+decision_outputs:
+  - APPROVED_FOR_REFINEMENT
+  - REJECTED
+  - NEEDS_REWRITE
+checks:
+  - hook_strength
+  - structure_strength
+  - evidence_support
+  - retention_flow
+  - governance_safety
+done_criteria:
+  - critique log emitted
+  - decision emitted
+  - rewrite reasons attached when needed
+fallback_behavior:
+  on_rejected_draft:
+    - return to CWF-210 with critique reasons

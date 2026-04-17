@@ -1,0 +1,34 @@
+workflow_id: CWF-210
+name: cwf210_script_generation
+class: child
+parent_pack: WF-200
+purpose: create the first structured script draft from the selected topic and research synthesis
+primary_owner: Vyasa
+supporting_directors:
+  - Saraswati
+  - Krishna
+inputs:
+  - topic_finalization_packet
+  - research_synthesis_packet
+output_packet_family:
+  - script_draft_packet
+writes:
+  - namespaces.script
+write_targets:
+  dossier_namespaces:
+    - script
+steps:
+  - normalize script brief
+  - derive title, hook, and section plan
+  - draft body from research synthesis
+  - attach evidence references
+  - emit script draft packet
+done_criteria:
+  - title generated
+  - hook generated
+  - section structure emitted
+  - evidence references attached
+fallback_behavior:
+  on_weak_draft:
+    - emit draft with status needs_debate
+    - request critique focus
