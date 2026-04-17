@@ -1,0 +1,21 @@
+version: 1
+workflow_pack: WF-200
+quality_dimensions:
+  hook_strength: 0.20
+  structure_clarity: 0.15
+  evidence_support: 0.15
+  retention_flow: 0.20
+  clarity_and_concision: 0.10
+  emotional_pull: 0.10
+  governance_safety: 0.10
+minimum_thresholds:
+  standard_route_script_quality: 0.75
+  fast_route_script_quality: 0.80
+rejection_rules:
+  - governance_safety_failed
+  - evidence_support_failed
+  - hook_strength_critical_failure
+needs_refinement_rules:
+  - weak_retention_flow
+  - weak_structure_clarity
+  - weak_emotional_pull

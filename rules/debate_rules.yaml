@@ -1,0 +1,19 @@
+version: 1
+workflow_pack: WF-200
+debate_checks:
+  - hook_strength
+  - section_order
+  - evidence_support
+  - unsupported_claims
+  - retention_drop_risk
+  - clarity_issues
+  - governance_safety
+approval_outcomes:
+  - APPROVED_FOR_REFINEMENT
+  - REJECTED
+  - NEEDS_REWRITE
+rewrite_triggers:
+  - unsupported_claims_found
+  - weak_hook_detected
+  - poor_retention_flow
+  - governance_safety_issue
