@@ -1,0 +1,28 @@
+workflow_pack: WF-200
+directors:
+  Vyasa:
+    owns:
+      - CWF-210-script-generation
+      - S-201
+      - S-202
+  Krishna:
+    owns:
+      - CWF-220-script-debate
+      - CWF-240-final-script-shaping
+      - S-203
+      - S-204
+  Saraswati:
+    owns:
+      - CWF-230-script-refinement
+      - S-205
+      - S-206
+  Durga:
+    supports:
+      - S-207
+  Yama:
+    supports:
+      - S-208
+  Chandra:
+    supports:
+      - S-209
+      - S-210
