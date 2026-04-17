@@ -1,15 +1,19 @@
 version: 1
-canonical_rule: this file is the only canonical ordered register of intended Phase-1 workflow packs that are not yet repo-present and must not be treated as active import targets
-not_yet_repo_present_workflow_packs:
+canonical_rule: this file is the only canonical ordered register of intended Phase-1 workflow packs that are not yet repo-present
+not_yet_repo_present_packs:
   - workflow_pack_id: WF-100
     name: topic_intelligence_pack
-    intended_role: topic discovery, scoring, and shortlist generation
+    intended_role: topic discovery, scoring, shortlist, and intake expansion
+    repo_presence_status: not_repo_present
   - workflow_pack_id: WF-200
     name: script_intelligence_pack
-    intended_role: script generation, critique, and shaping
+    intended_role: script generation, debate, critique, and refinement
+    repo_presence_status: not_repo_present
   - workflow_pack_id: WF-300
     name: context_engineering_pack
-    intended_role: context packet construction and downstream shaping
+    intended_role: context shaping, packetization, and downstream handoff preparation
+    repo_presence_status: not_repo_present
   - workflow_pack_id: WF-400
     name: approval_pack
-    intended_role: approval, remodify, and replay governance
+    intended_role: approval, remodify, replay, and governance resolution
+    repo_presence_status: not_repo_present

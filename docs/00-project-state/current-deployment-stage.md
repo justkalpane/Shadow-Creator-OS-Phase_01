@@ -44,12 +44,8 @@ Use this file as the only ordered truth for active repo-present workflows:
 - `registries/repo_present_workflow_family.yaml`
 
 ### Canonical not-yet-repo-present workflow pack register
-Use this file as the only ordered truth for intended packs that are still not repo-present:
+Use this file as the only ordered truth for intended workflow packs that are not yet repo-present:
 - `registries/not_yet_repo_present_workflow_packs.yaml`
-
-### Canonical Phase-1 workflow lineage and handoff matrix
-Use this file as the only ordered truth for primary lineage, packet family handoff, Data Table writes, dossier namespace writes, fallback workflow, and replay/remodify path mapping:
-- `registries/phase1_workflow_lineage_handoff_matrix.yaml`
 
 ### Repo-validated layer present
 The repo now includes validation scripts for:
@@ -82,7 +78,7 @@ The repo contains build-usable starter implementations and governance artifacts,
 See the canonical register:
 - `registries/not_yet_repo_present_workflow_packs.yaml`
 
-Do not treat any pack listed there as an active repo import target until it is moved into the repo-present workflow family register.
+Do not treat those packs as active repo import targets until they are committed.
 
 ## Explicitly deferred
 - Heavy media generation
