@@ -1,0 +1,22 @@
+{
+  "name": "CWF-230 Script Refinement",
+  "nodes": [
+    { "parameters": {}, "id": "manual_trigger", "name": "Manual Trigger", "type": "n8n-nodes-base.manualTrigger", "typeVersion": 1, "position": [220, 300] },
+    { "parameters": { "jsCode": "return [{ json: { workflow_id: 'CWF-230', critique_log: ['hook improve','clarity improve'], decision: 'REFINE' } }];" }, "id": "normalize_refinement_input", "name": "Normalize Refinement Input", "type": "n8n-nodes-base.code", "typeVersion": 2, "position": [470, 300] },
+    { "parameters": { "jsCode": "return [{ json: { ...$json, refined_hook: 'Improved Hook', refined_sections: ['intro','body','close'], evidence_strengthened: true } }];" }, "id": "apply_refinement", "name": "Apply Refinement", "type": "n8n-nodes-base.code", "typeVersion": 2, "position": [730, 300] },
+    { "parameters": { "jsCode": "return [{ json: { workflow_id: 'CWF-230', output_type: 'script_refinement_packet', status: 'refined', details: $json } }];" }, "id": "build_refinement_packet", "name": "Build Refinement Packet", "type": "n8n-nodes-base.code", "typeVersion": 2, "position": [990, 300] }
+  ],
+  "connections": {
+    "Manual Trigger": { "main": [[{ "node": "Normalize Refinement Input", "type": "main", "index": 0 }]] },
+    "Normalize Refinement Input": { "main": [[{ "node": "Apply Refinement", "type": "main", "index": 0 }]] },
+    "Apply Refinement": { "main": [[{ "node": "Build Refinement Packet", "type": "main", "index": 0 }]] }
+  },
+  "meta": {
+    "workflow_id": "CWF-230",
+    "phase": "phase1",
+    "purpose": "Refine the debated script draft",
+    "implementation_depth": "starter_node_chain"
+  },
+  "active": false,
+  "settings": {}
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://shadow-empire.local/schemas/packets/script_debate_packet.schema.json",
+  "title": "ScriptDebatePacket",
+  "type": "object",
+  "required": ["packet_id", "dossier_id", "critique_log", "decision", "created_at"],
+  "properties": {
+    "packet_id": { "type": "string" },
+    "dossier_id": { "type": "string" },
+    "critique_log": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "decision": { "type": "string", "enum": ["APPROVED_FOR_REFINEMENT", "REJECTED", "NEEDS_REWRITE"] },
+    "created_at": { "type": "string", "format": "date-time" }
+  },
+  "additionalProperties": false
+}

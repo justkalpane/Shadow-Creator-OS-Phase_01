@@ -1,0 +1,22 @@
+{
+  "name": "CWF-240 Final Script Shaping",
+  "nodes": [
+    { "parameters": {}, "id": "manual_trigger", "name": "Manual Trigger", "type": "n8n-nodes-base.manualTrigger", "typeVersion": 1, "position": [220, 300] },
+    { "parameters": { "jsCode": "return [{ json: { workflow_id: 'CWF-240', refined_title: 'Sample Title', refined_hook: 'Improved Hook' } }];" }, "id": "normalize_final_input", "name": "Normalize Final Input", "type": "n8n-nodes-base.code", "typeVersion": 2, "position": [470, 300] },
+    { "parameters": { "jsCode": "return [{ json: { ...$json, final_sections: ['intro','body','close'], production_ready: true } }];" }, "id": "shape_final_script", "name": "Shape Final Script", "type": "n8n-nodes-base.code", "typeVersion": 2, "position": [730, 300] },
+    { "parameters": { "jsCode": "return [{ json: { workflow_id: 'CWF-240', output_type: 'final_script_packet', status: 'finalized', details: $json } }];" }, "id": "build_final_script_packet", "name": "Build Final Script Packet", "type": "n8n-nodes-base.code", "typeVersion": 2, "position": [990, 300] }
+  ],
+  "connections": {
+    "Manual Trigger": { "main": [[{ "node": "Normalize Final Input", "type": "main", "index": 0 }]] },
+    "Normalize Final Input": { "main": [[{ "node": "Shape Final Script", "type": "main", "index": 0 }]] },
+    "Shape Final Script": { "main": [[{ "node": "Build Final Script Packet", "type": "main", "index": 0 }]] }
+  },
+  "meta": {
+    "workflow_id": "CWF-240",
+    "phase": "phase1",
+    "purpose": "Shape the refined script into a final production-ready packet",
+    "implementation_depth": "starter_node_chain"
+  },
+  "active": false,
+  "settings": {}
+}
