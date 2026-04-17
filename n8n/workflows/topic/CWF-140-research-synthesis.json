@@ -1,0 +1,62 @@
+{
+  "name": "CWF-140 Research Synthesis",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "manual_trigger",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [220, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ json: { workflow_id: 'CWF-140', selected_topic: 'sample topic', source_ids: [] } }];"
+      },
+      "id": "normalize_research_input",
+      "name": "Normalize Research Input",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [470, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ json: { ...$json, summary: '', sources: [], claim_evidence_pairs: [], confidence: 0.7 } }];"
+      },
+      "id": "synthesize_research",
+      "name": "Synthesize Research",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [730, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ json: { workflow_id: 'CWF-140', output_type: 'research_synthesis_packet', status: 'created', details: $json } }];"
+      },
+      "id": "build_research_packet",
+      "name": "Build Research Packet",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [990, 300]
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [[{ "node": "Normalize Research Input", "type": "main", "index": 0 }]]
+    },
+    "Normalize Research Input": {
+      "main": [[{ "node": "Synthesize Research", "type": "main", "index": 0 }]]
+    },
+    "Synthesize Research": {
+      "main": [[{ "node": "Build Research Packet", "type": "main", "index": 0 }]]
+    }
+  },
+  "meta": {
+    "workflow_id": "CWF-140",
+    "phase": "phase1",
+    "purpose": "Research synthesis for selected topic",
+    "implementation_depth": "starter_node_chain"
+  },
+  "active": false,
+  "settings": {}
+}
