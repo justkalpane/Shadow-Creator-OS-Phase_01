@@ -1,14 +1,9 @@
-version: 1
+version: 2
 canonical_rule: this file is the only canonical ordered register of intended Phase-1 workflow packs that are not yet repo-present
+promotion_note: >
+  WF-100 and WF-200 have been promoted to repo-present in P0-A. This register now
+  reflects only truly absent packs.
 not_yet_repo_present_packs:
-  - workflow_pack_id: WF-100
-    name: topic_intelligence_pack
-    intended_role: topic discovery, scoring, shortlist, and intake expansion
-    repo_presence_status: not_repo_present
-  - workflow_pack_id: WF-200
-    name: script_intelligence_pack
-    intended_role: script generation, debate, critique, and refinement
-    repo_presence_status: not_repo_present
   - workflow_pack_id: WF-300
     name: context_engineering_pack
     intended_role: context shaping, packetization, and downstream handoff preparation
