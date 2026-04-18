@@ -1,0 +1,230 @@
+version: 1
+owner: shadow_commander
+status: ACTIVE_PHASE1
+constitutional_authority_ref: docs/01-architecture/dashboard_contract_pack_law.md
+purpose: >
+  Canonical dashboard screen contracts. Defines every primary screen in the
+  Founder / Creator / Operator surfaces, including role visibility, widgets,
+  data sources, deep links, action rights, and Phase-1 readiness.
+
+screens:
+  - screen_id: SCR-001
+    name: Overview
+    path: /overview
+    purpose: >
+      Founder/operator summary view of route health, active dossiers, error count,
+      approval backlog, and lane depth.
+    target_roles:
+      - founder
+      - operator
+    primary_widgets:
+      - active_dossier_count
+      - open_error_count
+      - approval_backlog_count
+      - route_lane_depth
+      - recent_failures_list
+    primary_data_sources:
+      - se_dossier_index
+      - se_error_events
+      - se_approval_queue
+      - se_route_runs
+    deep_links:
+      - SCR-003
+      - SCR-004
+      - SCR-005
+    action_rights:
+      founder:
+        - open_dossier
+        - open_error
+        - open_approval
+      operator:
+        - open_error
+    audit_writes:
+      - view_overview
+    phase1_status: stub_defined
+
+  - screen_id: SCR-002
+    name: Routes
+    path: /routes
+    purpose: >
+      Inspect route runs, stage durations, and replay history for active or
+      recent dossier executions.
+    target_roles:
+      - founder
+      - creator
+      - operator
+    primary_widgets:
+      - route_run_table
+      - stage_duration_table
+      - replay_history
+    primary_data_sources:
+      - se_route_runs
+      - se_dossier_index
+    deep_links:
+      - SCR-003
+      - SCR-005
+    action_rights:
+      founder:
+        - open_route_run
+      creator:
+        - open_own_route_run
+      operator:
+        - open_route_run
+    audit_writes:
+      - view_routes
+    phase1_status: stub_defined
+
+  - screen_id: SCR-003
+    name: Dossiers
+    path: /dossiers
+    purpose: >
+      View dossier lineage, stage progression, packet emission history, and
+      dossier-level state.
+    target_roles:
+      - founder
+      - creator
+    primary_widgets:
+      - dossier_table
+      - packet_lineage
+      - current_stage_panel
+    primary_data_sources:
+      - se_dossier_index
+      - se_packet_index
+      - se_route_runs
+    deep_links:
+      - SCR-002
+      - SCR-004
+      - SCR-005
+    action_rights:
+      founder:
+        - open_dossier
+        - inspect_lineage
+      creator:
+        - open_own_dossier
+        - inspect_own_lineage
+    audit_writes:
+      - view_dossiers
+    phase1_status: stub_defined
+
+  - screen_id: SCR-004
+    name: Approvals
+    path: /approvals
+    purpose: >
+      Review pending founder approvals and creator-submitted approval items.
+    target_roles:
+      - founder
+      - creator
+    primary_widgets:
+      - approval_queue_table
+      - pending_action_counter
+      - approval_history
+    primary_data_sources:
+      - se_approval_queue
+      - se_dossier_index
+    deep_links:
+      - SCR-003
+      - SCR-005
+    action_rights:
+      founder:
+        - approve_item
+        - reject_item
+        - request_remodify
+      creator:
+        - view_own_submission_status
+    audit_writes:
+      - view_approvals
+      - approval_action
+    phase1_status: stub_defined
+
+  - screen_id: SCR-005
+    name: Errors
+    path: /errors
+    purpose: >
+      Inspect error events, RCA breadcrumbs, replay eligibility, and unresolved
+      runtime failures.
+    target_roles:
+      - founder
+      - operator
+    primary_widgets:
+      - error_event_table
+      - replay_eligibility_panel
+      - root_cause_notes
+    primary_data_sources:
+      - se_error_events
+      - se_route_runs
+      - se_dossier_index
+    deep_links:
+      - SCR-002
+      - SCR-003
+      - SCR-004
+    action_rights:
+      founder:
+        - open_error
+        - mark_resolved
+        - initiate_replay
+      operator:
+        - open_error
+        - initiate_replay
+    audit_writes:
+      - view_errors
+      - replay_action
+    phase1_status: stub_defined
+
+  - screen_id: SCR-006
+    name: Mission Control
+    path: /mission-control
+    purpose: >
+      Founder-only DAG, ETA, bottleneck, and execution observability surface.
+    target_roles:
+      - founder
+    primary_widgets:
+      - active_execution_dag
+      - weighted_eta_panel
+      - bottleneck_list
+      - queue_depth_panel
+    primary_data_sources:
+      - se_route_runs
+      - se_error_events
+      - se_dossier_index
+      - se_approval_queue
+    deep_links:
+      - SCR-002
+      - SCR-003
+      - SCR-005
+    action_rights:
+      founder:
+        - inspect_dag
+        - open_bottleneck
+    audit_writes:
+      - view_mission_control
+    phase1_status: deferred
+
+  - screen_id: SCR-007
+    name: Founder Governance
+    path: /founder-governance
+    purpose: >
+      Founder-only control surface for registry review, blocker state, premium
+      approval posture, and future release decisions.
+    target_roles:
+      - founder
+    primary_widgets:
+      - blocker_matrix_panel
+      - decision_packet_panel
+      - provider_posture_panel
+      - release_status_panel
+    primary_data_sources:
+      - registries/build_blocker_matrix.yaml
+      - registries/release_blocker_matrix.yaml
+      - registries/decision_packet_register.yaml
+      - registries/provider_registry.yaml
+    deep_links:
+      - SCR-001
+      - SCR-004
+      - SCR-006
+    action_rights:
+      founder:
+        - inspect_blockers
+        - inspect_decision_packets
+    audit_writes:
+      - view_founder_governance
+    phase1_status: deferred
