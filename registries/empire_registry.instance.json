@@ -1,0 +1,135 @@
+{
+  "registry_meta": {
+    "registry_version": "phase1-wave00",
+    "schema_version": "2020-12",
+    "generated_at": "2026-04-18T00:00:00Z",
+    "generated_by": "shadow_commander"
+  },
+  "identity": {
+    "empire_id": "shadow_empire_phase1",
+    "empire_name": "Shadow Empire / Creator OS Phase 1",
+    "founder_id": "chethan",
+    "deployment_mode": "local",
+    "air_gap_capable": false
+  },
+  "integrity": {
+    "registry_manifest_hash": "WAVE00_PLACEHOLDER",
+    "detached_signature": "none",
+    "boot_verification_required": false,
+    "tamper_response": "read_only_mode"
+  },
+  "hardware_profile": {
+    "host_id": "WIN_MID_16G",
+    "os_family": "windows",
+    "python_version": "not_installed",
+    "cpu_cores_logical": 4,
+    "ram_mb_total": 16384,
+    "gpu_present": false,
+    "gpu_name": "none",
+    "gpu_vram_mb_total": 0,
+    "nvme_present": false,
+    "scratch_path": "C:\\ShadowEmpire\\tmp",
+    "wal_path": "C:\\ShadowEmpire\\state",
+    "cgroups_v2_enabled": false,
+    "tpm_present": true,
+    "secure_boot_present": true,
+    "battery_present": true,
+    "default_limits": {
+      "max_active_directors": 2,
+      "max_active_total_skills": 3,
+      "max_active_heavy_skills": 0,
+      "max_active_gpu_jobs": 0,
+      "reserve_ram_percent": 20,
+      "reserve_vram_percent": 0,
+      "disk_soft_stop_percent": 85,
+      "disk_hard_stop_percent": 92
+    }
+  },
+  "sensor_map": {
+    "cpu": { "enabled": true, "primary_paths": ["n8n_system_probe"] },
+    "memory": { "enabled": true, "primary_paths": ["n8n_system_probe"] },
+    "disk": { "enabled": true, "primary_paths": ["n8n_system_probe"] },
+    "thermal": { "enabled": false, "primary_paths": [] },
+    "gpu": { "enabled": false, "primary_paths": [] },
+    "fallback_chain": ["psutil"]
+  },
+  "runtime_modes": {
+    "available_modes": ["local", "hybrid", "cloud", "untrusted_local"],
+    "default_mode": "local",
+    "hysteresis": {
+      "link_probe_interval_ms": 1000,
+      "unhealthy_after_failures": 3,
+      "healthy_after_successes": 2,
+      "cooldown_after_switch_sec": 30
+    }
+  },
+  "priority_bands": [
+    { "band_id": "P0", "name": "critical", "rank": 0 },
+    { "band_id": "P1", "name": "high", "rank": 1 },
+    { "band_id": "P2", "name": "normal", "rank": 2 }
+  ],
+  "control_plane": {
+    "founder_approval_required_for": [
+      "premium_provider_activation",
+      "release_promotion",
+      "registry_mutation"
+    ],
+    "dry_run_supported": true,
+    "shadow_mode_supported": false,
+    "registry_hot_reload": false,
+    "dashboard_refresh_hz": 1.0
+  },
+  "directors": [],
+  "skills": [],
+  "providers": [],
+  "routes": [],
+  "policies": [],
+  "knowledge_plane": {
+    "namespaces": [],
+    "activation_policy": {
+      "immutable_commit": true,
+      "atomic_swap": true,
+      "smoke_test_required": true
+    },
+    "retrieval_caps": {
+      "max_payload_bytes": 262144,
+      "default_top_k": 5
+    }
+  },
+  "group_manifests": [],
+  "expertise_packs": [],
+  "mission_control": {
+    "enabled": false,
+    "export_interval_ms": 1000,
+    "dag_fields": ["workflow_id", "status", "started_at", "ended_at"],
+    "eta_mode": "critical_path"
+  },
+  "feature_flags": {
+    "phase1_only": true,
+    "provider_bridge_enabled": false,
+    "dashboard_enabled": false
+  },
+  "error_glossary": [
+    {
+      "error_code": "SE-P1-001",
+      "title": "general_workflow_failure",
+      "severity": "critical",
+      "owner": "WF-900",
+      "remediation": "Send to se_error_events and escalate to WF-900"
+    },
+    {
+      "error_code": "SE-P1-002",
+      "title": "local_model_unavailable",
+      "severity": "critical",
+      "owner": "WF-900",
+      "remediation": "Halt current run and replay after local model recovery"
+    },
+    {
+      "error_code": "SE-P1-003",
+      "title": "approval_required",
+      "severity": "warning",
+      "owner": "Founder",
+      "remediation": "Insert founder approval step into execution path"
+    }
+  ]
+}
