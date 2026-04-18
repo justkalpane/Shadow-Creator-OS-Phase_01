@@ -1,0 +1,70 @@
+version: 1
+owner: shadow_commander
+status: ACTIVE_PHASE1
+constitutional_authority_ref: docs/01-architecture/canonical_authority_precedence.md
+purpose: >
+  Release blockers prevent unattended deployment, premium provider activation,
+  or production promotion even if the repo can be built locally. Build blockers
+  govern mechanical consistency; release blockers govern production readiness.
+
+blockers:
+  - blocker_id: RB-001
+    title: Founder approval for premium provider activation not formalized
+    severity: P1
+    state: open
+    blocking_scope: release
+    remediation_owner: founder
+    required_fix: >
+      Founder approval flow for premium provider usage must be explicitly
+      implemented or documented as a hard precondition before release.
+
+  - blocker_id: RB-002
+    title: YouTube OAuth redirect URI not finalized
+    severity: P0
+    state: open
+    blocking_scope: release
+    linked_decision_packets: []
+    remediation_owner: founder
+    required_fix: >
+      Finalize the actual redirect URI used for YouTube Data API OAuth and
+      bind it in provider auth callback documentation and deployment docs.
+
+  - blocker_id: RB-003
+    title: Secret rotation policy not finalized
+    severity: P1
+    state: open
+    blocking_scope: release
+    remediation_owner: founder
+    required_fix: >
+      Define how local env secrets are rotated, replaced, and revoked for
+      provider API keys.
+
+  - blocker_id: RB-004
+    title: Provider quota thresholds not finalized
+    severity: P1
+    state: open
+    blocking_scope: release
+    remediation_owner: founder
+    required_fix: >
+      Set concrete provider quota ceilings / budget thresholds for ElevenLabs,
+      HeyGen, YouTube, and any other premium provider before activation.
+
+  - blocker_id: RB-005
+    title: Mission Control / dashboard implementation deferred
+    severity: P2
+    state: open
+    blocking_scope: release
+    remediation_owner: P1_P2
+    required_fix: >
+      Implement at least the minimum founder-facing observability surface before
+      unattended production release.
+
+  - blocker_id: RB-006
+    title: Python 3 not installed on current Windows target machine
+    severity: P1
+    state: open
+    blocking_scope: release
+    remediation_owner: founder
+    required_fix: >
+      Install Python 3 on the target machine, run validators in CI, or rewrite
+      Python validators as n8n workflows / JS scripts.
