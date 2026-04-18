@@ -1,0 +1,68 @@
+version: 1
+owner: shadow_commander
+status: ACTIVE_PHASE1
+constitutional_authority_ref: docs/01-architecture/skill_loader_repo_contract.md
+purpose: >
+  Canonical machine-readable skill loading contract. Defines required fields,
+  parser behavior, dependency resolution rules, stage loading policy, and current
+  compliance posture for Phase-1 skill packs.
+
+required_fields:
+  - SKILL_ID
+  - NAME
+  - DNA_ARCHETYPE
+  - ROLE
+  - DEPENDENCIES
+  - ROUTE_MAP
+  - APPROVAL_GATE
+  - VETO_POWER
+  - IMMUNE_SIGNATURE
+  - INPUT_VARIABLES
+  - ACTION_TRIGGER
+  - PROCESS
+  - OUTPUT_FORMAT
+
+json_block_fields:
+  - INPUT_VARIABLES
+  - OUTPUT_FORMAT
+
+parser_contract:
+  file_extension: .skill.md
+  parse_mode: header_sections_with_json_blocks
+  comments_allowed: true
+  multiline_process_allowed: true
+  reject_on_missing_required_field: true
+  reject_on_invalid_json_block: true
+  reject_on_unresolvable_dependency: true
+  reject_on_missing_director_binding: true
+
+stage_loading_policy:
+  load_only_current_stage_skills: true
+  unload_completed_stage_skills: true
+  max_active_skills_standard: 3
+  max_active_skills_exception: 8
+  exception_authority: Ganesha
+
+dependency_resolution:
+  allow_cross_skill_dependency: true
+  allow_cross_pack_dependency: false
+  ghost_dependency_handling: block_build
+  rollback_on_immune_signature_drop: true
+
+phase1_compliance:
+  wf100_topic_intelligence:
+    status: compliant
+    coverage: M-001_to_M-025
+    notes: >
+      Topic intelligence skills are present with full DNA structure and satisfy
+      the loader contract.
+
+  wf200_script_intelligence:
+    status: non_compliant_p0
+    coverage: S-201_to_S-210
+    notes: >
+      Script intelligence skills are currently flat and do not satisfy the loader
+      contract. They must be upgraded in P0. See build blocker BB-018.
+
+linked_blockers:
+  - BB-018
