@@ -31,8 +31,8 @@ writes:
   - namespaces.approval
 write_targets:
   data_tables:
-    - approvals
-    - runtime_index
+    - se_error_events
+    - se_approval_queue
   dossier_namespaces:
     - runtime
     - approval
