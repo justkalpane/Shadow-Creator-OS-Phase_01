@@ -27,7 +27,7 @@ writes:
   - namespaces.runtime
 write_targets:
   data_tables:
-    - runtime_index
+    - se_route_runs
   dossier_namespaces:
     - runtime
 fallback_behavior:
