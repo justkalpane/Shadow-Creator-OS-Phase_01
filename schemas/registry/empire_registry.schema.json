@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://shadow-empire.dev/schemas/registry/empire_registry.schema.json",
+  "title": "Shadow Empire Registry Schema",
+  "type": "object",
+  "required": ["registry_meta", "identity", "integrity", "hardware_profile"],
+  "properties": {
+    "registry_meta": {
+      "type": "object",
+      "required": ["registry_version", "schema_version"],
+      "properties": {
+        "registry_version": { "type": "string" },
+        "schema_version": { "type": "string" }
+      }
+    },
+    "identity": {
+      "type": "object",
+      "required": ["empire_id", "empire_name"],
+      "properties": {
+        "empire_id": { "type": "string" },
+        "empire_name": { "type": "string" }
+      }
+    },
+    "integrity": {
+      "type": "object",
+      "properties": {
+        "registry_manifest_hash": { "type": "string" },
+        "detached_signature": { "type": "string" }
+      }
+    },
+    "hardware_profile": {
+      "type": "object",
+      "required": ["host_id"],
+      "properties": {
+        "host_id": { "type": "string" }
+      }
+    }
+  }
+}
