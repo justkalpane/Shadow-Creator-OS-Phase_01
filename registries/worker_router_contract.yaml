@@ -1,0 +1,110 @@
+version: 1
+owner: shadow_commander
+status: ACTIVE_PHASE1
+constitutional_authority_ref: docs/01-architecture/worker_router_law.md
+purpose: >
+  Canonical machine-readable worker dispatch contract. Defines worker classes,
+  route-to-worker assignments, queue bindings, fallback workers, replay legality,
+  and DLQ behavior.
+
+worker_classes:
+  - worker_class_id: local_js_task_runner
+    display_name: Local JavaScript Task Runner
+    status: active_phase1
+    host_requirement: n8n_with_code_node
+    runtime_modes:
+      - local
+      - hybrid
+    max_concurrent_tasks: 1
+    queue_binding: n8n_default_queue
+    replay_legal: true
+    fallback_worker: none_escalate_to_wf900
+    notes: >
+      Primary worker for all Phase-1 execution. All logic must remain JavaScript/
+      n8n compatible on the current Windows laptop.
+
+  - worker_class_id: local_python_task_runner
+    display_name: Local Python Task Runner
+    status: unavailable
+    host_requirement: python3_local_install
+    runtime_modes:
+      - local
+      - hybrid
+    max_concurrent_tasks: 0
+    queue_binding: none
+    replay_legal: false
+    fallback_worker: none_escalate_to_wf900
+    notes: >
+      Unavailable on the current Windows target machine because Python 3 is not
+      installed. Tied to release blocker RB-006.
+
+  - worker_class_id: provider_bridge_worker
+    display_name: Provider Bridge Worker
+    status: deferred
+    host_requirement: authenticated_provider_ready
+    runtime_modes:
+      - hybrid
+      - cloud
+    max_concurrent_tasks: 1
+    queue_binding: provider_bridge_queue
+    replay_legal: true
+    fallback_worker: none_escalate_to_wf900
+    notes: >
+      Future worker for premium provider calls (ElevenLabs, HeyGen, YouTube) once
+      provider auth closure and release blockers are resolved.
+
+  - worker_class_id: cloud_render_worker
+    display_name: Cloud Render Worker
+    status: deferred
+    host_requirement: cloud_render_stack_ready
+    runtime_modes:
+      - hybrid
+      - cloud
+    max_concurrent_tasks: 1
+    queue_binding: heavy_render_queue
+    replay_legal: true
+    fallback_worker: none_escalate_to_wf900
+    notes: >
+      Future render/offload worker for heavy media phases. Not active in Phase-1.
+
+  - worker_class_id: n8n_manual_operator
+    display_name: n8n Manual Operator
+    status: active_phase1
+    host_requirement: human_operator
+    runtime_modes:
+      - local
+      - untrusted_local
+    max_concurrent_tasks: 1
+    queue_binding: none
+    replay_legal: false
+    fallback_worker: none_escalate_to_wf900
+    notes: >
+      Used for manual intervention, validation, or dashboard-only support paths.
+
+route_worker_assignments:
+  ROUTE_PHASE1_STANDARD:
+    primary_worker: local_js_task_runner
+    fallback_worker: none_escalate_to_wf900
+    queue_mode: sequential
+    max_parallel_stages: 1
+
+  ROUTE_PHASE1_FAST:
+    primary_worker: local_js_task_runner
+    fallback_worker: none_escalate_to_wf900
+    queue_mode: sequential
+    max_parallel_stages: 1
+
+  ROUTE_PHASE1_REPLAY:
+    primary_worker: local_js_task_runner
+    fallback_worker: none_escalate_to_wf900
+    queue_mode: sequential
+    max_parallel_stages: 1
+
+dlq_policy:
+  dead_letter_target: se_error_events
+  max_retry_before_dlq: 1
+  dlq_escalation_target: WF-900
+  required_error_codes:
+    - SE-P1-001
+    - SE-P1-002
+    - SE-P1-003
