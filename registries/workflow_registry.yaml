@@ -1,46 +1,17 @@
-version: 2
+version: 3
 phase: phase1
 mode: n8n-first
-wave_00_update_note: >
-  Version 2 adds constitutional authority references and decision packet flags.
-  Workflow entries remain unchanged. WF-100/WF-200 promotion is a P0 task.
+wave_p0_update_note: >
+  P0-A promotion adds WF-100 and WF-200 to canonical workflow registry.
 
-# Constitutional authority chain
 constitutional_authority_ref: docs/01-architecture/canonical_authority_precedence.md
 prompt_registry_interlock_ref: docs/01-architecture/prompt_registry_interlock_law.md
 empire_registry_ref: registries/empire_registry.instance.json
 decision_packet_register_ref: registries/decision_packet_register.yaml
 build_blocker_matrix_ref: registries/build_blocker_matrix.yaml
 
-# Canonical workflow family registers
 repo_present_workflow_family_register: registries/repo_present_workflow_family.yaml
 not_yet_repo_present_workflow_pack_register: registries/not_yet_repo_present_workflow_packs.yaml
-
-# DECISION PACKET FLAG: DP-004
-# WF-100 and WF-200 have artifact families in the repo (manifests, child
-# manifests, workflow JSONs, skill files, director bindings, skill registries,
-# rules) but are still listed as not_repo_present in canonical registers.
-# This registry currently lists only the 4 core workflows.
-# P0 must add WF-100 and WF-200 entries after promotion reconciliation.
-canonical_note: >
-  This registry currently reflects the Wave 00 constitutional establishment
-  state. WF-100 and WF-200 have artifact families in the repo but are not yet
-  listed here pending P0 promotion reconciliation. See DP-004 in
-  registries/decision_packet_register.yaml.
-
-lifecycle_status_model:
-  artifact_status_values:
-    - repo_stub
-    - starter_wired
-    - live_n8n_exported
-    - repo_synced
-  runtime_status_values:
-    - not_built_live
-    - built_live_in_n8n
-  validation_status_values:
-    - not_run
-    - repo_checks_present
-    - validated
 
 workflows:
   - workflow_id: WF-000
@@ -51,6 +22,7 @@ workflows:
     validation_status: repo_checks_present
     source_file: n8n/workflows/system/WF-000-health-check.json
     manifest_file: n8n/manifests/WF-000-health-check.manifest.yaml
+
   - workflow_id: WF-900
     name: error_handler
     class: system
@@ -59,6 +31,7 @@ workflows:
     validation_status: repo_checks_present
     source_file: n8n/workflows/system/WF-900-error-handler.json
     manifest_file: n8n/manifests/WF-900-error-handler.manifest.yaml
+
   - workflow_id: WF-001
     name: dossier_create
     class: parent
@@ -67,6 +40,7 @@ workflows:
     validation_status: repo_checks_present
     source_file: n8n/workflows/parent/WF-001-dossier-create.json
     manifest_file: n8n/manifests/WF-001-dossier-create.manifest.yaml
+
   - workflow_id: WF-010
     name: parent_orchestrator
     class: parent
@@ -75,7 +49,21 @@ workflows:
     validation_status: repo_checks_present
     source_file: n8n/workflows/parent/WF-010-parent-orchestrator.json
     manifest_file: n8n/manifests/WF-010-parent-orchestrator.manifest.yaml
-    decision_packet_note: >
-      WF-010 currently emits next_workflow_pack null for all downstream
-      routes. WF-100 and WF-200 artifact families exist but canonical
-      registers have not yet been promoted. See DP-004. Promotion is P0 work.
+
+  - workflow_id: WF-100
+    name: topic_intelligence_pack
+    class: parent_pack
+    artifact_status: repo_present
+    runtime_status: not_built_live
+    validation_status: repo_checks_present
+    source_file: n8n/workflows/parent/WF-100-topic-intelligence.json
+    manifest_file: n8n/manifests/WF-100-topic-intelligence.manifest.yaml
+
+  - workflow_id: WF-200
+    name: script_intelligence_pack
+    class: parent_pack
+    artifact_status: repo_present
+    runtime_status: not_built_live
+    validation_status: repo_checks_present
+    source_file: n8n/workflows/parent/WF-200-script-intelligence.json
+    manifest_file: n8n/manifests/WF-200-script-intelligence.manifest.yaml
