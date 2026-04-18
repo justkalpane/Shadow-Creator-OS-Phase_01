@@ -29,7 +29,7 @@ writes:
   - namespaces.intake
 write_targets:
   data_tables:
-    - dossiers
+    - se_dossier_index
   dossier_namespaces:
     - system
     - intake
