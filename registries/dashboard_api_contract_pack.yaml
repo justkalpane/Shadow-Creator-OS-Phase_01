@@ -1,0 +1,147 @@
+version: 1
+owner: shadow_commander
+status: ACTIVE_PHASE1
+constitutional_authority_ref: docs/01-architecture/dashboard_contract_pack_law.md
+purpose: >
+  Canonical dashboard API and DTO contract pack. Defines the backend endpoints
+  and response/request fields that support the Founder / Creator / Operator
+  dashboard surfaces.
+
+endpoints:
+  - endpoint_id: API-001
+    screen_ref: SCR-001
+    path: /api/overview/summary
+    method: GET
+    purpose: Return overview summary counters and recent failure list.
+    response_dto_fields:
+      - active_dossier_count
+      - open_error_count
+      - approval_backlog_count
+      - route_lane_depth
+      - recent_failures
+    auth_required: true
+    allowed_roles:
+      - founder
+      - operator
+    phase1_status: stub_defined
+
+  - endpoint_id: API-002
+    screen_ref: SCR-002
+    path: /api/routes/runs
+    method: GET
+    purpose: Return route run records and stage timing for dossier executions.
+    response_dto_fields:
+      - route_run_id
+      - dossier_id
+      - route_id
+      - workflow_id
+      - child_workflow_id
+      - status
+      - started_at
+      - ended_at
+      - replay_count
+    auth_required: true
+    allowed_roles:
+      - founder
+      - creator
+      - operator
+    phase1_status: stub_defined
+
+  - endpoint_id: API-003
+    screen_ref: SCR-003
+    path: /api/dossiers
+    method: GET
+    purpose: Return dossier state, lineage, and packet summary.
+    response_dto_fields:
+      - dossier_id
+      - creator_id
+      - current_stage
+      - dossier_status
+      - last_packet_id
+      - route_id
+      - updated_at
+    auth_required: true
+    allowed_roles:
+      - founder
+      - creator
+    phase1_status: stub_defined
+
+  - endpoint_id: API-004
+    screen_ref: SCR-004
+    path: /api/approvals
+    method: GET
+    purpose: Return approval queue records for founder / creator review.
+    response_dto_fields:
+      - approval_id
+      - dossier_id
+      - pending_action
+      - approval_scope
+      - submitted_by
+      - submitted_at
+      - status
+    auth_required: true
+    allowed_roles:
+      - founder
+      - creator
+    phase1_status: stub_defined
+
+  - endpoint_id: API-005
+    screen_ref: SCR-004
+    path: /api/approvals/action
+    method: POST
+    purpose: Apply approval decision action (approve / reject / remodify).
+    request_dto_fields:
+      - approval_id
+      - action
+      - actor_id
+      - note
+    response_dto_fields:
+      - approval_id
+      - resulting_status
+      - updated_at
+    auth_required: true
+    allowed_roles:
+      - founder
+    audit_write: approval_action
+    phase1_status: stub_defined
+
+  - endpoint_id: API-006
+    screen_ref: SCR-005
+    path: /api/errors
+    method: GET
+    purpose: Return error events and replay eligibility indicators.
+    response_dto_fields:
+      - error_id
+      - dossier_id
+      - workflow_id
+      - child_workflow_id
+      - error_code
+      - severity
+      - replay_eligible
+      - created_at
+    auth_required: true
+    allowed_roles:
+      - founder
+      - operator
+    phase1_status: stub_defined
+
+  - endpoint_id: API-007
+    screen_ref: SCR-005
+    path: /api/errors/replay
+    method: POST
+    purpose: Trigger replay workflow action for a replay-eligible dossier.
+    request_dto_fields:
+      - error_id
+      - dossier_id
+      - actor_id
+    response_dto_fields:
+      - replay_request_id
+      - dossier_id
+      - replay_status
+      - triggered_at
+    auth_required: true
+    allowed_roles:
+      - founder
+      - operator
+    audit_write: replay_action
+    phase1_status: stub_defined
