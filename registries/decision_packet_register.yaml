@@ -82,3 +82,20 @@ decision_packets:
       all runtime lookups use the canonical names.
     close_condition: >
       Runtime and repo use the same route IDs everywhere.
+
+  - packet_id: DP-007
+    title: Approval queue schema not canonically defined
+    class: build_governance
+    current_state: resolved_p0
+    blocking_level: build
+    owner: P0
+    source_of_conflict: >
+      Approval queue rows were being written and read by workflows and dashboard
+      APIs without a single canonical schema definition for se_approval_queue.
+    current_truth: >
+      A canonical se_approval_queue schema has now been defined under
+      schemas/governance/se_approval_queue.schema.json and matches dashboard API DTOs.
+    recommended_resolution: >
+      Ensure all producers and consumers conform to the schema.
+    close_condition: >
+      All approval queue interactions validate against the schema.
