@@ -48,7 +48,7 @@
     },
     {
       "parameters": {
-        "jsCode": "return [{ json: { workflow_id: 'WF-010', output_type: 'orchestration_decision', resolved_route: 'ROUTE_PHASE1_REPLAY', next_workflow_pack: null, next_pack_status: 'not_repo_present', recommended_reentry_workflow: 'WF-900', writeback_target: 'runtime_index', writeback_namespace: 'runtime', status: 'replay_ready', details: $json } }];"
+        "jsCode": "return [{ json: { workflow_id: 'WF-010', output_type: 'orchestration_decision', resolved_route: 'ROUTE_PHASE1_REPLAY', next_workflow_pack: null, next_pack_status: 'repo_present', recommended_reentry_workflow: 'WF-900', writeback_target: 'runtime_index', writeback_namespace: 'runtime', status: 'replay_ready', details: $json } }];"
       },
       "id": "prepare_replay_decision",
       "name": "Prepare Replay Decision",
@@ -75,7 +75,7 @@
     },
     {
       "parameters": {
-        "jsCode": "return [{ json: { workflow_id: 'WF-010', output_type: 'orchestration_decision', resolved_route: 'ROUTE_PHASE1_FAST', next_workflow_pack: null, next_pack_status: 'not_repo_present', recommended_reentry_workflow: 'WF-010', writeback_target: 'runtime_index', writeback_namespace: 'runtime', status: 'fast_path_selected', details: $json } }];"
+        "jsCode": "return [{ json: { workflow_id: 'WF-010', output_type: 'orchestration_decision', resolved_route: 'ROUTE_PHASE1_FAST', next_workflow_pack: 'WF-100', next_pack_status: 'repo_present', recommended_reentry_workflow: 'WF-010', writeback_target: 'runtime_index', writeback_namespace: 'runtime', status: 'fast_path_selected', details: $json } }];"
       },
       "id": "prepare_fast_decision",
       "name": "Prepare Fast Decision",
@@ -85,7 +85,7 @@
     },
     {
       "parameters": {
-        "jsCode": "return [{ json: { workflow_id: 'WF-010', output_type: 'orchestration_decision', resolved_route: 'ROUTE_PHASE1_STANDARD', next_workflow_pack: null, next_pack_status: 'not_repo_present', recommended_reentry_workflow: 'WF-010', writeback_target: 'runtime_index', writeback_namespace: 'runtime', status: 'standard_path_selected', details: $json } }];"
+        "jsCode": "return [{ json: { workflow_id: 'WF-010', output_type: 'orchestration_decision', resolved_route: 'ROUTE_PHASE1_STANDARD', next_workflow_pack: 'WF-100', next_pack_status: 'repo_present', recommended_reentry_workflow: 'WF-010', writeback_target: 'runtime_index', writeback_namespace: 'runtime', status: 'standard_path_selected', details: $json } }];"
       },
       "id": "prepare_standard_decision",
       "name": "Prepare Standard Decision",
@@ -123,8 +123,7 @@
     "phase": "phase1",
     "purpose": "Select the route and orchestrate downstream Phase-1 workflow packs",
     "writes": ["namespaces.runtime", "namespaces.approval"],
-    "implementation_depth": "starter_node_chain",
-    "repo_truth_note": "No downstream workflow packs are treated as repo-present until committed as manifest and JSON artifacts."
+    "implementation_depth": "starter_node_chain"
   },
   "active": false,
   "settings": {}
