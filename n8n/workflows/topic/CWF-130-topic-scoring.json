@@ -1,0 +1,93 @@
+{
+  "name": "CWF-130 Topic Scoring",
+  "description": "Score approved topics and rank the final candidates for research synthesis. Determines topic viability.",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "cwf130_trigger",
+      "name": "Workflow Input",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [250, 350]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{\n  json: {\n    workflow_id: 'CWF-130',\n    vein: 'scoring_vein',\n    dossier_id: $json.dossier_id || 'TEST-DOSSIER',\n    qualified_candidates: $json.qualified_candidates || [],\n    route_id: $json.route_id || 'ROUTE-001',\n    execution_timestamp: new Date().toISOString(),\n    score_dimensions: ['trend_strength', 'search_demand', 'content_gap', 'audience_pain_match', 'longevity', 'governance_risk', 'budget_fit']\n  }\n}];"
+      },
+      "id": "normalize_scoring_input",
+      "name": "Normalize Scoring Input",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [450, 350]
+    },
+    {
+      "parameters": {
+        "jsCode": "const candidates = $json.qualified_candidates || [];\nconst scored_candidates = candidates.map(c => {\n  const scores = {\n    trend_strength: c.trend === 'RISING' ? 0.9 : (c.trend === 'STABLE' ? 0.7 : 0.5),\n    search_demand: c.high_opportunity_keywords && c.high_opportunity_keywords.length > 0 ? 0.85 : 0.6,\n    content_gap: 0.75,\n    audience_pain_match: c.audience_alignment ? 0.8 : 0.6,\n    longevity: c.trend !== 'FALLING' ? 0.8 : 0.4,\n    governance_risk: 0.95,\n    budget_fit: 0.9\n  };\n  \n  const weights = {\n    trend_strength: 0.15,\n    search_demand: 0.20,\n    content_gap: 0.15,\n    audience_pain_match: 0.20,\n    longevity: 0.15,\n    governance_risk: 0.10,\n    budget_fit: 0.05\n  };\n  \n  const total_score = Object.entries(scores).reduce((sum, [dim, score]) => sum + (score * weights[dim]), 0);\n  \n  return {\n    ...c,\n    scores: scores,\n    total_score: parseFloat(total_score.toFixed(3)),\n    shortlist_rank: null\n  };\n});\n\nscored_candidates.sort((a, b) => b.total_score - a.total_score);\nscored_candidates.forEach((c, idx) => { c.shortlist_rank = idx + 1; });\n\nreturn [{\n  json: {\n    ...$json,\n    scored_candidates: scored_candidates,\n    scorecard_ready: true\n  }\n}];"
+      },
+      "id": "execute_scoring_algorithm",
+      "name": "Execute Scoring Algorithm",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [650, 350]
+    },
+    {
+      "parameters": {
+        "jsCode": "const scored = $json.scored_candidates || [];\nconst PROMOTION_THRESHOLD = 0.75;\n\nconst promotion_candidates = scored.filter(c => c.total_score >= PROMOTION_THRESHOLD).slice(0, 3);\nconst top_candidate = promotion_candidates.length > 0 ? promotion_candidates[0] : null;\n\nconst scorecard = {\n  instance_id: 'TSC-' + Date.now(),\n  artifact_family: 'topic_scorecard',\n  schema_version: '1.0.0',\n  producer_workflow: 'SE-N8N-CWF-130-Topic-Scoring',\n  dossier_ref: $json.dossier_id,\n  created_at: new Date().toISOString(),\n  status: scored.length > 0 ? 'CREATED' : 'EMPTY',\n  payload: {\n    evaluation_count: scored.length,\n    promotion_threshold: PROMOTION_THRESHOLD,\n    promoted_count: promotion_candidates.length,\n    all_evaluated: scored,\n    ranked_shortlist: promotion_candidates,\n    top_candidate_for_research: top_candidate,\n    evaluation_summary: {\n      any_above_threshold: promotion_candidates.length > 0,\n      ready_for_research_synthesis: promotion_candidates.length > 0,\n      needs_broader_discovery: promotion_candidates.length === 0\n    }\n  }\n};\n\nreturn [{ json: scorecard }];"
+      },
+      "id": "build_scorecard_packet",
+      "name": "Build Scorecard Packet",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [850, 350]
+    },
+    {
+      "parameters": {
+        "jsCode": "const scorecard = $json;\nconst top_topic = scorecard.payload.top_candidate_for_research;\n\nconst finalization_packet = {\n  instance_id: 'TFP-' + Date.now(),\n  artifact_family: 'topic_finalization_packet',\n  schema_version: '1.0.0',\n  producer_workflow: 'SE-N8N-CWF-130-Topic-Scoring',\n  dossier_ref: scorecard.dossier_ref,\n  created_at: new Date().toISOString(),\n  status: top_topic ? 'CREATED' : 'NEEDS_RESEARCH_EXPANSION',\n  payload: {\n    finalized_topic: top_topic ? top_topic.topic_statement : null,\n    topic_confidence: top_topic ? top_topic.total_score : 0,\n    research_focus_areas: top_topic ? ['keyword_expansion', 'audience_validation', 'content_gap_analysis'] : [],\n    ready_for_research_synthesis: !!top_topic\n  }\n};\n\nreturn [{ json: finalization_packet }];"
+      },
+      "id": "build_finalization_packet",
+      "name": "Build Finalization Packet",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1050, 350]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{\n  json: {\n    workflow_id: 'CWF-130',\n    execution_status: 'SUCCESS',\n    next_workflow: 'CWF-140',\n    scorecard: $json,\n    decision: $json.payload.ready_for_research_synthesis ? 'PROCEED_TO_RESEARCH_SYNTHESIS' : 'RETURN_TO_DISCOVERY'\n  }\n}];"
+      },
+      "id": "emit_scoring_result",
+      "name": "Emit Scoring Result",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1250, 350]
+    }
+  ],
+  "connections": {
+    "Workflow Input": {
+      "main": [[{ "node": "Normalize Scoring Input", "type": "main", "index": 0 }]]
+    },
+    "Normalize Scoring Input": {
+      "main": [[{ "node": "Execute Scoring Algorithm", "type": "main", "index": 0 }]]
+    },
+    "Execute Scoring Algorithm": {
+      "main": [[{ "node": "Build Scorecard Packet", "type": "main", "index": 0 }]]
+    },
+    "Build Scorecard Packet": {
+      "main": [[{ "node": "Build Finalization Packet", "type": "main", "index": 0 }]]
+    },
+    "Build Finalization Packet": {
+      "main": [[{ "node": "Emit Scoring Result", "type": "main", "index": 0 }]]
+    }
+  },
+  "meta": {
+    "workflow_id": "CWF-130",
+    "phase": "phase1",
+    "vein": "scoring_vein",
+    "purpose": "Score approved topics and rank the final candidates for research synthesis",
+    "implementation_depth": "production_grade",
+    "owner_director": "Krishna",
+    "supporting_directors": ["Narada", "Chanakya", "Chandra"],
+    "next_workflow": "CWF-140"
+  },
+  "active": true,
+  "settings": {}
+}

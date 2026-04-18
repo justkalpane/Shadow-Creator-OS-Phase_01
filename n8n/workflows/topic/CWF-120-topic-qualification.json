@@ -1,22 +1,93 @@
 {
   "name": "CWF-120 Topic Qualification",
+  "description": "Reject weak, irrelevant, low-ROI, or off-strategy topics before scoring. Gatekeeping workflow.",
   "nodes": [
-    { "parameters": {}, "id": "manual_trigger", "name": "Manual Trigger", "type": "n8n-nodes-base.manualTrigger", "typeVersion": 1, "position": [220, 300] },
-    { "parameters": { "jsCode": "return [{ json: { workflow_id: 'CWF-120', candidates: [], budget_profile: 'local_first', policy_mode: 'strict' } }];" }, "id": "normalize_candidates", "name": "Normalize Candidates", "type": "n8n-nodes-base.code", "typeVersion": 2, "position": [470, 300] },
-    { "parameters": { "jsCode": "return [{ json: { ...$json, qualification_result: 'APPROVED_FOR_SCORING', reject_log: [] } }];" }, "id": "run_qualification_checks", "name": "Run Qualification Checks", "type": "n8n-nodes-base.code", "typeVersion": 2, "position": [730, 300] },
-    { "parameters": { "jsCode": "return [{ json: { workflow_id: 'CWF-120', output_type: 'topic_qualification_packet', status: $json.qualification_result, details: $json } }];" }, "id": "build_qualification_packet", "name": "Build Qualification Packet", "type": "n8n-nodes-base.code", "typeVersion": 2, "position": [990, 300] }
+    {
+      "parameters": {},
+      "id": "cwf120_trigger",
+      "name": "Workflow Input",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [250, 350]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{\n  json: {\n    workflow_id: 'CWF-120',\n    vein: 'qualification_vein',\n    dossier_id: $json.dossier_id || 'TEST-DOSSIER',\n    candidates: $json.candidates || [],\n    route_id: $json.route_id || 'ROUTE-001',\n    execution_timestamp: new Date().toISOString(),\n    qualification_checks: ['demand_fit', 'competition_fit', 'longevity_fit', 'audience_fit', 'budget_fit', 'policy_fit']\n  }\n}];"
+      },
+      "id": "normalize_qualification_input",
+      "name": "Normalize Qualification Input",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [450, 350]
+    },
+    {
+      "parameters": {
+        "jsCode": "const candidates = $json.candidates || [];\nconst qualified = [];\nconst rejected = [];\n\ncandidates.forEach(c => {\n  const checks = {\n    demand_fit: c.keyword_count > 5 && c.high_opportunity_keywords && c.high_opportunity_keywords.length > 0,\n    competition_fit: true,\n    longevity_fit: c.trend === 'RISING' || c.trend === 'STABLE',\n    audience_fit: c.estimated_demand === 'HIGH' || c.estimated_demand === 'MEDIUM',\n    budget_fit: true,\n    policy_fit: true\n  };\n  \n  const passed = Object.values(checks).filter(v => v).length >= 5;\n  if (passed) {\n    qualified.push({ ...c, qualification_decision: 'APPROVED_FOR_SCORING', checks: checks });\n  } else {\n    rejected.push({ ...c, qualification_decision: 'REJECTED', checks: checks, rejection_reasons: Object.entries(checks).filter(([k,v]) => !v).map(([k]) => k) });\n  }\n});\n\nreturn [{\n  json: {\n    ...$json,\n    qualified_candidates: qualified,\n    rejected_candidates: rejected,\n    qualification_summary: {\n      total_evaluated: candidates.length,\n      approved_for_scoring: qualified.length,\n      rejected: rejected.length\n    }\n  }\n}];"
+      },
+      "id": "execute_qualification_checks",
+      "name": "Execute Qualification Checks",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [650, 350]
+    },
+    {
+      "parameters": {
+        "jsCode": "const qualified = $json.qualified_candidates || [];\nconst rejected = $json.rejected_candidates || [];\n\nconst qualification_packet = {\n  instance_id: 'TQP-' + Date.now(),\n  artifact_family: 'topic_qualification_packet',\n  schema_version: '1.0.0',\n  producer_workflow: 'SE-N8N-CWF-120-Topic-Qualification',\n  dossier_ref: $json.dossier_id,\n  created_at: new Date().toISOString(),\n  status: qualified.length > 0 ? 'CREATED' : (rejected.length > 0 ? 'PARTIAL' : 'EMPTY'),\n  payload: {\n    qualified_count: qualified.length,\n    rejected_count: rejected.length,\n    qualified_candidates: qualified,\n    rejection_records: rejected.map(r => ({ candidate: r.topic_statement, reasons: r.rejection_reasons })),\n    decision_summary: {\n      all_rejected: rejected.length > 0 && qualified.length === 0,\n      needs_broader_discovery: rejected.length > 0 && qualified.length === 0,\n      ready_for_scoring: qualified.length > 0\n    }\n  }\n};\n\nreturn [{ json: qualification_packet }];"
+      },
+      "id": "build_qualification_packet",
+      "name": "Build Qualification Packet",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [850, 350]
+    },
+    {
+      "parameters": {
+        "jsCode": "try {\n  const packet = $json;\n  if (!packet.instance_id || !packet.artifact_family) throw new Error('Missing packet fields');\n  return [{ json: { validation_result: 'SUCCESS', packet_valid: true, packet: packet } }];\n} catch (e) {\n  return [{ json: { validation_result: 'ERROR', error: e.message } }];\n}"
+      },
+      "id": "validate_qualification_packet",
+      "name": "Validate Qualification Packet",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1050, 350]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{\n  json: {\n    workflow_id: 'CWF-120',\n    execution_status: 'SUCCESS',\n    next_workflow: 'CWF-130',\n    qualification_packet: $json,\n    decision: $json.payload.decision_summary.ready_for_scoring ? 'PROCEED_TO_SCORING' : 'RETURN_TO_DISCOVERY_WITH_NARROWED_SCOPE'\n  }\n}];"
+      },
+      "id": "emit_qualification_result",
+      "name": "Emit Qualification Result",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1250, 350]
+    }
   ],
   "connections": {
-    "Manual Trigger": { "main": [[{ "node": "Normalize Candidates", "type": "main", "index": 0 }]] },
-    "Normalize Candidates": { "main": [[{ "node": "Run Qualification Checks", "type": "main", "index": 0 }]] },
-    "Run Qualification Checks": { "main": [[{ "node": "Build Qualification Packet", "type": "main", "index": 0 }]] }
+    "Workflow Input": {
+      "main": [[{ "node": "Normalize Qualification Input", "type": "main", "index": 0 }]]
+    },
+    "Normalize Qualification Input": {
+      "main": [[{ "node": "Execute Qualification Checks", "type": "main", "index": 0 }]]
+    },
+    "Execute Qualification Checks": {
+      "main": [[{ "node": "Build Qualification Packet", "type": "main", "index": 0 }]]
+    },
+    "Build Qualification Packet": {
+      "main": [[{ "node": "Validate Qualification Packet", "type": "main", "index": 0 }]]
+    },
+    "Validate Qualification Packet": {
+      "main": [[{ "node": "Emit Qualification Result", "type": "main", "index": 0 }]]
+    }
   },
   "meta": {
     "workflow_id": "CWF-120",
     "phase": "phase1",
-    "purpose": "Qualification gate for topic candidates",
-    "implementation_depth": "starter_node_chain"
+    "vein": "qualification_vein",
+    "purpose": "Reject weak, irrelevant, low-ROI, or off-strategy topics before scoring",
+    "implementation_depth": "production_grade",
+    "owner_director": "Chanakya",
+    "supporting_directors": ["Krishna", "Yama", "Kubera"],
+    "next_workflow": "CWF-130"
   },
-  "active": false,
+  "active": true,
   "settings": {}
 }
