@@ -1,39 +1,60 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://shadow-empire.dev/schemas/registry/empire_registry.schema.json",
-  "title": "Shadow Empire Registry Schema",
+  "$id": "https://shadow-empire.local/schemas/registry/empire_registry.schema.json",
+  "title": "EmpireRegistry",
+  "description": "Schema for the canonical Shadow Empire instance registry. Defines the machine identity, hardware profile, runtime modes, director estate, skill estate, provider registry, route registry, policy registry, knowledge plane, and feature flags for this deployment.",
   "type": "object",
-  "required": ["registry_meta", "identity", "integrity", "hardware_profile"],
+  "required": [
+    "empire_id",
+    "empire_name",
+    "phase",
+    "runtime_mode",
+    "hardware_class",
+    "active_directors",
+    "active_skill_packs",
+    "active_routes",
+    "active_runtime_modes",
+    "governance_kernel",
+    "feature_flags",
+    "repo_source_of_truth",
+    "unresolved_decision_packet_register",
+    "build_blocker_matrix_ref",
+    "release_blocker_matrix_ref"
+  ],
   "properties": {
-    "registry_meta": {
-      "type": "object",
-      "required": ["registry_version", "schema_version"],
-      "properties": {
-        "registry_version": { "type": "string" },
-        "schema_version": { "type": "string" }
-      }
+    "empire_id": {
+      "type": "string",
+      "description": "Unique identifier for this empire deployment instance"
     },
-    "identity": {
-      "type": "object",
-      "required": ["empire_id", "empire_name"],
-      "properties": {
-        "empire_id": { "type": "string" },
-        "empire_name": { "type": "string" }
-      }
+    "empire_name": {
+      "type": "string",
+      "description": "Human-readable name for this empire deployment"
     },
-    "integrity": {
-      "type": "object",
-      "properties": {
-        "registry_manifest_hash": { "type": "string" },
-        "detached_signature": { "type": "string" }
-      }
+    "phase": {
+      "type": "string",
+      "enum": ["phase1", "phase2", "phase3", "full"],
+      "description": "Current build phase of the empire"
     },
-    "hardware_profile": {
-      "type": "object",
-      "required": ["host_id"],
-      "properties": {
-        "host_id": { "type": "string" }
-      }
+    "runtime_mode": {
+      "type": "string",
+      "enum": ["local", "hybrid", "cloud", "untrusted_local"],
+      "description": "Current default runtime execution mode"
+    },
+    "hardware_class": {
+      "type": "string",
+      "enum": ["WIN_STD_8G", "WIN_MID_16G", "WIN_PRO_32G", "MAC_INTEL_16G", "MAC_AS_M4", "UNTRUSTED_LOCAL"],
+      "description": "Hardware class of the current operator machine"
+    },
+    "active_directors": {
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 1,
+      "description": "List of currently active director identities"
+    },
+    "active_skill_packs": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Skill packs currently active"
     }
   }
 }
