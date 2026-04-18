@@ -1,0 +1,107 @@
+version: 1
+owner: shadow_commander
+status: ACTIVE_PHASE1
+constitutional_authority_ref: docs/01-architecture/founder_creator_mode_law.md
+
+guard_matrix:
+  hard_guards_always_active:
+    - kubera_budget_gate
+    - yama_policy_gate
+    - vayu_resource_gate
+  creator_fast_track_bypass_allowed_for:
+    - council_review
+    - extended_debate
+    - open_search_route_selection
+  creator_fast_track_bypass_forbidden_for:
+    - kubera_budget_gate
+    - yama_policy_gate
+    - vayu_resource_gate
+
+mode_route_legalities:
+  founder:
+    ROUTE_PHASE1_STANDARD:
+      access: allowed
+      default: true
+      notes: Founder may run standard route with full telemetry and governance trace.
+    ROUTE_PHASE1_FAST:
+      access: allowed
+      default: false
+      notes: Founder may manually choose fast route, but standard remains default.
+    ROUTE_PHASE1_REPLAY:
+      access: allowed
+      default: false
+      notes: Founder may trigger replay directly or through WF-900.
+
+  creator:
+    ROUTE_PHASE1_STANDARD:
+      access: allowed
+      default: true
+      notes: Safe default for creator dossiers.
+    ROUTE_PHASE1_FAST:
+      access: allowed
+      default: false
+      notes: >
+        Allowed only when creator_mode_id resolves to a verified fast-track mode.
+        Fast-track still passes Kubera, Yama, and Vayu.
+    ROUTE_PHASE1_REPLAY:
+      access: denied_direct
+      default: false
+      notes: >
+        Creator cannot directly invoke replay. Replay must be mediated by WF-900
+        after a recoverable error state.
+
+  builder:
+    ROUTE_PHASE1_STANDARD:
+      access: denied
+      default: false
+      notes: Builder mode is repo-only and does not run live workflows.
+    ROUTE_PHASE1_FAST:
+      access: denied
+      default: false
+      notes: Builder has no route access.
+    ROUTE_PHASE1_REPLAY:
+      access: denied
+      default: false
+      notes: Builder has no runtime replay access.
+
+  operator:
+    ROUTE_PHASE1_STANDARD:
+      access: denied
+      default: false
+      notes: Operator is for support and replay only.
+    ROUTE_PHASE1_FAST:
+      access: denied
+      default: false
+      notes: Operator has no content-production route access.
+    ROUTE_PHASE1_REPLAY:
+      access: allowed
+      default: true
+      notes: Operator may execute replay only through WF-900 mediation.
+
+creator_fast_track_rule:
+  description: >
+    When creator_mode_id is present, verified, and mapped to a fixed route, Ganesha
+    bypasses open-ended search and loads the predeclared route. Only Kubera, Yama,
+    and Vayu remain mandatory pre-execution guards.
+  requirements:
+    - creator_mode_id exists
+    - creator_mode_status == verified
+    - fixed_route_id exists in creator mode profile
+    - fixed_route_id is legal for creator in this registry
+  forbidden_shortcuts:
+    - skip_kubera
+    - skip_yama
+    - skip_vayu
+    - invoke_replay_direct
+
+p0_reconciliation_note:
+  issue: >
+    Live n8n Data Table route IDs are currently ROUTE-001 / ROUTE-002 style,
+    while repo canonical route IDs in this registry are ROUTE_PHASE1_STANDARD /
+    ROUTE_PHASE1_FAST / ROUTE_PHASE1_REPLAY.
+  decision_packet: DP-006
+  blocker_ref: BB-019
+  resolution_owner: founder
+  recommended_resolution: >
+    Adopt the repo canonical route IDs (ROUTE_PHASE1_*) across the live Data Table
+    rows and update all lookup logic to use the canonical names.
