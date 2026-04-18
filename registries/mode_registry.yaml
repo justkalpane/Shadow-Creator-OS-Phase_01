@@ -1,0 +1,133 @@
+version: 1
+owner: shadow_commander
+status: ACTIVE_PHASE1
+constitutional_authority_ref: docs/01-architecture/founder_creator_mode_law.md
+
+mode_definitions:
+  founder:
+    class: operating_mode
+    human_facing_label: Founder Mode
+    description: >
+      Governance, override, cost approval, release authority, and full-route
+      visibility mode.
+    legal_routes:
+      - ROUTE_PHASE1_STANDARD
+      - ROUTE_PHASE1_FAST
+      - ROUTE_PHASE1_REPLAY
+    can_approve_premium: true
+    can_access_rca: true
+    can_edit_registry: true
+    can_access_mission_control: true
+    provider_access_posture: founder_approved_only
+    hard_non_overridables:
+      - yama_policy_illegality
+      - consent_requirement
+      - signature_integrity_validation
+      - audit_continuity
+
+  creator:
+    class: operating_mode
+    human_facing_label: Creator Mode
+    description: >
+      Safe daily production mode for content operations. Creator may produce
+      content and review own dossiers, but cannot mutate constitutional truth.
+    legal_routes:
+      - ROUTE_PHASE1_STANDARD
+      - ROUTE_PHASE1_FAST
+    can_approve_premium: false
+    can_access_rca: false
+    can_edit_registry: false
+    can_access_mission_control: false
+    provider_access_posture: no_premium
+    hard_non_overridables:
+      - kubera_budget_gate
+      - yama_policy_gate
+      - replay_outside_own_dossier
+
+  builder:
+    class: operating_mode
+    human_facing_label: Builder Mode
+    description: >
+      Repo-and-contract construction mode. Builder can read/write repo files,
+      create schemas and registries, and run validators. Builder cannot trigger
+      live workflows or access live runtime state.
+    legal_routes: []
+    can_approve_premium: false
+    can_access_rca: false
+    can_edit_registry: true
+    can_access_mission_control: false
+    provider_access_posture: none
+    hard_non_overridables:
+      - no_live_workflow_execution
+      - no_live_dossier_access
+
+  operator:
+    class: operating_mode
+    human_facing_label: Operator Mode
+    description: >
+      Support and bounded recovery mode. Operator can inspect runtime state and
+      trigger replay via WF-900, but cannot change registry truth.
+    legal_routes:
+      - ROUTE_PHASE1_REPLAY
+    can_approve_premium: false
+    can_access_rca: true
+    can_edit_registry: false
+    can_access_mission_control: false
+    provider_access_posture: no_premium
+    hard_non_overridables:
+      - no_registry_mutation
+      - no_release_approval
+      - no_policy_override
+
+runtime_modes:
+  local:
+    class: runtime_mode
+    default_phase1: true
+    description: >
+      Local-first execution posture. Single n8n instance, local Ollama, no
+      premium providers active by default.
+    allowed_worker_classes:
+      - local_js_task_runner
+      - n8n_manual_operator
+    provider_classes_allowed:
+      - local_llm
+    heavy_media_posture: cloud_deferred
+
+  hybrid:
+    class: runtime_mode
+    default_phase1: false
+    description: >
+      Local control plane with selective offload to cloud providers or heavy
+      workers. Intended for later phases after auth closure.
+    allowed_worker_classes:
+      - local_js_task_runner
+      - provider_bridge_worker
+      - cloud_render_worker
+    provider_classes_allowed:
+      - local_llm
+      - cloud_provider
+    heavy_media_posture: selective_offload
+
+  cloud:
+    class: runtime_mode
+    default_phase1: false
+    description: >
+      Cloud-heavy execution posture for render, publish, and scale. Deferred
+      until release blockers are closed.
+    allowed_worker_classes:
+      - provider_bridge_worker
+      - cloud_render_worker
+    provider_classes_allowed:
+      - cloud_provider
+    heavy_media_posture: cloud_primary
+
+  untrusted_local:
+    class: runtime_mode
+    default_phase1: false
+    description: >
+      Constrained local mode for untrusted devices. Read-heavy only. No secret,
+      no provider, no mutation execution.
+    allowed_worker_classes:
+      - n8n_manual_operator
+    provider_classes_allowed: []
+    heavy_media_posture: forbidden
