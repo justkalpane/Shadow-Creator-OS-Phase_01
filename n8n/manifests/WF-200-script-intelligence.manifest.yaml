@@ -40,8 +40,8 @@ writes:
   - namespaces.approval
 write_targets:
   data_tables:
-    - runtime_index
-    - approvals
+    - se_route_runs
+    - se_approval_queue
   dossier_namespaces:
     - script
     - runtime
