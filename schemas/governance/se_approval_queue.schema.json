@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://shadow-empire.local/schemas/governance/se_approval_queue.schema.json",
+  "title": "SEApprovalQueueRow",
+  "description": "Canonical row schema for the live se_approval_queue Data Table used by founder approval, remodify, and replay governance flows.",
+  "type": "object",
+  "required": [
+    "approval_id",
+    "dossier_id",
+    "pending_action",
+    "approval_scope",
+    "submitted_by",
+    "submitted_at",
+    "status"
+  ],
+  "properties": {
+    "approval_id": { "type": "string" },
+    "dossier_id": { "type": "string" },
+    "pending_action": {
+      "type": "string",
+      "enum": ["approve", "reject", "remodify", "replay_review"]
+    },
+    "approval_scope": {
+      "type": "string",
+      "enum": ["topic_selection", "script_selection", "replay_authorization", "remodify_resolution"]
+    },
+    "submitted_by": { "type": "string" },
+    "submitted_at": { "type": "string", "format": "date-time" },
+    "status": {
+      "type": "string",
+      "enum": ["pending", "approved", "rejected", "remodify_required", "replay_ready", "resolved"]
+    },
+    "actor_id": { "type": "string" },
+    "actor_note": { "type": "string" },
+    "updated_at": { "type": "string", "format": "date-time" },
+    "route_id": { "type": "string" },
+    "workflow_id": { "type": "string" },
+    "created_from_error_id": { "type": "string" }
+  },
+  "additionalProperties": false
+}
