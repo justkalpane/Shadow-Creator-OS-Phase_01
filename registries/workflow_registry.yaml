@@ -1,8 +1,33 @@
-version: 1
+version: 2
 phase: phase1
 mode: n8n-first
+wave_00_update_note: >
+  Version 2 adds constitutional authority references and decision packet flags.
+  Workflow entries remain unchanged. WF-100/WF-200 promotion is a P0 task.
+
+# Constitutional authority chain
+constitutional_authority_ref: docs/01-architecture/canonical_authority_precedence.md
+prompt_registry_interlock_ref: docs/01-architecture/prompt_registry_interlock_law.md
+empire_registry_ref: registries/empire_registry.instance.json
+decision_packet_register_ref: registries/decision_packet_register.yaml
+build_blocker_matrix_ref: registries/build_blocker_matrix.yaml
+
+# Canonical workflow family registers
 repo_present_workflow_family_register: registries/repo_present_workflow_family.yaml
 not_yet_repo_present_workflow_pack_register: registries/not_yet_repo_present_workflow_packs.yaml
+
+# DECISION PACKET FLAG: DP-004
+# WF-100 and WF-200 have artifact families in the repo (manifests, child
+# manifests, workflow JSONs, skill files, director bindings, skill registries,
+# rules) but are still listed as not_repo_present in canonical registers.
+# This registry currently lists only the 4 core workflows.
+# P0 must add WF-100 and WF-200 entries after promotion reconciliation.
+canonical_note: >
+  This registry currently reflects the Wave 00 constitutional establishment
+  state. WF-100 and WF-200 have artifact families in the repo but are not yet
+  listed here pending P0 promotion reconciliation. See DP-004 in
+  registries/decision_packet_register.yaml.
+
 lifecycle_status_model:
   artifact_status_values:
     - repo_stub
@@ -16,6 +41,7 @@ lifecycle_status_model:
     - not_run
     - repo_checks_present
     - validated
+
 workflows:
   - workflow_id: WF-000
     name: health_check
@@ -49,3 +75,7 @@ workflows:
     validation_status: repo_checks_present
     source_file: n8n/workflows/parent/WF-010-parent-orchestrator.json
     manifest_file: n8n/manifests/WF-010-parent-orchestrator.manifest.yaml
+    decision_packet_note: >
+      WF-010 currently emits next_workflow_pack null for all downstream
+      routes. WF-100 and WF-200 artifact families exist but canonical
+      registers have not yet been promoted. See DP-004. Promotion is P0 work.
