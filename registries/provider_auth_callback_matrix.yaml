@@ -1,0 +1,60 @@
+version: 1
+owner: shadow_commander
+status: ACTIVE_PHASE1
+constitutional_authority_ref: docs/01-architecture/provider_auth_callback_closure_law.md
+purpose: >
+  Canonical provider authentication, callback, polling, secret scope, and
+  degraded-mode matrix. Complements the provider_registry.yaml by defining
+  provider operational closure requirements.
+
+providers:
+  - provider_id: ollama_local
+    auth_style: none
+    callback_style: synchronous_local_http
+    secret_scope: none_required
+    polling_required: false
+    redirect_uri_required: false
+    refresh_token_required: false
+    degraded_mode_on_failure: halt_workflow_to_wf900
+    notes: >
+      Local provider. No auth or callback complexity. If unavailable, workflow
+      must halt and escalate through WF-900 (SE-P1-002 local_model_unavailable).
+
+  - provider_id: elevenlabs_api
+    auth_style: api_key
+    callback_style: synchronous_response
+    secret_scope: local_env_only
+    polling_required: false
+    redirect_uri_required: false
+    refresh_token_required: false
+    degraded_mode_on_failure: block_voice_stage
+    notes: >
+      Voice provider. If unavailable, voice generation cannot proceed. No
+      fallback provider is allowed in Phase-1 without explicit founder approval
+      and provider registry update.
+
+  - provider_id: heygen_api
+    auth_style: api_key
+    callback_style: polling_with_optional_webhook
+    secret_scope: local_env_only
+    polling_required: true
+    polling_interval_seconds: 60
+    max_polling_cycles: 40
+    redirect_uri_required: false
+    refresh_token_required: false
+    degraded_mode_on_failure: block_avatar_stage
+    notes: >
+      Avatar provider. Long-running render jobs require explicit polling ceiling.
+      If max polling cycles are exceeded, task escalates as render_timeout to WF-900.
+
+  - provider_id: youtube_data_api
+    auth_style: oauth2_authorization_code
+    callback_style: redirect_uri
+    secret_scope: local_env_only
+    polling_required: false
+    redirect_uri_required: true
+    refresh_token_required: true
+    degraded_mode_on_failure: block_publish_stage
+    notes: >
+      Publishing provider. OAuth redirect URI must be finalized (RB-002) and
+      refresh token handling must be documented before activation.
