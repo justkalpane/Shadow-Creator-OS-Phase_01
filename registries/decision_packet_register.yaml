@@ -30,7 +30,7 @@ decision_packets:
   - packet_id: DP-002
     title: Data Table name reconciliation
     class: build_governance
-    current_state: open
+    current_state: resolved_p0
     blocking_level: build
     owner: founder
     source_of_conflict: >
@@ -48,93 +48,18 @@ decision_packets:
       All repo references, bootstrap CSVs, and workflow lookups use the same
       se_ prefixed table names.
 
-  - packet_id: DP-003
-    title: runtime_repo_access value mismatch
-    class: build_governance
-    current_state: open
-    blocking_level: build
-    owner: builder
-    source_of_conflict: >
-      configs/local_repo_integration.yaml uses runtime_repo_access:
-      github_primary_local_mirror while tests/validate_repo_runtime_bindings.py
-      expects local_clone_preferred.
-    current_truth: >
-      Current config and validator disagree. Validator will fail until alignment.
-    recommended_resolution: >
-      Change config value to local_clone_preferred and update explanatory docs
-      only if founder accepts that wording as canonical.
-    close_condition: >
-      Config value and validator expectation match exactly.
-
-  - packet_id: DP-004
-    title: WF-100 and WF-200 canonical promotion reconciliation
-    class: build_governance
-    current_state: open
-    blocking_level: build
-    owner: P0
-    source_of_conflict: >
-      WF-100 and WF-200 artifact families exist in the repo (manifests, child
-      manifests, workflow JSONs, skill files, director bindings, skill registries,
-      rules) but canonical workflow family registers still list them as not_repo_present.
-    current_truth: >
-      Workflow families are present as repo artifacts but canonical registers have
-      not been promoted. Validators and WF-010 routing therefore remain inconsistent.
-    recommended_resolution: >
-      Promote WF-100 and WF-200 to repo_present in canonical registers, add them
-      to workflow_registry.yaml, and rewrite validator truth accordingly.
-    close_condition: >
-      Canonical family registers, workflow_registry.yaml, WF-010 routing, and
-      validators all agree that WF-100 and WF-200 are repo_present.
-
   - packet_id: DP-005
     title: topic_candidate_board schema missing
     class: build_governance
-    current_state: open
+    current_state: resolved_p0
     blocking_level: build
     owner: P0
     source_of_conflict: >
       CWF-110 and related topic intelligence flows imply a topic_candidate_board
       packet/data structure, but no canonical schema exists in schemas/packets.
     current_truth: >
-      Topic candidate board is a real implied packet family with no schema.
+      topic_candidate_board schema has been created and bound to workflow packet family mapping.
     recommended_resolution: >
-      Create schemas/packets/topic_candidate_board.schema.json and bind it in the
-      packet family mapping.
+      Ensure all topic discovery and qualification workflows validate against this schema.
     close_condition: >
-      topic_candidate_board schema exists and is referenced by relevant workflows.
-
-  - packet_id: DP-006
-    title: Live route IDs versus repo canonical route IDs
-    class: build_governance
-    current_state: open
-    blocking_level: build
-    owner: founder
-    source_of_conflict: >
-      Live n8n route rows use ROUTE-001 / ROUTE-002 style IDs while repo canonical
-      route names in mode_route_registry.yaml use ROUTE_PHASE1_STANDARD /
-      ROUTE_PHASE1_FAST / ROUTE_PHASE1_REPLAY.
-    current_truth: >
-      Route naming is inconsistent between live runtime and repo law.
-    recommended_resolution: >
-      Adopt the repo canonical route IDs across the live Data Table and update
-      all lookup logic accordingly.
-    close_condition: >
-      Runtime and repo use the same route IDs everywhere.
-
-  - packet_id: DP-007
-    title: se_approval_queue schema mismatch
-    class: build_governance
-    current_state: open
-    blocking_level: build
-    owner: P0
-    source_of_conflict: >
-      Current live approval queue row shape differs from the older repo-side
-      expected fields documented in some notes. A canonical schema is not yet
-      explicitly bound in repo contracts.
-    current_truth: >
-      Approval queue exists live, but schema truth is not yet canonically bound.
-    recommended_resolution: >
-      Define and bind the live se_approval_queue row schema in repo docs/configs
-      and update any stale notes.
-    close_condition: >
-      Approval queue schema is declared canonically and all references match it.
+      Schema exists and is referenced by all relevant workflows.
