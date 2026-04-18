@@ -1,0 +1,139 @@
+version: 1
+owner: shadow_commander
+status: ACTIVE_PHASE1
+constitutional_authority_ref: docs/01-architecture/windows_macos_portability_law.md
+purpose: >
+  Canonical hardware portability and execution feasibility matrix. Defines
+  supported hardware classes, safe runtime modes, offload requirements, and
+  heavy-module posture.
+
+hardware_classes:
+  - hardware_id: WIN_STD_8G
+    os_family: windows
+    label: Windows laptop / 8GB RAM
+    safe_runtime_modes:
+      - local_degraded
+      - hybrid
+      - cloud
+    offload_required_for:
+      - avatar_render
+      - heavy_ffmpeg
+      - large_vector_jobs
+      - batch_analytics
+    directors_safe: true
+    skills_safe: partial
+    heavy_modules_safe: false
+    verdict: >
+      Supported only with aggressive unload, strict cache discipline, and
+      offload-first posture for heavy work.
+
+  - hardware_id: WIN_MID_16G
+    os_family: windows
+    label: Windows laptop / 16GB RAM
+    safe_runtime_modes:
+      - local
+      - hybrid
+      - cloud
+    offload_required_for:
+      - premium_avatar
+      - long_render
+      - batch_publish
+    directors_safe: true
+    skills_safe: true
+    heavy_modules_safe: partial
+    verdict: >
+      Mainstream creator target. Suitable for all Phase-1 text and orchestration
+      workflows on the current laptop.
+
+  - hardware_id: WIN_PRO_32G
+    os_family: windows
+    label: Windows workstation / 32GB+
+    safe_runtime_modes:
+      - local
+      - hybrid
+      - cloud
+    offload_required_for:
+      - enterprise_scale_media
+    directors_safe: true
+    skills_safe: true
+    heavy_modules_safe: true
+    verdict: >
+      High-end creator/founder station. Suitable for future heavier local work.
+
+  - hardware_id: MAC_INTEL_16G
+    os_family: macos_intel
+    label: macOS Intel / 16GB+
+    safe_runtime_modes:
+      - local
+      - hybrid
+      - cloud
+    offload_required_for:
+      - gpu_heavy_media
+    directors_safe: true
+    skills_safe: true
+    heavy_modules_safe: partial
+    verdict: >
+      Supported with adapter caveats. GPU-heavy paths may prefer hybrid/cloud.
+
+  - hardware_id: MAC_AS_M4
+    os_family: macos_apple_silicon
+    label: Apple Silicon / M4 class
+    safe_runtime_modes:
+      - local
+      - hybrid
+      - cloud
+    offload_required_for:
+      - provider_bound_avatar
+      - enterprise_scale_render
+    directors_safe: true
+    skills_safe: true
+    heavy_modules_safe: true
+    verdict: >
+      Preferred future machine class for high-end local reasoning + media support.
+
+  - hardware_id: UNTRUSTED_LOCAL
+    os_family: any
+    label: Untrusted local browser / borrowed machine
+    safe_runtime_modes:
+      - untrusted_local
+    offload_required_for:
+      - all_sensitive_execution
+    directors_safe: view_only
+    skills_safe: false
+    heavy_modules_safe: false
+    verdict: >
+      View/control only. No secret-bearing, heavy, or mutation-capable work.
+
+module_posture:
+  health_check:
+    local: true
+    hybrid: true
+    cloud: true
+  dossier_management:
+    local: true
+    hybrid: true
+    cloud: true
+  route_orchestration:
+    local: true
+    hybrid: true
+    cloud: true
+  topic_intelligence:
+    local: true
+    hybrid: true
+    cloud: true
+  script_intelligence:
+    local: true
+    hybrid: true
+    cloud: true
+  voice_generation:
+    local: false
+    hybrid: true
+    cloud: true
+  avatar_render:
+    local: false
+    hybrid: true
+    cloud: true
+  publishing:
+    local: false
+    hybrid: true
+    cloud: true
