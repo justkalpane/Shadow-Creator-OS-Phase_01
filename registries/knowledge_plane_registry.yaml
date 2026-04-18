@@ -1,0 +1,80 @@
+version: 1
+owner: shadow_commander
+status: ACTIVE_PHASE1
+constitutional_authority_ref: docs/01-architecture/akasha_knowledge_plane_law.md
+purpose: >
+  Canonical machine-readable knowledge plane registry. Defines namespaces,
+  owner packs, retrieval caps, cross-domain consumers, and activation policy.
+
+namespaces:
+  - namespace_id: topic_intelligence
+    owner_pack: WF-100
+    retrieval_cap_tokens: 8000
+    allowed_consumers:
+      - WF-100
+      - WF-200
+    immutable_during_stage: true
+    atomic_swap_required: true
+    smoke_test_required: true
+    status: active_phase1
+
+  - namespace_id: script_intelligence
+    owner_pack: WF-200
+    retrieval_cap_tokens: 12000
+    allowed_consumers:
+      - WF-200
+    immutable_during_stage: true
+    atomic_swap_required: true
+    smoke_test_required: true
+    status: active_phase1
+
+  - namespace_id: governance_rules
+    owner_pack: system
+    retrieval_cap_tokens: 4000
+    allowed_consumers:
+      - WF-000
+      - WF-001
+      - WF-010
+      - WF-100
+      - WF-200
+      - WF-900
+    immutable_during_stage: true
+    atomic_swap_required: true
+    smoke_test_required: true
+    status: active_phase1
+
+  - namespace_id: system_config
+    owner_pack: system
+    retrieval_cap_tokens: 2000
+    allowed_consumers:
+      - WF-000
+      - WF-001
+      - WF-010
+      - WF-100
+      - WF-200
+      - WF-900
+    immutable_during_stage: true
+    atomic_swap_required: true
+    smoke_test_required: true
+    status: active_phase1
+
+  - namespace_id: context_engineering
+    owner_pack: WF-300
+    retrieval_cap_tokens: 16000
+    allowed_consumers:
+      - WF-300
+    immutable_during_stage: true
+    atomic_swap_required: true
+    smoke_test_required: true
+    status: deferred
+
+  - namespace_id: approval_governance
+    owner_pack: WF-400
+    retrieval_cap_tokens: 4000
+    allowed_consumers:
+      - WF-400
+      - WF-900
+    immutable_during_stage: true
+    atomic_swap_required: true
+    smoke_test_required: true
+    status: deferred
