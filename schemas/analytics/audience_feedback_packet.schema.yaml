@@ -1,0 +1,372 @@
+schema_name: "audience_feedback_packet"
+schema_type: "artifact_packet"
+version: "1.0.0"
+phase: "phase1"
+vein: "analytics_vein"
+description: "Audience feedback packet produced by CWF-620 (Audience Feedback Aggregator). Contains aggregated feedback, comments, sentiment distribution, and top themes from all target platforms."
+
+producer_workflow: "CWF-620"
+producer_skill: "N/A (n8n code node)"
+consumer_workflows: ["CWF-630"]
+consumer_skills: ["E-602"]
+
+packet_family: "audience_feedback_packet"
+schema_version: "1.0.0"
+artifact_family: "audience_feedback_packet"
+
+---
+
+root_structure:
+  instance_id:
+    type: "string"
+    pattern: "AFB-{timestamp}"
+    description: "Unique packet instance identifier"
+    required: true
+    example: "AFB-1745171200000"
+
+  artifact_family:
+    type: "enum"
+    enum: ["audience_feedback_packet"]
+    description: "Artifact classification"
+    required: true
+
+  schema_version:
+    type: "string"
+    pattern: "1.0.0"
+    description: "Schema version this packet conforms to"
+    required: true
+
+  producer_workflow:
+    type: "string"
+    pattern: "SE-N8N-CWF-620-Audience-Feedback-Aggregator"
+    description: "Originating workflow"
+    required: true
+
+  dossier_ref:
+    type: "string"
+    description: "Reference to parent dossier"
+    required: true
+    example: "TEST-DOSSIER"
+
+  created_at:
+    type: "string"
+    format: "ISO8601"
+    description: "Packet creation timestamp"
+    required: true
+
+  status:
+    type: "enum"
+    enum: ["CREATED", "VALIDATED", "EMITTED"]
+    description: "Packet lifecycle status"
+    required: true
+    default: "CREATED"
+
+---
+
+payload_structure:
+  narrative:
+    description: "Narrative context for this feedback snapshot"
+    type: "object"
+    required: true
+    fields:
+      feedback_period:
+        type: "string"
+        description: "Time period for feedback collection"
+        example: "24h"
+        required: true
+
+      platforms_sampled:
+        type: "integer"
+        description: "Number of platforms with feedback"
+        minimum: 1
+        maximum: 4
+        required: true
+
+      aggregation_timestamp:
+        type: "string"
+        format: "ISO8601"
+        description: "When feedback was aggregated"
+        required: true
+
+  context:
+    description: "Contextual information and lineage"
+    type: "object"
+    required: true
+    fields:
+      sourced_from_packet_id:
+        type: "string"
+        pattern: "PAP-*"
+        description: "ID of source performance_analytics_packet (trigger)"
+        required: false
+
+      feedback_collection_method:
+        type: "string"
+        description: "How feedback was collected (e.g., native_api, keyword_search)"
+        required: false
+
+  evidence:
+    description: "Audience feedback evidence"
+    type: "object"
+    required: true
+    fields:
+      platform_feedback:
+        type: "object"
+        description: "Feedback aggregated per platform"
+        required: true
+        properties:
+          platform_name:
+            type: "object"
+            description: "Feedback for individual platform (e.g., youtube, instagram)"
+            required: true
+            fields:
+              platform:
+                type: "string"
+                enum: ["youtube", "instagram", "tiktok", "twitter"]
+                description: "Platform identifier"
+                required: true
+
+              total_comments:
+                type: "integer"
+                description: "Total comments/feedback items collected"
+                minimum: 0
+                required: true
+
+              sentiment_distribution:
+                type: "object"
+                description: "Sentiment category counts"
+                required: true
+                fields:
+                  positive:
+                    type: "integer"
+                    description: "Count of positive sentiment comments"
+                    minimum: 0
+                    required: true
+
+                  neutral:
+                    type: "integer"
+                    description: "Count of neutral sentiment comments"
+                    minimum: 0
+                    required: true
+
+                  negative:
+                    type: "integer"
+                    description: "Count of negative sentiment comments"
+                    minimum: 0
+                    required: true
+
+              top_themes:
+                type: "array"
+                description: "Top recurring themes/topics in feedback"
+                min_items: 1
+                max_items: 10
+                items:
+                  type: "string"
+                  description: "Theme name (e.g., 'hook-strength', 'pacing', 'clarity')"
+                  examples: ["hook-strength", "pacing", "clarity", "relevance", "inspiration"]
+                required: true
+
+              aggregation_timestamp:
+                type: "string"
+                format: "ISO8601"
+                description: "When this platform's feedback was aggregated"
+                required: true
+
+  quality:
+    description: "Data quality indicators"
+    type: "object"
+    required: true
+    fields:
+      feedback_completeness:
+        type: "number"
+        description: "Completeness of feedback collection (0.0-1.0)"
+        minimum: 0.0
+        maximum: 1.0
+        required: true
+
+      sentiment_accuracy:
+        type: "number"
+        description: "Accuracy of sentiment classification (0.0-1.0)"
+        minimum: 0.0
+        maximum: 1.0
+        required: true
+
+  status:
+    description: "Packet status and routing"
+    type: "object"
+    required: true
+    fields:
+      aggregation_complete:
+        type: "boolean"
+        description: "Whether feedback aggregation completed"
+        required: true
+
+      next_stage:
+        type: "string"
+        enum: ["CWF-630"]
+        description: "Next workflow stage"
+        required: true
+
+      decision:
+        type: "string"
+        enum: ["PROCEED_TO_SIGNAL_SYNTHESIS"]
+        description: "Routing decision"
+        required: true
+
+---
+
+validation_rules:
+  - rule_id: "schema_completeness"
+    rule: "All required fields must be present"
+    severity: "critical"
+    enforcement: "pre_emission"
+
+  - rule_id: "feedback_quality_threshold"
+    rule: "feedback_completeness >= 0.75 and sentiment_accuracy >= 0.75"
+    severity: "critical"
+    enforcement: "pre_emission"
+    escalation: "WF-900 if violated"
+
+  - rule_id: "sentiment_distribution_sum"
+    rule: "Sum of positive + neutral + negative must equal total_comments (or very close)"
+    severity: "high"
+    enforcement: "pre_emission"
+
+  - rule_id: "top_themes_required"
+    rule: "At least 1 top_themes entry required per platform"
+    severity: "high"
+    enforcement: "pre_emission"
+
+  - rule_id: "timestamp_validity"
+    rule: "All ISO8601 timestamps must be valid and not in future"
+    severity: "high"
+    enforcement: "pre_emission"
+
+  - rule_id: "positive_counts"
+    rule: "All counts (total_comments, sentiment values) must be non-negative"
+    severity: "critical"
+    enforcement: "pre_emission"
+
+---
+
+example_packet:
+  instance_id: "AFB-1745171200000"
+  artifact_family: "audience_feedback_packet"
+  schema_version: "1.0.0"
+  producer_workflow: "SE-N8N-CWF-620-Audience-Feedback-Aggregator"
+  dossier_ref: "TEST-DOSSIER"
+  created_at: "2026-04-20T14:35:00Z"
+  status: "CREATED"
+
+  payload:
+    narrative:
+      feedback_period: "24h"
+      platforms_sampled: 2
+      aggregation_timestamp: "2026-04-20T14:35:00Z"
+
+    context:
+      sourced_from_packet_id: "PAP-1745171200000"
+      feedback_collection_method: "native_api_aggregation"
+
+    evidence:
+      platform_feedback:
+        youtube:
+          platform: "youtube"
+          total_comments: 345
+          sentiment_distribution:
+            positive: 215
+            neutral: 95
+            negative: 35
+          top_themes:
+            - "hook-strength"
+            - "pacing"
+            - "relevance"
+          aggregation_timestamp: "2026-04-20T14:35:00Z"
+
+        instagram:
+          platform: "instagram"
+          total_comments: 198
+          sentiment_distribution:
+            positive: 156
+            neutral: 32
+            negative: 10
+          top_themes:
+            - "inspiration"
+            - "actionable"
+            - "clear-call-to-action"
+          aggregation_timestamp: "2026-04-20T14:35:00Z"
+
+    quality:
+      feedback_completeness: 0.92
+      sentiment_accuracy: 0.88
+
+    status:
+      aggregation_complete: true
+      next_stage: "CWF-630"
+      decision: "PROCEED_TO_SIGNAL_SYNTHESIS"
+
+---
+
+packet_lifecycle:
+  creation: "CWF-620 manual trigger or event (triggered by CWF-610 output)"
+  validation: "pre_emission validation (feedback_completeness >= 0.75, sentiment_accuracy >= 0.75)"
+  emission: "CWF-620 emit_result node"
+  consumption: "CWF-630 input, E-602 input"
+  storage: "dossier.analytics.audience_feedback (append_to_array)"
+
+lineage_requirements:
+  - source_packet_id: "performance_analytics_packet"
+    relationship: "sourced_from"
+    tracking: "required"
+
+  - downstream_consumer: "E-602 (Feedback Analyst)"
+    relationship: "input_to"
+    tracking: "required"
+
+  - audit_trail: "Chitragupta lineage tracking"
+    requirement: "all_packets_logged_with_timestamp"
+
+---
+
+metadata:
+  created_date: "2026-04-20"
+  last_updated: "2026-04-20"
+  status: "active"
+  compliance_level: "tribunal_grade"
+
+  owner_director: "Chandra"
+  validator_director: "Chitragupta"
+  policy_authority: "Yama"
+
+  related_schemas:
+    - "performance_analytics_packet"
+    - "feedback_insight_packet"
+    - "evolution_signal_packet"
+    - "analytics_evolution_packet"
+
+notes: |
+  Audience Feedback Packet Schema v1.0.0
+
+  Produced by: CWF-620 (aggregate_feedback node)
+  Consumed by: CWF-630 (via E-602 Feedback Analyst)
+  Stored in: dossier.analytics.audience_feedback
+
+  Contains aggregated feedback (sentiment distribution and top themes)
+  for all target platforms (youtube, instagram, etc.)
+
+  Quality gates:
+  - feedback_completeness >= 0.75 required for E-602 processing
+  - sentiment_accuracy >= 0.75 required (log warning if lower)
+  - If quality fails critical threshold: escalate to WF-900
+
+  Sentiment Governance:
+  - Yama monitors sentiment distribution for policy violations
+  - If negative sentiment > 35%: escalate to WF-900
+  - All policy violations flag for escalation
+
+  Lineage tracked by Chitragupta (audit authority)
+  Version controlled; no in-place updates allowed
+
+  Sentiment Distribution Rules:
+  - Total comments = positive + neutral + negative (or very close)
+  - Platform-level sentiment calculated as ratios
+  - Theme extraction done at aggregation stage (pre-packet)

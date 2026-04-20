@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://shadow-empire.local/schemas/packets/script_intelligence_result.schema.json",
+  "title": "ScriptIntelligenceResult",
+  "description": "Aggregate output from WF-200 (Script Intelligence Pack). Contains finalized script after generation, debate, and refinement.",
+  "type": "object",
+  "required": [
+    "packet_id",
+    "dossier_id",
+    "final_script_packet",
+    "created_at"
+  ],
+  "properties": {
+    "packet_id": {
+      "type": "string",
+      "description": "Unique identifier for this aggregate packet"
+    },
+    "dossier_id": {
+      "type": "string",
+      "description": "Reference to parent dossier"
+    },
+    "script_draft_packet": {
+      "type": "object",
+      "description": "Initial script draft from generation stage",
+      "required": ["packet_id"]
+    },
+    "script_debate_packet": {
+      "type": "object",
+      "description": "Script debate results from evaluation stage",
+      "required": ["packet_id"]
+    },
+    "script_refinement_packet": {
+      "type": "object",
+      "description": "Refined script after addressing debate points",
+      "required": ["packet_id"]
+    },
+    "final_script_packet": {
+      "type": "object",
+      "description": "Final production-ready script",
+      "required": ["packet_id", "script_content"]
+    },
+    "script_intelligence_status": {
+      "type": "string",
+      "enum": ["ready_for_production", "needs_approval", "revision_required"],
+      "description": "Overall status of script intelligence output"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when this aggregate was created"
+    },
+    "lineage": {
+      "type": "object",
+      "description": "Lineage tracking for audit trail",
+      "properties": {
+        "sourced_from_workflows": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "stage": {
+          "type": "string",
+          "enum": ["WF-200"]
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,87 @@
+workflow_id: WF-400
+name: wf400_media_production_pack
+class: parent_pack
+entry_mode: event_selected
+purpose: receive context_engineering_packet from CWF-340 and produce all media assets needed for publishing — thumbnails, visual plans, audio-optimized scripts, and complete media packages
+owner: shadow_empire_phase1
+primary_director: Krishna
+strategic_authority: Krishna
+governance_authority:
+  - Durga
+  - Saraswati
+producer_expectations:
+  triggered_by:
+    - WF-300 context_engineering_packet validated and sealed by CWF-340
+consumer_expectations:
+  consumed_by:
+    - WF-500 when media_production_packet is assembled and validated by CWF-440
+    - operator review when asset assembly or quality gates fail
+route_bindings:
+  - ROUTE_PHASE1_STANDARD
+  - ROUTE_PHASE1_FAST
+inputs:
+  - context_engineering_packet
+output_packet_family:
+  - thumbnail_concept_packet
+  - visual_asset_plan_packet
+  - audio_optimized_script_packet
+  - media_production_packet
+outputs:
+  - media_production_result
+reads:
+  - workflow_registry
+  - skill_registry
+  - context_engineering_packet
+  - dossier.context
+  - dossier.runtime
+writes:
+  - namespaces.media
+  - namespaces.runtime
+write_targets:
+  data_tables:
+    - se_route_runs
+  dossier_namespaces:
+    - media
+    - runtime
+child_workflows:
+  - CWF-410-thumbnail-generator
+  - CWF-420-visual-asset-planner
+  - CWF-430-audio-script-optimizer
+  - CWF-440-media-package-finalizer
+fallback_behavior:
+  on_thumbnail_generation_failure:
+    - emit thumbnail_concept_packet with status FAILED
+    - allow replay to CWF-410
+  on_visual_planning_failure:
+    - attach asset planning rejection reasons
+    - return to CWF-420 with updated context
+  on_audio_optimization_failure:
+    - emit audio_optimized_script_packet with status NEEDS_REVISION
+    - allow replay to CWF-430
+  on_package_assembly_failure:
+    - emit media_production_packet with status INCOMPLETE
+    - route to WF-900 for remediation
+remodify_behavior:
+  when visual_planner fails:
+    - return to CWF-410 with updated visual requirements
+    - replay CWF-420 with revised brief
+replay_behavior: allowed for thumbnail, visual, and audio loops before promotion to WF-500
+done_criteria:
+  - thumbnail_concept_packet emitted with 3 variants
+  - visual_asset_plan_packet emitted with b-roll and overlay plans
+  - audio_optimized_script_packet emitted with timing markers
+  - media_production_packet assembled and validated
+  - all constituent packets referenced in media_production_packet
+  - gate to WF-500 cleared
+error_family:
+  - SE-P1-001
+  - SE-P1-003
+validation:
+  - all child workflow outputs typed
+  - each child writes bounded dossier delta to media namespace
+  - only validated media_production_packet may advance to WF-500
+  - lineage from WF-300 context_engineering_packet must be traceable
+dependencies:
+  - WF-300
+  - WF-500
+  - WF-900

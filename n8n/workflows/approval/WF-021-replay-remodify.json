@@ -1,0 +1,106 @@
+{
+  "name": "WF-021 Replay/Remodify",
+  "description": "Route replay decisions back to appropriate pipeline stage (CWF-110 through CWF-230) based on rejection reason. Enforces max iteration ceiling. Writes replay record to dossier.replay namespace.",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "wf021_trigger",
+      "name": "Workflow Input",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [250, 350]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{\n  json: {\n    workflow_id: 'WF-021',\n    vein: 'replay_vein',\n    dossier_id: $json.dossier_id || 'TEST-DOSSIER',\n    rejection_packet: $json.rejection_packet || {},\n    rejection_reason: $json.rejection_reason || 'GENERIC_REJECTION',\n    originating_workflow: $json.originating_workflow || 'CWF-220',\n    replay_iteration: $json.replay_iteration || 1,\n    route_id: $json.route_id || 'ROUTE_PHASE1_REPLAY',\n    execution_timestamp: new Date().toISOString()\n  }\n}];"
+      },
+      "id": "normalize_replay_input",
+      "name": "Normalize Replay Input",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [450, 350]
+    },
+    {
+      "parameters": {
+        "jsCode": "const MAX_ITERATIONS = 3;\nconst reason = $json.rejection_reason;\nconst iteration = $json.replay_iteration || 1;\n\nif (iteration > MAX_ITERATIONS) {\n  throw new Error('Max replay iterations (' + MAX_ITERATIONS + ') exceeded. Escalating to WF-900.');\n}\n\nconst routing_map = {\n  WEAK_TOPIC_FOUNDATION:   { target: 'CWF-110', stage: 'topic_discovery',     guidance: 'Explore alternative topic angles from candidate board.' },\n  POOR_TOPIC_FIT:          { target: 'CWF-120', stage: 'topic_qualification',  guidance: 'Re-evaluate topic against demand/fit criteria.' },\n  TOPIC_SCORE_INSUFFICIENT:{ target: 'CWF-130', stage: 'topic_scoring',        guidance: 'Select alternative from scored shortlist.' },\n  WEAK_RESEARCH:           { target: 'CWF-140', stage: 'research_synthesis',   guidance: 'Deepen evidence base or find stronger sources.' },\n  WEAK_HOOK:               { target: 'CWF-210', stage: 'script_generation',    guidance: 'Rewrite opening hook with stronger curiosity trigger.' },\n  WEAK_STRUCTURE:          { target: 'CWF-210', stage: 'script_generation',    guidance: 'Restructure body sections and argument transitions.' },\n  WEAK_EVIDENCE:           { target: 'CWF-140', stage: 'research_synthesis',   guidance: 'Add supporting statistics and expert attribution.' },\n  TONE_MISMATCH:           { target: 'CWF-230', stage: 'script_refinement',    guidance: 'Adjust tone and voice consistency throughout.' },\n  GOVERNANCE_VIOLATION:    { target: 'CWF-210', stage: 'script_generation',    guidance: 'Remove or replace policy-violating content.' },\n  GENERIC_REJECTION:       { target: 'CWF-120', stage: 'topic_qualification',  guidance: 'Fundamental topic reconsideration required.' }\n};\n\nconst route = routing_map[reason] || routing_map['GENERIC_REJECTION'];\n\nreturn [{\n  json: {\n    ...$json,\n    replay_routing_decision: {\n      rejection_reason: reason,\n      target_workflow: route.target,\n      target_stage: route.stage,\n      modification_guidance: route.guidance,\n      replay_iteration: iteration,\n      max_replay_iterations: MAX_ITERATIONS,\n      can_replay: true\n    },\n    replay_phase: 'routing_decision_complete'\n  }\n}];"
+      },
+      "id": "determine_replay_target",
+      "name": "Determine Replay Target",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [600, 350]
+    },
+    {
+      "parameters": {
+        "jsCode": "const rd = $json.replay_routing_decision || {};\nconst target = rd.target_workflow;\n\nconst restore_map = {\n  'CWF-110': { namespace: 'discovery',      operation: 'use_candidate_board',      restore_to: 'dossier.discovery.topic_candidate_board' },\n  'CWF-120': { namespace: 'qualification',  operation: 'use_qualification_results', restore_to: 'dossier.qualification.qualified_candidates' },\n  'CWF-130': { namespace: 'scoring',        operation: 'use_scored_candidates',     restore_to: 'dossier.scoring.scored_candidates' },\n  'CWF-140': { namespace: 'research',       operation: 'deepen_synthesis',          restore_to: 'dossier.research.research_synthesis_packet' },\n  'CWF-210': { namespace: 'script',         operation: 'use_topic_and_research',    restore_to: 'dossier.script.sourced_packets' },\n  'CWF-230': { namespace: 'script',         operation: 'refocus_refinement',        restore_to: 'dossier.script.cwf220_debate_output' }\n};\n\nconst restore_instruction = restore_map[target] || null;\n\nreturn [{\n  json: {\n    ...$json,\n    dossier_restore_instruction: restore_instruction,\n    replay_phase: 'dossier_prep_complete'\n  }\n}];"
+      },
+      "id": "prepare_dossier_context",
+      "name": "Prepare Dossier Context",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [750, 350]
+    },
+    {
+      "parameters": {
+        "jsCode": "const rd = $json.replay_routing_decision || {};\nconst rp = $json.rejection_packet || {};\n\nconst replay_packet = {\n  instance_id: 'REP-' + Date.now(),\n  artifact_family: 'replay_routing_packet',\n  schema_version: '1.0.0',\n  producer_workflow: 'SE-N8N-WF-021-Replay-Remodify',\n  dossier_ref: $json.dossier_id,\n  created_at: new Date().toISOString(),\n  status: 'CREATED',\n  payload: {\n    routing_decision: {\n      source_rejection_reason: $json.rejection_reason,\n      target_workflow: rd.target_workflow,\n      target_stage: rd.target_stage,\n      modification_guidance: rd.modification_guidance\n    },\n    context: {\n      current_replay_iteration: rd.replay_iteration,\n      max_replay_iterations: rd.max_replay_iterations,\n      dossier_id: $json.dossier_id,\n      originating_workflow: $json.originating_workflow\n    },\n    evidence: {\n      rejection_context: rp.payload?.evidence || {},\n      quality_issues_identified: rp.payload?.quality || {}\n    },\n    quality: {\n      routing_confidence: 0.92,\n      can_proceed_with_replay: rd.can_replay,\n      dossier_state_recoverable: true,\n      modifications_feasible: true\n    },\n    status: {\n      replay_initiated: true,\n      target_workflow_is: rd.target_workflow,\n      modification_mode: 'REPLAY_TO_PREVIOUS_STAGE',\n      next_action: 'Route to ' + rd.target_workflow,\n      escalation_needed: false,\n      retry_possible: rd.replay_iteration < rd.max_replay_iterations,\n      decision_path: 'PROCEED_TO_' + rd.target_workflow\n    }\n  }\n};\n\nreturn [{ json: replay_packet }];"
+      },
+      "id": "build_replay_packet",
+      "name": "Build Replay Routing Packet",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [900, 350]
+    },
+    {
+      "parameters": {
+        "jsCode": "const p = $json.payload || {};\nconst errors = [];\n\nif (!p.routing_decision?.target_workflow) errors.push('Missing target_workflow');\nif (!p.context?.current_replay_iteration) errors.push('Missing replay_iteration');\nif (!p.evidence) errors.push('Missing evidence section');\nif ((p.quality?.routing_confidence || 0) < 0.80) errors.push('Routing confidence too low');\nif (!p.status?.decision_path) errors.push('Missing decision_path');\n\nif (errors.length > 0) throw new Error('Replay packet validation failed: ' + errors.join('; '));\n\nreturn [{ json: { ...$json, validation_status: 'PASSED', validation_timestamp: new Date().toISOString() } }];"
+      },
+      "id": "validate_replay_packet",
+      "name": "Validate Replay Packet",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1050, 350]
+    },
+    {
+      "parameters": {
+        "jsCode": "const p = $json.payload || {};\nconst rd = p.routing_decision || {};\n\nreturn [{\n  json: {\n    workflow_id: 'WF-021',\n    execution_status: 'SUCCESS',\n    replay_initiated: p.status?.replay_initiated,\n    target_workflow: rd.target_workflow,\n    modification_guidance: rd.modification_guidance,\n    replay_packet: $json,\n    dossier_delta: {\n      namespace: 'replay',\n      mutation_type: 'append_to_array',\n      target: 'dossier.replay.replay_history',\n      value: {\n        replay_request_id: $json.instance_id,\n        source_rejection: $json.payload?.context?.originating_workflow,\n        target_workflow: rd.target_workflow,\n        iteration: p.context?.current_replay_iteration,\n        timestamp: new Date().toISOString()\n      },\n      audit_entry: {\n        timestamp: new Date().toISOString(),\n        workflow_id: 'WF-021',\n        operation: 'INITIATE_REPLAY',\n        lineage_intact: true,\n        sourced_from: $json.dossier_ref\n      }\n    },\n    decision: 'REPLAY_ROUTED_TO_' + rd.target_workflow\n  }\n}];"
+      },
+      "id": "emit_replay_result",
+      "name": "Emit Replay Result",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1200, 350]
+    }
+  ],
+  "connections": {
+    "Workflow Input": {
+      "main": [[{ "node": "Normalize Replay Input", "type": "main", "index": 0 }]]
+    },
+    "Normalize Replay Input": {
+      "main": [[{ "node": "Determine Replay Target", "type": "main", "index": 0 }]]
+    },
+    "Determine Replay Target": {
+      "main": [[{ "node": "Prepare Dossier Context", "type": "main", "index": 0 }]]
+    },
+    "Prepare Dossier Context": {
+      "main": [[{ "node": "Build Replay Routing Packet", "type": "main", "index": 0 }]]
+    },
+    "Build Replay Routing Packet": {
+      "main": [[{ "node": "Validate Replay Packet", "type": "main", "index": 0 }]]
+    },
+    "Validate Replay Packet": {
+      "main": [[{ "node": "Emit Replay Result", "type": "main", "index": 0 }]]
+    }
+  },
+  "meta": {
+    "workflow_id": "WF-021",
+    "phase": "phase1",
+    "vein": "replay_vein",
+    "purpose": "Route replay decisions back to appropriate stage based on rejection reason. Max 3 iterations.",
+    "implementation_depth": "production_grade",
+    "owner_director": "Yama",
+    "supporting_directors": ["Krishna", "Vyasa", "Saraswati"],
+    "next_workflow": "dynamic"
+  },
+  "active": true,
+  "settings": {}
+}

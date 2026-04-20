@@ -1,0 +1,38 @@
+workflow_id: CWF-310
+name: cwf310_execution_context_builder
+class: child
+parent_pack: WF-300
+purpose: engineer the runtime context envelope for the final script packet — defining allowed tools, execution constraints, and platform-specific runtime rules
+primary_owner: Krishna
+supporting_directors:
+  - Durga
+inputs:
+  - final_script_packet
+output_packet_family:
+  - execution_context_packet
+writes:
+  - namespaces.context
+  - namespaces.runtime
+write_targets:
+  dossier_namespaces:
+    - context
+    - runtime
+steps:
+  - ingest final_script_packet and validate presence
+  - extract target_platform and script metadata
+  - determine allowed tool set for platform
+  - apply execution constraints and forbidden operations list
+  - build runtime context envelope
+  - emit execution_context_packet
+done_criteria:
+  - execution context envelope constructed
+  - allowed tools enumerated
+  - forbidden tools enumerated
+  - constraints list populated
+  - packet emitted with status CREATED
+fallback_behavior:
+  on_missing_script_packet:
+    - log error and route to WF-900
+  on_constraint_resolution_failure:
+    - apply default constraint set
+    - flag for operator review

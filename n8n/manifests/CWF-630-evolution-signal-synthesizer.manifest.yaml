@@ -1,0 +1,26 @@
+workflow_id: CWF-630
+name: evolution_signal_synthesizer
+class: child_workflow
+phase: phase1
+vein: analytics_vein
+entry_mode: event_selected
+owner_director: Chandra
+supporting_directors: [Chitragupta]
+purpose: Synthesize analytics and feedback into actionable evolution signals for content strategy improvement
+producer:
+  triggered_by: CWF-620
+  input: audience_feedback_packet + performance_analytics_packet
+consumer:
+  terminal_output: analytics_evolution_packet
+output_packet_family: evolution_signal_packet
+output_packet_final: analytics_evolution_packet
+governance:
+  approval_required: false
+  escalation_path: WF-900
+routing:
+  on_success: WF-600 completion
+  on_failure: WF-900
+done_criteria:
+  - evolution signals synthesized
+  - analytics_evolution_packet emitted
+  - feedback loop closure established

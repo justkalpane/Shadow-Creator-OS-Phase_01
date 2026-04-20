@@ -1,0 +1,42 @@
+workflow_id: CWF-510
+name: cwf510_platform_metadata_generator
+class: child
+parent_pack: WF-500
+purpose: generate SEO-optimized titles, descriptions, tags, chapters, and hashtags for each target platform based on the incoming media_production_packet
+primary_owner: Chanakya
+supporting_directors:
+  - Krishna
+  - Saraswati
+inputs:
+  - media_production_packet
+output_packet_family:
+  - platform_metadata_packet
+writes:
+  - namespaces.publishing
+  - namespaces.runtime
+write_targets:
+  dossier_namespaces:
+    - publishing
+    - runtime
+steps:
+  - ingest media_production_packet and validate presence
+  - extract target_platforms list and content metadata
+  - invoke D-501 to generate raw metadata per platform
+  - invoke D-502 to optimize for SEO signals and platform algorithms
+  - assemble platform_metadata_packet with per-platform sections
+  - emit platform_metadata_packet
+skills:
+  - D-501
+  - D-502
+done_criteria:
+  - titles generated for all target platforms
+  - descriptions generated with keyword integration
+  - tags and hashtags populated per platform conventions
+  - chapter markers generated where applicable
+  - packet emitted with status CREATED
+fallback_behavior:
+  on_missing_production_packet:
+    - log error and route to WF-900
+  on_platform_metadata_failure:
+    - apply default metadata template for platform
+    - flag for operator review

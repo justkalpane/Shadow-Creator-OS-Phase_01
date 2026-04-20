@@ -1,0 +1,150 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://shadow-empire.local/schemas/packets/context_engineering_packet.schema.json",
+  "title": "ContextEngineeringPacket",
+  "description": "Final output packet from CWF-340 that seals WF-300 and gates entry to WF-400. Contains full lineage-validated context engineering result.",
+  "type": "object",
+  "required": ["instance_id", "artifact_family", "schema_version", "producer_workflow", "dossier_ref", "created_at", "status", "payload"],
+  "properties": {
+    "instance_id": {
+      "type": "string",
+      "description": "Unique identifier prefixed CEP-",
+      "pattern": "^CEP-"
+    },
+    "artifact_family": {
+      "type": "string",
+      "const": "context_engineering_packet"
+    },
+    "schema_version": {
+      "type": "string",
+      "const": "1.0.0"
+    },
+    "producer_workflow": {
+      "type": "string",
+      "description": "Workflow that produced this packet"
+    },
+    "dossier_ref": {
+      "type": "string",
+      "description": "Parent dossier identifier"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["CREATED", "PARTIAL", "LINEAGE_FAILED", "QUALITY_FAILED"]
+    },
+    "payload": {
+      "type": "object",
+      "required": ["narrative", "context", "evidence", "quality", "status"],
+      "properties": {
+        "narrative": {
+          "type": "object",
+          "required": ["content", "platform"],
+          "properties": {
+            "content": { "type": "object", "description": "Script content from upstream execution_context_packet" },
+            "platform": { "type": "string", "description": "Target delivery platform" },
+            "asset_briefs_summary": { "type": "object", "description": "Summary of asset briefs from CWF-330" }
+          },
+          "additionalProperties": false
+        },
+        "context": {
+          "type": "object",
+          "required": ["sourced_from_packet_id", "target_platform", "constituent_packets"],
+          "properties": {
+            "sourced_from_packet_id": { "type": "string", "description": "asset_brief_packet instance_id" },
+            "target_platform": { "type": "string", "enum": ["youtube", "blog", "podcast", "email"] },
+            "execution_requirements": {
+              "type": "object",
+              "properties": {
+                "allowed_tools": { "type": "array", "items": { "type": "string" } },
+                "forbidden_tools": { "type": "array", "items": { "type": "string" } },
+                "constraints": { "type": "array", "items": { "type": "string" } },
+                "execution_mode": { "type": "string", "const": "supervised" },
+                "approval_required_before": { "type": "string" }
+              }
+            },
+            "constituent_packets": {
+              "type": "object",
+              "required": ["final_script_packet_id", "execution_context_packet_id", "platform_package_packet_id", "asset_brief_packet_id"],
+              "properties": {
+                "final_script_packet_id": { "type": "string" },
+                "execution_context_packet_id": { "type": "string" },
+                "platform_package_packet_id": { "type": "string" },
+                "asset_brief_packet_id": { "type": "string" }
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
+        },
+        "evidence": {
+          "type": "object",
+          "required": ["lineage_references", "validation_checks"],
+          "properties": {
+            "lineage_references": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "required": ["type", "id"],
+                "properties": {
+                  "type": { "type": "string" },
+                  "id": { "type": "string" }
+                }
+              }
+            },
+            "validation_checks": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["check", "result"],
+                "properties": {
+                  "check": { "type": "string" },
+                  "result": { "type": "string" }
+                }
+              }
+            },
+            "lineage_trace": { "type": "object" }
+          },
+          "additionalProperties": false
+        },
+        "quality": {
+          "type": "object",
+          "required": ["lineage_integrity_score", "quality_gate_score", "overall_readiness_score", "gate_checks"],
+          "properties": {
+            "lineage_integrity_score": { "type": "number", "minimum": 0, "maximum": 1 },
+            "quality_gate_score": { "type": "number", "minimum": 0, "maximum": 1 },
+            "overall_readiness_score": { "type": "number", "minimum": 0, "maximum": 1 },
+            "gate_checks": {
+              "type": "object",
+              "required": ["lineage_valid", "all_quality_gates_passed", "governance_compliant", "ready_for_wf400"],
+              "properties": {
+                "lineage_valid": { "type": "boolean" },
+                "all_quality_gates_passed": { "type": "boolean" },
+                "governance_compliant": { "type": "boolean" },
+                "ready_for_wf400": { "type": "boolean" }
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
+        },
+        "status": {
+          "type": "object",
+          "required": ["decision_path", "next_workflow", "escalation_needed", "wf300_complete"],
+          "properties": {
+            "decision_path": { "type": "string" },
+            "next_workflow": { "type": "string", "const": "WF-400" },
+            "escalation_needed": { "type": "boolean" },
+            "wf300_complete": { "type": "boolean" }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,164 @@
+registry_type: director_binding_registry
+registry_id: director_binding_wf400
+target_workflow_pack: WF-400
+target_phase: phase1
+created_at: "2026-04-20"
+version: "1.0.0"
+
+director_bindings:
+  Krishna:
+    director_id: Krishna
+    director_role: Primary Orchestrator
+    bind_level: strategic_authority
+    responsibilities:
+      - CWF-410-thumbnail-generator (owner_director)
+      - CWF-440-media-package-finalizer (owner_director)
+      - A-401-thumbnail-concept-designer (owner_director)
+      - A-404-media-package-assembler (owner_director)
+    governance_scope:
+      - Media production pack orchestration
+      - Thumbnail concept validation
+      - Package assembly quality
+      - Final promotion decision
+    escalation_authority: true
+    approval_gates_managed:
+      - media_production_package_assembly
+      - promotion_to_publishing
+    veto_power: true
+    health_status: active
+    last_verified: "2026-04-20"
+
+  Saraswati:
+    director_id: Saraswati
+    director_role: Voice and Narrative Specialist
+    bind_level: governance_authority
+    responsibilities:
+      - CWF-420-visual-asset-planner (owner_director)
+      - CWF-430-audio-script-optimizer (owner_director)
+      - A-402-visual-asset-planner (owner_director)
+      - A-403-audio-script-optimizer (owner_director)
+    governance_scope:
+      - Visual asset specification
+      - Audio optimization
+      - Script voiceover preparation
+      - Narrative consistency
+    escalation_authority: true
+    approval_gates_managed:
+      - visual_asset_specifications
+      - audio_brief_approval
+    veto_power: true
+    health_status: active
+    last_verified: "2026-04-20"
+
+  Durga:
+    director_id: Durga
+    director_role: Quality Assurance and Hook Audit
+    bind_level: governance_authority
+    responsibilities:
+      - CWF-410-thumbnail-generator (governance co-authority)
+      - CWF-440-media-package-finalizer (governance co-authority)
+      - A-401-thumbnail-concept-designer (governance co-authority)
+      - A-405-media-qa-validator (owner_director)
+    governance_scope:
+      - Thumbnail quality and distinctiveness
+      - Media production QA validation
+      - Platform hook optimization
+      - Accessibility compliance verification
+    escalation_authority: true
+    approval_gates_managed:
+      - media_production_qa_gates
+      - promotion_quality_validation
+    veto_power: true
+    health_status: active
+    last_verified: "2026-04-20"
+
+  Kubera:
+    director_id: Kubera
+    director_role: Resource and Cost Management
+    bind_level: governance_authority
+    responsibilities:
+      - CWF-440-media-package-finalizer (governance co-authority)
+      - A-403-audio-script-optimizer (governance co-authority)
+      - A-404-media-package-assembler (governance co-authority)
+      - A-405-media-qa-validator (governance co-authority)
+    governance_scope:
+      - Production feasibility assessment
+      - Resource requirement validation
+      - Budget alignment
+      - Timeline feasibility
+    escalation_authority: false
+    approval_gates_managed:
+      - resource_feasibility_gates
+    veto_power: false
+    health_status: active
+    last_verified: "2026-04-20"
+
+  Yama:
+    director_id: Yama
+    director_role: Policy Enforcement
+    bind_level: governance_authority
+    responsibilities:
+      - WF-400-media-production-pack (policy oversight)
+      - All media production skills (policy compliance monitoring)
+    governance_scope:
+      - Media content policy compliance
+      - Platform policy alignment
+      - Governance violation detection
+      - Escalation routing on violations
+    escalation_authority: false
+    approval_gates_managed:
+      - policy_compliance_gates
+    veto_power: true
+    health_status: active
+    last_verified: "2026-04-20"
+
+pack_orchestration:
+  parent_workflow: WF-400-media-production-pack
+  primary_director: Krishna
+  strategic_authority_directors: [Krishna]
+  governance_authority_directors: [Saraswati, Durga, Kubera, Yama]
+  orchestration_pattern: hierarchical_with_co_governance
+  decision_flow:
+    stage_1_thumbnail_design:
+      owner: Krishna
+      co_governors: [Durga, Saraswati]
+      decision_authority: Krishna
+    stage_2_visual_planning:
+      owner: Saraswati
+      co_governors: [Durga, Krishna]
+      decision_authority: Saraswati
+    stage_3_audio_optimization:
+      owner: Saraswati
+      co_governors: [Kubera, Yama]
+      decision_authority: Saraswati
+    stage_4_package_assembly:
+      owner: Krishna
+      co_governors: [Durga, Kubera]
+      decision_authority: Krishna
+    stage_5_qa_validation:
+      owner: Durga
+      co_governors: [Krishna, Kubera]
+      decision_authority: Durga
+  escalation_flow:
+    default_escalation: WF-900
+    policy_violation: Yama → WF-900
+    feasibility_issue: Kubera → analysis
+    quality_gate_failure: Durga → remediation_path
+
+registry_metadata:
+  total_directors_assigned: 5
+  directors_with_strategic_authority: 1
+  directors_with_governance_authority: 4
+  directors_with_veto_power: 4
+  directors_with_escalation_authority: 4
+  workflow_vein: media_production_vein
+  phase: phase1
+  pack: WF-400
+
+constitutional_compliance:
+  all_skills_have_owners: verified
+  all_workflows_have_orchestrators: verified
+  escalation_paths_defined: verified
+  veto_authority_documented: verified
+  approval_gates_assigned: verified
+  no_single_point_of_failure: verified (multi_governance)

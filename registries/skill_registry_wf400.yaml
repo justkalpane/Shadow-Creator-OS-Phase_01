@@ -1,0 +1,181 @@
+registry_type: skill_registry
+registry_id: skill_registry_wf400
+target_workflow_pack: WF-400
+target_phase: phase1
+created_at: "2026-04-20"
+version: "1.0.0"
+
+skills:
+  A-401:
+    skill_id: A-401
+    skill_name: Thumbnail Concept Designer
+    category: media_production
+    description: Design 3 thumbnail concept variants from script content and platform requirements
+    owner_director: Krishna
+    governance_authority: [Durga, Saraswati]
+    dna_version: "1.0.0"
+    status: active
+    vein: media_production_vein
+    input_packet_family: context_engineering_packet
+    output_packet_family: thumbnail_concept_packet
+    producer_workflow: CWF-410-thumbnail-generator
+    consumer_workflow: CWF-420-visual-asset-planner
+    capability_tags:
+      - visual_design
+      - platform_optimization
+      - thumbnail_generation
+    mutation_targets:
+      - dossier.media.thumbnail_concepts
+    escalation_path: WF-900
+    health_status: active
+    last_verified: "2026-04-20"
+    file_path: skills/media_production/A-401-thumbnail-concept-designer.skill.md
+    test_suite: test/skills/media/A-401-*.test.js
+
+  A-402:
+    skill_id: A-402
+    skill_name: Visual Asset Planner
+    category: media_production
+    description: Plan visual assets (b-roll, graphics, overlays) from script narrative
+    owner_director: Saraswati
+    governance_authority: [Durga, Krishna]
+    dna_version: "1.0.0"
+    status: active
+    vein: media_production_vein
+    input_packet_family:
+      - thumbnail_concept_packet
+      - context_engineering_packet
+    output_packet_family: visual_asset_spec_packet
+    producer_workflow: CWF-420-visual-asset-planner
+    consumer_workflow: CWF-430-audio-script-optimizer
+    capability_tags:
+      - visual_planning
+      - shot_sequencing
+      - broll_curation
+      - effects_specification
+    mutation_targets:
+      - dossier.media.visual_asset_specs
+    escalation_path: WF-900
+    health_status: active
+    last_verified: "2026-04-20"
+    file_path: skills/media_production/A-402-visual-asset-planner.skill.md
+    test_suite: test/skills/media/A-402-*.test.js
+
+  A-403:
+    skill_id: A-403
+    skill_name: Audio/Voiceover Script Optimizer
+    category: media_production
+    description: Optimize script for audio delivery with timing markers and voice direction
+    owner_director: Saraswati
+    governance_authority: [Krishna, Kubera]
+    dna_version: "1.0.0"
+    status: active
+    vein: media_production_vein
+    input_packet_family:
+      - final_script_packet
+      - visual_asset_spec_packet
+      - context_engineering_packet
+    output_packet_family: audio_brief_packet
+    producer_workflow: CWF-430-audio-script-optimizer
+    consumer_workflow: CWF-440-media-package-finalizer
+    capability_tags:
+      - audio_optimization
+      - pacing_calculation
+      - breath_marking
+      - voice_direction
+      - phonetic_guidance
+    mutation_targets:
+      - dossier.media.audio_briefs
+    escalation_path: WF-900
+    health_status: active
+    last_verified: "2026-04-20"
+    file_path: skills/media_production/A-403-audio-script-optimizer.skill.md
+    test_suite: test/skills/media/A-403-*.test.js
+
+  A-404:
+    skill_id: A-404
+    skill_name: Media Package Assembler
+    category: media_production
+    description: Assemble complete media production package from all specifications
+    owner_director: Krishna
+    governance_authority: [Durga, Kubera]
+    dna_version: "1.0.0"
+    status: active
+    vein: media_production_vein
+    input_packet_family:
+      - thumbnail_concept_packet
+      - visual_asset_spec_packet
+      - audio_brief_packet
+    output_packet_family: media_production_packet
+    producer_workflow: CWF-440-media-package-finalizer
+    consumer_workflow: WF-500-publishing-distribution-pack
+    capability_tags:
+      - package_assembly
+      - timing_alignment
+      - lineage_verification
+      - production_aggregation
+    mutation_targets:
+      - dossier.media.production_packets
+    escalation_path: WF-900
+    health_status: active
+    last_verified: "2026-04-20"
+    file_path: skills/media_production/A-404-media-package-assembler.skill.md
+    test_suite: test/skills/media/A-404-*.test.js
+
+  A-405:
+    skill_id: A-405
+    skill_name: Media Production QA Validator
+    category: media_production
+    description: Validate media production package against quality gates before publishing
+    owner_director: Durga
+    governance_authority: [Krishna, Kubera]
+    dna_version: "1.0.0"
+    status: active
+    vein: media_production_vein
+    input_packet_family: media_production_packet
+    output_packet_family: media_validation_report
+    producer_workflow: CWF-440-media-package-finalizer
+    consumer_workflow: WF-500-publishing-distribution-pack
+    capability_tags:
+      - quality_assurance
+      - validation_framework
+      - gate_enforcement
+      - remediation_guidance
+      - accessibility_compliance
+    mutation_targets:
+      - dossier.media.validation_reports
+      - dossier.approval.promotion_queue
+      - dossier.approval.revision_queue
+    escalation_path: WF-900
+    health_status: active
+    last_verified: "2026-04-20"
+    file_path: skills/media_production/A-405-media-qa-validator.skill.md
+    test_suite: test/skills/media/A-405-*.test.js
+
+registry_metadata:
+  total_skills: 5
+  active_skills: 5
+  skills_by_status:
+    active: 5
+    deprecated: 0
+    experimental: 0
+  directors_involved: [Krishna, Saraswati, Durga, Kubera]
+  mutation_targets:
+    - dossier.media.thumbnail_concepts
+    - dossier.media.visual_asset_specs
+    - dossier.media.audio_briefs
+    - dossier.media.production_packets
+    - dossier.media.validation_reports
+    - dossier.approval.promotion_queue
+    - dossier.approval.revision_queue
+  workflow_vein: media_production_vein
+  phase: phase1
+  pack: WF-400
+
+constitutional_compliance:
+  dna_injection: enforced
+  registry_first_law: enforced
+  no_hallucinated_skills: verified
+  governance_owner_assigned: verified_all_skills
+  escalation_path_defined: verified_all_skills
+  test_suite_defined: verified_all_skills

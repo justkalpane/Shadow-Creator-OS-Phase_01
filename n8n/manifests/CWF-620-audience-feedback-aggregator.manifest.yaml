@@ -1,0 +1,26 @@
+workflow_id: CWF-620
+name: audience_feedback_aggregator
+class: child_workflow
+phase: phase1
+vein: analytics_vein
+entry_mode: event_selected
+owner_director: Chandra
+supporting_directors: [Chitragupta, Yama]
+purpose: Aggregate audience feedback, comments, and engagement signals from all platforms
+producer:
+  triggered_by: CWF-610
+  input: performance_analytics_packet
+consumer:
+  next_workflow: CWF-630
+  output: audience_feedback_packet
+output_packet_family: audience_feedback_packet
+governance:
+  approval_required: false
+  escalation_path: WF-900
+routing:
+  on_success: CWF-630
+  on_failure: WF-900
+done_criteria:
+  - feedback aggregated from all platforms
+  - audience_feedback_packet emitted
+  - sentiment and themes extracted

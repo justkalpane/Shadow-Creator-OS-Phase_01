@@ -1,0 +1,44 @@
+workflow_id: CWF-420
+name: cwf420_visual_asset_planner
+class: child
+parent_pack: WF-400
+purpose: plan b-roll shots, screen capture sequences, graphic overlays, and chapter visuals from the thumbnail_concept_packet
+primary_owner: Durga
+supporting_directors:
+  - Krishna
+inputs:
+  - thumbnail_concept_packet
+output_packet_family:
+  - visual_asset_plan_packet
+writes:
+  - namespaces.media
+  - namespaces.runtime
+write_targets:
+  dossier_namespaces:
+    - media
+    - runtime
+skills_invoked:
+  - A-402 Visual Hook Designer
+  - A-403 B-Roll Planner
+steps:
+  - ingest thumbnail_concept_packet
+  - normalize and validate input packet
+  - invoke A-402 to design visual opening hooks and screen capture sequences
+  - invoke A-403 to plan b-roll shots, graphic overlays, and chapter visuals
+  - build visual_asset_plan_packet with complete visual production brief
+  - validate plan completeness and coverage
+  - emit visual_asset_plan_packet
+done_criteria:
+  - b-roll shot list generated with timing and context for each shot
+  - screen capture sequences planned with on-screen action descriptions
+  - graphic overlays specified per chapter
+  - chapter visual map complete
+  - visual_asset_plan_packet emitted with status CREATED
+  - next_workflow set to CWF-430
+fallback_behavior:
+  on_broll_planning_failure:
+    - emit packet with status PLANNING_FAILED
+    - route to WF-900 with failure details
+  on_overlay_design_failure:
+    - fallback to minimal overlay set
+    - flag for operator review

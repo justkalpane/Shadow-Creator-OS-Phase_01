@@ -1,0 +1,366 @@
+schema_name: "evolution_signal_packet"
+schema_type: "artifact_packet"
+version: "1.0.0"
+phase: "phase1"
+vein: "analytics_vein"
+description: "Evolution signal packet produced by E-603 (Evolution Strategist skill). Contains synthesized evolution signals, strategic recommendations, priority ranking, and confidence scores combining performance and feedback insights."
+
+producer_workflow: "CWF-630"
+producer_skill: "E-603"
+consumer_workflows: ["CWF-630"]
+consumer_skills: "N/A (aggregated by CWF-630)"
+
+packet_family: "evolution_signal_packet"
+schema_version: "1.0.0"
+artifact_family: "evolution_signal_packet"
+
+---
+
+root_structure:
+  instance_id:
+    type: "string"
+    pattern: "ESP-{timestamp}"
+    description: "Unique packet instance identifier"
+    required: true
+
+  artifact_family:
+    type: "enum"
+    enum: ["evolution_signal_packet"]
+    required: true
+
+  schema_version:
+    type: "string"
+    pattern: "1.0.0"
+    required: true
+
+  producer_workflow:
+    type: "string"
+    pattern: "SE-N8N-CWF-630-via-E-603"
+    required: true
+
+  dossier_ref:
+    type: "string"
+    required: true
+
+  created_at:
+    type: "string"
+    format: "ISO8601"
+    required: true
+
+  status:
+    type: "enum"
+    enum: ["CREATED", "VALIDATED", "EMITTED"]
+    required: true
+
+---
+
+payload_structure:
+  narrative:
+    type: "object"
+    required: true
+    fields:
+      analysis_period:
+        type: "string"
+        example: "24h-aggregate"
+        required: true
+
+      signals_integrated:
+        type: "integer"
+        description: "Number of evolution vectors synthesized"
+        minimum: 4
+        maximum: 4
+        required: true
+
+      evolution_cycle:
+        type: "string"
+        description: "Cycle identifier for evolution tracking"
+        required: true
+
+      synthesis_method:
+        type: "string"
+        example: "performance_feedback_fusion"
+        required: true
+
+  context:
+    type: "object"
+    required: true
+    fields:
+      sourced_from_packets:
+        type: "array"
+        description: "Source insight packet IDs"
+        items:
+          type: "string"
+        min_items: 2
+        max_items: 2
+        required: true
+
+      performance_weight:
+        type: "number"
+        description: "Weight of performance signals (0.0-1.0)"
+        minimum: 0.0
+        maximum: 1.0
+        required: true
+
+      feedback_weight:
+        type: "number"
+        description: "Weight of feedback signals (0.0-1.0)"
+        minimum: 0.0
+        maximum: 1.0
+        required: true
+
+      strategic_weight:
+        type: "number"
+        description: "Weight of strategic override (0.0-1.0)"
+        minimum: 0.0
+        maximum: 1.0
+        required: true
+
+  evidence:
+    type: "object"
+    required: true
+    fields:
+      evolution_vectors:
+        type: "array"
+        description: "Four evolution vectors (hook, narrative, production, growth)"
+        min_items: 4
+        max_items: 4
+        required: true
+        items:
+          type: "object"
+          fields:
+            vector_name:
+              type: "string"
+              enum: ["hook_evolution", "narrative_evolution", "production_evolution", "growth_evolution"]
+              required: true
+
+            direction:
+              type: "string"
+              description: "Evolution direction (e.g., 'strengthen_hook')"
+              required: true
+
+            intensity:
+              type: "string"
+              enum: ["aggressive_production_velocity", "increase_production_investment", "increase_hook_production_investment", "urgent_hook_research_required", "add_call_to_action_clarity", "major_revision_required", "standard_iteration", "optimize_hook", "maintain_hook_strategy", "maintain_current_approach", "expand_production_scope", "deepen_platform_specialization", "quality_improvement_priority", "aggressive_growth_acceleration", "maximize_growth_opportunity", "balance_growth_and_quality", "sustainable_growth_focus", "recovery_and_stabilization", "maintain_growth_momentum", "steady_optimization", "refine_existing"]
+              required: true
+
+            confidence:
+              type: "number"
+              description: "Confidence in this vector (0.0-1.0)"
+              minimum: 0.0
+              maximum: 1.0
+              required: true
+
+            priority:
+              type: "integer"
+              description: "Priority ranking (1-4)"
+              minimum: 1
+              maximum: 4
+              required: true
+
+            rationale:
+              type: "string"
+              description: "Explanation for this evolution vector"
+              required: true
+
+      priority_ranking:
+        type: "array"
+        description: "Priority ranking of evolution vectors"
+        required: true
+        items:
+          type: "object"
+          fields:
+            rank:
+              type: "integer"
+              minimum: 1
+              maximum: 4
+            vector:
+              type: "string"
+            action_urgency:
+              type: "string"
+              enum: ["urgent", "standard", "medium", "low"]
+            timeline:
+              type: "string"
+              description: "Recommended timeline (e.g., 'next_cycle', 'next_2_cycles')"
+
+      signal_alignment:
+        type: "object"
+        required: true
+        fields:
+          alignment_score:
+            type: "number"
+            description: "Signal alignment score (0.0-1.0); >= 0.50 = safe"
+            minimum: 0.0
+            maximum: 1.0
+            required: true
+
+          alignment_status:
+            type: "string"
+            enum: ["high_coherence", "moderate_alignment", "conflicting_signals"]
+            required: true
+
+          conflicting_signals:
+            type: "array"
+            description: "List of conflicting signal pairs (if any)"
+            items:
+              type: "string"
+            required: false
+
+          confidence:
+            type: "number"
+            description: "Confidence in alignment assessment"
+            minimum: 0.0
+            maximum: 1.0
+            required: true
+
+      opportunities_identified:
+        type: "object"
+        required: true
+        fields:
+          immediate_actions:
+            type: "array"
+            description: "High-priority actions for next cycle"
+            items:
+              type: "string"
+            required: true
+
+          quick_wins:
+            type: "array"
+            description: "Low-effort, high-impact improvements (1-2 cycles)"
+            items:
+              type: "string"
+            required: true
+
+          strategic_investments:
+            type: "array"
+            description: "Longer-term strategic investments (3+ cycles)"
+            items:
+              type: "string"
+            required: true
+
+      risks_identified:
+        type: "object"
+        required: true
+        fields:
+          critical:
+            type: "array"
+            description: "Critical risks requiring immediate action"
+            items:
+              type: "object"
+              fields:
+                issue:
+                  type: "string"
+                risk_level:
+                  type: "string"
+                mitigation:
+                  type: "string"
+
+          moderate:
+            type: "array"
+            description: "Moderate risks (1-3 cycle timeline)"
+            items:
+              type: "object"
+
+          monitoring:
+            type: "array"
+            description: "Emerging trends to monitor (no action yet)"
+            items:
+              type: "string"
+
+  quality:
+    type: "object"
+    required: true
+    fields:
+      performance_confidence:
+        type: "number"
+        minimum: 0.0
+        maximum: 1.0
+        required: true
+
+      feedback_confidence:
+        type: "number"
+        minimum: 0.0
+        maximum: 1.0
+        required: true
+
+      synthesis_confidence:
+        type: "number"
+        description: "Overall synthesis confidence (>= 0.72 required)"
+        minimum: 0.0
+        maximum: 1.0
+        required: true
+
+      signal_coherence:
+        type: "number"
+        description: "Signal coherence score (related to alignment_score)"
+        minimum: 0.0
+        maximum: 1.0
+        required: true
+
+      overall_evolution_signal_quality:
+        type: "number"
+        description: "Overall packet quality (0.0-1.0)"
+        minimum: 0.0
+        maximum: 1.0
+        required: true
+
+  status:
+    type: "object"
+    required: true
+    fields:
+      evolution_signals_synthesized:
+        type: "boolean"
+        required: true
+
+      signal_alignment_validated:
+        type: "boolean"
+        description: "Alignment validated (>= 0.50)"
+        required: true
+
+      opportunities_identified:
+        type: "boolean"
+        required: true
+
+      risks_assessed:
+        type: "boolean"
+        required: true
+
+      next_stage:
+        type: "string"
+        example: "content_evolution_execution"
+        required: true
+
+      decision:
+        type: "string"
+        enum: ["EVOLUTION_VECTORS_READY_FOR_CONTENT_DESIGN", "CONFLICT_DETECTED_REQUIRES_ESCALATION", "INSUFFICIENT_CONFIDENCE_ESCALATE"]
+        required: true
+
+---
+
+validation_rules:
+  - rule: "Four evolution vectors required (hook, narrative, production, growth)"
+  - rule: "Signal alignment must be >= 0.50 or escalate"
+  - rule: "Overall synthesis confidence >= 0.72 or escalate"
+  - rule: "All vectors must have explicit confidence >= 0.70"
+  - rule: "Priority ranking must be deterministic (1-4, no ties)"
+  - rule: "Opportunities must have clear timelines"
+
+---
+
+metadata:
+  owner_director: "Chandra"
+  narrative_advisor: "Vyasa"
+  strategy_advisor: "Chanakya"
+  validator_director: "Chitragupta"
+  created_date: "2026-04-20"
+  status: "active"
+  compliance_level: "tribunal_grade"
+
+notes: |
+  Output of E-603 (Evolution Strategist)
+  Input to CWF-630 (aggregates into final analytics_evolution_packet)
+  Four evolution vectors: hook, narrative, production, growth
+  All with explicit confidence scores and priority ranking
+  Signal alignment >= 0.50 required; < 0.50 escalates to WF-900
+  Synthesis confidence >= 0.72 required; < 0.72 escalates to WF-900
+  Narrative coherence reviewed by Vyasa (advisory)
+  Strategic alignment reviewed by Chanakya (advisory)

@@ -1,0 +1,144 @@
+binding_type: workflow_skill_binding
+binding_id: workflow_skill_binding_wf500
+target_workflow_pack: WF-500
+target_phase: phase1
+created_at: "2026-04-20"
+version: "1.0.0"
+
+workflow_skill_mappings:
+  CWF-510-platform-metadata-generator:
+    workflow_id: CWF-510
+    workflow_name: Platform Metadata Generator
+    workflow_class: child_workflow
+    input_packets:
+      - media_production_packet
+    output_packets:
+      - platform_metadata_packet
+    primary_skill: D-501
+    skill_sequence:
+      - skill_id: D-501
+        skill_name: Platform Metadata Generator
+        skill_type: primary_executor
+        execution_order: 1
+        role: Generate platform-specific metadata from media production packet
+        input_source: media_production_packet
+        output_target: platform_metadata_packet
+        governance_owner: Chanakya
+    data_mutations:
+      reads:
+        - dossier.context.execution_context
+        - dossier.media.production_packets
+        - se_dossier_index
+        - se_route_runs
+      writes:
+        - dossier.publishing.platform_metadata_packets (namespace: publishing, mutation: append_to_array)
+        - se_packet_index (write platform_metadata_packet metadata)
+    routing:
+      on_success: CWF-520
+      on_failure: WF-900
+      escalation_path: WF-900
+
+  CWF-520-distribution-planner:
+    workflow_id: CWF-520
+    workflow_name: Distribution Planner
+    workflow_class: child_workflow
+    input_packets:
+      - platform_metadata_packet
+    output_packets:
+      - distribution_plan_packet
+      - seo_optimized_metadata_packet
+    primary_skills:
+      - D-501
+      - D-502
+    skill_sequence:
+      - skill_id: D-501
+        skill_name: Platform Metadata Generator
+        skill_type: reference_executor
+        execution_order: 1
+        role: Access platform metadata for distribution planning
+        input_source: media_production_packet
+        governance_owner: Chanakya
+      - skill_id: D-502
+        skill_name: SEO Optimization Specialist
+        skill_type: primary_executor
+        execution_order: 2
+        role: Optimize platform metadata for SEO and search visibility
+        input_source: platform_metadata_packet
+        output_target: seo_optimized_metadata_packet
+        governance_owner: Chanakya
+    data_mutations:
+      reads:
+        - dossier.context.execution_context
+        - dossier.publishing.platform_metadata_packets
+        - se_dossier_index
+        - se_packet_index
+      writes:
+        - dossier.publishing.seo_optimized_metadata (namespace: publishing, mutation: append_to_array)
+        - se_packet_index (write both packets metadata)
+    routing:
+      on_success: CWF-530
+      on_failure: WF-900
+      escalation_path: WF-900
+
+  CWF-530-publish-readiness-checker:
+    workflow_id: CWF-530
+    workflow_name: Publish Readiness Checker
+    workflow_class: child_workflow
+    input_packets:
+      - seo_optimized_metadata_packet
+      - distribution_plan_packet
+      - media_production_packet
+    output_packets:
+      - publish_ready_packet
+    primary_skill: D-503
+    skill_sequence:
+      - skill_id: D-503
+        skill_name: Publish Readiness Checker
+        skill_type: quality_gatekeeper
+        execution_order: 1
+        role: Final validation and readiness gating before publishing
+        input_source: [seo_optimized_metadata_packet, distribution_plan_packet, media_production_packet]
+        output_target: publish_ready_packet
+        governance_owner: Yama
+    data_mutations:
+      reads:
+        - dossier.publishing.platform_metadata_packets
+        - dossier.publishing.seo_optimized_metadata
+        - dossier.media.production_packets
+        - se_dossier_index
+        - se_packet_index
+      writes:
+        - dossier.publishing.readiness_reports (namespace: publishing, mutation: append_to_array)
+        - dossier.approval.publication_queue (if READY, namespace: approval)
+        - se_packet_index (write publish_ready_packet metadata)
+    routing:
+      on_ready: WF-600
+      on_needs_review: CWF-510 or CWF-520 (per remediation path)
+      on_blocked: WF-900
+      escalation_path: WF-900
+
+registry_metadata:
+  total_workflows: 3
+  total_skills_mapped: 3
+  unique_skills: 3
+  workflows_by_status:
+    active: 3
+  data_tables_involved:
+    - se_dossier_index
+    - se_route_runs
+    - se_packet_index
+  dossier_namespaces_written:
+    - publishing (primary: platform_metadata_packets, seo_optimized_metadata, readiness_reports)
+    - approval (secondary: publication_queue)
+  workflow_vein: publishing_vein
+  phase: phase1
+  pack: WF-500
+
+constitutional_compliance:
+  all_workflows_have_skills: verified
+  all_skills_mapped: verified
+  data_mutations_documented: verified
+  escalation_paths_defined: verified
+  governance_owners_assigned: verified
+  no_skill_reuse_conflicts: verified (each skill used once or referenced)
+  packet_lineage_traceable: verified

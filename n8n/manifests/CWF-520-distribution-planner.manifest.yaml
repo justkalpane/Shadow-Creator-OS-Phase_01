@@ -1,0 +1,42 @@
+workflow_id: CWF-520
+name: cwf520_distribution_planner
+class: child
+parent_pack: WF-500
+purpose: plan the publishing schedule, cross-platform distribution order, and repurposing strategy based on the platform_metadata_packet
+primary_owner: Krishna
+supporting_directors:
+  - Chanakya
+inputs:
+  - platform_metadata_packet
+output_packet_family:
+  - distribution_plan_packet
+writes:
+  - namespaces.publishing
+  - namespaces.runtime
+write_targets:
+  dossier_namespaces:
+    - publishing
+    - runtime
+steps:
+  - ingest platform_metadata_packet and validate presence
+  - invoke D-502 to evaluate platform priority and SEO timing windows
+  - invoke D-503 to build publish schedule with optimal timing per platform
+  - determine cross-platform distribution order and dependencies
+  - build repurposing strategy for secondary formats
+  - assemble distribution_plan_packet
+  - emit distribution_plan_packet
+skills:
+  - D-502
+  - D-503
+done_criteria:
+  - publish schedule built with dates and times per platform
+  - cross-platform distribution order established
+  - repurposing strategy documented
+  - scheduling conflicts resolved
+  - packet emitted with status CREATED
+fallback_behavior:
+  on_missing_metadata_packet:
+    - log error and route to WF-900
+  on_scheduling_conflict:
+    - apply default cadence schedule
+    - flag for operator review

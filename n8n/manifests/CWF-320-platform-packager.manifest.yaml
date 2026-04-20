@@ -1,0 +1,36 @@
+workflow_id: CWF-320
+name: cwf320_platform_packager
+class: child
+parent_pack: WF-300
+purpose: package the execution-context-wrapped script into a platform-specific delivery format for YouTube, blog, podcast, or email
+primary_owner: Saraswati
+supporting_directors:
+  - Krishna
+inputs:
+  - execution_context_packet
+output_packet_family:
+  - platform_package_packet
+writes:
+  - namespaces.context
+write_targets:
+  dossier_namespaces:
+    - context
+steps:
+  - ingest execution_context_packet
+  - detect target_platform from context envelope
+  - apply platform-specific format rules (YouTube, blog, podcast, email)
+  - generate platform metadata (title, description, tags, chapters)
+  - structure script body for platform delivery requirements
+  - emit platform_package_packet
+done_criteria:
+  - target platform identified
+  - format rules applied
+  - platform metadata generated
+  - script body structured for delivery
+  - platform_package_packet emitted with status CREATED
+fallback_behavior:
+  on_unknown_platform:
+    - apply generic format defaults
+    - flag platform as unrecognized in packet status
+  on_format_failure:
+    - route to WF-900

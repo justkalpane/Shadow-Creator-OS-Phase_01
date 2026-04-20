@@ -1,0 +1,38 @@
+workflow_id: CWF-330
+name: cwf330_asset_brief_generator
+class: child
+parent_pack: WF-300
+purpose: generate downstream asset briefs for media production — thumbnail direction, visual cues, B-roll notes, caption requirements, and audio direction
+primary_owner: Durga
+supporting_directors:
+  - Saraswati
+inputs:
+  - platform_package_packet
+output_packet_family:
+  - asset_brief_packet
+writes:
+  - namespaces.context
+write_targets:
+  dossier_namespaces:
+    - context
+steps:
+  - ingest platform_package_packet
+  - extract script narrative sections and platform format
+  - generate thumbnail brief with visual direction
+  - generate B-roll and visual cue list per section
+  - generate caption and accessibility brief
+  - generate audio direction notes
+  - emit asset_brief_packet
+done_criteria:
+  - thumbnail brief generated
+  - B-roll cue list generated
+  - caption brief generated
+  - audio direction notes generated
+  - asset_brief_packet emitted with status CREATED
+  - packet ready for WF-400 downstream media production
+fallback_behavior:
+  on_missing_platform_packet:
+    - log error and route to WF-900
+  on_partial_asset_generation:
+    - emit with status PARTIAL
+    - flag incomplete sections for operator review

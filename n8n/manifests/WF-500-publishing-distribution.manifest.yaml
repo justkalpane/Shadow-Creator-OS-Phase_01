@@ -1,0 +1,85 @@
+workflow_id: WF-500
+name: wf500_publishing_distribution_pack
+class: parent_pack
+entry_mode: event_selected
+purpose: receive the media_production_packet from CWF-440 and handle platform metadata generation, distribution planning, and final publish-readiness gating before content goes live
+owner: shadow_empire_phase1
+primary_director: Krishna
+strategic_authority: Chanakya
+governance_authority:
+  - Yama
+  - Krishna
+producer_expectations:
+  triggered_by:
+    - WF-400 media_production_packet approved and promoted from CWF-440
+consumer_expectations:
+  consumed_by:
+    - WF-600 when publish_ready_packet is validated and sealed
+    - WF-020 when approval is required before publishing
+route_bindings:
+  - ROUTE_PHASE1_STANDARD
+  - ROUTE_PHASE1_FAST
+inputs:
+  - media_production_packet
+output_packet_family:
+  - platform_metadata_packet
+  - distribution_plan_packet
+  - publish_ready_packet
+outputs:
+  - publishing_distribution_result
+reads:
+  - workflow_registry
+  - skill_registry
+  - media_production_packet
+  - dossier.context
+  - dossier.runtime
+writes:
+  - namespaces.publishing
+  - namespaces.runtime
+write_targets:
+  data_tables:
+    - se_route_runs
+  dossier_namespaces:
+    - publishing
+    - runtime
+child_workflows:
+  - CWF-510-platform-metadata-generator
+  - CWF-520-distribution-planner
+  - CWF-530-publish-readiness-checker
+fallback_behavior:
+  on_metadata_generation_failure:
+    - emit publishing_distribution_result with status needs_revision
+    - allow replay to CWF-510
+  on_distribution_plan_failure:
+    - attach scheduling conflict details
+    - route to WF-900 for remediation
+  on_publish_readiness_failure:
+    - emit rejection packet
+    - route to WF-020 if governance approval needed
+    - route to WF-900 if critical error
+remodify_behavior:
+  when metadata_generator fails:
+    - attach platform rejection reasons
+    - return to CWF-510 with updated constraints
+replay_behavior: allowed for metadata and distribution planning loops before promotion to WF-600
+done_criteria:
+  - platform metadata packet emitted
+  - distribution plan packet emitted
+  - publish ready packet validated
+  - all assets confirmed present
+  - metadata completeness verified
+  - governance approval confirmed or waived
+  - schedule confirmed
+  - gate to WF-600 cleared
+error_family:
+  - SE-P1-001
+  - SE-P1-003
+validation:
+  - all child workflow outputs typed
+  - each child writes bounded dossier delta
+  - only validated publish_ready_packet may advance to WF-600
+  - lineage chain from WF-100 through WF-400 must be intact
+dependencies:
+  - WF-400
+  - WF-020
+  - WF-900

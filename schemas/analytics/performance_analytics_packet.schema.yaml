@@ -1,0 +1,336 @@
+schema_name: "performance_analytics_packet"
+schema_type: "artifact_packet"
+version: "1.0.0"
+phase: "phase1"
+vein: "analytics_vein"
+description: "Performance analytics packet produced by CWF-610 (Performance Metrics Collector). Contains platform performance metrics (views, engagement, watch time, shares, comments) aggregated from all target platforms."
+
+producer_workflow: "CWF-610"
+producer_skill: "N/A (n8n code node)"
+consumer_workflows: ["CWF-630"]
+consumer_skills: ["E-601"]
+
+packet_family: "performance_analytics_packet"
+schema_version: "1.0.0"
+artifact_family: "performance_analytics_packet"
+
+---
+
+root_structure:
+  instance_id:
+    type: "string"
+    pattern: "PAP-{timestamp}"
+    description: "Unique packet instance identifier"
+    required: true
+    example: "PAP-1745171200000"
+
+  artifact_family:
+    type: "enum"
+    enum: ["performance_analytics_packet"]
+    description: "Artifact classification"
+    required: true
+
+  schema_version:
+    type: "string"
+    pattern: "1.0.0"
+    description: "Schema version this packet conforms to"
+    required: true
+
+  producer_workflow:
+    type: "string"
+    pattern: "SE-N8N-CWF-610-Performance-Metrics-Collector"
+    description: "Originating workflow"
+    required: true
+
+  dossier_ref:
+    type: "string"
+    description: "Reference to parent dossier"
+    required: true
+    example: "TEST-DOSSIER"
+
+  created_at:
+    type: "string"
+    format: "ISO8601"
+    description: "Packet creation timestamp"
+    required: true
+
+  status:
+    type: "enum"
+    enum: ["CREATED", "VALIDATED", "EMITTED"]
+    description: "Packet lifecycle status"
+    required: true
+    default: "CREATED"
+
+---
+
+payload_structure:
+  narrative:
+    description: "Narrative context for this performance snapshot"
+    type: "object"
+    required: true
+    fields:
+      collection_period:
+        type: "string"
+        description: "Time period for metrics collection"
+        example: "24h"
+        required: true
+
+      platforms_sampled:
+        type: "integer"
+        description: "Number of platforms with metrics"
+        minimum: 1
+        maximum: 4
+        required: true
+
+      collection_timestamp:
+        type: "string"
+        format: "ISO8601"
+        description: "When metrics were collected"
+        required: true
+
+  context:
+    description: "Contextual information and lineage"
+    type: "object"
+    required: true
+    fields:
+      sourced_from_packet_id:
+        type: "string"
+        pattern: "PRP-*"
+        description: "ID of source publish_ready_packet"
+        required: false
+
+      runtime_context_id:
+        type: "string"
+        description: "Runtime context identifier"
+        required: false
+
+  evidence:
+    description: "Performance metrics evidence"
+    type: "object"
+    required: true
+    fields:
+      platform_metrics:
+        type: "object"
+        description: "Metrics per platform"
+        required: true
+        properties:
+          platform_name:
+            type: "object"
+            description: "Metrics for individual platform (e.g., youtube, instagram)"
+            required: true
+            fields:
+              platform:
+                type: "string"
+                enum: ["youtube", "instagram", "tiktok", "twitter"]
+                description: "Platform identifier"
+                required: true
+
+              views:
+                type: "integer"
+                description: "Total content views on platform"
+                minimum: 0
+                required: true
+
+              engagement_rate:
+                type: "number"
+                description: "Engagement rate (0.0-1.0)"
+                minimum: 0.0
+                maximum: 1.0
+                required: true
+
+              watch_time_hours:
+                type: "number"
+                description: "Total watch time in hours"
+                minimum: 0.0
+                required: true
+
+              shares:
+                type: "integer"
+                description: "Total shares/reposts"
+                minimum: 0
+                required: true
+
+              comments_count:
+                type: "integer"
+                description: "Total comments"
+                minimum: 0
+                required: true
+
+              collection_timestamp:
+                type: "string"
+                format: "ISO8601"
+                description: "When this platform's metrics were collected"
+                required: true
+
+  quality:
+    description: "Data quality indicators"
+    type: "object"
+    required: true
+    fields:
+      data_completeness:
+        type: "number"
+        description: "Completeness of data collection (0.0-1.0)"
+        minimum: 0.0
+        maximum: 1.0
+        required: true
+
+      platform_coverage:
+        type: "number"
+        description: "Platform coverage ratio (platforms_sampled / 4)"
+        minimum: 0.0
+        maximum: 1.0
+        required: true
+
+  status:
+    description: "Packet status and routing"
+    type: "object"
+    required: true
+    fields:
+      metrics_collected:
+        type: "boolean"
+        description: "Whether metrics collection completed"
+        required: true
+
+      next_stage:
+        type: "string"
+        enum: ["CWF-620"]
+        description: "Next workflow stage"
+        required: true
+
+      decision:
+        type: "string"
+        enum: ["PROCEED_TO_FEEDBACK_AGGREGATION"]
+        description: "Routing decision"
+        required: true
+
+---
+
+validation_rules:
+  - rule_id: "schema_completeness"
+    rule: "All required fields must be present"
+    severity: "critical"
+    enforcement: "pre_emission"
+
+  - rule_id: "data_quality_threshold"
+    rule: "data_completeness >= 0.75"
+    severity: "critical"
+    enforcement: "pre_emission"
+    escalation: "WF-900 if violated"
+
+  - rule_id: "platform_metrics_structure"
+    rule: "Each platform object must have all 6 metric fields"
+    severity: "critical"
+    enforcement: "pre_emission"
+
+  - rule_id: "numeric_bounds"
+    rule: "All numeric fields must respect min/max bounds"
+    severity: "critical"
+    enforcement: "pre_emission"
+
+  - rule_id: "timestamp_validity"
+    rule: "All ISO8601 timestamps must be valid and not in future"
+    severity: "high"
+    enforcement: "pre_emission"
+
+---
+
+example_packet:
+  instance_id: "PAP-1745171200000"
+  artifact_family: "performance_analytics_packet"
+  schema_version: "1.0.0"
+  producer_workflow: "SE-N8N-CWF-610-Performance-Metrics-Collector"
+  dossier_ref: "TEST-DOSSIER"
+  created_at: "2026-04-20T14:30:00Z"
+  status: "CREATED"
+
+  payload:
+    narrative:
+      collection_period: "24h"
+      platforms_sampled: 2
+      collection_timestamp: "2026-04-20T14:30:00Z"
+
+    context:
+      sourced_from_packet_id: "PRP-123456"
+      runtime_context_id: "RTC-001"
+
+    evidence:
+      platform_metrics:
+        youtube:
+          platform: "youtube"
+          views: 1500
+          engagement_rate: 0.08
+          watch_time_hours: 45.5
+          shares: 120
+          comments_count: 89
+          collection_timestamp: "2026-04-20T14:30:00Z"
+
+        instagram:
+          platform: "instagram"
+          views: 2100
+          engagement_rate: 0.12
+          watch_time_hours: 22.0
+          shares: 210
+          comments_count: 156
+          collection_timestamp: "2026-04-20T14:30:00Z"
+
+    quality:
+      data_completeness: 1.0
+      platform_coverage: 0.5
+
+    status:
+      metrics_collected: true
+      next_stage: "CWF-620"
+      decision: "PROCEED_TO_FEEDBACK_AGGREGATION"
+
+---
+
+packet_lifecycle:
+  creation: "CWF-610 manual trigger or event"
+  validation: "pre_emission validation (data_completeness >= 0.75)"
+  emission: "CWF-610 emit_result node"
+  consumption: "CWF-630 input, E-601 input"
+  storage: "dossier.analytics.performance_metrics (append_to_array)"
+
+lineage_requirements:
+  - source_packet_id: "publish_ready_packet"
+    relationship: "sourced_from"
+    tracking: "required"
+
+  - downstream_consumer: "E-601 (Performance Analyst)"
+    relationship: "input_to"
+    tracking: "required"
+
+  - audit_trail: "Chitragupta lineage tracking"
+    requirement: "all_packets_logged_with_timestamp"
+
+---
+
+metadata:
+  created_date: "2026-04-20"
+  last_updated: "2026-04-20"
+  status: "active"
+  compliance_level: "tribunal_grade"
+
+  owner_director: "Chandra"
+  validator_director: "Chitragupta"
+
+  related_schemas:
+    - "performance_insight_packet"
+    - "evolution_signal_packet"
+    - "analytics_evolution_packet"
+
+notes: |
+  Performance Analytics Packet Schema v1.0.0
+
+  Produced by: CWF-610 (collect_platform_metrics node)
+  Consumed by: CWF-630 (via E-601 Performance Analyst)
+  Stored in: dossier.analytics.performance_metrics
+
+  Contains raw platform metrics (views, engagement, watch time, shares, comments)
+  for all target platforms (youtube, instagram, etc.)
+
+  Quality gate: data_completeness >= 0.75 required for E-601 processing
+  If quality fails: escalate to WF-900
+
+  Lineage tracked by Chitragupta (audit authority)
+  Version controlled; no in-place updates allowed

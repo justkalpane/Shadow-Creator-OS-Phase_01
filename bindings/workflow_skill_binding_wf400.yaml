@@ -1,0 +1,184 @@
+binding_type: workflow_skill_binding
+binding_id: workflow_skill_binding_wf400
+target_workflow_pack: WF-400
+target_phase: phase1
+created_at: "2026-04-20"
+version: "1.0.0"
+
+workflow_skill_mappings:
+  CWF-410-thumbnail-generator:
+    workflow_id: CWF-410
+    workflow_name: Thumbnail Concept Designer
+    workflow_class: child_workflow
+    input_packets:
+      - context_engineering_packet
+    output_packets:
+      - thumbnail_concept_packet
+    primary_skill: A-401
+    skill_sequence:
+      - skill_id: A-401
+        skill_name: Thumbnail Concept Designer
+        skill_type: primary_executor
+        execution_order: 1
+        role: Design 3 thumbnail variants from script and platform context
+        input_source: context_engineering_packet
+        output_target: thumbnail_concept_packet
+        governance_owner: Krishna
+    data_mutations:
+      reads:
+        - dossier.context.execution_context
+        - dossier.context.platform_specs
+        - se_dossier_index
+        - se_route_runs
+      writes:
+        - dossier.media.thumbnail_concepts (namespace: media, mutation: append_to_array)
+        - se_packet_index (write thumbnail_concept_packet metadata)
+    routing:
+      on_success: CWF-420
+      on_failure: WF-900
+      escalation_path: WF-900
+
+  CWF-420-visual-asset-planner:
+    workflow_id: CWF-420
+    workflow_name: Visual Asset Specs Generator
+    workflow_class: child_workflow
+    input_packets:
+      - thumbnail_concept_packet
+      - context_engineering_packet
+    output_packets:
+      - visual_asset_spec_packet
+    primary_skill: A-402
+    skill_sequence:
+      - skill_id: A-402
+        skill_name: Visual Asset Planner
+        skill_type: primary_executor
+        execution_order: 1
+        role: Plan visual assets from script narrative and platform requirements
+        input_source: [thumbnail_concept_packet, context_engineering_packet]
+        output_target: visual_asset_spec_packet
+        governance_owner: Saraswati
+    data_mutations:
+      reads:
+        - dossier.context.execution_context
+        - dossier.script.final_script_packet
+        - dossier.media.thumbnail_concepts
+        - se_dossier_index
+        - se_packet_index
+      writes:
+        - dossier.media.visual_asset_specs (namespace: media, mutation: append_to_array)
+        - se_packet_index (write visual_asset_spec_packet metadata)
+    routing:
+      on_success: CWF-430
+      on_failure: WF-900
+      escalation_path: WF-900
+
+  CWF-430-audio-script-optimizer:
+    workflow_id: CWF-430
+    workflow_name: Audio/Voiceover Brief Builder
+    workflow_class: child_workflow
+    input_packets:
+      - final_script_packet
+      - visual_asset_spec_packet
+      - context_engineering_packet
+    output_packets:
+      - audio_brief_packet
+    primary_skill: A-403
+    skill_sequence:
+      - skill_id: A-403
+        skill_name: Audio/Voiceover Script Optimizer
+        skill_type: primary_executor
+        execution_order: 1
+        role: Optimize script for audio delivery with timing markers
+        input_source: [final_script_packet, visual_asset_spec_packet, context_engineering_packet]
+        output_target: audio_brief_packet
+        governance_owner: Saraswati
+    data_mutations:
+      reads:
+        - dossier.script.final_script_packet
+        - dossier.media.visual_asset_specs
+        - dossier.context.execution_context
+        - se_dossier_index
+        - se_packet_index
+      writes:
+        - dossier.media.audio_briefs (namespace: media, mutation: append_to_array)
+        - se_packet_index (write audio_brief_packet metadata)
+    routing:
+      on_success: CWF-440
+      on_failure: WF-900
+      escalation_path: WF-900
+
+  CWF-440-media-package-finalizer:
+    workflow_id: CWF-440
+    workflow_name: Media Production Finalizer
+    workflow_class: child_workflow
+    input_packets:
+      - thumbnail_concept_packet
+      - visual_asset_spec_packet
+      - audio_brief_packet
+    output_packets:
+      - media_production_packet
+      - media_validation_report
+    primary_skills:
+      - A-404
+      - A-405
+    skill_sequence:
+      - skill_id: A-404
+        skill_name: Media Package Assembler
+        skill_type: primary_executor
+        execution_order: 1
+        role: Assemble media production package from all specifications
+        input_source: [thumbnail_concept_packet, visual_asset_spec_packet, audio_brief_packet]
+        output_target: media_production_packet
+        governance_owner: Krishna
+      - skill_id: A-405
+        skill_name: Media Production QA Validator
+        skill_type: quality_gatekeeper
+        execution_order: 2
+        role: Validate media production package against quality gates
+        input_source: media_production_packet
+        output_target: media_validation_report
+        governance_owner: Durga
+    data_mutations:
+      reads:
+        - dossier.media.thumbnail_concepts
+        - dossier.media.visual_asset_specs
+        - dossier.media.audio_briefs
+        - se_dossier_index
+        - se_packet_index
+      writes:
+        - dossier.media.production_packets (namespace: media, mutation: append_to_array)
+        - dossier.media.validation_reports (namespace: media, mutation: append_to_array)
+        - dossier.approval.promotion_queue (if APPROVED, namespace: approval)
+        - dossier.approval.revision_queue (if NEEDS_REVISION, namespace: approval)
+        - se_packet_index (write packet metadata)
+    routing:
+      on_success: WF-500
+      on_qa_failure: CWF-420 or CWF-430 (per remediation path)
+      on_critical_blocker: WF-900
+      escalation_path: WF-900
+
+registry_metadata:
+  total_workflows: 4
+  total_skills_mapped: 5
+  unique_skills: 5
+  workflows_by_status:
+    active: 4
+  data_tables_involved:
+    - se_dossier_index
+    - se_route_runs
+    - se_packet_index
+  dossier_namespaces_written:
+    - media (primary: thumbnail_concepts, visual_asset_specs, audio_briefs, production_packets, validation_reports)
+    - approval (secondary: promotion_queue, revision_queue)
+  workflow_vein: media_production_vein
+  phase: phase1
+  pack: WF-400
+
+constitutional_compliance:
+  all_workflows_have_skills: verified
+  all_skills_mapped: verified
+  data_mutations_documented: verified
+  escalation_paths_defined: verified
+  governance_owners_assigned: verified
+  no_skill_reuse_conflicts: verified (each skill used once)
+  packet_lineage_traceable: verified

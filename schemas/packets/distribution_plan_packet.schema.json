@@ -1,0 +1,78 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Distribution Plan Packet",
+  "description": "Schema for distribution and scheduling plan from CWF-520-distribution-planner",
+  "type": "object",
+  "required": ["instance_id", "artifact_family", "schema_version", "producer_workflow", "dossier_ref", "created_at", "status", "payload"],
+  "properties": {
+    "instance_id": {"type": "string", "pattern": "^DPP-[0-9]+$"},
+    "artifact_family": {"type": "string", "enum": ["distribution_plan_packet"]},
+    "schema_version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+    "producer_workflow": {"type": "string", "enum": ["SE-N8N-CWF-520-Distribution-Planner"]},
+    "dossier_ref": {"type": "string", "pattern": "^[a-zA-Z0-9-]+$"},
+    "created_at": {"type": "string", "format": "date-time"},
+    "status": {"type": "string", "enum": ["CREATED", "VALIDATED", "FAILED"]},
+    "payload": {
+      "type": "object",
+      "required": ["narrative", "context", "evidence", "quality", "status"],
+      "properties": {
+        "narrative": {
+          "type": "object",
+          "required": ["distribution_strategy", "platform_count"],
+          "properties": {
+            "distribution_strategy": {"type": "string", "enum": ["simultaneous", "staggered", "exclusive"]},
+            "platform_count": {"type": "integer", "minimum": 1},
+            "total_reach_estimate": {"type": "integer", "minimum": 0}
+          }
+        },
+        "context": {
+          "type": "object",
+          "required": ["sourced_from_packet_id"],
+          "properties": {
+            "sourced_from_packet_id": {"type": "string", "pattern": "^PMP-[0-9]+$"}
+          }
+        },
+        "evidence": {
+          "type": "object",
+          "required": ["platform_schedule"],
+          "properties": {
+            "platform_schedule": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "required": ["platform", "scheduled_publish_time"],
+                "properties": {
+                  "platform": {"type": "string", "enum": ["youtube", "instagram", "twitter", "tiktok"]},
+                  "scheduled_publish_time": {"type": "string", "format": "date-time"},
+                  "timezone": {"type": "string", "default": "UTC"},
+                  "optimization_notes": {"type": "string"}
+                }
+              }
+            },
+            "distribution_channels": {"type": "array", "items": {"type": "string"}},
+            "contingency_plans": {"type": "array", "items": {"type": "string"}}
+          }
+        },
+        "quality": {
+          "type": "object",
+          "required": ["schedule_feasibility", "platform_readiness"],
+          "properties": {
+            "schedule_feasibility": {"type": "number", "minimum": 0, "maximum": 1},
+            "platform_readiness": {"type": "number", "minimum": 0, "maximum": 1},
+            "distribution_optimality": {"type": "number", "minimum": 0, "maximum": 1}
+          }
+        },
+        "status": {
+          "type": "object",
+          "required": ["plan_complete", "next_stage", "decision"],
+          "properties": {
+            "plan_complete": {"type": "boolean", "enum": [true]},
+            "next_stage": {"type": "string", "enum": ["CWF-530"]},
+            "decision": {"type": "string", "enum": ["PROCEED_TO_READINESS_CHECK"]}
+          }
+        }
+      }
+    }
+  }
+}

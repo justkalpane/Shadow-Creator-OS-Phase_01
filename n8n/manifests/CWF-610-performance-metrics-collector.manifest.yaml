@@ -1,0 +1,26 @@
+workflow_id: CWF-610
+name: performance_metrics_collector
+class: child_workflow
+phase: phase1
+vein: analytics_vein
+entry_mode: event_selected
+owner_director: Chandra
+supporting_directors: [Chitragupta]
+purpose: Collect performance metrics from all target platforms and aggregate into unified analytics format
+producer:
+  triggered_by: WF-600-parent
+  input: publish_ready_packet + runtime_context
+consumer:
+  next_workflow: CWF-620
+  output: performance_analytics_packet
+output_packet_family: performance_analytics_packet
+governance:
+  approval_required: false
+  escalation_path: WF-900
+routing:
+  on_success: CWF-620
+  on_failure: WF-900
+done_criteria:
+  - metrics collected from all platforms
+  - performance_analytics_packet emitted
+  - lineage preserved

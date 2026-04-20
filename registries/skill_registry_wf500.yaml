@@ -1,0 +1,114 @@
+registry_type: skill_registry
+registry_id: skill_registry_wf500
+target_workflow_pack: WF-500
+target_phase: phase1
+created_at: "2026-04-20"
+version: "1.0.0"
+
+skills:
+  D-501:
+    skill_id: D-501
+    skill_name: Platform Metadata Generator
+    category: publishing_distribution
+    description: Generate platform-specific metadata (SEO titles, descriptions, tags, chapters)
+    owner_director: Chanakya
+    governance_authority: [Krishna]
+    dna_version: "1.0.0"
+    status: active
+    vein: publishing_vein
+    input_packet_family: media_production_packet
+    output_packet_family: platform_metadata_packet
+    producer_workflow: CWF-510-platform-metadata-generator
+    consumer_workflow: CWF-520-distribution-planner
+    capability_tags:
+      - metadata_generation
+      - platform_optimization
+      - seo_foundation
+    mutation_targets:
+      - dossier.publishing.platform_metadata_packets
+    escalation_path: WF-900
+    health_status: active
+    last_verified: "2026-04-20"
+    file_path: skills/publishing/D-501-platform-metadata-generator.skill.md
+    test_suite: test/skills/publishing/D-501-*.test.js
+
+  D-502:
+    skill_id: D-502
+    skill_name: SEO Optimization Specialist
+    category: publishing_distribution
+    description: Optimize platform metadata for search visibility and discoverability
+    owner_director: Chanakya
+    governance_authority: [Krishna, Yama]
+    dna_version: "1.0.0"
+    status: active
+    vein: publishing_vein
+    input_packet_family: platform_metadata_packet
+    output_packet_family: seo_optimized_metadata_packet
+    producer_workflow: CWF-520-distribution-planner
+    consumer_workflow: CWF-530-publish-readiness-checker
+    capability_tags:
+      - seo_optimization
+      - keyword_research
+      - metadata_refinement
+      - algorithm_signals
+    mutation_targets:
+      - dossier.publishing.seo_optimized_metadata
+    escalation_path: WF-900
+    health_status: active
+    last_verified: "2026-04-20"
+    file_path: skills/publishing/D-502-seo-optimization-specialist.skill.md
+    test_suite: test/skills/publishing/D-502-*.test.js
+
+  D-503:
+    skill_id: D-503
+    skill_name: Publish Readiness Checker
+    category: publishing_distribution
+    description: Final validation before publishing - policy, quality, schedule, feasibility
+    owner_director: Yama
+    governance_authority: [Krishna, Chanakya]
+    dna_version: "1.0.0"
+    status: active
+    vein: publishing_vein
+    input_packet_family:
+      - seo_optimized_metadata_packet
+      - distribution_plan_packet
+    output_packet_family: publish_ready_packet
+    producer_workflow: CWF-530-publish-readiness-checker
+    consumer_workflow: WF-600-analytics-evolution-pack
+    capability_tags:
+      - quality_assurance
+      - policy_compliance
+      - readiness_validation
+      - gate_enforcement
+    mutation_targets:
+      - dossier.publishing.readiness_reports
+      - dossier.approval.publication_queue
+    escalation_path: WF-900
+    health_status: active
+    last_verified: "2026-04-20"
+    file_path: skills/publishing/D-503-publish-readiness-checker.skill.md
+    test_suite: test/skills/publishing/D-503-*.test.js
+
+registry_metadata:
+  total_skills: 3
+  active_skills: 3
+  skills_by_status:
+    active: 3
+    deprecated: 0
+  directors_involved: [Chanakya, Krishna, Yama]
+  mutation_targets:
+    - dossier.publishing.platform_metadata_packets
+    - dossier.publishing.seo_optimized_metadata
+    - dossier.publishing.readiness_reports
+    - dossier.approval.publication_queue
+  workflow_vein: publishing_vein
+  phase: phase1
+  pack: WF-500
+
+constitutional_compliance:
+  dna_injection: enforced
+  registry_first_law: enforced
+  no_hallucinated_skills: verified
+  governance_owner_assigned: verified_all_skills
+  escalation_path_defined: verified_all_skills
+  test_suite_defined: verified_all_skills

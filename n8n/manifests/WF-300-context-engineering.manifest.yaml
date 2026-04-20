@@ -1,0 +1,83 @@
+workflow_id: WF-300
+name: wf300_context_engineering_pack
+class: parent_pack
+entry_mode: event_selected
+purpose: take the final_script_packet from CWF-240 and engineer the execution context, platform packaging, asset briefs, and lineage validation required for media production
+owner: shadow_empire_phase1
+primary_director: Krishna
+strategic_authority: Krishna
+governance_authority:
+  - Yama
+  - Kubera
+producer_expectations:
+  triggered_by:
+    - WF-200 final_script_packet approved and promoted from CWF-240
+consumer_expectations:
+  consumed_by:
+    - WF-400 when context_engineering_packet is validated and sealed
+    - operator review when lineage or quality gates fail
+route_bindings:
+  - ROUTE_PHASE1_STANDARD
+  - ROUTE_PHASE1_FAST
+inputs:
+  - final_script_packet
+output_packet_family:
+  - execution_context_packet
+  - platform_package_packet
+  - asset_brief_packet
+  - context_engineering_packet
+outputs:
+  - context_engineering_result
+reads:
+  - workflow_registry
+  - skill_registry
+  - final_script_packet
+  - dossier.script
+  - dossier.runtime
+writes:
+  - namespaces.context
+  - namespaces.runtime
+write_targets:
+  data_tables:
+    - se_route_runs
+  dossier_namespaces:
+    - context
+    - runtime
+child_workflows:
+  - CWF-310-execution-context-builder
+  - CWF-320-platform-packager
+  - CWF-330-asset-brief-generator
+  - CWF-340-lineage-validator
+fallback_behavior:
+  on_context_build_failure:
+    - emit context_engineering_result with status needs_revision
+    - allow replay to CWF-310
+  on_lineage_validation_failure:
+    - attach lineage break details
+    - route to WF-900 for remediation
+  on_governance_failure:
+    - emit rejection packet
+    - route to WF-900 if remediation needed
+remodify_behavior:
+  when platform_packager fails:
+    - attach format rejection reasons
+    - return to CWF-310 with updated constraints
+replay_behavior: allowed for context-build and platform-package loops before promotion to WF-400
+done_criteria:
+  - execution context packet emitted
+  - platform package packet emitted
+  - asset brief packet emitted
+  - context engineering packet validated
+  - lineage from topic to script to context confirmed
+  - gate to WF-400 cleared
+error_family:
+  - SE-P1-001
+  - SE-P1-003
+validation:
+  - all child workflow outputs typed
+  - each child writes bounded dossier delta
+  - only validated context packet may advance to WF-400
+  - lineage chain from WF-100 through WF-200 must be intact
+dependencies:
+  - WF-200
+  - WF-900

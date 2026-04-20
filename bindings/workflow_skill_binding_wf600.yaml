@@ -1,0 +1,526 @@
+binding_name: "workflow_skill_binding_wf600"
+binding_type: "workflow_skill_binding"
+version: "1.0.0"
+phase: "phase1"
+workflow_pack: "WF-600"
+description: "Analytics & Evolution Pack - Workflow-Skill Binding. Maps workflows to skills and defines data mutations per stage."
+
+parent_workflow: "WF-600"
+child_workflows: ["CWF-610", "CWF-620", "CWF-630"]
+skills: ["E-601", "E-602", "E-603"]
+
+---
+
+workflow_skill_mappings:
+
+  - workflow_id: "CWF-610"
+    workflow_name: "Performance Metrics Collector"
+    workflow_type: "child_workflow"
+    vein: "analytics_vein"
+    owner_director: "Chandra"
+
+    stage: "stage_1_performance_collection"
+    sequence_order: 1
+
+    trigger:
+      type: "manual_or_event"
+      event_source: "WF-600 parent trigger"
+      input_packet: "publish_ready_packet"
+      input_context: "runtime_context"
+
+    nodes:
+      - node_type: "input_trigger"
+        node_name: "Workflow Input"
+        input_packet: "publish_ready_packet"
+        input_context: "runtime_context"
+
+      - node_type: "normalization"
+        node_name: "Normalize Metrics Input"
+        operation: "prepare_data_for_collection"
+        output: "normalized_input"
+
+      - node_type: "data_collection"
+        node_name: "Collect Platform Metrics"
+        operation: "aggregate_metrics_from_platforms"
+        operation_code: "n8n_code_node"
+        metrics_collected:
+          - "views"
+          - "engagement_rate"
+          - "watch_time_hours"
+          - "shares"
+          - "comments_count"
+        platforms:
+          - "youtube"
+          - "instagram"
+          - "tiktok"
+          - "twitter"
+        output_structure: "platform_metrics_vector"
+
+      - node_type: "packet_building"
+        node_name: "Build Analytics Packet"
+        operation: "construct_performance_analytics_packet"
+        output_packet_type: "performance_analytics_packet"
+        output_packet_family: "performance_analytics_packet"
+        payload_sections:
+          - "narrative"
+          - "context"
+          - "evidence"
+          - "quality"
+          - "status"
+
+      - node_type: "output_emission"
+        node_name: "Emit Result"
+        operation: "emit_performance_analytics_packet"
+        output_packet: "performance_analytics_packet"
+        dossier_mutation: "dossier_delta"
+
+    output:
+      primary_packet: "performance_analytics_packet"
+      packet_family: "performance_analytics_packet"
+      schema_version: "1.0.0"
+      guaranteed_fields:
+        - "payload.evidence.platform_metrics"
+        - "payload.quality.data_completeness"
+        - "payload.status.metrics_collected"
+
+    data_mutations:
+      - mutation_id: "CWF-610-mutation-001"
+        namespace: "analytics"
+        mutation_type: "append_to_array"
+        target: "dossier.analytics.performance_metrics"
+        value_source: "performance_analytics_packet.instance_id + payload"
+        required: false
+        audit_required: true
+        governance:
+          owner: "Chandra"
+          audit_by: "Chitragupta"
+
+    downstream_consumer: "CWF-620"
+    downstream_input_packet: "performance_analytics_packet"
+
+    quality_gates:
+      - gate_id: "CWF-610-gate-01"
+        gate_name: "Data Completeness Gate"
+        condition: "data_completeness >= 0.75"
+        failure_action: "escalate_to_WF900"
+        failure_code: "SE-P1-006"
+
+    skill_invocations: []
+    skill_type: "n8n_native"
+    note: "CWF-610 uses n8n code nodes, not skill loader pattern"
+
+---
+
+  - workflow_id: "CWF-620"
+    workflow_name: "Audience Feedback Aggregator"
+    workflow_type: "child_workflow"
+    vein: "analytics_vein"
+    owner_director: "Chandra"
+    supporting_directors: ["Chitragupta", "Yama"]
+
+    stage: "stage_2_feedback_aggregation"
+    sequence_order: 2
+
+    trigger:
+      type: "event"
+      event_source: "CWF-610 output"
+      input_packet: "performance_analytics_packet"
+      secondary_input_packet: "audience_feedback_raw"
+
+    nodes:
+      - node_type: "input_trigger"
+        node_name: "Workflow Input"
+        input_packet: "performance_analytics_packet"
+
+      - node_type: "normalization"
+        node_name: "Normalize Feedback Input"
+        operation: "prepare_feedback_for_analysis"
+
+      - node_type: "data_aggregation"
+        node_name: "Aggregate Feedback"
+        operation: "aggregate_comments_and_sentiment"
+        operation_code: "n8n_code_node"
+        aggregation_targets:
+          - "total_comments"
+          - "sentiment_distribution"
+          - "top_themes"
+        platforms:
+          - "youtube"
+          - "instagram"
+
+      - node_type: "packet_building"
+        node_name: "Build Packet"
+        operation: "construct_audience_feedback_packet"
+        output_packet_type: "audience_feedback_packet"
+
+      - node_type: "output_emission"
+        node_name: "Emit Result"
+        operation: "emit_audience_feedback_packet"
+        output_packet: "audience_feedback_packet"
+        dossier_mutation: "dossier_delta"
+
+    output:
+      primary_packet: "audience_feedback_packet"
+      packet_family: "audience_feedback_packet"
+      schema_version: "1.0.0"
+      guaranteed_fields:
+        - "payload.evidence.platform_feedback"
+        - "payload.quality.feedback_completeness"
+        - "payload.status.aggregation_complete"
+
+    data_mutations:
+      - mutation_id: "CWF-620-mutation-001"
+        namespace: "analytics"
+        mutation_type: "append_to_array"
+        target: "dossier.analytics.audience_feedback"
+        value_source: "audience_feedback_packet.instance_id + payload"
+        required: false
+        audit_required: true
+        governance:
+          owner: "Chandra"
+          policy_authority: "Yama"
+          audit_by: "Chitragupta"
+
+    downstream_consumer: "CWF-630"
+    downstream_input_packet: "audience_feedback_packet"
+
+    quality_gates:
+      - gate_id: "CWF-620-gate-01"
+        gate_name: "Feedback Completeness Gate"
+        condition: "feedback_completeness >= 0.75"
+        failure_action: "escalate_to_WF900"
+        failure_code: "SE-P1-007"
+
+      - gate_id: "CWF-620-gate-02"
+        gate_name: "Policy Compliance Gate"
+        condition: "no_policy_violations_detected"
+        failure_action: "escalate_to_WF900"
+        failure_authority: "Yama"
+        failure_code: "SE-P1-008"
+
+      - gate_id: "CWF-620-gate-03"
+        gate_name: "Sentiment Critical Alert"
+        condition: "negative_sentiment <= 0.35"
+        failure_action: "escalate_to_WF900"
+        failure_authority: "Yama"
+        note: "If negative sentiment > 35%, escalate immediately"
+
+    skill_invocations: []
+    skill_type: "n8n_native"
+    note: "CWF-620 uses n8n code nodes, not skill loader pattern"
+
+---
+
+  - workflow_id: "CWF-630"
+    workflow_name: "Evolution Signal Synthesizer"
+    workflow_type: "child_workflow"
+    vein: "analytics_vein"
+    owner_director: "Chandra"
+    supporting_directors: ["Chitragupta", "Yama", "Vyasa", "Chanakya"]
+
+    stage: "stage_3_signal_synthesis"
+    sequence_order: 3
+
+    trigger:
+      type: "event"
+      event_source: "CWF-620 output"
+      input_packets: ["performance_analytics_packet", "audience_feedback_packet"]
+
+    nodes:
+      - node_type: "input_trigger"
+        node_name: "Workflow Input"
+        input_packets: ["performance_analytics_packet", "audience_feedback_packet"]
+
+      - node_type: "normalization"
+        node_name: "Normalize Synthesis Input"
+        operation: "prepare_inputs_for_synthesis"
+
+      - node_type: "skill_execution"
+        node_name: "Execute E-601 (Performance Analyst)"
+        skill_id: "E-601"
+        skill_name: "Performance Analyst"
+        skill_type: "analytical_skill"
+        skill_loader_pattern: "yes"
+        input_packet: "performance_analytics_packet"
+        output_packet: "performance_insight_packet"
+        owner_director: "Chandra"
+        execution_timeout: "30s"
+        error_handling: "escalate_to_WF900_if_E601_fails"
+
+      - node_type: "skill_execution"
+        node_name: "Execute E-602 (Feedback Analyst)"
+        skill_id: "E-602"
+        skill_name: "Feedback Analyst"
+        skill_type: "analytical_skill"
+        skill_loader_pattern: "yes"
+        input_packet: "audience_feedback_packet"
+        output_packet: "feedback_insight_packet"
+        owner_director: "Chandra"
+        supporting_director: "Yama"
+        execution_timeout: "30s"
+        error_handling: "escalate_to_WF900_if_E602_fails"
+
+      - node_type: "skill_execution"
+        node_name: "Execute E-603 (Evolution Strategist)"
+        skill_id: "E-603"
+        skill_name: "Evolution Strategist"
+        skill_type: "strategic_synthesis_skill"
+        skill_loader_pattern: "yes"
+        input_packets: ["performance_insight_packet", "feedback_insight_packet"]
+        output_packet: "evolution_signal_packet"
+        owner_director: "Chandra"
+        supporting_directors: ["Vyasa", "Chanakya"]
+        execution_timeout: "30s"
+        error_handling: "escalate_to_WF900_if_E603_fails_or_alignment_lt_0.50"
+
+      - node_type: "packet_building"
+        node_name: "Build Aggregation Packet"
+        operation: "aggregate_PIP_FIP_ESP_into_AEP"
+        output_packet_type: "analytics_evolution_packet"
+        aggregation_inputs:
+          - "performance_insight_packet"
+          - "feedback_insight_packet"
+          - "evolution_signal_packet"
+
+      - node_type: "output_emission"
+        node_name: "Emit Result"
+        operation: "emit_analytics_evolution_packet"
+        output_packet: "analytics_evolution_packet"
+        dossier_mutation: "dossier_delta"
+        final_gate: "Chitragupta_lineage_verification"
+
+    output:
+      primary_packet: "analytics_evolution_packet"
+      packet_family: "analytics_evolution_packet"
+      schema_version: "1.0.0"
+      guaranteed_fields:
+        - "payload.evidence.performance_snapshot"
+        - "payload.evidence.feedback_snapshot"
+        - "payload.evidence.evolution_signals"
+        - "payload.status.feedback_loop_closed"
+
+    data_mutations:
+      - mutation_id: "CWF-630-mutation-001"
+        namespace: "analytics"
+        mutation_type: "append_to_array"
+        target: "dossier.analytics.performance_insights"
+        value_source: "E-601_output.performance_insight_packet"
+        required: true
+        audit_required: true
+        governance:
+          owner: "Chandra"
+          audit_by: "Chitragupta"
+
+      - mutation_id: "CWF-630-mutation-002"
+        namespace: "analytics"
+        mutation_type: "append_to_array"
+        target: "dossier.analytics.feedback_insights"
+        value_source: "E-602_output.feedback_insight_packet"
+        required: true
+        audit_required: true
+        governance:
+          owner: "Chandra"
+          policy_authority: "Yama"
+          audit_by: "Chitragupta"
+
+      - mutation_id: "CWF-630-mutation-003"
+        namespace: "analytics"
+        mutation_type: "append_to_array"
+        target: "dossier.analytics.evolution_signals"
+        value_source: "E-603_output.evolution_signal_packet"
+        required: true
+        audit_required: true
+        governance:
+          owner: "Chandra"
+          strategic_advisor: "Chanakya"
+          narrative_advisor: "Vyasa"
+          audit_by: "Chitragupta"
+
+      - mutation_id: "CWF-630-mutation-004"
+        namespace: "analytics"
+        mutation_type: "append_to_array"
+        target: "dossier.analytics.evolution_packets"
+        value_source: "analytics_evolution_packet.instance_id + payload"
+        required: true
+        audit_required: true
+        governance:
+          owner: "Chandra"
+          audit_by: "Chitragupta"
+
+    downstream_consumer: "WF-600_completion"
+    downstream_input_packet: "analytics_evolution_packet"
+
+    quality_gates:
+      - gate_id: "CWF-630-gate-01"
+        gate_name: "E-601 Execution Gate"
+        condition: "E-601_execution_success AND performance_insight_packet_valid"
+        failure_action: "escalate_to_WF900"
+
+      - gate_id: "CWF-630-gate-02"
+        gate_name: "E-602 Execution Gate"
+        condition: "E-602_execution_success AND feedback_insight_packet_valid"
+        failure_action: "escalate_to_WF900"
+
+      - gate_id: "CWF-630-gate-03"
+        gate_name: "E-603 Execution Gate"
+        condition: "E-603_execution_success AND evolution_signal_packet_valid"
+        failure_action: "escalate_to_WF900"
+
+      - gate_id: "CWF-630-gate-04"
+        gate_name: "Signal Alignment Gate"
+        condition: "signal_alignment_score >= 0.50"
+        failure_action: "escalate_to_WF900"
+        failure_authority: "Chandra"
+
+      - gate_id: "CWF-630-gate-05"
+        gate_name: "Synthesis Confidence Gate"
+        condition: "synthesis_confidence >= 0.72"
+        failure_action: "escalate_to_WF900"
+        failure_authority: "Chandra"
+
+      - gate_id: "CWF-630-gate-06"
+        gate_name: "Lineage Verification Gate"
+        condition: "all_source_packets_in_lineage_chain"
+        failure_action: "escalate_to_WF900"
+        gate_authority: "Chitragupta"
+
+    skill_invocations:
+      - skill_invocation_id: "CWF-630-skill-001"
+        skill_id: "E-601"
+        invocation_sequence: 1
+        input_contract: "performance_analytics_packet"
+        output_contract: "performance_insight_packet"
+        error_handling: "escalate_if_fails"
+
+      - skill_invocation_id: "CWF-630-skill-002"
+        skill_id: "E-602"
+        invocation_sequence: 2
+        input_contract: "audience_feedback_packet"
+        output_contract: "feedback_insight_packet"
+        error_handling: "escalate_if_fails"
+
+      - skill_invocation_id: "CWF-630-skill-003"
+        skill_id: "E-603"
+        invocation_sequence: 3
+        input_contracts: ["performance_insight_packet", "feedback_insight_packet"]
+        output_contract: "evolution_signal_packet"
+        error_handling: "escalate_if_fails_or_confidence_low"
+
+    skill_type: "skill_loader_pattern"
+    note: "CWF-630 uses skill_loader to invoke E-601, E-602, E-603 in sequence"
+
+---
+
+workflow_execution_sequence:
+  - sequence: 1
+    workflow: "CWF-610"
+    trigger: "WF-600 parent trigger"
+    input: "publish_ready_packet + runtime_context"
+    output: "performance_analytics_packet"
+    duration: "~5-10s"
+
+  - sequence: 2
+    workflow: "CWF-620"
+    trigger: "CWF-610 completion event"
+    input: "performance_analytics_packet + audience_feedback_raw"
+    output: "audience_feedback_packet"
+    duration: "~5-10s"
+
+  - sequence: 3
+    workflow: "CWF-630"
+    trigger: "CWF-620 completion event"
+    input: "performance_analytics_packet + audience_feedback_packet"
+    sub_steps:
+      - "E-601 execution (performance analysis)"
+      - "E-602 execution (feedback analysis)"
+      - "E-603 execution (signal synthesis)"
+      - "AEP aggregation"
+      - "final emission"
+    output: "analytics_evolution_packet"
+    duration: "~15-30s"
+
+total_pipeline_duration: "~25-50s"
+
+cross_workflow_data_flow:
+  - flow_id: "CWF-610-to-CWF-620"
+    source_workflow: "CWF-610"
+    source_packet: "performance_analytics_packet"
+    target_workflow: "CWF-620"
+    target_input: "performance_analytics_packet"
+    data_type: "event_trigger_input"
+
+  - flow_id: "CWF-610-to-CWF-630"
+    source_workflow: "CWF-610"
+    source_packet: "performance_analytics_packet"
+    target_workflow: "CWF-630"
+    target_input: "performance_analytics_packet (via E-601)"
+    data_type: "event_trigger_input"
+
+  - flow_id: "CWF-620-to-CWF-630"
+    source_workflow: "CWF-620"
+    source_packet: "audience_feedback_packet"
+    target_workflow: "CWF-630"
+    target_input: "audience_feedback_packet (via E-602)"
+    data_type: "event_trigger_input"
+
+binding_metadata:
+  created_date: "2026-04-20"
+  last_updated: "2026-04-20"
+  status: "complete"
+  compliance_verified: true
+
+  total_workflows: 3
+  total_skills: 3
+  total_data_mutations: 4
+  total_quality_gates: 9
+
+  governance_authorities:
+    - "Chandra (primary orchestrator)"
+    - "Chitragupta (audit/lineage)"
+    - "Yama (policy/sentiment)"
+    - "Vyasa (narrative advisor)"
+    - "Chanakya (strategy advisor)"
+
+notes: |
+  WF-600 Workflow-Skill Binding Complete
+
+  EXECUTION FLOW:
+  1. CWF-610: Collect performance metrics → performance_analytics_packet
+  2. CWF-620: Aggregate feedback → audience_feedback_packet
+  3. CWF-630: Synthesize via E-601, E-602, E-603 → analytics_evolution_packet
+
+  DATA MUTATIONS (all append_to_array):
+  - dossier.analytics.performance_metrics (CWF-610 optional)
+  - dossier.analytics.audience_feedback (CWF-620 optional)
+  - dossier.analytics.performance_insights (CWF-630 required, E-601)
+  - dossier.analytics.feedback_insights (CWF-630 required, E-602)
+  - dossier.analytics.evolution_signals (CWF-630 required, E-603)
+  - dossier.analytics.evolution_packets (CWF-630 required, AEP)
+
+  QUALITY GATES (9 total):
+  - CWF-610: 1 gate (data completeness)
+  - CWF-620: 3 gates (feedback, policy, sentiment)
+  - CWF-630: 6 gates (E-601 exec, E-602 exec, E-603 exec, alignment, confidence, lineage)
+
+  SKILL LOADER PATTERN:
+  CWF-630 uses skill_loader to invoke:
+  - E-601 (Performance Analyst) - Receives PAP, produces PIP
+  - E-602 (Feedback Analyst) - Receives AFB, produces FIP
+  - E-603 (Evolution Strategist) - Receives PIP+FIP, produces ESP
+
+  ESCALATION PATHS:
+  - Data quality failures → WF-900 (Chandra)
+  - Policy violations → WF-900 (Yama)
+  - Critical sentiment → WF-900 (Yama)
+  - Signal conflicts → WF-900 (Chandra)
+  - Skill execution failures → WF-900 (skill owner)
+  - Lineage breaks → WF-900 (Chitragupta)
+
+  FINAL OUTPUT:
+  analytics_evolution_packet (AEP) - Terminal packet containing:
+  - Full performance analysis snapshot
+  - Full feedback analysis snapshot
+  - Four evolution vectors with priorities
+  - Opportunities and risks assessment
+  - Complete lineage chain
+  - Comprehensive quality metrics

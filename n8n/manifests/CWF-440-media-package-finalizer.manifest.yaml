@@ -1,0 +1,47 @@
+workflow_id: CWF-440
+name: cwf440_media_package_finalizer
+class: child
+parent_pack: WF-400
+purpose: assemble the complete media package with all assets, validate completeness, and produce the final media_production_packet gating entry to WF-500
+primary_owner: Krishna
+supporting_directors:
+  - Durga
+  - Saraswati
+inputs:
+  - audio_optimized_script_packet
+  - visual_asset_plan_packet
+  - thumbnail_concept_packet
+output_packet_family:
+  - media_production_packet
+writes:
+  - namespaces.media
+  - namespaces.runtime
+write_targets:
+  dossier_namespaces:
+    - media
+    - runtime
+steps:
+  - ingest all three media packets
+  - normalize and validate all input packets are present
+  - verify packet lineage — thumbnail to visual to audio chain intact
+  - assemble complete media_production_packet from all constituent packets
+  - validate package completeness against media production checklist
+  - run governance compliance check for media namespace
+  - seal and emit media_production_packet
+  - confirm promotion criteria for WF-500
+done_criteria:
+  - all three constituent packets validated and cross-referenced
+  - media_production_packet assembled with full 5-section hierarchy
+  - all constituent packet IDs recorded in evidence section
+  - quality scores meet minimums for WF-500 promotion
+  - media_production_packet emitted with status CREATED
+  - next_workflow set to WF-500
+fallback_behavior:
+  on_assembly_failure:
+    - emit packet with status ASSEMBLY_FAILED
+    - route to WF-900 with failure details
+  on_quality_gate_failure:
+    - emit packet with status QUALITY_FAILED
+    - allow replay to appropriate CWF-4XX
+  on_governance_failure:
+    - route to WF-900 immediately

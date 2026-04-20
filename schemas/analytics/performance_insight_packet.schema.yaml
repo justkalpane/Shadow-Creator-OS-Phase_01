@@ -1,0 +1,318 @@
+schema_name: "performance_insight_packet"
+schema_type: "artifact_packet"
+version: "1.0.0"
+phase: "phase1"
+vein: "analytics_vein"
+description: "Performance insight packet produced by E-601 (Performance Analyst skill). Contains analyzed performance metrics with trends, reach patterns, efficacy classification, growth trajectory, anomalies, and benchmark comparisons."
+
+producer_workflow: "CWF-630"
+producer_skill: "E-601"
+consumer_workflows: ["CWF-630"]
+consumer_skills: ["E-603"]
+
+packet_family: "performance_insight_packet"
+schema_version: "1.0.0"
+artifact_family: "performance_insight_packet"
+
+---
+
+root_structure:
+  instance_id:
+    type: "string"
+    pattern: "PIP-{timestamp}"
+    description: "Unique packet instance identifier"
+    required: true
+
+  artifact_family:
+    type: "enum"
+    enum: ["performance_insight_packet"]
+    required: true
+
+  schema_version:
+    type: "string"
+    pattern: "1.0.0"
+    required: true
+
+  producer_workflow:
+    type: "string"
+    pattern: "SE-N8N-CWF-630-via-E-601"
+    required: true
+
+  dossier_ref:
+    type: "string"
+    required: true
+
+  created_at:
+    type: "string"
+    format: "ISO8601"
+    required: true
+
+  status:
+    type: "enum"
+    enum: ["CREATED", "VALIDATED", "EMITTED"]
+    required: true
+
+---
+
+payload_structure:
+  narrative:
+    type: "object"
+    required: true
+    fields:
+      analysis_period:
+        type: "string"
+        example: "24h"
+        required: true
+
+      platforms_analyzed:
+        type: "integer"
+        minimum: 1
+        required: true
+
+      snapshot_count:
+        type: "integer"
+        description: "Number of historical snapshots used for trend analysis"
+        required: true
+
+  context:
+    type: "object"
+    required: true
+    fields:
+      sourced_from_packet_id:
+        type: "string"
+        pattern: "PAP-*"
+        description: "Source performance_analytics_packet"
+        required: true
+
+      historical_baseline:
+        type: "string"
+        example: "7-day-average"
+        required: true
+
+      benchmark_model:
+        type: "string"
+        enum: ["industry_standard", "own_historical"]
+        required: true
+
+  evidence:
+    type: "object"
+    required: true
+    fields:
+      engagement_trends:
+        type: "object"
+        description: "Engagement trend analysis per platform"
+        required: true
+        properties:
+          platform_name:
+            type: "object"
+            required: true
+            fields:
+              trend:
+                type: "string"
+                enum: ["upward_momentum", "stable", "declining_engagement"]
+                required: true
+
+              confidence:
+                type: "number"
+                minimum: 0.0
+                maximum: 1.0
+                required: true
+
+              delta_vs_baseline:
+                type: "string"
+                description: "Percentage change from baseline (e.g., '+18%', '-5%')"
+                required: true
+
+              velocity:
+                type: "string"
+                enum: ["accelerating", "stable", "decelerating"]
+                required: true
+
+      reach_analysis:
+        type: "object"
+        required: true
+        fields:
+          pattern:
+            type: "string"
+            enum: ["broad_high_reach", "concentrated_reach", "dispersed_modest_reach", "low_dispersed_reach"]
+            required: true
+
+          breadth:
+            type: "number"
+            description: "Platform coverage ratio (0.0-1.0)"
+            minimum: 0.0
+            maximum: 1.0
+            required: true
+
+          depth:
+            type: "integer"
+            description: "Total reach across platforms"
+            minimum: 0
+            required: true
+
+          multi_platform_coordination:
+            type: "number"
+            description: "Coordination score across platforms (0.0-1.0)"
+            minimum: 0.0
+            maximum: 1.0
+            required: true
+
+      efficacy_classification:
+        type: "object"
+        required: true
+        fields:
+          overall:
+            type: "string"
+            enum: ["high_engagement", "moderate_engagement", "low_engagement"]
+            required: true
+
+          confidence:
+            type: "number"
+            minimum: 0.0
+            maximum: 1.0
+            required: true
+
+          engagement_ratio:
+            type: "number"
+            description: "(comments + shares) / views"
+            minimum: 0.0
+            required: true
+
+          platform_breakdown:
+            type: "object"
+            description: "Engagement ratio per platform"
+            required: true
+
+      growth_trajectory:
+        type: "object"
+        required: true
+        fields:
+          rate:
+            type: "number"
+            description: "Growth rate (e.g., 0.18 = 18%)"
+            required: true
+
+          classification:
+            type: "string"
+            enum: ["accelerating_growth", "modest_positive_growth", "stable_with_minor_fluctuation", "declining_momentum"]
+            required: true
+
+          confidence:
+            type: "number"
+            minimum: 0.0
+            maximum: 1.0
+            required: true
+
+          projected_7day:
+            type: "string"
+            description: "Projected views for next 7 days"
+            required: true
+
+      anomalies:
+        type: "array"
+        description: "Detected anomalies"
+        required: false
+        items:
+          type: "object"
+          fields:
+            type:
+              type: "string"
+              enum: ["positive_spike", "negative_decline"]
+            metric:
+              type: "string"
+            magnitude:
+              type: "number"
+            sigma_deviation:
+              type: "number"
+            severity:
+              type: "string"
+              enum: ["low", "medium", "high"]
+            probable_cause:
+              type: "string"
+
+      benchmark_comparison:
+        type: "object"
+        required: true
+        fields:
+          "[metric]_vs_benchmark":
+            type: "string"
+            enum: ["exceeding", "meeting", "below_benchmark"]
+            description: "Platform-specific metric comparisons"
+
+          overall_positioning:
+            type: "string"
+            enum: ["top_quartile", "above_median", "median", "below_median", "bottom_quartile"]
+            required: true
+
+  quality:
+    type: "object"
+    required: true
+    fields:
+      input_data_completeness:
+        type: "number"
+        minimum: 0.0
+        maximum: 1.0
+        required: true
+
+      analysis_confidence:
+        type: "number"
+        minimum: 0.0
+        maximum: 1.0
+        required: true
+
+      anomaly_detection_confidence:
+        type: "number"
+        minimum: 0.0
+        maximum: 1.0
+        required: true
+
+      trend_statistical_validity:
+        type: "number"
+        minimum: 0.0
+        maximum: 1.0
+        required: true
+
+  status:
+    type: "object"
+    required: true
+    fields:
+      performance_analyzed:
+        type: "boolean"
+        required: true
+
+      insights_generated:
+        type: "boolean"
+        required: true
+
+      escalation_required:
+        type: "boolean"
+        required: true
+
+      next_stage:
+        type: "string"
+        example: "CWF-630_feedback_synthesis"
+        required: true
+
+---
+
+validation_rules:
+  - rule: "All engagement trends must have confidence >= 0.70"
+  - rule: "At least one anomaly required if anomalies array present"
+  - rule: "Benchmark comparison required for all platforms"
+  - rule: "Overall quality confidence = min of all quality metrics"
+
+---
+
+metadata:
+  owner_director: "Chandra"
+  validator_director: "Chitragupta"
+  created_date: "2026-04-20"
+  status: "active"
+  compliance_level: "tribunal_grade"
+
+notes: |
+  Output of E-601 (Performance Analyst)
+  Input to E-603 (Evolution Strategist)
+  Contains full performance analysis with confidence scores
+  All analyses are rule-based (no ML); confidence 0.75-0.90
+  Anomalies escalate if detected and severity=HIGH

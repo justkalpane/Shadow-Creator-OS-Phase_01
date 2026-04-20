@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://shadow-empire.local/schemas/packets/context_engineering_result.schema.json",
+  "title": "ContextEngineeringResult",
+  "description": "Aggregate output from WF-300 (Context Engineering Pack). Contains finalized script with all platform-specific context, asset briefs, and production instructions.",
+  "type": "object",
+  "required": [
+    "packet_id",
+    "dossier_id",
+    "execution_context_packet",
+    "created_at"
+  ],
+  "properties": {
+    "packet_id": {
+      "type": "string",
+      "description": "Unique identifier for this aggregate packet"
+    },
+    "dossier_id": {
+      "type": "string",
+      "description": "Reference to parent dossier"
+    },
+    "context_engineering_packet": {
+      "type": "object",
+      "description": "Platform-specific context engineering results",
+      "required": ["packet_id"]
+    },
+    "asset_brief_packet": {
+      "type": "object",
+      "description": "Asset specification briefs for production",
+      "required": ["packet_id"]
+    },
+    "execution_context_packet": {
+      "type": "object",
+      "description": "Complete execution context ready for production",
+      "required": ["packet_id", "production_ready"]
+    },
+    "context_engineering_status": {
+      "type": "string",
+      "enum": ["ready_for_media_production", "incomplete", "validation_failed"],
+      "description": "Overall status of context engineering output"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when this aggregate was created"
+    },
+    "lineage": {
+      "type": "object",
+      "description": "Lineage tracking for audit trail",
+      "properties": {
+        "sourced_from_workflows": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "stage": {
+          "type": "string",
+          "enum": ["WF-300"]
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

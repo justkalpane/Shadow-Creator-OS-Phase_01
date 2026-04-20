@@ -1,0 +1,416 @@
+schema_name: "feedback_insight_packet"
+schema_type: "artifact_packet"
+version: "1.0.0"
+phase: "phase1"
+vein: "analytics_vein"
+description: "Feedback insight packet produced by E-602 (Feedback Analyst skill). Contains analyzed audience feedback with sentiment analysis, theme extraction, audience intent classification, policy compliance status, and engagement opportunities."
+
+producer_workflow: "CWF-630"
+producer_skill: "E-602"
+consumer_workflows: ["CWF-630"]
+consumer_skills: ["E-603"]
+
+packet_family: "feedback_insight_packet"
+schema_version: "1.0.0"
+artifact_family: "feedback_insight_packet"
+
+---
+
+root_structure:
+  instance_id:
+    type: "string"
+    pattern: "FIP-{timestamp}"
+    description: "Unique packet instance identifier"
+    required: true
+
+  artifact_family:
+    type: "enum"
+    enum: ["feedback_insight_packet"]
+    required: true
+
+  schema_version:
+    type: "string"
+    pattern: "1.0.0"
+    required: true
+
+  producer_workflow:
+    type: "string"
+    pattern: "SE-N8N-CWF-630-via-E-602"
+    required: true
+
+  dossier_ref:
+    type: "string"
+    required: true
+
+  created_at:
+    type: "string"
+    format: "ISO8601"
+    required: true
+
+  status:
+    type: "enum"
+    enum: ["CREATED", "VALIDATED", "EMITTED"]
+    required: true
+
+---
+
+payload_structure:
+  narrative:
+    type: "object"
+    required: true
+    fields:
+      analysis_period:
+        type: "string"
+        example: "24h"
+        required: true
+
+      platforms_analyzed:
+        type: "integer"
+        minimum: 1
+        required: true
+
+      total_comments_analyzed:
+        type: "integer"
+        minimum: 0
+        required: true
+
+      snapshot_count:
+        type: "integer"
+        description: "Number of historical feedback snapshots used for trend analysis"
+        required: true
+
+  context:
+    type: "object"
+    required: true
+    fields:
+      sourced_from_packet_id:
+        type: "string"
+        pattern: "AFB-*"
+        description: "Source audience_feedback_packet"
+        required: true
+
+      historical_baseline:
+        type: "string"
+        example: "5-snapshot-average"
+        required: true
+
+      policy_check_completed:
+        type: "boolean"
+        description: "Whether policy compliance check was performed"
+        required: true
+
+  evidence:
+    type: "object"
+    required: true
+    fields:
+      sentiment_analysis:
+        type: "object"
+        description: "Sentiment distribution analysis per platform"
+        required: true
+        properties:
+          platform_name:
+            type: "object"
+            required: true
+            fields:
+              positive_ratio:
+                type: "number"
+                description: "Positive sentiment ratio (0.0-1.0)"
+                minimum: 0.0
+                maximum: 1.0
+                required: true
+
+              neutral_ratio:
+                type: "number"
+                description: "Neutral sentiment ratio (0.0-1.0)"
+                minimum: 0.0
+                maximum: 1.0
+                required: true
+
+              negative_ratio:
+                type: "number"
+                description: "Negative sentiment ratio (0.0-1.0)"
+                minimum: 0.0
+                maximum: 1.0
+                required: true
+
+              sentiment_trend:
+                type: "string"
+                enum: ["improving_positivity", "stable", "declining_sentiment"]
+                required: true
+
+              confidence:
+                type: "number"
+                description: "Analysis confidence (0.0-1.0)"
+                minimum: 0.0
+                maximum: 1.0
+                required: true
+
+      sentiment_health:
+        type: "object"
+        required: true
+        fields:
+          aggregate_positive:
+            type: "number"
+            description: "Overall positive sentiment ratio"
+            minimum: 0.0
+            maximum: 1.0
+            required: true
+
+          aggregate_negative:
+            type: "number"
+            description: "Overall negative sentiment ratio"
+            minimum: 0.0
+            maximum: 1.0
+            required: true
+
+          overall_health:
+            type: "string"
+            enum: ["strong_positive", "mixed_positive", "mixed_negative", "concerning_negative"]
+            required: true
+
+          health_confidence:
+            type: "number"
+            minimum: 0.0
+            maximum: 1.0
+            required: true
+
+          trend_direction:
+            type: "string"
+            enum: ["improving", "stable", "declining", "stable_strong", "stable_weak"]
+            required: true
+
+      theme_extraction:
+        type: "object"
+        required: true
+        fields:
+          primary_themes:
+            type: "array"
+            description: "Top extracted themes with analysis"
+            min_items: 1
+            required: true
+            items:
+              type: "object"
+              fields:
+                theme:
+                  type: "string"
+                  description: "Theme name (e.g., 'hook-strength')"
+                  required: true
+
+                intent:
+                  type: "string"
+                  enum: ["praise", "concern", "question", "request", "criticism", "suggestion"]
+                  required: true
+
+                frequency:
+                  type: "string"
+                  enum: ["low", "medium", "high"]
+                  required: true
+
+                platforms:
+                  type: "array"
+                  items:
+                    type: "string"
+                  required: true
+
+                prevalence_estimate:
+                  type: "number"
+                  description: "Estimated proportion of total feedback (0.0-1.0)"
+                  minimum: 0.0
+                  maximum: 1.0
+                  required: true
+
+          theme_consistency_score:
+            type: "number"
+            description: "Cross-platform theme consistency (0.0-1.0)"
+            minimum: 0.0
+            maximum: 1.0
+            required: true
+
+      audience_intent:
+        type: "object"
+        required: true
+        fields:
+          praise_seeking:
+            type: "number"
+            description: "Proportion of praise/appreciation intent"
+            minimum: 0.0
+            maximum: 1.0
+            required: true
+
+          problem_reporting:
+            type: "number"
+            description: "Proportion of problem/complaint intent"
+            minimum: 0.0
+            maximum: 1.0
+            required: true
+
+          help_seeking:
+            type: "number"
+            description: "Proportion of help/request intent"
+            minimum: 0.0
+            maximum: 1.0
+            required: true
+
+          engagement:
+            type: "number"
+            description: "Proportion of engagement/question intent"
+            minimum: 0.0
+            maximum: 1.0
+            required: true
+
+          other:
+            type: "number"
+            description: "Proportion of other/miscellaneous intent"
+            minimum: 0.0
+            maximum: 1.0
+            required: true
+
+          dominant_intent:
+            type: "string"
+            enum: ["praise_seeking", "problem_reporting", "help_seeking", "engagement", "other"]
+            description: "Most prevalent audience intent"
+            required: true
+
+      policy_compliance:
+        type: "object"
+        required: true
+        fields:
+          policy_violations:
+            type: "integer"
+            description: "Number of policy violations detected"
+            minimum: 0
+            required: true
+
+          risk_flags:
+            type: "integer"
+            description: "Number of risk flags (warnings)"
+            minimum: 0
+            required: true
+
+          critical_issues:
+            type: "integer"
+            description: "Number of critical policy issues"
+            minimum: 0
+            required: true
+
+          compliance_status:
+            type: "string"
+            enum: ["COMPLIANT", "WARNING", "VIOLATION"]
+            required: true
+
+      engagement_opportunities:
+        type: "object"
+        required: true
+        fields:
+          amplify_themes:
+            type: "array"
+            description: "Themes to amplify in future content"
+            items:
+              type: "string"
+            required: true
+
+          address_themes:
+            type: "array"
+            description: "Themes to address/mitigate"
+            items:
+              type: "string"
+            required: true
+
+          act_on_themes:
+            type: "array"
+            description: "Themes representing actionable requests"
+            items:
+              type: "string"
+            required: true
+
+          opportunity_window:
+            type: "string"
+            enum: ["high", "moderate", "low"]
+            description: "Overall opportunity assessment"
+            required: true
+
+  quality:
+    type: "object"
+    required: true
+    fields:
+      input_feedback_completeness:
+        type: "number"
+        minimum: 0.0
+        maximum: 1.0
+        required: true
+
+      sentiment_accuracy:
+        type: "number"
+        minimum: 0.0
+        maximum: 1.0
+        required: true
+
+      analysis_confidence:
+        type: "number"
+        minimum: 0.0
+        maximum: 1.0
+        required: true
+
+      policy_check_confidence:
+        type: "number"
+        description: "Confidence in policy compliance check"
+        minimum: 0.0
+        maximum: 1.0
+        required: true
+
+  status:
+    type: "object"
+    required: true
+    fields:
+      feedback_analyzed:
+        type: "boolean"
+        required: true
+
+      sentiment_quantified:
+        type: "boolean"
+        required: true
+
+      themes_extracted:
+        type: "boolean"
+        required: true
+
+      policy_checked:
+        type: "boolean"
+        required: true
+
+      escalation_required:
+        type: "boolean"
+        required: true
+
+      next_stage:
+        type: "string"
+        example: "CWF-630_signal_synthesis"
+        required: true
+
+---
+
+validation_rules:
+  - rule: "All sentiment ratios must sum to approximately 1.0 (±0.05)"
+  - rule: "All intent proportions must sum to approximately 1.0 (±0.05)"
+  - rule: "If compliance_status = VIOLATION, escalation_required must be true"
+  - rule: "Sentiment health must be supported by aggregate sentiment ratios"
+  - rule: "Dominant intent must match highest proportion in audience_intent"
+
+---
+
+metadata:
+  owner_director: "Chandra"
+  policy_authority: "Yama"
+  validator_director: "Chitragupta"
+  created_date: "2026-04-20"
+  status: "active"
+  compliance_level: "tribunal_grade"
+
+notes: |
+  Output of E-602 (Feedback Analyst)
+  Input to E-603 (Evolution Strategist)
+  Contains full feedback analysis with sentiment, themes, and compliance
+  All analyses rule-based; confidence 0.80-0.90
+  Policy violations escalate immediately to WF-900 (Yama authority)
+  Negative sentiment > 35% escalates to WF-900 (critical escalation)
+  Theme consistency and opportunity assessment guide evolution signals

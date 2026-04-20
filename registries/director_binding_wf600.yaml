@@ -1,0 +1,371 @@
+registry_name: "director_binding_wf600"
+registry_type: "director_binding"
+version: "1.0.0"
+phase: "phase1"
+workflow_pack: "WF-600"
+description: "Analytics & Evolution Pack - Director Governance Binding. Maps directors to workflows, skills, and governance authority domains."
+
+parent_workflow: "WF-600"
+child_workflows: ["CWF-610", "CWF-620", "CWF-630"]
+skills: ["E-601", "E-602", "E-603"]
+
+---
+
+director_assignments:
+
+  - director_name: "Chandra"
+    director_title: "Audience Intelligence Authority"
+    director_id: "chandra"
+
+    jurisdiction: "Analytics & Evolution Pack (WF-600)"
+
+    primary_role: "WF-600-Orchestrator"
+    authority_level: "strategic_ownership"
+
+    assignments:
+      - type: "workflow_owner"
+        workflows: ["WF-600", "CWF-610", "CWF-620", "CWF-630"]
+        authority: "full_governance"
+        decision_authority: "approve_workflow_execution"
+        veto_authority: true
+
+      - type: "skill_owner"
+        skills: ["E-601", "E-602", "E-603"]
+        authority: "governance_oversight"
+        approval_required: false
+        escalation_routing: "to_chandra_then_wf900"
+
+      - type: "dossier_namespace_owner"
+        namespaces: ["dossier.analytics"]
+        authority: "namespace_governance"
+        mutation_permissions: "append_only"
+        audit_responsibility: true
+
+      - type: "packet_family_owner"
+        packets: ["performance_analytics_packet", "audience_feedback_packet", "performance_insight_packet", "feedback_insight_packet", "evolution_signal_packet", "analytics_evolution_packet"]
+        authority: "schema_governance"
+        version_authority: true
+
+    escalation_authority: "WF-900_routing"
+    escalation_triggers:
+      - "data_quality_below_threshold"
+      - "conflicting_signals_detected"
+      - "sentiment_health_critical"
+      - "policy_violations"
+
+    veto_gates: []
+    veto_scope: "can_veto_any_WF600_execution"
+
+    responsibilities:
+      - "Ensure all analytics data quality meets standards (>= 0.75)"
+      - "Monitor sentiment health; escalate if negative sentiment > 35%"
+      - "Oversee evolution signal coherence across all vectors"
+      - "Route escalations to WF-900 when thresholds exceeded"
+      - "Approve final analytics_evolution_packet emission"
+
+---
+
+  - director_name: "Chitragupta"
+    director_title: "Audit & Lineage Authority"
+    director_id: "chitragupta"
+
+    jurisdiction: "Analytics & Evolution Pack (WF-600) - Lineage & Audit"
+
+    primary_role: "WF-600-Auditor"
+    authority_level: "governance_oversight"
+
+    assignments:
+      - type: "audit_authority"
+        workflows: ["CWF-610", "CWF-620", "CWF-630"]
+        authority: "mandatory_audit_trail"
+        logging_responsibility: "audit_all_skill_executions"
+        lineage_tracking: true
+
+      - type: "skill_supporter"
+        skills: ["E-601", "E-602"]
+        role: "supporting_director"
+        authority: "co_governance"
+        co_sign_authority: true
+
+      - type: "packet_lineage_guardian"
+        packets: ["all"]
+        authority: "lineage_verification"
+        responsibility: "ensure_source_packet_tracking"
+
+    escalation_authority: "can_trigger_escalation"
+    escalation_triggers:
+      - "audit_trail_incomplete"
+      - "lineage_broken"
+      - "packet_provenance_unverified"
+
+    veto_gates:
+      - type: "lineage_integrity_gate"
+        rule: "no_packet_emission_without_source_lineage"
+        veto_scope: "can_halt_emission_if_lineage_broken"
+
+    responsibilities:
+      - "Log all E-601, E-602, E-603 execution steps with timestamps"
+      - "Verify source packet IDs and lineage chain"
+      - "Ensure dossier mutations include audit entries"
+      - "Track signal fusion confidence and alignment scoring"
+      - "Create immutable audit trail for all analytics operations"
+
+---
+
+  - director_name: "Yama"
+    director_title: "Policy & Sentiment Governance Authority"
+    director_id: "yama"
+
+    jurisdiction: "Analytics & Evolution Pack (WF-600) - Policy & Sentiment"
+
+    primary_role: "WF-600-Policy-Enforcer"
+    authority_level: "governance_oversight"
+
+    assignments:
+      - type: "skill_supporter"
+        skills: ["E-602"]
+        role: "supporting_director"
+        authority: "co_governance"
+        co_sign_authority: true
+
+      - type: "policy_enforcement"
+        workflows: ["CWF-620"]
+        authority: "sentiment_policy_enforcement"
+        responsibility: "monitor_sentiment_health"
+        escalation_authority: true
+
+      - type: "compliance_gate"
+        domain: "audience_feedback_policy_compliance"
+        authority: "can_veto_problematic_feedback_routing"
+        rule: "all_policy_violations_escalate_to_WF900"
+
+    escalation_authority: "WF-900_routing"
+    escalation_triggers:
+      - "negative_sentiment_exceeds_35_percent"
+      - "policy_violations_detected"
+      - "critical_content_safety_concerns"
+
+    veto_gates:
+      - type: "sentiment_health_gate"
+        rule: "if_negative_sentiment_exceeds_35_percent_then_escalate"
+        veto_scope: "can_halt_analytics_if_critical_sentiment_issue"
+
+      - type: "policy_gate"
+        rule: "no_evolution_signal_if_policy_violation_unresolved"
+        veto_scope: "can_block_CWF-630_if_policy_blocker_exists"
+
+    responsibilities:
+      - "Monitor sentiment health metrics in E-602 output"
+      - "Escalate negative sentiment > 35% immediately to WF-900"
+      - "Verify policy compliance in audience feedback (no moderation violations)"
+      - "Gate evolution signals if policy violations detected"
+      - "Review critical sentiment alerts before final packet emission"
+
+---
+
+  - director_name: "Vyasa"
+    director_title: "Narrative Integrity Authority"
+    director_id: "vyasa"
+
+    jurisdiction: "Analytics & Evolution Pack (WF-600) - Narrative Coherence"
+
+    primary_role: "WF-600-Narrative-Advisor"
+    authority_level: "advisory_oversight"
+
+    assignments:
+      - type: "skill_supporter"
+        skills: ["E-603"]
+        role: "supporting_director"
+        authority: "advisory_co_governance"
+        co_sign_authority: true
+
+      - type: "narrative_coherence_review"
+        domain: "evolution_vector_narrative_alignment"
+        authority: "advisory_review"
+        responsibility: "ensure_evolution_vectors_align_with_narrative_architecture"
+
+    escalation_authority: "can_escalate_if_narrative_incoherence"
+    escalation_triggers:
+      - "evolution_vectors_contradict_narrative_integrity"
+      - "growth_vectors_undermine_quality_focus"
+
+    responsibilities:
+      - "Review E-603 evolution vectors for narrative coherence"
+      - "Ensure evolution recommendations don't violate narrative integrity rules"
+      - "Provide narrative guidance on hook/narrative/production/growth vectors"
+      - "Flag if evolution signals conflict with creative directives"
+      - "Advisory role; Chandra makes final decisions"
+
+---
+
+  - director_name: "Chanakya"
+    director_title: "Strategic Direction Authority"
+    director_id: "chanakya"
+
+    jurisdiction: "Analytics & Evolution Pack (WF-600) - Strategy Alignment"
+
+    primary_role: "WF-600-Strategy-Advisor"
+    authority_level: "advisory_oversight"
+
+    assignments:
+      - type: "skill_supporter"
+        skills: ["E-603"]
+        role: "supporting_director"
+        authority: "advisory_co_governance"
+        co_sign_authority: true
+
+      - type: "strategic_alignment_review"
+        domain: "evolution_vector_strategic_mode_compliance"
+        authority: "advisory_review"
+        responsibility: "ensure_evolution_signals_align_with_strategic_mode"
+
+    escalation_authority: "can_escalate_if_strategy_misalignment"
+    escalation_triggers:
+      - "evolution_vectors_contradict_strategic_mode"
+      - "aggressive_growth_vectors_when_consolidation_mode"
+
+    responsibilities:
+      - "Review E-603 evolution vectors for strategic alignment"
+      - "Ensure evolution recommendations respect current strategic_mode"
+      - "Provide strategy guidance on growth and production vectors"
+      - "Flag if evolution signals contradict strategic directives"
+      - "Advisory role; Chandra makes final decisions"
+
+---
+
+governance_structure:
+  primary_authority: "Chandra"
+  primary_authority_role: "WF-600-Orchestrator"
+  primary_authority_veto: true
+
+  supporting_authorities:
+    - authority: "Chitragupta"
+      role: "Auditor"
+      veto_scope: "lineage_integrity_only"
+      veto_type: "technical_veto"
+
+    - authority: "Yama"
+      role: "Policy-Enforcer"
+      veto_scope: "policy_violations_and_critical_sentiment"
+      veto_type: "policy_veto"
+
+    - authority: "Vyasa"
+      role: "Narrative-Advisor"
+      veto_scope: "none (advisory)"
+      influence_type: "advisory_review"
+
+    - authority: "Chanakya"
+      role: "Strategy-Advisor"
+      veto_scope: "none (advisory)"
+      influence_type: "advisory_review"
+
+decision_flow:
+  - stage: "Analytics Execution (CWF-610 → CWF-620)"
+    decision_authority: "Chandra"
+    supporting_gates: ["Chitragupta lineage", "Yama policy"]
+    approval_required: false
+    escalation_path: "WF-900"
+
+  - stage: "Signal Synthesis (CWF-630 + E-603)"
+    decision_authority: "Chandra"
+    supporting_gates: ["Chitragupta audit", "Yama sentiment", "Vyasa narrative", "Chanakya strategy"]
+    approval_required: false
+    escalation_path: "WF-900 if alignment < 0.50 or confidence < 0.72"
+
+  - stage: "Evolution Packet Emission"
+    decision_authority: "Chandra"
+    veto_authority: "Chandra"
+    final_gate: "Chitragupta lineage verification"
+    publication_gate: "all_escalations_resolved"
+
+escalation_routing:
+  escalation_authority: "WF-900"
+  escalation_types:
+    - type: "data_quality_failure"
+      trigger: "data_completeness < 0.75"
+      authority: "Chandra → WF-900"
+      skill_affected: "E-601"
+
+    - type: "feedback_quality_failure"
+      trigger: "feedback_completeness < 0.75 OR sentiment_accuracy < 0.75"
+      authority: "Chandra → WF-900"
+      skill_affected: "E-602"
+
+    - type: "policy_violation"
+      trigger: "policy_violations detected"
+      authority: "Yama → WF-900"
+      skill_affected: "E-602"
+
+    - type: "critical_sentiment"
+      trigger: "negative_sentiment > 0.35"
+      authority: "Yama → WF-900"
+      skill_affected: "E-602"
+
+    - type: "signal_conflict"
+      trigger: "signal_alignment < 0.50"
+      authority: "Chandra → WF-900"
+      skill_affected: "E-603"
+
+    - type: "synthesis_confidence_failure"
+      trigger: "synthesis_confidence < 0.72"
+      authority: "Chandra → WF-900"
+      skill_affected: "E-603"
+
+    - type: "lineage_integrity_failure"
+      trigger: "source_packets missing OR lineage broken"
+      authority: "Chitragupta → WF-900"
+      skill_affected: "all"
+
+mutation_gates:
+  - gate: "dossier.analytics append gate"
+    domain: "analytics namespace writes"
+    authority: "Chandra"
+    rule: "append_to_array only; no overwrites"
+    audit: "Chitragupta"
+    enforcement: "mandatory"
+
+registry_metadata:
+  created_date: "2026-04-20"
+  last_updated: "2026-04-20"
+  status: "complete"
+  compliance_verified: true
+
+  director_count: 5
+  active_directors: ["Chandra", "Chitragupta", "Yama", "Vyasa", "Chanakya"]
+
+  governance_layers:
+    - layer: "Strategic"
+      authority: "Chandra"
+    - layer: "Enforcement"
+      authorities: ["Yama (policy)", "Chitragupta (audit)"]
+    - layer: "Advisory"
+      authorities: ["Vyasa (narrative)", "Chanakya (strategy)"]
+
+notes: |
+  WF-600 Governance Structure Complete
+
+  DECISION AUTHORITY:
+  - Chandra: Primary orchestrator, owns all WF-600 workflows and skills
+  - Can veto any execution; makes all strategic routing decisions
+
+  SUPPORTING AUTHORITIES:
+  - Chitragupta: Ensures lineage integrity; can veto if lineage broken
+  - Yama: Enforces policy and sentiment thresholds; can escalate on violations
+  - Vyasa: Advises on narrative coherence (non-veto)
+  - Chanakya: Advises on strategic alignment (non-veto)
+
+  ESCALATION FLOW:
+  All errors route through Chandra to WF-900
+  Critical sentiment issues (neg > 35%) escalate via Yama
+  Policy violations escalate immediately via Yama
+  Signal conflicts (alignment < 0.50) escalate via Chandra
+
+  MUTATION AUTHORITY:
+  Only append_to_array permitted to dossier.analytics
+  All writes require audit entry by Chitragupta
+  No overwrites or deletes of existing dossier data
+
+  WORKFLOW SEQUENCING:
+  CWF-610 → CWF-620 → CWF-630
+  E-601 (performance) → E-602 (feedback) → E-603 (synthesis)
+  Final output: analytics_evolution_packet to dossier.analytics.evolution_signals

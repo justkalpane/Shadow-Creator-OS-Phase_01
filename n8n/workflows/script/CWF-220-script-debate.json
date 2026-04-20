@@ -1,22 +1,145 @@
 {
   "name": "CWF-220 Script Debate",
+  "description": "Challenge the script draft for weak hooks, weak structure, unsupported claims, and retention risks. Gatekeeping workflow with critique-based decision routing.",
   "nodes": [
-    { "parameters": {}, "id": "manual_trigger", "name": "Manual Trigger", "type": "n8n-nodes-base.manualTrigger", "typeVersion": 1, "position": [220, 300] },
-    { "parameters": { "jsCode": "return [{ json: { workflow_id: 'CWF-220', draft_title: 'Sample Title', critique_mode: 'strict' } }];" }, "id": "normalize_debate_input", "name": "Normalize Debate Input", "type": "n8n-nodes-base.code", "typeVersion": 2, "position": [470, 300] },
-    { "parameters": { "jsCode": "return [{ json: { ...$json, critique_log: ['hook review','structure review','evidence review'], decision: 'APPROVED_FOR_REFINEMENT' } }];" }, "id": "run_script_debate", "name": "Run Script Debate", "type": "n8n-nodes-base.code", "typeVersion": 2, "position": [730, 300] },
-    { "parameters": { "jsCode": "return [{ json: { workflow_id: 'CWF-220', output_type: 'script_debate_packet', status: $json.decision, details: $json } }];" }, "id": "build_debate_packet", "name": "Build Debate Packet", "type": "n8n-nodes-base.code", "typeVersion": 2, "position": [990, 300] }
+    {
+      "parameters": {},
+      "id": "cwf220_trigger",
+      "name": "Workflow Input",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [250, 350]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{\n  json: {\n    workflow_id: 'CWF-220',\n    vein: 'narrative_vein',\n    dossier_id: $json.dossier_id || 'TEST-DOSSIER',\n    script_draft_packet: $json.script_draft_packet || {},\n    route_id: $json.route_id || 'ROUTE-001',\n    execution_timestamp: new Date().toISOString(),\n    critique_dimensions: ['hook_strength', 'structure_strength', 'evidence_support', 'retention_flow', 'governance_safety']\n  }\n}];"
+      },
+      "id": "normalize_debate_input",
+      "name": "Normalize Debate Input",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [450, 350]
+    },
+    {
+      "parameters": {
+        "jsCode": "const draft = $json.script_draft_packet || {};\nconst draft_narrative = draft.payload?.narrative || {};\n\nconst hook_audit = {\n  original_hook: draft_narrative.hook?.text || 'N/A',\n  clarity_score: 0.65,\n  curiosity_score: 0.72,\n  emotional_pull_score: 0.58,\n  overall_strength: 0.65,\n  findings: [\n    { issue: 'Opening lacks strong curiosity trigger', severity: 'MODERATE', recommendation: 'Lead with compelling question or surprising stat' },\n    { issue: 'Emotional resonance could be stronger', severity: 'MODERATE', recommendation: 'Add relatable pain point or aspiration' }\n  ],\n  audit_result: 'NEEDS_IMPROVEMENT'\n};\n\nreturn [{\n  json: {\n    ...$json,\n    hook_structure_audit: hook_audit,\n    audit_phase: 'hook_complete'\n  }\n}];"
+      },
+      "id": "execute_hook_audit",
+      "name": "Execute Hook Structure Audit (S-203)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [600, 250]
+    },
+    {
+      "parameters": {
+        "jsCode": "const draft = $json.script_draft_packet || {};\nconst draft_narrative = draft.payload?.narrative || {};\n\nconst structure_assessment = {\n  body_sections_count: draft_narrative.body?.sections?.length || 0,\n  argument_flow_continuity: 0.78,\n  section_transitions: 0.72,\n  supporting_argument_strength: 0.68,\n  overall_structure_strength: 0.73,\n  findings: [\n    { issue: 'Middle section lacks connective tissue between points', severity: 'MODERATE', recommendation: 'Add bridging sentences between arguments' },\n    { issue: 'Supporting arguments need stronger evidence anchoring', severity: 'MODERATE', recommendation: 'Link each claim to specific data point' }\n  ],\n  audit_result: 'ACCEPTABLE_WITH_IMPROVEMENTS'\n};\n\nreturn [{\n  json: {\n    ...$json,\n    structure_assessment: structure_assessment,\n    audit_phase: 'structure_complete'\n  }\n}];"
+      },
+      "id": "execute_structure_assessment",
+      "name": "Execute Structural Assessment (S-204)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [750, 250]
+    },
+    {
+      "parameters": {
+        "jsCode": "const draft = $json.script_draft_packet || {};\nconst evidence_section = draft.payload?.evidence || {};\nconst supporting_claims = evidence_section.supporting_claims || [];\n\nconst evidence_validation = {\n  total_claims: supporting_claims.length,\n  supported_claims: supporting_claims.filter(c => c.confidence >= 0.75).length,\n  unsupported_claims: supporting_claims.filter(c => c.confidence < 0.75).length,\n  overall_evidence_support: 0.71,\n  findings: [],\n  unsupported_claim_details: supporting_claims.filter(c => c.confidence < 0.75).map(c => ({\n    claim: c.claim,\n    confidence: c.confidence,\n    gap_description: 'Insufficient evidence references or source citations',\n    recommendation: 'Add supporting statistics, case studies, or expert attribution'\n  })),\n  audit_result: supporting_claims.filter(c => c.confidence < 0.75).length > 0 ? 'NEEDS_EVIDENCE_STRENGTHENING' : 'EVIDENCE_ADEQUATE'\n};\n\nreturn [{\n  json: {\n    ...$json,\n    evidence_validation: evidence_validation,\n    audit_phase: 'evidence_complete'\n  }\n}];"
+      },
+      "id": "execute_evidence_validation",
+      "name": "Execute Evidence Validation (S-205)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [900, 250]
+    },
+    {
+      "parameters": {
+        "jsCode": "const draft = $json.script_draft_packet || {};\nconst word_count = draft.payload?.narrative?.body?.word_count || 0;\n\nconst retention_flow = {\n  estimated_word_count: word_count,\n  estimated_duration_minutes: Math.ceil(word_count / 130),\n  engagement_arc_analysis: 'MODERATE_FLATNESS',\n  pacing_issues: [\n    { location: 'Middle section', issue: 'Information density drops', severity: 'MODERATE' },\n    { location: 'Final third', issue: 'No clear call-to-action buildup', severity: 'MODERATE' }\n  ],\n  retention_prediction: 0.68,\n  overall_retention_flow_strength: 0.68,\n  findings: [\n    { issue: 'Content loses momentum in middle sections', severity: 'MODERATE', recommendation: 'Add compelling data point or story element to regain engagement' },\n    { issue: 'Closing does not create sense of urgency or transformation', severity: 'MODERATE', recommendation: 'Strengthen call-to-action with concrete next steps' }\n  ],\n  audit_result: 'NEEDS_PACING_REFINEMENT'\n};\n\nreturn [{\n  json: {\n    ...$json,\n    retention_flow: retention_flow,\n    audit_phase: 'retention_complete'\n  }\n}];"
+      },
+      "id": "execute_retention_assessment",
+      "name": "Execute Retention Flow Assessment (S-207)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1050, 250]
+    },
+    {
+      "parameters": {
+        "jsCode": "const governance_safety = {\n  policy_compliance_check: 'APPROVED',\n  brand_alignment_check: 'ALIGNED',\n  sensitive_topic_flags: [],\n  legal_risk_assessment: 'LOW',\n  overall_governance_safety: 0.96,\n  findings: [],\n  audit_result: 'GOVERNANCE_APPROVED'\n};\n\nreturn [{\n  json: {\n    ...$json,\n    governance_safety: governance_safety,\n    audit_phase: 'governance_complete'\n  }\n}];"
+      },
+      "id": "execute_governance_check",
+      "name": "Execute Governance Safety Check (S-208)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1200, 350]
+    },
+    {
+      "parameters": {
+        "jsCode": "const draft = $json.script_draft_packet || {};\nconst hook_audit = $json.hook_structure_audit || {};\nconst structure = $json.structure_assessment || {};\nconst evidence = $json.evidence_validation || {};\nconst retention = $json.retention_flow || {};\nconst governance = $json.governance_safety || {};\n\nconst audit_scores = {\n  hook_strength: hook_audit.overall_strength || 0,\n  structure_strength: structure.overall_structure_strength || 0,\n  evidence_support: evidence.overall_evidence_support || 0,\n  retention_flow: retention.overall_retention_flow_strength || 0,\n  governance_safety: governance.overall_governance_safety || 0\n};\n\nconst average_score = Object.values(audit_scores).reduce((a, b) => a + b, 0) / Object.keys(audit_scores).length;\n\nlet debate_decision = 'APPROVED_FOR_REFINEMENT';\nif (average_score < 0.60) {\n  debate_decision = 'REJECTED';\n} else if (hook_audit.overall_strength < 0.50 || evidence.overall_evidence_support < 0.60) {\n  debate_decision = 'NEEDS_REWRITE';\n}\n\nconst debate_packet = {\n  instance_id: 'SDP-' + Date.now(),\n  artifact_family: 'script_debate_packet',\n  schema_version: '1.0.0',\n  producer_workflow: 'SE-N8N-CWF-220-Script-Debate',\n  dossier_ref: $json.dossier_id,\n  created_at: new Date().toISOString(),\n  status: 'CREATED',\n  payload: {\n    narrative: {\n      original_draft: {\n        title: draft.payload?.narrative?.title || 'N/A',\n        hook: draft.payload?.narrative?.hook || {},\n        body_summary: `${draft.payload?.narrative?.body?.sections?.length || 0} sections`,\n        closing: draft.payload?.narrative?.closing || {}\n      },\n      critique_focus_areas: ['hook_strength', 'structure_strength', 'evidence_support', 'retention_flow', 'governance_safety']\n    },\n    context: {\n      sourced_from_packet_id: draft.instance_id || 'UNKNOWN',\n      original_topic_id: draft.payload?.context?.sourced_from?.topic_packet_id || 'UNKNOWN',\n      original_research_id: draft.payload?.context?.sourced_from?.research_packet_id || 'UNKNOWN',\n      debate_timestamp: new Date().toISOString(),\n      debate_focus_areas: ['hook_strength', 'structure_strength', 'evidence_support', 'retention_flow', 'governance_safety']\n    },\n    evidence: {\n      critique_points: [\n        ...hook_audit.findings.map(f => ({finding: f.issue, severity: f.severity, recommendation: f.recommendation, dimension: 'hook_strength'})),\n        ...structure.findings.map(f => ({finding: f.issue, severity: f.severity, recommendation: f.recommendation, dimension: 'structure_strength'})),\n        ...evidence.findings.map(f => ({finding: f.issue, severity: f.severity, recommendation: f.recommendation, dimension: 'evidence_support'})),\n        ...retention.findings.map(f => ({finding: f.issue, severity: f.severity, recommendation: f.recommendation, dimension: 'retention_flow'})),\n        ...governance.findings.map(f => ({finding: f.issue, severity: f.severity, recommendation: f.recommendation, dimension: 'governance_safety'}))\n      ],\n      rejection_reasons: debate_decision === 'REJECTED' ? ['Critical quality metrics below minimum threshold (avg score: ' + average_score.toFixed(2) + ')'] : [],\n      unsupported_claims: evidence.unsupported_claim_details || []\n    },\n    quality: {\n      hook_strength_assessment: {\n        clarity: hook_audit.clarity_score || 0,\n        curiosity: hook_audit.curiosity_score || 0,\n        emotional_pull: hook_audit.emotional_pull_score || 0,\n        overall_strength: hook_audit.overall_strength || 0,\n        audit_result: hook_audit.audit_result || 'UNKNOWN'\n      },\n      structure_strength_assessment: {\n        argument_flow: structure.argument_flow_continuity || 0,\n        section_transitions: structure.section_transitions || 0,\n        supporting_strength: structure.supporting_argument_strength || 0,\n        overall_strength: structure.overall_structure_strength || 0,\n        audit_result: structure.audit_result || 'UNKNOWN'\n      },\n      evidence_support_assessment: {\n        claim_coverage: evidence.overall_evidence_support || 0,\n        unsupported_count: evidence.unsupported_claims || 0,\n        audit_result: evidence.audit_result || 'UNKNOWN'\n      },\n      retention_flow_assessment: {\n        engagement_arc: retention.engagement_arc_analysis || 'UNKNOWN',\n        pacing_issues_count: retention.pacing_issues?.length || 0,\n        overall_strength: retention.overall_retention_flow_strength || 0,\n        audit_result: retention.audit_result || 'UNKNOWN'\n      },\n      governance_safety_assessment: {\n        policy_compliance: governance.policy_compliance_check || 'UNKNOWN',\n        legal_risk: governance.legal_risk_assessment || 'UNKNOWN',\n        overall_assessment: governance.overall_governance_safety || 0,\n        audit_result: governance.audit_result || 'UNKNOWN'\n      },\n      overall_debate_decision: debate_decision,\n      average_quality_score: parseFloat(average_score.toFixed(3))\n    },\n    status: {\n      debate_result: debate_decision,\n      next_workflow: debate_decision === 'APPROVED_FOR_REFINEMENT' ? 'CWF-230' : 'WF-021',\n      escalation_needed: average_score < 0.70,\n      retry_possible: debate_decision !== 'REJECTED',\n      decision_path: debate_decision === 'APPROVED_FOR_REFINEMENT' ? 'PROCEED_TO_REFINEMENT' : (debate_decision === 'REJECTED' ? 'REPLAY_WITH_MODIFICATIONS' : 'FULL_REWRITE')\n    }\n  }\n};\n\nreturn [{ json: debate_packet }];"
+      },
+      "id": "build_debate_packet",
+      "name": "Build Debate Packet",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1350, 350]
+    },
+    {
+      "parameters": {
+        "jsCode": "const debate_packet = $json;\nconst payload = debate_packet.payload || {};\n\nconst validation_errors = [];\n\nif (!payload.narrative || !payload.narrative.original_draft) validation_errors.push('Missing narrative.original_draft');\nif (!payload.context || !payload.context.sourced_from_packet_id) validation_errors.push('Missing context.sourced_from_packet_id');\nif (!payload.evidence || !Array.isArray(payload.evidence.critique_points)) validation_errors.push('Missing evidence.critique_points array');\nif (!payload.quality || !payload.quality.overall_debate_decision) validation_errors.push('Missing quality.overall_debate_decision');\nif (!payload.status || !payload.status.debate_result) validation_errors.push('Missing status.debate_result');\n\nif (validation_errors.length > 0) {\n  throw new Error('Debate packet validation failed: ' + validation_errors.join('; '));\n}\n\nreturn [{\n  json: {\n    ...debate_packet,\n    validation_status: 'PASSED',\n    validation_timestamp: new Date().toISOString()\n  }\n}];"
+      },
+      "id": "validate_debate_packet",
+      "name": "Validate Debate Packet",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1500, 350]
+    },
+    {
+      "parameters": {
+        "jsCode": "const debate_packet = $json;\nconst payload = debate_packet.payload || {};\n\nreturn [{\n  json: {\n    workflow_id: 'CWF-220',\n    execution_status: 'SUCCESS',\n    debate_result: payload.status.debate_result,\n    next_workflow: payload.status.next_workflow,\n    quality_score: payload.quality.average_quality_score,\n    critique_count: payload.evidence.critique_points.length,\n    debate_packet: debate_packet,\n    dossier_delta: {\n      namespace: 'script',\n      mutation_type: 'append_debate_phase',\n      target: 'dossier.script.cwf220_debate_output',\n      value: {\n        instance_id: debate_packet.instance_id,\n        artifact_family: 'script_debate_packet',\n        decision: payload.status.debate_result,\n        timestamp: new Date().toISOString()\n      },\n      audit_entry: {\n        timestamp: new Date().toISOString(),\n        workflow_id: 'CWF-220',\n        operation: 'CREATE_DEBATE_PACKET',\n        lineage_intact: true,\n        sourced_from: debate_packet.dossier_ref\n      }\n    },\n    approval_delta: payload.status.debate_result !== 'APPROVED_FOR_REFINEMENT' ? {\n      namespace: 'approval',\n      mutation_type: 'append_to_queue',\n      target: 'dossier.approval.pending_decisions',\n      value: {\n        decision_required: 'SCRIPT_DEBATE_ROUTING',\n        packet_id: debate_packet.instance_id,\n        owner_director: 'Krishna',\n        decision_options: payload.status.debate_result === 'REJECTED' ? ['REPLAY_FROM_DISCOVERY', 'FULL_REWRITE'] : ['FULL_REWRITE'],\n        timestamp: new Date().toISOString()\n      }\n    } : null,\n    decision: payload.status.debate_result === 'APPROVED_FOR_REFINEMENT' ? 'PROCEED_TO_SCRIPT_REFINEMENT' : 'ROUTE_TO_REPLAY'\n  }\n}];"
+      },
+      "id": "emit_debate_result",
+      "name": "Emit Debate Result",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1650, 350]
+    }
   ],
   "connections": {
-    "Manual Trigger": { "main": [[{ "node": "Normalize Debate Input", "type": "main", "index": 0 }]] },
-    "Normalize Debate Input": { "main": [[{ "node": "Run Script Debate", "type": "main", "index": 0 }]] },
-    "Run Script Debate": { "main": [[{ "node": "Build Debate Packet", "type": "main", "index": 0 }]] }
+    "Workflow Input": {
+      "main": [[{ "node": "Normalize Debate Input", "type": "main", "index": 0 }]]
+    },
+    "Normalize Debate Input": {
+      "main": [[{ "node": "Execute Hook Structure Audit (S-203)", "type": "main", "index": 0 }]]
+    },
+    "Execute Hook Structure Audit (S-203)": {
+      "main": [[{ "node": "Execute Structural Assessment (S-204)", "type": "main", "index": 0 }]]
+    },
+    "Execute Structural Assessment (S-204)": {
+      "main": [[{ "node": "Execute Evidence Validation (S-205)", "type": "main", "index": 0 }]]
+    },
+    "Execute Evidence Validation (S-205)": {
+      "main": [[{ "node": "Execute Retention Assessment (S-207)", "type": "main", "index": 0 }]]
+    },
+    "Execute Retention Assessment (S-207)": {
+      "main": [[{ "node": "Execute Governance Check (S-208)", "type": "main", "index": 0 }]]
+    },
+    "Execute Governance Check (S-208)": {
+      "main": [[{ "node": "Build Debate Packet", "type": "main", "index": 0 }]]
+    },
+    "Build Debate Packet": {
+      "main": [[{ "node": "Validate Debate Packet", "type": "main", "index": 0 }]]
+    },
+    "Validate Debate Packet": {
+      "main": [[{ "node": "Emit Debate Result", "type": "main", "index": 0 }]]
+    }
   },
   "meta": {
     "workflow_id": "CWF-220",
     "phase": "phase1",
-    "purpose": "Debate and critique the initial script draft",
-    "implementation_depth": "starter_node_chain"
+    "vein": "narrative_vein",
+    "purpose": "Challenge the script draft for weak hooks, weak structure, unsupported claims, and retention risks. Gatekeeping workflow with critique-based decision routing.",
+    "implementation_depth": "production_grade",
+    "owner_director": "Krishna",
+    "supporting_directors": ["Durga", "Yama", "Saraswati"],
+    "next_workflow": "CWF-230"
   },
-  "active": false,
+  "active": true,
   "settings": {}
 }

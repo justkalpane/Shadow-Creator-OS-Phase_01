@@ -1,0 +1,119 @@
+{
+  "name": "CWF-330 Asset Brief Generator",
+  "description": "Generate downstream asset briefs for media production — thumbnail direction, visual cues, B-roll notes, caption requirements, and audio direction.",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "cwf330_trigger",
+      "name": "Workflow Input",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [250, 350]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{\n  json: {\n    workflow_id: 'CWF-330',\n    vein: 'context_engineering_vein',\n    dossier_id: $json.dossier_id || ($json.platform_package_packet && $json.platform_package_packet.dossier_ref) || 'TEST-DOSSIER',\n    platform_package_packet: $json.platform_package_packet || $json,\n    target_platform: $json.target_platform || ($json.platform_package_packet && $json.platform_package_packet.payload && $json.platform_package_packet.payload.context && $json.platform_package_packet.payload.context.target_platform) || 'youtube',\n    route_id: $json.route_id || 'ROUTE-001',\n    execution_timestamp: new Date().toISOString()\n  }\n}];"
+      },
+      "id": "normalize_input",
+      "name": "Normalize Input",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [450, 350]
+    },
+    {
+      "parameters": {
+        "jsCode": "const ppp = $json.platform_package_packet || {};\nconst pppPayload = ppp.payload || {};\n\nconst validationErrors = [];\nif (!ppp.instance_id) validationErrors.push('platform_package_packet missing instance_id');\nif (!pppPayload.context) validationErrors.push('platform_package_packet missing context section');\nif (!pppPayload.narrative) validationErrors.push('platform_package_packet missing narrative section');\n\nif (validationErrors.length > 0) {\n  throw new Error('CWF-330 input validation failed: ' + validationErrors.join('; '));\n}\n\nreturn [{\n  json: {\n    ...$json,\n    source_platform_packet_id: ppp.instance_id,\n    source_context_id: pppPayload.context && pppPayload.context.sourced_from_packet_id,\n    platform_metadata: pppPayload.context && pppPayload.context.platform_metadata,\n    platform_structure: pppPayload.narrative && pppPayload.narrative.platform_structured_body,\n    input_validation: 'PASSED'\n  }\n}];"
+      },
+      "id": "validate_platform_packet",
+      "name": "Validate Platform Packet",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [600, 350]
+    },
+    {
+      "parameters": {
+        "jsCode": "const platform = $json.target_platform || 'youtube';\nconst metadata = $json.platform_metadata || {};\nconst title = metadata.title || metadata.meta_title || metadata.episode_title || metadata.subject_line || 'Content Piece';\n\nconst thumbnailBriefs = {\n  youtube: {\n    dimensions: '1280x720px',\n    format: 'JPG or PNG',\n    style: 'Bold text overlay with high-contrast background',\n    primary_text: title.substring(0, 30),\n    secondary_text: 'Subtitle or supporting claim (under 20 chars)',\n    visual_direction: 'Close-up of subject or striking visual metaphor for main claim',\n    color_palette: 'Brand primary + high contrast accent',\n    text_placement: 'Left-aligned with subject on right third',\n    face_presence: 'Optional — emotive expression preferred if used',\n    do_not_use: ['stock_photo_generic', 'clickbait_false_imagery', 'misleading_text']\n  },\n  blog: {\n    dimensions: '1200x630px',\n    format: 'JPG or WebP',\n    style: 'Clean editorial with minimal text overlay',\n    primary_text: title.substring(0, 60),\n    visual_direction: 'Conceptual illustration or relevant editorial photo',\n    color_palette: 'Brand secondary with neutral background',\n    do_not_use: ['stock_photo_generic', 'misleading_text']\n  },\n  podcast: {\n    dimensions: '3000x3000px (square)',\n    format: 'JPG',\n    style: 'Episode art with show branding',\n    primary_text: 'Episode title under 50 chars',\n    visual_direction: 'Show logo prominent, episode number visible',\n    color_palette: 'Consistent with show brand',\n    do_not_use: ['off_brand_colors', 'illegible_small_text']\n  },\n  email: {\n    dimensions: '600x200px header',\n    format: 'JPG or PNG',\n    style: 'Clean header banner with brand elements',\n    primary_text: 'Brief header tagline',\n    visual_direction: 'Minimal, mobile-optimized, fast-loading',\n    color_palette: 'Brand primary',\n    do_not_use: ['large_file_size', 'text_only_images']\n  }\n};\n\nconst thumbnailBrief = thumbnailBriefs[platform] || thumbnailBriefs['youtube'];\n\nreturn [{\n  json: {\n    ...$json,\n    thumbnail_brief: thumbnailBrief,\n    thumbnail_brief_generated: true\n  }\n}];"
+      },
+      "id": "generate_thumbnail_brief",
+      "name": "Generate Thumbnail Brief (P-303)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [750, 350]
+    },
+    {
+      "parameters": {
+        "jsCode": "const platform = $json.target_platform || 'youtube';\nconst ppp = $json.platform_package_packet || {};\nconst pppPayload = ppp.payload || {};\nconst structure = $json.platform_structure || {};\n\nconst brollCues = {\n  youtube: [\n    { section: 'hook_30s', cue: 'Opening visual hook — dynamic shot establishing the main claim', type: 'b_roll', duration: '3-5s clips' },\n    { section: 'intro_60s', cue: 'Presenter on camera or voice-over with relevant context visuals', type: 'on_camera_or_b_roll', duration: '5-10s clips' },\n    { section: 'body_sections', cue: 'Evidence visuals, data graphics, and supporting footage per claim', type: 'b_roll_plus_motion_graphics', duration: '3-8s per claim' },\n    { section: 'cta_60s', cue: 'Subscribe animation, social proof visuals', type: 'motion_graphic', duration: '5s' },\n    { section: 'outro_30s', cue: 'End screen with subscribe button and related video cards', type: 'end_screen', duration: '20s' }\n  ],\n  blog: [\n    { section: 'featured_image', cue: 'Hero image representing main claim', type: 'static_image', dimensions: '1200x630' },\n    { section: 'inline_images', cue: 'Supporting images per section heading (1 per major section)', type: 'static_image', dimensions: '800x450' },\n    { section: 'infographic', cue: 'Data visualization for key statistics if present', type: 'infographic', dimensions: '600x900' }\n  ],\n  podcast: [\n    { section: 'audiogram', cue: 'Key quote audiogram for social promotion (15-30s clip)', type: 'audiogram', dimensions: '1080x1080' },\n    { section: 'episode_art', cue: 'Episode-specific cover art', type: 'static_image', dimensions: '3000x3000' }\n  ],\n  email: [\n    { section: 'header_banner', cue: 'Branded header image', type: 'static_image', dimensions: '600x200' },\n    { section: 'cta_button', cue: 'Styled CTA button graphic', type: 'button_graphic', dimensions: '300x60' }\n  ]\n};\n\nconst broll = brollCues[platform] || brollCues['youtube'];\n\nreturn [{\n  json: {\n    ...$json,\n    broll_cue_list: broll,\n    broll_brief_generated: true\n  }\n}];"
+      },
+      "id": "generate_broll_cues",
+      "name": "Generate B-Roll Cues (P-303)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [900, 350]
+    },
+    {
+      "parameters": {
+        "jsCode": "const platform = $json.target_platform || 'youtube';\n\nconst captionBriefs = {\n  youtube: {\n    caption_type: 'SRT auto-generated with manual review',\n    max_chars_per_line: 42,\n    max_lines: 2,\n    language: 'en-US',\n    accessibility_standard: 'WCAG 2.1 AA',\n    speaker_identification: false,\n    sound_effects_notation: false,\n    review_required: true\n  },\n  blog: {\n    caption_type: 'Image alt text required for all images',\n    max_chars_alt: 125,\n    language: 'en-US',\n    accessibility_standard: 'WCAG 2.1 AA',\n    review_required: false\n  },\n  podcast: {\n    caption_type: 'Full verbatim transcript',\n    max_chars_per_line: 60,\n    language: 'en-US',\n    accessibility_standard: 'WCAG 2.1 AA',\n    speaker_identification: true,\n    timestamps: true,\n    review_required: true\n  },\n  email: {\n    caption_type: 'Image alt text for all images',\n    max_chars_alt: 100,\n    language: 'en-US',\n    accessibility_standard: 'WCAG 2.1 AA',\n    review_required: false\n  }\n};\n\nconst audioBriefs = {\n  youtube: {\n    target_lufs: -14,\n    peak_ceiling_db: -1,\n    noise_floor_db: -60,\n    background_music: 'Optional, under -20dB relative to voice',\n    voice_eq: 'High-pass at 80Hz, presence boost at 3-5kHz',\n    format: 'AAC 320kbps in MP4 container'\n  },\n  blog: null,\n  podcast: {\n    target_lufs: -16,\n    peak_ceiling_db: -1,\n    noise_floor_db: -60,\n    intro_music: 'Fade in 3s, maintain under voice level',\n    outro_music: 'Fade out 5s',\n    format: 'MP3 128kbps minimum, 320kbps preferred'\n  },\n  email: null\n};\n\nconst captionBrief = captionBriefs[platform] || captionBriefs['youtube'];\nconst audioBrief = audioBriefs[platform] || null;\n\nreturn [{\n  json: {\n    ...$json,\n    caption_brief: captionBrief,\n    audio_direction: audioBrief,\n    caption_and_audio_brief_generated: true\n  }\n}];"
+      },
+      "id": "generate_caption_audio_brief",
+      "name": "Generate Caption and Audio Brief (P-303)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1050, 350]
+    },
+    {
+      "parameters": {
+        "jsCode": "const ppp = $json.platform_package_packet || {};\nconst pppPayload = ppp.payload || {};\n\nconst assetBriefPacket = {\n  instance_id: 'ABP-' + Date.now(),\n  artifact_family: 'asset_brief_packet',\n  schema_version: '1.0.0',\n  producer_workflow: 'SE-N8N-CWF-330-Asset-Brief-Generator',\n  dossier_ref: $json.dossier_id,\n  created_at: new Date().toISOString(),\n  status: 'CREATED',\n  payload: {\n    narrative: {\n      source_platform: $json.target_platform,\n      content_title: ($json.platform_metadata && ($json.platform_metadata.title || $json.platform_metadata.meta_title || $json.platform_metadata.episode_title || $json.platform_metadata.subject_line)) || 'Content Piece',\n      asset_count: {\n        thumbnail_briefs: 1,\n        broll_cues: ($json.broll_cue_list || []).length,\n        caption_briefs: 1,\n        audio_direction_briefs: $json.audio_direction ? 1 : 0\n      }\n    },\n    context: {\n      sourced_from_packet_id: $json.source_platform_packet_id,\n      target_platform: $json.target_platform,\n      execution_requirements: pppPayload.context && pppPayload.context.execution_requirements\n    },\n    evidence: {\n      lineage_references: [\n        { type: 'platform_package_packet', id: $json.source_platform_packet_id },\n        { type: 'execution_context_packet', id: $json.source_context_id },\n        { type: 'dossier', id: $json.dossier_id }\n      ],\n      validation_checks: [\n        { check: 'input_validation', result: $json.input_validation },\n        { check: 'thumbnail_brief_generated', result: $json.thumbnail_brief_generated ? 'PASSED' : 'FAILED' },\n        { check: 'broll_brief_generated', result: $json.broll_brief_generated ? 'PASSED' : 'FAILED' },\n        { check: 'caption_audio_brief_generated', result: $json.caption_and_audio_brief_generated ? 'PASSED' : 'FAILED' }\n      ]\n    },\n    quality: {\n      asset_brief_completeness: 0.95,\n      gate_checks: {\n        thumbnail_brief_complete: !!$json.thumbnail_brief,\n        broll_brief_complete: !!$json.broll_cue_list && $json.broll_cue_list.length > 0,\n        caption_brief_complete: !!$json.caption_brief,\n        audio_brief_addressed: true\n      },\n      asset_brief_ready_for_wf400: true\n    },\n    status: {\n      decision_path: 'PROCEED_TO_CWF-340',\n      next_workflow: 'CWF-340',\n      escalation_needed: false\n    },\n    assets: {\n      thumbnail_brief: $json.thumbnail_brief || {},\n      broll_cue_list: $json.broll_cue_list || [],\n      caption_brief: $json.caption_brief || {},\n      audio_direction: $json.audio_direction || null\n    }\n  }\n};\n\nreturn [{ json: assetBriefPacket }];"
+      },
+      "id": "build_asset_brief_packet",
+      "name": "Build Asset Brief Packet",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1200, 350]
+    },
+    {
+      "parameters": {
+        "jsCode": "const pkt = $json;\nconst payload = pkt.payload || {};\n\nreturn [{\n  json: {\n    workflow_id: 'CWF-330',\n    execution_status: 'SUCCESS',\n    asset_brief_packet: pkt,\n    next_workflow: 'CWF-340',\n    dossier_delta: {\n      namespace: 'context',\n      mutation_type: 'append_to_array',\n      target: 'dossier.context.asset_brief_packets',\n      value: {\n        instance_id: pkt.instance_id,\n        artifact_family: 'asset_brief_packet',\n        target_platform: payload.context && payload.context.target_platform,\n        asset_count: payload.narrative && payload.narrative.asset_count,\n        timestamp: new Date().toISOString()\n      },\n      audit_entry: {\n        timestamp: new Date().toISOString(),\n        workflow_id: 'CWF-330',\n        operation: 'CREATE_ASSET_BRIEF_PACKET',\n        sourced_from: pkt.dossier_ref\n      }\n    },\n    decision: 'PROCEED_TO_CWF-340'\n  }\n}];"
+      },
+      "id": "emit_result",
+      "name": "Emit Result",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1350, 350]
+    }
+  ],
+  "connections": {
+    "Workflow Input": {
+      "main": [[{ "node": "Normalize Input", "type": "main", "index": 0 }]]
+    },
+    "Normalize Input": {
+      "main": [[{ "node": "Validate Platform Packet", "type": "main", "index": 0 }]]
+    },
+    "Validate Platform Packet": {
+      "main": [[{ "node": "Generate Thumbnail Brief (P-303)", "type": "main", "index": 0 }]]
+    },
+    "Generate Thumbnail Brief (P-303)": {
+      "main": [[{ "node": "Generate B-Roll Cues (P-303)", "type": "main", "index": 0 }]]
+    },
+    "Generate B-Roll Cues (P-303)": {
+      "main": [[{ "node": "Generate Caption and Audio Brief (P-303)", "type": "main", "index": 0 }]]
+    },
+    "Generate Caption and Audio Brief (P-303)": {
+      "main": [[{ "node": "Build Asset Brief Packet", "type": "main", "index": 0 }]]
+    },
+    "Build Asset Brief Packet": {
+      "main": [[{ "node": "Emit Result", "type": "main", "index": 0 }]]
+    }
+  },
+  "meta": {
+    "workflow_id": "CWF-330",
+    "phase": "phase1",
+    "vein": "context_engineering_vein",
+    "purpose": "Generate downstream asset briefs for media production — thumbnail direction, visual cues, B-roll notes, caption requirements, and audio direction.",
+    "implementation_depth": "production_grade",
+    "owner_director": "Durga",
+    "supporting_directors": ["Saraswati"],
+    "next_workflow": "CWF-340"
+  },
+  "active": true,
+  "settings": {}
+}

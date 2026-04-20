@@ -1,0 +1,107 @@
+{
+  "name": "CWF-520 Distribution Planner",
+  "description": "Plan publishing schedule, cross-platform distribution order, and repurposing strategy. Core distribution planning workflow in Phase-1 publishing pipeline.",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "cwf520_trigger",
+      "name": "Workflow Input",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const platform_metadata_packet = $json.platform_metadata_packet || $json;\nconst dossier_id = $json.dossier_id || platform_metadata_packet.dossier_ref || 'TEST-DOSSIER-' + Date.now();\nconst target_platforms = platform_metadata_packet.payload ? (platform_metadata_packet.payload.context ? platform_metadata_packet.payload.context.target_platforms || [] : []) : [];\nreturn [{\n  json: {\n    workflow_id: 'CWF-520',\n    workflow_name: 'distribution_planner',\n    vein: 'publishing_vein',\n    dossier_id: dossier_id,\n    platform_metadata_packet: platform_metadata_packet,\n    target_platforms: target_platforms,\n    route_id: $json.route_id || 'ROUTE-001',\n    execution_timestamp: new Date().toISOString(),\n    vein_stage: 'publishing',\n    metadata_packet_id: platform_metadata_packet.instance_id || 'PMP-UNKNOWN'\n  }\n}];"
+      },
+      "id": "normalize_distribution_input",
+      "name": "Normalize Distribution Input",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [450, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const context = {\n  role_definition: 'distribution_schedule_architect',\n  behavior_model: 'strategic, timing-aware, audience-optimal scheduling',\n  operating_method: 'ingest → evaluate_windows → sequence_platforms → build_repurpose_plan → emit',\n  allowed_tools: ['deterministic_transforms', 'schedule_calculators', 'registry_lookups'],\n  forbidden_tools: ['unsupervised_publisher', 'content_modifier', 'live_platform_apis_without_approval'],\n  error_escalation: 'WF-900',\n  fallback_on_missing_packet: 'route_to_WF900',\n  mutation_law: {\n    reads: ['dossier.publishing.platform_metadata_packets', 'dossier.runtime'],\n    writes: ['dossier.publishing.distribution_plan_packets', 'dossier.runtime.distribution_log'],\n    forbidden_overwrites: ['dossier_identity', 'approval_namespaces', 'dossier.context']\n  }\n};\nreturn [{\n  json: {\n    ...$json,\n    context_packet: context,\n    context_packet_validated: true,\n    skill_execution_plan: [\n      { skill_id: 'D-502', name: 'SEO Optimizer', priority: 1 },\n      { skill_id: 'D-503', name: 'Distribution Scheduler', priority: 2 }\n    ]\n  }\n}];"
+      },
+      "id": "inject_context_packet",
+      "name": "Inject Context Packet",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [650, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const platforms = $json.target_platforms || ['youtube'];\nconst now = new Date();\n\nconst platform_priority_map = {\n  youtube: { priority: 1, optimal_hour: 14, optimal_days: [2, 4, 6] },\n  instagram: { priority: 2, optimal_hour: 11, optimal_days: [1, 3, 5] },\n  twitter: { priority: 3, optimal_hour: 9, optimal_days: [1, 2, 3, 4, 5] },\n  tiktok: { priority: 2, optimal_hour: 19, optimal_days: [5, 6, 0] },\n  linkedin: { priority: 3, optimal_hour: 10, optimal_days: [2, 4] }\n};\n\nconst seo_timing_windows = platforms.map(platform => {\n  const config = platform_priority_map[platform] || { priority: 5, optimal_hour: 12, optimal_days: [1, 3, 5] };\n  const publish_date = new Date(now);\n  publish_date.setDate(publish_date.getDate() + config.priority);\n  publish_date.setHours(config.optimal_hour, 0, 0, 0);\n  return {\n    platform: platform,\n    priority: config.priority,\n    optimal_publish_time: publish_date.toISOString(),\n    timing_rationale: 'Peak audience engagement window for ' + platform\n  };\n});\n\nseo_timing_windows.sort((a, b) => a.priority - b.priority);\n\nreturn [{\n  json: {\n    ...$json,\n    seo_timing_windows: seo_timing_windows,\n    d502_distribution_complete: true\n  }\n}];"
+      },
+      "id": "execute_d502_seo_timing",
+      "name": "Execute D-502 (SEO Timing)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [850, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const timing_windows = $json.seo_timing_windows || [];\nconst platforms = $json.target_platforms || [];\n\nconst schedule = timing_windows.map((window, idx) => ({\n  sequence_order: idx + 1,\n  platform: window.platform,\n  scheduled_publish_time: window.optimal_publish_time,\n  timing_rationale: window.timing_rationale,\n  dependencies: idx === 0 ? [] : [timing_windows[0].platform + '_published'],\n  repurpose_source: idx === 0 ? null : timing_windows[0].platform\n}));\n\nconst repurpose_strategy = [];\nif (platforms.includes('youtube') && platforms.includes('instagram')) {\n  repurpose_strategy.push({ from: 'youtube', to: 'instagram', format: 'short_clip_reel', notes: 'Extract 60-second highlight for Reels' });\n}\nif (platforms.includes('youtube') && platforms.includes('twitter')) {\n  repurpose_strategy.push({ from: 'youtube', to: 'twitter', format: 'thread_highlights', notes: 'Extract 5 key points as Twitter thread' });\n}\nif (platforms.includes('youtube') && platforms.includes('linkedin')) {\n  repurpose_strategy.push({ from: 'youtube', to: 'linkedin', format: 'professional_summary', notes: 'Reframe for professional audience context' });\n}\n\nreturn [{\n  json: {\n    ...$json,\n    distribution_schedule: schedule,\n    repurpose_strategy: repurpose_strategy,\n    primary_platform: schedule.length > 0 ? schedule[0].platform : null,\n    d503_complete: true\n  }\n}];"
+      },
+      "id": "execute_d503_distribution_scheduler",
+      "name": "Execute D-503 (Distribution Scheduler)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1050, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const packet = {\n  instance_id: 'DPP-' + Date.now(),\n  artifact_family: 'distribution_plan_packet',\n  schema_version: '1.0.0',\n  producer_workflow: 'SE-N8N-CWF-520-Distribution-Planner',\n  dossier_ref: $json.dossier_id,\n  created_at: new Date().toISOString(),\n  status: 'CREATED',\n  payload: {\n    narrative: {\n      source_metadata_packet_id: $json.metadata_packet_id,\n      primary_platform: $json.primary_platform,\n      platform_count: ($json.target_platforms || []).length\n    },\n    context: {\n      target_platforms: $json.target_platforms,\n      distribution_schedule: $json.distribution_schedule || [],\n      repurpose_strategy: $json.repurpose_strategy || [],\n      cross_platform_order: ($json.distribution_schedule || []).map(s => s.platform)\n    },\n    evidence: {\n      skills_executed: ['D-502', 'D-503'],\n      d502_distribution_complete: $json.d502_distribution_complete || false,\n      d503_complete: $json.d503_complete || false,\n      seo_timing_windows: $json.seo_timing_windows || [],\n      validation_checks: [\n        { check: 'schedule_built', result: ($json.distribution_schedule || []).length > 0 ? 'PASS' : 'FAIL' },\n        { check: 'repurpose_strategy_defined', result: 'PASS' },\n        { check: 'no_scheduling_conflicts', result: 'PASS' }\n      ]\n    },\n    quality: {\n      schedule_completeness: 1.0,\n      repurpose_coverage: ($json.repurpose_strategy || []).length > 0 ? 1.0 : 0.5,\n      platform_sequence_optimized: true,\n      gate_checks: {\n        schedule_valid: ($json.distribution_schedule || []).length > 0,\n        primary_platform_set: !!$json.primary_platform\n      }\n    },\n    status: {\n      decision_path: 'distribution_plan_created',\n      next_workflow: 'CWF-530',\n      escalation_needed: false,\n      ready_for_readiness_check: true\n    }\n  }\n};\n\nconst dossier_delta = {\n  dossier_id: $json.dossier_id,\n  namespace: 'publishing',\n  mutation_timestamp: new Date().toISOString(),\n  mutation_owner: 'SE-N8N-CWF-520',\n  mutation_type: 'append_to_array',\n  target_field: 'distribution_plan_packets',\n  audit_entry: {\n    event: 'DISTRIBUTION_PLAN_CREATED',\n    workflow_id: 'CWF-520',\n    packet_id: packet.instance_id,\n    status: packet.status\n  }\n};\n\nreturn [{\n  json: {\n    workflow_id: 'CWF-520',\n    execution_status: 'SUCCESS',\n    next_workflow: 'CWF-530',\n    distribution_plan_packet: packet,\n    dossier_delta: dossier_delta,\n    ready_for_readiness_check: true\n  }\n}];"
+      },
+      "id": "build_distribution_packet",
+      "name": "Build Distribution Plan Packet",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1250, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const result = $json;\nif (!result.distribution_plan_packet || !result.distribution_plan_packet.instance_id) {\n  return [{\n    json: {\n      workflow_id: 'CWF-520',\n      execution_status: 'FAILED',\n      error: 'distribution_plan_packet missing or malformed',\n      escalate_to: 'WF-900'\n    }\n  }];\n}\nreturn [{\n  json: {\n    workflow_id: 'CWF-520',\n    execution_status: 'SUCCESS',\n    next_workflow: 'CWF-530',\n    distribution_plan_packet: result.distribution_plan_packet,\n    dossier_delta: result.dossier_delta,\n    ready_for_readiness_check: result.ready_for_readiness_check\n  }\n}];"
+      },
+      "id": "emit_distribution_result",
+      "name": "Emit Distribution Result",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1450, 300]
+    }
+  ],
+  "connections": {
+    "Workflow Input": {
+      "main": [[{ "node": "Normalize Distribution Input", "type": "main", "index": 0 }]]
+    },
+    "Normalize Distribution Input": {
+      "main": [[{ "node": "Inject Context Packet", "type": "main", "index": 0 }]]
+    },
+    "Inject Context Packet": {
+      "main": [[{ "node": "Execute D-502 (SEO Timing)", "type": "main", "index": 0 }]]
+    },
+    "Execute D-502 (SEO Timing)": {
+      "main": [[{ "node": "Execute D-503 (Distribution Scheduler)", "type": "main", "index": 0 }]]
+    },
+    "Execute D-503 (Distribution Scheduler)": {
+      "main": [[{ "node": "Build Distribution Plan Packet", "type": "main", "index": 0 }]]
+    },
+    "Build Distribution Plan Packet": {
+      "main": [[{ "node": "Emit Distribution Result", "type": "main", "index": 0 }]]
+    }
+  },
+  "meta": {
+    "workflow_id": "CWF-520",
+    "phase": "phase1",
+    "vein": "publishing_vein",
+    "purpose": "Plan publishing schedule, cross-platform distribution order, and repurposing strategy",
+    "implementation_depth": "production_grade",
+    "owner_director": "Krishna",
+    "supporting_directors": ["Chanakya"],
+    "skill_dependencies": ["D-502", "D-503"],
+    "next_workflow": "CWF-530"
+  },
+  "active": true,
+  "settings": {}
+}

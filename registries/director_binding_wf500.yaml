@@ -1,0 +1,138 @@
+registry_type: director_binding_registry
+registry_id: director_binding_wf500
+target_workflow_pack: WF-500
+target_phase: phase1
+created_at: "2026-04-20"
+version: "1.0.0"
+
+director_bindings:
+  Chanakya:
+    director_id: Chanakya
+    director_role: Strategy & Optimization Authority
+    bind_level: primary_authority
+    responsibilities:
+      - CWF-510-platform-metadata-generator (owner_director)
+      - CWF-520-distribution-planner (owner_director)
+      - D-501-platform-metadata-generator (owner_director)
+      - D-502-seo-optimization-specialist (owner_director)
+    governance_scope:
+      - Platform-specific metadata generation
+      - SEO optimization strategy
+      - Keyword targeting authority
+      - Distribution planning
+    escalation_authority: true
+    approval_gates_managed:
+      - metadata_quality_gates
+      - seo_optimization_standards
+    veto_power: true
+    health_status: active
+    last_verified: "2026-04-20"
+
+  Krishna:
+    director_id: Krishna
+    director_role: Orchestration & Oversight
+    bind_level: governance_authority
+    responsibilities:
+      - WF-500-publishing-distribution-pack (strategic oversight)
+      - CWF-510 (governance co-authority)
+      - CWF-520 (governance co-authority)
+      - D-502 (governance co-authority)
+      - D-503 (governance co-authority)
+    governance_scope:
+      - Overall WF-500 orchestration
+      - Publishing pipeline integrity
+      - Cross-stage coordination
+      - Escalation authority
+    escalation_authority: true
+    approval_gates_managed:
+      - publishing_pipeline_gates
+    veto_power: true
+    health_status: active
+    last_verified: "2026-04-20"
+
+  Yama:
+    director_id: Yama
+    director_role: Policy Enforcement & Readiness Gatekeeper
+    bind_level: governance_authority
+    responsibilities:
+      - CWF-530-publish-readiness-checker (owner_director)
+      - D-502 (governance co-authority)
+      - D-503 (owner_director)
+    governance_scope:
+      - Policy compliance enforcement
+      - Publish readiness validation
+      - Final gatekeeper decision
+      - Compliance policy application
+    escalation_authority: true
+    approval_gates_managed:
+      - policy_compliance_gates
+      - publish_readiness_gates
+    veto_power: true
+    health_status: active
+    last_verified: "2026-04-20"
+
+  Kubera:
+    director_id: Kubera
+    director_role: Resource & Schedule Management
+    bind_level: governance_authority
+    responsibilities:
+      - CWF-520 (governance co-authority)
+      - Distribution planning resource oversight
+    governance_scope:
+      - Schedule feasibility
+      - Resource allocation
+      - Distribution channel capacity
+      - Cost-benefit of multi-platform publishing
+    escalation_authority: false
+    approval_gates_managed:
+      - schedule_feasibility_gates
+    veto_power: false
+    health_status: active
+    last_verified: "2026-04-20"
+
+pack_orchestration:
+  parent_workflow: WF-500-publishing-distribution-pack
+  primary_director: Chanakya
+  strategic_authority_directors: [Chanakya]
+  governance_authority_directors: [Krishna, Yama, Kubera]
+  orchestration_pattern: hierarchical_with_policy_gating
+  decision_flow:
+    stage_1_metadata_generation:
+      owner: Chanakya
+      co_governors: [Krishna]
+      decision_authority: Chanakya
+    stage_2_distribution_planning:
+      owner: Chanakya
+      co_governors: [Krishna, Kubera]
+      decision_authority: Chanakya
+    stage_3_seo_optimization:
+      owner: Chanakya
+      co_governors: [Krishna]
+      decision_authority: Chanakya
+    stage_4_readiness_validation:
+      owner: Yama
+      co_governors: [Krishna, Chanakya]
+      decision_authority: Yama
+  escalation_flow:
+    default_escalation: WF-900
+    policy_violation: Yama → WF-900
+    schedule_issue: Kubera → analysis
+    readiness_failure: Yama → remediation_path
+
+registry_metadata:
+  total_directors_assigned: 4
+  directors_with_primary_authority: 1
+  directors_with_governance_authority: 3
+  directors_with_veto_power: 3
+  directors_with_escalation_authority: 3
+  workflow_vein: publishing_vein
+  phase: phase1
+  pack: WF-500
+
+constitutional_compliance:
+  all_workflows_have_owners: verified
+  all_skills_have_owners: verified
+  escalation_paths_defined: verified
+  veto_authority_documented: verified
+  approval_gates_assigned: verified
+  policy_gating_enforced: verified

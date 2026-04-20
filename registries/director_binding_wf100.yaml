@@ -1,9 +1,20 @@
 workflow_pack: WF-100
+
+escalation_authority: Aruna
+escalation_path_default: WF-900
+escalation_handlers:
+  skill_failure: WF-900
+  quality_gate_failure: Durga → WF-900
+  data_validation_failure: Chitragupta → WF-900
+  policy_violation: Yama → WF-900
+
 directors:
   Narada:
     owns:
       - CWF-110-topic-discovery
       - M-001
+      - M-002
+      - M-003
       - M-006
       - M-007
       - M-018
@@ -19,6 +30,9 @@ directors:
   Vyasa:
     owns:
       - CWF-140-research-synthesis
+      - M-009
+      - M-010
+      - M-011
       - M-020
   Saraswati:
     supports:

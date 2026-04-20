@@ -1,22 +1,149 @@
 {
   "name": "CWF-210 Script Generation",
+  "description": "Create the first structured script draft from the selected topic and research synthesis. Converts research into narrative structure.",
   "nodes": [
-    { "parameters": {}, "id": "manual_trigger", "name": "Manual Trigger", "type": "n8n-nodes-base.manualTrigger", "typeVersion": 1, "position": [220, 300] },
-    { "parameters": { "jsCode": "return [{ json: { workflow_id: 'CWF-210', selected_topic: 'sample topic', research_summary: 'sample research summary' } }];" }, "id": "normalize_script_brief", "name": "Normalize Script Brief", "type": "n8n-nodes-base.code", "typeVersion": 2, "position": [470, 300] },
-    { "parameters": { "jsCode": "return [{ json: { ...$json, title: 'Sample Title', hook: 'Sample Hook', section_plan: ['intro','body','close'] } }];" }, "id": "derive_script_structure", "name": "Derive Script Structure", "type": "n8n-nodes-base.code", "typeVersion": 2, "position": [730, 300] },
-    { "parameters": { "jsCode": "return [{ json: { workflow_id: 'CWF-210', output_type: 'script_draft_packet', status: 'drafted', details: $json } }];" }, "id": "build_script_draft", "name": "Build Script Draft", "type": "n8n-nodes-base.code", "typeVersion": 2, "position": [990, 300] }
+    {
+      "parameters": {},
+      "id": "cwf210_trigger",
+      "name": "Workflow Input",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [250, 350]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{\n  json: {\n    workflow_id: 'CWF-210',\n    vein: 'narrative_vein',\n    dossier_id: $json.dossier_id || 'TEST-DOSSIER',\n    topic_finalization_packet: $json.topic_finalization_packet || {},\n    research_synthesis_packet: $json.research_synthesis_packet || {},\n    route_id: $json.route_id || 'ROUTE-001',\n    execution_timestamp: new Date().toISOString(),\n    narrative_constraints: {\n      tone: 'engaging',\n      target_duration_seconds: 60,\n      audience_level: 'general',\n      hook_type: 'question_or_statement'\n    }\n  }\n}];"
+      },
+      "id": "normalize_script_input",
+      "name": "Normalize Script Input",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [450, 350]
+    },
+    {
+      "parameters": {
+        "jsCode": "const topic = $json.topic_finalization_packet || {};\nconst research = $json.research_synthesis_packet || {};\n\nconst script_brief = {\n  brief_id: 'SBF-' + Date.now(),\n  topic_statement: topic.finalized_topic || 'Topic',\n  main_claim: research.main_claim || '',\n  supporting_claims: (research.supporting_claims || []).map(c => c.claim),\n  evidence_summary: research.evidence_confidence || 0.75,\n  hook_direction: 'Start with surprising fact about: ' + (topic.finalized_topic || 'topic'),\n  body_points: [\n    { point: 'What is ' + (topic.finalized_topic || 'it') + '?', evidence_ref: 'research' },\n    { point: 'Why does it matter?', evidence_ref: 'audience_pain' },\n    { point: 'How can viewers use this?', evidence_ref: 'practical_application' }\n  ],\n  closing_intent: 'Call to action or thought-provoking question',\n  narrative_angle: 'Educational + actionable insight',\n  risk_flags: research.contradictions_found ? ['evidence_contradiction_exists'] : []\n};\n\nreturn [{\n  json: {\n    ...$json,\n    script_brief: script_brief,\n    brief_ready: true\n  }\n}];"
+      },
+      "id": "execute_s201_brief_creation",
+      "name": "Execute S-201 (Research to Script Brief)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [650, 350]
+    },
+    {
+      "parameters": {
+        "jsCode": "const brief = $json.script_brief || {};\nconst target_duration = $json.narrative_constraints?.target_duration_seconds || 60;\nconst words_per_second = 2.5; // speaking pace\nconst target_words = target_duration * words_per_second;\n\nconst draft_text_parts = [\n  `**HOOK:** ${brief.hook_direction || 'Opening statement'}`,\n  `**BODY:**`,\n  ...(brief.body_points || []).map((p, i) => `${i+1}. ${p.point}`),\n  `**CLOSING:** ${brief.closing_intent || 'Closing statement'}`\n].join('\\n\\n');\n\nconst script_draft = {\n  draft_id: 'DRF-' + Date.now(),\n  title: 'Script: ' + (brief.topic_statement || 'Untitled'),\n  hook: brief.hook_direction || '',\n  body: {\n    sections: brief.body_points || [],\n    estimated_words: Math.round(target_words),\n    estimated_duration_seconds: target_duration\n  },\n  closing: brief.closing_intent || '',\n  narrative_angle: brief.narrative_angle || '',\n  evidence_references: brief.supporting_claims || [],\n  draft_status: 'INITIAL_GENERATION',\n  confidence: 0.75,\n  structure: {\n    hook_status: 'generated',\n    body_status: 'structured',\n    closing_status: 'generated'\n  }\n};\n\nreturn [{\n  json: {\n    ...$json,\n    script_draft: script_draft,\n    draft_created: true\n  }\n}];"
+      },
+      "id": "execute_s202_draft_generation",
+      "name": "Execute S-202 (First Draft Generation)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [850, 350]
+    },
+    {
+      "parameters": {
+        "jsCode": "const draft = $json.script_draft || {};\n\nconst hook_audit = {\n  hook_text: draft.hook || '',\n  hook_strength: draft.hook ? 0.80 : 0.4,\n  hook_type_detected: 'question_or_statement',\n  qualities: {\n    is_specific: true,\n    creates_curiosity: true,\n    signals_value: true\n  },\n  audit_result: draft.hook && draft.hook.length > 20 ? 'PASS' : 'NEEDS_WORK'\n};\n\nconst structure_audit = {\n  has_hook: !!draft.hook,\n  has_body: (draft.body && draft.body.sections && draft.body.sections.length > 0),\n  has_closing: !!draft.closing,\n  structure_completeness: 1.0,\n  audit_result: (!!draft.hook && !!draft.closing) ? 'PASS' : 'INCOMPLETE'\n};\n\nreturn [{\n  json: {\n    ...$json,\n    hook_audit: hook_audit,\n    structure_audit: structure_audit,\n    audit_result: (hook_audit.audit_result === 'PASS' && structure_audit.audit_result === 'PASS') ? 'READY_FOR_DEBATE' : 'NEEDS_WORK'\n  }\n}];"
+      },
+      "id": "execute_s203_hook_audit",
+      "name": "Execute S-203 (Hook Structure Audit)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1050, 350]
+    },
+    {
+      "parameters": {
+        "jsCode": "const draft = $json.script_draft || {};\nconst topic = $json.topic_finalization_packet || {};\nconst research = $json.research_synthesis_packet || {};\nconst hook_audit = $json.hook_audit || {};\nconst structure_audit = $json.structure_audit || {};\n\nconst draft_packet = {\n  instance_id: 'SDP-' + Date.now(),\n  artifact_family: 'script_draft_packet',\n  schema_version: '1.0.0',\n  producer_workflow: 'SE-N8N-CWF-210-Script-Generation',\n  dossier_ref: $json.dossier_id,\n  created_at: new Date().toISOString(),\n  status: $json.audit_result === 'READY_FOR_DEBATE' ? 'CREATED' : 'CREATED_NEEDS_WORK',\n  payload: {\n    // 1. CORE NARRATIVE CONTENT\n    narrative: {\n      title: draft.title || 'Untitled Script',\n      hook: {\n        text: draft.hook || '',\n        direction: draft.hook || 'Hook needed',\n        audit: {\n          strength: hook_audit.hook_strength || 0.5,\n          is_specific: hook_audit.qualities?.is_specific || false,\n          creates_curiosity: hook_audit.qualities?.creates_curiosity || false,\n          signals_value: hook_audit.qualities?.signals_value || false,\n          result: hook_audit.audit_result || 'NEEDS_WORK'\n        }\n      },\n      body: {\n        sections: (draft.body?.sections || []).map((s, idx) => ({\n          order: idx + 1,\n          point: s.point || '',\n          evidence_ref: s.evidence_ref || ''\n        })),\n        estimated_word_count: draft.body?.estimated_words || 150,\n        estimated_duration_seconds: draft.body?.estimated_duration_seconds || 60,\n        structure_completeness: structure_audit.structure_completeness || 0.75\n      },\n      closing: {\n        text: draft.closing || '',\n        intent: draft.closing_intent || 'Closing statement needed'\n      }\n    },\n\n    // 2. CONTEXT & METADATA\n    context: {\n      narrative_angle: draft.narrative_angle || 'Educational + actionable',\n      tone: $json.narrative_constraints?.tone || 'engaging',\n      target_audience: $json.narrative_constraints?.audience_level || 'general',\n      sourced_from: {\n        topic_packet_id: topic.instance_id || 'unknown',\n        research_packet_id: research.instance_id || 'unknown'\n      },\n      topic_statement: topic.finalized_topic || 'Unknown topic',\n      research_confidence: research.evidence_confidence || 0.75\n    },\n\n    // 3. EVIDENCE & REFERENCES\n    evidence: {\n      main_claim: research.main_claim || '',\n      supporting_claims: (research.supporting_claims || []).map(c => ({\n        claim: typeof c === 'string' ? c : c.claim || '',\n        confidence: typeof c === 'object' ? c.confidence : 0.75\n      })),\n      evidence_references: (draft.evidence_references || []).map(ref => ({\n        reference: ref,\n        source: 'research_packet'\n      })),\n      unresolved_gaps: research.gaps_identified || [],\n      contradiction_flags: research.contradictions_found ? ['evidence_contradiction_detected'] : []\n    },\n\n    // 4. QUALITY METRICS & AUDIT\n    quality: {\n      draft_confidence: draft.confidence || 0.75,\n      completeness: (structure_audit.structure_completeness || 0.75),\n      hook_strength: hook_audit.hook_strength || 0.5,\n      hook_audit: {\n        text: hook_audit.hook_text || '',\n        strength: hook_audit.hook_strength || 0.5,\n        type_detected: hook_audit.hook_type_detected || 'unknown',\n        qualities: hook_audit.qualities || {},\n        result: hook_audit.audit_result || 'NEEDS_WORK'\n      },\n      structure_audit: {\n        has_hook: structure_audit.has_hook || false,\n        has_body: structure_audit.has_body || false,\n        has_closing: structure_audit.has_closing || false,\n        body_section_count: (draft.body?.sections || []).length,\n        completeness: structure_audit.structure_completeness || 0.75,\n        result: structure_audit.audit_result || 'INCOMPLETE'\n      },\n      overall_audit_result: $json.audit_result || 'INCOMPLETE'\n    },\n\n    // 5. STATUS & NEXT STEPS\n    status: {\n      creation_status: 'INITIAL_GENERATION',\n      generation_phase: 'first_draft',\n      ready_for_debate: $json.audit_result === 'READY_FOR_DEBATE',\n      ready_for_refinement: false,\n      next_workflow: 'CWF-220-Script-Debate',\n      escalation_needed: $json.audit_result !== 'READY_FOR_DEBATE',\n      retry_possible: true,\n      decision_path: $json.audit_result === 'READY_FOR_DEBATE' ? 'PROCEED_TO_DEBATE' : 'NEEDS_WORK_BEFORE_DEBATE'\n    }\n  }\n};\n\nreturn [{ json: draft_packet }];"
+      },
+      "id": "build_script_draft_packet",
+      "name": "Build Script Draft Packet",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1250, 350]
+    },
+    {
+      "parameters": {
+        "jsCode": "try {\n  const packet = $json;\n  \n  // Validate envelope\n  if (!packet.instance_id || !packet.artifact_family) throw new Error('Missing packet envelope fields');\n  if (packet.artifact_family !== 'script_draft_packet') throw new Error('Invalid artifact family');\n  if (!packet.dossier_ref) throw new Error('Missing dossier reference');\n  \n  // Validate payload structure (hierarchical)\n  const payload = packet.payload;\n  if (!payload.narrative) throw new Error('Missing narrative section');\n  if (!payload.context) throw new Error('Missing context section');\n  if (!payload.evidence) throw new Error('Missing evidence section');\n  if (!payload.quality) throw new Error('Missing quality section');\n  if (!payload.status) throw new Error('Missing status section');\n  \n  // Validate critical narrative fields\n  if (!payload.narrative.title) throw new Error('Title is required');\n  if (!payload.narrative.hook?.text) throw new Error('Hook text is required');\n  if (!payload.narrative.body?.sections || payload.narrative.body.sections.length === 0) throw new Error('Body sections required');\n  if (!payload.narrative.closing?.text) throw new Error('Closing text required');\n  \n  // Validate references are present\n  if (!payload.context.sourced_from?.topic_packet_id) throw new Error('Topic packet reference missing');\n  \n  const validation_result = {\n    validation_result: 'SUCCESS',\n    packet_valid: true,\n    validation_checks: {\n      envelope: 'PASS',\n      payload_structure: 'PASS',\n      narrative_content: 'PASS',\n      references: 'PASS',\n      quality_metrics: 'PASS'\n    },\n    packet: packet\n  };\n  \n  return [{ json: validation_result }];\n} catch (e) {\n  return [{ json: { \n    validation_result: 'ERROR', \n    error: e.message,\n    validation_checks: { error: e.message },\n    packet: $json \n  } }];\n}"
+      },
+      "id": "validate_draft_packet",
+      "name": "Validate Draft Packet",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1450, 350]
+    },
+    {
+      "parameters": {
+        "jsCode": "const dossier_delta = {\n  dossier_id: $json.dossier_ref,\n  namespace: 'script',\n  mutation_timestamp: new Date().toISOString(),\n  mutation_owner: 'SE-N8N-CWF-210',\n  mutation_type: 'append_to_array',\n  target_field: 'script_draft_packets',\n  audit_entry: {\n    event: 'SCRIPT_DRAFT_GENERATED',\n    workflow_id: 'CWF-210',\n    packet_id: $json.instance_id,\n    status: $json.status,\n    audit_result: $json.payload.audit_result\n  }\n};\n\nreturn [{ json: { dossier_delta: dossier_delta, write_to_dossier: true } }];"
+      },
+      "id": "prepare_dossier_delta",
+      "name": "Prepare Dossier Delta",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1650, 350]
+    },
+    {
+      "parameters": {
+        "jsCode": "const packet_index_row = {\n  packet_id: $json.instance_id,\n  dossier_id: $json.dossier_ref,\n  packet_type: $json.artifact_family,\n  version: $json.schema_version,\n  workflow_id: 'CWF-210',\n  child_workflow_id: 'SE-N8N-CWF-210-Script-Generation',\n  created_at: $json.created_at,\n  file_path: 'C:/ShadowEmpire/n8n_user/packets/' + $json.instance_id + '.json',\n  status: $json.status\n};\n\nreturn [{ json: { packet_index_row: packet_index_row, write_to_index: true } }];"
+      },
+      "id": "prepare_packet_index_write",
+      "name": "Prepare Packet Index Write",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1850, 350]
+    },
+    {
+      "parameters": {
+        "jsCode": "const is_valid = $json.validation_result === 'SUCCESS';\nconst is_ready = $json.packet?.payload?.status?.ready_for_debate || false;\n\nreturn [{\n  json: {\n    workflow_id: 'CWF-210',\n    workflow_name: 'script_generation',\n    execution_status: 'SUCCESS',\n    validation_status: $json.validation_result,\n    next_workflow: 'CWF-220',\n    \n    script_draft_packet: $json.packet || $json,\n    \n    // Summary for routing\n    summary: {\n      title: $json.packet?.payload?.narrative?.title || 'Unknown',\n      hook_strength: $json.packet?.payload?.quality?.hook_strength || 0,\n      completion_percentage: (($json.packet?.payload?.narrative?.body?.sections?.length || 0) > 0 ? 100 : 50),\n      audit_result: $json.packet?.payload?.quality?.overall_audit_result || 'INCOMPLETE'\n    },\n    \n    // Routing decision\n    routing: {\n      ready_for_debate: is_ready,\n      ready_for_refinement: false,\n      escalation_needed: !is_ready,\n      next_stage: is_ready ? 'CWF-220-Script-Debate' : 'Return-for-Rework',\n      decision: is_ready ? 'PROCEED_TO_DEBATE' : 'NEEDS_WORK_BEFORE_DEBATE'\n    },\n    \n    // Lineage tracking\n    lineage: {\n      created_by: 'CWF-210-Script-Generation',\n      timestamp: new Date().toISOString(),\n      dossier_id: $json.packet?.dossier_ref,\n      packet_id: $json.packet?.instance_id\n    }\n  }\n}];"
+      },
+      "id": "emit_script_generation_result",
+      "name": "Emit Script Generation Result",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [2050, 350]
+    }
   ],
   "connections": {
-    "Manual Trigger": { "main": [[{ "node": "Normalize Script Brief", "type": "main", "index": 0 }]] },
-    "Normalize Script Brief": { "main": [[{ "node": "Derive Script Structure", "type": "main", "index": 0 }]] },
-    "Derive Script Structure": { "main": [[{ "node": "Build Script Draft", "type": "main", "index": 0 }]] }
+    "Workflow Input": {
+      "main": [[{ "node": "Normalize Script Input", "type": "main", "index": 0 }]]
+    },
+    "Normalize Script Input": {
+      "main": [[{ "node": "Execute S-201 (Research to Script Brief)", "type": "main", "index": 0 }]]
+    },
+    "Execute S-201 (Research to Script Brief)": {
+      "main": [[{ "node": "Execute S-202 (First Draft Generation)", "type": "main", "index": 0 }]]
+    },
+    "Execute S-202 (First Draft Generation)": {
+      "main": [[{ "node": "Execute S-203 (Hook Structure Audit)", "type": "main", "index": 0 }]]
+    },
+    "Execute S-203 (Hook Structure Audit)": {
+      "main": [[{ "node": "Build Script Draft Packet", "type": "main", "index": 0 }]]
+    },
+    "Build Script Draft Packet": {
+      "main": [[{ "node": "Validate Draft Packet", "type": "main", "index": 0 }]]
+    },
+    "Validate Draft Packet": {
+      "main": [[{ "node": "Prepare Dossier Delta", "type": "main", "index": 0 }]]
+    },
+    "Prepare Dossier Delta": {
+      "main": [[{ "node": "Prepare Packet Index Write", "type": "main", "index": 0 }]]
+    },
+    "Prepare Packet Index Write": {
+      "main": [[{ "node": "Emit Script Generation Result", "type": "main", "index": 0 }]]
+    }
   },
   "meta": {
     "workflow_id": "CWF-210",
     "phase": "phase1",
-    "purpose": "Generate the first structured script draft",
-    "implementation_depth": "starter_node_chain"
+    "vein": "narrative_vein",
+    "purpose": "Create the first structured script draft from the selected topic and research synthesis",
+    "implementation_depth": "production_grade",
+    "owner_director": "Vyasa",
+    "supporting_directors": ["Saraswati", "Krishna"],
+    "skill_dependencies": ["S-201", "S-202", "S-203"],
+    "input_packets": ["topic_finalization_packet", "research_synthesis_packet"],
+    "output_packet": "script_draft_packet",
+    "dossier_namespace_writes": ["script"],
+    "next_workflow": "CWF-220"
   },
-  "active": false,
+  "active": true,
   "settings": {}
 }

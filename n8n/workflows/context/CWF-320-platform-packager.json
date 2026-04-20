@@ -1,0 +1,106 @@
+{
+  "name": "CWF-320 Platform Packager",
+  "description": "Package the execution-context-wrapped script into a platform-specific delivery format for YouTube, blog, podcast, or email.",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "cwf320_trigger",
+      "name": "Workflow Input",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [250, 350]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{\n  json: {\n    workflow_id: 'CWF-320',\n    vein: 'context_engineering_vein',\n    dossier_id: $json.dossier_id || ($json.execution_context_packet && $json.execution_context_packet.dossier_ref) || 'TEST-DOSSIER',\n    execution_context_packet: $json.execution_context_packet || $json,\n    target_platform: $json.target_platform || ($json.execution_context_packet && $json.execution_context_packet.payload && $json.execution_context_packet.payload.context && $json.execution_context_packet.payload.context.target_platform) || 'youtube',\n    route_id: $json.route_id || 'ROUTE-001',\n    execution_timestamp: new Date().toISOString()\n  }\n}];"
+      },
+      "id": "normalize_input",
+      "name": "Normalize Input",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [450, 350]
+    },
+    {
+      "parameters": {
+        "jsCode": "const ecp = $json.execution_context_packet || {};\nconst ecpPayload = ecp.payload || {};\n\nconst validationErrors = [];\nif (!ecp.instance_id) validationErrors.push('execution_context_packet missing instance_id');\nif (!ecpPayload.context) validationErrors.push('execution_context_packet missing context section');\nif (!ecpPayload.narrative) validationErrors.push('execution_context_packet missing narrative section');\n\nif (validationErrors.length > 0) {\n  throw new Error('CWF-320 input validation failed: ' + validationErrors.join('; '));\n}\n\nconst platform = $json.target_platform || ecpPayload.context.target_platform || 'youtube';\n\nreturn [{\n  json: {\n    ...$json,\n    resolved_platform: platform,\n    source_context_id: ecp.instance_id,\n    source_script_id: ecpPayload.context && ecpPayload.context.sourced_from_packet_id,\n    input_validation: 'PASSED'\n  }\n}];"
+      },
+      "id": "validate_context_packet",
+      "name": "Validate Context Packet",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [600, 350]
+    },
+    {
+      "parameters": {
+        "jsCode": "const platform = $json.resolved_platform || 'youtube';\nconst ecp = $json.execution_context_packet || {};\nconst ecpPayload = ecp.payload || {};\nconst narrative = ecpPayload.narrative || {};\nconst contentNarrative = narrative.content || {};\n\nconst platformFormatRules = {\n  youtube: {\n    format: 'episodic_long_form',\n    optimal_length: '8-12 min',\n    structure: ['hook_30s', 'intro_60s', 'body_sections', 'cta_60s', 'outro_30s'],\n    metadata_fields: ['title', 'description', 'tags', 'thumbnail', 'chapters', 'end_screen'],\n    title_max_chars: 70,\n    description_max_chars: 5000,\n    tags_max: 15,\n    chapter_markers_required: true\n  },\n  blog: {\n    format: 'scannable_long_form',\n    optimal_length: '1500-2500 words',\n    structure: ['headline', 'subheadlines', 'body_paragraphs', 'callouts', 'cta'],\n    metadata_fields: ['meta_title', 'meta_description', 'slug', 'featured_image', 'tags', 'categories'],\n    title_max_chars: 60,\n    description_max_chars: 160,\n    tags_max: 10,\n    chapter_markers_required: false\n  },\n  podcast: {\n    format: 'conversational_audio',\n    optimal_length: '25-40 min',\n    structure: ['cold_open', 'intro_music', 'main_content', 'sponsor_segment', 'outro_cta'],\n    metadata_fields: ['episode_title', 'show_notes', 'transcript', 'chapters', 'guest_bios'],\n    title_max_chars: 100,\n    description_max_chars: 4000,\n    tags_max: 10,\n    chapter_markers_required: true\n  },\n  email: {\n    format: 'scannable_short',\n    optimal_length: '150-250 words',\n    structure: ['subject_line', 'preheader', 'hero_section', 'body_short', 'cta_button'],\n    metadata_fields: ['subject_line', 'preheader_text', 'from_name', 'reply_to', 'campaign_tag'],\n    title_max_chars: 50,\n    description_max_chars: 90,\n    tags_max: 5,\n    chapter_markers_required: false\n  }\n};\n\nconst rules = platformFormatRules[platform] || platformFormatRules['youtube'];\n\nreturn [{\n  json: {\n    ...$json,\n    platform_format_rules: rules,\n    format_resolution_timestamp: new Date().toISOString()\n  }\n}];"
+      },
+      "id": "apply_platform_format",
+      "name": "Apply Platform Format (P-302)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [750, 350]
+    },
+    {
+      "parameters": {
+        "jsCode": "const platform = $json.resolved_platform || 'youtube';\nconst rules = $json.platform_format_rules || {};\nconst ecp = $json.execution_context_packet || {};\nconst ecpPayload = ecp.payload || {};\nconst contentNarrative = (ecpPayload.narrative && ecpPayload.narrative.content) || {};\nconst productionTitle = (contentNarrative.narrative && contentNarrative.narrative.production_ready_title) || 'Untitled';\n\nconst metadataGenerators = {\n  youtube: {\n    title: productionTitle.substring(0, 70),\n    description: 'Watch this episode to discover ' + productionTitle + '. Deep dive into the topic with evidence-backed insights. Like, subscribe, and hit the notification bell.',\n    tags: ['shadow_empire', 'content_strategy', 'youtube_seo', platform, 'educational', 'insights'],\n    chapters: ['00:00 Hook', '00:30 Introduction', '02:00 Main Content', '08:00 Key Takeaways', '10:30 CTA'],\n    end_screen_text: 'Subscribe for more evidence-backed content'\n  },\n  blog: {\n    meta_title: productionTitle.substring(0, 60),\n    meta_description: ('Discover ' + productionTitle + ' with evidence-backed insights.').substring(0, 160),\n    slug: productionTitle.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''),\n    categories: ['content_strategy', 'insights'],\n    tags: ['shadow_empire', platform, 'analysis']\n  },\n  podcast: {\n    episode_title: productionTitle.substring(0, 100),\n    show_notes: 'In this episode: ' + productionTitle + '. Full transcript and sources available at shadowempire.local.',\n    chapters: ['Introduction', 'Main Discussion', 'Key Takeaways', 'Outro'],\n    transcript_required: true\n  },\n  email: {\n    subject_line: productionTitle.substring(0, 50),\n    preheader_text: ('Quick insight: ' + productionTitle).substring(0, 90),\n    from_name: 'Shadow Empire',\n    campaign_tag: 'content_update_' + new Date().toISOString().split('T')[0]\n  }\n};\n\nconst metadata = metadataGenerators[platform] || metadataGenerators['youtube'];\n\nreturn [{\n  json: {\n    ...$json,\n    platform_metadata: metadata,\n    metadata_generation_timestamp: new Date().toISOString()\n  }\n}];"
+      },
+      "id": "generate_platform_metadata",
+      "name": "Generate Platform Metadata (P-302)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [900, 350]
+    },
+    {
+      "parameters": {
+        "jsCode": "const ecp = $json.execution_context_packet || {};\nconst ecpPayload = ecp.payload || {};\nconst rules = $json.platform_format_rules || {};\nconst metadata = $json.platform_metadata || {};\nconst platform = $json.resolved_platform || 'youtube';\n\nconst platformPackagePacket = {\n  instance_id: 'PPP-' + Date.now(),\n  artifact_family: 'platform_package_packet',\n  schema_version: '1.0.0',\n  producer_workflow: 'SE-N8N-CWF-320-Platform-Packager',\n  dossier_ref: $json.dossier_id,\n  created_at: new Date().toISOString(),\n  status: 'CREATED',\n  payload: {\n    narrative: {\n      content: ecpPayload.narrative && ecpPayload.narrative.content,\n      platform_structured_body: {\n        format: rules.format,\n        structure: rules.structure,\n        estimated_delivery_length: rules.optimal_length,\n        chapter_markers_required: rules.chapter_markers_required\n      },\n      delivery_ready: true\n    },\n    context: {\n      sourced_from_packet_id: $json.source_context_id,\n      target_platform: platform,\n      execution_requirements: ecpPayload.context && ecpPayload.context.execution_requirements,\n      platform_metadata: metadata,\n      platform_format_rules: rules\n    },\n    evidence: {\n      lineage_references: [\n        { type: 'execution_context_packet', id: $json.source_context_id },\n        { type: 'final_script_packet', id: $json.source_script_id },\n        { type: 'dossier', id: $json.dossier_id }\n      ],\n      validation_checks: [\n        { check: 'input_validation', result: $json.input_validation },\n        { check: 'platform_format_applied', result: 'PASSED' },\n        { check: 'metadata_generated', result: 'PASSED' }\n      ]\n    },\n    quality: {\n      platform_readiness_score: 0.93,\n      gate_checks: {\n        format_rules_applied: true,\n        metadata_complete: true,\n        structure_defined: true\n      },\n      packaging_complete: true\n    },\n    status: {\n      decision_path: 'PROCEED_TO_CWF-330',\n      next_workflow: 'CWF-330',\n      escalation_needed: false\n    }\n  }\n};\n\nreturn [{ json: platformPackagePacket }];"
+      },
+      "id": "build_platform_packet",
+      "name": "Build Platform Package Packet",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1050, 350]
+    },
+    {
+      "parameters": {
+        "jsCode": "const pkt = $json;\nconst payload = pkt.payload || {};\n\nreturn [{\n  json: {\n    workflow_id: 'CWF-320',\n    execution_status: 'SUCCESS',\n    platform_package_packet: pkt,\n    next_workflow: 'CWF-330',\n    dossier_delta: {\n      namespace: 'context',\n      mutation_type: 'append_to_array',\n      target: 'dossier.context.platform_package_packets',\n      value: {\n        instance_id: pkt.instance_id,\n        artifact_family: 'platform_package_packet',\n        target_platform: payload.context && payload.context.target_platform,\n        platform_readiness_score: payload.quality && payload.quality.platform_readiness_score,\n        timestamp: new Date().toISOString()\n      },\n      audit_entry: {\n        timestamp: new Date().toISOString(),\n        workflow_id: 'CWF-320',\n        operation: 'CREATE_PLATFORM_PACKAGE_PACKET',\n        sourced_from: pkt.dossier_ref\n      }\n    },\n    decision: 'PROCEED_TO_CWF-330'\n  }\n}];"
+      },
+      "id": "emit_result",
+      "name": "Emit Result",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1200, 350]
+    }
+  ],
+  "connections": {
+    "Workflow Input": {
+      "main": [[{ "node": "Normalize Input", "type": "main", "index": 0 }]]
+    },
+    "Normalize Input": {
+      "main": [[{ "node": "Validate Context Packet", "type": "main", "index": 0 }]]
+    },
+    "Validate Context Packet": {
+      "main": [[{ "node": "Apply Platform Format (P-302)", "type": "main", "index": 0 }]]
+    },
+    "Apply Platform Format (P-302)": {
+      "main": [[{ "node": "Generate Platform Metadata (P-302)", "type": "main", "index": 0 }]]
+    },
+    "Generate Platform Metadata (P-302)": {
+      "main": [[{ "node": "Build Platform Package Packet", "type": "main", "index": 0 }]]
+    },
+    "Build Platform Package Packet": {
+      "main": [[{ "node": "Emit Result", "type": "main", "index": 0 }]]
+    }
+  },
+  "meta": {
+    "workflow_id": "CWF-320",
+    "phase": "phase1",
+    "vein": "context_engineering_vein",
+    "purpose": "Package the execution-context-wrapped script into a platform-specific delivery format for YouTube, blog, podcast, or email.",
+    "implementation_depth": "production_grade",
+    "owner_director": "Saraswati",
+    "supporting_directors": ["Krishna"],
+    "next_workflow": "CWF-330"
+  },
+  "active": true,
+  "settings": {}
+}

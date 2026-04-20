@@ -1,0 +1,106 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Publish Ready Packet",
+  "description": "Schema for publishing readiness validation from CWF-530-publish-readiness-checker",
+  "type": "object",
+  "required": ["instance_id", "artifact_family", "schema_version", "producer_workflow", "dossier_ref", "created_at", "status", "payload"],
+  "properties": {
+    "instance_id": {"type": "string", "pattern": "^PRP-[0-9]+$"},
+    "artifact_family": {"type": "string", "enum": ["publish_ready_packet"]},
+    "schema_version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+    "producer_workflow": {"type": "string", "enum": ["SE-N8N-CWF-530-Publish-Readiness-Checker"]},
+    "dossier_ref": {"type": "string", "pattern": "^[a-zA-Z0-9-]+$"},
+    "created_at": {"type": "string", "format": "date-time"},
+    "status": {"type": "string", "enum": ["COMPLETED", "FAILED"]},
+    "payload": {
+      "type": "object",
+      "required": ["narrative", "context", "evidence", "quality", "status"],
+      "properties": {
+        "narrative": {
+          "type": "object",
+          "required": ["validation_timestamp", "promotion_decision"],
+          "properties": {
+            "validation_timestamp": {"type": "string", "format": "date-time"},
+            "promotion_decision": {"type": "string", "enum": ["READY_FOR_PUBLISHING", "NEEDS_REVIEW", "BLOCKED"]},
+            "overall_readiness_score": {"type": "number", "minimum": 0, "maximum": 1}
+          }
+        },
+        "context": {
+          "type": "object",
+          "required": ["target_platforms"],
+          "properties": {
+            "target_platforms": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+            "scheduled_earliest": {"type": "string", "format": "date-time"},
+            "dossier_id": {"type": "string"}
+          }
+        },
+        "evidence": {
+          "type": "object",
+          "required": ["validation_checks"],
+          "properties": {
+            "validation_checks": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["check_id", "criterion", "status", "required"],
+                "properties": {
+                  "check_id": {"type": "string"},
+                  "criterion": {"type": "string"},
+                  "status": {"type": "string", "enum": ["passed", "failed"]},
+                  "required": {"type": "boolean"},
+                  "score": {"type": "number", "minimum": 0, "maximum": 1}
+                }
+              }
+            },
+            "checks_passed": {"type": "integer", "minimum": 0},
+            "checks_total": {"type": "integer", "minimum": 1},
+            "required_checks_passed": {"type": "integer", "minimum": 0},
+            "required_checks_total": {"type": "integer", "minimum": 1}
+          }
+        },
+        "quality": {
+          "type": "object",
+          "required": ["overall_readiness_score"],
+          "properties": {
+            "overall_readiness_score": {"type": "number", "minimum": 0, "maximum": 1},
+            "metadata_completeness": {"type": "number", "minimum": 0, "maximum": 1},
+            "policy_compliance": {"type": "number", "minimum": 0, "maximum": 1},
+            "publication_readiness": {"type": "string", "enum": ["ready", "needs_review", "blocked"]}
+          }
+        },
+        "status": {
+          "type": "object",
+          "required": ["validation_complete", "promotion_decision", "can_proceed_to_publishing", "next_stage"],
+          "properties": {
+            "validation_complete": {"type": "boolean", "enum": [true]},
+            "promotion_decision": {"type": "string", "enum": ["READY_FOR_PUBLISHING", "NEEDS_REVIEW", "BLOCKED"]},
+            "can_proceed_to_publishing": {"type": "boolean"},
+            "critical_blockers": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "blocker_id": {"type": "string"},
+                  "issue": {"type": "string"},
+                  "remediation_path": {"type": "string"}
+                }
+              }
+            },
+            "warnings": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "warning_id": {"type": "string"},
+                  "issue": {"type": "string"},
+                  "severity": {"type": "string", "enum": ["low", "medium"]}
+                }
+              }
+            },
+            "next_stage": {"type": "string", "enum": ["WF-600", "WF-900"]}
+          }
+        }
+      }
+    }
+  }
+}

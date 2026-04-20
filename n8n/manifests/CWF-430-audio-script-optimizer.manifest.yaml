@@ -1,0 +1,44 @@
+workflow_id: CWF-430
+name: cwf430_audio_script_optimizer
+class: child
+parent_pack: WF-400
+purpose: optimize script for voice delivery with timing markers, pacing notes, and emphasis cues from the visual_asset_plan_packet
+primary_owner: Saraswati
+supporting_directors:
+  - Durga
+inputs:
+  - visual_asset_plan_packet
+output_packet_family:
+  - audio_optimized_script_packet
+writes:
+  - namespaces.media
+  - namespaces.runtime
+write_targets:
+  dossier_namespaces:
+    - media
+    - runtime
+skills_invoked:
+  - A-404 Voice Pacing Optimizer
+  - A-405 Audio Timing Marker
+steps:
+  - ingest visual_asset_plan_packet
+  - normalize and validate input packet
+  - invoke A-404 to optimize script for spoken delivery pace and natural rhythm
+  - invoke A-405 to inject timing markers, pause indicators, and emphasis cues
+  - build audio_optimized_script_packet with fully annotated script
+  - validate timing accuracy and pacing quality
+  - emit audio_optimized_script_packet
+done_criteria:
+  - script sections annotated with pace indicators (SLOW / NORMAL / FAST)
+  - pause markers inserted at sentence and paragraph boundaries
+  - emphasis cues added for key phrases and calls to action
+  - total estimated runtime calculated
+  - audio_optimized_script_packet emitted with status CREATED
+  - next_workflow set to CWF-440
+fallback_behavior:
+  on_pacing_optimization_failure:
+    - emit packet with status OPTIMIZATION_FAILED
+    - route to WF-900 with failure details
+  on_timing_marker_failure:
+    - apply default timing markers without custom tuning
+    - flag for operator review

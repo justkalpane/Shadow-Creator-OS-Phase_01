@@ -1,0 +1,227 @@
+registry_name: "skill_registry_wf600"
+registry_type: "skill_registry"
+version: "1.0.0"
+phase: "phase1"
+workflow_pack: "WF-600"
+description: "Analytics & Evolution Pack - Skill Registry. Registers all skills for performance metrics analysis, audience feedback analysis, and evolution signal synthesis."
+
+owner_director: "Chandra"
+governance_authority: "Chandra"
+supporting_authorities: ["Chitragupta", "Yama"]
+
+skills:
+  - skill_id: "E-601"
+    name: "Performance Analyst"
+    category: "Analytics"
+    classification: "Analytical Skill"
+    owner_director: "Chandra"
+    supporting_director: "Chitragupta"
+    version: "1.0.0"
+    status: "active"
+
+    purpose: "Analyze performance metrics from all platforms and generate actionable insights on engagement trends, audience reach patterns, content efficacy, and growth trajectory."
+
+    input_contract:
+      primary_packet: "performance_analytics_packet"
+      packet_family: "performance_analytics_packet"
+      schema_version: "1.0.0"
+      required_fields: ["payload.evidence.platform_metrics", "payload.quality"]
+
+    output_contract:
+      primary_packet: "performance_insight_packet"
+      packet_family: "performance_insight_packet"
+      schema_version: "1.0.0"
+      guaranteed_fields: ["payload.evidence.engagement_trends", "payload.evidence.reach_analysis", "payload.evidence.efficacy_classification", "payload.evidence.growth_trajectory"]
+
+    governance:
+      authority_level: "non_veto"
+      approval_required: false
+      escalation_path: "WF-900"
+      escalation_triggers: ["data_quality_below_0.75", "anomaly_confidence_below_0.70"]
+
+    mutation_law:
+      permitted_writes: ["dossier.analytics.performance_insights"]
+      mutation_type: "append_to_array"
+      namespace: "analytics"
+      read_namespaces: ["dossier.analytics.performance_snapshots", "dossier.analytics.performance_benchmarks"]
+      forbidden_overwrites: ["any_existing_dossier_field"]
+
+    validation:
+      test_suite: "tests/analytics/E-601-performance-analyst.test.js"
+      validation_points: 11
+      done_criteria:
+        - "engagement_trends_synthesized_for_all_platforms"
+        - "performance_efficacy_classified_with_confidence_gte_0.75"
+        - "anomalies_detected_and_escalated_if_severity_high"
+        - "performance_insight_packet_emitted_with_full_lineage"
+        - "dossier_mutation_recorded_with_audit_entry"
+        - "no_hallucinated_metrics"
+      confidence_threshold: 0.75
+
+  - skill_id: "E-602"
+    name: "Feedback Analyst"
+    category: "Analytics"
+    classification: "Analytical Skill"
+    owner_director: "Chandra"
+    supporting_director: "Yama"
+    version: "1.0.0"
+    status: "active"
+
+    purpose: "Analyze audience feedback, comments, and engagement signals from all platforms to extract sentiment distribution, identify primary themes/concerns, detect praise patterns, and generate audience intelligence."
+
+    input_contract:
+      primary_packet: "audience_feedback_packet"
+      packet_family: "audience_feedback_packet"
+      schema_version: "1.0.0"
+      required_fields: ["payload.evidence.platform_feedback", "payload.quality"]
+
+    output_contract:
+      primary_packet: "feedback_insight_packet"
+      packet_family: "feedback_insight_packet"
+      schema_version: "1.0.0"
+      guaranteed_fields: ["payload.evidence.sentiment_analysis", "payload.evidence.sentiment_health", "payload.evidence.theme_extraction", "payload.evidence.audience_intent"]
+
+    governance:
+      authority_level: "non_veto"
+      approval_required: false
+      escalation_path: "WF-900"
+      escalation_triggers: ["negative_sentiment_exceeds_0.35", "policy_violations_detected", "feedback_quality_below_0.75"]
+
+    mutation_law:
+      permitted_writes: ["dossier.analytics.feedback_insights"]
+      mutation_type: "append_to_array"
+      namespace: "analytics"
+      read_namespaces: ["dossier.analytics.feedback_history", "dossier.governance.content_policy"]
+      forbidden_overwrites: ["any_existing_dossier_field", "content_policy"]
+
+    validation:
+      test_suite: "tests/analytics/E-602-feedback-analyst.test.js"
+      validation_points: 12
+      done_criteria:
+        - "sentiment_analysis_completed_for_all_platforms"
+        - "sentiment_health_classified_with_confidence_gte_0.85"
+        - "themes_extracted_with_intent_classification"
+        - "policy_compliance_check_completed"
+        - "feedback_insight_packet_emitted_with_full_lineage"
+        - "dossier_mutation_recorded_with_audit_entry"
+        - "no_hallucinated_sentiment_scores_or_fake_themes"
+        - "escalation_triggered_if_negative_sentiment_exceeds_0.35"
+      confidence_threshold: 0.85
+
+  - skill_id: "E-603"
+    name: "Evolution Strategist"
+    category: "Analytics"
+    classification: "Strategic Synthesis Skill"
+    owner_director: "Chandra"
+    supporting_directors: ["Vyasa", "Chanakya"]
+    version: "1.0.0"
+    status: "active"
+
+    purpose: "Synthesize performance insights and feedback insights into actionable evolution signals and strategic recommendations for content strategy improvement."
+
+    input_contract:
+      primary_packets: ["performance_insight_packet", "feedback_insight_packet"]
+      packet_families: ["performance_insight_packet", "feedback_insight_packet"]
+      schema_version: "1.0.0"
+      required_fields: ["performance_insight_packet.payload.evidence", "feedback_insight_packet.payload.evidence"]
+
+    output_contract:
+      primary_packet: "evolution_signal_packet"
+      packet_family: "evolution_signal_packet"
+      schema_version: "1.0.0"
+      guaranteed_fields: ["payload.evidence.evolution_vectors", "payload.evidence.priority_ranking", "payload.evidence.opportunities_identified", "payload.evidence.risks_identified"]
+
+    governance:
+      authority_level: "non_veto"
+      approval_required: false
+      escalation_path: "WF-900"
+      escalation_triggers: ["signal_alignment_below_0.50", "synthesis_confidence_below_0.72", "critical_risks_detected"]
+
+    mutation_law:
+      permitted_writes: ["dossier.analytics.evolution_recommendations"]
+      mutation_type: "append_to_array"
+      namespace: "analytics"
+      read_namespaces: ["dossier.analytics.performance_insights", "dossier.analytics.feedback_insights", "dossier.analytics.evolution_history", "dossier.narrative.creative_directives"]
+      forbidden_overwrites: ["any_existing_dossier_field"]
+
+    validation:
+      test_suite: "tests/analytics/E-603-evolution-strategist.test.js"
+      validation_points: 13
+      done_criteria:
+        - "evolution_vectors_synthesized_for_all_four_domains"
+        - "signal_alignment_validated_gte_0.50_or_escalate"
+        - "opportunities_and_risks_identified_with_clear_priority_ranking"
+        - "evolution_signal_packet_emitted_with_full_lineage_and_confidence"
+        - "dossier_mutation_recorded_with_synthesis_confidence_and_audit_trail"
+        - "no_hallucinated_evolution_signals_or_invented_vectors"
+        - "escalation_triggered_if_alignment_lt_0.50_or_confidence_lt_0.72"
+      confidence_threshold: 0.72
+
+registry_metadata:
+  created_date: "2026-04-20"
+  last_updated: "2026-04-20"
+  status: "complete"
+  compliance_verified: true
+
+  total_skills: 3
+  active_skills: 3
+  deprecated_skills: 0
+
+  governance_summary:
+    owner: "Chandra"
+    authorities: ["Chandra", "Chitragupta", "Yama", "Vyasa", "Chanakya"]
+    escalation_authority: "WF-900"
+
+  mutation_targets:
+    - namespace: "analytics"
+      targets: ["performance_insights", "feedback_insights", "evolution_recommendations"]
+      mutation_type: "append_to_array"
+
+  test_coverage:
+    - "tests/analytics/E-601-performance-analyst.test.js"
+    - "tests/analytics/E-602-feedback-analyst.test.js"
+    - "tests/analytics/E-603-evolution-strategist.test.js"
+
+  schema_dependencies:
+    - "performance_analytics_packet"
+    - "audience_feedback_packet"
+    - "performance_insight_packet"
+    - "feedback_insight_packet"
+    - "evolution_signal_packet"
+    - "analytics_evolution_packet"
+
+validation_rules:
+  - rule: "All skills must report explicit confidence scores (0.0-1.0)"
+    enforcement: "mandatory"
+  - rule: "Escalation triggers are deterministic, not discretionary"
+    enforcement: "mandatory"
+  - rule: "No skill may hallucinate data or invent metrics"
+    enforcement: "mandatory"
+  - rule: "All dossier mutations must include audit entry with timestamp and operation"
+    enforcement: "mandatory"
+  - rule: "Input packet quality must be validated before analysis"
+    enforcement: "mandatory"
+
+registry_notes: |
+  WF-600 Analytics Pack Complete
+
+  E-601: Performance Analyst
+  - Receives: performance_analytics_packet
+  - Produces: performance_insight_packet
+  - Analysis: Engagement trends, reach patterns, efficacy, growth trajectory
+  - Escalation: Data quality < 0.75 or anomaly confidence < 0.70
+
+  E-602: Feedback Analyst
+  - Receives: audience_feedback_packet
+  - Produces: feedback_insight_packet
+  - Analysis: Sentiment distribution, theme extraction, audience intent, policy compliance
+  - Escalation: Negative sentiment > 35% or policy violations detected
+
+  E-603: Evolution Strategist
+  - Receives: performance_insight_packet + feedback_insight_packet
+  - Produces: evolution_signal_packet
+  - Synthesis: Four evolution vectors (hook, narrative, production, growth) with priorities
+  - Escalation: Signal alignment < 0.50 or synthesis confidence < 0.72
+
+  All skills feed into CWF-630 (Evolution Signal Synthesizer) which aggregates
+  all signals and produces final analytics_evolution_packet to dossier.analytics.evolution_signals

@@ -1,4 +1,14 @@
 workflow_pack: WF-200
+
+escalation_authority: Aruna
+escalation_path_default: WF-900
+escalation_handlers:
+  script_generation_failure: Saraswati → WF-900
+  debate_failure: Krishna → WF-900
+  refinement_failure: Saraswati → WF-900
+  quality_gate_failure: Durga → WF-900
+  policy_violation: Yama → WF-900
+
 directors:
   Vyasa:
     owns:
@@ -8,12 +18,14 @@ directors:
   Krishna:
     owns:
       - CWF-220-script-debate
-      - CWF-240-final-script-shaping
       - S-203
       - S-204
+    supports:
+      - CWF-240-final-script-shaping
   Saraswati:
     owns:
       - CWF-230-script-refinement
+      - CWF-240-final-script-shaping
       - S-205
       - S-206
   Durga:

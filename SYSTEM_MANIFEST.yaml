@@ -1,0 +1,411 @@
+version: 3
+manifest_type: system_manifest
+generated_at: "2026-04-20"
+status: phase1_complete_wf600_complete_all_director_contracts_complete
+empire_ref: registries/empire_registry.instance.json
+
+# ============================================================
+# SHADOW CREATOR OS — SYSTEM MANIFEST
+# Master index of all workflows, skills, schemas, registries,
+# engines, validators, and their current build status.
+# ============================================================
+
+# ─────────────────────────────────────────────
+# WORKFLOW FAMILY STATUS
+# ─────────────────────────────────────────────
+workflow_packs:
+
+  - pack_id: WF-000
+    name: health_check
+    status: repo_present
+    workflow_depth: starter_wired
+    file: n8n/workflows/system/WF-000-health-check.json
+    manifest: n8n/manifests/WF-000-health-check.manifest.yaml
+
+  - pack_id: WF-001
+    name: dossier_create
+    status: repo_present
+    workflow_depth: starter_wired
+    file: n8n/workflows/parent/WF-001-dossier-create.json
+    manifest: n8n/manifests/WF-001-dossier-create.manifest.yaml
+
+  - pack_id: WF-010
+    name: parent_orchestrator
+    status: repo_present
+    workflow_depth: starter_wired
+    file: n8n/workflows/parent/WF-010-parent-orchestrator.json
+    manifest: n8n/manifests/WF-010-parent-orchestrator.manifest.yaml
+
+  - pack_id: WF-020
+    name: final_approval
+    status: repo_present
+    workflow_depth: production_grade
+    file: n8n/workflows/approval/WF-020-final-approval.json
+    owner_director: Krishna
+    vein: approval_vein
+
+  - pack_id: WF-021
+    name: replay_remodify
+    status: repo_present
+    workflow_depth: production_grade
+    file: n8n/workflows/approval/WF-021-replay-remodify.json
+    owner_director: Yama
+    vein: replay_vein
+
+  - pack_id: WF-100
+    name: topic_intelligence_pack
+    status: repo_present
+    workflow_depth: production_grade
+    children: [CWF-110, CWF-120, CWF-130, CWF-140]
+    manifest: n8n/manifests/WF-100-topic-intelligence.manifest.yaml
+
+  - pack_id: CWF-110
+    name: topic_discovery
+    status: repo_present
+    workflow_depth: production_grade
+    file: n8n/workflows/topic/CWF-110-topic-discovery.json
+    owner_director: Narada
+    vein: discovery_vein
+    output_packet: topic_candidate_board
+
+  - pack_id: CWF-120
+    name: topic_qualification
+    status: repo_present
+    workflow_depth: production_grade
+    file: n8n/workflows/topic/CWF-120-topic-qualification.json
+    owner_director: Chanakya
+    vein: qualification_vein
+    output_packet: topic_qualification_packet
+
+  - pack_id: CWF-130
+    name: topic_scoring
+    status: repo_present
+    workflow_depth: production_grade
+    file: n8n/workflows/topic/CWF-130-topic-scoring.json
+    owner_director: Krishna
+    vein: scoring_vein
+    output_packet: topic_scorecard
+
+  - pack_id: CWF-140
+    name: research_synthesis
+    status: repo_present
+    workflow_depth: production_grade
+    file: n8n/workflows/topic/CWF-140-research-synthesis.json
+    owner_director: Vyasa
+    vein: research_vein
+    output_packet: research_synthesis_packet
+
+  - pack_id: WF-200
+    name: script_intelligence_pack
+    status: repo_present
+    workflow_depth: production_grade
+    children: [CWF-210, CWF-220, CWF-230, CWF-240]
+    manifest: n8n/manifests/WF-200-script-intelligence.manifest.yaml
+
+  - pack_id: CWF-210
+    name: script_generation
+    status: repo_present
+    workflow_depth: production_grade
+    file: n8n/workflows/script/CWF-210-script-generation.json
+    owner_director: Saraswati
+    vein: narrative_vein
+    output_packet: script_draft_packet
+
+  - pack_id: CWF-220
+    name: script_debate
+    status: repo_present
+    workflow_depth: production_grade
+    file: n8n/workflows/script/CWF-220-script-debate.json
+    owner_director: Krishna
+    vein: narrative_vein
+    output_packet: script_debate_packet
+
+  - pack_id: CWF-230
+    name: script_refinement
+    status: repo_present
+    workflow_depth: production_grade
+    file: n8n/workflows/script/CWF-230-script-refinement.json
+    owner_director: Saraswati
+    vein: narrative_vein
+    output_packet: script_refinement_packet
+
+  - pack_id: CWF-240
+    name: final_script_shaping
+    status: repo_present
+    workflow_depth: production_grade
+    file: n8n/workflows/script/CWF-240-final-script-shaping.json
+    owner_director: Krishna
+    vein: narrative_vein
+    output_packet: final_script_packet
+
+  - pack_id: WF-300
+    name: context_engineering_pack
+    status: repo_present
+    workflow_depth: production_grade
+    children: [CWF-310, CWF-320, CWF-330, CWF-340]
+    owner_director: Krishna
+    vein: context_engineering_vein
+    manifest: n8n/manifests/WF-300-context-engineering.manifest.yaml
+    intended_role: Context shaping, asset preparation, downstream execution handoff
+
+  - pack_id: WF-400
+    name: media_production_pack
+    status: repo_present
+    workflow_depth: production_grade
+    children: [CWF-410, CWF-420, CWF-430, CWF-440]
+    owner_director: Durga
+    vein: media_production_vein
+    manifest: n8n/manifests/WF-400-media-production.manifest.yaml
+    intended_role: Visual, audio, and thumbnail asset creation
+
+  - pack_id: WF-500
+    name: publishing_distribution_pack
+    status: repo_present
+    workflow_depth: production_grade
+    children: [CWF-510, CWF-520, CWF-530]
+    owner_director: Chanakya
+    vein: publishing_vein
+    manifest: n8n/manifests/WF-500-publishing-distribution.manifest.yaml
+    intended_role: Platform publishing, metadata, distribution scheduling
+
+  - pack_id: WF-600
+    name: analytics_evolution_pack
+    status: repo_present
+    workflow_depth: production_grade
+    children: [CWF-610, CWF-620, CWF-630]
+    owner_director: Chandra
+    vein: analytics_vein
+    manifest: n8n/manifests/WF-600-analytics-evolution.manifest.yaml
+    intended_role: Performance analytics, content evolution, feedback loops
+
+  - pack_id: WF-900
+    name: error_handler
+    status: repo_present
+    workflow_depth: starter_wired
+    file: n8n/workflows/system/WF-900-error-handler.json
+
+# ─────────────────────────────────────────────
+# SKILL REGISTRY STATUS
+# ─────────────────────────────────────────────
+skill_packs:
+
+  topic_intelligence_wf100:
+    skills_present: [M-001, M-002, M-003, M-004, M-006, M-007, M-008, M-012, M-013, M-014, M-015, M-016, M-018, M-019, M-023, M-024]
+    dna_upgraded: [M-001, M-002, M-003]
+    dna_pending: [M-004, M-006, M-007, M-008, M-012, M-013, M-014, M-015, M-016, M-018, M-019, M-023, M-024]
+    registry_ref: registries/skill_registry_wf100.yaml
+
+  research_intelligence:
+    skills_present: [M-009, M-010, M-011, M-020, M-021, M-022, M-025]
+    dna_upgraded: []
+    dna_pending: [M-009, M-010, M-011, M-020, M-021, M-022, M-025]
+
+  script_intelligence_wf200:
+    skills_present: [S-201, S-202, S-203, S-204, S-205, S-206, S-207, S-208, S-209, S-210]
+    dna_upgraded: []
+    dna_pending: [S-201, S-202, S-203, S-204, S-205, S-206, S-207, S-208, S-209, S-210]
+    registry_ref: registries/skill_registry_wf200.yaml
+
+  context_engineering_wf300:
+    skills_present: [P-301, P-302, P-303, P-304, P-305]
+    dna_upgraded: [P-301, P-302, P-303, P-304, P-305]
+    status: repo_present
+    registry_ref: registries/skill_registry_wf300.yaml
+
+  media_production_wf400:
+    skills_present: [A-401, A-402, A-403, A-404, A-405]
+    dna_upgraded: [A-401, A-402, A-403, A-404, A-405]
+    status: repo_present
+    registry_ref: registries/skill_registry_wf400.yaml
+
+  publishing_wf500:
+    skills_present: [D-501, D-502, D-503]
+    dna_upgraded: [D-501, D-502, D-503]
+    status: repo_present
+    registry_ref: registries/skill_registry_wf500.yaml
+
+  analytics_wf600:
+    skills_present: [E-601, E-602, E-603]
+    dna_upgraded: [E-601, E-602, E-603]
+    status: repo_present
+    registry_ref: registries/skill_registry_wf600.yaml
+
+# ─────────────────────────────────────────────
+# SCHEMA REGISTRY STATUS
+# ─────────────────────────────────────────────
+schemas:
+  dossier:
+    - content_dossier.schema.json          # status: present
+    - content_dossier_patch.schema.json    # status: present
+  governance:
+    - se_approval_queue.schema.json        # status: present
+    - audit_event.schema.json              # status: present
+  packets:
+    - topic_candidate_board.schema.json    # status: present
+    - topic_finalization_packet.schema.json # status: present
+    - topic_scorecard.schema.json          # status: present
+    - research_synthesis.schema.json       # status: present
+    - script_draft_packet.schema.json      # status: present
+    - script_debate_packet.schema.json     # status: present
+    - script_refinement_packet.schema.json # status: present
+    - final_script_packet.schema.json      # status: present
+    - context_engineering_packet.schema.json    # WF-300 status: present
+    - execution_context_packet.schema.json      # WF-300 status: present
+    - platform_package_packet.schema.json       # WF-300 status: present
+    - asset_brief_packet.schema.json            # WF-300 status: present
+    - thumbnail_concept_packet.schema.json      # WF-400 status: present
+    - visual_asset_spec_packet.schema.json      # WF-400 status: present
+    - audio_brief_packet.schema.json            # WF-400 status: present
+    - media_production_packet.schema.json       # WF-400 status: present
+    - platform_metadata_packet.schema.json      # WF-500 status: present
+    - distribution_plan_packet.schema.json      # WF-500 status: present
+    - publish_ready_packet.schema.json          # WF-500 status: present
+    - performance_analytics_packet.schema.yaml      # WF-600 status: present
+    - audience_feedback_packet.schema.yaml          # WF-600 status: present
+    - performance_insight_packet.schema.yaml        # WF-600 status: present
+    - feedback_insight_packet.schema.yaml           # WF-600 status: present
+    - evolution_signal_packet.schema.yaml           # WF-600 status: present
+    - analytics_evolution_packet.schema.yaml        # WF-600 status: present
+  planned:
+    - seo_optimized_metadata_packet.schema.json # WF-500 intermediate
+
+# ─────────────────────────────────────────────
+# REGISTRY STATUS
+# ─────────────────────────────────────────────
+registries_present:
+  - workflow_registry.yaml
+  - skill_registry_wf100.yaml
+  - skill_registry_wf200.yaml
+  - skill_registry_wf300.yaml
+  - skill_registry_wf400.yaml
+  - skill_registry_wf500.yaml
+  - skill_registry_wf600.yaml
+  - director_binding_wf100.yaml
+  - director_binding_wf200.yaml
+  - director_binding_wf300.yaml
+  - director_binding_wf400.yaml
+  - director_binding_wf500.yaml
+  - director_binding_wf600.yaml
+  - route_registry.yaml
+  - mode_registry.yaml
+  - mode_route_registry.yaml
+  - provider_registry.yaml
+  - empire_registry.instance.json
+  - approval_registry.yaml
+  - error_registry.yaml
+  - knowledge_plane_registry.yaml
+  - worker_router_contract.yaml
+  - dashboard_api_contract_pack.yaml
+  - dashboard_screen_contract_pack.yaml
+  - build_blocker_matrix.yaml
+  - release_blocker_matrix.yaml
+  - decision_packet_register.yaml
+  - skill_loader_registry.yaml
+  - phase1_dossier_namespace_ownership_matrix.yaml
+  - phase1_workflow_lineage_handoff_matrix.yaml
+  - portability_hardware_matrix.yaml
+  - provider_auth_callback_matrix.yaml
+  - repo_present_workflow_family.yaml
+  - not_yet_repo_present_workflow_packs.yaml
+
+registries_present:
+  - director_contracts/Krishna-Contract.md
+  - director_contracts/Narada-Contract.md
+  - director_contracts/Chanakya-Contract.md
+  - director_contracts/Vyasa-Contract.md
+  - director_contracts/Saraswati-Contract.md
+  - director_contracts/Chandra-Contract.md
+  - director_contracts/Durga-Contract.md
+  - director_contracts/Yama-Contract.md
+  - director_contracts/Aruna-Contract.md
+  - director_contracts/Kubera-Contract.md
+  - director_contracts/Vayu-Contract.md
+  - director_contracts/Chitragupta-Contract.md
+  - director_contracts/Ganesha-Contract.md
+
+registries_planned: []
+
+# ─────────────────────────────────────────────
+# ENGINE STATUS
+# ─────────────────────────────────────────────
+engines:
+  skill_loader:
+    skill_loader.js: present
+    skill_registry_resolver.js: planned
+    skill_executor.js: planned
+
+  dossier:
+    dossier_writer.js: present
+    dossier_reader.js: present
+    dossier_delta_manager.js: present
+
+  packets:
+    packet_validator.js: present
+    packet_router.js: present
+    packet_index_writer.js: present
+
+  approval:
+    approval_writer.js: present
+    approval_resolver.js: present
+    approval_router.js: present
+
+# ─────────────────────────────────────────────
+# VALIDATOR STATUS
+# ─────────────────────────────────────────────
+validators:
+  workflow_validator.js: present
+  schema_validator.js: present
+  registry_validator.js: present
+  runtime_validator.js: present
+
+# ─────────────────────────────────────────────
+# DIRECTOR CONTRACTS
+# ─────────────────────────────────────────────
+director_contracts:
+  status: repo_present
+  total_contracts: 13
+  contract_location: registries/director_contracts/
+  contracts_present:
+    - Krishna-Contract.md       # Orchestration, structure, debate authority
+    - Narada-Contract.md        # Discovery, trend intelligence
+    - Chanakya-Contract.md      # Qualification, strategy
+    - Vyasa-Contract.md         # Research synthesis, narrative integrity
+    - Saraswati-Contract.md     # Script generation, voice, language
+    - Chandra-Contract.md       # Audience intelligence, analytics
+    - Durga-Contract.md         # Quality authority, hook audit
+    - Yama-Contract.md          # Policy enforcement, approval routing
+    - Aruna-Contract.md         # Governance kernel, always-active
+    - Kubera-Contract.md        # Cost gating, resource management
+    - Vayu-Contract.md          # Hardware gating, performance
+    - Chitragupta-Contract.md   # Audit, logging, lineage tracking
+    - Ganesha-Contract.md       # Path clearing, obstacle removal
+
+# ─────────────────────────────────────────────
+# CONSTITUTIONAL ARTIFACTS
+# ─────────────────────────────────────────────
+constitutional_artifacts:
+  present:
+    - docs/01-architecture/canonical_authority_precedence.md
+    - docs/01-architecture/dossier-mutation-law.md
+    - docs/01-architecture/repo-runtime-boundary.md
+    - docs/01-architecture/workflow-promotion-law.md
+    - docs/01-architecture/skill_loader_repo_contract.md
+    - docs/01-architecture/founder_creator_mode_law.md
+    - docs/01-architecture/windows_macos_portability_law.md
+    - registries/empire_registry.instance.json
+    - registries/decision_packet_register.yaml
+    - registries/build_blocker_matrix.yaml
+    - registries/release_blocker_matrix.yaml
+  present:
+    - director_contracts/ (all 13 contracts)
+  planned:
+    - SYSTEM_MANIFEST.yaml (THIS FILE — complete on Phase 5)
+    - docs/03-deployment/phase1-execution-runbook.md
+    - docs/03-deployment/phase2-media-pipeline-runbook.md
+
+# ─────────────────────────────────────────────
+# OPEN BLOCKERS (as of this build)
+# ─────────────────────────────────────────────
+open_blockers:
+  - BB-019: Live route IDs must be renamed to canonical ROUTE_PHASE1_* (runtime side only)
+  - DP-001: Ollama model name confirmation needed from founder for deployment docs

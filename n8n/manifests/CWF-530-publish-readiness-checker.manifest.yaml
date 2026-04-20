@@ -1,0 +1,44 @@
+workflow_id: CWF-530
+name: cwf530_publish_readiness_checker
+class: child
+parent_pack: WF-500
+purpose: final gate check confirming all assets are present, metadata is complete, governance has approved, and the publish schedule is set before sealing the publish_ready_packet
+primary_owner: Yama
+supporting_directors:
+  - Krishna
+inputs:
+  - distribution_plan_packet
+  - platform_metadata_packet
+output_packet_family:
+  - publish_ready_packet
+writes:
+  - namespaces.publishing
+  - namespaces.runtime
+write_targets:
+  dossier_namespaces:
+    - publishing
+    - runtime
+steps:
+  - ingest distribution_plan_packet and platform_metadata_packet
+  - verify all required media assets are present and checksummed
+  - verify metadata completeness across all target platforms
+  - invoke D-503 to validate schedule integrity and no conflicts
+  - run governance approval check via Yama policy gate
+  - assemble publish_readiness_report with pass/fail per gate
+  - emit publish_ready_packet
+skills:
+  - D-503
+done_criteria:
+  - all assets verified present
+  - metadata completeness confirmed for all platforms
+  - governance approval verified or flagged for WF-020
+  - schedule confirmed with no conflicts
+  - publish_ready_packet emitted with status READY or BLOCKED
+fallback_behavior:
+  on_missing_assets:
+    - emit publish_ready_packet with status BLOCKED
+    - route to WF-900 for asset recovery
+  on_governance_rejection:
+    - route to WF-020 for approval workflow
+  on_schedule_conflict:
+    - flag conflict and route to operator review

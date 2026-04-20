@@ -1,0 +1,47 @@
+workflow_id: CWF-340
+name: cwf340_lineage_validator
+class: child
+parent_pack: WF-300
+purpose: validate the full lineage chain from topic_candidate_board through research_synthesis to final_script_packet to context_engineering — gates entry to WF-400
+primary_owner: Krishna
+supporting_directors:
+  - Yama
+  - Kubera
+inputs:
+  - asset_brief_packet
+  - execution_context_packet
+  - platform_package_packet
+  - final_script_packet
+output_packet_family:
+  - context_engineering_packet
+writes:
+  - namespaces.context
+  - namespaces.runtime
+write_targets:
+  dossier_namespaces:
+    - context
+    - runtime
+steps:
+  - ingest all three context packets plus final_script_packet
+  - trace lineage references from context_engineering to final_script to research to topic
+  - verify all sourced_from references are resolvable
+  - validate quality gate scores meet minimums
+  - run governance compliance check
+  - seal and emit final context_engineering_packet
+  - confirm promotion criteria for WF-400
+done_criteria:
+  - full lineage chain validated (topic → research → script → context)
+  - all sourced_from packet IDs resolvable
+  - quality gates passed
+  - governance compliance confirmed
+  - context_engineering_packet emitted with status CREATED
+  - next_workflow set to WF-400
+fallback_behavior:
+  on_lineage_break:
+    - emit packet with status LINEAGE_FAILED
+    - route to WF-900 with break details
+  on_quality_gate_failure:
+    - emit packet with status QUALITY_FAILED
+    - allow replay to appropriate CWF-3XX
+  on_governance_failure:
+    - route to WF-900 immediately

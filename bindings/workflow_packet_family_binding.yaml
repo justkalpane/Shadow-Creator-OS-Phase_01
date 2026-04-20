@@ -6,7 +6,7 @@ bindings:
     outputs: [topic_candidate_board]
     next: CWF-120
   CWF-120:
-    outputs: [topic_qualification_packet]
+    outputs: [topic_finalization_packet]
     next: CWF-130
   CWF-130:
     outputs: [topic_scorecard]

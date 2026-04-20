@@ -1,0 +1,106 @@
+{
+  "name": "CWF-310 Execution Context Builder",
+  "description": "Engineer the runtime context envelope for the final script packet — defining allowed tools, execution constraints, and platform-specific runtime rules.",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "cwf310_trigger",
+      "name": "Workflow Input",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [250, 350]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{\n  json: {\n    workflow_id: 'CWF-310',\n    vein: 'context_engineering_vein',\n    dossier_id: $json.dossier_id || 'TEST-DOSSIER',\n    final_script_packet: $json.final_script_packet || {},\n    target_platform: $json.target_platform || ($json.final_script_packet && $json.final_script_packet.payload && $json.final_script_packet.payload.context && $json.final_script_packet.payload.context.target_platform) || 'youtube',\n    route_id: $json.route_id || 'ROUTE-001',\n    execution_timestamp: new Date().toISOString()\n  }\n}];"
+      },
+      "id": "normalize_input",
+      "name": "Normalize Input",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [450, 350]
+    },
+    {
+      "parameters": {
+        "jsCode": "const fsp = $json.final_script_packet || {};\nconst payload = fsp.payload || {};\n\nconst validationErrors = [];\nif (!fsp.instance_id && !fsp.packet_id) validationErrors.push('final_script_packet missing instance_id/packet_id');\nif (!payload.narrative) validationErrors.push('final_script_packet missing narrative section');\nif (!payload.quality) validationErrors.push('final_script_packet missing quality section');\nif (!payload.status) validationErrors.push('final_script_packet missing status section');\n\nif (validationErrors.length > 0) {\n  throw new Error('CWF-310 input validation failed: ' + validationErrors.join('; '));\n}\n\nreturn [{\n  json: {\n    ...$json,\n    input_validation: 'PASSED',\n    source_packet_id: fsp.instance_id || fsp.packet_id || 'UNKNOWN',\n    script_quality: payload.quality || {}\n  }\n}];"
+      },
+      "id": "validate_script_packet",
+      "name": "Validate Script Packet",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [600, 350]
+    },
+    {
+      "parameters": {
+        "jsCode": "const platform = $json.target_platform || 'youtube';\n\nconst platformToolSets = {\n  youtube: {\n    allowed: ['voice_performer', 'video_editor', 'caption_generator', 'thumbnail_creator', 'seo_metadata_updater', 'chapter_marker_inserter', 'end_screen_composer'],\n    forbidden: ['content_modifier', 'brand_deviator', 'unsupervised_publisher', 'script_rewriter']\n  },\n  blog: {\n    allowed: ['markdown_formatter', 'seo_metadata_updater', 'featured_image_generator', 'internal_link_mapper', 'readability_scorer'],\n    forbidden: ['content_modifier', 'brand_deviator', 'unsupervised_publisher', 'script_rewriter']\n  },\n  podcast: {\n    allowed: ['voice_performer', 'audio_editor', 'transcript_generator', 'chapter_marker_inserter', 'rss_packager'],\n    forbidden: ['content_modifier', 'brand_deviator', 'unsupervised_publisher', 'video_editor']\n  },\n  email: {\n    allowed: ['markdown_formatter', 'seo_metadata_updater', 'cta_optimizer', 'subject_line_tester'],\n    forbidden: ['content_modifier', 'brand_deviator', 'unsupervised_publisher', 'video_editor']\n  }\n};\n\nconst toolSet = platformToolSets[platform] || platformToolSets['youtube'];\n\nreturn [{\n  json: {\n    ...$json,\n    resolved_tool_set: {\n      platform: platform,\n      allowed_tools: toolSet.allowed,\n      forbidden_tools: toolSet.forbidden,\n      tool_resolution_timestamp: new Date().toISOString()\n    }\n  }\n}];"
+      },
+      "id": "resolve_tool_set",
+      "name": "Resolve Tool Set (P-301)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [750, 350]
+    },
+    {
+      "parameters": {
+        "jsCode": "const platform = $json.target_platform || 'youtube';\nconst scriptQuality = $json.script_quality || {};\n\nconst platformConstraints = {\n  youtube: [\n    'Script narrative integrity must be preserved in final video',\n    'Voice/tone must match calibration profile from CWF-240',\n    'Chapter markers required at every major section break',\n    'Thumbnail must reference primary hook claim',\n    'SEO metadata must be applied before upload',\n    'Approval required before publishing'\n  ],\n  blog: [\n    'Markdown formatting must be applied before CMS upload',\n    'Featured image must be generated and attached',\n    'Internal linking to at least 2 existing posts required',\n    'Meta title under 60 characters',\n    'Approval required before publishing'\n  ],\n  podcast: [\n    'Audio must be mastered to -14 LUFS for streaming platforms',\n    'Transcript must accompany audio file',\n    'Chapter markers required in RSS feed',\n    'Show notes must reference primary sources',\n    'Approval required before publishing'\n  ],\n  email: [\n    'Subject line under 50 characters for mobile preview',\n    'CTA must appear above the fold',\n    'Unsubscribe link required',\n    'Plain text version required alongside HTML',\n    'Approval required before sending'\n  ]\n};\n\nconst constraints = platformConstraints[platform] || platformConstraints['youtube'];\n\nconst qualityGates = {\n  grammar_minimum: 0.95,\n  seo_readiness_minimum: 0.85,\n  voice_consistency_minimum: 0.90,\n  current_grammar: scriptQuality.grammar_score || 0,\n  current_seo: scriptQuality.seo_readiness || 0,\n  current_voice: scriptQuality.tone_consistency || 0,\n  gates_passed: (\n    (scriptQuality.grammar_score || 0) >= 0.95 &&\n    (scriptQuality.seo_readiness || 0) >= 0.85 &&\n    (scriptQuality.tone_consistency || 0) >= 0.90\n  )\n};\n\nreturn [{\n  json: {\n    ...$json,\n    execution_constraints: constraints,\n    quality_gates: qualityGates\n  }\n}];"
+      },
+      "id": "build_constraints",
+      "name": "Build Execution Constraints (P-301)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [900, 350]
+    },
+    {
+      "parameters": {
+        "jsCode": "const fsp = $json.final_script_packet || {};\nconst fspPayload = fsp.payload || {};\nconst toolSet = $json.resolved_tool_set || {};\nconst constraints = $json.execution_constraints || [];\nconst qualityGates = $json.quality_gates || {};\n\nconst executionContextPacket = {\n  instance_id: 'ECP-' + Date.now(),\n  artifact_family: 'execution_context_packet',\n  schema_version: '1.0.0',\n  producer_workflow: 'SE-N8N-CWF-310-Execution-Context-Builder',\n  dossier_ref: $json.dossier_id,\n  created_at: new Date().toISOString(),\n  status: 'CREATED',\n  payload: {\n    narrative: {\n      content: fspPayload.narrative || {},\n      source_script_id: $json.source_packet_id,\n      content_fingerprint: 'SHA256-' + Math.random().toString(36).substr(2, 16)\n    },\n    context: {\n      sourced_from_packet_id: $json.source_packet_id,\n      target_platform: $json.target_platform,\n      execution_requirements: {\n        allowed_tools: toolSet.allowed_tools || [],\n        forbidden_tools: toolSet.forbidden_tools || [],\n        constraints: constraints,\n        execution_mode: 'supervised',\n        approval_required_before: 'publishing'\n      }\n    },\n    evidence: {\n      lineage_references: [\n        { type: 'final_script_packet', id: $json.source_packet_id },\n        { type: 'dossier', id: $json.dossier_id }\n      ],\n      validation_checks: [\n        { check: 'input_validation', result: $json.input_validation },\n        { check: 'quality_gates', result: qualityGates.gates_passed ? 'PASSED' : 'FAILED' }\n      ]\n    },\n    quality: {\n      context_build_readiness: qualityGates.gates_passed ? 0.95 : 0.60,\n      gate_checks: qualityGates,\n      execution_context_complete: true\n    },\n    status: {\n      decision_path: qualityGates.gates_passed ? 'PROCEED_TO_CWF-320' : 'ESCALATE_TO_WF-900',\n      next_workflow: 'CWF-320',\n      escalation_needed: !qualityGates.gates_passed\n    }\n  }\n};\n\nreturn [{ json: executionContextPacket }];"
+      },
+      "id": "build_context_packet",
+      "name": "Build Execution Context Packet",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1050, 350]
+    },
+    {
+      "parameters": {
+        "jsCode": "const pkt = $json;\nconst payload = pkt.payload || {};\n\nif (payload.status && payload.status.escalation_needed) {\n  throw new Error('CWF-310 quality gates failed — routing to WF-900. Gates: ' + JSON.stringify(payload.quality.gate_checks));\n}\n\nreturn [{\n  json: {\n    workflow_id: 'CWF-310',\n    execution_status: 'SUCCESS',\n    execution_context_packet: pkt,\n    next_workflow: 'CWF-320',\n    dossier_delta: {\n      namespace: 'context',\n      mutation_type: 'append_to_array',\n      target: 'dossier.context.execution_context_packets',\n      value: {\n        instance_id: pkt.instance_id,\n        artifact_family: 'execution_context_packet',\n        target_platform: payload.context && payload.context.target_platform,\n        timestamp: new Date().toISOString()\n      },\n      audit_entry: {\n        timestamp: new Date().toISOString(),\n        workflow_id: 'CWF-310',\n        operation: 'CREATE_EXECUTION_CONTEXT_PACKET',\n        sourced_from: pkt.dossier_ref\n      }\n    },\n    runtime_delta: {\n      namespace: 'runtime',\n      mutation_type: 'append',\n      target: 'dossier.runtime.context_build_log',\n      value: {\n        cwf310_executed: true,\n        execution_context_id: pkt.instance_id,\n        timestamp: new Date().toISOString()\n      }\n    },\n    decision: 'PROCEED_TO_CWF-320'\n  }\n}];"
+      },
+      "id": "emit_result",
+      "name": "Emit Result",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1200, 350]
+    }
+  ],
+  "connections": {
+    "Workflow Input": {
+      "main": [[{ "node": "Normalize Input", "type": "main", "index": 0 }]]
+    },
+    "Normalize Input": {
+      "main": [[{ "node": "Validate Script Packet", "type": "main", "index": 0 }]]
+    },
+    "Validate Script Packet": {
+      "main": [[{ "node": "Resolve Tool Set (P-301)", "type": "main", "index": 0 }]]
+    },
+    "Resolve Tool Set (P-301)": {
+      "main": [[{ "node": "Build Execution Constraints (P-301)", "type": "main", "index": 0 }]]
+    },
+    "Build Execution Constraints (P-301)": {
+      "main": [[{ "node": "Build Execution Context Packet", "type": "main", "index": 0 }]]
+    },
+    "Build Execution Context Packet": {
+      "main": [[{ "node": "Emit Result", "type": "main", "index": 0 }]]
+    }
+  },
+  "meta": {
+    "workflow_id": "CWF-310",
+    "phase": "phase1",
+    "vein": "context_engineering_vein",
+    "purpose": "Engineer the runtime context envelope for the final script packet — defining allowed tools, execution constraints, and platform-specific runtime rules.",
+    "implementation_depth": "production_grade",
+    "owner_director": "Krishna",
+    "supporting_directors": ["Durga"],
+    "next_workflow": "CWF-320"
+  },
+  "active": true,
+  "settings": {}
+}

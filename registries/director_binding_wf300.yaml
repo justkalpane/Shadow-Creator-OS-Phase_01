@@ -1,0 +1,25 @@
+workflow_pack: WF-300
+directors:
+  Krishna:
+    owns:
+      - CWF-310-execution-context-builder
+      - CWF-340-lineage-validator
+      - P-301
+      - P-304
+      - P-305
+  Saraswati:
+    owns:
+      - CWF-320-platform-packager
+      - P-302
+  Durga:
+    owns:
+      - CWF-330-asset-brief-generator
+      - P-303
+  Yama:
+    supports:
+      - CWF-340-lineage-validator
+      - P-304
+  Kubera:
+    supports:
+      - CWF-340-lineage-validator
+      - P-305

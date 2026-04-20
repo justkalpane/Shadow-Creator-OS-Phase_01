@@ -1,0 +1,39 @@
+workflow_pack: WF-300
+bindings:
+  CWF-310-execution-context-builder:
+    primary_skill: P-301
+    skill_name: execution_context_engineer
+    invocation_points:
+      - resolve_tool_set
+      - build_execution_constraints
+    output_packet: execution_context_packet
+
+  CWF-320-platform-packager:
+    primary_skill: P-302
+    skill_name: platform_format_specialist
+    invocation_points:
+      - apply_platform_format
+      - generate_platform_metadata
+    output_packet: platform_package_packet
+
+  CWF-330-asset-brief-generator:
+    primary_skill: P-303
+    skill_name: asset_brief_creator
+    invocation_points:
+      - generate_thumbnail_brief
+      - generate_broll_cues
+      - generate_caption_and_audio_brief
+    output_packet: asset_brief_packet
+
+  CWF-340-lineage-validator:
+    primary_skills:
+      - P-304
+      - P-305
+    skill_names:
+      - lineage_chain_validator
+      - context_packet_finalizer
+    invocation_points:
+      - trace_lineage_chain
+      - validate_quality_gates
+      - build_context_engineering_packet
+    output_packet: context_engineering_packet

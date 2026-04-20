@@ -1,0 +1,83 @@
+workflow_id: WF-600
+name: wf600_analytics_evolution_pack
+class: parent_pack
+entry_mode: event_selected
+purpose: receive the publish_ready_packet from CWF-530 and track performance analytics, content evolution signals, audience feedback, and feedback loop integration for continuous content improvement
+owner: shadow_empire_phase1
+primary_director: Chandra
+strategic_authority: Chandra
+governance_authority:
+  - Chitragupta
+  - Yama
+producer_expectations:
+  triggered_by:
+    - WF-500 publish_ready_packet approved and promoted from CWF-530
+consumer_expectations:
+  consumed_by:
+    - Analytics dashboard when analytics_evolution_packet is sealed
+    - Feedback loop system for continuous improvement signals
+    - Content strategy layer for next-cycle topic selection
+route_bindings:
+  - ROUTE_PHASE1_STANDARD
+  - ROUTE_PHASE1_ANALYTICS
+inputs:
+  - publish_ready_packet
+  - runtime_context
+output_packet_family:
+  - performance_analytics_packet
+  - audience_feedback_packet
+  - evolution_signal_packet
+outputs:
+  - analytics_evolution_result
+reads:
+  - workflow_registry
+  - skill_registry
+  - publish_ready_packet
+  - dossier.publishing
+  - dossier.runtime
+writes:
+  - namespaces.analytics
+  - namespaces.evolution
+write_targets:
+  data_tables:
+    - se_route_runs
+    - se_packet_index
+  dossier_namespaces:
+    - analytics
+    - evolution
+    - runtime
+child_workflows:
+  - CWF-610-performance-metrics-collector
+  - CWF-620-audience-feedback-aggregator
+  - CWF-630-evolution-signal-synthesizer
+fallback_behavior:
+  on_metrics_collection_failure:
+    - emit analytics_evolution_result with status incomplete
+    - allow async retry from CWF-610
+  on_feedback_aggregation_failure:
+    - emit with partial feedback (available sources only)
+    - flag for operator review
+  on_signal_synthesis_failure:
+    - emit with available signals
+    - route to WF-900 if critical error
+remodify_behavior: allowed for analytics collection and feedback loops
+replay_behavior: allowed for re-analysis of published content
+done_criteria:
+  - performance metrics collected from all platforms
+  - audience feedback aggregated from all channels
+  - evolution signals synthesized and ranked
+  - analytics_evolution_packet validated
+  - lineage from publication through analytics complete
+  - loop closure point established for continuous improvement
+error_family:
+  - SE-P1-006
+  - SE-P1-007
+validation:
+  - all child workflow outputs typed
+  - each child writes bounded dossier delta
+  - analytics packets conform to schema
+  - evolution signals are actionable
+  - feedback loop closure is defined
+dependencies:
+  - WF-500
+  - WF-900

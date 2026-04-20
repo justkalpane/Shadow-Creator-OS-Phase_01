@@ -1,0 +1,106 @@
+{
+  "name": "WF-020 Final Approval",
+  "description": "Final approval queue management. Checks quality gates, builds approval packet, queues for director decision. Routes to WF-300 on approval or WF-021 on rejection.",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "wf020_trigger",
+      "name": "Workflow Input",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [250, 350]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{\n  json: {\n    workflow_id: 'WF-020',\n    vein: 'approval_vein',\n    dossier_id: $json.dossier_id || 'TEST-DOSSIER',\n    final_script_packet: $json.final_script_packet || {},\n    approval_request_id: $json.approval_request_id || ('APPR-' + Date.now()),\n    route_id: $json.route_id || 'ROUTE-001',\n    execution_timestamp: new Date().toISOString()\n  }\n}];"
+      },
+      "id": "normalize_approval_input",
+      "name": "Normalize Approval Input",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [450, 350]
+    },
+    {
+      "parameters": {
+        "jsCode": "const fp = $json.final_script_packet || {};\nconst q = fp.payload?.quality || {};\nconst s = fp.payload?.status || {};\n\nconst quality_summary = {\n  grammar_score: q.grammar_score || 0,\n  seo_readiness: q.seo_readiness || 0,\n  tone_consistency: q.tone_consistency || 0,\n  governance_compliance: q.governance_compliance || 'UNKNOWN',\n  all_gates_passed: s.all_quality_gates_passed || false\n};\n\nconst checks = [\n  { item: 'Grammar >= 0.95', passed: quality_summary.grammar_score >= 0.95, score: quality_summary.grammar_score },\n  { item: 'SEO readiness >= 0.85', passed: quality_summary.seo_readiness >= 0.85, score: quality_summary.seo_readiness },\n  { item: 'Tone consistency >= 0.90', passed: quality_summary.tone_consistency >= 0.90, score: quality_summary.tone_consistency },\n  { item: 'Governance approved', passed: quality_summary.governance_compliance === 'APPROVED' },\n  { item: 'All quality gates passed', passed: quality_summary.all_gates_passed }\n];\n\nconst approval_checklist = {\n  checks: checks,\n  checks_passed: checks.filter(c => c.passed).length,\n  checks_total: 5,\n  approval_recommended: quality_summary.all_gates_passed && quality_summary.governance_compliance === 'APPROVED'\n};\n\nreturn [{ json: { ...$json, quality_summary, approval_checklist, approval_phase: 'checklist_complete' } }];"
+      },
+      "id": "execute_approval_checklist",
+      "name": "Execute Approval Checklist",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [600, 350]
+    },
+    {
+      "parameters": {
+        "jsCode": "const cl = $json.approval_checklist || {};\nconst fp = $json.final_script_packet || {};\nconst qs = $json.quality_summary || {};\n\nconst status = cl.approval_recommended ? 'PENDING' : 'ISSUES_FOUND';\nconst decision = cl.approval_recommended ? 'REQUIRES_DIRECTOR_REVIEW' : 'RETURN_FOR_REVISION';\nconst message = cl.approval_recommended\n  ? 'Script meets quality gates. Recommend approval for publication.'\n  : 'Quality gates not met. Recommend return to refinement phase.';\n\nconst approval_queue_entry = {\n  approval_request_id: $json.approval_request_id,\n  script_packet_id: fp.instance_id || 'UNKNOWN',\n  dossier_ref: $json.dossier_id,\n  status: status,\n  decision: decision,\n  owner_director: 'Krishna',\n  supporting_directors: ['Vyasa', 'Saraswati', 'Durga'],\n  approval_criteria: { grammar_minimum: 0.95, seo_readiness_minimum: 0.85, tone_consistency_minimum: 0.90 },\n  actual_scores: { grammar: qs.grammar_score, seo_readiness: qs.seo_readiness, tone_consistency: qs.tone_consistency, governance_compliance: qs.governance_compliance },\n  approval_message: message,\n  decision_required_by: new Date(Date.now() + 86400000).toISOString(),\n  created_at: new Date().toISOString()\n};\n\nreturn [{ json: { ...$json, approval_queue_entry, approval_phase: 'queue_entry_complete' } }];"
+      },
+      "id": "build_approval_queue_entry",
+      "name": "Build Approval Queue Entry",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [750, 350]
+    },
+    {
+      "parameters": {
+        "jsCode": "const aqe = $json.approval_queue_entry || {};\nconst fp = $json.final_script_packet || {};\nconst cl = $json.approval_checklist || {};\n\nconst approval_decision_packet = {\n  instance_id: 'ADP-' + Date.now(),\n  artifact_family: 'approval_decision_packet',\n  schema_version: '1.0.0',\n  producer_workflow: 'SE-N8N-WF-020-Final-Approval',\n  dossier_ref: $json.dossier_id,\n  created_at: new Date().toISOString(),\n  status: 'PENDING_DIRECTOR_DECISION',\n  payload: {\n    approval_request: {\n      approval_request_id: aqe.approval_request_id,\n      script_packet_reference: fp.instance_id || 'UNKNOWN',\n      approval_status: aqe.status,\n      initial_recommendation: aqe.decision\n    },\n    context: {\n      owner_director: aqe.owner_director,\n      supporting_directors: aqe.supporting_directors,\n      decision_deadline: aqe.decision_required_by,\n      approval_route: 'ROUTE_PHASE1_STANDARD'\n    },\n    evidence: {\n      quality_checklist: cl.checks || [],\n      criteria_met: cl.approval_recommended,\n      actual_quality_scores: aqe.actual_scores\n    },\n    quality: {\n      grammar_compliance: { required_minimum: 0.95, actual_score: aqe.actual_scores?.grammar, compliant: (aqe.actual_scores?.grammar >= 0.95) },\n      seo_compliance: { required_minimum: 0.85, actual_score: aqe.actual_scores?.seo_readiness, compliant: (aqe.actual_scores?.seo_readiness >= 0.85) },\n      tone_compliance: { required_minimum: 0.90, actual_score: aqe.actual_scores?.tone_consistency, compliant: (aqe.actual_scores?.tone_consistency >= 0.90) },\n      governance_compliance: aqe.actual_scores?.governance_compliance,\n      overall_recommendation: aqe.approval_message\n    },\n    status: {\n      approval_status: aqe.status,\n      pending_decision_from: aqe.owner_director,\n      possible_decisions: ['APPROVED_FOR_PUBLISHING', 'REJECTED_RETURN_TO_REFINEMENT', 'APPROVED_WITH_MODIFICATIONS'],\n      next_workflow_on_approval: 'WF-300',\n      next_workflow_on_rejection: 'WF-021'\n    }\n  }\n};\n\nreturn [{ json: approval_decision_packet }];"
+      },
+      "id": "build_approval_packet",
+      "name": "Build Approval Decision Packet",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [900, 350]
+    },
+    {
+      "parameters": {
+        "jsCode": "const p = $json.payload || {};\nconst errors = [];\n\nif (!p.approval_request?.approval_request_id) errors.push('Missing approval_request_id');\nif (!p.context?.owner_director) errors.push('Missing owner_director');\nif (!Array.isArray(p.evidence?.quality_checklist)) errors.push('Missing quality_checklist array');\nif (!p.quality?.overall_recommendation) errors.push('Missing overall_recommendation');\nif (!Array.isArray(p.status?.possible_decisions)) errors.push('Missing possible_decisions array');\n\nif (errors.length > 0) throw new Error('Approval packet validation failed: ' + errors.join('; '));\n\nreturn [{ json: { ...$json, validation_status: 'PASSED', validation_timestamp: new Date().toISOString() } }];"
+      },
+      "id": "validate_approval_packet",
+      "name": "Validate Approval Packet",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1050, 350]
+    },
+    {
+      "parameters": {
+        "jsCode": "const p = $json.payload || {};\nconst aqe = $json.approval_queue_entry || {};\n\nreturn [{\n  json: {\n    workflow_id: 'WF-020',\n    execution_status: 'SUCCESS',\n    approval_request_id: p.approval_request?.approval_request_id,\n    approval_status: p.status?.approval_status,\n    pending_decision_from: p.context?.owner_director,\n    initial_recommendation: p.quality?.overall_recommendation,\n    approval_packet: $json,\n    dossier_delta: {\n      namespace: 'approval',\n      mutation_type: 'append_to_array',\n      target: 'dossier.approval.pending_approvals',\n      value: {\n        approval_request_id: aqe.approval_request_id,\n        packet_instance_id: $json.instance_id,\n        owner_director: aqe.owner_director,\n        decision_deadline: aqe.decision_required_by,\n        status: 'PENDING',\n        timestamp: new Date().toISOString()\n      },\n      audit_entry: {\n        timestamp: new Date().toISOString(),\n        workflow_id: 'WF-020',\n        operation: 'QUEUE_APPROVAL_REQUEST',\n        lineage_intact: true,\n        sourced_from: $json.dossier_ref\n      }\n    },\n    decision: 'APPROVAL_QUEUED_FOR_DIRECTOR_DECISION'\n  }\n}];"
+      },
+      "id": "emit_approval_result",
+      "name": "Emit Approval Result",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1200, 350]
+    }
+  ],
+  "connections": {
+    "Workflow Input": {
+      "main": [[{ "node": "Normalize Approval Input", "type": "main", "index": 0 }]]
+    },
+    "Normalize Approval Input": {
+      "main": [[{ "node": "Execute Approval Checklist", "type": "main", "index": 0 }]]
+    },
+    "Execute Approval Checklist": {
+      "main": [[{ "node": "Build Approval Queue Entry", "type": "main", "index": 0 }]]
+    },
+    "Build Approval Queue Entry": {
+      "main": [[{ "node": "Build Approval Decision Packet", "type": "main", "index": 0 }]]
+    },
+    "Build Approval Decision Packet": {
+      "main": [[{ "node": "Validate Approval Packet", "type": "main", "index": 0 }]]
+    },
+    "Validate Approval Packet": {
+      "main": [[{ "node": "Emit Approval Result", "type": "main", "index": 0 }]]
+    }
+  },
+  "meta": {
+    "workflow_id": "WF-020",
+    "phase": "phase1",
+    "vein": "approval_vein",
+    "purpose": "Final approval queue management. Routes approval decisions to downstream pipeline or triggers replay/remodify.",
+    "implementation_depth": "production_grade",
+    "owner_director": "Krishna",
+    "supporting_directors": ["Vyasa", "Saraswati", "Durga"],
+    "next_workflow": "WF-300"
+  },
+  "active": true,
+  "settings": {}
+}

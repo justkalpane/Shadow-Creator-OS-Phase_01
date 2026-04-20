@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://shadow-empire.local/schemas/packets/topic_intelligence_result.schema.json",
+  "title": "TopicIntelligenceResult",
+  "description": "Aggregate output from WF-100 (Topic Intelligence Pack). Contains finalized topic with all research and qualification data.",
+  "type": "object",
+  "required": [
+    "packet_id",
+    "dossier_id",
+    "topic_finalization_packet",
+    "research_synthesis_packet",
+    "created_at"
+  ],
+  "properties": {
+    "packet_id": {
+      "type": "string",
+      "description": "Unique identifier for this aggregate packet"
+    },
+    "dossier_id": {
+      "type": "string",
+      "description": "Reference to parent dossier"
+    },
+    "topic_finalization_packet": {
+      "type": "object",
+      "description": "Selected topic after qualification and scoring",
+      "required": ["packet_id", "selected_topic", "approval_state"]
+    },
+    "research_synthesis_packet": {
+      "type": "object",
+      "description": "Complete research synthesis for selected topic",
+      "required": ["packet_id", "dossier_id"]
+    },
+    "topic_intelligence_status": {
+      "type": "string",
+      "enum": ["ready_for_scripting", "needs_review", "rejected"],
+      "description": "Overall status of topic intelligence output"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when this aggregate was created"
+    },
+    "lineage": {
+      "type": "object",
+      "description": "Lineage tracking for audit trail",
+      "properties": {
+        "sourced_from_workflows": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "stage": {
+          "type": "string",
+          "enum": ["WF-100"]
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

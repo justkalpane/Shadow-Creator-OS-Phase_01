@@ -1,0 +1,43 @@
+workflow_id: CWF-410
+name: cwf410_thumbnail_generator
+class: child
+parent_pack: WF-400
+purpose: generate 3 thumbnail concept variants with title overlays, visual hooks, and color schemes from the context_engineering_packet
+primary_owner: Durga
+supporting_directors:
+  - Saraswati
+inputs:
+  - context_engineering_packet
+output_packet_family:
+  - thumbnail_concept_packet
+writes:
+  - namespaces.media
+  - namespaces.runtime
+write_targets:
+  dossier_namespaces:
+    - media
+    - runtime
+skills_invoked:
+  - A-401 Thumbnail Concept Creator
+  - A-402 Visual Hook Designer
+steps:
+  - ingest context_engineering_packet
+  - normalize and validate input packet
+  - invoke A-401 to generate 3 thumbnail concept variants
+  - invoke A-402 to design visual hooks and attention captures for each variant
+  - build thumbnail_concept_packet with all variants
+  - validate packet completeness and concept quality
+  - emit thumbnail_concept_packet
+done_criteria:
+  - 3 thumbnail concept variants generated with distinct hooks
+  - each variant contains title_overlay, visual_hook, color_scheme, composition_notes
+  - A-401 and A-402 execution logs recorded
+  - thumbnail_concept_packet emitted with status CREATED
+  - next_workflow set to CWF-420
+fallback_behavior:
+  on_concept_generation_failure:
+    - emit packet with status CONCEPT_FAILED
+    - route to WF-900 with failure details
+  on_hook_design_failure:
+    - fallback to default visual hook templates
+    - flag for operator review
