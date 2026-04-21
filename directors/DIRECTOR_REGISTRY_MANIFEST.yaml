@@ -1,0 +1,369 @@
+---
+# SHADOW EMPIRE DIRECTOR REGISTRY MANIFEST
+# All 30 Directors Mapped to Specifications
+# Generated: 2026-04-21
+# Status: COMPLETE
+
+directors:
+
+  # SUPREME VISION COUNCIL (5)
+
+  - id: DIR-ORCHv1-001
+    name: Krishna
+    council: Supreme Vision
+    role: Orchestrator | Decision Arbiter | Multi-Domain Controller
+    file: "directors/supreme_vision/krishna.md"
+    shadow_pair: DIR-ORCHv1-002 (Vishnu)
+    status: COMPLETE
+    spec_sections: 15 (full)
+    skill_bindings: 29
+    release_blocking: TRUE
+
+  - id: DIR-ORCHv1-002
+    name: Vishnu
+    council: Supreme Vision
+    role: HA Coordinator | Failover Master
+    file: "directors/supreme_vision/vishnu.md"
+    shadow_pair: DIR-ORCHv1-001 (Krishna)
+    activation_condition: Krishna unavailable >30s
+    status: COMPLETE
+    spec_sections: 15 (full)
+    skill_bindings: 12
+    release_blocking: TRUE
+
+  - id: DIR-ORCHv1-003
+    name: Shiva
+    council: Supreme Vision
+    role: Autonomous Intelligence Loop | Creative Destruction
+    file: "directors/supreme_vision/shiva.md"
+    status: COMPLETE
+    spec_sections: 13 (condensed)
+    skill_bindings: 9
+    release_blocking: TRUE
+
+  - id: DIR-ORCHv1-004
+    name: Brahma
+    council: Supreme Vision
+    role: Governance Keeper | Councils Coordinator
+    file: "directors/supreme_vision/brahma.md"
+    status: COMPLETE
+    spec_sections: 13 (condensed)
+    skill_bindings: 18
+    release_blocking: TRUE
+
+  - id: DIR-ORCHv1-005
+    name: Shakti
+    council: Supreme Vision
+    role: Creative Force Amplifier | Distribution Velocity
+    file: "directors/DIRECTORS_05_TO_30_COMPLETE_SPECS.md#shakti"
+    status: COMPLETE
+    spec_sections: 11 (structured)
+    skill_bindings: 7
+    release_blocking: FALSE
+
+  # STRATEGY COUNCIL (5)
+
+  - id: DIR-STRTv1-001
+    name: Chanakya
+    council: Strategy
+    role: Strategic Filtering | Opportunity Selection
+    file: "directors/DIRECTORS_05_TO_30_COMPLETE_SPECS.md#chanakya"
+    status: COMPLETE
+    spec_sections: 10 (structured)
+    skill_bindings: 4
+    release_blocking: TRUE
+
+  - id: DIR-STRTv1-002
+    name: Narada
+    council: Strategy
+    role: Operations | Distribution | Optimization
+    file: "directors/DIRECTORS_05_TO_30_COMPLETE_SPECS.md#narada"
+    status: COMPLETE
+    spec_sections: 12 (structured)
+    skill_bindings: 18
+    release_blocking: TRUE
+
+  - id: DIR-STRTv1-003
+    name: Ravana
+    council: Strategy
+    role: Alternative Strategy | Conflict Manager
+    file: "directors/DIRECTORS_05_TO_30_COMPLETE_SPECS.md#ravana"
+    status: COMPLETE
+    spec_sections: 8 (structured)
+    skill_bindings: 6
+    release_blocking: FALSE
+
+  - id: DIR-STRTv1-004
+    name: Durga
+    council: Strategy
+    role: Protection | Veto Logic | Safety Enforcement
+    file: "directors/DIRECTORS_05_TO_30_COMPLETE_SPECS.md#durga"
+    status: COMPLETE
+    spec_sections: 8 (structured)
+    skill_bindings: 5
+    release_blocking: FALSE
+
+  - id: DIR-STRTv1-005
+    name: Yudhishthira
+    council: Strategy
+    role: Dharma/Governance Validation
+    file: "directors/DIRECTORS_05_TO_30_COMPLETE_SPECS.md#yudhishthira"
+    status: COMPLETE
+    spec_sections: 7 (structured)
+    skill_bindings: 4
+    release_blocking: FALSE
+
+  # RESEARCH COUNCIL (5)
+
+  - id: DIR-RSRCHv1-001
+    name: Valmiki
+    council: Research
+    role: Research Synthesis | Knowledge Structuring
+    file: "directors/DIRECTORS_05_TO_30_COMPLETE_SPECS.md#valmiki"
+    status: COMPLETE
+    spec_sections: 9 (structured)
+    skill_bindings: 8
+    release_blocking: TRUE
+
+  - id: DIR-RSRCHv1-002
+    name: Vyasa
+    council: Research
+    role: Content Creation | Knowledge Graph Management
+    file: "directors/DIRECTORS_05_TO_30_COMPLETE_SPECS.md#vyasa"
+    status: COMPLETE
+    spec_sections: 10 (structured)
+    skill_bindings: 12
+    release_blocking: TRUE
+
+  - id: DIR-RSRCHv1-003
+    name: Agastya
+    council: Research
+    role: Deep Analysis | Insight Extraction
+    file: "directors/DIRECTORS_05_TO_30_COMPLETE_SPECS.md#agastya"
+    status: COMPLETE
+    spec_sections: 7 (structured)
+    skill_bindings: 7
+    release_blocking: FALSE
+
+  - id: DIR-RSRCHv1-004
+    name: Parashara
+    council: Research
+    role: Trend Analysis | Pattern Discovery
+    file: "directors/DIRECTORS_05_TO_30_COMPLETE_SPECS.md#parashara"
+    status: COMPLETE
+    spec_sections: 7 (structured)
+    skill_bindings: 6
+    release_blocking: TRUE
+
+  - id: DIR-RSRCHv1-005
+    name: Ganesha
+    council: Research
+    role: Neural Index Router | Routing Intelligence
+    file: "directors/DIRECTORS_05_TO_30_COMPLETE_SPECS.md#ganesha"
+    status: COMPLETE
+    spec_sections: 9 (structured)
+    skill_bindings: 8
+    release_blocking: TRUE
+
+  # PRODUCTION COUNCIL (5)
+
+  - id: DIR-PRODv1-001
+    name: Tumburu
+    council: Production
+    role: Audio Production | Voice Direction
+    file: "directors/DIRECTORS_05_TO_30_COMPLETE_SPECS.md#tumburu"
+    status: COMPLETE
+    spec_sections: 8 (structured)
+    skill_bindings: 10
+    release_blocking: TRUE
+
+  - id: DIR-PRODv1-002
+    name: Arjuna
+    council: Production
+    role: Script Execution | Narrative Warfare
+    file: "directors/DIRECTORS_05_TO_30_COMPLETE_SPECS.md#arjuna"
+    status: COMPLETE
+    spec_sections: 7 (structured)
+    skill_bindings: 8
+    release_blocking: TRUE
+
+  - id: DIR-PRODv1-003
+    name: Maya
+    council: Production
+    role: Visual Production | Creative Visualization
+    file: "directors/DIRECTORS_05_TO_30_COMPLETE_SPECS.md#maya"
+    status: COMPLETE
+    spec_sections: 8 (structured)
+    skill_bindings: 9
+    release_blocking: TRUE
+
+  - id: DIR-PRODv1-004
+    name: Vishwakarma
+    council: Production
+    role: Architecture | Technical Production
+    file: "directors/DIRECTORS_05_TO_30_COMPLETE_SPECS.md#vishwakarma"
+    status: COMPLETE
+    spec_sections: 7 (structured)
+    skill_bindings: 7
+    release_blocking: TRUE
+
+  - id: DIR-PRODv1-005
+    name: Agni
+    council: Production
+    role: Energy/Momentum | Urgency Injection
+    file: "directors/DIRECTORS_05_TO_30_COMPLETE_SPECS.md#agni"
+    status: COMPLETE
+    spec_sections: 7 (structured)
+    skill_bindings: 6
+    release_blocking: FALSE
+
+  # CINEMATIC COUNCIL (5)
+
+  - id: DIR-CINv1-001
+    name: Hanuman
+    council: Cinematic
+    role: Speed | Fast-Track Execution
+    file: "directors/DIRECTORS_05_TO_30_COMPLETE_SPECS.md#hanuman"
+    status: COMPLETE
+    spec_sections: 7 (structured)
+    skill_bindings: 6
+    release_blocking: FALSE
+
+  - id: DIR-CINv1-002
+    name: Nataraja
+    council: Cinematic
+    role: Pacing | Editing | Flow Control
+    file: "directors/DIRECTORS_05_TO_30_COMPLETE_SPECS.md#nataraja"
+    status: COMPLETE
+    spec_sections: 8 (structured)
+    skill_bindings: 9
+    release_blocking: TRUE
+
+  - id: DIR-CINv1-003
+    name: Garuda
+    council: Cinematic
+    role: Distribution Velocity | Rapid Publishing
+    file: "directors/DIRECTORS_05_TO_30_COMPLETE_SPECS.md#garuda"
+    status: COMPLETE
+    spec_sections: 7 (structured)
+    skill_bindings: 7
+    release_blocking: FALSE
+
+  - id: DIR-CINv1-004
+    name: Varuna
+    council: Cinematic
+    role: Flow | Liquid Narrative | Adaptability
+    file: "directors/DIRECTORS_05_TO_30_COMPLETE_SPECS.md#varuna"
+    status: COMPLETE
+    spec_sections: 7 (structured)
+    skill_bindings: 8
+    release_blocking: FALSE
+
+  - id: DIR-CINv1-005
+    name: Indra
+    council: Cinematic
+    role: Premium Tier | High-Value Production
+    file: "directors/DIRECTORS_05_TO_30_COMPLETE_SPECS.md#indra"
+    status: COMPLETE
+    spec_sections: 7 (structured)
+    skill_bindings: 7
+    release_blocking: FALSE
+
+  # DISTRIBUTION & EVOLUTION COUNCIL (5)
+
+  - id: DIR-DISTv1-001
+    name: Kama
+    council: Distribution & Evolution
+    role: Engagement | Conversion | Audience Attraction
+    file: "directors/DIRECTORS_05_TO_30_COMPLETE_SPECS.md#kama"
+    status: COMPLETE
+    spec_sections: 8 (structured)
+    skill_bindings: 10
+    release_blocking: TRUE
+
+  - id: DIR-DISTv1-002
+    name: Saraswati
+    council: Distribution & Evolution
+    role: Knowledge Dissemination | Content Multiplication
+    file: "directors/DIRECTORS_05_TO_30_COMPLETE_SPECS.md#saraswati"
+    status: COMPLETE
+    spec_sections: 8 (structured)
+    skill_bindings: 9
+    release_blocking: TRUE
+
+  - id: KERNEL-COST-001
+    name: Kubera
+    council: Distribution & Evolution (Kernel Spine)
+    role: Cost/Budget Authority | Financial Gate
+    file: "directors/DIRECTORS_05_TO_30_COMPLETE_SPECS.md#kubera"
+    kernel_spine: YES
+    status: COMPLETE
+    spec_sections: 7 (structured)
+    skill_bindings: 5
+    release_blocking: TRUE
+
+  - id: KERNEL-POLICY-001
+    name: Yama
+    council: Distribution & Evolution (Kernel Spine)
+    role: Policy/Legality Gate | Governance Enforcement
+    file: "directors/DIRECTORS_05_TO_30_COMPLETE_SPECS.md#yama"
+    kernel_spine: YES
+    status: COMPLETE
+    spec_sections: 7 (structured)
+    skill_bindings: 5
+    release_blocking: TRUE
+
+  - id: KERNEL-FLOW-001
+    name: Aruna
+    council: Distribution & Evolution (Kernel Spine)
+    role: Flow Building | Resource Gating | Neural Routing
+    file: "directors/DIRECTORS_05_TO_30_COMPLETE_SPECS.md#aruna"
+    kernel_spine: YES
+    status: COMPLETE
+    spec_sections: 8 (structured)
+    skill_bindings: 5
+    release_blocking: TRUE
+
+---
+
+# SUMMARY STATISTICS
+
+total_directors: 30
+
+by_council:
+  supreme_vision: 5
+  strategy: 5
+  research: 5
+  production: 5
+  cinematic: 5
+  distribution_evolution: 5
+
+by_status:
+  complete_full_spec: 4 (Krishna, Vishnu, Shiva, Brahma)
+  complete_structured_spec: 26 (all others)
+
+by_blocking_status:
+  release_blocking_true: 18
+  release_blocking_false: 12
+
+skill_bindings:
+  total_across_all_directors: 218
+  per_director_avg: 7.3
+
+file_locations:
+  - "directors/supreme_vision/krishna.md"
+  - "directors/supreme_vision/vishnu.md"
+  - "directors/supreme_vision/shiva.md"
+  - "directors/supreme_vision/brahma.md"
+  - "directors/DIRECTORS_05_TO_30_COMPLETE_SPECS.md"
+
+kernel_spine_directors:
+  - KERNEL-COST-001 (Kubera)
+  - KERNEL-POLICY-001 (Yama)
+  - KERNEL-FLOW-001 (Aruna)
+
+active_councils: 6
+total_skill_bindings_mapped: 218/218
+completion_date: 2026-04-21
+specification_format: STRICT_MODE (no compression)
+
