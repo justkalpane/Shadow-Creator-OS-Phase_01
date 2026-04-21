@@ -1,261 +1,402 @@
-/**
- * Skill Loader Engine
- * Loads, resolves, and executes skills at runtime
- * Integrates with dossier and packet systems for state management
- */
-
 const fs = require('fs');
-const path = require('path');
+const SkillRegistryResolver = require('./skill_registry_resolver');
+const SkillExecutor = require('./skill_executor');
 
 class SkillLoader {
   constructor(config = {}) {
     this.config = {
       skill_registry_path: config.skill_registry_path || './registries/skill_registry_wf100.yaml',
-      dossier_path: config.dossier_path || 'C:/ShadowEmpire/n8n_user/',
-      mode: config.mode || 'local',
+      skills_root: config.skills_root || './skills',
       timeout_ms: config.timeout_ms || 30000,
-      retry_count: config.retry_count || 2
+      retry_count: config.retry_count || 2,
+      strict_dependency_check: config.strict_dependency_check !== false
     };
 
     this.skills_registry = {};
     this.execution_log = [];
+    this.resolver = new SkillRegistryResolver({
+      registry_path: this.config.skill_registry_path,
+      skills_root: this.config.skills_root
+    });
+    this.executor = new SkillExecutor({ default_timeout_ms: this.config.timeout_ms });
   }
 
-  /**
-   * Initialize loader - load registry
-   */
   async initialize() {
     try {
-      const registry_content = this.loadYamlRegistry(this.config.skill_registry_path);
-      this.skills_registry = registry_content;
-      this.log('INFO', 'SkillLoader initialized', { registry_skills: Object.keys(registry_content).length });
-      return { status: 'initialized', skills_loaded: Object.keys(registry_content).length };
-    } catch (e) {
-      this.log('ERROR', 'SkillLoader initialization failed', { error: e.message });
-      throw e;
-    }
-  }
-
-  /**
-   * Load YAML registry (simplified - in real implementation use yaml parser)
-   */
-  loadYamlRegistry(filepath) {
-    try {
-      if (fs.existsSync(filepath)) {
-        const content = fs.readFileSync(filepath, 'utf8');
-        // Parse YAML (simplified - actual implementation needs yaml parser)
-        return {
-          'M-001': { id: 'M-001', name: 'Global Trend Scanner', version: '1.0.0', owner: 'Narada', type: 'discovery' },
-          'M-002': { id: 'M-002', name: 'Topic Opportunity Miner', version: '1.0.0', owner: 'Narada', type: 'discovery' },
-          'M-003': { id: 'M-003', name: 'Keyword Intelligence Miner', version: '1.0.0', owner: 'Chanakya', type: 'discovery' },
-          'M-004': { id: 'M-004', name: 'Audience Demographic Mapper', version: '1.0.0', owner: 'Chandra', type: 'discovery' }
-        };
+      const resolution = this.resolver.resolveRegistrySkills();
+      if (resolution.missing_skill_files.length > 0) {
+        throw new Error(`Registry skills missing files: ${resolution.missing_skill_files.join(', ')}`);
       }
-      return {};
-    } catch (e) {
-      this.log('WARN', 'Could not load registry file', { path: filepath, error: e.message });
-      return {};
+
+      const contracts = {};
+      for (const skillId of resolution.skill_ids) {
+        const metadata = resolution.resolved[skillId];
+        contracts[skillId] = this.loadSkillContract(metadata.file_path, skillId);
+      }
+
+      if (this.config.strict_dependency_check) {
+        this.validateDependencyClosure(contracts);
+      }
+
+      this.skills_registry = contracts;
+      this.log('INFO', 'SkillLoader initialized', {
+        registry_skills: resolution.skill_ids.length,
+        contract_skills: Object.keys(contracts).length,
+        registry_path: this.config.skill_registry_path
+      });
+
+      return {
+        status: 'initialized',
+        skills_loaded: Object.keys(contracts).length,
+        registry_path: this.config.skill_registry_path
+      };
+    } catch (error) {
+      this.log('ERROR', 'SkillLoader initialization failed', { error: error.message });
+      throw error;
     }
   }
 
-  /**
-   * Resolve skill by ID
-   */
-  async resolveSkill(skill_id) {
-    const skill_def = this.skills_registry[skill_id];
-    if (!skill_def) {
-      throw new Error(`Skill ${skill_id} not found in registry`);
+  async resolveSkill(skillId) {
+    const skill = this.skills_registry[skillId];
+    if (!skill) {
+      throw new Error(`Skill ${skillId} not found in loaded registry contracts`);
+    }
+    return skill;
+  }
+
+  loadSkillContract(filePath, expectedSkillId = null) {
+    const content = fs.readFileSync(filePath, 'utf8');
+    const parsed = content.includes('SKILL_ID:') ? this.parseLegacySkillContract(content) : this.parseMarkdownSkillContract(content);
+
+    if (!parsed.skill_id) {
+      parsed.skill_id = expectedSkillId;
+    }
+    if (expectedSkillId && parsed.skill_id !== expectedSkillId) {
+      throw new Error(`Skill ID mismatch in ${filePath}: expected ${expectedSkillId}, found ${parsed.skill_id}`);
+    }
+
+    parsed.file_path = filePath;
+    parsed.required_inputs = this.extractRequiredInputs(parsed.input_template);
+    parsed.dependencies = Array.isArray(parsed.dependencies) ? parsed.dependencies : [];
+    return parsed;
+  }
+
+  parseLegacySkillContract(content) {
+    const contract = {
+      skill_id: this.extractScalarField(content, 'SKILL_ID'),
+      skill_name: this.extractScalarField(content, 'NAME'),
+      dna_archetype: this.extractScalarField(content, 'DNA_ARCHETYPE'),
+      role: this.extractBlockField(content, 'ROLE'),
+      dependencies: this.parseDependencies(this.extractBlockField(content, 'DEPENDENCIES')),
+      route_map: this.extractBlockField(content, 'ROUTE_MAP'),
+      approval_gate: this.extractBlockField(content, 'APPROVAL_GATE'),
+      veto_power: this.extractBlockField(content, 'VETO_POWER'),
+      immune_signature: this.extractBlockField(content, 'IMMUNE_SIGNATURE'),
+      action_trigger: this.extractBlockField(content, 'ACTION_TRIGGER'),
+      process: this.extractBlockField(content, 'PROCESS'),
+      input_template: this.parseJsonField(content, 'INPUT_VARIABLES'),
+      output_template: this.parseJsonField(content, 'OUTPUT_FORMAT')
+    };
+
+    if (!contract.output_template || typeof contract.output_template !== 'object') {
+      contract.output_template = {
+        skill_id: contract.skill_id,
+        output_type: `${contract.skill_id ? contract.skill_id.toLowerCase() : 'unknown'}_output`,
+        status: 'created',
+        payload: {}
+      };
+    }
+
+    return contract;
+  }
+
+  parseMarkdownSkillContract(content) {
+    const outputBlocks = this.extractJsonBlocks(content);
+    const outputTemplate = this.pickOutputTemplate(outputBlocks);
+    const requiredInputs = this.extractRequiredInputsFromMarkdown(content);
+    const inputTemplate = {};
+    for (const inputKey of requiredInputs) {
+      inputTemplate[inputKey] = null;
     }
 
     return {
-      skill_id: skill_def.id,
-      skill_name: skill_def.name,
-      version: skill_def.version,
-      owner: skill_def.owner,
-      type: skill_def.type,
-      contract: this.loadSkillContract(skill_id)
-    };
-  }
-
-  /**
-   * Load skill contract (input/output spec)
-   */
-  loadSkillContract(skill_id) {
-    const contracts = {
-      'M-001': {
-        inputs: ['dossier_id', 'discovery_brief', 'source_refs'],
-        outputs: ['trend_signal_set'],
-        timeout_ms: 15000
-      },
-      'M-002': {
-        inputs: ['dossier_id', 'trend_signal_set'],
-        outputs: ['topic_opportunity_set'],
-        timeout_ms: 10000
-      },
-      'M-003': {
-        inputs: ['dossier_id', 'topic_opportunity_set'],
-        outputs: ['keyword_intelligence_packet'],
-        timeout_ms: 10000
-      },
-      'M-004': {
-        inputs: ['dossier_id', 'audience_segment'],
-        outputs: ['audience_mapping_packet'],
-        timeout_ms: 8000
+      skill_id: this.extractRegex(content, /\*\*Skill ID:\*\*\s*([A-Z]-\d{3})/),
+      skill_name: this.extractRegex(content, /\*\*Skill Name:\*\*\s*(.+)/),
+      dna_archetype: this.extractRegex(content, /\*\*DNA Archetype:\*\*\s*(.+)/),
+      role: this.extractRegex(content, /\*\*Role Definition:\*\*\s*(.+)/) || this.extractSectionParagraph(content, '## 2. Purpose'),
+      dependencies: this.parseDependencies(this.extractRegex(content, /\*\*Upstream Dependencies:\*\*\s*(.+)/)),
+      route_map: this.extractRegex(content, /\*\*Vein\/Route\/Stage:\*\*\s*(.+)/),
+      approval_gate: this.extractRegex(content, /\*\*Approval Gate:\*\*\s*(.+)/) || 'none',
+      veto_power: this.extractRegex(content, /\*\*Veto Power:\*\*\s*(.+)/) || 'no',
+      immune_signature: this.extractRegex(content, /\*\*Immune Signature:\*\*\s*(.+)/) || '',
+      action_trigger: this.extractSectionParagraph(content, '## 5. Inputs'),
+      process: this.extractSectionParagraph(content, '## 6. Execution Logic'),
+      input_template: inputTemplate,
+      output_template: outputTemplate || {
+        status: 'created',
+        payload: {}
       }
     };
-
-    return contracts[skill_id] || { inputs: [], outputs: [], timeout_ms: 10000 };
   }
 
-  /**
-   * Execute skill with context and dossier
-   */
-  async executeSkill(skill_id, context_packet, dossier_state) {
-    const execution_id = 'SKL-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
+  async executeSkill(skillId, contextPacket, dossierState) {
+    const executionId = this.buildExecutionId();
+    const startedAt = Date.now();
 
     try {
-      this.log('INFO', 'Starting skill execution', { skill_id, execution_id });
+      this.log('INFO', 'Starting skill execution', { skill_id: skillId, execution_id: executionId });
+      const contract = await this.resolveSkill(skillId);
+      const normalizedContext = this.applyContractDefaults(contextPacket, contract.input_template || {});
+      this.validateInputs(normalizedContext, contract.required_inputs || []);
 
-      const skill = await this.resolveSkill(skill_id);
-      const contract = skill.contract;
+      const executionResult = await this.executor.execute(contract, normalizedContext, dossierState);
+      this.validateOutputs(executionResult.output);
 
-      // Validate inputs
-      this.validateInputs(context_packet, contract.inputs);
-
-      // Execute skill (simulated - real implementation calls actual skill logic)
-      const skill_result = await this.executeSkillLogic(skill_id, context_packet, dossier_state);
-
-      // Validate outputs
-      this.validateOutputs(skill_result, contract.outputs);
-
-      // Package result
       const result = {
-        execution_id: execution_id,
-        skill_id: skill_id,
-        status: 'SUCCESS',
-        output: skill_result,
+        execution_id: executionId,
+        skill_id: skillId,
+        status: executionResult.status,
+        output: executionResult.output,
         execution_timestamp: new Date().toISOString(),
-        duration_ms: 0
+        duration_ms: Date.now() - startedAt
       };
 
-      this.log('INFO', 'Skill execution completed', { skill_id, execution_id, status: 'SUCCESS' });
+      this.log('INFO', 'Skill execution completed', {
+        skill_id: skillId,
+        execution_id: executionId,
+        duration_ms: result.duration_ms
+      });
       return result;
-
-    } catch (e) {
-      this.log('ERROR', 'Skill execution failed', { skill_id, execution_id, error: e.message });
-
+    } catch (error) {
+      this.log('ERROR', 'Skill execution failed', {
+        skill_id: skillId,
+        execution_id: executionId,
+        error: error.message
+      });
       return {
-        execution_id: execution_id,
-        skill_id: skill_id,
+        execution_id: executionId,
+        skill_id: skillId,
         status: 'FAILED',
-        error: e.message,
+        error: error.message,
         execution_timestamp: new Date().toISOString(),
+        duration_ms: Date.now() - startedAt,
         fallback_action: 'escalate_to_wf900'
       };
     }
   }
 
-  /**
-   * Execute actual skill logic (mocked here, real implementation calls skill files)
-   */
-  async executeSkillLogic(skill_id, context, dossier) {
-    // Simulate skill execution
-    // In real implementation, this would call the actual skill files
-    const skill_outputs = {
-      'M-001': { artifact_family: 'trend_signal_set', signals: [], status: 'CREATED' },
-      'M-002': { artifact_family: 'topic_opportunity_set', opportunities: [], status: 'CREATED' },
-      'M-003': { artifact_family: 'keyword_intelligence_packet', keywords: [], status: 'CREATED' },
-      'M-004': { artifact_family: 'audience_mapping_packet', segments: [], status: 'CREATED' }
-    };
+  async executeSkillChain(skillIds, contextPacket, dossierState) {
+    const results = [];
+    const accumulatedContext = { ...(contextPacket || {}) };
 
-    return skill_outputs[skill_id] || { status: 'CREATED', artifact_family: 'unknown' };
+    for (const skillId of skillIds) {
+      const result = await this.executeSkill(skillId, accumulatedContext, dossierState);
+      results.push(result);
+      if (result.status === 'FAILED') {
+        this.log('WARN', 'Skill chain interrupted on skill failure', { skill_id: skillId, next_action: 'escalate' });
+        break;
+      }
+      accumulatedContext[`${skillId}_output`] = result.output;
+    }
+
+    return {
+      chain_id: `CHAIN-${Date.now()}`,
+      skill_count: skillIds.length,
+      completed_skills: results.filter((r) => r.status === 'SUCCESS').length,
+      failed_skills: results.filter((r) => r.status === 'FAILED').length,
+      results,
+      accumulated_output: accumulatedContext
+    };
   }
 
-  /**
-   * Validate inputs match contract
-   */
-  validateInputs(context, required_inputs) {
-    const missing = required_inputs.filter(inp => !(inp in context));
+  validateInputs(context, requiredInputs) {
+    const packet = context || {};
+    const missing = requiredInputs.filter((key) => !(key in packet));
     if (missing.length > 0) {
       throw new Error(`Missing required inputs: ${missing.join(', ')}`);
     }
   }
 
-  /**
-   * Validate outputs match contract
-   */
-  validateOutputs(result, required_outputs) {
-    if (!result || !result.artifact_family) {
-      throw new Error(`Invalid output: missing artifact_family`);
+  validateOutputs(output) {
+    if (!output || typeof output !== 'object') {
+      throw new Error('Invalid output: expected object');
+    }
+    if (!output.artifact_family && !output.output_type) {
+      throw new Error('Invalid output: requires artifact_family or output_type');
     }
   }
 
-  /**
-   * Execute batch of skills with dependencies
-   */
-  async executeSkillChain(skill_ids, context_packet, dossier_state) {
-    const results = [];
-    const accumulated_context = { ...context_packet };
-
-    for (const skill_id of skill_ids) {
-      const result = await this.executeSkill(skill_id, accumulated_context, dossier_state);
-      results.push(result);
-
-      if (result.status === 'FAILED') {
-        this.log('WARN', 'Skill chain interrupted on skill failure', { skill_id, next_action: 'escalate' });
-        break;
+  validateDependencyClosure(contracts) {
+    const availableSkillIds = new Set(Object.keys(contracts));
+    for (const [skillId, contract] of Object.entries(contracts)) {
+      for (const dependency of contract.dependencies || []) {
+        if (!availableSkillIds.has(dependency)) {
+          throw new Error(`Unresolvable dependency for ${skillId}: ${dependency}`);
+        }
       }
-
-      // Merge output into accumulated context for next skill
-      accumulated_context[skill_id + '_output'] = result.output;
     }
-
-    return {
-      chain_id: 'CHAIN-' + Date.now(),
-      skill_count: skill_ids.length,
-      completed_skills: results.filter(r => r.status === 'SUCCESS').length,
-      failed_skills: results.filter(r => r.status === 'FAILED').length,
-      results: results,
-      accumulated_output: accumulated_context
-    };
   }
 
-  /**
-   * Logging utility
-   */
+  extractScalarField(content, fieldName) {
+    const regex = new RegExp(`^${fieldName}:\\s*(.+)$`, 'm');
+    const match = content.match(regex);
+    return match ? match[1].trim() : '';
+  }
+
+  extractBlockField(content, fieldName) {
+    const regex = new RegExp(`${fieldName}:\\s*([\\s\\S]*?)(?=\\n[A-Z_]+:\\s*|$)`, 'm');
+    const match = content.match(regex);
+    return match ? match[1].trim() : '';
+  }
+
+  parseJsonField(content, fieldName) {
+    const block = this.extractBlockField(content, fieldName);
+    if (!block) {
+      return {};
+    }
+
+    const fromFenced = this.extractJsonFromFence(block);
+    if (fromFenced) {
+      return fromFenced;
+    }
+    const fromBraces = this.extractJsonFromBraces(block);
+    return fromBraces || {};
+  }
+
+  extractJsonBlocks(content) {
+    const blocks = [];
+    const regex = /```json\s*([\s\S]*?)```/g;
+    let match = regex.exec(content);
+    while (match) {
+      const parsed = this.safeParseJson(match[1].trim());
+      if (parsed && typeof parsed === 'object') {
+        blocks.push(parsed);
+      }
+      match = regex.exec(content);
+    }
+    return blocks;
+  }
+
+  pickOutputTemplate(jsonBlocks) {
+    for (const block of jsonBlocks) {
+      if (block.artifact_family || block.output_type || block.skill_id || block.payload) {
+        return block;
+      }
+    }
+    return jsonBlocks[0] || null;
+  }
+
+  extractRequiredInputsFromMarkdown(content) {
+    const inputSection = this.extractSectionParagraph(content, '## 5. Inputs');
+    const keys = [];
+    const regex = /- `([^`]+)`/g;
+    let match = regex.exec(inputSection);
+    while (match) {
+      keys.push(match[1].trim());
+      match = regex.exec(inputSection);
+    }
+    return keys;
+  }
+
+  extractSectionParagraph(content, heading) {
+    const escaped = heading.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const regex = new RegExp(`${escaped}\\s*([\\s\\S]*?)(?=\\n##\\s+\\d+\\.|$)`, 'm');
+    const match = content.match(regex);
+    return match ? match[1].trim() : '';
+  }
+
+  extractRegex(content, regex) {
+    const match = content.match(regex);
+    return match ? match[1].trim() : '';
+  }
+
+  parseDependencies(raw) {
+    if (!raw) {
+      return [];
+    }
+    return raw
+      .replace(/\r/g, '')
+      .split(/[\n,]/)
+      .map((value) => value.trim())
+      .map((value) => value.replace(/^-\s*/, ''))
+      .filter((value) => /^[A-Z]-\d{3}$/.test(value));
+  }
+
+  extractRequiredInputs(inputTemplate) {
+    if (!inputTemplate || typeof inputTemplate !== 'object') {
+      return [];
+    }
+    return Object.keys(inputTemplate);
+  }
+
+  applyContractDefaults(contextPacket, inputTemplate) {
+    const normalized = { ...(contextPacket || {}) };
+    if (!inputTemplate || typeof inputTemplate !== 'object') {
+      return normalized;
+    }
+
+    for (const [key, defaultValue] of Object.entries(inputTemplate)) {
+      if (!(key in normalized)) {
+        normalized[key] = defaultValue;
+      }
+    }
+
+    return normalized;
+  }
+
+  extractJsonFromFence(text) {
+    const fenced = text.match(/```json\s*([\s\S]*?)```/);
+    if (!fenced) {
+      return null;
+    }
+    return this.safeParseJson(fenced[1].trim());
+  }
+
+  extractJsonFromBraces(text) {
+    const start = text.indexOf('{');
+    const end = text.lastIndexOf('}');
+    if (start === -1 || end === -1 || end < start) {
+      return null;
+    }
+    return this.safeParseJson(text.slice(start, end + 1));
+  }
+
+  safeParseJson(raw) {
+    try {
+      return JSON.parse(raw);
+    } catch (_) {
+      return null;
+    }
+  }
+
+  buildExecutionId() {
+    return `SKL-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
+  }
+
   log(level, message, data = {}) {
     const entry = {
       timestamp: new Date().toISOString(),
-      level: level,
-      message: message,
+      level,
+      message,
       ...data
     };
     this.execution_log.push(entry);
-
     if (level === 'ERROR' || level === 'WARN') {
       console.log(`[${level}] ${message}`, data);
     }
   }
 
-  /**
-   * Get execution log
-   */
   getExecutionLog(filter = {}) {
     let log = this.execution_log;
-
     if (filter.level) {
-      log = log.filter(e => e.level === filter.level);
+      log = log.filter((entry) => entry.level === filter.level);
     }
     if (filter.since) {
-      log = log.filter(e => new Date(e.timestamp) > new Date(filter.since));
+      log = log.filter((entry) => new Date(entry.timestamp) > new Date(filter.since));
     }
-
     return log;
   }
 
-  /**
-   * Clear execution log
-   */
   clearExecutionLog() {
     this.execution_log = [];
   }
@@ -263,19 +404,18 @@ class SkillLoader {
 
 module.exports = SkillLoader;
 
-// Export for testing
 if (require.main === module) {
   (async () => {
     const loader = new SkillLoader();
-    await loader.initialize();
+    const initialized = await loader.initialize();
+    console.log('SkillLoader Init:', JSON.stringify(initialized, null, 2));
 
-    const test_context = {
+    const testContext = {
       dossier_id: 'TEST-001',
-      topic_seed: 'AI trends',
-      discovery_brief: {}
+      discovery_brief: {},
+      source_refs: []
     };
-
-    const result = await loader.executeSkill('M-001', test_context, {});
+    const result = await loader.executeSkill('M-001', testContext, {});
     console.log('Skill Execution Result:', JSON.stringify(result, null, 2));
   })();
 }

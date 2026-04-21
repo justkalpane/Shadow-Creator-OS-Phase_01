@@ -23,6 +23,7 @@ class DossierWriter {
       'scoring': { owner: 'scoring_vein', forbidden_overwrites: [] },
       'research': { owner: 'research_vein', forbidden_overwrites: [] },
       'script': { owner: 'narrative_vein', forbidden_overwrites: [] },
+      'context': { owner: 'context_engineering_vein', forbidden_overwrites: [] },
       'approval': { owner: 'approval_vein', forbidden_overwrites: [] },
       'replay': { owner: 'replay_vein', forbidden_overwrites: [] },
       'runtime': { owner: 'runtime_vein', forbidden_overwrites: [] }

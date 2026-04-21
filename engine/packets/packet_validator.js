@@ -124,6 +124,50 @@ class PacketValidator {
           quality: ['routing_confidence'],
           status: ['decision_path']
         }
+      },
+      'execution_context_packet': {
+        sections: ['narrative', 'context', 'evidence', 'quality', 'status'],
+        producer_workflows: ['CWF-310'],
+        critical_fields: {
+          narrative: ['execution_strategy'],
+          context: ['sourced_from_packet_id'],
+          evidence: ['constraint_set'],
+          quality: ['context_integrity'],
+          status: ['context_ready']
+        }
+      },
+      'platform_package_packet': {
+        sections: ['narrative', 'context', 'evidence', 'quality', 'status'],
+        producer_workflows: ['CWF-320'],
+        critical_fields: {
+          narrative: ['platform_targets'],
+          context: ['sourced_from_packet_id'],
+          evidence: ['package_elements'],
+          quality: ['platform_fit'],
+          status: ['package_ready']
+        }
+      },
+      'asset_brief_packet': {
+        sections: ['narrative', 'context', 'evidence', 'quality', 'status'],
+        producer_workflows: ['CWF-330'],
+        critical_fields: {
+          narrative: ['asset_plan'],
+          context: ['sourced_from_packet_id'],
+          evidence: ['brief_components'],
+          quality: ['brief_quality'],
+          status: ['asset_brief_ready']
+        }
+      },
+      'context_engineering_packet': {
+        sections: ['narrative', 'context', 'evidence', 'quality', 'status'],
+        producer_workflows: ['CWF-340'],
+        critical_fields: {
+          narrative: ['context_summary'],
+          context: ['sourced_from_packet_id'],
+          evidence: ['lineage_checks'],
+          quality: ['final_context_confidence'],
+          status: ['context_engineering_complete']
+        }
       }
     };
   }

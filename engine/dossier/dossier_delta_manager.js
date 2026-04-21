@@ -17,6 +17,7 @@ class DossierDeltaManager {
       'scoring': { workflow_vein: 'scoring_vein', directors: ['Krishna'] },
       'research': { workflow_vein: 'research_vein', directors: ['Vyasa'] },
       'script': { workflow_vein: 'narrative_vein', directors: ['Krishna', 'Saraswati'] },
+      'context': { workflow_vein: 'context_engineering_vein', directors: ['Krishna', 'Saraswati'] },
       'approval': { workflow_vein: 'approval_vein', directors: ['Yama', 'Krishna'] },
       'replay': { workflow_vein: 'replay_vein', directors: ['Yama'] },
       'runtime': { workflow_vein: 'runtime_vein', directors: ['Saraswati'] }
