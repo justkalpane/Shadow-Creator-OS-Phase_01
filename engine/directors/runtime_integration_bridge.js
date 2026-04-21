@@ -10,8 +10,13 @@ class RuntimeIntegrationBridge {
    * Works with n8n webhooks, chatbot tool calls, or direct JS invocation.
    */
   async run(request = {}) {
+    const channel = this.detectChannel(request);
     const normalized = this.normalizeRequest(request);
-    return this.entrypoint.run(normalized);
+    const response = await this.entrypoint.run(normalized);
+    response.observability = response.observability || {};
+    response.observability.integration_channel = channel;
+    response.observability.bridge_timestamp = new Date().toISOString();
+    return response;
   }
 
   normalizeRequest(request) {
@@ -37,8 +42,22 @@ class RuntimeIntegrationBridge {
       queue_entry_id: request.queue_entry_id || request.payload?.queue_entry_id,
       decision: request.decision || request.payload?.decision,
       resolved_by: request.resolved_by || request.payload?.resolved_by,
-      resolution_context: request.resolution_context || request.payload?.resolution_context
+      resolution_context: request.resolution_context || request.payload?.resolution_context,
+      run_id: request.run_id || request.payload?.run_id
     };
+  }
+
+  detectChannel(request) {
+    if (request.channel) {
+      return request.channel;
+    }
+    if (request.headers && request.body) {
+      return 'n8n_webhook';
+    }
+    if (request.payload) {
+      return 'chat_tool_payload';
+    }
+    return 'direct_js';
   }
 }
 

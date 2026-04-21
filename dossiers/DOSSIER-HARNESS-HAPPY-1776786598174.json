@@ -1,0 +1,309 @@
+{
+  "dossier_id": "DOSSIER-HARNESS-HAPPY-1776786598174",
+  "_version": 12,
+  "_created_at": "2026-04-21T15:49:58.189Z",
+  "namespaces": {
+    "discovery": {
+      "CWF-110-topic-discovery": {
+        "packets": [
+          {
+            "packet_id": "PKT-1776786598188-yo7v9bk3",
+            "artifact_family": "topic_candidate_board",
+            "chain_id": "CHAIN-1776786598188",
+            "completed_skills": 12,
+            "created_at": "2026-04-21T15:49:58.188Z"
+          }
+        ]
+      }
+    },
+    "qualification": {
+      "CWF-120-topic-qualification": {
+        "packets": [
+          {
+            "packet_id": "PKT-1776786598200-19k0b0b4",
+            "artifact_family": "topic_finalization_packet",
+            "chain_id": "CHAIN-1776786598200",
+            "completed_skills": 3,
+            "created_at": "2026-04-21T15:49:58.200Z"
+          }
+        ]
+      }
+    },
+    "scoring": {
+      "CWF-130-topic-scoring": {
+        "packets": [
+          {
+            "packet_id": "PKT-1776786598206-1jb45mfx",
+            "artifact_family": "topic_scorecard",
+            "chain_id": "CHAIN-1776786598206",
+            "completed_skills": 2,
+            "created_at": "2026-04-21T15:49:58.206Z"
+          }
+        ]
+      }
+    },
+    "research": {
+      "CWF-140-research-synthesis": {
+        "packets": [
+          {
+            "packet_id": "PKT-1776786598214-mprxctmc",
+            "artifact_family": "research_synthesis_packet",
+            "chain_id": "CHAIN-1776786598214",
+            "completed_skills": 7,
+            "created_at": "2026-04-21T15:49:58.214Z"
+          }
+        ]
+      }
+    },
+    "script": {
+      "CWF-210-script-generation": {
+        "packets": [
+          {
+            "packet_id": "PKT-1776786598218-36s4sxd3",
+            "artifact_family": "script_draft_packet",
+            "chain_id": "CHAIN-1776786598218",
+            "completed_skills": 2,
+            "created_at": "2026-04-21T15:49:58.218Z"
+          }
+        ]
+      },
+      "CWF-220-script-debate": {
+        "packets": [
+          {
+            "packet_id": "PKT-1776786598223-j6udwr36",
+            "artifact_family": "script_debate_packet",
+            "chain_id": "CHAIN-1776786598223",
+            "completed_skills": 2,
+            "created_at": "2026-04-21T15:49:58.223Z"
+          }
+        ]
+      },
+      "CWF-230-script-refinement": {
+        "packets": [
+          {
+            "packet_id": "PKT-1776786598230-wphk9mup",
+            "artifact_family": "script_refinement_packet",
+            "chain_id": "CHAIN-1776786598230",
+            "completed_skills": 4,
+            "created_at": "2026-04-21T15:49:58.230Z"
+          }
+        ]
+      },
+      "CWF-240-final-script-shaping": {
+        "packets": [
+          {
+            "packet_id": "PKT-1776786598234-xi7mtsec",
+            "artifact_family": "final_script_packet",
+            "chain_id": "CHAIN-1776786598234",
+            "completed_skills": 2,
+            "created_at": "2026-04-21T15:49:58.234Z"
+          }
+        ]
+      }
+    },
+    "context": {
+      "CWF-310-execution-context-builder": {
+        "packets": [
+          {
+            "packet_id": "PKT-1776786598243-tqq4pm31",
+            "artifact_family": "execution_context_packet",
+            "chain_id": "CHAIN-1776786598243",
+            "completed_skills": 1,
+            "created_at": "2026-04-21T15:49:58.243Z"
+          }
+        ]
+      },
+      "CWF-320-platform-packager": {
+        "packets": [
+          {
+            "packet_id": "PKT-1776786598248-4pnztwfk",
+            "artifact_family": "platform_package_packet",
+            "chain_id": "CHAIN-1776786598248",
+            "completed_skills": 1,
+            "created_at": "2026-04-21T15:49:58.248Z"
+          }
+        ]
+      },
+      "CWF-330-asset-brief-generator": {
+        "packets": [
+          {
+            "packet_id": "PKT-1776786598252-jzlkntb3",
+            "artifact_family": "asset_brief_packet",
+            "chain_id": "CHAIN-1776786598252",
+            "completed_skills": 1,
+            "created_at": "2026-04-21T15:49:58.252Z"
+          }
+        ]
+      },
+      "CWF-340-lineage-validator": {
+        "packets": [
+          {
+            "packet_id": "PKT-1776786598256-lad2iz1h",
+            "artifact_family": "context_engineering_packet",
+            "chain_id": "CHAIN-1776786598256",
+            "completed_skills": 2,
+            "created_at": "2026-04-21T15:49:58.256Z"
+          }
+        ]
+      }
+    }
+  },
+  "_audit_trail": [
+    {
+      "mutation_id": "MUT-1776786598189-fl4rdszgy",
+      "timestamp": "2026-04-21T15:49:58.189Z",
+      "workflow_id": "CWF-110-topic-discovery",
+      "operation": "DIRECTOR_RUNTIME_EXECUTION",
+      "namespace": "discovery",
+      "mutation_type": "append_to_array",
+      "target_path": "namespaces.discovery.CWF-110-topic-discovery.packets",
+      "owner_workflow": "discovery_vein",
+      "version_before": 0,
+      "version_after": 1,
+      "lineage_intact": true
+    },
+    {
+      "mutation_id": "MUT-1776786598200-q9f2zf5sm",
+      "timestamp": "2026-04-21T15:49:58.200Z",
+      "workflow_id": "CWF-120-topic-qualification",
+      "operation": "DIRECTOR_RUNTIME_EXECUTION",
+      "namespace": "qualification",
+      "mutation_type": "append_to_array",
+      "target_path": "namespaces.qualification.CWF-120-topic-qualification.packets",
+      "owner_workflow": "qualification_vein",
+      "version_before": 1,
+      "version_after": 2,
+      "lineage_intact": true
+    },
+    {
+      "mutation_id": "MUT-1776786598206-jggn4scuf",
+      "timestamp": "2026-04-21T15:49:58.207Z",
+      "workflow_id": "CWF-130-topic-scoring",
+      "operation": "DIRECTOR_RUNTIME_EXECUTION",
+      "namespace": "scoring",
+      "mutation_type": "append_to_array",
+      "target_path": "namespaces.scoring.CWF-130-topic-scoring.packets",
+      "owner_workflow": "scoring_vein",
+      "version_before": 2,
+      "version_after": 3,
+      "lineage_intact": true
+    },
+    {
+      "mutation_id": "MUT-1776786598214-l51i8cfer",
+      "timestamp": "2026-04-21T15:49:58.214Z",
+      "workflow_id": "CWF-140-research-synthesis",
+      "operation": "DIRECTOR_RUNTIME_EXECUTION",
+      "namespace": "research",
+      "mutation_type": "append_to_array",
+      "target_path": "namespaces.research.CWF-140-research-synthesis.packets",
+      "owner_workflow": "research_vein",
+      "version_before": 3,
+      "version_after": 4,
+      "lineage_intact": true
+    },
+    {
+      "mutation_id": "MUT-1776786598218-iozx7pgjg",
+      "timestamp": "2026-04-21T15:49:58.219Z",
+      "workflow_id": "CWF-210-script-generation",
+      "operation": "DIRECTOR_RUNTIME_EXECUTION",
+      "namespace": "script",
+      "mutation_type": "append_to_array",
+      "target_path": "namespaces.script.CWF-210-script-generation.packets",
+      "owner_workflow": "narrative_vein",
+      "version_before": 4,
+      "version_after": 5,
+      "lineage_intact": true
+    },
+    {
+      "mutation_id": "MUT-1776786598223-d49hkschr",
+      "timestamp": "2026-04-21T15:49:58.223Z",
+      "workflow_id": "CWF-220-script-debate",
+      "operation": "DIRECTOR_RUNTIME_EXECUTION",
+      "namespace": "script",
+      "mutation_type": "append_to_array",
+      "target_path": "namespaces.script.CWF-220-script-debate.packets",
+      "owner_workflow": "narrative_vein",
+      "version_before": 5,
+      "version_after": 6,
+      "lineage_intact": true
+    },
+    {
+      "mutation_id": "MUT-1776786598230-eywzrmubg",
+      "timestamp": "2026-04-21T15:49:58.230Z",
+      "workflow_id": "CWF-230-script-refinement",
+      "operation": "DIRECTOR_RUNTIME_EXECUTION",
+      "namespace": "script",
+      "mutation_type": "append_to_array",
+      "target_path": "namespaces.script.CWF-230-script-refinement.packets",
+      "owner_workflow": "narrative_vein",
+      "version_before": 6,
+      "version_after": 7,
+      "lineage_intact": true
+    },
+    {
+      "mutation_id": "MUT-1776786598234-apxjj3zmr",
+      "timestamp": "2026-04-21T15:49:58.234Z",
+      "workflow_id": "CWF-240-final-script-shaping",
+      "operation": "DIRECTOR_RUNTIME_EXECUTION",
+      "namespace": "script",
+      "mutation_type": "append_to_array",
+      "target_path": "namespaces.script.CWF-240-final-script-shaping.packets",
+      "owner_workflow": "narrative_vein",
+      "version_before": 7,
+      "version_after": 8,
+      "lineage_intact": true
+    },
+    {
+      "mutation_id": "MUT-1776786598243-ddaax58jy",
+      "timestamp": "2026-04-21T15:49:58.244Z",
+      "workflow_id": "CWF-310-execution-context-builder",
+      "operation": "DIRECTOR_RUNTIME_EXECUTION",
+      "namespace": "context",
+      "mutation_type": "append_to_array",
+      "target_path": "namespaces.context.CWF-310-execution-context-builder.packets",
+      "owner_workflow": "context_engineering_vein",
+      "version_before": 8,
+      "version_after": 9,
+      "lineage_intact": true
+    },
+    {
+      "mutation_id": "MUT-1776786598248-lsjvq4eju",
+      "timestamp": "2026-04-21T15:49:58.248Z",
+      "workflow_id": "CWF-320-platform-packager",
+      "operation": "DIRECTOR_RUNTIME_EXECUTION",
+      "namespace": "context",
+      "mutation_type": "append_to_array",
+      "target_path": "namespaces.context.CWF-320-platform-packager.packets",
+      "owner_workflow": "context_engineering_vein",
+      "version_before": 9,
+      "version_after": 10,
+      "lineage_intact": true
+    },
+    {
+      "mutation_id": "MUT-1776786598252-d97n7pct6",
+      "timestamp": "2026-04-21T15:49:58.252Z",
+      "workflow_id": "CWF-330-asset-brief-generator",
+      "operation": "DIRECTOR_RUNTIME_EXECUTION",
+      "namespace": "context",
+      "mutation_type": "append_to_array",
+      "target_path": "namespaces.context.CWF-330-asset-brief-generator.packets",
+      "owner_workflow": "context_engineering_vein",
+      "version_before": 10,
+      "version_after": 11,
+      "lineage_intact": true
+    },
+    {
+      "mutation_id": "MUT-1776786598256-ayqadygwd",
+      "timestamp": "2026-04-21T15:49:58.257Z",
+      "workflow_id": "CWF-340-lineage-validator",
+      "operation": "DIRECTOR_RUNTIME_EXECUTION",
+      "namespace": "context",
+      "mutation_type": "append_to_array",
+      "target_path": "namespaces.context.CWF-340-lineage-validator.packets",
+      "owner_workflow": "context_engineering_vein",
+      "version_before": 11,
+      "version_after": 12,
+      "lineage_intact": true
+    }
+  ]
+}

@@ -59,12 +59,15 @@ class DirectorRuntimeRouter {
   }
 
   async executeChildWorkflow(params) {
+    const startedAt = Date.now();
+    const startedAtIso = new Date().toISOString();
     const {
       workflow_pack,
       child_workflow_id,
       dossier_id,
       context_packet = {},
-      dossier_state = {}
+      dossier_state = {},
+      run_id = `RUN-CHILD-${Date.now()}`
     } = params;
 
     if (!workflow_pack || !child_workflow_id || !dossier_id) {
@@ -99,9 +102,11 @@ class DirectorRuntimeRouter {
       return {
         status: 'FAILED',
         stage: 'packet_validation',
+        failure_reason_code: 'ROUTER_PACKET_VALIDATION_FAILED',
         errors: validation.errors,
         warnings: validation.warnings,
-        packet
+        packet,
+        observability: this.buildObservability(run_id, startedAt, startedAtIso, 'ROUTER_PACKET_VALIDATION_FAILED')
       };
     }
 
@@ -129,12 +134,15 @@ class DirectorRuntimeRouter {
       packet_index: indexWrite,
       dossier_mutation: dossierMutation,
       routing,
-      approval
+      approval,
+      observability: this.buildObservability(run_id, startedAt, startedAtIso, null)
     };
   }
 
   async executeWorkflowPack(params) {
-    const { workflow_pack, dossier_id, context_packet = {}, dossier_state = {} } = params;
+    const startedAt = Date.now();
+    const startedAtIso = new Date().toISOString();
+    const { workflow_pack, dossier_id, context_packet = {}, dossier_state = {}, run_id = `RUN-PACK-${Date.now()}` } = params;
     const bindingPath = this.resolveBindingPath(workflow_pack);
     const binding = this.parseWorkflowBinding(bindingPath);
     const childWorkflowIds = Object.keys(binding);
@@ -142,12 +150,14 @@ class DirectorRuntimeRouter {
 
     let rollingContext = { ...context_packet };
     for (const childWorkflowId of childWorkflowIds) {
+      const childStarted = Date.now();
       const result = await this.executeChildWorkflow({
         workflow_pack,
         child_workflow_id: childWorkflowId,
         dossier_id,
         context_packet: rollingContext,
-        dossier_state
+        dossier_state,
+        run_id
       });
       results.push(result);
       if (result.status !== 'SUCCESS') {
@@ -157,19 +167,31 @@ class DirectorRuntimeRouter {
         ...rollingContext,
         [`${childWorkflowId}_packet`]: result.packet
       };
+      rollingContext.__timings_ms = {
+        ...(rollingContext.__timings_ms || {}),
+        [childWorkflowId]: Date.now() - childStarted
+      };
     }
 
+    const success = results.every((r) => r.status === 'SUCCESS');
     return {
-      status: results.every((r) => r.status === 'SUCCESS') ? 'SUCCESS' : 'FAILED',
+      status: success ? 'SUCCESS' : 'FAILED',
+      failure_reason_code: success ? null : (results.find((r) => r.status !== 'SUCCESS')?.failure_reason_code || 'ROUTER_WORKFLOW_PACK_FAILED'),
       workflow_pack,
       dossier_id,
       child_workflows_executed: results.length,
-      results
+      results,
+      observability: this.buildObservability(run_id, startedAt, startedAtIso, success ? null : 'ROUTER_WORKFLOW_PACK_FAILED', {
+        ...(rollingContext.__timings_ms || {})
+      })
     };
   }
 
   async executeTopicToScriptChain(params) {
+    const startedAt = Date.now();
+    const startedAtIso = new Date().toISOString();
     const {
+      run_id = `RUN-CHAIN-${Date.now()}`,
       dossier_id,
       wf100_context_packet = {},
       wf200_context_overrides = {},
@@ -184,15 +206,20 @@ class DirectorRuntimeRouter {
       workflow_pack: 'wf100',
       dossier_id,
       context_packet: wf100_context_packet,
-      dossier_state
+      dossier_state,
+      run_id
     });
 
     if (wf100.status !== 'SUCCESS') {
       return {
         status: 'FAILED',
         stage: 'WF-100',
+        failure_reason_code: wf100.failure_reason_code || 'ROUTER_WF100_FAILED',
         wf100,
-        wf200: null
+        wf200: null,
+        observability: this.buildObservability(run_id, startedAt, startedAtIso, wf100.failure_reason_code || 'ROUTER_WF100_FAILED', {
+          wf100_ms: wf100.observability?.duration_ms || 0
+        })
       };
     }
 
@@ -212,24 +239,35 @@ class DirectorRuntimeRouter {
       workflow_pack: 'wf200',
       dossier_id,
       context_packet: wf200Context,
-      dossier_state
+      dossier_state,
+      run_id
     });
 
+    const success = wf200.status === 'SUCCESS';
+    const failureCode = success ? null : (wf200.failure_reason_code || 'ROUTER_WF200_FAILED');
     return {
-      status: wf200.status === 'SUCCESS' ? 'SUCCESS' : 'FAILED',
+      status: success ? 'SUCCESS' : 'FAILED',
+      failure_reason_code: failureCode,
       dossier_id,
       wf100,
-      wf200
+      wf200,
+      observability: this.buildObservability(run_id, startedAt, startedAtIso, failureCode, {
+        wf100_ms: wf100.observability?.duration_ms || 0,
+        wf200_ms: wf200.observability?.duration_ms || 0
+      })
     };
   }
 
   async resolveFinalApprovalAndContinue(params) {
+    const startedAt = Date.now();
+    const startedAtIso = new Date().toISOString();
     const {
       queue_entry_id,
       decision,
       resolved_by,
       context = {},
-      auto_continue = true
+      auto_continue = true,
+      run_id = `RUN-APPROVAL-${Date.now()}`
     } = params;
 
     if (!queue_entry_id || !decision || !resolved_by) {
@@ -247,7 +285,9 @@ class DirectorRuntimeRouter {
       return {
         status: 'FAILED',
         stage: 'approval_resolution',
-        approval: approvalRouting
+        failure_reason_code: approvalRouting.error ? 'APPROVAL_ROUTING_FAILED' : 'APPROVAL_RESOLUTION_FAILED',
+        approval: approvalRouting,
+        observability: this.buildObservability(run_id, startedAt, startedAtIso, approvalRouting.error ? 'APPROVAL_ROUTING_FAILED' : 'APPROVAL_RESOLUTION_FAILED')
       };
     }
 
@@ -256,7 +296,8 @@ class DirectorRuntimeRouter {
         status: 'SUCCESS',
         stage: 'approval_resolved_only',
         approval: approvalRouting,
-        continuation: null
+        continuation: null,
+        observability: this.buildObservability(run_id, startedAt, startedAtIso, null)
       };
     }
 
@@ -268,8 +309,10 @@ class DirectorRuntimeRouter {
       return {
         status: 'FAILED',
         stage: 'approval_resolution',
+        failure_reason_code: 'APPROVAL_DOSSIER_NOT_FOUND',
         error: `Unable to resolve dossier_ref for queue entry ${queue_entry_id}`,
-        approval: approvalRouting
+        approval: approvalRouting,
+        observability: this.buildObservability(run_id, startedAt, startedAtIso, 'APPROVAL_DOSSIER_NOT_FOUND')
       };
     }
 
@@ -287,8 +330,10 @@ class DirectorRuntimeRouter {
       return {
         status: wf300.status === 'SUCCESS' ? 'SUCCESS' : 'FAILED',
         stage: 'wf300_continuation',
+        failure_reason_code: wf300.status === 'SUCCESS' ? null : (wf300.failure_reason_code || 'WF300_CONTINUATION_FAILED'),
         approval: approvalRouting,
-        continuation: wf300
+        continuation: wf300,
+        observability: this.buildObservability(run_id, startedAt, startedAtIso, wf300.status === 'SUCCESS' ? null : (wf300.failure_reason_code || 'WF300_CONTINUATION_FAILED'))
       };
     }
 
@@ -311,11 +356,18 @@ class DirectorRuntimeRouter {
       return {
         status: replayExecution && replayExecution.status !== 'SUCCESS' ? 'FAILED' : 'SUCCESS',
         stage: 'wf021_replay_continuation',
+        failure_reason_code: replayExecution && replayExecution.status !== 'SUCCESS' ? (replayExecution.failure_reason_code || 'WF021_REPLAY_EXECUTION_FAILED') : null,
         approval: approvalRouting,
         continuation: {
           replay_plan: replayPlan,
           replay_execution: replayExecution
-        }
+        },
+        observability: this.buildObservability(
+          run_id,
+          startedAt,
+          startedAtIso,
+          replayExecution && replayExecution.status !== 'SUCCESS' ? (replayExecution.failure_reason_code || 'WF021_REPLAY_EXECUTION_FAILED') : null
+        )
       };
     }
 
@@ -325,7 +377,8 @@ class DirectorRuntimeRouter {
       approval: approvalRouting,
       continuation: {
         next_workflow: nextWorkflow
-      }
+      },
+      observability: this.buildObservability(run_id, startedAt, startedAtIso, null)
     };
   }
 
@@ -650,6 +703,17 @@ class DirectorRuntimeRouter {
     return {
       rejection_reason: reason,
       ...selected
+    };
+  }
+
+  buildObservability(runId, startedAt, startedAtIso, failureReasonCode = null, timings = {}) {
+    return {
+      run_id: runId,
+      started_at: startedAtIso,
+      finished_at: new Date().toISOString(),
+      duration_ms: Date.now() - startedAt,
+      timings_ms: timings,
+      failure_reason_code: failureReasonCode
     };
   }
 }

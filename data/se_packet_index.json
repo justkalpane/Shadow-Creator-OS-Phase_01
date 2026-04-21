@@ -1,0 +1,384 @@
+{
+  "entries": [
+    {
+      "index_entry_id": "IDX-1776786598190-baywmvleh",
+      "instance_id": "PKT-1776786598188-yo7v9bk3",
+      "artifact_family": "topic_candidate_board",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-110",
+      "dossier_ref": "DOSSIER-HARNESS-HAPPY-1776786598174",
+      "created_at": "2026-04-21T15:49:58.188Z",
+      "indexed_at": "2026-04-21T15:49:58.190Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "CWF-120",
+      "escalation_needed": false
+    },
+    {
+      "index_entry_id": "IDX-1776786598201-v52gdts2h",
+      "instance_id": "PKT-1776786598200-19k0b0b4",
+      "artifact_family": "topic_finalization_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-120",
+      "dossier_ref": "DOSSIER-HARNESS-HAPPY-1776786598174",
+      "created_at": "2026-04-21T15:49:58.200Z",
+      "indexed_at": "2026-04-21T15:49:58.201Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": "PKT-1776786598188-yo7v9bk3",
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "CWF-130",
+      "escalation_needed": false
+    },
+    {
+      "index_entry_id": "IDX-1776786598207-ima3z04lz",
+      "instance_id": "PKT-1776786598206-1jb45mfx",
+      "artifact_family": "topic_scorecard",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-130",
+      "dossier_ref": "DOSSIER-HARNESS-HAPPY-1776786598174",
+      "created_at": "2026-04-21T15:49:58.206Z",
+      "indexed_at": "2026-04-21T15:49:58.207Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": "PKT-1776786598188-yo7v9bk3",
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false
+    },
+    {
+      "index_entry_id": "IDX-1776786598215-9td6m4ga3",
+      "instance_id": "PKT-1776786598214-mprxctmc",
+      "artifact_family": "research_synthesis_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-140",
+      "dossier_ref": "DOSSIER-HARNESS-HAPPY-1776786598174",
+      "created_at": "2026-04-21T15:49:58.214Z",
+      "indexed_at": "2026-04-21T15:49:58.215Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": "PKT-1776786598188-yo7v9bk3",
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false
+    },
+    {
+      "index_entry_id": "IDX-1776786598219-46n9wzth2",
+      "instance_id": "PKT-1776786598218-36s4sxd3",
+      "artifact_family": "script_draft_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-210",
+      "dossier_ref": "DOSSIER-HARNESS-HAPPY-1776786598174",
+      "created_at": "2026-04-21T15:49:58.218Z",
+      "indexed_at": "2026-04-21T15:49:58.219Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": "PKT-1776786598200-19k0b0b4",
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false
+    },
+    {
+      "index_entry_id": "IDX-1776786598225-ak94r1gin",
+      "instance_id": "PKT-1776786598223-j6udwr36",
+      "artifact_family": "script_debate_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-220",
+      "dossier_ref": "DOSSIER-HARNESS-HAPPY-1776786598174",
+      "created_at": "2026-04-21T15:49:58.223Z",
+      "indexed_at": "2026-04-21T15:49:58.225Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": "PKT-1776786598200-19k0b0b4",
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false
+    },
+    {
+      "index_entry_id": "IDX-1776786598231-wjxm4m5hn",
+      "instance_id": "PKT-1776786598230-wphk9mup",
+      "artifact_family": "script_refinement_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-230",
+      "dossier_ref": "DOSSIER-HARNESS-HAPPY-1776786598174",
+      "created_at": "2026-04-21T15:49:58.230Z",
+      "indexed_at": "2026-04-21T15:49:58.231Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": "PKT-1776786598200-19k0b0b4",
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false
+    },
+    {
+      "index_entry_id": "IDX-1776786598235-ncnj7lb4t",
+      "instance_id": "PKT-1776786598234-xi7mtsec",
+      "artifact_family": "final_script_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-240",
+      "dossier_ref": "DOSSIER-HARNESS-HAPPY-1776786598174",
+      "created_at": "2026-04-21T15:49:58.234Z",
+      "indexed_at": "2026-04-21T15:49:58.235Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": "PKT-1776786598200-19k0b0b4",
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false
+    },
+    {
+      "index_entry_id": "IDX-1776786598244-yf0z0j9ow",
+      "instance_id": "PKT-1776786598243-tqq4pm31",
+      "artifact_family": "execution_context_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-310",
+      "dossier_ref": "DOSSIER-HARNESS-HAPPY-1776786598174",
+      "created_at": "2026-04-21T15:49:58.243Z",
+      "indexed_at": "2026-04-21T15:49:58.244Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": "PKT-1776786598234-xi7mtsec",
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false
+    },
+    {
+      "index_entry_id": "IDX-1776786598249-35bzspmvp",
+      "instance_id": "PKT-1776786598248-4pnztwfk",
+      "artifact_family": "platform_package_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-320",
+      "dossier_ref": "DOSSIER-HARNESS-HAPPY-1776786598174",
+      "created_at": "2026-04-21T15:49:58.248Z",
+      "indexed_at": "2026-04-21T15:49:58.249Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": "PKT-1776786598234-xi7mtsec",
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false
+    },
+    {
+      "index_entry_id": "IDX-1776786598253-z7qdwwp2r",
+      "instance_id": "PKT-1776786598252-jzlkntb3",
+      "artifact_family": "asset_brief_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-330",
+      "dossier_ref": "DOSSIER-HARNESS-HAPPY-1776786598174",
+      "created_at": "2026-04-21T15:49:58.252Z",
+      "indexed_at": "2026-04-21T15:49:58.253Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": "PKT-1776786598234-xi7mtsec",
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false
+    },
+    {
+      "index_entry_id": "IDX-1776786598257-z7wrkdj40",
+      "instance_id": "PKT-1776786598256-lad2iz1h",
+      "artifact_family": "context_engineering_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-340",
+      "dossier_ref": "DOSSIER-HARNESS-HAPPY-1776786598174",
+      "created_at": "2026-04-21T15:49:58.256Z",
+      "indexed_at": "2026-04-21T15:49:58.257Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": "PKT-1776786598234-xi7mtsec",
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false
+    },
+    {
+      "index_entry_id": "IDX-1776786598266-3iqrw1xtr",
+      "instance_id": "PKT-1776786598265-6lm2a6e8",
+      "artifact_family": "topic_candidate_board",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-110",
+      "dossier_ref": "DOSSIER-HARNESS-REJECT-1776786598260",
+      "created_at": "2026-04-21T15:49:58.265Z",
+      "indexed_at": "2026-04-21T15:49:58.266Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "CWF-120",
+      "escalation_needed": false
+    },
+    {
+      "index_entry_id": "IDX-1776786598272-yyu2v8xbz",
+      "instance_id": "PKT-1776786598271-oqv4ylxq",
+      "artifact_family": "topic_finalization_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-120",
+      "dossier_ref": "DOSSIER-HARNESS-REJECT-1776786598260",
+      "created_at": "2026-04-21T15:49:58.271Z",
+      "indexed_at": "2026-04-21T15:49:58.272Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": "PKT-1776786598265-6lm2a6e8",
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "CWF-130",
+      "escalation_needed": false
+    },
+    {
+      "index_entry_id": "IDX-1776786598280-jpq9gvdhx",
+      "instance_id": "PKT-1776786598279-hcj2w61o",
+      "artifact_family": "topic_scorecard",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-130",
+      "dossier_ref": "DOSSIER-HARNESS-REJECT-1776786598260",
+      "created_at": "2026-04-21T15:49:58.279Z",
+      "indexed_at": "2026-04-21T15:49:58.280Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": "PKT-1776786598265-6lm2a6e8",
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false
+    },
+    {
+      "index_entry_id": "IDX-1776786598287-pvi1223ha",
+      "instance_id": "PKT-1776786598287-mfw95w63",
+      "artifact_family": "research_synthesis_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-140",
+      "dossier_ref": "DOSSIER-HARNESS-REJECT-1776786598260",
+      "created_at": "2026-04-21T15:49:58.287Z",
+      "indexed_at": "2026-04-21T15:49:58.287Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": "PKT-1776786598265-6lm2a6e8",
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false
+    },
+    {
+      "index_entry_id": "IDX-1776786598293-s8h3ns9t6",
+      "instance_id": "PKT-1776786598291-kzflu7jh",
+      "artifact_family": "script_draft_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-210",
+      "dossier_ref": "DOSSIER-HARNESS-REJECT-1776786598260",
+      "created_at": "2026-04-21T15:49:58.291Z",
+      "indexed_at": "2026-04-21T15:49:58.293Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": "PKT-1776786598271-oqv4ylxq",
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false
+    },
+    {
+      "index_entry_id": "IDX-1776786598298-i99xh8dun",
+      "instance_id": "PKT-1776786598298-t3mgaynq",
+      "artifact_family": "script_debate_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-220",
+      "dossier_ref": "DOSSIER-HARNESS-REJECT-1776786598260",
+      "created_at": "2026-04-21T15:49:58.298Z",
+      "indexed_at": "2026-04-21T15:49:58.298Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": "PKT-1776786598271-oqv4ylxq",
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false
+    },
+    {
+      "index_entry_id": "IDX-1776786598302-ef9t30gma",
+      "instance_id": "PKT-1776786598302-137p6ki1",
+      "artifact_family": "script_refinement_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-230",
+      "dossier_ref": "DOSSIER-HARNESS-REJECT-1776786598260",
+      "created_at": "2026-04-21T15:49:58.302Z",
+      "indexed_at": "2026-04-21T15:49:58.302Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": "PKT-1776786598271-oqv4ylxq",
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false
+    },
+    {
+      "index_entry_id": "IDX-1776786598306-dki4bxdv4",
+      "instance_id": "PKT-1776786598306-jn76mjss",
+      "artifact_family": "final_script_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-240",
+      "dossier_ref": "DOSSIER-HARNESS-REJECT-1776786598260",
+      "created_at": "2026-04-21T15:49:58.306Z",
+      "indexed_at": "2026-04-21T15:49:58.306Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": "PKT-1776786598271-oqv4ylxq",
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false
+    },
+    {
+      "index_entry_id": "IDX-1776786598314-twjaynq9g",
+      "instance_id": "PKT-1776786598314-2qdfj8qf",
+      "artifact_family": "script_draft_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-210",
+      "dossier_ref": "DOSSIER-HARNESS-REJECT-1776786598260",
+      "created_at": "2026-04-21T15:49:58.314Z",
+      "indexed_at": "2026-04-21T15:49:58.314Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false
+    }
+  ],
+  "last_updated": "2026-04-21T15:49:58.315Z",
+  "total_entries": 21
+}

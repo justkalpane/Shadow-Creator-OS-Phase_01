@@ -1,0 +1,55 @@
+{
+  "entries": [
+    {
+      "queue_entry_id": "APQ-1776786598236-bazjumn1v",
+      "dossier_ref": "DOSSIER-HARNESS-HAPPY-1776786598174",
+      "packet_id": "PKT-1776786598234-xi7mtsec",
+      "artifact_family": "final_script_packet",
+      "approval_type": "SCRIPT_FINAL_APPROVAL",
+      "owner_director": "Krishna",
+      "supporting_directors": [],
+      "decision_options": [
+        "APPROVED",
+        "REJECTED",
+        "REMODIFY"
+      ],
+      "context": {},
+      "status": "RESOLVED",
+      "created_at": "2026-04-21T15:49:58.236Z",
+      "deadline": "2026-04-22T15:49:58.236Z",
+      "resolved_at": "2026-04-21T15:49:58.237Z",
+      "resolution": "APPROVED",
+      "resolved_by": "Krishna",
+      "resolution_context": {
+        "notes": "runtime harness approval"
+      }
+    },
+    {
+      "queue_entry_id": "APQ-1776786598307-zo8m1ifux",
+      "dossier_ref": "DOSSIER-HARNESS-REJECT-1776786598260",
+      "packet_id": "PKT-1776786598306-jn76mjss",
+      "artifact_family": "final_script_packet",
+      "approval_type": "SCRIPT_FINAL_APPROVAL",
+      "owner_director": "Krishna",
+      "supporting_directors": [],
+      "decision_options": [
+        "APPROVED",
+        "REJECTED",
+        "REMODIFY"
+      ],
+      "context": {},
+      "status": "RESOLVED",
+      "created_at": "2026-04-21T15:49:58.307Z",
+      "deadline": "2026-04-22T15:49:58.307Z",
+      "resolved_at": "2026-04-21T15:49:58.310Z",
+      "resolution": "REJECTED",
+      "resolved_by": "Krishna",
+      "resolution_context": {
+        "rejection_reason": "WEAK_HOOK",
+        "notes": "Replay through script generation"
+      }
+    }
+  ],
+  "last_updated": "2026-04-21T15:49:58.310Z",
+  "pending_count": 0
+}
