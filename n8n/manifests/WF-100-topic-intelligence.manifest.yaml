@@ -25,10 +25,9 @@ inputs:
   - orchestration_decision
 output_packet_family:
   - topic_candidate_board
-  - topic_qualification_packet
+  - topic_finalization_packet
   - topic_scorecard
   - research_synthesis_packet
-  - topic_finalization_packet
 outputs:
   - topic_intelligence_result
 reads:

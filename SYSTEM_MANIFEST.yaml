@@ -75,7 +75,7 @@ workflow_packs:
     file: n8n/workflows/topic/CWF-120-topic-qualification.json
     owner_director: Chanakya
     vein: qualification_vein
-    output_packet: topic_qualification_packet
+    output_packet: topic_finalization_packet
 
   - pack_id: CWF-130
     name: topic_scoring

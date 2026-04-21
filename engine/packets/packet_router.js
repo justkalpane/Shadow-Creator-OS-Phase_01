@@ -10,7 +10,7 @@ class PacketRouter {
 
     this.routing_table = {
       topic_candidate_board:      { default_next: 'CWF-120', on_empty: 'CWF-110', on_error: 'WF-900' },
-      topic_qualification_packet: { default_next: 'CWF-130', on_rejected: 'CWF-110', on_error: 'WF-900' },
+      topic_finalization_packet:  { default_next: 'CWF-130', on_rejected: 'CWF-110', on_error: 'WF-900' },
       topic_scorecard:            { default_next: 'CWF-140', on_no_promotion: 'CWF-110', on_error: 'WF-900' },
       research_synthesis_packet:  { default_next: 'WF-200', on_low_confidence: 'CWF-140', on_error: 'WF-900' },
       script_draft_packet:        { default_next: 'CWF-220', on_error: 'WF-900' },

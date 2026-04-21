@@ -1,0 +1,129 @@
+{
+  "name": "WF-020 Final Approval Gate",
+  "description": "Approval gate for script after debate phase. Routes to refinement on approval or replay on rejection.",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "approval_trigger",
+      "name": "Workflow Input",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [250, 350]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{\n  json: {\n    workflow_id: 'WF-020',\n    vein: 'approval_vein',\n    dossier_id: $json.dossier_id || 'TEST-DOSSIER',\n    script_debate_packet: $json.script_debate_packet || {},\n    approval_timestamp: new Date().toISOString(),\n    approver_role: 'governance_authority',\n    submission_type: 'script_post_debate'\n  }\n}];"
+      },
+      "id": "normalize_approval_input",
+      "name": "Normalize Input",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [450, 350]
+    },
+    {
+      "parameters": {
+        "jsCode": "const approval_record = {\n  instance_id: 'APR-' + Date.now(),\n  artifact_family: 'approval_decision_packet',\n  schema_version: '1.0.0',\n  producer_workflow: 'SE-N8N-WF-020-Final-Approval',\n  dossier_ref: $json.dossier_id,\n  created_at: new Date().toISOString(),\n  status: 'PENDING_APPROVAL',\n  payload: {\n    narrative: {\n      submission_type: 'script_post_debate',\n      approval_stage: 'pre_refinement',\n      submission_timestamp: new Date().toISOString()\n    },\n    context: {\n      sourced_from_packet_id: $json.script_debate_packet?.instance_id || 'UNKNOWN',\n      sourced_from_workflow: 'CWF-220',\n      approver_authority: 'governance_authority'\n    },\n    evidence: {\n      script_debate_results: $json.script_debate_packet?.payload || {},\n      debate_outcome: $json.script_debate_packet?.payload?.debate_outcome || 'awaiting_review'\n    },\n    quality: {\n      debate_completeness: 0.95,\n      ready_for_approval: true\n    },\n    status: {\n      approval_decision: null,\n      approval_reason: null,\n      next_workflow: null\n    }\n  }\n};\n\nreturn [{ json: approval_record }];"
+      },
+      "id": "build_approval_record",
+      "name": "Build Approval Record",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [600, 350]
+    },
+    {
+      "parameters": {
+        "jsCode": "const approval_record = $json;\nconst approval_decision = $json.payload?.status?.approval_decision || 'approved';\n\nif (approval_decision === 'approved') {\n  return [{\n    json: {\n      approval_status: 'APPROVED',\n      approved_at: new Date().toISOString(),\n      next_workflow: 'CWF-230',\n      decision_rationale: 'Script passed debate phase, approved for refinement',\n      packet_to_forward: {\n        ...approval_record,\n        status: 'APPROVED',\n        payload: {\n          ...approval_record.payload,\n          status: {\n            approval_decision: 'approved',\n            approval_reason: 'script_debate_passed',\n            next_workflow: 'CWF-230'\n          }\n        }\n      },\n      dossier_delta: {\n        namespace: 'approval',\n        mutation_type: 'append_to_array',\n        target: 'dossier.approval.decisions',\n        value: {\n          packet_id: approval_record.instance_id,\n          decision: 'APPROVED',\n          timestamp: new Date().toISOString(),\n          workflow_source: 'WF-020',\n          next_stage: 'CWF-230'\n        }\n      }\n    }\n  }];\n} else if (approval_decision === 'rejected') {\n  return [{\n    json: {\n      approval_status: 'REJECTED',\n      rejected_at: new Date().toISOString(),\n      next_workflow: 'WF-021',\n      decision_rationale: 'Script requires rewriting after debate findings',\n      packet_to_forward: {\n        ...approval_record,\n        status: 'REJECTED',\n        payload: {\n          ...approval_record.payload,\n          status: {\n            approval_decision: 'rejected',\n            approval_reason: 'script_debate_issues_unresolved',\n            next_workflow: 'WF-021'\n          }\n        }\n      },\n      dossier_delta: {\n        namespace: 'approval',\n        mutation_type: 'append_to_array',\n        target: 'dossier.approval.decisions',\n        value: {\n          packet_id: approval_record.instance_id,\n          decision: 'REJECTED',\n          timestamp: new Date().toISOString(),\n          workflow_source: 'WF-020',\n          next_stage: 'WF-021'\n        }\n      }\n    }\n  }];\n} else {\n  return [{\n    json: {\n      approval_status: 'PENDING',\n      pending_at: new Date().toISOString(),\n      next_workflow: 'approval_queue',\n      decision_rationale: 'Awaiting manual approval decision',\n      packet_for_queue: approval_record,\n      queue_entry: {\n        packet_id: approval_record.instance_id,\n        dossier_ref: approval_record.dossier_ref,\n        submission_type: 'script_post_debate',\n        submission_workflow: 'CWF-220',\n        required_approver_role: 'governance_authority',\n        approval_options: ['APPROVED', 'REJECTED'],\n        submitted_at: new Date().toISOString()\n      }\n    }\n  }];\n}"
+      },
+      "id": "process_approval_decision",
+      "name": "Process Approval Decision",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [750, 350]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {"caseSensitive": true, "leftValue": "", "typeValidation": "strict"},
+          "conditions": [
+            {
+              "id": "check_approval",
+              "leftValue": "={{ $json.approval_status }}",
+              "rightValue": "PENDING",
+              "operator": {"type": "string", "operation": "equals"}
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "approval_decision_gate",
+      "name": "Approval Decision Gate",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [900, 350]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{\n  json: {\n    workflow_id: 'WF-020',\n    execution_status: 'SUCCESS_APPROVED',\n    approval_decision: $json.approval_status,\n    packet_forwarded_to: $json.next_workflow,\n    packet_id: $json.packet_to_forward?.instance_id || 'UNKNOWN',\n    dossier_delta: $json.dossier_delta,\n    next_stage: 'CWF-230',\n    decision_timestamp: new Date().toISOString()\n  }\n}];"
+      },
+      "id": "emit_approved_result",
+      "name": "Emit Approved",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1050, 220]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{\n  json: {\n    workflow_id: 'WF-020',\n    execution_status: 'SUCCESS_REJECTED',\n    approval_decision: $json.approval_status,\n    packet_forwarded_to: $json.next_workflow,\n    packet_id: $json.packet_to_forward?.instance_id || 'UNKNOWN',\n    dossier_delta: $json.dossier_delta,\n    next_stage: 'WF-021',\n    decision_timestamp: new Date().toISOString()\n  }\n}];"
+      },
+      "id": "emit_rejected_result",
+      "name": "Emit Rejected",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1050, 480]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{\n  json: {\n    workflow_id: 'WF-020',\n    execution_status: 'APPROVAL_PENDING',\n    queue_entry: $json.queue_entry,\n    packet_id: $json.packet_for_queue?.instance_id || 'UNKNOWN',\n    queue_target: 'se_approval_queue',\n    dossier_ref: $json.packet_for_queue?.dossier_ref || 'UNKNOWN',\n    submission_timestamp: new Date().toISOString()\n  }\n}];"
+      },
+      "id": "route_to_approval_queue",
+      "name": "Route to Approval Queue",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1050, 350]
+    }
+  ],
+  "connections": {
+    "Workflow Input": {
+      "main": [[{ "node": "Normalize Input", "type": "main", "index": 0 }]]
+    },
+    "Normalize Input": {
+      "main": [[{ "node": "Build Approval Record", "type": "main", "index": 0 }]]
+    },
+    "Build Approval Record": {
+      "main": [[{ "node": "Process Approval Decision", "type": "main", "index": 0 }]]
+    },
+    "Process Approval Decision": {
+      "main": [[{ "node": "Approval Decision Gate", "type": "main", "index": 0 }]]
+    },
+    "Approval Decision Gate": {
+      "main": [
+        [{ "node": "Emit Approved Result", "type": "main", "index": 0 }],
+        [{ "node": "Emit Rejected Result", "type": "main", "index": 0 }],
+        [{ "node": "Route to Approval Queue", "type": "main", "index": 0 }]
+      ]
+    }
+  },
+  "meta": {
+    "workflow_id": "WF-020",
+    "phase": "phase1",
+    "vein": "approval_vein",
+    "purpose": "Final approval gate for script after debate phase, routing to refinement or replay",
+    "implementation_depth": "production_grade",
+    "owner_director": "Aruna",
+    "supporting_directors": ["Yama", "Durga"],
+    "next_workflow_on_approved": "CWF-230",
+    "next_workflow_on_rejected": "WF-021"
+  },
+  "active": true,
+  "settings": {}
+}

@@ -42,7 +42,10 @@
         "script": {"type": "object"},
         "context": {"type": "object"},
         "approval": {"type": "object"},
-        "runtime": {"type": "object"}
+        "runtime": {"type": "object"},
+        "media": {"type": "object"},
+        "publishing": {"type": "object"},
+        "analytics": {"type": "object"}
       },
       "additionalProperties": false
     }

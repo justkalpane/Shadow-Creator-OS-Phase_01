@@ -26,9 +26,9 @@ class PacketValidator {
           status: ['next_workflow']
         }
       },
-      'topic_qualification_packet': {
+      'topic_finalization_packet': {
         sections: ['narrative', 'context', 'evidence', 'quality', 'status'],
-        producer_workflows: ['CWF-120'],
+        producer_workflows: ['CWF-120', 'CWF-130'],
         critical_fields: {
           narrative: ['qualified_candidates', 'rejected_candidates'],
           context: ['sourced_from_packet_id'],

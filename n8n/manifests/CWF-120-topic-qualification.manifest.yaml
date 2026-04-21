@@ -11,7 +11,7 @@ supporting_directors:
 inputs:
   - topic_candidate_board
 output_packet_family:
-  - topic_qualification_packet
+  - topic_finalization_packet
 writes:
   - namespaces.discovery
   - namespaces.approval

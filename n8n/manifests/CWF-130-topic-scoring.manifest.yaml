@@ -9,7 +9,7 @@ supporting_directors:
   - Chanakya
   - Chandra
 inputs:
-  - topic_qualification_packet
+  - topic_finalization_packet
 output_packet_family:
   - topic_scorecard
   - topic_finalization_packet

@@ -42,13 +42,54 @@
     },
     {
       "parameters": {
-        "jsCode": "return [{\n  json: {\n    workflow_id: 'CWF-630',\n    execution_status: 'SUCCESS',\n    analytics_evolution_packet: $json,\n    dossier_delta: {\n      namespace: 'analytics',\n      mutation_type: 'append_to_array',\n      target: 'dossier.analytics.evolution_signals',\n      value: {\n        packet_id: $json.instance_id,\n        signals_synthesized: $json.payload.evidence.evolution_signals,\n        synthesis_confidence: $json.payload.evidence.signal_synthesis_report.overall_confidence,\n        timestamp: new Date().toISOString()\n      },\n      audit_entry: {\n        timestamp: new Date().toISOString(),\n        workflow_id: 'CWF-630',\n        operation: 'SYNTHESIZE_EVOLUTION_SIGNALS',\n        lineage_intact: true,\n        lineage_sources: [\n          $json.performance_analytics_packet?.instance_id,\n          $json.audience_feedback_packet?.instance_id\n        ]\n      }\n    },\n    decision: 'WF-600_COMPLETE_PROCEED_TO_CONTENT_STRATEGY',\n    next_stage: 'content-strategy-update-or-approval'\n  }\n}];"
+        "jsCode": "const packet = $json;\nconst errors = [];\n\nconst required_fields = ['instance_id', 'artifact_family', 'schema_version', 'producer_workflow', 'dossier_ref', 'status', 'payload'];\nrequired_fields.forEach(f => { if (packet[f] === undefined || packet[f] === null) errors.push('missing_field:' + f); });\n\nif (packet.artifact_family && packet.artifact_family !== 'analytics_evolution_packet') {\n  errors.push('wrong_artifact_family:' + packet.artifact_family);\n}\n\nif (packet.payload) {\n  if (!packet.payload.evidence || !packet.payload.evidence.evolution_signals) errors.push('missing_payload.evidence.evolution_signals');\n  if (!packet.payload.evidence || !packet.payload.evidence.signal_synthesis_report) errors.push('missing_payload.evidence.signal_synthesis_report');\n  if (!packet.payload.context || !Array.isArray(packet.payload.context.sourced_from_packets)) errors.push('missing_payload.context.sourced_from_packets');\n  if (!packet.payload.status) errors.push('missing_payload.status');\n}\n\nif (errors.length > 0) {\n  return [{\n    json: {\n      validation_status: 'FAILED',\n      workflow_id: 'CWF-630',\n      packet_id: packet.instance_id || 'UNKNOWN',\n      validation_errors: errors,\n      escalation_target: 'WF-900',\n      escalation_reason: 'evolution_packet_validation_failure',\n      original_packet: packet\n    }\n  }];\n}\n\nreturn [{ json: { ...packet, validation_status: 'PASSED', validated_at: new Date().toISOString() } }];"
+      },
+      "id": "validate_packet",
+      "name": "Validate Packet",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [850, 350]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {"caseSensitive": true, "leftValue": "", "typeValidation": "strict"},
+          "conditions": [
+            {
+              "id": "check_validation",
+              "leftValue": "={{ $json.validation_status }}",
+              "rightValue": "FAILED",
+              "operator": {"type": "string", "operation": "equals"}
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "validation_gate",
+      "name": "Validation Gate",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [950, 350]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{\n  json: {\n    workflow_id: 'CWF-630',\n    error_type: 'packet_validation_failure',\n    escalation_target: 'WF-900',\n    escalation_authority: 'Chandra',\n    supporting_authority: 'Chitragupta',\n    validation_errors: $json.validation_errors || [],\n    packet_snapshot: $json.original_packet || {},\n    escalated_at: new Date().toISOString()\n  }\n}];"
+      },
+      "id": "route_to_error_handler",
+      "name": "Route to WF-900",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1050, 220]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{\n  json: {\n    workflow_id: 'CWF-630',\n    execution_status: 'SUCCESS',\n    analytics_evolution_packet: $json,\n    dossier_delta: {\n      namespace: 'analytics',\n      mutation_type: 'append_to_array',\n      target: 'dossier.analytics.evolution_signals',\n      value: {\n        packet_id: $json.instance_id,\n        signals_synthesized: $json.payload.evidence.evolution_signals,\n        synthesis_confidence: $json.payload.evidence.signal_synthesis_report.overall_confidence,\n        timestamp: new Date().toISOString()\n      },\n      audit_entry: {\n        timestamp: new Date().toISOString(),\n        workflow_id: 'CWF-630',\n        operation: 'SYNTHESIZE_EVOLUTION_SIGNALS',\n        lineage_intact: true,\n        lineage_sources: $json.payload.context.sourced_from_packets\n      }\n    },\n    decision: 'WF-600_COMPLETE_PROCEED_TO_CONTENT_STRATEGY',\n    next_stage: 'content-strategy-update-or-approval'\n  }\n}];"
       },
       "id": "emit_result",
       "name": "Emit Result",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [900, 350]
+      "position": [1050, 450]
     }
   ],
   "connections": {
@@ -62,7 +103,16 @@
       "main": [[{ "node": "Build Packet", "type": "main", "index": 0 }]]
     },
     "Build Packet": {
-      "main": [[{ "node": "Emit Result", "type": "main", "index": 0 }]]
+      "main": [[{ "node": "Validate Packet", "type": "main", "index": 0 }]]
+    },
+    "Validate Packet": {
+      "main": [[{ "node": "Validation Gate", "type": "main", "index": 0 }]]
+    },
+    "Validation Gate": {
+      "main": [
+        [{ "node": "Route to WF-900", "type": "main", "index": 0 }],
+        [{ "node": "Emit Result", "type": "main", "index": 0 }]
+      ]
     }
   },
   "meta": {

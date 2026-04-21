@@ -52,13 +52,54 @@
     },
     {
       "parameters": {
+        "jsCode": "const packet = $json;\nconst errors = [];\n\nconst required_fields = ['instance_id', 'artifact_family', 'schema_version', 'producer_workflow', 'dossier_ref', 'created_at', 'status', 'payload'];\nrequired_fields.forEach(f => { if (packet[f] === undefined || packet[f] === null) errors.push('missing_field:' + f); });\n\nif (packet.artifact_family && packet.artifact_family !== 'topic_finalization_packet') {\n  errors.push('wrong_artifact_family:' + packet.artifact_family);\n}\n\nif (packet.payload) {\n  if (packet.payload.ready_for_research_synthesis === undefined) errors.push('missing_payload_field:ready_for_research_synthesis');\n  if (packet.payload.ready_for_research_synthesis === true && !packet.payload.finalized_topic) {\n    errors.push('ready_flag_true_but_no_topic');\n  }\n}\n\nconst allowed_status = ['CREATED', 'NEEDS_RESEARCH_EXPANSION', 'EMPTY'];\nif (packet.status && !allowed_status.includes(packet.status)) {\n  errors.push('invalid_status:' + packet.status);\n}\n\nif (errors.length > 0) {\n  return [{\n    json: {\n      validation_status: 'FAILED',\n      workflow_id: 'CWF-130',\n      packet_id: packet.instance_id || 'UNKNOWN',\n      validation_errors: errors,\n      escalation_target: 'WF-900',\n      escalation_reason: 'packet_schema_validation_failure',\n      original_packet: packet\n    }\n  }];\n}\n\nreturn [{\n  json: {\n    ...packet,\n    validation_status: 'PASSED',\n    validated_at: new Date().toISOString(),\n    validated_against: 'topic_finalization_packet.schema.json'\n  }\n}];"
+      },
+      "id": "validate_finalization_packet",
+      "name": "Validate Finalization Packet",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1150, 350]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {"caseSensitive": true, "leftValue": "", "typeValidation": "strict"},
+          "conditions": [
+            {
+              "id": "check_validation",
+              "leftValue": "={{ $json.validation_status }}",
+              "rightValue": "FAILED",
+              "operator": {"type": "string", "operation": "equals"}
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "validation_gate",
+      "name": "Validation Gate",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [1300, 350]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{\n  json: {\n    workflow_id: 'CWF-130',\n    error_type: 'packet_validation_failure',\n    error_source: 'CWF-130-topic-scoring',\n    escalation_target: 'WF-900',\n    escalation_authority: 'Krishna',\n    escalation_path: 'Krishna → Durga → Aruna → WF-900',\n    validation_errors: $json.validation_errors || [],\n    packet_snapshot: $json.original_packet || {},\n    escalated_at: new Date().toISOString()\n  }\n}];"
+      },
+      "id": "route_to_error_handler",
+      "name": "Route to WF-900",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1450, 220]
+    },
+    {
+      "parameters": {
         "jsCode": "return [{\n  json: {\n    workflow_id: 'CWF-130',\n    execution_status: 'SUCCESS',\n    next_workflow: 'CWF-140',\n    scorecard: $json,\n    decision: $json.payload.ready_for_research_synthesis ? 'PROCEED_TO_RESEARCH_SYNTHESIS' : 'RETURN_TO_DISCOVERY'\n  }\n}];"
       },
       "id": "emit_scoring_result",
       "name": "Emit Scoring Result",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1250, 350]
+      "position": [1450, 450]
     }
   ],
   "connections": {
@@ -75,7 +116,16 @@
       "main": [[{ "node": "Build Finalization Packet", "type": "main", "index": 0 }]]
     },
     "Build Finalization Packet": {
-      "main": [[{ "node": "Emit Scoring Result", "type": "main", "index": 0 }]]
+      "main": [[{ "node": "Validate Finalization Packet", "type": "main", "index": 0 }]]
+    },
+    "Validate Finalization Packet": {
+      "main": [[{ "node": "Validation Gate", "type": "main", "index": 0 }]]
+    },
+    "Validation Gate": {
+      "main": [
+        [{ "node": "Route to WF-900", "type": "main", "index": 0 }],
+        [{ "node": "Emit Scoring Result", "type": "main", "index": 0 }]
+      ]
     }
   },
   "meta": {
