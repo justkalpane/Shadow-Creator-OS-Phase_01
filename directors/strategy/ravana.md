@@ -210,3 +210,37 @@ Ravana is an enhancement (alternative strategy provider). System works without R
 - **Status**: SPECIFICATION COMPLETE
 - **Testing Priority**: MEDIUM (enhancement, not critical)
 
+---
+
+## 14. WORKFLOW_INTEGRATION_MATRIX
+| Workflow | Role | Gate Type | Output |
+|---|---|---|---|
+| WF-010 | Alternative strategy challenge stage | advisory | alternative_strategies |
+| WF-020 | Final decision conflict input | advisory | conflict_position_packet |
+| WF-021 | Replay/remodify challenge review | advisory | revised_challenge_notes |
+| WF-900 | Escalation sink for unresolved strategic risk | blocking escalation | risk_escalation_packet |
+
+---
+
+## 15. MUTATION_LAW
+- Writes are append-only for `alternative_strategies`, `risk_escalations`, and `conflict_log`
+- Cannot mutate Chanakya-owned strategy namespaces
+- Every disagreement record must include both sides and arbitration context
+- No deletion of prior challenge artifacts
+
+---
+
+## 16. ESCALATION_PROTOCOL
+- Challenge score `>= 70`: escalate to Krishna immediately
+- Deadlock with Chanakya beyond SLA: auto-route to Krishna arbitration
+- Hidden risk flagged as severe: escalate through WF-900 path
+- If escalation rejected, return non-blocking advisory with rationale
+
+---
+
+## 17. ACCEPTANCE_CRITERIA
+- Alternative strategy packets are traceable and replay-safe
+- Risk escalations include mitigation and confidence fields
+- Conflict logs remain immutable once written
+- Arbitration trigger conditions are deterministic and testable
+

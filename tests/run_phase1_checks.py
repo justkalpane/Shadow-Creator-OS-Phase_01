@@ -9,6 +9,10 @@ scripts = [
     ROOT / 'validate_registries.py',
     ROOT / 'validate_manifests.py',
     ROOT / 'validate_workflows.py',
+    ROOT / 'validate_agents.py',
+    ROOT / 'validate_sub_agent_integrations.py',
+    ROOT / 'validate_sub_skill_integrations.py',
+    ROOT / 'validate_workflow_payload_contracts.py',
 ]
 
 for script in scripts:

@@ -96,3 +96,37 @@ Durga is safety enhancement. System works without, but better with protection la
 - **Created**: 2026-04-21
 - **Status**: SPECIFICATION COMPLETE
 
+---
+
+## 13. WORKFLOW_INTEGRATION_MATRIX
+| Workflow | Role | Gate Type | Output |
+|---|---|---|---|
+| WF-010 | Strategic orchestration safety review | advisory | safety_verdict |
+| WF-020 | Final approval safety check | blocking on severe risk | veto_or_approve |
+| WF-021 | Replay/remodify safety check | advisory | safety_remediation_notes |
+| WF-900 | Escalation sink for critical safety events | blocking escalation | safety_incident_packet |
+
+---
+
+## 14. MUTATION_LAW
+- Patch-only writes to `safety_verdict`, `boundary_violations`, `protection_log`
+- No overwrite of historical safety evidence
+- Every decision write includes timestamp + rationale + confidence
+- Cross-namespace writes are forbidden without Krishna governance approval
+
+---
+
+## 15. ESCALATION_PROTOCOL
+- Safety score `< 40`: immediate escalation to WF-900
+- Safety score `40-60`: route to creator HITL checkpoint
+- Repeated high-risk events (3+ in window): escalate to Brahma governance review
+- Unresolved creator dispute: escalate to Krishna arbitration channel
+
+---
+
+## 16. ACCEPTANCE_CRITERIA
+- Safety decisions are logged with reproducible reasoning
+- Veto flow reaches correct workflow target based on severity
+- No direct overwrite in protected safety namespaces
+- Replay path (WF-021) receives remediation-safe instructions
+

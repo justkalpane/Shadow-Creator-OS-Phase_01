@@ -1,0 +1,258 @@
+﻿version: 1
+subskills:
+  - subskill_id: SS-001
+    name: context_packet_sanitizer
+    spec_file: skills/sub_skills/SS-001-context-packet-sanitizer.subskill.md
+    runtime_file: skills/sub_skills/SS-001-context-packet-sanitizer.py
+    consumer_workflows:
+      - WF-300
+      - CWF-310
+      - CWF-320
+  - subskill_id: SS-101
+    name: elevenlabs_voice_generation_optimizer
+    spec_file: skills/sub_skills/SS-101-elevenlabs-voice-generation-optimizer.subskill.md
+    runtime_file: skills/sub_skills/SS-101-elevenlabs-voice-generation-optimizer.py
+    consumer_workflows:
+      - WF-400
+      - CWF-430
+      - WF-500
+  - subskill_id: SS-102
+    name: heygen_avatar_render_orchestrator
+    spec_file: skills/sub_skills/SS-102-heygen-avatar-render-orchestrator.subskill.md
+    runtime_file: skills/sub_skills/SS-102-heygen-avatar-render-orchestrator.py
+    consumer_workflows:
+      - WF-400
+      - CWF-430
+      - WF-500
+  - subskill_id: SS-103
+    name: nanobanana_visual_generation_optimizer
+    spec_file: skills/sub_skills/SS-103-nanobanana-visual-generation-optimizer.subskill.md
+    runtime_file: skills/sub_skills/SS-103-nanobanana-visual-generation-optimizer.py
+    consumer_workflows:
+      - WF-400
+      - CWF-430
+      - WF-500
+  - subskill_id: SS-104
+    name: sora_video_generation_orchestrator
+    spec_file: skills/sub_skills/SS-104-sora-video-generation-orchestrator.subskill.md
+    runtime_file: skills/sub_skills/SS-104-sora-video-generation-orchestrator.py
+    consumer_workflows:
+      - WF-400
+      - CWF-430
+      - WF-500
+  - subskill_id: SS-105
+    name: higgsfield_cinematic_motion_director
+    spec_file: skills/sub_skills/SS-105-higgsfield-cinematic-motion-director.subskill.md
+    runtime_file: skills/sub_skills/SS-105-higgsfield-cinematic-motion-director.py
+    consumer_workflows:
+      - WF-400
+      - CWF-430
+      - WF-500
+  - subskill_id: SS-106
+    name: kling_video_prompt_optimizer
+    spec_file: skills/sub_skills/SS-106-kling-video-prompt-optimizer.subskill.md
+    runtime_file: skills/sub_skills/SS-106-kling-video-prompt-optimizer.py
+    consumer_workflows:
+      - WF-400
+      - CWF-430
+      - WF-500
+  - subskill_id: SS-107
+    name: suno_music_generation_optimizer
+    spec_file: skills/sub_skills/SS-107-suno-music-generation-optimizer.subskill.md
+    runtime_file: skills/sub_skills/SS-107-suno-music-generation-optimizer.py
+    consumer_workflows:
+      - WF-400
+      - CWF-430
+      - WF-500
+  - subskill_id: SS-108
+    name: youtube_publish_oauth_guard
+    spec_file: skills/sub_skills/SS-108-youtube-publish-oauth-guard.subskill.md
+    runtime_file: skills/sub_skills/SS-108-youtube-publish-oauth-guard.py
+    consumer_workflows:
+      - WF-500
+      - CWF-510
+      - CWF-530
+  - subskill_id: SS-109
+    name: youtube_analytics_ingestion_governor
+    spec_file: skills/sub_skills/SS-109-youtube-analytics-ingestion-governor.subskill.md
+    runtime_file: skills/sub_skills/SS-109-youtube-analytics-ingestion-governor.py
+    consumer_workflows:
+      - WF-600
+      - CWF-610
+      - CWF-620
+  - subskill_id: SS-110
+    name: openrouter_llm_route_governor
+    spec_file: skills/sub_skills/SS-110-openrouter-llm-route-governor.subskill.md
+    runtime_file: skills/sub_skills/SS-110-openrouter-llm-route-governor.py
+    consumer_workflows:
+      - WF-010
+      - WF-100
+      - WF-200
+  - subskill_id: SS-111
+    name: ollama_local_inference_optimizer
+    spec_file: skills/sub_skills/SS-111-ollama-local-inference-optimizer.subskill.md
+    runtime_file: skills/sub_skills/SS-111-ollama-local-inference-optimizer.py
+    consumer_workflows:
+      - WF-010
+      - WF-100
+      - WF-200
+  - subskill_id: SS-112
+    name: ffmpeg_render_assembly_guard
+    spec_file: skills/sub_skills/SS-112-ffmpeg-render-assembly-guard.subskill.md
+    runtime_file: skills/sub_skills/SS-112-ffmpeg-render-assembly-guard.py
+    consumer_workflows:
+      - WF-400
+      - CWF-440
+      - WF-500
+  - subskill_id: SS-113
+    name: wav2lip_lipsync_quality_guard
+    spec_file: skills/sub_skills/SS-113-wav2lip-lipsync-quality-guard.subskill.md
+    runtime_file: skills/sub_skills/SS-113-wav2lip-lipsync-quality-guard.py
+    consumer_workflows:
+      - WF-400
+      - CWF-430
+      - CWF-440
+  - subskill_id: SS-114
+    name: yt_dlp_ingestion_compliance_guard
+    spec_file: skills/sub_skills/SS-114-yt-dlp-ingestion-compliance-guard.subskill.md
+    runtime_file: skills/sub_skills/SS-114-yt-dlp-ingestion-compliance-guard.py
+    consumer_workflows:
+      - WF-100
+      - CWF-140
+      - WF-600
+  - subskill_id: SS-115
+    name: gemini_multimodal_research_optimizer
+    spec_file: skills/sub_skills/SS-115-gemini-multimodal-research-optimizer.subskill.md
+    runtime_file: skills/sub_skills/SS-115-gemini-multimodal-research-optimizer.py
+    consumer_workflows:
+      - WF-100
+      - CWF-110
+      - CWF-140
+  - subskill_id: SS-220
+    name: deep_research_agent
+    spec_file: skills/sub_skills/SS-220-deep-research-agent.subskill.md
+    runtime_file: skills/sub_skills/SS-220-deep-research-agent.py
+    consumer_workflows:
+      - WF-100
+      - CWF-110
+      - CWF-140
+  - subskill_id: SS-221
+    name: source_credibility_evaluator
+    spec_file: skills/sub_skills/SS-221-source-credibility-evaluator.subskill.md
+    runtime_file: skills/sub_skills/SS-221-source-credibility-evaluator.py
+    consumer_workflows:
+      - WF-100
+      - CWF-110
+      - CWF-140
+  - subskill_id: SS-222
+    name: fact_verification_engine
+    spec_file: skills/sub_skills/SS-222-fact-verification-engine.subskill.md
+    runtime_file: skills/sub_skills/SS-222-fact-verification-engine.py
+    consumer_workflows:
+      - WF-100
+      - CWF-110
+      - CWF-140
+  - subskill_id: SS-223
+    name: knowledge_synthesizer
+    spec_file: skills/sub_skills/SS-223-knowledge-synthesizer.subskill.md
+    runtime_file: skills/sub_skills/SS-223-knowledge-synthesizer.py
+    consumer_workflows:
+      - WF-100
+      - CWF-110
+      - CWF-140
+  - subskill_id: SS-224
+    name: contradiction_detector
+    spec_file: skills/sub_skills/SS-224-contradiction-detector.subskill.md
+    runtime_file: skills/sub_skills/SS-224-contradiction-detector.py
+    consumer_workflows:
+      - WF-100
+      - CWF-110
+      - CWF-140
+  - subskill_id: SS-230
+    name: content_angle_generator
+    spec_file: skills/sub_skills/SS-230-content-angle-generator.subskill.md
+    runtime_file: skills/sub_skills/SS-230-content-angle-generator.py
+    consumer_workflows:
+      - WF-200
+      - CWF-210
+      - CWF-230
+  - subskill_id: SS-231
+    name: unique_value_proposition_builder
+    spec_file: skills/sub_skills/SS-231-unique-value-proposition-builder.subskill.md
+    runtime_file: skills/sub_skills/SS-231-unique-value-proposition-builder.py
+    consumer_workflows:
+      - WF-200
+      - CWF-210
+      - CWF-230
+  - subskill_id: SS-232
+    name: series_strategy_planner
+    spec_file: skills/sub_skills/SS-232-series-strategy-planner.subskill.md
+    runtime_file: skills/sub_skills/SS-232-series-strategy-planner.py
+    consumer_workflows:
+      - WF-200
+      - CWF-210
+      - CWF-230
+  - subskill_id: SS-233
+    name: content_calendar_generator
+    spec_file: skills/sub_skills/SS-233-content-calendar-generator.subskill.md
+    runtime_file: skills/sub_skills/SS-233-content-calendar-generator.py
+    consumer_workflows:
+      - WF-200
+      - CWF-210
+      - CWF-230
+  - subskill_id: SS-234
+    name: platform_strategy_mapper
+    spec_file: skills/sub_skills/SS-234-platform-strategy-mapper.subskill.md
+    runtime_file: skills/sub_skills/SS-234-platform-strategy-mapper.py
+    consumer_workflows:
+      - WF-200
+      - CWF-210
+      - CWF-230
+  - subskill_id: SS-240
+    name: hook_variation_generator
+    spec_file: skills/sub_skills/SS-240-hook-variation-generator.subskill.md
+    runtime_file: skills/sub_skills/SS-240-hook-variation-generator.py
+    consumer_workflows:
+      - WF-200
+      - CWF-220
+      - CWF-240
+  - subskill_id: SS-241
+    name: open_loop_generator
+    spec_file: skills/sub_skills/SS-241-open-loop-generator.subskill.md
+    runtime_file: skills/sub_skills/SS-241-open-loop-generator.py
+    consumer_workflows:
+      - WF-200
+      - CWF-220
+      - CWF-240
+  - subskill_id: SS-242
+    name: story_tension_builder
+    spec_file: skills/sub_skills/SS-242-story-tension-builder.subskill.md
+    runtime_file: skills/sub_skills/SS-242-story-tension-builder.py
+    consumer_workflows:
+      - WF-200
+      - CWF-220
+      - CWF-240
+  - subskill_id: SS-243
+    name: pacing_controller
+    spec_file: skills/sub_skills/SS-243-pacing-controller.subskill.md
+    runtime_file: skills/sub_skills/SS-243-pacing-controller.py
+    consumer_workflows:
+      - WF-200
+      - CWF-220
+      - CWF-240
+  - subskill_id: SS-244
+    name: retention_loop_engine
+    spec_file: skills/sub_skills/SS-244-retention-loop-engine.subskill.md
+    runtime_file: skills/sub_skills/SS-244-retention-loop-engine.py
+    consumer_workflows:
+      - WF-200
+      - CWF-220
+      - CWF-240
+  - subskill_id: SS-245
+    name: cliffhanger_designer
+    spec_file: skills/sub_skills/SS-245-cliffhanger-designer.subskill.md
+    runtime_file: skills/sub_skills/SS-245-cliffhanger-designer.py
+    consumer_workflows:
+      - WF-200
+      - CWF-220
+      - CWF-240
