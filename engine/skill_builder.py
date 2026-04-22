@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 """
 skill_builder.py
 
@@ -78,3 +79,43 @@ if __name__ == "__main__":
     output = generate()
     for item in output:
         print(item)
+=======
+from __future__ import annotations
+
+import json
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+SKILLS_DIR = ROOT / "skills"
+
+STUB = '''def run(input_payload):
+    return {
+        "status": "success",
+        "output": "Executed {skill_id}",
+        "input": input_payload
+    }
+'''
+
+
+def _skill_id_from_path(path: Path) -> str:
+    category = path.parent.name
+    stem = path.stem.replace(".skill", "")
+    return f"{category}.{stem}".lower().replace("-", "_")
+
+
+def build() -> list[dict[str, str]]:
+    report: list[dict[str, str]] = []
+    for md_path in sorted(SKILLS_DIR.rglob("*.md")):
+        py_path = md_path.with_suffix(".py")
+        skill_id = _skill_id_from_path(md_path)
+        if py_path.exists():
+            report.append({"skill": skill_id, "status": "SKIPPED"})
+            continue
+        py_path.write_text(STUB.format(skill_id=skill_id), encoding="utf-8")
+        report.append({"skill": skill_id, "status": "CREATED"})
+    return report
+
+
+if __name__ == "__main__":
+    print(json.dumps(build(), indent=2))
+>>>>>>> e07941e (sync: local changes before pull)

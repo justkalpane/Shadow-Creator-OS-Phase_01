@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 """
 Runtime Router
 Routes skill_id -> loads skill -> validates -> executes via execution_contract
@@ -63,3 +64,55 @@ if __name__ == "__main__":
     # Example call
     # response = router.route("voice.generate", {"text": "Hello"})
     # print(response)
+=======
+from __future__ import annotations
+
+import importlib.util
+import time
+from pathlib import Path
+from typing import Any
+
+from engine.execution_contract import ExecutionContract
+
+
+class RuntimeRouter:
+    def __init__(self, registry: dict[str, dict[str, str]]) -> None:
+        self.registry = registry
+        self.contract = ExecutionContract()
+
+    def _load_callable(self, module_path: str, entrypoint: str):
+        path = Path(module_path)
+        if not path.exists():
+            raise FileNotFoundError(f"Skill module not found: {module_path}")
+
+        safe_name = "skill_" + path.stem.replace("-", "_").replace(".", "_")
+        spec = importlib.util.spec_from_file_location(safe_name, path)
+        if spec is None or spec.loader is None:
+            raise RuntimeError(f"Unable to load module: {module_path}")
+
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        if not hasattr(module, entrypoint):
+            raise AttributeError(f"Entrypoint '{entrypoint}' not found in {module_path}")
+        return getattr(module, entrypoint)
+
+    def route(self, skill_id: str, payload: dict[str, Any]) -> dict[str, Any]:
+        started = time.perf_counter()
+        if skill_id not in self.registry:
+            return {
+                "status": "failed",
+                "error": f"Unknown skill_id: {skill_id}",
+                "result": None,
+                "routing": {"skill_id": skill_id, "resolved_to": None, "latency": 0.0},
+            }
+
+        target = self.registry[skill_id]
+        callable_fn = self._load_callable(target["module_path"], target.get("entrypoint", "run"))
+        outcome = self.contract.execute(callable_fn, payload)
+        outcome["routing"] = {
+            "skill_id": skill_id,
+            "resolved_to": f"{target['module_path']}:{target.get('entrypoint', 'run')}",
+            "latency": round(time.perf_counter() - started, 6),
+        }
+        return outcome
+>>>>>>> e07941e (sync: local changes before pull)

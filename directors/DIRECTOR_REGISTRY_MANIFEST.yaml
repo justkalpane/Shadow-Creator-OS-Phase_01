@@ -37,7 +37,7 @@ directors:
     role: Autonomous Intelligence Loop | Creative Destruction
     file: "directors/supreme_vision/shiva.md"
     status: COMPLETE
-    spec_sections: 13 (condensed)
+    spec_sections: 17 (full)
     skill_bindings: 9
     release_blocking: TRUE
 
@@ -89,7 +89,7 @@ directors:
     role: Alternative Strategy | Conflict Manager
     file: "directors/DIRECTORS_05_TO_30_COMPLETE_SPECS.md#ravana"
     status: COMPLETE
-    spec_sections: 8 (structured)
+    spec_sections: 16 (full)
     skill_bindings: 6
     release_blocking: FALSE
 
@@ -99,7 +99,7 @@ directors:
     role: Protection | Veto Logic | Safety Enforcement
     file: "directors/DIRECTORS_05_TO_30_COMPLETE_SPECS.md#durga"
     status: COMPLETE
-    spec_sections: 8 (structured)
+    spec_sections: 16 (full)
     skill_bindings: 5
     release_blocking: FALSE
 
@@ -109,7 +109,7 @@ directors:
     role: Dharma/Governance Validation
     file: "directors/DIRECTORS_05_TO_30_COMPLETE_SPECS.md#yudhishthira"
     status: COMPLETE
-    spec_sections: 7 (structured)
+    spec_sections: 16 (full)
     skill_bindings: 4
     release_blocking: FALSE
 
@@ -243,9 +243,9 @@ directors:
     name: Garuda
     council: Cinematic
     role: Distribution Velocity | Rapid Publishing
-    file: "directors/DIRECTORS_05_TO_30_COMPLETE_SPECS.md#garuda"
+    file: "directors/cinematic/garuda.md"
     status: COMPLETE
-    spec_sections: 7 (structured)
+    spec_sections: 16 (full)
     skill_bindings: 7
     release_blocking: FALSE
 
@@ -253,9 +253,9 @@ directors:
     name: Varuna
     council: Cinematic
     role: Flow | Liquid Narrative | Adaptability
-    file: "directors/DIRECTORS_05_TO_30_COMPLETE_SPECS.md#varuna"
+    file: "directors/cinematic/varuna.md"
     status: COMPLETE
-    spec_sections: 7 (structured)
+    spec_sections: 16 (full)
     skill_bindings: 8
     release_blocking: FALSE
 
@@ -263,9 +263,9 @@ directors:
     name: Indra
     council: Cinematic
     role: Premium Tier | High-Value Production
-    file: "directors/DIRECTORS_05_TO_30_COMPLETE_SPECS.md#indra"
+    file: "directors/cinematic/indra.md"
     status: COMPLETE
-    spec_sections: 7 (structured)
+    spec_sections: 16 (full)
     skill_bindings: 7
     release_blocking: FALSE
 

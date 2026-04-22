@@ -1,0 +1,50 @@
+{
+  "name": "WF-600 Analytics Evolution",
+  "description": "Parent pack orchestrator for analytics child workflows CWF-610..CWF-630.",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "wf600_trigger",
+      "name": "Workflow Input",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [220, 280]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ json: { workflow_id: 'WF-600', child_order: ['CWF-610','CWF-620','CWF-630'], packet_in: $json.publish_ready_packet || null, status: 'child_chain_ready', timestamp: new Date().toISOString() } }];"
+      },
+      "id": "wf600_plan",
+      "name": "Plan Child Chain",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [470, 280]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ json: { workflow_id: 'WF-600', output_packet_family: 'analytics_evolution_packet', status: 'analytics_cycle_complete', details: $json } }];"
+      },
+      "id": "wf600_emit",
+      "name": "Emit Parent Result",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [730, 280]
+    }
+  ],
+  "connections": {
+    "Workflow Input": {
+      "main": [[{ "node": "Plan Child Chain", "type": "main", "index": 0 }]]
+    },
+    "Plan Child Chain": {
+      "main": [[{ "node": "Emit Parent Result", "type": "main", "index": 0 }]]
+    }
+  },
+  "meta": {
+    "workflow_id": "WF-600",
+    "phase": "phase1",
+    "pack": "analytics_evolution",
+    "implementation_depth": "starter_orchestrator"
+  },
+  "active": false,
+  "settings": {}
+}

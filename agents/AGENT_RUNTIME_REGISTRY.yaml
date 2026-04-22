@@ -1,0 +1,33 @@
+﻿version: 1
+model: flat_narada_pattern
+agents:
+  - file: agents/agastya/agastya_agent.py
+  - file: agents/agni/agni_agent.py
+  - file: agents/arjuna/arjuna_agent.py
+  - file: agents/aruna/aruna_agent.py
+  - file: agents/brahma/brahma_agent.py
+  - file: agents/chanakya/chanakya_agent.py
+  - file: agents/durga/durga_agent.py
+  - file: agents/ganesha/ganesha_agent.py
+  - file: agents/garuda/garuda_agent.py
+  - file: agents/hanuman/hanuman_agent.py
+  - file: agents/indra/indra_agent.py
+  - file: agents/kama/kama_agent.py
+  - file: agents/krishna/krishna_agent.py
+  - file: agents/kubera/kubera_agent.py
+  - file: agents/maya/maya_agent.py
+  - file: agents/narada/narada_agent.py
+  - file: agents/nataraja/nataraja_agent.py
+  - file: agents/parashara/parashara_agent.py
+  - file: agents/ravana/ravana_agent.py
+  - file: agents/saraswati/saraswati_agent.py
+  - file: agents/shakti/shakti_agent.py
+  - file: agents/shiva/shiva_agent.py
+  - file: agents/tumburu/tumburu_agent.py
+  - file: agents/valmiki/valmiki_agent.py
+  - file: agents/varuna/varuna_agent.py
+  - file: agents/vishnu/vishnu_agent.py
+  - file: agents/vishwakarma/vishwakarma_agent.py
+  - file: agents/vyasa/vyasa_agent.py
+  - file: agents/yama/yama_agent.py
+  - file: agents/yudhishthira/yudhishthira_agent.py

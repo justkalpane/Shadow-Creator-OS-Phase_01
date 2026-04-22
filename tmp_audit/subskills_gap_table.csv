@@ -1,0 +1,2 @@
+"Name/Label","Build Status","Gaps/Issues","Action Required"
+"Data not available","Not Yet Built","No dedicated module files detected in repository scope; only textual mentions.","Define registry + file estate + runtime contracts and bind into n8n routes."

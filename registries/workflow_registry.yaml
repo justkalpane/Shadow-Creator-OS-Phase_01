@@ -56,7 +56,7 @@ workflows:
     artifact_status: repo_present
     runtime_status: not_built_live
     validation_status: repo_checks_present
-    source_file: n8n/workflows/parent/WF-100-topic-intelligence.json
+    source_file: n8n/workflows/topic/WF-100-topic-intelligence.json
     manifest_file: n8n/manifests/WF-100-topic-intelligence.manifest.yaml
 
   - workflow_id: WF-200
@@ -65,5 +65,77 @@ workflows:
     artifact_status: repo_present
     runtime_status: not_built_live
     validation_status: repo_checks_present
-    source_file: n8n/workflows/parent/WF-200-script-intelligence.json
+    source_file: n8n/workflows/script/WF-200-script-intelligence.json
     manifest_file: n8n/manifests/WF-200-script-intelligence.manifest.yaml
+
+  - workflow_id: WF-020
+    name: final_approval
+    class: governance
+    artifact_status: starter_wired
+    runtime_status: not_built_live
+    validation_status: repo_checks_present
+    source_file: n8n/workflows/approval/WF-020-final-approval.json
+    manifest_file: n8n/manifests/WF-020-final-approval.manifest.yaml
+
+  - workflow_id: WF-021
+    name: replay_remodify
+    class: governance
+    artifact_status: starter_wired
+    runtime_status: not_built_live
+    validation_status: repo_checks_present
+    source_file: n8n/workflows/approval/WF-021-replay-remodify.json
+    manifest_file: n8n/manifests/WF-021-replay-remodify.manifest.yaml
+
+  - workflow_id: WF-022
+    name: provider_packet_bridge
+    class: system_bridge
+    artifact_status: starter_wired
+    runtime_status: not_built_live
+    validation_status: repo_checks_present
+    source_file: n8n/workflows/system/WF-022-provider-packet-bridge.json
+    manifest_file: n8n/manifests/WF-022-provider-packet-bridge.manifest.yaml
+
+  - workflow_id: WF-023
+    name: downstream_resource_preparation
+    class: planning
+    artifact_status: starter_wired
+    runtime_status: not_built_live
+    validation_status: repo_checks_present
+    source_file: n8n/workflows/system/WF-023-downstream-resource-prep.json
+    manifest_file: n8n/manifests/WF-023-downstream-resource-prep.manifest.yaml
+
+  - workflow_id: WF-300
+    name: context_engineering_pack
+    class: parent_pack
+    artifact_status: repo_present
+    runtime_status: not_built_live
+    validation_status: repo_checks_present
+    source_file: n8n/workflows/context/WF-300-context-engineering.json
+    manifest_file: n8n/manifests/WF-300-context-engineering.manifest.yaml
+
+  - workflow_id: WF-400
+    name: media_production_pack
+    class: parent_pack
+    artifact_status: repo_present
+    runtime_status: not_built_live
+    validation_status: repo_checks_present
+    source_file: n8n/workflows/media/WF-400-media-production.json
+    manifest_file: n8n/manifests/WF-400-media-production.manifest.yaml
+
+  - workflow_id: WF-500
+    name: publishing_distribution_pack
+    class: parent_pack
+    artifact_status: repo_present
+    runtime_status: not_built_live
+    validation_status: repo_checks_present
+    source_file: n8n/workflows/publishing/WF-500-publishing-distribution.json
+    manifest_file: n8n/manifests/WF-500-publishing-distribution.manifest.yaml
+
+  - workflow_id: WF-600
+    name: analytics_evolution_pack
+    class: parent_pack
+    artifact_status: repo_present
+    runtime_status: not_built_live
+    validation_status: repo_checks_present
+    source_file: n8n/workflows/analytics/WF-600-analytics-evolution.json
+    manifest_file: n8n/manifests/WF-600-analytics-evolution.manifest.yaml

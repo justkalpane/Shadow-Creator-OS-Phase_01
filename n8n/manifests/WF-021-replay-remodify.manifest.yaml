@@ -1,0 +1,47 @@
+workflow_id: WF-021
+name: wf021_replay_remodify
+class: governance
+entry_mode: event_selected
+purpose: route rejected artifacts to the correct prior stage with replay-safe mutation instructions
+owner: shadow_empire_phase1
+primary_director: Yama
+supporting_directors:
+  - Krishna
+  - Vyasa
+inputs:
+  - rejection_packet
+  - replay_context
+output_packet_family:
+  - replay_routing_packet
+outputs:
+  - replay_result
+reads:
+  - dossier.approval
+  - dossier.runtime
+  - error_registry
+writes:
+  - namespaces.approval
+  - namespaces.runtime
+write_targets:
+  data_tables:
+    - se_approval_queue
+    - se_route_runs
+  dossier_namespaces:
+    - approval
+    - runtime
+fallback_behavior:
+  on_iteration_limit_exceeded:
+    - route to WF-900
+  on_unknown_rejection_reason:
+    - route to WF-120 baseline qualification replay path
+done_criteria:
+  - replay target selected
+  - replay packet emitted
+  - replay metadata persisted
+error_family:
+  - SE-P1-003
+validation:
+  - replay target exists in workflow registry
+  - replay_iteration within max limit
+dependencies:
+  - WF-900

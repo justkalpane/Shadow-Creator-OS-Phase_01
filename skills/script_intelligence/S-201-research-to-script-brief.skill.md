@@ -1,44 +1,132 @@
-SKILL_ID: S-201
-NAME: research_to_script_brief
-DNA_ARCHETYPE: Vyasa
-ROLE: Convert approved topic and research synthesis into a structured script brief for downstream draft generation.
-DEPENDENCIES: none
-ROUTE_MAP: WF-200 > CWF-210-script-generation
-APPROVAL_GATE: none
-VETO_POWER: no
-IMMUNE_SIGNATURE: Brief preserves topic claim, audience promise, narrative angle, and factual boundaries without dropping core research signal.
+﻿# SKL-PH1-RESEARCH-TO-SCRIPT-BRIEF
 
-INPUT_VARIABLES:
-```json
-{
-  "topic_finalization_packet": null,
-  "research_synthesis_packet": null,
-  "audience_profile": "general",
-  "target_duration_seconds": 60,
-  "style_constraints": []
-}
+## 1. Skill Identity
+- **Skill ID:** S-201
+- **Skill Name:** research_to_script_brief
+- **Version:** 1.0.0
+- **Phase Scope:** PHASE_1_TOPIC_TO_SCRIPT
+- **Classification:** github_source_of_truth
+- **Owner Workflow:** SE-N8N-WF
+- **Consumer Workflows:** WF-200, CWF-210, CWF-220, CWF-230, CWF-240
+- **Vein/Route/Stage:** narrative_vein / topic_to_script / Stage_C_Script
+
+## 2. Purpose
+Runtime-ready canonical skill artifact for S-201 (research_to_script_brief). This specification follows repository DNA law and enforces deterministic execution, packet lineage, governance-safe escalation, and patch-only mutation discipline.
+
+## 3. DNA Injection
+- **Role Definition:** research-to-script-brief_executor
+- **DNA Archetype:** Saraswati
+- **Behavior Model:** deterministic, registry-bound, escalation-safe
+- **Operating Method:** ingest -> validate -> execute -> emit -> index
+- **Working Style:** evidence-first, schema-locked, replay-aware
+
+## 4. Workflow Injection
+- **Producer:** WF
+- **Direct Consumers:** WF-200, CWF-210, CWF-220, CWF-230, CWF-240
+- **Upstream Dependencies:** workflow_registry, skill_loader_registry, dossier packet context
+- **Downstream Handoff:** research-to-script-brief_packet -> downstream workflow chain
+- **Escalation Path:** SE-N8N-WF-900 on validation failure or critical runtime errors
+- **Fallback Path:** return partial packet with status "PARTIAL" and explicit failure reasons
+- **Replay Path:** SE-N8N-WF-021 when remodify/replay is requested
+
+## 5. Inputs
+**Required:**
+- dossier_id (string) - parent dossier identifier
+- input_payload (object) - upstream packet payload for this skill
+- route_id (string) - active route context
+
+**Optional:**
+- constraints (object) - quality/cost/latency constraints
+- hints (array) - execution hints from upstream steps
+
+## 6. Execution Logic
+```text
+1. Validate dossier_id and input_payload schema
+2. Resolve runtime context and routing envelope
+3. Execute core transformation logic for S-201
+4. Apply deterministic validation checks
+5. Emit packet and write additive dossier patch
+6. Register packet in se_packet_index
+7. On critical error: escalate to WF-900
 ```
 
-ACTION_TRIGGER: Activate at the start of WF-200 when a topic has been finalized and research synthesis is available.
+## 7. Outputs
 
-PROCESS:
-1. Read the finalized topic, research synthesis, and creator constraints.
-2. Extract the single dominant promise, supporting claims, risks, and emotional angle.
-3. Produce a compact script brief with hook direction, body structure, and closing intent.
-4. Preserve factual boundaries and unresolved uncertainties for downstream debate.
-
-OUTPUT_FORMAT:
+**Primary Output Packet:**
 ```json
 {
-  "skill_id": "S-201",
-  "output_type": "script_brief",
-  "status": "success",
+  "instance_id": "S-201-[timestamp]",
+  "artifact_family": "research-to-script-brief_packet",
+  "schema_version": "1.0.0",
+  "producer_workflow": "SE-N8N-WF",
+  "dossier_ref": "[dossier_id]",
+  "created_at": "[ISO timestamp]",
+  "status": "CREATED | PARTIAL | EMPTY",
   "payload": {
-    "brief_summary": "",
-    "hook_direction": "",
-    "body_points": [],
-    "closing_intent": "",
-    "risk_flags": []
+    "skill_id": "S-201",
+    "skill_name": "research_to_script_brief",
+    "result": {}
   }
 }
 ```
+
+**Write Targets:**
+- dossier.narrative_vein.research-to-script-brief (append_to_array)
+- se_packet_index (single index row)
+
+## 8. Governance
+- **Director Binding:** Saraswati (owner), Krishna (strategic authority)
+- **Authority Level:** CONTROL (runtime execution), ADVISORY (policy)
+- **Veto Power:** no
+- **Approval Gate:** none unless downstream workflow requires explicit approval
+- **Policy Requirements:**
+  - Use patch-only mutation law
+  - Never overwrite existing dossier fields
+  - Maintain packet lineage and audit references
+
+## 9. Tool / Runtime Usage
+
+**Allowed:**
+- deterministic transforms
+- schema validation and packet shaping
+- route-aware dossier patch appends
+
+**Forbidden:**
+- destructive mutations
+- unauthorized namespace writes
+- bypassing governance escalation paths
+
+## 10. Mutation Law
+
+**Reads:**
+- dossier scoped context slices
+- route/workflow registry contracts
+- upstream packet payloads
+
+**Writes:**
+- dossier.narrative_vein.research-to-script-brief (append_only)
+- se_packet_index row for packet traceability
+
+**Forbidden Mutations:**
+- overwrite of prior dossier values
+- write to unrelated namespaces
+- mutation without packet metadata
+
+## 11. Best Practices
+- Keep transformations deterministic and replay-safe
+- Preserve source evidence/provenance in packet payload
+- Emit explicit partial status on non-critical source gaps
+- Keep escalation payload machine-readable for WF-900
+
+## 12. Validation / Done
+
+**Acceptance Tests:**
+- TEST-PH1-S201-001: valid input produces CREATED packet
+- TEST-PH1-S201-002: invalid input escalates to WF-900
+- TEST-PH1-S201-003: dossier patch is additive only
+
+**Done Criteria:**
+- Output packet schema conforms to family contract
+- Additive dossier patch applied with no overwrite
+- se_packet_index row produced
+- Replay path and escalation path are defined

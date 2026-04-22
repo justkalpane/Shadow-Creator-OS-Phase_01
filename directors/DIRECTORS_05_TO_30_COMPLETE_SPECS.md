@@ -1,4 +1,4 @@
-# DIRECTORS 05-30: COMPLETE SPECIFICATIONS
+﻿# DIRECTORS 05-30: COMPLETE SPECIFICATIONS
 ## All 26 Remaining Directors (Structured Delivery)
 ## Shadow Empire Phase-1 Director Expansion Build
 
@@ -19,22 +19,22 @@
 - **Veto**: NO (Krishna arbitrates)
 
 ### Reads
-- **distribution_vein** (FULL) — engagement, platform signals, audience data
-- **narrative_vein** (PARTIAL) — script + hook quality metrics
-- **production_vein** (PARTIAL) — asset quality scores
+- **distribution_vein** (FULL) â€” engagement, platform signals, audience data
+- **narrative_vein** (PARTIAL) â€” script + hook quality metrics
+- **production_vein** (PARTIAL) â€” asset quality scores
 - **real_time_engagement_feed** (current metrics, live)
 
 ### Writes
-- **distribution_amplification_state** — intensity level
-- **audience_force_multiplier** — scaling factor (1.0-8.0×)
-- **viral_acceleration_commands** — speed boosts
-- **engagement_feedback_loop** — what's working in real-time
+- **distribution_amplification_state** â€” intensity level
+- **audience_force_multiplier** â€” scaling factor (1.0-8.0Ã—)
+- **viral_acceleration_commands** â€” speed boosts
+- **engagement_feedback_loop** â€” what's working in real-time
 
 ### Skill Bindings (7 skills)
 M-029 (Audience Analyzer), M-052 (Engagement Feedback Analyzer), M-141 (Community Trigger Engine), M-143 (Discussion Amplifier), M-184 (Community Growth Engine), M-227 (Audience Force Multiplier), M-228 (Viral Acceleration Governor)
 
 ### Amplification_Mechanics
-- **Intensity_Levels**: LOW (1×), MEDIUM (2×), HIGH (4×), TURBO (8×)
+- **Intensity_Levels**: LOW (1Ã—), MEDIUM (2Ã—), HIGH (4Ã—), TURBO (8Ã—)
 - **Trigger**: engagement_feedback >threshold + cost budget available
 - **Action**: Activate community_trigger_engine + discussion_amplifier
 - **Duration**: Until engagement plateaus OR cost_overage
@@ -43,20 +43,20 @@ M-029 (Audience Analyzer), M-052 (Engagement Feedback Analyzer), M-141 (Communit
 ### Scoring_Framework
 ```
 AMPLIFICATION_SCORE =
-  (Audience_Size × 0.30) +
-  (Engagement_Rate × 0.30) +
-  (Cost_Efficiency × 0.20) +
-  (Viral_Potential × 0.20)
+  (Audience_Size Ã— 0.30) +
+  (Engagement_Rate Ã— 0.30) +
+  (Cost_Efficiency Ã— 0.20) +
+  (Viral_Potential Ã— 0.20)
 
-0-40 → No amplification
-40-70 → Standard amplification
-70-100 → Maximum amplification
+0-40 â†’ No amplification
+40-70 â†’ Standard amplification
+70-100 â†’ Maximum amplification
 ```
 
 ### Failure_Surfaces
-- Amplification_cost_overage → reduce intensity + alert Kubera
-- Audience_fatigue → cool-down period
-- Community_toxicity_spike → escalate to Brahma (governance)
+- Amplification_cost_overage â†’ reduce intensity + alert Kubera
+- Audience_fatigue â†’ cool-down period
+- Community_toxicity_spike â†’ escalate to Brahma (governance)
 
 ### Execution_Tiers: TIER_1 (amplification requires full resources)
 ### Dashboard_Visibility: Amplification level, audience multiplier, viral status, cost vs ROI
@@ -85,18 +85,18 @@ M-004 (Research Commander), M-179 (Competitive Intelligence Engine), M-191 (SEO 
 - SCORE on 8 dimensions: demand, competition, trend, seasonality, monetization, unique_angle, creator_fit, platform_fit
 - RANK opportunities (top 10)
 - WRITE strategic_recommendation (with scoring breakdown)
-- IF top option <50 score → escalate to Vyasa
+- IF top option <50 score â†’ escalate to Vyasa
 
 ### OPPORTUNITY_SCORING_MATRIX
 ```
-SCORE = (Demand × 0.20) + (Trend × 0.20) + (Unique_Angle × 0.20) +
-        (Monetization × 0.15) + (Creator_Fit × 0.15) + (Platform_Fit × 0.10)
+SCORE = (Demand Ã— 0.20) + (Trend Ã— 0.20) + (Unique_Angle Ã— 0.20) +
+        (Monetization Ã— 0.15) + (Creator_Fit Ã— 0.15) + (Platform_Fit Ã— 0.10)
 ```
 
 ### Risk_Optimization
-- Failure_Surface_Score = (risk_x × impact_x) for each risk type
+- Failure_Surface_Score = (risk_x Ã— impact_x) for each risk type
 - Risk_Mitigation_Suggestions paired with each opportunity
-- HIGH_RISK items (score >60) → escalate to Krishna
+- HIGH_RISK items (score >60) â†’ escalate to Krishna
 
 ### Execution_Tiers: TIER_2 (default), degrade to TIER_3
 ### Release_Blocking: TRUE (core decision layer)
@@ -146,19 +146,89 @@ DAILY LOOP:
 **Canonical_Domain_ID**: DIR-STRTv1-003  
 **Role**: Alternative Strategy Provider + Conflict Manager  
 **Primary_Domain**: Alternative strategic viewpoints, Devil's Advocate, Conflict Mediation  
+**Secondary_Domain**: Adversarial planning, risk surface expansion, strategic contradiction testing
 
 ### Authority
 - **Dossier_Lock**: PARTIAL (strategy_namespaces only)
 - **Veto**: Can propose veto (advisory, Krishna decides)
 - **Escalation**: Can escalate disagreement with Chanakya to Krishna
+- **Governance_Boundary**: Cannot override Krishna, Yama, or Aruna
 
 ### Skill Bindings (6 skills)
 M-003 (shared Strategy Router), M-179 (Competitive Intel), M-229 (Opportunity Scorer), M-234 (Adversarial Scenario Planner), M-235 (Risk Escalator), M-236 (Conflict Mediator)
 
 ### Unique_Authority
-- Can propose strategy CONTRARY to Chanakya
-- Can surface risks that Chanakya missed
-- Cannot override Chanakya (must escalate to Krishna)
+- Can propose strategy contrary to Chanakya
+- Can surface hidden downside scenarios Chanakya did not prioritize
+- Cannot override Chanakya directly (must escalate to Krishna)
+
+### Reads
+- **strategy_vein** (FULL) - baseline and alternative route candidates
+- **research_vein** (PARTIAL) - competitive and threat intelligence signals
+- **runtime_vein** (PARTIAL) - cost, latency, and operational risk traces
+- **approval_vein** (PARTIAL) - prior rejection reasons and replay outcomes
+
+### Writes
+- **adversarial_strategy_board** - ranked counter-strategies with confidence bands
+- **conflict_resolution_packet** - mediation recommendation + tie-break context
+- **risk_escalation_packet** - high-risk route warning for Krishna/Yama
+- **strategy_counterfactual_log** - what-if branch outcomes for replay learning
+
+### Workflow Integration Matrix
+- **WF-010**: receives orchestrated strategic frame and inserts adversarial alternatives
+- **WF-020**: contributes conflict rationale when approval risk is strategy-related
+- **WF-021**: provides remodify guidance when primary strategy fails repeatedly
+- **WF-900**: receives escalations for unresolved strategy conflict or governance ambiguity
+
+### Adversarial Planning Framework
+```
+FOR each primary_strategy_candidate:
+  1. Generate 2-5 contradictory alternatives
+  2. Stress-test alternatives against cost, policy, and execution constraints
+  3. Identify hidden downside scenarios and fragility conditions
+  4. Score alternatives on resilience, upside, and reversibility
+  5. Emit recommendation:
+     - accept_primary
+     - accept_alternative
+     - hybrid_merge
+     - escalate_to_krishna
+END
+```
+
+### Conflict Scoring Model
+```
+CONFLICT_SCORE =
+  (Strategic_Drift x 0.30) +
+  (Execution_Risk x 0.25) +
+  (Policy_Exposure x 0.20) +
+  (Cost_Volatility x 0.15) +
+  (Recovery_Difficulty x 0.10)
+
+0-40 -> advisory only
+40-70 -> mandatory conflict review
+70-100 -> escalate to Krishna + Yama
+```
+
+### Mutation Law
+- **Allowed_Writes**: append-only updates to strategy/risk packets
+- **Forbidden**: overwrite/delete existing strategic decisions
+- **Audit_Requirement**: all contradiction recommendations include rationale + evidence refs
+
+### Failure Surfaces
+- Alternative strategy quality collapse -> fallback to Chanakya baseline
+- Conflict loop (same deadlock 3x) -> mandatory Krishna arbitration
+- Risk model mismatch with runtime truth -> route to WF-900 with reason code
+
+### HITL Triggers
+- Conflict score >70
+- High-impact strategy divergence against founder intent
+- Any route requiring irreversible production commitments
+
+### Dashboard_Visibility
+- Strategy divergence index
+- Alternative-vs-primary win rate
+- Conflict closure time
+- Escalation count and replay success
 
 ### Execution_Tiers: TIER_2
 ### Release_Blocking: FALSE (alternative strategy is enhancement)
@@ -169,27 +239,74 @@ M-003 (shared Strategy Router), M-179 (Competitive Intel), M-229 (Opportunity Sc
 **Canonical_Domain_ID**: DIR-STRTv1-004  
 **Role**: Protection & Veto Logic + Safety Enforcement  
 **Primary_Domain**: Risk Protection, Safety Enforcement, Boundary Protection  
+**Secondary_Domain**: Runtime safeguards, release safety assurance
 
 ### Authority
 - **Veto_Authority**: YES (can veto high-risk operations)
 - **Veto_Scope**: Operations that violate safety boundaries
-- **Cannot_Veto**: Strategic or operational decisions (advisory only)
+- **Cannot_Veto**: Strategic direction itself (can only gate unsafe execution)
+- **Policy_Coordination**: Co-governs high-risk policy closure with Yama
 
 ### Skill Bindings (5 skills)
 M-003, M-229, M-235, M-237 (Safety Enforcement Engine), M-238 (Boundary Protection)
 
+### Reads
+- **runtime_vein** (FULL) - execution health, incident markers, exception trails
+- **approval_vein** (FULL) - rejection history and override context
+- **strategy_vein** (PARTIAL) - proposed route and risk intent
+- **governance_signals** (FULL) - policy and constitutional constraints
+
+### Writes
+- **safety_risk_register** - scored risk dimensions with blockers
+- **boundary_violation_alerts** - explicit violation packet for WF-900
+- **veto_decision_packet** - rationale, scope, and release impact
+- **safety_remediation_plan** - actionable path to downgrade risk
+
+### Workflow Integration Matrix
+- **WF-010**: checks route safety before downstream pack promotion
+- **WF-020**: enforces hard veto on policy/safety non-compliance
+- **WF-021**: defines remodify constraints for safe replay
+- **WF-900**: receives unresolved safety incidents and governance escalations
+
 ### Safety_Framework
 ```
 RISK_ASSESSMENT =
-  (Execution_Risk × 0.30) +
-  (Data_Risk × 0.25) +
-  (Policy_Risk × 0.25) +
-  (Creator_Risk × 0.20)
+  (Execution_Risk x 0.30) +
+  (Data_Risk x 0.25) +
+  (Policy_Risk x 0.25) +
+  (Creator_Risk x 0.20)
 
-0-40 → Safe, proceed
-40-70 → Caution, monitor
-70-100 → VETO (cannot proceed)
+0-40 -> Safe, proceed
+40-70 -> Caution, monitor
+70-100 -> VETO (cannot proceed)
 ```
+
+### Safety Gate Thresholds
+- **Hard_Block_Gate**: any single risk dimension >=85
+- **Conditional_Gate**: aggregate score 55-69 requires mitigation plan
+- **Clear_Gate**: aggregate score <40 with no policy blocker
+- **Replay_Gate**: repeated failure class requires tighter constraints
+
+### Mutation Law
+- **Allowed_Writes**: append-only updates in approval/runtime safety slices
+- **Forbidden**: mutation of strategic intent fields outside safety annotations
+- **Audit_Requirement**: every veto includes evidence pointers + remediation path
+
+### Failure Surfaces
+- False-positive veto inflation -> threshold retuning + Chitragupta audit
+- Missed high-risk detection -> immediate escalation and rule hardening
+- Remediation ambiguity -> human review before replay
+
+### HITL Triggers
+- Veto on release-blocking workflow
+- Repeated risk score oscillation without convergence
+- Policy and safety disagreement between Durga and Yama
+
+### Dashboard_Visibility
+- Current safety posture by route
+- Veto count by category
+- Time-to-remediate by blocker type
+- Risk score drift over replay cycles
 
 ### Execution_Tiers: TIER_2
 ### Release_Blocking: FALSE (safety is enhancement)
@@ -200,13 +317,82 @@ RISK_ASSESSMENT =
 **Canonical_Domain_ID**: DIR-STRTv1-005  
 **Role**: Dharma/Governance Validation + Ethical Decision Making  
 **Primary_Domain**: Ethical Alignment, Creator Values, Governance Validation  
+**Secondary_Domain**: Value conflict mediation, principle-preserving remodification
 
 ### Authority
 - **Veto**: Can veto decisions that violate creator's stated values
 - **Escalation**: Can escalate ethical concerns to Brahma + founder
+- **Constitutional_Boundary**: Cannot approve policy-illegal actions; validates ethical fit
 
 ### Skill Bindings (4 skills)
 M-003, M-229, M-239 (Dharma Validator), M-240 (Values Checker)
+
+### Reads
+- **intent_vein** (FULL) - creator intent statements and value profile
+- **strategy_vein** (PARTIAL) - route proposals and tradeoff context
+- **approval_vein** (FULL) - rejection rationale and override attempts
+- **governance_ledger** (PARTIAL) - constitutional and policy guardrails
+
+### Writes
+- **dharma_validation_packet** - pass/fail with value-alignment explanation
+- **ethical_risk_annotations** - non-blocking and blocking ethical flags
+- **value_conflict_report** - conflict details for Brahma/founder review
+- **remodify_ethics_guidance** - constraints for replay-safe ethical correction
+
+### Workflow Integration Matrix
+- **WF-010**: evaluates alignment before high-cost downstream commitment
+- **WF-020**: can block final approval on value violation
+- **WF-021**: defines value-preserving remodify route
+- **WF-900**: receives unresolved ethical conflicts and founder escalation packets
+
+### Dharma Validation Framework
+```
+FOR each decision_candidate:
+  1. Parse creator values and intent priorities
+  2. Evaluate decision impact against value constraints
+  3. Score alignment, reversibility, and audience harm potential
+  4. Emit one of:
+     - aligned
+     - conditionally_aligned
+     - not_aligned
+  5. If not_aligned, attach remodify guidance or escalate
+END
+```
+
+### Ethical Scoring Model
+```
+DHARMA_SCORE =
+  (Value_Alignment x 0.40) +
+  (Audience_Impact_Safety x 0.20) +
+  (Truthfulness_Integrity x 0.20) +
+  (Reversibility x 0.10) +
+  (Transparency x 0.10)
+
+0-49 -> reject and escalate
+50-74 -> remodify required
+75-100 -> approve ethical alignment
+```
+
+### Mutation Law
+- **Allowed_Writes**: append-only ethical annotations and decision rationale
+- **Forbidden**: rewriting creator value baselines without founder action
+- **Audit_Requirement**: every ethical veto must include violated principle evidence
+
+### Failure Surfaces
+- Ambiguous creator values -> request clarification, keep baseline immutable
+- Ethical-policy conflict -> escalate to Brahma + Yama for joint resolution
+- Over-blocking due to conservative thresholds -> calibrate with founder policy
+
+### HITL Triggers
+- Dharma score <50 on release-critical path
+- Conflict between founder override and value baseline
+- Repeated remodify loops without ethical convergence
+
+### Dashboard_Visibility
+- Value-alignment score trend
+- Ethical veto reason taxonomy
+- Remodify convergence rate
+- Founder escalation queue items
 
 ### Execution_Tiers: TIER_2
 ### Release_Blocking: FALSE (ethical validation is enhancement)
@@ -214,7 +400,6 @@ M-003, M-229, M-239 (Dharma Validator), M-240 (Values Checker)
 ---
 
 # RESEARCH COUNCIL (5 DIRECTORS)
-
 ## DIRECTOR-11: VALMIKI
 **Canonical_Domain_ID**: DIR-RSRCHv1-001  
 **Role**: Research Synthesis + Knowledge Structuring + Story Grounding  
@@ -432,7 +617,7 @@ M-032, M-134, M-274, M-275, M-276, M-277
 **Primary_Domain**: Speed Optimization, Fast-Track Execution, Rapid Delivery  
 
 ### Authority
-- **Cost_Authority**: Can request expedited billing (1.5× cost for 2× speed)
+- **Cost_Authority**: Can request expedited billing (1.5Ã— cost for 2Ã— speed)
 
 ### Skill Bindings (6 skills)
 M-046, M-278, M-279, M-280, M-281, M-282
@@ -440,8 +625,8 @@ M-046, M-278, M-279, M-280, M-281, M-282
 ### Speed_Framework
 ```
 STANDARD_TIMELINE: 24-48 hours
-HANUMAN_EXPEDITED: 12-24 hours (cost: 1.5× baseline)
-HANUMAN_EMERGENCY: 6-12 hours (cost: 3.0× baseline, requires founder approval)
+HANUMAN_EXPEDITED: 12-24 hours (cost: 1.5Ã— baseline)
+HANUMAN_EMERGENCY: 6-12 hours (cost: 3.0Ã— baseline, requires founder approval)
 ```
 
 ### Execution_Tiers: TIER_1 (speed requires resources)
@@ -587,7 +772,7 @@ END
 **Kernel_Spine_Component**: YES (non-overrideable)
 
 ### Authority
-- **Cost_Gate**: FULL — no operation proceeds without Kubera approval
+- **Cost_Gate**: FULL â€” no operation proceeds without Kubera approval
 - **Budget_Setting**: Kubera sets all budget caps
 - **Veto**: Can veto ANY operation (cost reason)
 - **Non_Overrideable**: Only founder can override Kubera's cost veto
@@ -598,9 +783,9 @@ END
 - **Cost forecast** (projected overage)
 
 ### Writes
-- **Cost_verdicts** — approved/rejected operations (cost reason)
-- **Budget_allocation** — tier-specific budgets
-- **Cost_alerts** — when approaching limits
+- **Cost_verdicts** â€” approved/rejected operations (cost reason)
+- **Budget_allocation** â€” tier-specific budgets
+- **Cost_alerts** â€” when approaching limits
 
 ### Skill Bindings (5 skills)
 M-064, M-320, M-321, M-322, M-323
@@ -617,7 +802,7 @@ M-064, M-320, M-321, M-322, M-323
 **Kernel_Spine_Component**: YES (non-overrideable)
 
 ### Authority
-- **Policy_Gate**: FULL — enforces all policies
+- **Policy_Gate**: FULL â€” enforces all policies
 - **Veto**: Can veto ANY operation (policy reason)
 - **Non_Overrideable**: Only founder can override Yama's policy veto
 
@@ -627,9 +812,9 @@ M-064, M-320, M-321, M-322, M-323
 - **Governance_vein** (audit trail)
 
 ### Writes
-- **Policy_verdict** — approved/rejected (policy reason)
-- **Policy_alerts** — when violations detected
-- **Audit_trail** — all policy decisions
+- **Policy_verdict** â€” approved/rejected (policy reason)
+- **Policy_alerts** â€” when violations detected
+- **Audit_trail** â€” all policy decisions
 
 ### Skill Bindings (5 skills)
 M-225, M-226, M-324, M-325, M-326
@@ -646,7 +831,7 @@ M-225, M-226, M-324, M-325, M-326
 **Kernel_Spine_Component**: YES (non-overrideable)
 
 ### Authority
-- **Flow_Authority**: FULL — routes all packets through neural flows
+- **Flow_Authority**: FULL â€” routes all packets through neural flows
 - **Resource_Gate**: Controls resource allocation (GPU, CPU, memory)
 - **Emergence_Authority**: Determines when new capabilities emerge
 
@@ -656,9 +841,9 @@ M-225, M-226, M-324, M-325, M-326
 - **emergence_signals** (when system ready for new capabilities)
 
 ### Writes
-- **Flow_routing** — packet routing decisions
-- **Resource_allocation** — compute allocation
-- **Emergence_verdicts** — new capability activation
+- **Flow_routing** â€” packet routing decisions
+- **Resource_allocation** â€” compute allocation
+- **Emergence_verdicts** â€” new capability activation
 
 ### Skill Bindings (5 skills)
 M-327, M-328, M-329, M-330, M-331
@@ -682,16 +867,17 @@ EVERY decision_packet MUST flow through Aruna:
 # SUMMARY
 
 **ALL 30 DIRECTORS SPECIFIED**:
-- Supreme Vision: 5 (Krishna, Vishnu, Shiva, Brahma, Shakti) ✅
-- Strategy: 5 (Chanakya, Narada, Ravana, Durga, Yudhishthira) ✅
-- Research: 5 (Valmiki, Vyasa, Agastya, Parashara, Ganesha) ✅
-- Production: 5 (Tumburu, Arjuna, Maya, Vishwakarma, Agni) ✅
-- Cinematic: 5 (Hanuman, Nataraja, Garuda, Varuna, Indra) ✅
-- Distribution & Evolution: 5 (Kama, Saraswati, Kubera, Yama, Aruna) ✅
+- Supreme Vision: 5 (Krishna, Vishnu, Shiva, Brahma, Shakti) âœ…
+- Strategy: 5 (Chanakya, Narada, Ravana, Durga, Yudhishthira) âœ…
+- Research: 5 (Valmiki, Vyasa, Agastya, Parashara, Ganesha) âœ…
+- Production: 5 (Tumburu, Arjuna, Maya, Vishwakarma, Agni) âœ…
+- Cinematic: 5 (Hanuman, Nataraja, Garuda, Varuna, Indra) âœ…
+- Distribution & Evolution: 5 (Kama, Saraswati, Kubera, Yama, Aruna) âœ…
 
 **Status**: COMPLETE  
 **Created**: 2026-04-21  
 **Total Skill Bindings Across All 30**: 218 skills mapped  
 **Release_Blocking**: 18 directors (all core functions)  
 **Enhancement_Features**: 12 directors (optional, non-blocking)
+
 

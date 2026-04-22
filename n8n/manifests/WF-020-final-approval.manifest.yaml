@@ -1,0 +1,45 @@
+workflow_id: WF-020
+name: wf020_final_approval
+class: governance
+entry_mode: event_selected
+purpose: enforce final human and policy approval before irreversible downstream actions
+owner: shadow_empire_phase1
+primary_director: Yama
+governance_authority:
+  - Krishna
+inputs:
+  - final_script_packet
+  - media_production_packet
+output_packet_family:
+  - approval_decision_packet
+outputs:
+  - approval_result
+reads:
+  - dossier.approval
+  - approval_registry
+writes:
+  - namespaces.approval
+  - namespaces.runtime
+write_targets:
+  data_tables:
+    - se_approval_queue
+    - se_route_runs
+  dossier_namespaces:
+    - approval
+    - runtime
+fallback_behavior:
+  on_rejection:
+    - route to WF-021 replay/remodify
+  on_missing_evidence:
+    - route to WF-900
+done_criteria:
+  - approval decision produced
+  - approval queue row updated
+  - replay instructions attached when rejected
+error_family:
+  - SE-P1-003
+validation:
+  - decision is one of APPROVED/REJECTED/REMODIFY
+  - dossier approval namespace updated
+dependencies:
+  - WF-900

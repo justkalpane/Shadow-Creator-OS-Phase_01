@@ -1,364 +1,132 @@
-# D-502: SEO Optimization Specialist
+﻿# SKL-PH1-SEO-OPTIMIZATION-SPECIALIST
 
 ## 1. Skill Identity
-- **Skill ID**: D-502
-- **Name**: SEO Optimization Specialist
-- **Category**: Publishing & Distribution
-- **Skill Pack**: WF-500
-- **Phase**: Phase 1
-- **Owner Director**: Chanakya
-- **Governance Authority**: Krishna, Yama
-- **Status**: active
-- **Version**: 1.0.0
+- **Skill ID:** D-502
+- **Skill Name:** SEO Optimization Specialist
+- **Version:** 1.0.0
+- **Phase Scope:** PHASE_1_TOPIC_TO_SCRIPT
+- **Classification:** github_source_of_truth
+- **Owner Workflow:** SE-N8N-WF
+- **Consumer Workflows:** WF-500, CWF-510, CWF-520, CWF-530
+- **Vein/Route/Stage:** publishing_vein / topic_to_script / Stage_F_Publishing
 
 ## 2. Purpose
-Optimize platform metadata for search engine visibility and discoverability. Takes raw platform-specific metadata from D-501 and applies SEO best practices including keyword optimization, meta description crafting, schema markup guidance, and platform-algorithm signals for maximum visibility.
+Runtime-ready canonical skill artifact for D-502 (SEO Optimization Specialist). This specification follows repository DNA law and enforces deterministic execution, packet lineage, governance-safe escalation, and patch-only mutation discipline.
 
 ## 3. DNA Injection
-
-### Role Statement
-SEO specialist translates raw platform metadata into search-optimized content. Maximizes discoverability across platforms while respecting content authenticity and platform policies.
-
-### Behavior Model
-- **Upstream**: Receives raw_metadata map from D-501 (platform metadata generator)
-- **Reads**: dossier.publishing.platform_metadata_packets, platform SEO convention rules
-- **Produces**: seo_optimized_metadata with keyword density scores and algorithm recommendations
-- **Downstream**: CWF-530-publish-readiness-checker consumes SEO-optimized metadata
-- **Escalation**: SEO policy violations → WF-900
-- **Fallback**: Missing keyword data → use content topic as primary keyword
-
-### Operating Method
-1. Parse raw_metadata for each platform
-2. Extract content signals (title, topic, key claims)
-3. Apply SEO research (keyword optimization, related terms)
-4. Optimize meta descriptions for click-through rate
-5. Add schema markup recommendations
-6. Generate algorithm signal guidance per platform
-7. Emit seo_optimized_metadata with optimization scores
+- **Role Definition:** seo-optimization-specialist_executor
+- **DNA Archetype:** Chanakya
+- **Behavior Model:** deterministic, registry-bound, escalation-safe
+- **Operating Method:** ingest -> validate -> execute -> emit -> index
+- **Working Style:** evidence-first, schema-locked, replay-aware
 
 ## 4. Workflow Injection
-
-### Producer Contracts
-- **Triggered By**: CWF-520-distribution-planner
-- **Input Packet Family**: platform_metadata_packet (raw, from D-501)
-- **Input Expectations**:
-  - raw_metadata contains platform-specific titles, descriptions, tags
-  - dossier has context with target audience and tone
-
-### Consumer Contracts
-- **Consumed By**: CWF-530-publish-readiness-checker
-- **Output Packet Family**: seo_optimized_metadata_packet
-- **Output Guarantees**:
-  - Keyword-optimized titles and descriptions
-  - Meta description snippets for each platform
-  - Schema markup recommendations
-  - Algorithm signal guidance
-  - Optimization score per platform (0-1)
-
-### Workflow Vein
-- **Vein Name**: publishing_vein
-- **Vein Role**: Optimize metadata for search visibility
-- **Reads From**:
-  - se_route_runs (route context)
-  - se_dossier_index (dossier metadata)
-  - se_packet_index (raw metadata packets)
-- **Writes To**:
-  - se_packet_index (append seo_optimized_metadata_packet)
-  - dossier.publishing.seo_optimized_metadata (patch mutation, append_to_array)
-- **Next Stage**: CWF-530-publish-readiness-checker
+- **Producer:** WF
+- **Direct Consumers:** WF-500, CWF-510, CWF-520, CWF-530
+- **Upstream Dependencies:** workflow_registry, skill_loader_registry, dossier packet context
+- **Downstream Handoff:** seo-optimization-specialist_packet -> downstream workflow chain
+- **Escalation Path:** SE-N8N-WF-900 on validation failure or critical runtime errors
+- **Fallback Path:** return partial packet with status "PARTIAL" and explicit failure reasons
+- **Replay Path:** SE-N8N-WF-021 when remodify/replay is requested
 
 ## 5. Inputs
+**Required:**
+- dossier_id (string) - parent dossier identifier
+- input_payload (object) - upstream packet payload for this skill
+- route_id (string) - active route context
 
-### Required Inputs
-```json
-{
-  "platform_metadata_packet": {
-    "instance_id": "PMP-xxxx",
-    "payload": {
-      "narrative": {
-        "content_title": "string",
-        "primary_topic": "string"
-      },
-      "evidence": {
-        "raw_metadata": {
-          "youtube": {
-            "title": "string",
-            "description": "string",
-            "tags": ["array"]
-          },
-          "instagram": {
-            "caption": "string",
-            "hashtags": ["array"]
-          }
-        }
-      }
-    }
-  },
-  "dossier_context": {
-    "target_audience": "string",
-    "tone": "string",
-    "primary_keyword": "string (optional)"
-  }
-}
-```
-
-### Optional Inputs
-- keyword_research_data (SEO research on target keywords)
-- competitor_analysis (competitive SEO benchmarks)
-- platform_algorithm_signals (platform-specific ranking factors)
+**Optional:**
+- constraints (object) - quality/cost/latency constraints
+- hints (array) - execution hints from upstream steps
 
 ## 6. Execution Logic
-
-### Algorithm
-```javascript
-function optimize_for_seo(raw_metadata, context) {
-  optimized_metadata = {}
-  
-  // Phase 1: Keyword analysis
-  primary_keyword = context.primary_keyword || extract_primary_keyword(context.title)
-  related_keywords = research_related_keywords(primary_keyword)
-  
-  // Phase 2: Per-platform optimization
-  for platform in raw_metadata.keys():
-    platform_data = raw_metadata[platform]
-    
-    // Optimize title
-    optimized_title = optimize_title_for_seo(
-      platform_data.title,
-      primary_keyword,
-      platform.character_limit
-    )
-    
-    // Optimize description
-    optimized_description = optimize_description_for_seo({
-      content: platform_data.description,
-      primary_keyword: primary_keyword,
-      related_keywords: related_keywords,
-      platform_name: platform,
-      character_limit: platform.character_limit
-    })
-    
-    // Generate schema markup
-    schema_markup = generate_schema_markup({
-      content_type: infer_content_type(raw_metadata),
-      title: optimized_title,
-      description: optimized_description,
-      platform: platform
-    })
-    
-    // Algorithm signals
-    algo_signals = {
-      ctr_optimization: assess_title_ctr_potential(optimized_title),
-      keyword_density: calculate_keyword_density(optimized_description, primary_keyword),
-      semantic_relevance: assess_semantic_relevance(optimized_description, primary_keyword),
-      platform_signals: get_platform_specific_signals(platform)
-    }
-    
-    optimized_metadata[platform] = {
-      title: optimized_title,
-      description: optimized_description,
-      schema_markup: schema_markup,
-      algorithm_signals: algo_signals,
-      optimization_score: calculate_optimization_score(algo_signals),
-      platform: platform
-    }
-  
-  return optimized_metadata
-}
+```text
+1. Validate dossier_id and input_payload schema
+2. Resolve runtime context and routing envelope
+3. Execute core transformation logic for D-502
+4. Apply deterministic validation checks
+5. Emit packet and write additive dossier patch
+6. Register packet in se_packet_index
+7. On critical error: escalate to WF-900
 ```
-
-### Quality Checks
-- Primary keyword appears in title and first 150 chars of description
-- Keyword density 1-3% (optimal range)
-- No keyword stuffing (excessive repetition)
-- Descriptions are unique per platform
-- Schema markup valid JSON-LD format
-- All optimizations respect platform character limits
 
 ## 7. Outputs
 
-### Primary Output: seo_optimized_metadata_packet
-
+**Primary Output Packet:**
 ```json
 {
-  "instance_id": "SOM-timestamp",
-  "artifact_family": "seo_optimized_metadata_packet",
+  "instance_id": "D-502-[timestamp]",
+  "artifact_family": "seo-optimization-specialist_packet",
   "schema_version": "1.0.0",
-  "producer_workflow": "SE-N8N-CWF-520-Distribution-Planner",
-  "dossier_ref": "dossier_id",
-  "created_at": "ISO8601",
-  "status": "CREATED",
+  "producer_workflow": "SE-N8N-WF",
+  "dossier_ref": "[dossier_id]",
+  "created_at": "[ISO timestamp]",
+  "status": "CREATED | PARTIAL | EMPTY",
   "payload": {
-    "narrative": {
-      "primary_keyword": "string",
-      "related_keywords": ["keyword1", "keyword2"],
-      "optimization_target": "search_visibility"
-    },
-    "context": {
-      "sourced_from_packet_id": "PMP-xxxx",
-      "target_platforms": ["youtube", "instagram"]
-    },
-    "evidence": {
-      "optimized_metadata": {
-        "youtube": {
-          "optimized_title": "string (keyword-optimized)",
-          "optimized_description": "string (SEO-optimized)",
-          "schema_markup": "JSON-LD structure",
-          "algorithm_signals": {
-            "ctr_potential": 0.0-1.0,
-            "keyword_density": "percentage",
-            "semantic_relevance": 0.0-1.0
-          }
-        }
-      },
-      "optimization_reports": [
-        {
-          "platform": "youtube",
-          "changes_made": ["keyword added to title", "description restructured"],
-          "rationale": "Improve CTR and discoverability"
-        }
-      ]
-    },
-    "quality": {
-      "keyword_optimization": 0.92,
-      "description_quality": 0.88,
-      "schema_markup_validity": true,
-      "platform_compliance": 1.0,
-      "overall_seo_score": 0.90
-    },
-    "status": {
-      "seo_optimization_complete": true,
-      "all_platforms_optimized": true,
-      "keyword_density_optimal": true,
-      "next_stage": "CWF-530",
-      "decision": "PROCEED_TO_PUBLISH_READINESS_CHECK"
-    }
+    "skill_id": "D-502",
+    "skill_name": "SEO Optimization Specialist",
+    "result": {}
   }
 }
 ```
 
-### Secondary Outputs
-- **Keyword Research Report**: Related keywords and search intent analysis
-- **Optimization Summary**: Per-platform changes and impact estimates
-- **Algorithm Signal Analysis**: Platform-specific ranking factor assessment
+**Write Targets:**
+- dossier.publishing_vein.seo-optimization-specialist (append_to_array)
+- se_packet_index (single index row)
 
 ## 8. Governance
+- **Director Binding:** Chanakya (owner), Krishna (strategic authority)
+- **Authority Level:** CONTROL (runtime execution), ADVISORY (policy)
+- **Veto Power:** no
+- **Approval Gate:** none unless downstream workflow requires explicit approval
+- **Policy Requirements:**
+  - Use patch-only mutation law
+  - Never overwrite existing dossier fields
+  - Maintain packet lineage and audit references
 
-### Approval Gates
-- No pre-approval required (optimization phase)
-- Post-validation: keyword density must be in optimal range
+## 9. Tool / Runtime Usage
 
-### Veto/Restriction Points
-- Cannot proceed if keyword research incomplete
-- Cannot optimize if character limits violated
-- Cannot use prohibited keywords or terminology
+**Allowed:**
+- deterministic transforms
+- schema validation and packet shaping
+- route-aware dossier patch appends
 
-### Policy Constraints
-- All optimizations must maintain content authenticity
-- Cannot violate platform SEO policy guidelines
-- Must respect trademark and brand guidelines
-- No black-hat SEO tactics (keyword stuffing, cloaking, etc.)
-
-## 9. Tool/Runtime Usage
-
-### Allowed Tools
-- Dossier reader (fetch metadata and context)
-- Packet validator (pre-emission validation)
-- SEO research tools (keyword databases, related terms)
-- Route registry (fetch platform-specific SEO rules)
-
-### Forbidden Tools
-- Cannot publish content directly
-- Cannot modify script or context namespaces
-- Cannot write directly to dossier (only via packet validator)
+**Forbidden:**
+- destructive mutations
+- unauthorized namespace writes
+- bypassing governance escalation paths
 
 ## 10. Mutation Law
 
-### Reads (Allowed)
-- `dossier.publishing.platform_metadata_packets` (read-only)
-- `dossier.context.execution_context` (read-only)
-- se_packet_index (metadata lookup)
-- se_dossier_index (dossier metadata)
+**Reads:**
+- dossier scoped context slices
+- route/workflow registry contracts
+- upstream packet payloads
 
-### Writes (Allowed)
-- `dossier.publishing.seo_optimized_metadata` (patch: append_to_array only)
-- `se_packet_index` (packet metadata)
+**Writes:**
+- dossier.publishing_vein.seo-optimization-specialist (append_only)
+- se_packet_index row for packet traceability
 
-### Forbidden Writes
-- Cannot overwrite existing metadata
-- Cannot modify context or script namespaces
-- Cannot write to approval or other namespaces
-
-### Audit Trail
-```json
-{
-  "timestamp": "ISO8601",
-  "skill_id": "D-502",
-  "operation": "seo_metadata_optimization_completed",
-  "dossier_id": "xxx",
-  "packet_id": "SOM-xxx",
-  "platforms_optimized": "int",
-  "primary_keyword": "string",
-  "avg_optimization_score": "float"
-}
-```
+**Forbidden Mutations:**
+- overwrite of prior dossier values
+- write to unrelated namespaces
+- mutation without packet metadata
 
 ## 11. Best Practices
+- Keep transformations deterministic and replay-safe
+- Preserve source evidence/provenance in packet payload
+- Emit explicit partial status on non-critical source gaps
+- Keep escalation payload machine-readable for WF-900
 
-### SEO Optimization Principles
-1. **Primary Keyword Focus**: Title, first 150 chars of description, header tags
-2. **Keyword Density**: 1-3% optimal range (1-2 mentions per 100 words)
-3. **Natural Language**: Keyword placement sounds natural, not forced
-4. **Semantic Relevance**: Related keywords support primary keyword context
-5. **Platform Conventions**: Respect each platform's ranking algorithm
+## 12. Validation / Done
 
-### Common Pitfalls
-- Keyword stuffing (over-optimization leading to spam signals)
-- Neglecting platform-specific signals (YouTube favors watch time, Instagram favors engagement)
-- Ignoring user intent (targeting wrong search queries)
-- Duplicate descriptions across platforms (missed personalization)
-- Character limit truncation losing important information
+**Acceptance Tests:**
+- TEST-PH1-D502-001: valid input produces CREATED packet
+- TEST-PH1-D502-002: invalid input escalates to WF-900
+- TEST-PH1-D502-003: dossier patch is additive only
 
-### Iteration Path
-If SEO optimization rejected:
-1. Review keyword research (may need broader or narrower terms)
-2. Reassess content positioning
-3. Check platform algorithm changes
-4. Adjust optimization strategy
-5. Replay CWF-520 with revised keyword focus
-
-## 12. Validation/Done Criteria
-
-### Skill Execution Validation
-- ✓ Primary keyword identified and optimized
-- ✓ Keyword density in optimal range (1-3%)
-- ✓ All platform descriptions optimized and unique
-- ✓ Schema markup generated and valid
-- ✓ Character limits respected
-- ✓ Algorithm signals assessed per platform
-- ✓ Packet schema validation passes
-
-### Acceptance Criteria (for CWF-520)
-- ✓ seo_optimized_metadata_packet emitted with status CREATED
-- ✓ All platforms have optimized titles and descriptions
-- ✓ Keyword optimization score ≥ 0.85
-- ✓ Dossier delta recorded to publishing namespace
-- ✓ Audit entry created with keyword and scores
-- ✓ Next workflow (CWF-530) receives valid packet
-
-### Test References
-- `test/skills/publishing/D-502-seo-optimization-happy-path.test.js`
-- `test/skills/publishing/D-502-keyword-density-validation.test.js`
-- `test/skills/publishing/D-502-platform-compliance.test.js`
-
-### Regression Tests
-- Verify keyword appears in title and first 150 chars
-- Verify no dossier overwrites (append-only)
-- Verify packet lineage unbroken
-- Verify optimization score deterministic
-
----
-
-**Last Updated**: 2026-04-20  
-**Status**: Implementation Ready  
-**Next Skill**: D-503-publish-readiness-checker
+**Done Criteria:**
+- Output packet schema conforms to family contract
+- Additive dossier patch applied with no overwrite
+- se_packet_index row produced
+- Replay path and escalation path are defined

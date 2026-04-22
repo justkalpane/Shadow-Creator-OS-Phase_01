@@ -1,9 +1,8 @@
 version: 2
 canonical_rule: this file is the only canonical ordered register of repo-present workflow families for docs, validation, and import behavior
 promotion_note: >
-  P0-A promotion closes the canonical contradiction for WF-100 and WF-200.
-  These workflow families already existed as repo artifacts and are now promoted
-  to repo-present truth for docs, validation, and orchestration.
+  Registry aligned to actual repo-present workflows and manifests, including
+  governance and downstream planning bridges.
 repo_present_workflows:
   - workflow_id: WF-000
     manifest_file: n8n/manifests/WF-000-health-check.manifest.yaml
@@ -17,9 +16,33 @@ repo_present_workflows:
   - workflow_id: WF-010
     manifest_file: n8n/manifests/WF-010-parent-orchestrator.manifest.yaml
     workflow_file: n8n/workflows/parent/WF-010-parent-orchestrator.json
+  - workflow_id: WF-020
+    manifest_file: n8n/manifests/WF-020-final-approval.manifest.yaml
+    workflow_file: n8n/workflows/approval/WF-020-final-approval.json
+  - workflow_id: WF-021
+    manifest_file: n8n/manifests/WF-021-replay-remodify.manifest.yaml
+    workflow_file: n8n/workflows/approval/WF-021-replay-remodify.json
+  - workflow_id: WF-022
+    manifest_file: n8n/manifests/WF-022-provider-packet-bridge.manifest.yaml
+    workflow_file: n8n/workflows/system/WF-022-provider-packet-bridge.json
+  - workflow_id: WF-023
+    manifest_file: n8n/manifests/WF-023-downstream-resource-prep.manifest.yaml
+    workflow_file: n8n/workflows/system/WF-023-downstream-resource-prep.json
   - workflow_id: WF-100
     manifest_file: n8n/manifests/WF-100-topic-intelligence.manifest.yaml
-    workflow_file: n8n/workflows/parent/WF-100-topic-intelligence.json
+    workflow_file: n8n/workflows/topic/WF-100-topic-intelligence.json
   - workflow_id: WF-200
     manifest_file: n8n/manifests/WF-200-script-intelligence.manifest.yaml
-    workflow_file: n8n/workflows/parent/WF-200-script-intelligence.json
+    workflow_file: n8n/workflows/script/WF-200-script-intelligence.json
+  - workflow_id: WF-300
+    manifest_file: n8n/manifests/WF-300-context-engineering.manifest.yaml
+    workflow_file: n8n/workflows/context/WF-300-context-engineering.json
+  - workflow_id: WF-400
+    manifest_file: n8n/manifests/WF-400-media-production.manifest.yaml
+    workflow_file: n8n/workflows/media/WF-400-media-production.json
+  - workflow_id: WF-500
+    manifest_file: n8n/manifests/WF-500-publishing-distribution.manifest.yaml
+    workflow_file: n8n/workflows/publishing/WF-500-publishing-distribution.json
+  - workflow_id: WF-600
+    manifest_file: n8n/manifests/WF-600-analytics-evolution.manifest.yaml
+    workflow_file: n8n/workflows/analytics/WF-600-analytics-evolution.json

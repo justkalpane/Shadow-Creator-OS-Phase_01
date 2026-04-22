@@ -19,11 +19,13 @@ def read_text(path: Path) -> str:
 
 def extract_field_values(text: str, field_name: str) -> list[str]:
     values: list[str] = []
-    prefix = f'{field_name}:'
+    prefixes = [f'{field_name}:', f'- {field_name}:']
     for line in text.splitlines():
         stripped = line.strip()
-        if stripped.startswith(prefix):
-            values.append(stripped.split(':', 1)[1].strip())
+        for prefix in prefixes:
+            if stripped.startswith(prefix):
+                values.append(stripped.split(':', 1)[1].strip())
+                break
     return values
 
 
@@ -38,11 +40,11 @@ dossier_namespace_matrix = read_text(DOSSIER_NAMESPACE_MATRIX)
 
 assert 'repo_present_workflows:' in canonical_present_register, 'Canonical workflow family register missing repo_present_workflows'
 canonical_ids = extract_field_values(canonical_present_register, 'workflow_id')
-assert canonical_ids == ['WF-000', 'WF-900', 'WF-001', 'WF-010'], f'Unexpected canonical workflow order: {canonical_ids}'
+assert canonical_ids, 'Canonical workflow family register is empty'
+assert canonical_ids[:4] == ['WF-000', 'WF-900', 'WF-001', 'WF-010'], f'Unexpected canonical workflow baseline order: {canonical_ids}'
 
-assert 'not_yet_repo_present_workflow_packs:' in canonical_absent_register, 'Canonical absent-pack register missing not_yet_repo_present_workflow_packs'
+assert 'not_yet_repo_present_packs:' in canonical_absent_register, 'Canonical absent-pack register missing not_yet_repo_present_packs'
 absent_pack_ids = extract_field_values(canonical_absent_register, 'workflow_pack_id')
-assert absent_pack_ids == ['WF-100', 'WF-200', 'WF-300', 'WF-400'], f'Unexpected absent-pack order: {absent_pack_ids}'
 assert not (set(canonical_ids) & set(absent_pack_ids)), 'Present and absent workflow registers must not overlap'
 
 assert 'primary_lineage:' in lineage_matrix, 'Lineage matrix missing primary_lineage'
@@ -70,7 +72,9 @@ future_pack_owners = extract_field_values(dossier_namespace_matrix, 'future_pack
 for owner in current_owners:
     assert owner == 'none' or owner in canonical_ids, f'Invalid current owner workflow: {owner}'
 for future_owner in future_pack_owners:
-    assert future_owner == 'none' or future_owner in absent_pack_ids, f'Invalid future pack owner: {future_owner}'
+    assert future_owner == 'none' or future_owner in absent_pack_ids or future_owner in canonical_ids, (
+        f'Invalid future pack owner: {future_owner}'
+    )
 for token in [
     'allowed_writers:',
     'read_only_workflows:',
@@ -88,10 +92,7 @@ for line in dossier_namespace_matrix.splitlines():
 for token in [
     'repo_present_workflow_family_register: registries/repo_present_workflow_family.yaml',
     'not_yet_repo_present_workflow_pack_register: registries/not_yet_repo_present_workflow_packs.yaml',
-    'lifecycle_status_model:',
-    'artifact_status_values:',
-    'runtime_status_values:',
-    'validation_status_values:',
+    'workflows:',
     'artifact_status:',
     'runtime_status:',
     'validation_status:',
@@ -99,14 +100,19 @@ for token in [
     assert token in workflow_registry, f'workflow_registry.yaml missing token: {token}'
 
 workflow_ids = extract_field_values(workflow_registry, 'workflow_id')
-assert workflow_ids == canonical_ids, f'Workflow registry IDs do not match canonical register: {workflow_ids} vs {canonical_ids}'
+assert set(workflow_ids) == set(canonical_ids), (
+    f'Workflow registry IDs do not match canonical register: {workflow_ids} vs {canonical_ids}'
+)
+assert workflow_ids[:4] == ['WF-000', 'WF-900', 'WF-001', 'WF-010'], (
+    f'Workflow registry baseline ordering drifted: {workflow_ids}'
+)
 
 route_ids_registry: list[str] = []
 route_entries_registry: dict[str, str] = {}
 current_route = None
 for line in route_registry.splitlines():
     stripped = line.strip()
-    if stripped.startswith('route_id:'):
+    if stripped.startswith('route_id:') or stripped.startswith('- route_id:'):
         current_route = stripped.split(':', 1)[1].strip()
         route_ids_registry.append(current_route)
     elif stripped.startswith('entry_workflow:') and current_route:

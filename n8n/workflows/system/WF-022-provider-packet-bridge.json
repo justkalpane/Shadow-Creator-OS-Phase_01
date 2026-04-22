@@ -1,0 +1,63 @@
+{
+  "name": "WF-022 Provider Packet Bridge",
+  "description": "Build provider-safe packet envelopes from approved internal packets with auth/replay metadata.",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "wf022_trigger",
+      "name": "Workflow Input",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [220, 320]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ json: { workflow_id: 'WF-022', provider_target: $json.provider_target || 'local_stub', approved_packet: $json.approved_packet || {}, dossier_id: $json.dossier_id || null, route_id: $json.route_id || 'ROUTE_PHASE1_STANDARD', timestamp: new Date().toISOString() } }];"
+      },
+      "id": "wf022_normalize",
+      "name": "Normalize Bridge Input",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [470, 320]
+    },
+    {
+      "parameters": {
+        "jsCode": "const source = $json.approved_packet || {};\nconst bridge = {\n  packet_family: 'provider_packet_bridge',\n  provider_target: $json.provider_target,\n  route_id: $json.route_id,\n  replay_reference: {\n    workflow: 'WF-022',\n    dossier_id: $json.dossier_id,\n    timestamp: new Date().toISOString()\n  },\n  outbound_payload: {\n    source_packet_id: source.instance_id || null,\n    source_family: source.artifact_family || null,\n    body: source.payload || source\n  }\n};\nreturn [{ json: { ...$json, bridge_packet: bridge } }];"
+      },
+      "id": "wf022_build",
+      "name": "Build Bridge Packet",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [730, 320]
+    },
+    {
+      "parameters": {
+        "jsCode": "const bridge = $json.bridge_packet || {};\nconst errs = [];\nif (!bridge.provider_target) errs.push('provider_target missing');\nif (!bridge.outbound_payload) errs.push('outbound_payload missing');\nif (!bridge.replay_reference) errs.push('replay_reference missing');\nif (errs.length) throw new Error('WF-022 validation failed: ' + errs.join('; '));\nreturn [{ json: { workflow_id: 'WF-022', status: 'SUCCESS', output_packet_family: 'provider_packet_bridge', provider_packet_bridge: bridge } }];"
+      },
+      "id": "wf022_validate",
+      "name": "Validate Bridge Packet",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [990, 320]
+    }
+  ],
+  "connections": {
+    "Workflow Input": {
+      "main": [[{ "node": "Normalize Bridge Input", "type": "main", "index": 0 }]]
+    },
+    "Normalize Bridge Input": {
+      "main": [[{ "node": "Build Bridge Packet", "type": "main", "index": 0 }]]
+    },
+    "Build Bridge Packet": {
+      "main": [[{ "node": "Validate Bridge Packet", "type": "main", "index": 0 }]]
+    }
+  },
+  "meta": {
+    "workflow_id": "WF-022",
+    "phase": "phase1",
+    "vein": "approval_vein",
+    "implementation_depth": "starter_node_chain"
+  },
+  "active": false,
+  "settings": {}
+}

@@ -1,4 +1,16 @@
 bindings:
+  WF-000:
+    outputs: [health_status]
+    next: WF-001
+  WF-900:
+    outputs: [error_resolution, replay_instruction]
+    next: WF-010
+  WF-001:
+    outputs: [dossier_record]
+    next: WF-010
+  WF-010:
+    outputs: [orchestration_decision]
+    next: WF-100
   WF-100:
     outputs: [topic_intelligence_result]
     next: WF-200
@@ -29,3 +41,69 @@ bindings:
   CWF-240:
     outputs: [final_script_packet]
     next: WF-300
+  WF-020:
+    outputs: [approval_decision_packet]
+    next: WF-021
+  WF-021:
+    outputs: [replay_routing_packet]
+    next: WF-022
+  WF-022:
+    outputs: [provider_packet_bridge]
+    next: WF-023
+  WF-023:
+    outputs: [downstream_resource_prep_plan]
+    next: WF-300
+  WF-300:
+    outputs: [context_engineering_result]
+    next: WF-400
+  CWF-310:
+    outputs: [execution_context_packet]
+    next: CWF-320
+  CWF-320:
+    outputs: [platform_package_packet]
+    next: CWF-330
+  CWF-330:
+    outputs: [asset_brief_packet]
+    next: CWF-340
+  CWF-340:
+    outputs: [context_engineering_packet]
+    next: WF-400
+  WF-400:
+    outputs: [media_production_result]
+    next: WF-500
+  CWF-410:
+    outputs: [thumbnail_concept_packet]
+    next: CWF-420
+  CWF-420:
+    outputs: [visual_asset_spec_packet]
+    next: CWF-430
+  CWF-430:
+    outputs: [audio_brief_packet]
+    next: CWF-440
+  CWF-440:
+    outputs: [media_production_packet]
+    next: WF-500
+  WF-500:
+    outputs: [publishing_distribution_result]
+    next: WF-600
+  CWF-510:
+    outputs: [platform_metadata_packet]
+    next: CWF-520
+  CWF-520:
+    outputs: [distribution_plan_packet]
+    next: CWF-530
+  CWF-530:
+    outputs: [publish_ready_packet]
+    next: WF-600
+  WF-600:
+    outputs: [analytics_evolution_result]
+    next: end
+  CWF-610:
+    outputs: [performance_analytics_packet]
+    next: CWF-620
+  CWF-620:
+    outputs: [audience_feedback_packet]
+    next: CWF-630
+  CWF-630:
+    outputs: [evolution_signal_packet]
+    next: WF-010

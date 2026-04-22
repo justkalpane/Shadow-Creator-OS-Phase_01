@@ -16,20 +16,23 @@ canonical_ids = []
 repo_absent_packs = []
 for line in register_text.splitlines():
     stripped = line.strip()
-    if stripped.startswith('workflow_id:'):
+    if stripped.startswith('workflow_id:') or stripped.startswith('- workflow_id:'):
         canonical_ids.append(stripped.split(':', 1)[1].strip())
-    elif stripped.startswith('workflow_file:'):
+    elif stripped.startswith('workflow_file:') or stripped.startswith('- workflow_file:'):
         workflow_files.append(ROOT / stripped.split(':', 1)[1].strip())
 
 for line in absent_text.splitlines():
     stripped = line.strip()
-    if stripped.startswith('workflow_pack_id:'):
+    if stripped.startswith('workflow_pack_id:') or stripped.startswith('- workflow_pack_id:'):
         repo_absent_packs.append(stripped.split(':', 1)[1].strip())
 
-assert canonical_ids == ['WF-000', 'WF-900', 'WF-001', 'WF-010', 'WF-100', 'WF-200'], (
-    f'Unexpected canonical workflow order: {canonical_ids}'
+assert canonical_ids, f'Unexpected canonical workflow order: {canonical_ids}'
+assert canonical_ids[:4] == ['WF-000', 'WF-900', 'WF-001', 'WF-010'], (
+    f'Unexpected canonical workflow baseline order: {canonical_ids}'
 )
-assert repo_absent_packs == ['WF-300', 'WF-400'], f'Unexpected absent pack order: {repo_absent_packs}'
+assert 'WF-100' in canonical_ids and 'WF-200' in canonical_ids, (
+    f'Canonical workflow register must include promoted packs WF-100 and WF-200: {canonical_ids}'
+)
 assert workflow_files, 'No workflow files resolved from canonical workflow family register'
 
 parsed: dict[str, dict] = {}
@@ -46,16 +49,7 @@ for file in workflow_files:
     assert isinstance(data.get('connections'), dict), f'{file}: connections must be an object'
     assert 'meta' in data, f'{file}: missing meta block'
 
-# WF-100 and WF-200 are canonically promoted but may still be manifest-present only
-# in the repo at this stage. Their absence as workflow JSON files is a P0 follow-up,
-# not a reason to fail this validator.
-allowed_missing = {
-    'n8n/workflows/parent/WF-100-topic-intelligence.json',
-    'n8n/workflows/parent/WF-200-script-intelligence.json',
-}
-assert set(missing_expected_workflow_files).issubset(allowed_missing), (
-    f'Unexpected missing workflow files: {missing_expected_workflow_files}'
-)
+assert not missing_expected_workflow_files, f'Unexpected missing workflow files: {missing_expected_workflow_files}'
 
 wf010 = parsed['WF-010-parent-orchestrator.json']
 node_names = {node['name']: node for node in wf010['nodes']}

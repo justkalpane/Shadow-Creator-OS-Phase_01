@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 """
 Execution Contract Layer
 Shadow Creator OS
@@ -40,3 +41,31 @@ class ExecutionContract:
             "error": self.error,
             "execution_time": execution_time
         }
+=======
+from __future__ import annotations
+
+import time
+from typing import Any, Callable
+
+
+class ExecutionContract:
+    """Uniform execution wrapper for skill callables."""
+
+    def execute(self, skill_callable: Callable[[dict[str, Any]], Any], input_payload: dict[str, Any]) -> dict[str, Any]:
+        started = time.perf_counter()
+        try:
+            result = skill_callable(input_payload)
+            return {
+                "status": "success",
+                "result": result,
+                "error": None,
+                "execution_time": round(time.perf_counter() - started, 6),
+            }
+        except Exception as exc:  # pragma: no cover - defensive runtime guard
+            return {
+                "status": "failed",
+                "result": None,
+                "error": str(exc),
+                "execution_time": round(time.perf_counter() - started, 6),
+            }
+>>>>>>> e07941e (sync: local changes before pull)

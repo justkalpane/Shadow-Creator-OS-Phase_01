@@ -13,11 +13,13 @@ WINDOWS_REPO_DOC = ROOT / 'docs/03-deployment/windows-local-repo-read-strategy.m
 
 def extract_ids(text: str, field_name: str) -> list[str]:
     values: list[str] = []
-    prefix = f'{field_name}:'
+    prefixes = [f'{field_name}:', f'- {field_name}:']
     for line in text.splitlines():
         stripped = line.strip()
-        if stripped.startswith(prefix):
-            values.append(stripped.split(':', 1)[1].strip())
+        for prefix in prefixes:
+            if stripped.startswith(prefix):
+                values.append(stripped.split(':', 1)[1].strip())
+                break
     return values
 
 present_text = PRESENT_REGISTER.read_text(encoding='utf-8')

@@ -309,8 +309,25 @@ registries_present:
   - not_yet_repo_present_workflow_packs.yaml
 
 registries_present:
+  - director_contracts/Agastya-Contract.md
+  - director_contracts/Agni-Contract.md
+  - director_contracts/Arjuna-Contract.md
   - director_contracts/Krishna-Contract.md
+  - director_contracts/Brahma-Contract.md
+  - director_contracts/Hanuman-Contract.md
+  - director_contracts/Kama-Contract.md
+  - director_contracts/Maya-Contract.md
   - director_contracts/Narada-Contract.md
+  - director_contracts/Nataraja-Contract.md
+  - director_contracts/Parashara-Contract.md
+  - director_contracts/Ravana-Contract.md
+  - director_contracts/Shakti-Contract.md
+  - director_contracts/Shiva-Contract.md
+  - director_contracts/Tumburu-Contract.md
+  - director_contracts/Valmiki-Contract.md
+  - director_contracts/Vishnu-Contract.md
+  - director_contracts/Vishwakarma-Contract.md
+  - director_contracts/Yudhishthira-Contract.md
   - director_contracts/Chanakya-Contract.md
   - director_contracts/Vyasa-Contract.md
   - director_contracts/Saraswati-Contract.md
@@ -322,6 +339,10 @@ registries_present:
   - director_contracts/Vayu-Contract.md
   - director_contracts/Chitragupta-Contract.md
   - director_contracts/Ganesha-Contract.md
+  - agents/AGENT_RUNTIME_REGISTRY.yaml
+  - sub_agents/SUB_AGENT_RUNTIME_REGISTRY.yaml
+  - agents/common/director_authority_profiles.py
+  - agents/common/workflow_binding_contracts.py
 
 registries_planned: []
 
@@ -363,9 +384,26 @@ validators:
 # ─────────────────────────────────────────────
 director_contracts:
   status: repo_present
-  total_contracts: 13
+  total_contracts: 33
   contract_location: registries/director_contracts/
   contracts_present:
+    - Agastya-Contract.md      # Deep analysis, insight extraction
+    - Agni-Contract.md         # Energy, momentum, urgency injection
+    - Arjuna-Contract.md       # Script execution, narrative warfare
+    - Brahma-Contract.md       # Governance keeper, council coordination
+    - Hanuman-Contract.md      # Speed, fast-track execution
+    - Kama-Contract.md         # Engagement, conversion, audience attraction
+    - Maya-Contract.md         # Visual production, creative visualization
+    - Nataraja-Contract.md     # Pacing, editing, flow control
+    - Parashara-Contract.md    # Trend analysis, pattern discovery
+    - Ravana-Contract.md       # Alternative strategy, conflict management
+    - Shakti-Contract.md       # Creative force amplification
+    - Shiva-Contract.md        # Autonomous intelligence loop authority
+    - Tumburu-Contract.md      # Audio production, voice direction
+    - Valmiki-Contract.md      # Research synthesis, knowledge structuring
+    - Vishnu-Contract.md       # High availability, failover coordination
+    - Vishwakarma-Contract.md  # Architecture, technical production
+    - Yudhishthira-Contract.md # Dharma/governance validation
     - Krishna-Contract.md       # Orchestration, structure, debate authority
     - Narada-Contract.md        # Discovery, trend intelligence
     - Chanakya-Contract.md      # Qualification, strategy
@@ -381,6 +419,42 @@ director_contracts:
     - Ganesha-Contract.md       # Path clearing, obstacle removal
 
 # ─────────────────────────────────────────────
+# ============================================================
+# DIRECTOR AGENT RUNTIME CONTRACTS
+# ============================================================
+director_agents:
+  status: repo_present
+  total_agents: 30
+  runtime_location: agents/
+  naming_convention: "<director>/<director>_agent.py"
+  base_runtime: agents/common/production_agent_base.py
+  authority_registry_ref: agents/common/director_authority_profiles.py
+  agent_registry_ref: agents/AGENT_RUNTIME_REGISTRY.yaml
+  contract_binding: DIRECTOR_REGISTRY_MANIFEST.yaml -> director authority profile -> runtime mode gate
+  enforcement:
+    - authority_specific_behavior
+    - mode_decision_guardrails
+    - deterministic_run_packet_envelope
+
+# ============================================================
+# WORKFLOW SUB-AGENT BINDING CONTRACTS
+# ============================================================
+workflow_sub_agents:
+  status: repo_present
+  total_sub_agents: 36
+  runtime_location: sub_agents/
+  naming_convention: "<wf_or_cwf_id>/<wf_or_cwf_id>_sub_agent.py"
+  base_runtime: agents/common/workflow_sub_agent_base.py
+  workflow_contract_registry_ref: agents/common/workflow_binding_contracts.py
+  sub_agent_registry_ref: sub_agents/SUB_AGENT_RUNTIME_REGISTRY.yaml
+  binding_contract: "WF/CWF owner director + allowed directors + gate rules"
+  enforced_gate_rules:
+    - enforce_director_binding
+    - require_dossier_id
+    - require_declared_inputs
+    - require_governance_ack_on_release
+    - escalate_to_wf_900_on_gate_failure
+
 # CONSTITUTIONAL ARTIFACTS
 # ─────────────────────────────────────────────
 constitutional_artifacts:
@@ -397,7 +471,7 @@ constitutional_artifacts:
     - registries/build_blocker_matrix.yaml
     - registries/release_blocker_matrix.yaml
   present:
-    - director_contracts/ (all 13 contracts)
+    - director_contracts/ (all 33 contracts)
   planned:
     - SYSTEM_MANIFEST.yaml (THIS FILE — complete on Phase 5)
     - docs/03-deployment/phase1-execution-runbook.md

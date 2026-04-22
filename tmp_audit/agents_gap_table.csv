@@ -1,0 +1,2 @@
+"Name/Label","Build Status","Gaps/Issues","Action Required"
+"narada_agent.py","Partially Built","No retry/backoff handling. No explicit timeout control for external calls. Agent implementation is minimal stub depth for production orchestration.","Add retry/backoff policy for external calls. Add explicit request timeout and failure path. Expand to full contract-aware orchestration flow (dossier, packet, governance, telemetry)."

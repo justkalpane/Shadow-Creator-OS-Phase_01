@@ -1,0 +1,48 @@
+workflow_id: WF-023
+name: wf023_downstream_resource_preparation
+class: planning
+entry_mode: event_selected
+purpose: generate downstream resource preparation plans from approved script/context outputs for media and publishing packs
+owner: shadow_empire_phase1
+primary_director: Aruna
+governance_authority:
+  - Krishna
+inputs:
+  - final_script_packet
+  - context_engineering_packet
+output_packet_family:
+  - downstream_resource_prep_plan
+outputs:
+  - downstream_resource_preparation_result
+reads:
+  - dossier.script
+  - dossier.context
+  - rules/topic_scoring_rules.yaml
+writes:
+  - namespaces.context
+  - namespaces.runtime
+write_targets:
+  data_tables:
+    - se_route_runs
+  dossier_namespaces:
+    - context
+    - runtime
+fallback_behavior:
+  on_missing_script_context:
+    - emit incomplete plan with required_fields_missing
+    - route to WF-021
+  on_capacity_conflict:
+    - route to WF-900
+done_criteria:
+  - scene/image/audio prep blocks generated
+  - effort and sequence estimates included
+  - handoff target mapped to WF-400/WF-500
+error_family:
+  - SE-P1-003
+validation:
+  - preparation plan includes asset_classes
+  - each asset class includes owner and priority
+  - packet includes replay_reference
+dependencies:
+  - WF-021
+  - WF-900

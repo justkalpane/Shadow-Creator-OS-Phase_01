@@ -1,14 +1,6 @@
 version: 2
 canonical_rule: this file is the only canonical ordered register of intended Phase-1 workflow packs that are not yet repo-present
 promotion_note: >
-  WF-100 and WF-200 have been promoted to repo-present in P0-A. This register now
-  reflects only truly absent packs.
-not_yet_repo_present_packs:
-  - workflow_pack_id: WF-300
-    name: context_engineering_pack
-    intended_role: context shaping, packetization, and downstream handoff preparation
-    repo_presence_status: not_repo_present
-  - workflow_pack_id: WF-400
-    name: approval_pack
-    intended_role: approval, remodify, replay, and governance resolution
-    repo_presence_status: not_repo_present
+  WF-300 through WF-600 are now repo-present with manifests and workflow JSON.
+  This register is intentionally empty until a new deferred pack is defined.
+not_yet_repo_present_packs: []
