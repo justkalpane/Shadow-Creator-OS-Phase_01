@@ -106,8 +106,8 @@ The following release blockers from `registries/release_blocker_matrix.yaml`
 are directly governed by this law:
 
 - **RB-002**: YouTube OAuth redirect URI not finalized
-- **RB-003**: Secret rotation policy not finalized
-- **RB-004**: Provider quota thresholds not finalized
+- **RB-003**: Secret rotation policy resolved in `docs/03-deployment/secret-rotation-policy.md`
+- **RB-004**: Provider quota thresholds scaffolded in `docs/03-deployment/provider-quota-threshold-policy.md`
 
 These release blockers do not stop repo build. They stop unattended deployment.
 Their exact values must be resolved before any provider transitions from
@@ -121,7 +121,7 @@ Before any provider call, Kubera must verify:
 1. Provider has `status: active` in provider_registry.yaml
 2. Provider has an auth entry in provider_auth_callback_matrix.yaml
 3. Current runtime mode is listed in the provider's `runtime_modes`
-4. Budget threshold for this provider has not been exceeded (RB-004 resolved)
+4. Budget threshold is defined in `registries/provider_quota_thresholds.yaml` and the founder-approved value has not been exceeded
 5. Current operating mode has `provider_access_posture` that permits this provider
 
 If any check fails, Kubera blocks the call and escalates.
@@ -132,7 +132,10 @@ If any check fails, Kubera blocks the call and escalates.
 
 - `registries/provider_registry.yaml`
 - `registries/provider_auth_callback_matrix.yaml`
+- `registries/provider_quota_thresholds.yaml`
 - `registries/release_blocker_matrix.yaml`
+- `docs/03-deployment/secret-rotation-policy.md`
+- `docs/03-deployment/provider-quota-threshold-policy.md`
 - `registries/mode_registry.yaml`
 - `docs/01-architecture/founder_creator_mode_law.md`
 - `docs/01-architecture/worker_router_law.md`

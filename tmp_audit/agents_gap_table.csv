@@ -87,6 +87,8 @@
 "aruna_agent.py","Fully Built","No blocking file-level gap detected; runtime behavior checks recommended.","Run behavior/regression tests for agent runtime decisions and escalation."
 "brahma_agent.py","Fully Built","No blocking file-level gap detected; runtime behavior checks recommended.","Run behavior/regression tests for agent runtime decisions and escalation."
 "chanakya_agent.py","Fully Built","No blocking file-level gap detected; runtime behavior checks recommended.","Run behavior/regression tests for agent runtime decisions and escalation."
+"chandra_agent.py","Fully Built","No blocking file-level gap detected; runtime behavior checks recommended.","Run behavior/regression tests for agent runtime decisions and escalation."
+"chitragupta_agent.py","Fully Built","No blocking file-level gap detected; runtime behavior checks recommended.","Run behavior/regression tests for agent runtime decisions and escalation."
 "durga_agent.py","Fully Built","No blocking file-level gap detected; runtime behavior checks recommended.","Run behavior/regression tests for agent runtime decisions and escalation."
 "ganesha_agent.py","Fully Built","No blocking file-level gap detected; runtime behavior checks recommended.","Run behavior/regression tests for agent runtime decisions and escalation."
 "garuda_agent.py","Fully Built","No blocking file-level gap detected; runtime behavior checks recommended.","Run behavior/regression tests for agent runtime decisions and escalation."

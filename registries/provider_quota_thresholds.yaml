@@ -1,0 +1,29 @@
+version: 1
+owner: shadow_commander
+status: locked_waiting_founder_values
+constitutional_authority_ref: docs/03-deployment/provider-quota-threshold-policy.md
+purpose: >
+  Locked scaffold for provider quota thresholds. This registry intentionally
+  carries no numeric quota values until founder approval supplies them.
+
+required_threshold_fields:
+  - monthly_budget_ceiling
+  - per_run_spend_ceiling
+  - daily_call_ceiling
+  - monthly_call_ceiling
+  - approval_owner
+  - escalation_owner
+  - enforcement_notes
+
+providers:
+  - provider_id: elevenlabs_api
+    value_state: awaiting_founder_values
+    budget_gate_required: true
+
+  - provider_id: heygen_api
+    value_state: awaiting_founder_values
+    budget_gate_required: true
+
+  - provider_id: youtube_data_api
+    value_state: awaiting_founder_values
+    budget_gate_required: true

@@ -1,6 +1,6 @@
 # Shadow Empire Build Status
 
-Generated from snapshot: 2026-04-23T08:52:06.455903+00:00
+Generated from snapshot: 2026-04-23T09:26:36.397381+00:00
 Generated file: `BUILD_STATUS.md`
 
 ## Live State
@@ -9,7 +9,7 @@ Generated file: `BUILD_STATUS.md`
 - Canonical route namespace: `ROUTE_PHASE1_*`
 - Legacy route tokens in runtime assets: `0`
 - Open build blockers: `0`
-- Open release packets: `DP-001`
+- Open release packets: `none`
 
 ## Core Values
 | Metric | Value |
@@ -31,7 +31,7 @@ Generated file: `BUILD_STATUS.md`
 - Build blockers resolved: `1`
 - Build blockers open: `none`
 - Decision packet build blockers: `DP-002, DP-005, DP-006, DP-007`
-- Release packet state counts: `{"provisionally_resolved": 1}`
+- Release packet state counts: `{"resolved_release": 1}`
 
 ## Report Freshness
 - Unified hierarchy report: `true`

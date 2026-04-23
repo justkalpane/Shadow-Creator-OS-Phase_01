@@ -1,0 +1,1092 @@
+{
+  "analytics.e_601_performance_analyst": {
+    "skill_markdown": "skills/analytics/E-601-performance-analyst.skill.md",
+    "module_path": "skills/analytics/E-601-performance-analyst.py",
+    "entrypoint": "run"
+  },
+  "analytics.e_602_feedback_analyst": {
+    "skill_markdown": "skills/analytics/E-602-feedback-analyst.skill.md",
+    "module_path": "skills/analytics/E-602-feedback-analyst.py",
+    "entrypoint": "run"
+  },
+  "analytics.e_603_evolution_strategist": {
+    "skill_markdown": "skills/analytics/E-603-evolution-strategist.skill.md",
+    "module_path": "skills/analytics/E-603-evolution-strategist.py",
+    "entrypoint": "run"
+  },
+  "autonomous_loop.m_091_lip_sync_engine": {
+    "skill_markdown": "skills/autonomous_loop/M-091-lip-sync-engine.skill.md",
+    "module_path": "skills/autonomous_loop/M-091-lip-sync-engine.py",
+    "entrypoint": "run"
+  },
+  "autonomous_loop.m_092_avatar_rendering_engine": {
+    "skill_markdown": "skills/autonomous_loop/M-092-avatar-rendering-engine.skill.md",
+    "module_path": "skills/autonomous_loop/M-092-avatar-rendering-engine.py",
+    "entrypoint": "run"
+  },
+  "autonomous_loop.m_093_visual_effects_engine": {
+    "skill_markdown": "skills/autonomous_loop/M-093-visual-effects-engine.skill.md",
+    "module_path": "skills/autonomous_loop/M-093-visual-effects-engine.py",
+    "entrypoint": "run"
+  },
+  "autonomous_loop.m_094_color_grading_engine": {
+    "skill_markdown": "skills/autonomous_loop/M-094-color-grading-engine.skill.md",
+    "module_path": "skills/autonomous_loop/M-094-color-grading-engine.py",
+    "entrypoint": "run"
+  },
+  "autonomous_loop.m_095_motion_graphics_engine": {
+    "skill_markdown": "skills/autonomous_loop/M-095-motion-graphics-engine.skill.md",
+    "module_path": "skills/autonomous_loop/M-095-motion-graphics-engine.py",
+    "entrypoint": "run"
+  },
+  "autonomous_loop.m_096_transition_designer": {
+    "skill_markdown": "skills/autonomous_loop/M-096-transition-designer.skill.md",
+    "module_path": "skills/autonomous_loop/M-096-transition-designer.py",
+    "entrypoint": "run"
+  },
+  "autonomous_loop.m_097_pacing_optimizer": {
+    "skill_markdown": "skills/autonomous_loop/M-097-pacing-optimizer.skill.md",
+    "module_path": "skills/autonomous_loop/M-097-pacing-optimizer.py",
+    "entrypoint": "run"
+  },
+  "autonomous_loop.m_098_final_edit_compiler": {
+    "skill_markdown": "skills/autonomous_loop/M-098-final-edit-compiler.skill.md",
+    "module_path": "skills/autonomous_loop/M-098-final-edit-compiler.py",
+    "entrypoint": "run"
+  },
+  "autonomous_loop.m_099_quality_assurance_engine": {
+    "skill_markdown": "skills/autonomous_loop/M-099-quality-assurance-engine.skill.md",
+    "module_path": "skills/autonomous_loop/M-099-quality-assurance-engine.py",
+    "entrypoint": "run"
+  },
+  "autonomous_loop.m_100_safety_compliance_engine": {
+    "skill_markdown": "skills/autonomous_loop/M-100-safety-compliance-engine.skill.md",
+    "module_path": "skills/autonomous_loop/M-100-safety-compliance-engine.py",
+    "entrypoint": "run"
+  },
+  "autonomous_loop.m_101_decision_board": {
+    "skill_markdown": "skills/autonomous_loop/M-101-decision-board.skill.md",
+    "module_path": "skills/autonomous_loop/M-101-decision-board.py",
+    "entrypoint": "run"
+  },
+  "autonomous_loop.m_102_escalation_engine": {
+    "skill_markdown": "skills/autonomous_loop/M-102-escalation-engine.skill.md",
+    "module_path": "skills/autonomous_loop/M-102-escalation-engine.py",
+    "entrypoint": "run"
+  },
+  "autonomous_loop.m_103_strategic_alignment_engine": {
+    "skill_markdown": "skills/autonomous_loop/M-103-strategic-alignment-engine.skill.md",
+    "module_path": "skills/autonomous_loop/M-103-strategic-alignment-engine.py",
+    "entrypoint": "run"
+  },
+  "autonomous_loop.m_104_executive_review_system": {
+    "skill_markdown": "skills/autonomous_loop/M-104-executive-review-system.skill.md",
+    "module_path": "skills/autonomous_loop/M-104-executive-review-system.py",
+    "entrypoint": "run"
+  },
+  "autonomous_loop.m_105_publishing_engine": {
+    "skill_markdown": "skills/autonomous_loop/M-105-publishing-engine.skill.md",
+    "module_path": "skills/autonomous_loop/M-105-publishing-engine.py",
+    "entrypoint": "run"
+  },
+  "autonomous_loop.m_106_upload_verification": {
+    "skill_markdown": "skills/autonomous_loop/M-106-upload-verification.skill.md",
+    "module_path": "skills/autonomous_loop/M-106-upload-verification.py",
+    "entrypoint": "run"
+  },
+  "autonomous_loop.m_107_algorithm_kickstart_engine": {
+    "skill_markdown": "skills/autonomous_loop/M-107-algorithm-kickstart-engine.skill.md",
+    "module_path": "skills/autonomous_loop/M-107-algorithm-kickstart-engine.py",
+    "entrypoint": "run"
+  },
+  "autonomous_loop.m_108_engagement_booster": {
+    "skill_markdown": "skills/autonomous_loop/M-108-engagement-booster.skill.md",
+    "module_path": "skills/autonomous_loop/M-108-engagement-booster.py",
+    "entrypoint": "run"
+  },
+  "autonomous_loop.m_109_comment_analyzer": {
+    "skill_markdown": "skills/autonomous_loop/M-109-comment-analyzer.skill.md",
+    "module_path": "skills/autonomous_loop/M-109-comment-analyzer.py",
+    "entrypoint": "run"
+  },
+  "autonomous_loop.m_110_reputation_monitor": {
+    "skill_markdown": "skills/autonomous_loop/M-110-reputation-monitor.skill.md",
+    "module_path": "skills/autonomous_loop/M-110-reputation-monitor.py",
+    "entrypoint": "run"
+  },
+  "autonomous_loop.m_111_feedback_learning_engine": {
+    "skill_markdown": "skills/autonomous_loop/M-111-feedback-learning-engine.skill.md",
+    "module_path": "skills/autonomous_loop/M-111-feedback-learning-engine.py",
+    "entrypoint": "run"
+  },
+  "autonomous_loop.m_112_strategy_refinement_engine": {
+    "skill_markdown": "skills/autonomous_loop/M-112-strategy-refinement-engine.skill.md",
+    "module_path": "skills/autonomous_loop/M-112-strategy-refinement-engine.py",
+    "entrypoint": "run"
+  },
+  "autonomous_loop.m_113_empire_growth_engine": {
+    "skill_markdown": "skills/autonomous_loop/M-113-empire-growth-engine.skill.md",
+    "module_path": "skills/autonomous_loop/M-113-empire-growth-engine.py",
+    "entrypoint": "run"
+  },
+  "autonomous_loop.m_114_resource_expansion_engine": {
+    "skill_markdown": "skills/autonomous_loop/M-114-resource-expansion-engine.skill.md",
+    "module_path": "skills/autonomous_loop/M-114-resource-expansion-engine.py",
+    "entrypoint": "run"
+  },
+  "autonomous_loop.m_115_automation_expansion_engine": {
+    "skill_markdown": "skills/autonomous_loop/M-115-automation-expansion-engine.skill.md",
+    "module_path": "skills/autonomous_loop/M-115-automation-expansion-engine.py",
+    "entrypoint": "run"
+  },
+  "autonomous_loop.m_116_skill_evolution_engine": {
+    "skill_markdown": "skills/autonomous_loop/M-116-skill-evolution-engine.skill.md",
+    "module_path": "skills/autonomous_loop/M-116-skill-evolution-engine.py",
+    "entrypoint": "run"
+  },
+  "autonomous_loop.m_117_intelligence_upgrade_engine": {
+    "skill_markdown": "skills/autonomous_loop/M-117-intelligence-upgrade-engine.skill.md",
+    "module_path": "skills/autonomous_loop/M-117-intelligence-upgrade-engine.py",
+    "entrypoint": "run"
+  },
+  "autonomous_loop.m_118_empire_security_engine": {
+    "skill_markdown": "skills/autonomous_loop/M-118-empire-security-engine.skill.md",
+    "module_path": "skills/autonomous_loop/M-118-empire-security-engine.py",
+    "entrypoint": "run"
+  },
+  "autonomous_loop.m_119_redundancy_system": {
+    "skill_markdown": "skills/autonomous_loop/M-119-redundancy-system.skill.md",
+    "module_path": "skills/autonomous_loop/M-119-redundancy-system.py",
+    "entrypoint": "run"
+  },
+  "autonomous_loop.m_120_supreme_orchestrator": {
+    "skill_markdown": "skills/autonomous_loop/M-120-supreme-orchestrator.skill.md",
+    "module_path": "skills/autonomous_loop/M-120-supreme-orchestrator.py",
+    "entrypoint": "run"
+  },
+  "context_engineering.p_301_execution_context_engineer": {
+    "skill_markdown": "skills/context_engineering/P-301-execution-context-engineer.skill.md",
+    "module_path": "skills/context_engineering/P-301-execution-context-engineer.py",
+    "entrypoint": "run"
+  },
+  "context_engineering.p_302_platform_format_specialist": {
+    "skill_markdown": "skills/context_engineering/P-302-platform-format-specialist.skill.md",
+    "module_path": "skills/context_engineering/P-302-platform-format-specialist.py",
+    "entrypoint": "run"
+  },
+  "context_engineering.p_303_asset_brief_creator": {
+    "skill_markdown": "skills/context_engineering/P-303-asset-brief-creator.skill.md",
+    "module_path": "skills/context_engineering/P-303-asset-brief-creator.py",
+    "entrypoint": "run"
+  },
+  "context_engineering.p_304_lineage_chain_validator": {
+    "skill_markdown": "skills/context_engineering/P-304-lineage-chain-validator.skill.md",
+    "module_path": "skills/context_engineering/P-304-lineage-chain-validator.py",
+    "entrypoint": "run"
+  },
+  "context_engineering.p_305_context_packet_finalizer": {
+    "skill_markdown": "skills/context_engineering/P-305-context-packet-finalizer.skill.md",
+    "module_path": "skills/context_engineering/P-305-context-packet-finalizer.py",
+    "entrypoint": "run"
+  },
+  "governance.m_181_innovation_engine": {
+    "skill_markdown": "skills/governance/M-181-innovation-engine.skill.md",
+    "module_path": "skills/governance/M-181-innovation-engine.py",
+    "entrypoint": "run"
+  },
+  "governance.m_182_collaboration_engine": {
+    "skill_markdown": "skills/governance/M-182-collaboration-engine.skill.md",
+    "module_path": "skills/governance/M-182-collaboration-engine.py",
+    "entrypoint": "run"
+  },
+  "intelligence.m_001_intent_cortex": {
+    "skill_markdown": "skills/intelligence/M-001-intent-cortex.skill.md",
+    "module_path": "skills/intelligence/M-001-intent-cortex.py",
+    "entrypoint": "run"
+  },
+  "intelligence.m_002_context_analyzer": {
+    "skill_markdown": "skills/intelligence/M-002-context-analyzer.skill.md",
+    "module_path": "skills/intelligence/M-002-context-analyzer.py",
+    "entrypoint": "run"
+  },
+  "media_production.a_401_thumbnail_concept_designer": {
+    "skill_markdown": "skills/media_production/A-401-thumbnail-concept-designer.skill.md",
+    "module_path": "skills/media_production/A-401-thumbnail-concept-designer.py",
+    "entrypoint": "run"
+  },
+  "media_production.a_402_visual_asset_planner": {
+    "skill_markdown": "skills/media_production/A-402-visual-asset-planner.skill.md",
+    "module_path": "skills/media_production/A-402-visual-asset-planner.py",
+    "entrypoint": "run"
+  },
+  "media_production.a_403_audio_script_optimizer": {
+    "skill_markdown": "skills/media_production/A-403-audio-script-optimizer.skill.md",
+    "module_path": "skills/media_production/A-403-audio-script-optimizer.py",
+    "entrypoint": "run"
+  },
+  "media_production.a_404_media_package_assembler": {
+    "skill_markdown": "skills/media_production/A-404-media-package-assembler.skill.md",
+    "module_path": "skills/media_production/A-404-media-package-assembler.py",
+    "entrypoint": "run"
+  },
+  "media_production.a_405_media_qa_validator": {
+    "skill_markdown": "skills/media_production/A-405-media-qa-validator.skill.md",
+    "module_path": "skills/media_production/A-405-media-qa-validator.py",
+    "entrypoint": "run"
+  },
+  "operations.m_151_empire_expansion_layer": {
+    "skill_markdown": "skills/operations/M-151-empire-expansion-layer.skill.md",
+    "module_path": "skills/operations/M-151-empire-expansion-layer.py",
+    "entrypoint": "run"
+  },
+  "operations.m_152_channel_discovery_engine": {
+    "skill_markdown": "skills/operations/M-152-channel-discovery-engine.skill.md",
+    "module_path": "skills/operations/M-152-channel-discovery-engine.py",
+    "entrypoint": "run"
+  },
+  "operations.m_153_niche_profitability_analyzer": {
+    "skill_markdown": "skills/operations/M-153-niche-profitability-analyzer.skill.md",
+    "module_path": "skills/operations/M-153-niche-profitability-analyzer.py",
+    "entrypoint": "run"
+  },
+  "operations.m_154_channel_launch_architect": {
+    "skill_markdown": "skills/operations/M-154-channel-launch-architect.skill.md",
+    "module_path": "skills/operations/M-154-channel-launch-architect.py",
+    "entrypoint": "run"
+  },
+  "operations.m_155_brand_identity_engine": {
+    "skill_markdown": "skills/operations/M-155-brand-identity-engine.skill.md",
+    "module_path": "skills/operations/M-155-brand-identity-engine.py",
+    "entrypoint": "run"
+  },
+  "operations.m_156_audience_persona_generator": {
+    "skill_markdown": "skills/operations/M-156-audience-persona-generator.skill.md",
+    "module_path": "skills/operations/M-156-audience-persona-generator.py",
+    "entrypoint": "run"
+  },
+  "operations.m_157_content_strategy_replicator": {
+    "skill_markdown": "skills/operations/M-157-content-strategy-replicator.skill.md",
+    "module_path": "skills/operations/M-157-content-strategy-replicator.py",
+    "entrypoint": "run"
+  },
+  "operations.m_158_content_calendar_engine": {
+    "skill_markdown": "skills/operations/M-158-content-calendar-engine.skill.md",
+    "module_path": "skills/operations/M-158-content-calendar-engine.py",
+    "entrypoint": "run"
+  },
+  "operations.m_159_production_capacity_planner": {
+    "skill_markdown": "skills/operations/M-159-production-capacity-planner.skill.md",
+    "module_path": "skills/operations/M-159-production-capacity-planner.py",
+    "entrypoint": "run"
+  },
+  "operations.m_160_creator_clone_system": {
+    "skill_markdown": "skills/operations/M-160-creator-clone-system.skill.md",
+    "module_path": "skills/operations/M-160-creator-clone-system.py",
+    "entrypoint": "run"
+  },
+  "operations.m_161_personality_mapping_engine": {
+    "skill_markdown": "skills/operations/M-161-personality-mapping-engine.skill.md",
+    "module_path": "skills/operations/M-161-personality-mapping-engine.py",
+    "entrypoint": "run"
+  },
+  "operations.m_162_voice_identity_cloner": {
+    "skill_markdown": "skills/operations/M-162-voice-identity-cloner.skill.md",
+    "module_path": "skills/operations/M-162-voice-identity-cloner.py",
+    "entrypoint": "run"
+  },
+  "operations.m_163_speech_emotion_engine": {
+    "skill_markdown": "skills/operations/M-163-speech-emotion-engine.skill.md",
+    "module_path": "skills/operations/M-163-speech-emotion-engine.py",
+    "entrypoint": "run"
+  },
+  "operations.m_164_character_behavior_engine": {
+    "skill_markdown": "skills/operations/M-164-character-behavior-engine.skill.md",
+    "module_path": "skills/operations/M-164-character-behavior-engine.py",
+    "entrypoint": "run"
+  },
+  "operations.m_165_dialogue_style_generator": {
+    "skill_markdown": "skills/operations/M-165-dialogue-style-generator.skill.md",
+    "module_path": "skills/operations/M-165-dialogue-style-generator.py",
+    "entrypoint": "run"
+  },
+  "operations.m_166_creator_identity_manager": {
+    "skill_markdown": "skills/operations/M-166-creator-identity-manager.skill.md",
+    "module_path": "skills/operations/M-166-creator-identity-manager.py",
+    "entrypoint": "run"
+  },
+  "operations.m_167_reputation_control_engine": {
+    "skill_markdown": "skills/operations/M-167-reputation-control-engine.skill.md",
+    "module_path": "skills/operations/M-167-reputation-control-engine.py",
+    "entrypoint": "run"
+  },
+  "operations.m_168_content_factory_controller": {
+    "skill_markdown": "skills/operations/M-168-content-factory-controller.skill.md",
+    "module_path": "skills/operations/M-168-content-factory-controller.py",
+    "entrypoint": "run"
+  },
+  "operations.m_169_topic_generation_engine": {
+    "skill_markdown": "skills/operations/M-169-topic-generation-engine.skill.md",
+    "module_path": "skills/operations/M-169-topic-generation-engine.py",
+    "entrypoint": "run"
+  },
+  "operations.m_170_research_automation_engine": {
+    "skill_markdown": "skills/operations/M-170-research-automation-engine.skill.md",
+    "module_path": "skills/operations/M-170-research-automation-engine.py",
+    "entrypoint": "run"
+  },
+  "operations.m_171_knowledge_graph_builder": {
+    "skill_markdown": "skills/operations/M-171-knowledge-graph-builder.skill.md",
+    "module_path": "skills/operations/M-171-knowledge-graph-builder.py",
+    "entrypoint": "run"
+  },
+  "operations.m_172_insight_extraction_engine": {
+    "skill_markdown": "skills/operations/M-172-insight-extraction-engine.skill.md",
+    "module_path": "skills/operations/M-172-insight-extraction-engine.py",
+    "entrypoint": "run"
+  },
+  "operations.m_173_script_automation_engine": {
+    "skill_markdown": "skills/operations/M-173-script-automation-engine.skill.md",
+    "module_path": "skills/operations/M-173-script-automation-engine.py",
+    "entrypoint": "run"
+  },
+  "operations.m_174_visual_asset_generator": {
+    "skill_markdown": "skills/operations/M-174-visual-asset-generator.skill.md",
+    "module_path": "skills/operations/M-174-visual-asset-generator.py",
+    "entrypoint": "run"
+  },
+  "operations.m_175_video_assembly_engine": {
+    "skill_markdown": "skills/operations/M-175-video-assembly-engine.skill.md",
+    "module_path": "skills/operations/M-175-video-assembly-engine.py",
+    "entrypoint": "run"
+  },
+  "operations.m_176_post_production_automation": {
+    "skill_markdown": "skills/operations/M-176-post-production-automation.skill.md",
+    "module_path": "skills/operations/M-176-post-production-automation.py",
+    "entrypoint": "run"
+  },
+  "operations.m_177_performance_tracking_engine": {
+    "skill_markdown": "skills/operations/M-177-performance-tracking-engine.skill.md",
+    "module_path": "skills/operations/M-177-performance-tracking-engine.py",
+    "entrypoint": "run"
+  },
+  "operations.m_178_channel_benchmark_engine": {
+    "skill_markdown": "skills/operations/M-178-channel-benchmark-engine.skill.md",
+    "module_path": "skills/operations/M-178-channel-benchmark-engine.py",
+    "entrypoint": "run"
+  },
+  "operations.m_179_competitive_intelligence_engine": {
+    "skill_markdown": "skills/operations/M-179-competitive-intelligence-engine.skill.md",
+    "module_path": "skills/operations/M-179-competitive-intelligence-engine.py",
+    "entrypoint": "run"
+  },
+  "operations.m_180_strategy_adaptation_engine": {
+    "skill_markdown": "skills/operations/M-180-strategy-adaptation-engine.skill.md",
+    "module_path": "skills/operations/M-180-strategy-adaptation-engine.py",
+    "entrypoint": "run"
+  },
+  "publishing.d_501_platform_metadata_generator": {
+    "skill_markdown": "skills/publishing/D-501-platform-metadata-generator.skill.md",
+    "module_path": "skills/publishing/D-501-platform-metadata-generator.py",
+    "entrypoint": "run"
+  },
+  "publishing.d_502_seo_optimization_specialist": {
+    "skill_markdown": "skills/publishing/D-502-seo-optimization-specialist.skill.md",
+    "module_path": "skills/publishing/D-502-seo-optimization-specialist.py",
+    "entrypoint": "run"
+  },
+  "publishing.d_503_publish_readiness_checker": {
+    "skill_markdown": "skills/publishing/D-503-publish-readiness-checker.skill.md",
+    "module_path": "skills/publishing/D-503-publish-readiness-checker.py",
+    "entrypoint": "run"
+  },
+  "research_intelligence.m_009_knowledge_source_collector": {
+    "skill_markdown": "skills/research_intelligence/M-009-knowledge-source-collector.skill.md",
+    "module_path": "skills/research_intelligence/M-009-knowledge-source-collector.py",
+    "entrypoint": "run"
+  },
+  "research_intelligence.m_010_source_credibility_validator": {
+    "skill_markdown": "skills/research_intelligence/M-010-source-credibility-validator.skill.md",
+    "module_path": "skills/research_intelligence/M-010-source-credibility-validator.py",
+    "entrypoint": "run"
+  },
+  "research_intelligence.m_011_knowledge_dossier_builder": {
+    "skill_markdown": "skills/research_intelligence/M-011-knowledge-dossier-builder.skill.md",
+    "module_path": "skills/research_intelligence/M-011-knowledge-dossier-builder.py",
+    "entrypoint": "run"
+  },
+  "research_intelligence.m_020_knowledge_summarization_engine": {
+    "skill_markdown": "skills/research_intelligence/M-020-knowledge-summarization-engine.skill.md",
+    "module_path": "skills/research_intelligence/M-020-knowledge-summarization-engine.py",
+    "entrypoint": "run"
+  },
+  "research_intelligence.m_021_fact_cross_verification_unit": {
+    "skill_markdown": "skills/research_intelligence/M-021-fact-cross-verification-unit.skill.md",
+    "module_path": "skills/research_intelligence/M-021-fact-cross-verification-unit.py",
+    "entrypoint": "run"
+  },
+  "research_intelligence.m_022_knowledge_graph_builder": {
+    "skill_markdown": "skills/research_intelligence/M-022-knowledge-graph-builder.skill.md",
+    "module_path": "skills/research_intelligence/M-022-knowledge-graph-builder.py",
+    "entrypoint": "run"
+  },
+  "research_intelligence.m_025_research_archive_manager": {
+    "skill_markdown": "skills/research_intelligence/M-025-research-archive-manager.skill.md",
+    "module_path": "skills/research_intelligence/M-025-research-archive-manager.py",
+    "entrypoint": "run"
+  },
+  "script_intelligence.s_201_hook_optimizer": {
+    "skill_markdown": "skills/script_intelligence/S-201-hook-optimizer.skill.md",
+    "module_path": "skills/script_intelligence/S-201-hook-optimizer.py",
+    "entrypoint": "run"
+  },
+  "script_intelligence.s_201_research_to_script_brief": {
+    "skill_markdown": "skills/script_intelligence/S-201-research-to-script-brief.skill.md",
+    "module_path": "skills/script_intelligence/S-201-research-to-script-brief.py",
+    "entrypoint": "run"
+  },
+  "script_intelligence.s_202_first_draft_generation": {
+    "skill_markdown": "skills/script_intelligence/S-202-first-draft-generation.skill.md",
+    "module_path": "skills/script_intelligence/S-202-first-draft-generation.py",
+    "entrypoint": "run"
+  },
+  "script_intelligence.s_202_structure_designer": {
+    "skill_markdown": "skills/script_intelligence/S-202-structure-designer.skill.md",
+    "module_path": "skills/script_intelligence/S-202-structure-designer.py",
+    "entrypoint": "run"
+  },
+  "script_intelligence.s_203_hook_structure_audit": {
+    "skill_markdown": "skills/script_intelligence/S-203-hook-structure-audit.skill.md",
+    "module_path": "skills/script_intelligence/S-203-hook-structure-audit.py",
+    "entrypoint": "run"
+  },
+  "script_intelligence.s_203_retention_engineer": {
+    "skill_markdown": "skills/script_intelligence/S-203-retention-engineer.skill.md",
+    "module_path": "skills/script_intelligence/S-203-retention-engineer.py",
+    "entrypoint": "run"
+  },
+  "script_intelligence.s_204_clarity_enhancer": {
+    "skill_markdown": "skills/script_intelligence/S-204-clarity-enhancer.skill.md",
+    "module_path": "skills/script_intelligence/S-204-clarity-enhancer.py",
+    "entrypoint": "run"
+  },
+  "script_intelligence.s_204_narrative_logic_audit": {
+    "skill_markdown": "skills/script_intelligence/S-204-narrative-logic-audit.skill.md",
+    "module_path": "skills/script_intelligence/S-204-narrative-logic-audit.py",
+    "entrypoint": "run"
+  },
+  "script_intelligence.s_205_evidence_aligner": {
+    "skill_markdown": "skills/script_intelligence/S-205-evidence-aligner.skill.md",
+    "module_path": "skills/script_intelligence/S-205-evidence-aligner.py",
+    "entrypoint": "run"
+  },
+  "script_intelligence.s_205_voice_tone_refinement": {
+    "skill_markdown": "skills/script_intelligence/S-205-voice-tone-refinement.skill.md",
+    "module_path": "skills/script_intelligence/S-205-voice-tone-refinement.py",
+    "entrypoint": "run"
+  },
+  "script_intelligence.s_206_clarity_retention_refinement": {
+    "skill_markdown": "skills/script_intelligence/S-206-clarity-retention-refinement.skill.md",
+    "module_path": "skills/script_intelligence/S-206-clarity-retention-refinement.py",
+    "entrypoint": "run"
+  },
+  "script_intelligence.s_206_emotion_amplifier": {
+    "skill_markdown": "skills/script_intelligence/S-206-emotion-amplifier.skill.md",
+    "module_path": "skills/script_intelligence/S-206-emotion-amplifier.py",
+    "entrypoint": "run"
+  },
+  "script_intelligence.s_207_conflict_intensity_booster": {
+    "skill_markdown": "skills/script_intelligence/S-207-conflict-intensity-booster.skill.md",
+    "module_path": "skills/script_intelligence/S-207-conflict-intensity-booster.py",
+    "entrypoint": "run"
+  },
+  "script_intelligence.s_207_narrative_flow_optimizer": {
+    "skill_markdown": "skills/script_intelligence/S-207-narrative-flow-optimizer.skill.md",
+    "module_path": "skills/script_intelligence/S-207-narrative-flow-optimizer.py",
+    "entrypoint": "run"
+  },
+  "script_intelligence.s_208_governance_safety_checker": {
+    "skill_markdown": "skills/script_intelligence/S-208-governance-safety-checker.skill.md",
+    "module_path": "skills/script_intelligence/S-208-governance-safety-checker.py",
+    "entrypoint": "run"
+  },
+  "script_intelligence.s_208_policy_risk_screen": {
+    "skill_markdown": "skills/script_intelligence/S-208-policy-risk-screen.skill.md",
+    "module_path": "skills/script_intelligence/S-208-policy-risk-screen.py",
+    "entrypoint": "run"
+  },
+  "script_intelligence.s_209_audience_alignment_mapper": {
+    "skill_markdown": "skills/script_intelligence/S-209-audience-alignment-mapper.skill.md",
+    "module_path": "skills/script_intelligence/S-209-audience-alignment-mapper.py",
+    "entrypoint": "run"
+  },
+  "script_intelligence.s_209_emotional_rhythm_tuning": {
+    "skill_markdown": "skills/script_intelligence/S-209-emotional-rhythm-tuning.skill.md",
+    "module_path": "skills/script_intelligence/S-209-emotional-rhythm-tuning.py",
+    "entrypoint": "run"
+  },
+  "script_intelligence.s_210_final_script_packager": {
+    "skill_markdown": "skills/script_intelligence/S-210-final-script-packager.skill.md",
+    "module_path": "skills/script_intelligence/S-210-final-script-packager.py",
+    "entrypoint": "run"
+  },
+  "script_intelligence.s_210_script_compression_engine": {
+    "skill_markdown": "skills/script_intelligence/S-210-script-compression-engine.skill.md",
+    "module_path": "skills/script_intelligence/S-210-script-compression-engine.py",
+    "entrypoint": "run"
+  },
+  "script_intelligence_army.m_026_title_engineer": {
+    "skill_markdown": "skills/script_intelligence_army/M-026-title-engineer.skill.md",
+    "module_path": "skills/script_intelligence_army/M-026-title-engineer.py",
+    "entrypoint": "run"
+  },
+  "script_intelligence_army.m_027_seo_architect": {
+    "skill_markdown": "skills/script_intelligence_army/M-027-seo-architect.skill.md",
+    "module_path": "skills/script_intelligence_army/M-027-seo-architect.py",
+    "entrypoint": "run"
+  },
+  "script_intelligence_army.m_028_metadata_builder": {
+    "skill_markdown": "skills/script_intelligence_army/M-028-metadata-builder.skill.md",
+    "module_path": "skills/script_intelligence_army/M-028-metadata-builder.py",
+    "entrypoint": "run"
+  },
+  "script_intelligence_army.m_029_audience_analyzer": {
+    "skill_markdown": "skills/script_intelligence_army/M-029-audience-analyzer.skill.md",
+    "module_path": "skills/script_intelligence_army/M-029-audience-analyzer.py",
+    "entrypoint": "run"
+  },
+  "script_intelligence_army.m_030_engagement_predictor": {
+    "skill_markdown": "skills/script_intelligence_army/M-030-engagement-predictor.skill.md",
+    "module_path": "skills/script_intelligence_army/M-030-engagement-predictor.py",
+    "entrypoint": "run"
+  },
+  "script_intelligence_army.m_031_mrbeast_hook_system": {
+    "skill_markdown": "skills/script_intelligence_army/M-031-mrbeast-hook-system.skill.md",
+    "module_path": "skills/script_intelligence_army/M-031-mrbeast-hook-system.py",
+    "entrypoint": "run"
+  },
+  "script_intelligence_army.m_032_pattern_interrupt_engine": {
+    "skill_markdown": "skills/script_intelligence_army/M-032-pattern-interrupt-engine.skill.md",
+    "module_path": "skills/script_intelligence_army/M-032-pattern-interrupt-engine.py",
+    "entrypoint": "run"
+  },
+  "script_intelligence_army.m_033_curiosity_gap_generator": {
+    "skill_markdown": "skills/script_intelligence_army/M-033-curiosity-gap-generator.skill.md",
+    "module_path": "skills/script_intelligence_army/M-033-curiosity-gap-generator.py",
+    "entrypoint": "run"
+  },
+  "script_intelligence_army.m_034_micro_cliffhanger_engine": {
+    "skill_markdown": "skills/script_intelligence_army/M-034-micro-cliffhanger-engine.skill.md",
+    "module_path": "skills/script_intelligence_army/M-034-micro-cliffhanger-engine.py",
+    "entrypoint": "run"
+  },
+  "script_intelligence_army.m_035_engagement_loop_builder": {
+    "skill_markdown": "skills/script_intelligence_army/M-035-engagement-loop-builder.skill.md",
+    "module_path": "skills/script_intelligence_army/M-035-engagement-loop-builder.py",
+    "entrypoint": "run"
+  },
+  "script_intelligence_army.m_036_emotional_spike_system": {
+    "skill_markdown": "skills/script_intelligence_army/M-036-emotional-spike-system.skill.md",
+    "module_path": "skills/script_intelligence_army/M-036-emotional-spike-system.py",
+    "entrypoint": "run"
+  },
+  "script_intelligence_army.m_037_reward_tease_engine": {
+    "skill_markdown": "skills/script_intelligence_army/M-037-reward-tease-engine.skill.md",
+    "module_path": "skills/script_intelligence_army/M-037-reward-tease-engine.py",
+    "entrypoint": "run"
+  },
+  "script_intelligence_army.m_038_payoff_delivery_system": {
+    "skill_markdown": "skills/script_intelligence_army/M-038-payoff-delivery-system.skill.md",
+    "module_path": "skills/script_intelligence_army/M-038-payoff-delivery-system.py",
+    "entrypoint": "run"
+  },
+  "script_intelligence_army.m_039_re_hook_system": {
+    "skill_markdown": "skills/script_intelligence_army/M-039-re-hook-system.skill.md",
+    "module_path": "skills/script_intelligence_army/M-039-re-hook-system.py",
+    "entrypoint": "run"
+  },
+  "script_intelligence_army.m_040_story_momentum_engine": {
+    "skill_markdown": "skills/script_intelligence_army/M-040-story-momentum-engine.skill.md",
+    "module_path": "skills/script_intelligence_army/M-040-story-momentum-engine.py",
+    "entrypoint": "run"
+  },
+  "script_intelligence_army.m_041_scene_energy_analyzer": {
+    "skill_markdown": "skills/script_intelligence_army/M-041-scene-energy-analyzer.skill.md",
+    "module_path": "skills/script_intelligence_army/M-041-scene-energy-analyzer.py",
+    "entrypoint": "run"
+  },
+  "script_intelligence_army.m_042_editing_optimization_engine": {
+    "skill_markdown": "skills/script_intelligence_army/M-042-editing-optimization-engine.skill.md",
+    "module_path": "skills/script_intelligence_army/M-042-editing-optimization-engine.py",
+    "entrypoint": "run"
+  },
+  "script_intelligence_army.m_043_cut_acceleration_system": {
+    "skill_markdown": "skills/script_intelligence_army/M-043-cut-acceleration-system.skill.md",
+    "module_path": "skills/script_intelligence_army/M-043-cut-acceleration-system.py",
+    "entrypoint": "run"
+  },
+  "script_intelligence_army.m_044_visual_impact_engine": {
+    "skill_markdown": "skills/script_intelligence_army/M-044-visual-impact-engine.skill.md",
+    "module_path": "skills/script_intelligence_army/M-044-visual-impact-engine.py",
+    "entrypoint": "run"
+  },
+  "script_intelligence_army.m_045_sound_impact_system": {
+    "skill_markdown": "skills/script_intelligence_army/M-045-sound-impact-system.skill.md",
+    "module_path": "skills/script_intelligence_army/M-045-sound-impact-system.py",
+    "entrypoint": "run"
+  },
+  "script_intelligence_army.m_046_cinematic_enhancement_engine": {
+    "skill_markdown": "skills/script_intelligence_army/M-046-cinematic-enhancement-engine.skill.md",
+    "module_path": "skills/script_intelligence_army/M-046-cinematic-enhancement-engine.py",
+    "entrypoint": "run"
+  },
+  "script_intelligence_army.m_047_thumbnail_psychology_engine": {
+    "skill_markdown": "skills/script_intelligence_army/M-047-thumbnail-psychology-engine.skill.md",
+    "module_path": "skills/script_intelligence_army/M-047-thumbnail-psychology-engine.py",
+    "entrypoint": "run"
+  },
+  "script_intelligence_army.m_048_thumbnail_a_b_tester": {
+    "skill_markdown": "skills/script_intelligence_army/M-048-thumbnail-a-b-tester.skill.md",
+    "module_path": "skills/script_intelligence_army/M-048-thumbnail-a-b-tester.py",
+    "entrypoint": "run"
+  },
+  "script_intelligence_army.m_049_viral_distribution_planner": {
+    "skill_markdown": "skills/script_intelligence_army/M-049-viral-distribution-planner.skill.md",
+    "module_path": "skills/script_intelligence_army/M-049-viral-distribution-planner.py",
+    "entrypoint": "run"
+  },
+  "script_intelligence_army.m_050_platform_algorithm_adapter": {
+    "skill_markdown": "skills/script_intelligence_army/M-050-platform-algorithm-adapter.skill.md",
+    "module_path": "skills/script_intelligence_army/M-050-platform-algorithm-adapter.py",
+    "entrypoint": "run"
+  },
+  "script_intelligence_army.m_051_viral_multiplier_engine": {
+    "skill_markdown": "skills/script_intelligence_army/M-051-viral-multiplier-engine.skill.md",
+    "module_path": "skills/script_intelligence_army/M-051-viral-multiplier-engine.py",
+    "entrypoint": "run"
+  },
+  "script_intelligence_army.m_052_engagement_feedback_analyzer": {
+    "skill_markdown": "skills/script_intelligence_army/M-052-engagement-feedback-analyzer.skill.md",
+    "module_path": "skills/script_intelligence_army/M-052-engagement-feedback-analyzer.py",
+    "entrypoint": "run"
+  },
+  "script_intelligence_army.m_053_audience_sentiment_engine": {
+    "skill_markdown": "skills/script_intelligence_army/M-053-audience-sentiment-engine.skill.md",
+    "module_path": "skills/script_intelligence_army/M-053-audience-sentiment-engine.py",
+    "entrypoint": "run"
+  },
+  "script_intelligence_army.m_054_content_optimization_engine": {
+    "skill_markdown": "skills/script_intelligence_army/M-054-content-optimization-engine.skill.md",
+    "module_path": "skills/script_intelligence_army/M-054-content-optimization-engine.py",
+    "entrypoint": "run"
+  },
+  "script_intelligence_army.m_055_learning_memory_engine": {
+    "skill_markdown": "skills/script_intelligence_army/M-055-learning-memory-engine.skill.md",
+    "module_path": "skills/script_intelligence_army/M-055-learning-memory-engine.py",
+    "entrypoint": "run"
+  },
+  "script_intelligence_army.m_056_growth_prediction_engine": {
+    "skill_markdown": "skills/script_intelligence_army/M-056-growth-prediction-engine.skill.md",
+    "module_path": "skills/script_intelligence_army/M-056-growth-prediction-engine.py",
+    "entrypoint": "run"
+  },
+  "script_intelligence_army.m_057_monetization_advisor": {
+    "skill_markdown": "skills/script_intelligence_army/M-057-monetization-advisor.skill.md",
+    "module_path": "skills/script_intelligence_army/M-057-monetization-advisor.py",
+    "entrypoint": "run"
+  },
+  "script_intelligence_army.m_058_sponsorship_matchmaker": {
+    "skill_markdown": "skills/script_intelligence_army/M-058-sponsorship-matchmaker.skill.md",
+    "module_path": "skills/script_intelligence_army/M-058-sponsorship-matchmaker.py",
+    "entrypoint": "run"
+  },
+  "script_intelligence_army.m_059_product_integration_engine": {
+    "skill_markdown": "skills/script_intelligence_army/M-059-product-integration-engine.skill.md",
+    "module_path": "skills/script_intelligence_army/M-059-product-integration-engine.py",
+    "entrypoint": "run"
+  },
+  "script_intelligence_army.m_060_channel_strategy_director": {
+    "skill_markdown": "skills/script_intelligence_army/M-060-channel-strategy-director.skill.md",
+    "module_path": "skills/script_intelligence_army/M-060-channel-strategy-director.py",
+    "entrypoint": "run"
+  },
+  "swarm_expansion.m_121_algorithm_intelligence_core": {
+    "skill_markdown": "skills/swarm_expansion/M-121-algorithm-intelligence-core.skill.md",
+    "module_path": "skills/swarm_expansion/M-121-algorithm-intelligence-core.py",
+    "entrypoint": "run"
+  },
+  "swarm_expansion.m_122_data_signal_collector": {
+    "skill_markdown": "skills/swarm_expansion/M-122-data-signal-collector.skill.md",
+    "module_path": "skills/swarm_expansion/M-122-data-signal-collector.py",
+    "entrypoint": "run"
+  },
+  "swarm_expansion.m_123_algorithm_pattern_analyzer": {
+    "skill_markdown": "skills/swarm_expansion/M-123-algorithm-pattern-analyzer.skill.md",
+    "module_path": "skills/swarm_expansion/M-123-algorithm-pattern-analyzer.py",
+    "entrypoint": "run"
+  },
+  "swarm_expansion.m_124_watch_time_analyzer": {
+    "skill_markdown": "skills/swarm_expansion/M-124-watch-time-analyzer.skill.md",
+    "module_path": "skills/swarm_expansion/M-124-watch-time-analyzer.py",
+    "entrypoint": "run"
+  },
+  "swarm_expansion.m_125_retention_drop_detector": {
+    "skill_markdown": "skills/swarm_expansion/M-125-retention-drop-detector.skill.md",
+    "module_path": "skills/swarm_expansion/M-125-retention-drop-detector.py",
+    "entrypoint": "run"
+  },
+  "swarm_expansion.m_126_retention_repair_engine": {
+    "skill_markdown": "skills/swarm_expansion/M-126-retention-repair-engine.skill.md",
+    "module_path": "skills/swarm_expansion/M-126-retention-repair-engine.py",
+    "entrypoint": "run"
+  },
+  "swarm_expansion.m_127_viral_pattern_library": {
+    "skill_markdown": "skills/swarm_expansion/M-127-viral-pattern-library.skill.md",
+    "module_path": "skills/swarm_expansion/M-127-viral-pattern-library.py",
+    "entrypoint": "run"
+  },
+  "swarm_expansion.m_128_viral_pattern_replicator": {
+    "skill_markdown": "skills/swarm_expansion/M-128-viral-pattern-replicator.skill.md",
+    "module_path": "skills/swarm_expansion/M-128-viral-pattern-replicator.py",
+    "entrypoint": "run"
+  },
+  "swarm_expansion.m_129_thumbnail_heatmap_analyzer": {
+    "skill_markdown": "skills/swarm_expansion/M-129-thumbnail-heatmap-analyzer.skill.md",
+    "module_path": "skills/swarm_expansion/M-129-thumbnail-heatmap-analyzer.py",
+    "entrypoint": "run"
+  },
+  "swarm_expansion.m_130_thumbnail_optimization_engine": {
+    "skill_markdown": "skills/swarm_expansion/M-130-thumbnail-optimization-engine.skill.md",
+    "module_path": "skills/swarm_expansion/M-130-thumbnail-optimization-engine.py",
+    "entrypoint": "run"
+  },
+  "swarm_expansion.m_131_ctr_prediction_engine": {
+    "skill_markdown": "skills/swarm_expansion/M-131-ctr-prediction-engine.skill.md",
+    "module_path": "skills/swarm_expansion/M-131-ctr-prediction-engine.py",
+    "entrypoint": "run"
+  },
+  "swarm_expansion.m_132_title_emotion_analyzer": {
+    "skill_markdown": "skills/swarm_expansion/M-132-title-emotion-analyzer.skill.md",
+    "module_path": "skills/swarm_expansion/M-132-title-emotion-analyzer.py",
+    "entrypoint": "run"
+  },
+  "swarm_expansion.m_133_curiosity_trigger_engine": {
+    "skill_markdown": "skills/swarm_expansion/M-133-curiosity-trigger-engine.skill.md",
+    "module_path": "skills/swarm_expansion/M-133-curiosity-trigger-engine.py",
+    "entrypoint": "run"
+  },
+  "swarm_expansion.m_134_psychological_hook_engine": {
+    "skill_markdown": "skills/swarm_expansion/M-134-psychological-hook-engine.skill.md",
+    "module_path": "skills/swarm_expansion/M-134-psychological-hook-engine.py",
+    "entrypoint": "run"
+  },
+  "swarm_expansion.m_135_click_urgency_generator": {
+    "skill_markdown": "skills/swarm_expansion/M-135-click-urgency-generator.skill.md",
+    "module_path": "skills/swarm_expansion/M-135-click-urgency-generator.py",
+    "entrypoint": "run"
+  },
+  "swarm_expansion.m_136_ctr_stress_tester": {
+    "skill_markdown": "skills/swarm_expansion/M-136-ctr-stress-tester.skill.md",
+    "module_path": "skills/swarm_expansion/M-136-ctr-stress-tester.py",
+    "entrypoint": "run"
+  },
+  "swarm_expansion.m_137_thumbnail_emotion_optimizer": {
+    "skill_markdown": "skills/swarm_expansion/M-137-thumbnail-emotion-optimizer.skill.md",
+    "module_path": "skills/swarm_expansion/M-137-thumbnail-emotion-optimizer.py",
+    "entrypoint": "run"
+  },
+  "swarm_expansion.m_138_viral_probability_engine": {
+    "skill_markdown": "skills/swarm_expansion/M-138-viral-probability-engine.skill.md",
+    "module_path": "skills/swarm_expansion/M-138-viral-probability-engine.py",
+    "entrypoint": "run"
+  },
+  "swarm_expansion.m_139_viral_acceleration_engine": {
+    "skill_markdown": "skills/swarm_expansion/M-139-viral-acceleration-engine.skill.md",
+    "module_path": "skills/swarm_expansion/M-139-viral-acceleration-engine.py",
+    "entrypoint": "run"
+  },
+  "swarm_expansion.m_140_shareability_optimizer": {
+    "skill_markdown": "skills/swarm_expansion/M-140-shareability-optimizer.skill.md",
+    "module_path": "skills/swarm_expansion/M-140-shareability-optimizer.py",
+    "entrypoint": "run"
+  },
+  "swarm_expansion.m_141_community_trigger_engine": {
+    "skill_markdown": "skills/swarm_expansion/M-141-community-trigger-engine.skill.md",
+    "module_path": "skills/swarm_expansion/M-141-community-trigger-engine.py",
+    "entrypoint": "run"
+  },
+  "swarm_expansion.m_142_comment_magnet_engine": {
+    "skill_markdown": "skills/swarm_expansion/M-142-comment-magnet-engine.skill.md",
+    "module_path": "skills/swarm_expansion/M-142-comment-magnet-engine.py",
+    "entrypoint": "run"
+  },
+  "swarm_expansion.m_143_discussion_amplifier": {
+    "skill_markdown": "skills/swarm_expansion/M-143-discussion-amplifier.skill.md",
+    "module_path": "skills/swarm_expansion/M-143-discussion-amplifier.py",
+    "entrypoint": "run"
+  },
+  "swarm_expansion.m_144_engagement_momentum_engine": {
+    "skill_markdown": "skills/swarm_expansion/M-144-engagement-momentum-engine.skill.md",
+    "module_path": "skills/swarm_expansion/M-144-engagement-momentum-engine.py",
+    "entrypoint": "run"
+  },
+  "swarm_expansion.m_145_algorithm_boost_detector": {
+    "skill_markdown": "skills/swarm_expansion/M-145-algorithm-boost-detector.skill.md",
+    "module_path": "skills/swarm_expansion/M-145-algorithm-boost-detector.py",
+    "entrypoint": "run"
+  },
+  "swarm_expansion.m_146_viral_surge_manager": {
+    "skill_markdown": "skills/swarm_expansion/M-146-viral-surge-manager.skill.md",
+    "module_path": "skills/swarm_expansion/M-146-viral-surge-manager.py",
+    "entrypoint": "run"
+  },
+  "swarm_expansion.m_147_content_amplification_engine": {
+    "skill_markdown": "skills/swarm_expansion/M-147-content-amplification-engine.skill.md",
+    "module_path": "skills/swarm_expansion/M-147-content-amplification-engine.py",
+    "entrypoint": "run"
+  },
+  "swarm_expansion.m_148_channel_authority_builder": {
+    "skill_markdown": "skills/swarm_expansion/M-148-channel-authority-builder.skill.md",
+    "module_path": "skills/swarm_expansion/M-148-channel-authority-builder.py",
+    "entrypoint": "run"
+  },
+  "swarm_expansion.m_149_algorithm_trust_engine": {
+    "skill_markdown": "skills/swarm_expansion/M-149-algorithm-trust-engine.skill.md",
+    "module_path": "skills/swarm_expansion/M-149-algorithm-trust-engine.py",
+    "entrypoint": "run"
+  },
+  "swarm_expansion.m_150_platform_dominance_engine": {
+    "skill_markdown": "skills/swarm_expansion/M-150-platform-dominance-engine.skill.md",
+    "module_path": "skills/swarm_expansion/M-150-platform-dominance-engine.py",
+    "entrypoint": "run"
+  },
+  "system_intelligence.m_061_micro_skill_army_router": {
+    "skill_markdown": "skills/system_intelligence/M-061-micro-skill-army-router.skill.md",
+    "module_path": "skills/system_intelligence/M-061-micro-skill-army-router.py",
+    "entrypoint": "run"
+  },
+  "system_intelligence.m_062_skill_loader_protocol": {
+    "skill_markdown": "skills/system_intelligence/M-062-skill-loader-protocol.skill.md",
+    "module_path": "skills/system_intelligence/M-062-skill-loader-protocol.py",
+    "entrypoint": "run"
+  },
+  "system_intelligence.m_063_skill_dependency_resolver": {
+    "skill_markdown": "skills/system_intelligence/M-063-skill-dependency-resolver.skill.md",
+    "module_path": "skills/system_intelligence/M-063-skill-dependency-resolver.py",
+    "entrypoint": "run"
+  },
+  "system_intelligence.m_064_skill_priority_engine": {
+    "skill_markdown": "skills/system_intelligence/M-064-skill-priority-engine.skill.md",
+    "module_path": "skills/system_intelligence/M-064-skill-priority-engine.py",
+    "entrypoint": "run"
+  },
+  "system_intelligence.m_065_task_queue_manager": {
+    "skill_markdown": "skills/system_intelligence/M-065-task-queue-manager.skill.md",
+    "module_path": "skills/system_intelligence/M-065-task-queue-manager.py",
+    "entrypoint": "run"
+  },
+  "system_intelligence.m_066_resource_allocator": {
+    "skill_markdown": "skills/system_intelligence/M-066-resource-allocator.skill.md",
+    "module_path": "skills/system_intelligence/M-066-resource-allocator.py",
+    "entrypoint": "run"
+  },
+  "system_intelligence.m_067_performance_monitor": {
+    "skill_markdown": "skills/system_intelligence/M-067-performance-monitor.skill.md",
+    "module_path": "skills/system_intelligence/M-067-performance-monitor.py",
+    "entrypoint": "run"
+  },
+  "system_intelligence.m_068_failure_detector": {
+    "skill_markdown": "skills/system_intelligence/M-068-failure-detector.skill.md",
+    "module_path": "skills/system_intelligence/M-068-failure-detector.py",
+    "entrypoint": "run"
+  },
+  "system_intelligence.m_069_recovery_engine": {
+    "skill_markdown": "skills/system_intelligence/M-069-recovery-engine.skill.md",
+    "module_path": "skills/system_intelligence/M-069-recovery-engine.py",
+    "entrypoint": "run"
+  },
+  "system_intelligence.m_070_adaptive_re_router": {
+    "skill_markdown": "skills/system_intelligence/M-070-adaptive-re-router.skill.md",
+    "module_path": "skills/system_intelligence/M-070-adaptive-re-router.py",
+    "entrypoint": "run"
+  },
+  "system_intelligence.m_071_intelligence_memory_system": {
+    "skill_markdown": "skills/system_intelligence/M-071-intelligence-memory-system.skill.md",
+    "module_path": "skills/system_intelligence/M-071-intelligence-memory-system.py",
+    "entrypoint": "run"
+  },
+  "system_intelligence.m_072_pattern_recognition_engine": {
+    "skill_markdown": "skills/system_intelligence/M-072-pattern-recognition-engine.skill.md",
+    "module_path": "skills/system_intelligence/M-072-pattern-recognition-engine.py",
+    "entrypoint": "run"
+  },
+  "system_intelligence.m_073_trend_prediction_engine": {
+    "skill_markdown": "skills/system_intelligence/M-073-trend-prediction-engine.skill.md",
+    "module_path": "skills/system_intelligence/M-073-trend-prediction-engine.py",
+    "entrypoint": "run"
+  },
+  "system_intelligence.m_074_viral_opportunity_scanner": {
+    "skill_markdown": "skills/system_intelligence/M-074-viral-opportunity-scanner.skill.md",
+    "module_path": "skills/system_intelligence/M-074-viral-opportunity-scanner.py",
+    "entrypoint": "run"
+  },
+  "system_intelligence.m_075_content_replication_engine": {
+    "skill_markdown": "skills/system_intelligence/M-075-content-replication-engine.skill.md",
+    "module_path": "skills/system_intelligence/M-075-content-replication-engine.py",
+    "entrypoint": "run"
+  },
+  "system_intelligence.m_076_multi_channel_expansion_engine": {
+    "skill_markdown": "skills/system_intelligence/M-076-multi-channel-expansion-engine.skill.md",
+    "module_path": "skills/system_intelligence/M-076-multi-channel-expansion-engine.py",
+    "entrypoint": "run"
+  },
+  "system_intelligence.m_077_language_localization_engine": {
+    "skill_markdown": "skills/system_intelligence/M-077-language-localization-engine.skill.md",
+    "module_path": "skills/system_intelligence/M-077-language-localization-engine.py",
+    "entrypoint": "run"
+  },
+  "system_intelligence.m_078_cultural_adaptation_engine": {
+    "skill_markdown": "skills/system_intelligence/M-078-cultural-adaptation-engine.skill.md",
+    "module_path": "skills/system_intelligence/M-078-cultural-adaptation-engine.py",
+    "entrypoint": "run"
+  },
+  "system_intelligence.m_079_platform_format_engine": {
+    "skill_markdown": "skills/system_intelligence/M-079-platform-format-engine.skill.md",
+    "module_path": "skills/system_intelligence/M-079-platform-format-engine.py",
+    "entrypoint": "run"
+  },
+  "system_intelligence.m_080_shorts_generator": {
+    "skill_markdown": "skills/system_intelligence/M-080-shorts-generator.skill.md",
+    "module_path": "skills/system_intelligence/M-080-shorts-generator.py",
+    "entrypoint": "run"
+  },
+  "system_intelligence.m_081_clip_extraction_engine": {
+    "skill_markdown": "skills/system_intelligence/M-081-clip-extraction-engine.skill.md",
+    "module_path": "skills/system_intelligence/M-081-clip-extraction-engine.py",
+    "entrypoint": "run"
+  },
+  "system_intelligence.m_082_viral_clip_optimizer": {
+    "skill_markdown": "skills/system_intelligence/M-082-viral-clip-optimizer.skill.md",
+    "module_path": "skills/system_intelligence/M-082-viral-clip-optimizer.py",
+    "entrypoint": "run"
+  },
+  "system_intelligence.m_083_social_media_distributor": {
+    "skill_markdown": "skills/system_intelligence/M-083-social-media-distributor.skill.md",
+    "module_path": "skills/system_intelligence/M-083-social-media-distributor.py",
+    "entrypoint": "run"
+  },
+  "system_intelligence.m_084_cross_platform_analytics": {
+    "skill_markdown": "skills/system_intelligence/M-084-cross-platform-analytics.skill.md",
+    "module_path": "skills/system_intelligence/M-084-cross-platform-analytics.py",
+    "entrypoint": "run"
+  },
+  "system_intelligence.m_085_ai_avatar_director": {
+    "skill_markdown": "skills/system_intelligence/M-085-ai-avatar-director.skill.md",
+    "module_path": "skills/system_intelligence/M-085-ai-avatar-director.py",
+    "entrypoint": "run"
+  },
+  "system_intelligence.m_086_cinematic_shot_planner": {
+    "skill_markdown": "skills/system_intelligence/M-086-cinematic-shot-planner.skill.md",
+    "module_path": "skills/system_intelligence/M-086-cinematic-shot-planner.py",
+    "entrypoint": "run"
+  },
+  "system_intelligence.m_087_lighting_designer": {
+    "skill_markdown": "skills/system_intelligence/M-087-lighting-designer.skill.md",
+    "module_path": "skills/system_intelligence/M-087-lighting-designer.py",
+    "entrypoint": "run"
+  },
+  "system_intelligence.m_088_scene_composition_engine": {
+    "skill_markdown": "skills/system_intelligence/M-088-scene-composition-engine.skill.md",
+    "module_path": "skills/system_intelligence/M-088-scene-composition-engine.py",
+    "entrypoint": "run"
+  },
+  "system_intelligence.m_089_motion_director": {
+    "skill_markdown": "skills/system_intelligence/M-089-motion-director.skill.md",
+    "module_path": "skills/system_intelligence/M-089-motion-director.py",
+    "entrypoint": "run"
+  },
+  "system_intelligence.m_090_generic_m_090_forbidden_in_runtime_split_into_av_emo_090_and_yt_for_090": {
+    "skill_markdown": "skills/system_intelligence/M-090-generic-m-090-forbidden-in-runtime-split-into-av-emo-090-and-yt-for-090.skill.md",
+    "module_path": "skills/system_intelligence/M-090-generic-m-090-forbidden-in-runtime-split-into-av-emo-090-and-yt-for-090.py",
+    "entrypoint": "run"
+  },
+  "topic_intelligence.m_001_global_trend_scanner": {
+    "skill_markdown": "skills/topic_intelligence/M-001-global-trend-scanner.skill.md",
+    "module_path": "skills/topic_intelligence/M-001-global-trend-scanner.py",
+    "entrypoint": "run"
+  },
+  "topic_intelligence.m_002_topic_opportunity_miner": {
+    "skill_markdown": "skills/topic_intelligence/M-002-topic-opportunity-miner.skill.md",
+    "module_path": "skills/topic_intelligence/M-002-topic-opportunity-miner.py",
+    "entrypoint": "run"
+  },
+  "topic_intelligence.m_003_keyword_intelligence_miner": {
+    "skill_markdown": "skills/topic_intelligence/M-003-keyword-intelligence-miner.skill.md",
+    "module_path": "skills/topic_intelligence/M-003-keyword-intelligence-miner.py",
+    "entrypoint": "run"
+  },
+  "topic_intelligence.m_004_audience_demographic_mapper": {
+    "skill_markdown": "skills/topic_intelligence/M-004-audience-demographic-mapper.skill.md",
+    "module_path": "skills/topic_intelligence/M-004-audience-demographic-mapper.py",
+    "entrypoint": "run"
+  },
+  "topic_intelligence.m_006_viral_pattern_detector": {
+    "skill_markdown": "skills/topic_intelligence/M-006-viral-pattern-detector.skill.md",
+    "module_path": "skills/topic_intelligence/M-006-viral-pattern-detector.py",
+    "entrypoint": "run"
+  },
+  "topic_intelligence.m_007_algorithm_signal_monitor": {
+    "skill_markdown": "skills/topic_intelligence/M-007-algorithm-signal-monitor.skill.md",
+    "module_path": "skills/topic_intelligence/M-007-algorithm-signal-monitor.py",
+    "entrypoint": "run"
+  },
+  "topic_intelligence.m_008_topic_viability_scorer": {
+    "skill_markdown": "skills/topic_intelligence/M-008-topic-viability-scorer.skill.md",
+    "module_path": "skills/topic_intelligence/M-008-topic-viability-scorer.py",
+    "entrypoint": "run"
+  },
+  "topic_intelligence.m_012_audience_interest_predictor": {
+    "skill_markdown": "skills/topic_intelligence/M-012-audience-interest-predictor.skill.md",
+    "module_path": "skills/topic_intelligence/M-012-audience-interest-predictor.py",
+    "entrypoint": "run"
+  },
+  "topic_intelligence.m_013_search_demand_forecaster": {
+    "skill_markdown": "skills/topic_intelligence/M-013-search-demand-forecaster.skill.md",
+    "module_path": "skills/topic_intelligence/M-013-search-demand-forecaster.py",
+    "entrypoint": "run"
+  },
+  "topic_intelligence.m_014_comment_sentiment_analyzer": {
+    "skill_markdown": "skills/topic_intelligence/M-014-comment-sentiment-analyzer.skill.md",
+    "module_path": "skills/topic_intelligence/M-014-comment-sentiment-analyzer.py",
+    "entrypoint": "run"
+  },
+  "topic_intelligence.m_015_cultural_context_analyzer": {
+    "skill_markdown": "skills/topic_intelligence/M-015-cultural-context-analyzer.skill.md",
+    "module_path": "skills/topic_intelligence/M-015-cultural-context-analyzer.py",
+    "entrypoint": "run"
+  },
+  "topic_intelligence.m_016_content_gap_finder": {
+    "skill_markdown": "skills/topic_intelligence/M-016-content-gap-finder.skill.md",
+    "module_path": "skills/topic_intelligence/M-016-content-gap-finder.py",
+    "entrypoint": "run"
+  },
+  "topic_intelligence.m_018_trend_lifecycle_predictor": {
+    "skill_markdown": "skills/topic_intelligence/M-018-trend-lifecycle-predictor.skill.md",
+    "module_path": "skills/topic_intelligence/M-018-trend-lifecycle-predictor.py",
+    "entrypoint": "run"
+  },
+  "topic_intelligence.m_019_audience_pain_point_miner": {
+    "skill_markdown": "skills/topic_intelligence/M-019-audience-pain-point-miner.skill.md",
+    "module_path": "skills/topic_intelligence/M-019-audience-pain-point-miner.py",
+    "entrypoint": "run"
+  },
+  "topic_intelligence.m_023_trend_risk_evaluator": {
+    "skill_markdown": "skills/topic_intelligence/M-023-trend-risk-evaluator.skill.md",
+    "module_path": "skills/topic_intelligence/M-023-trend-risk-evaluator.py",
+    "entrypoint": "run"
+  },
+  "topic_intelligence.m_024_topic_finalization_engine": {
+    "skill_markdown": "skills/topic_intelligence/M-024-topic-finalization-engine.skill.md",
+    "module_path": "skills/topic_intelligence/M-024-topic-finalization-engine.py",
+    "entrypoint": "run"
+  }
+}

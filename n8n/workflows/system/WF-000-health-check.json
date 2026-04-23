@@ -11,7 +11,7 @@
     },
     {
       "parameters": {
-        "jsCode": "return [{ json: { workflow_id: 'WF-000', phase: 'phase1', expected_folders: ['C:/ShadowEmpire/n8n_user','C:/ShadowEmpire/n8n_user/binaryData','C:/ShadowEmpire/runtime/dossiers','C:/ShadowEmpire/runtime/packets','C:/ShadowEmpire/runtime/logs'], ollama_endpoint: 'http://127.0.0.1:11434/api/tags', expected_model: 'qwen2.5:7b-instruct' } }];"
+        "jsCode": "return [{ json: { workflow_id: 'WF-000', phase: 'phase1', expected_folders: ['C:/ShadowEmpire/n8n_user','C:/ShadowEmpire/n8n_user/binaryData','C:/ShadowEmpire/runtime/dossiers','C:/ShadowEmpire/runtime/packets','C:/ShadowEmpire/runtime/logs'], ollama_endpoint: 'http://127.0.0.1:11434/api/tags', expected_model: 'llama3.2:3b' } }];"
       },
       "id": "normalize_probe_request",
       "name": "Normalize Probe Request",

@@ -2,7 +2,7 @@
   "matrix_name": "sub_agent_matrix",
   "schema_version": "1.0.0",
   "source_registry": "sub_agents/SUB_AGENT_RUNTIME_REGISTRY.yaml",
-  "generated_at": "2026-04-23T08:52:06.347098+00:00",
+  "generated_at": "2026-04-23T09:26:36.310701+00:00",
   "total_sub_agents": 36,
   "family_totals": {
     "topic": 4,

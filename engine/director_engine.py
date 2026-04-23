@@ -9,7 +9,7 @@ from engine.chain_executor import ChainExecutor
 from engine.dossier_manager import DossierManager
 
 OLLAMA_URL = "http://localhost:11434/api/generate"
-MODEL = "llama3"
+MODEL = "llama3.2:3b"
 
 
 class DirectorEngine:

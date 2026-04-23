@@ -11,19 +11,18 @@ decision_packets:
   - packet_id: DP-001
     title: Ollama model name finalization
     class: release_governance
-    current_state: provisionally_resolved
+    current_state: resolved_release
     blocking_level: release
     owner: founder
     source_of_conflict: >
-      Different repo notes refer to qwen2.5:7b-instruct and other possible
-      local models. One canonical model name must be chosen for unattended
-      release artifacts.
+      Historical repo notes referred to qwen2.5:7b-instruct and other possible
+      local models before the current Windows target was verified.
     current_truth: >
-      Phase-1 currently assumes qwen2.5:7b-instruct as the working local model.
-      Final unattended release must verify the actual installed model name.
+      Phase-1 now uses llama3.2:3b as the working local model on the current
+      Windows target.
     recommended_resolution: >
-      Founder confirms actual local model installed on the Windows machine and
-      updates all deployment docs and config defaults to match.
+      Keep deployment docs, workflow probes, and provider notes aligned to
+      llama3.2:3b unless the installed local model changes.
     close_condition: >
       Actual model name is verified on target machine and all repo references align.
 

@@ -35,6 +35,10 @@ def _load_csv(path: Path) -> list[dict[str, str]]:
         return list(csv.DictReader(handle))
 
 
+def _is_resolved_state(state: str) -> bool:
+    return state.startswith("resolved")
+
+
 def _parse_route_registry(text: str) -> list[dict[str, str]]:
     routes: list[dict[str, str]] = []
     current: dict[str, str] | None = None
@@ -245,8 +249,8 @@ def build_snapshot() -> dict[str, Any]:
         "blocker_values": {
             "blocker_count": len(blockers),
             "blocker_state_counts": dict(blocker_state_counts),
-            "open_blockers": [entry["blocker_id"] for entry in blockers if entry.get("state") not in {"resolved_p0", "resolved"}],
-            "resolved_blockers": [entry["blocker_id"] for entry in blockers if entry.get("state") in {"resolved_p0", "resolved"}],
+            "open_blockers": [entry["blocker_id"] for entry in blockers if not _is_resolved_state(entry.get("state", ""))],
+            "resolved_blockers": [entry["blocker_id"] for entry in blockers if _is_resolved_state(entry.get("state", ""))],
         },
         "decision_packet_values": {
             "packet_count": len(decision_packets),
@@ -261,7 +265,7 @@ def build_snapshot() -> dict[str, Any]:
             "open_release_packets": [
                 entry["packet_id"]
                 for entry in decision_packets
-                if entry.get("blocking_level") == "release" and entry.get("current_state") not in {"resolved_p0", "resolved"}
+                if entry.get("blocking_level") == "release" and not _is_resolved_state(entry.get("current_state", ""))
             ],
         },
         "route_namespace_values": {

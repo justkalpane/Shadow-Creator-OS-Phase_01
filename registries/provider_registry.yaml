@@ -22,8 +22,8 @@ providers:
     budget_gate_required: false
     policy_gate_required: true
     notes: >
-      Primary local model host for Phase-1. Current working assumption is
-      qwen2.5:7b-instruct, pending DP-001 final verification.
+      Primary local model host for Phase-1. Current working model is
+      llama3.2:3b on the active Windows target.
 
   - provider_id: elevenlabs_api
     display_name: ElevenLabs API

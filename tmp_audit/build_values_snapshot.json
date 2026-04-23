@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-23T08:52:06.455903+00:00",
+  "generated_at": "2026-04-23T09:26:36.397381+00:00",
   "source_truth": {
     "agent_class_matrix": "registries/agent_class_matrix.json",
     "sub_agent_matrix": "registries/sub_agent_matrix.json",
@@ -171,7 +171,7 @@
   "decision_packet_values": {
     "packet_count": 5,
     "packet_state_counts": {
-      "provisionally_resolved": 1,
+      "resolved_release": 1,
       "resolved_p0": 4
     },
     "build_packets": [
@@ -184,11 +184,9 @@
   "release_packet_values": {
     "release_packet_count": 1,
     "release_packet_state_counts": {
-      "provisionally_resolved": 1
+      "resolved_release": 1
     },
-    "open_release_packets": [
-      "DP-001"
-    ]
+    "open_release_packets": []
   },
   "route_namespace_values": {
     "canonical_namespace": "ROUTE_PHASE1_*",

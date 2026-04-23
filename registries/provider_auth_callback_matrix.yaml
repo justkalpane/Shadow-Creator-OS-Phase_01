@@ -57,4 +57,5 @@ providers:
     degraded_mode_on_failure: block_publish_stage
     notes: >
       Publishing provider. OAuth redirect URI must be finalized (RB-002) and
-      refresh token handling must be documented before activation.
+      refresh token handling must be documented before activation. Local secret
+      rotation policy is defined in docs/03-deployment/secret-rotation-policy.md.

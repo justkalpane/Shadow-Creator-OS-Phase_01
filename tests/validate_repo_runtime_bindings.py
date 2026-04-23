@@ -35,6 +35,14 @@ packet_text = PACKET_BINDINGS.read_text(encoding='utf-8')
 config_text = LOCAL_REPO_CONFIG.read_text(encoding='utf-8')
 doc_text = WINDOWS_REPO_DOC.read_text(encoding='utf-8')
 
+
+def extract_scalar_value(text: str, key: str) -> str:
+    for line in text.splitlines():
+        stripped = line.strip()
+        if stripped.startswith(f'{key}:'):
+            return stripped.split(':', 1)[1].strip()
+    raise AssertionError(f'Missing scalar value for {key}')
+
 for workflow_id in canonical_workflows:
     assert f'{workflow_id}:' in data_table_text, f'Missing data table binding for {workflow_id}'
     assert f'{workflow_id}:' in dossier_text, f'Missing dossier namespace binding for {workflow_id}'
@@ -45,7 +53,7 @@ for child_id in ['CWF-110', 'CWF-120', 'CWF-130', 'CWF-140', 'CWF-210', 'CWF-220
     assert f'{child_id}:' in dossier_text, f'Missing child dossier binding for {child_id}'
     assert f'{child_id}:' in packet_text, f'Missing child packet binding for {child_id}'
 
-assert 'runtime_repo_access: local_clone_preferred' in config_text
+assert extract_scalar_value(config_text, 'runtime_repo_access') == 'local_clone_preferred'
 assert 'expected_windows_repo_root:' in config_text
 assert 'local filesystem read is the default integration mode' in doc_text
 

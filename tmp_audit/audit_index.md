@@ -1,6 +1,6 @@
 # Audit Index
 
-Generated: 2026-04-23T08:52:06.436836+00:00
+Generated: 2026-04-23T09:26:36.384894+00:00
 
 ## Primary Entrypoints
 - Top-level rebuild: [rebuild_all_matrices.py](C:\ShadowEmpire-Git\scripts\rebuild_all_matrices.py)

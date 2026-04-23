@@ -2,7 +2,7 @@
   "matrix_name": "agent_class_matrix",
   "schema_version": "1.0.0",
   "source_registry": "agents/AGENT_RUNTIME_REGISTRY.yaml",
-  "generated_at": "2026-04-23T08:52:06.335073+00:00",
+  "generated_at": "2026-04-23T09:26:36.294913+00:00",
   "total_agents": 114,
   "family_totals": {
     "named_director": 32,

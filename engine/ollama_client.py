@@ -4,7 +4,7 @@ import requests
 
 
 class OllamaClient:
-    def __init__(self, model: str = "llama3", url: str = "http://localhost:11434/api/generate") -> None:
+    def __init__(self, model: str = "llama3.2:3b", url: str = "http://localhost:11434/api/generate") -> None:
         self.model = model
         self.url = url
 

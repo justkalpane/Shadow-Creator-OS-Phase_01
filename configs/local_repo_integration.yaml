@@ -3,16 +3,10 @@ mode: hybrid_github_local
 constitutional_authority_ref: docs/01-architecture/canonical_authority_precedence.md
 wave_00_update_note: >
   Version 3 adds constitutional authority reference and decision packet flags.
-  The runtime_repo_access value remains unchanged pending DP-003 resolution.
+  The runtime_repo_access value is aligned to the canonical local clone posture.
 
-# DECISION PACKET FLAG: DP-003
-# This value conflicts with the assertion in tests/validate_repo_runtime_bindings.py
-# which checks for: runtime_repo_access: local_clone_preferred
-# This mismatch must be resolved in P0. Until then the validator WILL FAIL.
-# Temporary: do not run validate_repo_runtime_bindings.py until P0 resolves DP-003.
-# Recommended resolution: change this value to local_clone_preferred
 repo_source_of_truth: GitHub
-runtime_repo_access: github_primary_local_mirror
+runtime_repo_access: local_clone_preferred
 sync_mode: manual_command_driven
 
 expected_windows_repo_root: C:\ShadowEmpire\Shadow-Creator-OS-Phase_01
@@ -37,5 +31,5 @@ agent_behavior:
   - agent updates local mirror only when instructed
 
 decision_packet_flags:
-  - DP-003: runtime_repo_access value must be aligned between config and validator in P0
+  - DP-003: runtime_repo_access value aligned between config and validator
   - DP-002: data table names in this config may need updating after table name reconciliation

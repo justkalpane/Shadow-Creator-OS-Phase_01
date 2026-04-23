@@ -489,4 +489,4 @@ constitutional_artifacts:
 # OPEN BLOCKERS (as of this build)
 # ─────────────────────────────────────────────
 open_blockers:
-  - DP-001: Ollama model name confirmation needed from founder for deployment docs
+  - DP-001: Ollama model name confirmed as llama3.2:3b for deployment docs

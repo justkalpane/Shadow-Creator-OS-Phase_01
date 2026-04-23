@@ -7,6 +7,10 @@ ROOT = Path(__file__).resolve().parent
 scripts = [
     ROOT / 'validate_schemas.py',
     ROOT / 'validate_registries.py',
+    ROOT / 'validate_repo_runtime_bindings.py',
+    ROOT / 'validate_release_blocker_matrix.py',
+    ROOT / 'validate_provider_quota_threshold_policy.py',
+    ROOT / 'validate_runtime_core_execution.py',
     ROOT / 'validate_manifests.py',
     ROOT / 'validate_workflows.py',
     ROOT / 'validate_agents.py',

@@ -32,12 +32,12 @@ blockers:
   - blocker_id: RB-003
     title: Secret rotation policy not finalized
     severity: P1
-    state: open
+    state: resolved_release
     blocking_scope: release
     remediation_owner: founder
     required_fix: >
-      Define how local env secrets are rotated, replaced, and revoked for
-      provider API keys.
+      Local secret rotation policy is defined in docs/03-deployment/secret-rotation-policy.md
+      and Phase-1 secrets remain local_env_only.
 
   - blocker_id: RB-004
     title: Provider quota thresholds not finalized
@@ -46,8 +46,9 @@ blockers:
     blocking_scope: release
     remediation_owner: founder
     required_fix: >
-      Set concrete provider quota ceilings / budget thresholds for ElevenLabs,
-      HeyGen, YouTube, and any other premium provider before activation.
+      Populate docs/03-deployment/provider-quota-threshold-policy.md and
+      registries/provider_quota_thresholds.yaml with founder-approved values
+      for ElevenLabs, HeyGen, and YouTube before activation.
 
   - blocker_id: RB-005
     title: Mission Control / dashboard implementation deferred

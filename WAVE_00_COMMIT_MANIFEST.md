@@ -58,7 +58,7 @@ authority, registries, matrices, and governance laws only.
 
 | File | Change |
 |------|--------|
-| `configs/local_repo_integration.yaml` | Version 3: added constitutional refs, DP-003 flag |
+| `configs/local_repo_integration.yaml` | Version 3: added constitutional refs, DP-003 resolved |
 | `registries/workflow_registry.yaml` | Version 2: added constitutional refs, DP-004 flag |
 
 ## FILES NOT MODIFIED IN WAVE 00
@@ -73,9 +73,9 @@ Wave 00 is additive only for constitutional files and annotative for config/regi
 
 | DP ID | Item | Status | Blocking | Owner |
 |-------|------|--------|----------|-------|
-| DP-001 | Ollama model name | PROVISIONALLY_RESOLVED | RELEASE | founder |
+| DP-001 | Ollama model name | RESOLVED | RELEASE | founder |
 | DP-002 | Data table name set (live vs repo) | OPEN | BUILD | founder |
-| DP-003 | runtime_repo_access config vs validator | OPEN | BUILD | builder |
+| DP-003 | runtime_repo_access config vs validator | RESOLVED | BUILD | builder |
 | DP-004 | WF-100/WF-200 canonical promotion | OPEN | BUILD | P0 |
 | DP-005 | topic_candidate_board schema missing | OPEN | BUILD | P0 |
 | DP-006 | Live route_id vs repo route_id naming | OPEN | BUILD | founder |
@@ -90,7 +90,7 @@ BB-001 through BB-013 (constitutional layer established).
 ## BUILD BLOCKERS REMAINING OPEN (P0 ownership)
 
 BB-014: WF-100/WF-200 canonical register contradiction
-BB-015: Config vs validator value drift
+BB-015: Config vs validator value drift (resolved)
 BB-016: Data table name mismatch
 BB-017: topic_candidate_board schema missing
 BB-018: Script intelligence skills flat
@@ -105,15 +105,16 @@ BB-020: se_approval_queue schema mismatch
 
 P0 must:
 1. Resolve DP-002 (table names) — recommend adopting se_ prefix names
-2. Resolve DP-003 (config value) — recommend local_clone_preferred
-3. Resolve DP-004 — promote WF-100/WF-200 in all canonical registers
-4. Resolve DP-005 — create topic_candidate_board schema
-5. Resolve DP-006 (route naming) — recommend ROUTE_PHASE1_* canonical names
-6. Resolve DP-007 (approval schema) — recommend adopting live schema
-7. Close BB-014 through BB-020
-8. Update WF-010 to route to WF-100 instead of emitting null
-9. Upgrade S-201 through S-210 skill DNA to repo-loadable depth
-10. Rewrite all validators to reflect post-promotion truth
+2. Resolve DP-003 (config value) — completed with `local_clone_preferred`
+3. Resolve DP-001 (model name) — completed with `llama3.2:3b`
+4. Resolve DP-004 — promote WF-100/WF-200 in all canonical registers
+5. Resolve DP-005 — create topic_candidate_board schema
+6. Resolve DP-006 (route naming) — recommend ROUTE_PHASE1_* canonical names
+7. Resolve DP-007 (approval schema) — recommend adopting live schema
+8. Close BB-014 through BB-020
+9. Update WF-010 to route to WF-100 instead of emitting null
+10. Upgrade S-201 through S-210 skill DNA to repo-loadable depth
+11. Rewrite all validators to reflect post-promotion truth
 
 ---
 
