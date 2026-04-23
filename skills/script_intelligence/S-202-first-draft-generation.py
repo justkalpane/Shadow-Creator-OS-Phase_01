@@ -1,7 +1,13 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 from datetime import datetime, timezone
 from typing import Any
+
+
+def _is_strict_packet_mode(input_payload: dict[str, Any]) -> bool:
+    child_workflow_id = str(input_payload.get("child_workflow_id", "")).upper()
+    workflow_id = str(input_payload.get("workflow_id", "")).upper()
+    return bool(input_payload.get("strict_packet_output", False)) or child_workflow_id == "CWF-210" or workflow_id == "CWF-210"
 
 
 def run(input_payload: dict[str, Any]) -> dict[str, Any]:
@@ -14,6 +20,24 @@ def run(input_payload: dict[str, Any]) -> dict[str, Any]:
         }
 
     now = datetime.now(timezone.utc).isoformat()
+    ts = int(datetime.now(timezone.utc).timestamp() * 1000)
+
+    if _is_strict_packet_mode(input_payload):
+        return {
+            "packet_id": f"SDP-{ts}",
+            "dossier_id": str(dossier_id),
+            "title": str(input_payload.get("title", "Structured Draft v1")),
+            "hook": str(input_payload.get("hook", "This method compresses months of trial-and-error into one repeatable flow.")),
+            "section_plan": [
+                "Opening Hook",
+                "Problem Framing",
+                "Method Breakdown",
+                "Evidence & Proof",
+                "Execution CTA",
+            ],
+            "created_at": now,
+        }
+
     return {
         "status": "success",
         "skill_id": "S-202",
