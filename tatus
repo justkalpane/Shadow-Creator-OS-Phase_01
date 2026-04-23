@@ -1,0 +1,184 @@
+[33m1d1292e[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m Codex update: directors, agents, skills, registry, workflow improvements
+[33mc3a9085[m Regenerate build status from live snapshot data
+[33m6aa82b1[m your message
+[33ma244038[m sync before rebase
+[33mb38cd9d[m Add ChainExecutor for multi-step agent chaining
+[33m88c56d2[m Add Ollama-enabled skill builder (safe upgrade)
+[33m1713aee[m Add skill_builder.py to auto-generate executable skill modules from .md
+[33m06e2e8d[m Add engine/registry_mapper.py to auto-generate skill registry from .md files
+[33ma2cefb1[m Add runtime_router.py (dynamic skill routing + execution integration)
+[33mc5c387d[m Add execution_contract.py (Engine Hardening Layer - Step 2)
+[33mac52012[m Add validator_runtime.py - validates skill DNA structure and detects missing fields
+[33m36a1d3e[m Add production registry runtime (engine layer)
+[33mabebdc3[m index refresh
+[33m9f15917[m Sync repo to GitHub
+[33m71ccce9[m[33m ([m[1;31morigin/codex/wf020-wf010-runtime[m[33m)[m Wire WF-020 continuation and WF-010 runtime entrypoint
+[33mc804a1a[m Build: Added Directors + Skills batch update
+[33m945c037[m WAVE P0-DIRECTORS: FINAL BATCH COMPLETE — Directors 26-30 Distribution & Evolution + Kernel Spine
+[33m005273f[m Update DIRECTORS_BUILD_PROGRESS.md — 25 of 30 directors complete (83%)
+[33me79662d[m WAVE P0-DIRECTORS: Batch 4 Complete — Directors 21-25 Cinematic Council
+[33m0cb5e97[m WAVE P0-DIRECTORS: Batch 3 Complete — Directors 16-20 Production Council
+[33ma2cc8b4[m WAVE P0-DIRECTORS: Batch 2 Complete — Directors 11-15 Research Council
+[33m7048c72[m WAVE P0-DIRECTORS: Batch 1 Complete — Directors 1-10 with full execution logic
+[33mca992b7[m Add Narada real data ingestion agent (v1)
+[33m4caab0a[m Sync: <what changed>
+[33m02a242e[m Sync: Claude updates (skills + workflows + manifests + dossier schema)
+[33m7053f95[m feat: full system sync (WF-100 to WF-600, engine, skills, schemas, bindings, validators)
+[33m6162fea[m WAVE P0-P1: Core Phase-1 build checkpoint - skills DNA upgrade, production workflows, skill loader engine
+[33mb3652c0[m BB-020 resolve approval queue schema decision
+[33m1c29211[m BB-020 add canonical se_approval_queue row schema
+[33mb332100[m BB-019 update blocker state to reflect repo alignment
+[33m6920964[m BB-019 update DP-006 to reflect repo-side route ID alignment
+[33mca67347[m BB-017 mark topic_candidate_board schema as resolved
+[33md817e53[m BB-017 add topic_candidate_board packet schema
+[33m178f84f[m BB-016 align WF-200 write targets to se_ canonical table names
+[33m7be62a2[m BB-016 align WF-100 write targets to se_ canonical table names
+[33m8047c8a[m BB-016 align WF-900 write targets to se_ canonical table names
+[33m5b38c0b[m BB-016 align WF-001 write targets to se_ canonical table names
+[33m6bef965[m BB-016 align WF-000 write targets to se_ canonical table names
+[33mbb15c10[m BB-018 add loader-compliant WF-200 skill S-210
+[33m37eb45e[m BB-018 add loader-compliant WF-200 skill S-209
+[33m2a12011[m BB-018 add loader-compliant WF-200 skill S-208
+[33m150f452[m BB-018 add loader-compliant WF-200 skill S-207
+[33ma372ef9[m BB-018 add loader-compliant WF-200 skill S-206
+[33m67575f3[m BB-018 add loader-compliant WF-200 skill S-205
+[33m82f8aaa[m BB-018 add loader-compliant WF-200 skill S-204
+[33m4fa4d00[m BB-018 add loader-compliant WF-200 skill S-203
+[33me415b73[m BB-018 add loader-compliant WF-200 skill S-202
+[33m43d6e61[m BB-018 add loader-compliant WF-200 skill S-201
+[33mb0f929f[m P0-A rewrite workflow validator for promoted canonical truth
+[33m13a22d9[m P0-A update WF-010 routing to emit WF-100 as next workflow pack
+[33ma5efdd7[m P0-A add WF-100 and WF-200 to workflow registry canonical truth
+[33m04d3c65[m P0-A remove WF-100 and WF-200 from absent packs after promotion
+[33md7de35f[m P0-A promote WF-100 and WF-200 into repo-present workflow family
+[33m2e7ebf1[m Overwrite schema with exact wave00 content
+[33m6bbbdb1[m Overwrite empire registry instance with exact wave00 content
+[33m2449e7a[m Add exact wave00 empire registry schema
+[33mcbe7a38[m Add exact wave00 empire registry instance
+[33m7ab78f4[m Add exact wave00 portability hardware matrix
+[33mafde4d1[m Add exact wave00 knowledge plane registry
+[33m11a7aec[m Add exact wave00 dashboard api contract pack
+[33ma8de4d0[m Add exact wave00 dashboard screen contract pack
+[33mea337dc[m Add exact wave00 skill loader registry
+[33m3ea24d4[m Add exact wave00 worker router contract
+[33m454f53b[m Add exact wave00 provider auth callback matrix
+[33m7a741fd[m Add exact wave00 provider registry
+[33m7fd4fe8[m Add exact wave00 release blocker matrix
+[33m3a5b9b4[m Add exact wave00 build blocker matrix
+[33md7d18f0[m Add exact wave00 decision packet register
+[33ma9838dd[m Update workflow registry to exact wave00 constitutional version
+[33mf5e625e[m Add exact wave00 mode route registry
+[33mb44600f[m Add exact wave00 mode registry
+[33ma877842[m Add exact wave00 dashboard contract pack law
+[33mc755ae9[m Add exact wave00 provider auth callback closure law
+[33m5e590cc[m Add exact wave00 akasha knowledge plane law
+[33m059984d[m Add exact wave00 mission control chronos law
+[33maf6bd91[m Add exact wave00 windows macos portability law
+[33m382b569[m Add exact wave00 skill loader repo contract
+[33m5612bbe[m Add exact wave00 worker router law
+[33mdb2f030[m Add exact wave00 founder creator mode law
+[33m5f71877[m Add exact wave00 prompt registry interlock law
+[33m95ff8c5[m Add exact wave00 canonical authority precedence law
+[33m5eb87c1[m Add Claude wave00 commit manifest
+[33m00e724a[m Update local repo integration config from Claude wave00 bundle
+[33mf1cfa22[m Document core rules and execution flow for Windows local repo
+[33m5d25211[m Add script to update local repo from GitHub
+[33m6f781e0[m Add documentation for Hybrid GitHub Local Sync Model
+[33mdd00d86[m Update local_repo_integration.yaml configuration
+[33m7cff3ed[m Bridge Layer Batch 3 (local repo integration config, Windows repo read strategy, runtime binding validator)
+[33ma030203[m Bridge Layer Batch 2 (workflow bindings for data tables, dossier namespaces, packet families)
+[33m183a297[m Bridge Layer Batch 1 (integration bridge, repo-runtime boundary, workflow promotion law)
+[33mf3eaffa[m WF-200 Batch 6 (remaining 4 skills completed)
+[33ma8befbf[m WF-200 Batch 5 (skill registry, director binding, initial 6 skills)
+[33med4bae0[m WF-200 Batch 4 (remaining schemas + rules layer)
+[33ma1dea46[m WF-200 Batch 3 (remaining workflows + initial schemas)
+[33mc3f39ec[m WF-200 Batch 2 (remaining child manifests + first 2 workflows)
+[33m03443b4[m WF-200 Batch 1 (parent manifest, parent workflow, first 2 child manifests)
+[33m006b8c6[m Complete WF-100 Batch 6 (remaining 17 skill files)
+[33m690f0ce[m Add WF-100 Batch 5 (skill registry, director binding, first 6 skills)
+[33mb587083[m Add workflow skill binding configuration for WF-100
+[33md3ea556[m Add topic scoring rules configuration file
+[33mddd8426[m Add topic_finalization_packet schema
+[33me0692f1[m Delete schemas/packets/schemas/packets directory
+[33m2f45d0d[m Add TopicScorecard JSON schema
+[33m4bce769[m Add topic scoring rules YAML configuration
+[33m9437a92[m Add TopicFinalizationPacket schema
+[33m37ad225[m Add topic_scorecard schema definition
+[33m07100c5[m Create CWF-140 Research Synthesis workflow
+[33m2890f18[m Add WF-100 pack batch 2 (remaining manifests + first workflows)
+[33m718b2b9[m Add WF-100 pack core files batch 1
+[33m6f79e9d[m Add canonical absent-pack register
+[33m3120c7d[m Add dossier namespace ownership matrix
+[33m3b6e4ab[m Add workflow lineage handoff matrix
+[33m1e8be85[m Add canonical absent-pack register
+[33mc8a42d8[m Add canonical workflow family register
+[33m01b70a8[m Add manifest contract validation
+[33me365698[m Update manifests
+[33m702311c[m Update script schema
+[33me40d4fb[m Research schema hardening
+[33m9a2e5d8[m Update topic intake schema
+[33m27e4b8a[m Strengthen Phase-1 validation layer for repo truth
+[33m60abb8f[m Sync current deployment stage with repo truth
+[33me4836d7[m Downgrade WF-010 outputs to repo-present truth
+[33mab144ed[m Deepen current Phase-1 workflows
+[33m4a294e4[m Repair import-export runbook to reflect current repo artifacts
+[33ma48dd4b[m Tighten context packet schema
+[33m7817788[m Add dossier governance schemas
+[33md73b4ba[m Upgrade Phase-1 bootstrap script to verify local runtime readiness
+[33m6b1de06[m Align error registry owners to current Phase-1 workflow estate
+[33m2fb9885[m Add replay route to Phase-1 routes bootstrap CSV
+[33me45f4c0[m Update workflow registry statuses
+[33m93e3a4d[m Deepen WF-900 Error Handler
+[33mec665f6[m Deepen WF-000 Health Check
+[33mf7042b9[m Repair Phase-1 error registry owner mismatch
+[33m41f2805[m Add replay route to Phase-1 routes CSV seed
+[33m889b6f4[m Repair workflow registry lifecycle statuses
+[33m2fe2bdc[m Add Phase-1 repair issue pack
+[33mde88d91[m Merge pull request #1 from justkalpane/codex/fix-typo-in-codebase
+[33meddd199[m Add codebase task proposals for typo, bug, docs, and test improvements
+[33m6c03c79[m Add Phase-1 validation runner
+[33m27a48bf[m Add real workflow validation script
+[33m4c43572[m Add real registry validation script
+[33mfe76980[m Add real schema validation script
+[33m39436ec[m Deepen Phase-1 workflow JSON shells
+[33md9944d8[m Deepen Phase-1 workflow manifests
+[33me126495[m Update README for Phase-1 repo
+[33m2f15804[m Add CodeQL analysis workflow configuration
+[33m5da96e3[m Enhance content_dossier schema with validations
+[33md2de9db[m Add Phase-1 Ollama verification script
+[33m7d77996[m Add Phase-1 Windows bootstrap script
+[33m5d8bf2b[m Add registry test placeholder
+[33mccaf2a3[m Add workflow test placeholder
+[33maad823c[m Add schema test placeholder
+[33mf63b46d[m Add Phase-1 tests README
+[33m0e8cef8[m Add Phase-1 bootstrap CSV for runtime index
+[33m472ab63[m Add Phase-1 bootstrap CSV for providers deferred
+[33m8298cfb[m Add Phase-1 bootstrap CSV for approvals
+[33mcc7aef6[m Add Phase-1 bootstrap CSV for routes
+[33mf033c6c[m Add Phase-1 bootstrap CSV for dossiers
+[33mb5cbc9e[m Add Phase-1 workflow shell for WF-010
+[33m893dfa3[m Add Phase-1 workflow shell for WF-001
+[33m9fe939b[m Add Phase-1 workflow shell for WF-900
+[33m9cb3483[m Add Phase-1 workflow shell for WF-000
+[33m1bea494[m Add Phase-1 n8n manifest for WF-010
+[33m4651398[m Add Phase-1 n8n manifest for WF-001
+[33m33a6df1[m Add Phase-1 n8n manifest for WF-900
+[33m83b9c8e[m Add Phase-1 n8n manifest for WF-000
+[33mc985d8b[m Add Phase-1 context packet schema
+[33m58417c3[m Add Phase-1 script draft packet schema
+[33m0ed02c9[m Add Phase-1 research synthesis packet schema
+[33m6094b5a[m Add Phase-1 topic intake packet schema
+[33m4a65c5f[m Add Phase-1 content dossier schema
+[33m836a07d[m Add Phase-1 error registry
+[33me429fbc[m Add Phase-1 approval registry
+[33mb16dc1f[m Add Phase-1 route registry
+[33m2a4541d[m Add Phase-1 workflow registry
+[33m0624657[m Add import export runbook
+[33mca82775[m Add n8n data tables setup doc
+[33mcb49801[m Add Windows local bootstrap doc
+[33m6e4c8ba[m Add Phase-1 dossier mutation law
+[33ma6d1df6[m Add Phase-1 repository estate overview
+[33me4af2e7[m Add Phase-1 deployment state doc
+[33m47fcfaf[m Add Phase-1 local environment example
+[33m29c02fb[m Add Phase-1 n8n repo estate foundation
+[33m7d39281[m Initial commit

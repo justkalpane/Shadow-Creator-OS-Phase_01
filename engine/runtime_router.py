@@ -70,6 +70,7 @@ class RuntimeRouter:
             "visual_asset_plan_packet": "visual_asset_spec_packet",
             "research_synthesis_packet": "research_synthesis",
             "script_draft_packet": "script_draft_packet",
+            "execution_context_packet": "context_packet",
         }
         self._cwf_packet_contracts = self._load_child_workflow_packet_contracts()
         self._cwf_skill_map = self._build_cwf_skill_map(self._cwf_packet_contracts)
