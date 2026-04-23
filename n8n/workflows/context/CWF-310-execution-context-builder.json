@@ -1,6 +1,6 @@
 {
   "name": "CWF-310 Execution Context Builder",
-  "description": "Engineer the runtime context envelope for the final script packet — defining allowed tools, execution constraints, and platform-specific runtime rules.",
+  "description": "Engineer the runtime context envelope for the final script packet â€” defining allowed tools, execution constraints, and platform-specific runtime rules.",
   "nodes": [
     {
       "parameters": {},
@@ -12,7 +12,7 @@
     },
     {
       "parameters": {
-        "jsCode": "return [{\n  json: {\n    workflow_id: 'CWF-310',\n    vein: 'context_engineering_vein',\n    dossier_id: $json.dossier_id || 'TEST-DOSSIER',\n    final_script_packet: $json.final_script_packet || {},\n    target_platform: $json.target_platform || ($json.final_script_packet && $json.final_script_packet.payload && $json.final_script_packet.payload.context && $json.final_script_packet.payload.context.target_platform) || 'youtube',\n    route_id: $json.route_id || 'ROUTE-001',\n    execution_timestamp: new Date().toISOString()\n  }\n}];"
+        "jsCode": "return [{\n  json: {\n    workflow_id: 'CWF-310',\n    vein: 'context_engineering_vein',\n    dossier_id: $json.dossier_id || 'TEST-DOSSIER',\n    final_script_packet: $json.final_script_packet || {},\n    target_platform: $json.target_platform || ($json.final_script_packet && $json.final_script_packet.payload && $json.final_script_packet.payload.context && $json.final_script_packet.payload.context.target_platform) || 'youtube',\n    route_id: $json.route_id || 'ROUTE_PHASE1_STANDARD',\n    execution_timestamp: new Date().toISOString()\n  }\n}];"
       },
       "id": "normalize_input",
       "name": "Normalize Input",
@@ -62,7 +62,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const pkt = $json;\nconst payload = pkt.payload || {};\n\nif (payload.status && payload.status.escalation_needed) {\n  throw new Error('CWF-310 quality gates failed — routing to WF-900. Gates: ' + JSON.stringify(payload.quality.gate_checks));\n}\n\nreturn [{\n  json: {\n    workflow_id: 'CWF-310',\n    execution_status: 'SUCCESS',\n    execution_context_packet: pkt,\n    next_workflow: 'CWF-320',\n    dossier_delta: {\n      namespace: 'context',\n      mutation_type: 'append_to_array',\n      target: 'dossier.context.execution_context_packets',\n      value: {\n        instance_id: pkt.instance_id,\n        artifact_family: 'execution_context_packet',\n        target_platform: payload.context && payload.context.target_platform,\n        timestamp: new Date().toISOString()\n      },\n      audit_entry: {\n        timestamp: new Date().toISOString(),\n        workflow_id: 'CWF-310',\n        operation: 'CREATE_EXECUTION_CONTEXT_PACKET',\n        sourced_from: pkt.dossier_ref\n      }\n    },\n    runtime_delta: {\n      namespace: 'runtime',\n      mutation_type: 'append',\n      target: 'dossier.runtime.context_build_log',\n      value: {\n        cwf310_executed: true,\n        execution_context_id: pkt.instance_id,\n        timestamp: new Date().toISOString()\n      }\n    },\n    decision: 'PROCEED_TO_CWF-320'\n  }\n}];"
+        "jsCode": "const pkt = $json;\nconst payload = pkt.payload || {};\n\nif (payload.status && payload.status.escalation_needed) {\n  throw new Error('CWF-310 quality gates failed â€” routing to WF-900. Gates: ' + JSON.stringify(payload.quality.gate_checks));\n}\n\nreturn [{\n  json: {\n    workflow_id: 'CWF-310',\n    execution_status: 'SUCCESS',\n    execution_context_packet: pkt,\n    next_workflow: 'CWF-320',\n    dossier_delta: {\n      namespace: 'context',\n      mutation_type: 'append_to_array',\n      target: 'dossier.context.execution_context_packets',\n      value: {\n        instance_id: pkt.instance_id,\n        artifact_family: 'execution_context_packet',\n        target_platform: payload.context && payload.context.target_platform,\n        timestamp: new Date().toISOString()\n      },\n      audit_entry: {\n        timestamp: new Date().toISOString(),\n        workflow_id: 'CWF-310',\n        operation: 'CREATE_EXECUTION_CONTEXT_PACKET',\n        sourced_from: pkt.dossier_ref\n      }\n    },\n    runtime_delta: {\n      namespace: 'runtime',\n      mutation_type: 'append',\n      target: 'dossier.runtime.context_build_log',\n      value: {\n        cwf310_executed: true,\n        execution_context_id: pkt.instance_id,\n        timestamp: new Date().toISOString()\n      }\n    },\n    decision: 'PROCEED_TO_CWF-320'\n  }\n}];"
       },
       "id": "emit_result",
       "name": "Emit Result",
@@ -95,7 +95,7 @@
     "workflow_id": "CWF-310",
     "phase": "phase1",
     "vein": "context_engineering_vein",
-    "purpose": "Engineer the runtime context envelope for the final script packet — defining allowed tools, execution constraints, and platform-specific runtime rules.",
+    "purpose": "Engineer the runtime context envelope for the final script packet â€” defining allowed tools, execution constraints, and platform-specific runtime rules.",
     "implementation_depth": "production_grade",
     "owner_director": "Krishna",
     "supporting_directors": ["Durga"],
@@ -104,3 +104,4 @@
   "active": true,
   "settings": {}
 }
+

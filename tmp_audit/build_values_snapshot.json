@@ -1,0 +1,202 @@
+{
+  "generated_at": "2026-04-23T08:52:06.455903+00:00",
+  "source_truth": {
+    "agent_class_matrix": "registries/agent_class_matrix.json",
+    "sub_agent_matrix": "registries/sub_agent_matrix.json",
+    "director_binding_matrix": "registries/director_binding_matrix.json",
+    "route_registry": "registries/route_registry.yaml",
+    "routes_csv": "data/bootstrap/data_tables/routes.csv",
+    "mode_registry": "registries/mode_registry.yaml",
+    "mode_route_registry": "registries/mode_route_registry.yaml",
+    "workflow_registry": "registries/workflow_registry.yaml",
+    "build_blocker_matrix": "registries/build_blocker_matrix.yaml",
+    "decision_packet_register": "registries/decision_packet_register.yaml"
+  },
+  "matrix_values": {
+    "agent_total": 114,
+    "sub_agent_total": 36,
+    "director_total": 32,
+    "workflow_registry_total": 14
+  },
+  "route_values": {
+    "route_count": 4,
+    "route_ids": [
+      "ROUTE_PHASE1_FAST",
+      "ROUTE_PHASE1_STANDARD",
+      "ROUTE_PHASE1_REPLAY",
+      "ROUTE_PHASE1_ANALYTICS"
+    ],
+    "entry_workflows": {
+      "ROUTE_PHASE1_FAST": "WF-010",
+      "ROUTE_PHASE1_STANDARD": "WF-010",
+      "ROUTE_PHASE1_REPLAY": "WF-900",
+      "ROUTE_PHASE1_ANALYTICS": "WF-600"
+    },
+    "csv_route_ids": [
+      "ROUTE_PHASE1_STANDARD",
+      "ROUTE_PHASE1_FAST",
+      "ROUTE_PHASE1_REPLAY",
+      "ROUTE_PHASE1_ANALYTICS"
+    ],
+    "route_ids_match": true,
+    "canonical_route_set": [
+      "ROUTE_PHASE1_ANALYTICS",
+      "ROUTE_PHASE1_FAST",
+      "ROUTE_PHASE1_REPLAY",
+      "ROUTE_PHASE1_STANDARD"
+    ]
+  },
+  "mode_values": {
+    "mode_names": [
+      "founder",
+      "creator",
+      "builder",
+      "operator"
+    ],
+    "mode_legal_routes": {
+      "founder": [
+        "ROUTE_PHASE1_STANDARD",
+        "ROUTE_PHASE1_FAST",
+        "ROUTE_PHASE1_REPLAY"
+      ],
+      "creator": [
+        "ROUTE_PHASE1_STANDARD",
+        "ROUTE_PHASE1_FAST"
+      ],
+      "builder": [],
+      "operator": [
+        "ROUTE_PHASE1_REPLAY"
+      ]
+    },
+    "mode_route_counts": {
+      "founder": 3,
+      "creator": 2,
+      "builder": 0,
+      "operator": 1
+    },
+    "mode_route_legalities": {
+      "founder": {
+        "ROUTE_PHASE1_STANDARD": {
+          "access": "allowed",
+          "default": "true",
+          "notes": "Founder may run standard route with full telemetry and governance trace."
+        },
+        "ROUTE_PHASE1_FAST": {
+          "access": "allowed",
+          "default": "false",
+          "notes": "Founder may manually choose fast route, but standard remains default."
+        },
+        "ROUTE_PHASE1_REPLAY": {
+          "access": "allowed",
+          "default": "false",
+          "notes": "Founder may trigger replay directly or through WF-900."
+        }
+      },
+      "creator": {
+        "ROUTE_PHASE1_STANDARD": {
+          "access": "allowed",
+          "default": "true",
+          "notes": "Safe default for creator dossiers."
+        },
+        "ROUTE_PHASE1_FAST": {
+          "access": "allowed",
+          "default": "false",
+          "notes": ">"
+        },
+        "ROUTE_PHASE1_REPLAY": {
+          "access": "denied_direct",
+          "default": "false",
+          "notes": ">"
+        }
+      },
+      "builder": {
+        "ROUTE_PHASE1_STANDARD": {
+          "access": "denied",
+          "default": "false",
+          "notes": "Builder mode is repo-only and does not run live workflows."
+        },
+        "ROUTE_PHASE1_FAST": {
+          "access": "denied",
+          "default": "false",
+          "notes": "Builder has no route access."
+        },
+        "ROUTE_PHASE1_REPLAY": {
+          "access": "denied",
+          "default": "false",
+          "notes": "Builder has no runtime replay access."
+        }
+      },
+      "operator": {
+        "ROUTE_PHASE1_STANDARD": {
+          "access": "denied",
+          "default": "false",
+          "notes": "Operator is for support and replay only."
+        },
+        "ROUTE_PHASE1_FAST": {
+          "access": "denied",
+          "default": "false",
+          "notes": "Operator has no content-production route access."
+        },
+        "ROUTE_PHASE1_REPLAY": {
+          "access": "allowed",
+          "default": "true",
+          "notes": "Operator may execute replay only through WF-900 mediation.",
+          "creator_fast_track_rule": ""
+        }
+      }
+    }
+  },
+  "workflow_registry_values": {
+    "artifact_status_counts": {
+      "starter_wired": 8,
+      "repo_present": 6
+    },
+    "runtime_status_counts": {
+      "not_built_live": 14
+    },
+    "validation_status_counts": {
+      "repo_checks_present": 14
+    }
+  },
+  "blocker_values": {
+    "blocker_count": 1,
+    "blocker_state_counts": {
+      "resolved_p0": 1
+    },
+    "open_blockers": [],
+    "resolved_blockers": [
+      "BB-019"
+    ]
+  },
+  "decision_packet_values": {
+    "packet_count": 5,
+    "packet_state_counts": {
+      "provisionally_resolved": 1,
+      "resolved_p0": 4
+    },
+    "build_packets": [
+      "DP-002",
+      "DP-005",
+      "DP-006",
+      "DP-007"
+    ]
+  },
+  "release_packet_values": {
+    "release_packet_count": 1,
+    "release_packet_state_counts": {
+      "provisionally_resolved": 1
+    },
+    "open_release_packets": [
+      "DP-001"
+    ]
+  },
+  "route_namespace_values": {
+    "canonical_namespace": "ROUTE_PHASE1_*",
+    "legacy_route_namespace_hits": []
+  },
+  "report_presence": {
+    "unified_hierarchy_report": true,
+    "route_registry_report": true,
+    "audit_index": true
+  }
+}

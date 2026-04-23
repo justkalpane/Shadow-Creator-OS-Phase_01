@@ -12,7 +12,7 @@
     },
     {
       "parameters": {
-        "jsCode": "return [{\n  json: {\n    workflow_id: 'CWF-240',\n    vein: 'narrative_vein',\n    dossier_id: $json.dossier_id || 'TEST-DOSSIER',\n    script_refinement_packet: $json.script_refinement_packet || {},\n    target_platform: $json.target_platform || 'youtube',\n    route_id: $json.route_id || 'ROUTE-001',\n    execution_timestamp: new Date().toISOString()\n  }\n}];"
+        "jsCode": "return [{\n  json: {\n    workflow_id: 'CWF-240',\n    vein: 'narrative_vein',\n    dossier_id: $json.dossier_id || 'TEST-DOSSIER',\n    script_refinement_packet: $json.script_refinement_packet || {},\n    target_platform: $json.target_platform || 'youtube',\n    route_id: $json.route_id || 'ROUTE_PHASE1_STANDARD',\n    execution_timestamp: new Date().toISOString()\n  }\n}];"
       },
       "id": "normalize_final_input",
       "name": "Normalize Final Input",
@@ -143,3 +143,4 @@
   "active": true,
   "settings": {}
 }
+

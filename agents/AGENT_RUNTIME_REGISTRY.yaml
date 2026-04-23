@@ -89,6 +89,8 @@ agents:
   - file: agents/aruna/aruna_agent.py
   - file: agents/brahma/brahma_agent.py
   - file: agents/chanakya/chanakya_agent.py
+  - file: agents/chandra/chandra_agent.py
+  - file: agents/chitragupta/chitragupta_agent.py
   - file: agents/durga/durga_agent.py
   - file: agents/ganesha/ganesha_agent.py
   - file: agents/garuda/garuda_agent.py

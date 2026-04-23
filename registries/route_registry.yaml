@@ -6,3 +6,5 @@ routes:
     entry_workflow: WF-010
   - route_id: ROUTE_PHASE1_REPLAY
     entry_workflow: WF-900
+  - route_id: ROUTE_PHASE1_ANALYTICS
+    entry_workflow: WF-600

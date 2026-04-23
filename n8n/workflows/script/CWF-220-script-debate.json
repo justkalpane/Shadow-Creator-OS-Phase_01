@@ -12,7 +12,7 @@
     },
     {
       "parameters": {
-        "jsCode": "return [{\n  json: {\n    workflow_id: 'CWF-220',\n    vein: 'narrative_vein',\n    dossier_id: $json.dossier_id || 'TEST-DOSSIER',\n    script_draft_packet: $json.script_draft_packet || {},\n    route_id: $json.route_id || 'ROUTE-001',\n    execution_timestamp: new Date().toISOString(),\n    critique_dimensions: ['hook_strength', 'structure_strength', 'evidence_support', 'retention_flow', 'governance_safety']\n  }\n}];"
+        "jsCode": "return [{\n  json: {\n    workflow_id: 'CWF-220',\n    vein: 'narrative_vein',\n    dossier_id: $json.dossier_id || 'TEST-DOSSIER',\n    script_draft_packet: $json.script_draft_packet || {},\n    route_id: $json.route_id || 'ROUTE_PHASE1_STANDARD',\n    execution_timestamp: new Date().toISOString(),\n    critique_dimensions: ['hook_strength', 'structure_strength', 'evidence_support', 'retention_flow', 'governance_safety']\n  }\n}];"
       },
       "id": "normalize_debate_input",
       "name": "Normalize Debate Input",
@@ -92,7 +92,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const debate_packet = $json;\nconst payload = debate_packet.payload || {};\n\nreturn [{\n  json: {\n    workflow_id: 'CWF-220',\n    execution_status: 'SUCCESS',\n    debate_result: payload.status.debate_result,\n    next_workflow: payload.status.next_workflow,\n    quality_score: payload.quality.average_quality_score,\n    critique_count: payload.evidence.critique_points.length,\n    debate_packet: debate_packet,\n    dossier_delta: {\n      namespace: 'script',\n      mutation_type: 'append_debate_phase',\n      target: 'dossier.script.cwf220_debate_output',\n      value: {\n        instance_id: debate_packet.instance_id,\n        artifact_family: 'script_debate_packet',\n        decision: payload.status.debate_result,\n        timestamp: new Date().toISOString()\n      },\n      audit_entry: {\n        timestamp: new Date().toISOString(),\n        workflow_id: 'CWF-220',\n        operation: 'CREATE_DEBATE_PACKET',\n        lineage_intact: true,\n        sourced_from: debate_packet.dossier_ref\n      }\n    },\n    approval_delta: payload.status.debate_result !== 'APPROVED_FOR_REFINEMENT' ? {\n      namespace: 'approval',\n      mutation_type: 'append_to_queue',\n      target: 'dossier.approval.pending_decisions',\n      value: {\n        decision_required: 'SCRIPT_DEBATE_ROUTING',\n        packet_id: debate_packet.instance_id,\n        owner_director: 'Krishna',\n        decision_options: payload.status.debate_result === 'REJECTED' ? ['REPLAY_FROM_DISCOVERY', 'FULL_REWRITE'] : ['FULL_REWRITE'],\n        timestamp: new Date().toISOString()\n      }\n    } : null,\n    decision: payload.status.debate_result === 'APPROVED_FOR_REFINEMENT' ? 'PROCEED_TO_SCRIPT_REFINEMENT' : 'ROUTE_TO_REPLAY'\n  }\n}];"
+        "jsCode": "const debate_packet = $json;\nconst payload = debate_packet.payload || {};\n\nreturn [{\n  json: {\n    workflow_id: 'CWF-220',\n    execution_status: 'SUCCESS',\n    debate_result: payload.status.debate_result,\n    next_workflow: payload.status.next_workflow,\n    quality_score: payload.quality.average_quality_score,\n    critique_count: payload.evidence.critique_points.length,\n    debate_packet: debate_packet,\n    dossier_delta: {\n      namespace: 'script',\n      mutation_type: 'append_debate_phase',\n      target: 'dossier.script.cwf220_debate_output',\n      value: {\n        instance_id: debate_packet.instance_id,\n        artifact_family: 'script_debate_packet',\n        decision: payload.status.debate_result,\n        timestamp: new Date().toISOString()\n      },\n      audit_entry: {\n        timestamp: new Date().toISOString(),\n        workflow_id: 'CWF-220',\n        operation: 'CREATE_DEBATE_PACKET',\n        lineage_intact: true,\n        sourced_from: debate_packet.dossier_ref\n      }\n    },\n    approval_delta: payload.status.debate_result !== 'APPROVED_FOR_REFINEMENT' ? {\n      namespace: 'approval',\n      mutation_type: 'append_to_queue',\n      target: 'dossier.approval.pending_decisions',\n      value: {\n        decision_required: 'SCRIPT_DEBATE_ROUTING',\n        packet_id: debate_packet.instance_id,\n        owner_director: 'Krishna',\n        decision_options: payload.status.debate_result === 'REJECTED' ? ['REPLAY_FROM_DISCOVERY', 'FULL_REWRITE'] : ['FULL_REWRITE'],\n        timestamp: new Date().toISOString()\n      }\n    } : null,\n    decision: payload.status.debate_result === 'APPROVED_FOR_REFINEMENT' ? 'PROCEED_TO_SCRIPT_REFINEMENT' : 'ROUTE_PHASE1_REPLAY'\n  }\n}];"
       },
       "id": "emit_debate_result",
       "name": "Emit Debate Result",
@@ -143,3 +143,5 @@
   "active": true,
   "settings": {}
 }
+
+

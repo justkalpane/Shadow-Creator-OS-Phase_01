@@ -67,19 +67,17 @@ decision_packets:
   - packet_id: DP-006
     title: Live route IDs versus repo canonical route IDs
     class: build_governance
-    current_state: repo_side_resolved_runtime_pending
+    current_state: resolved_p0
     blocking_level: build
     owner: founder
     source_of_conflict: >
-      Live n8n route rows use ROUTE-001 / ROUTE-002 style IDs while repo canonical
-      route names in mode_route_registry.yaml and route_registry.yaml use
-      ROUTE_PHASE1_STANDARD / ROUTE_PHASE1_FAST / ROUTE_PHASE1_REPLAY.
+      Live n8n route rows previously used ROUTE-001 / ROUTE-002 style IDs while
+      repo canonical route names in mode_route_registry.yaml and route_registry.yaml use
+      ROUTE_PHASE1_STANDARD / ROUTE_PHASE1_FAST / ROUTE_PHASE1_REPLAY / ROUTE_PHASE1_ANALYTICS.
     current_truth: >
-      The GitHub repo is already canonically aligned on ROUTE_PHASE1_* naming.
-      Remaining work is limited to renaming the live n8n route rows outside GitHub.
+      The GitHub repo and runtime route rows are canonically aligned on ROUTE_PHASE1_* naming.
     recommended_resolution: >
-      Rename live n8n route rows to the canonical ROUTE_PHASE1_* IDs and confirm
-      all runtime lookups use the canonical names.
+      Maintain canonical ROUTE_PHASE1_* IDs in live n8n route rows and runtime lookups.
     close_condition: >
       Runtime and repo use the same route IDs everywhere.
 

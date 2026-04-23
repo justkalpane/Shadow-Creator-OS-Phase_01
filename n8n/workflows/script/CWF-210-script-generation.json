@@ -12,7 +12,7 @@
     },
     {
       "parameters": {
-        "jsCode": "return [{\n  json: {\n    workflow_id: 'CWF-210',\n    vein: 'narrative_vein',\n    dossier_id: $json.dossier_id || 'TEST-DOSSIER',\n    topic_finalization_packet: $json.topic_finalization_packet || {},\n    research_synthesis_packet: $json.research_synthesis_packet || {},\n    route_id: $json.route_id || 'ROUTE-001',\n    execution_timestamp: new Date().toISOString(),\n    narrative_constraints: {\n      tone: 'engaging',\n      target_duration_seconds: 60,\n      audience_level: 'general',\n      hook_type: 'question_or_statement'\n    }\n  }\n}];"
+        "jsCode": "return [{\n  json: {\n    workflow_id: 'CWF-210',\n    vein: 'narrative_vein',\n    dossier_id: $json.dossier_id || 'TEST-DOSSIER',\n    topic_finalization_packet: $json.topic_finalization_packet || {},\n    research_synthesis_packet: $json.research_synthesis_packet || {},\n    route_id: $json.route_id || 'ROUTE_PHASE1_STANDARD',\n    execution_timestamp: new Date().toISOString(),\n    narrative_constraints: {\n      tone: 'engaging',\n      target_duration_seconds: 60,\n      audience_level: 'general',\n      hook_type: 'question_or_statement'\n    }\n  }\n}];"
       },
       "id": "normalize_script_input",
       "name": "Normalize Script Input",
@@ -147,3 +147,4 @@
   "active": true,
   "settings": {}
 }
+

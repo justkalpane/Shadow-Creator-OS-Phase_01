@@ -12,7 +12,7 @@
     },
     {
       "parameters": {
-        "jsCode": "return [{\n  json: {\n    workflow_id: 'WF-020',\n    vein: 'approval_vein',\n    dossier_id: $json.dossier_id || 'TEST-DOSSIER',\n    final_script_packet: $json.final_script_packet || {},\n    approval_request_id: $json.approval_request_id || ('APPR-' + Date.now()),\n    route_id: $json.route_id || 'ROUTE-001',\n    execution_timestamp: new Date().toISOString()\n  }\n}];"
+        "jsCode": "return [{\n  json: {\n    workflow_id: 'WF-020',\n    vein: 'approval_vein',\n    dossier_id: $json.dossier_id || 'TEST-DOSSIER',\n    final_script_packet: $json.final_script_packet || {},\n    approval_request_id: $json.approval_request_id || ('APPR-' + Date.now()),\n    route_id: $json.route_id || 'ROUTE_PHASE1_STANDARD',\n    execution_timestamp: new Date().toISOString()\n  }\n}];"
       },
       "id": "normalize_approval_input",
       "name": "Normalize Approval Input",
@@ -104,3 +104,4 @@
   "active": true,
   "settings": {}
 }
+

@@ -80,7 +80,7 @@ class ApprovalResolver {
       case 'REJECTED':
         return {
           next_workflow: 'WF-021',
-          action: 'ROUTE_TO_REPLAY',
+          action: 'ROUTE_PHASE1_REPLAY',
           rejection_reason: context.rejection_reason || 'GENERIC_REJECTION',
           dossier_update: { namespace: 'approval', field: 'final_approval_status', value: 'REJECTED' }
         };

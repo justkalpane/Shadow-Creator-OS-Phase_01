@@ -12,7 +12,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const dossier_id = $json.dossier_id || 'TEST-DOSSIER-' + Date.now();\nconst topic_seed = $json.topic_seed || '';\nconst route_id = $json.route_id || 'ROUTE-001';\nconst route_lane = $json.route_lane || 'topic_to_script';\nconst creator_id = $json.creator_id || 'LOCAL_TEST';\nconst channel_id = $json.channel_id || 'YOUTUBE';\nreturn [{\n  json: {\n    workflow_id: 'CWF-110',\n    workflow_name: 'topic_discovery',\n    vein: 'discovery_vein',\n    dossier_id: dossier_id,\n    topic_seed: topic_seed,\n    route_id: route_id,\n    route_lane: route_lane,\n    creator_id: creator_id,\n    channel_id: channel_id,\n    execution_timestamp: new Date().toISOString(),\n    vein_stage: 'discovery',\n    context: {\n      audience: $json.audience || 'general',\n      budget_profile: $json.budget_profile || 'standard',\n      content_type: $json.content_type || 'video'\n    }\n  }\n}];"
+        "jsCode": "const dossier_id = $json.dossier_id || 'TEST-DOSSIER-' + Date.now();\nconst topic_seed = $json.topic_seed || '';\nconst route_id = $json.route_id || 'ROUTE_PHASE1_STANDARD';\nconst route_lane = $json.route_lane || 'topic_to_script';\nconst creator_id = $json.creator_id || 'LOCAL_TEST';\nconst channel_id = $json.channel_id || 'YOUTUBE';\nreturn [{\n  json: {\n    workflow_id: 'CWF-110',\n    workflow_name: 'topic_discovery',\n    vein: 'discovery_vein',\n    dossier_id: dossier_id,\n    topic_seed: topic_seed,\n    route_id: route_id,\n    route_lane: route_lane,\n    creator_id: creator_id,\n    channel_id: channel_id,\n    execution_timestamp: new Date().toISOString(),\n    vein_stage: 'discovery',\n    context: {\n      audience: $json.audience || 'general',\n      budget_profile: $json.budget_profile || 'standard',\n      content_type: $json.content_type || 'video'\n    }\n  }\n}];"
       },
       "id": "normalize_discovery_input",
       "name": "Normalize Discovery Input",
@@ -32,7 +32,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const discovery_context = {\n  role_definition: 'trend_signal_aggregator',\n  behavior_model: 'observational, non-judgmental signal capture',\n  operating_method: 'ingest → normalize → attach_provenance → return_signal_set',\n  allowed_tools: ['deterministic_transforms', 'trend_feeds', 'registry_lookups'],\n  forbidden_tools: ['premium_apis_without_approval', 'heavy_llm_calls'],\n  error_escalation: 'WF-900',\n  fallback_on_no_signals: 'emit_empty_board_with_status_empty',\n  mutation_law: {\n    reads: ['feed_registry', 'source_family_registry'],\n    writes: ['dossier.discovery.trend_signals', 'dossier.discovery.topic_opportunities'],\n    forbidden_overwrites: ['dossier_identity', 'approval_namespaces']\n  }\n};\nreturn [{\n  json: {\n    ...$json,\n    context_packet: discovery_context,\n    context_packet_validated: true\n  }\n}];"
+        "jsCode": "const discovery_context = {\n  role_definition: 'trend_signal_aggregator',\n  behavior_model: 'observational, non-judgmental signal capture',\n  operating_method: 'ingest â†’ normalize â†’ attach_provenance â†’ return_signal_set',\n  allowed_tools: ['deterministic_transforms', 'trend_feeds', 'registry_lookups'],\n  forbidden_tools: ['premium_apis_without_approval', 'heavy_llm_calls'],\n  error_escalation: 'WF-900',\n  fallback_on_no_signals: 'emit_empty_board_with_status_empty',\n  mutation_law: {\n    reads: ['feed_registry', 'source_family_registry'],\n    writes: ['dossier.discovery.trend_signals', 'dossier.discovery.topic_opportunities'],\n    forbidden_overwrites: ['dossier_identity', 'approval_namespaces']\n  }\n};\nreturn [{\n  json: {\n    ...$json,\n    context_packet: discovery_context,\n    context_packet_validated: true\n  }\n}];"
       },
       "id": "inject_context_packet",
       "name": "Inject Context Packet",
@@ -209,3 +209,4 @@
   "active": true,
   "settings": {}
 }
+

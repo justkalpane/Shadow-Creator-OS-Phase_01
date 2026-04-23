@@ -274,6 +274,7 @@ schemas:
 # ─────────────────────────────────────────────
 registries_present:
   - workflow_registry.yaml
+  - agent_class_matrix.json
   - skill_registry_wf100.yaml
   - skill_registry_wf200.yaml
   - skill_registry_wf300.yaml
@@ -341,8 +342,12 @@ registries_present:
   - director_contracts/Ganesha-Contract.md
   - agents/AGENT_RUNTIME_REGISTRY.yaml
   - sub_agents/SUB_AGENT_RUNTIME_REGISTRY.yaml
+  - registries/sub_agent_matrix.json
   - agents/common/director_authority_profiles.py
   - agents/common/workflow_binding_contracts.py
+  - agents/common/agent_class_matrix.py
+  - agents/common/sub_agent_matrix.py
+  - agents/common/director_binding_matrix.py
 
 registries_planned: []
 
@@ -422,14 +427,15 @@ director_contracts:
 # ============================================================
 # DIRECTOR AGENT RUNTIME CONTRACTS
 # ============================================================
-director_agents:
+  director_agents:
   status: repo_present
-  total_agents: 30
+  total_agents: 32
   runtime_location: agents/
   naming_convention: "<director>/<director>_agent.py"
   base_runtime: agents/common/production_agent_base.py
   authority_registry_ref: agents/common/director_authority_profiles.py
   agent_registry_ref: agents/AGENT_RUNTIME_REGISTRY.yaml
+  agent_class_matrix_ref: registries/agent_class_matrix.json
   contract_binding: DIRECTOR_REGISTRY_MANIFEST.yaml -> director authority profile -> runtime mode gate
   enforcement:
     - authority_specific_behavior
@@ -447,6 +453,8 @@ workflow_sub_agents:
   base_runtime: agents/common/workflow_sub_agent_base.py
   workflow_contract_registry_ref: agents/common/workflow_binding_contracts.py
   sub_agent_registry_ref: sub_agents/SUB_AGENT_RUNTIME_REGISTRY.yaml
+  sub_agent_matrix_ref: registries/sub_agent_matrix.json
+  director_binding_matrix_ref: registries/director_binding_matrix.json
   binding_contract: "WF/CWF owner director + allowed directors + gate rules"
   enforced_gate_rules:
     - enforce_director_binding
@@ -481,5 +489,4 @@ constitutional_artifacts:
 # OPEN BLOCKERS (as of this build)
 # ─────────────────────────────────────────────
 open_blockers:
-  - BB-019: Live route IDs must be renamed to canonical ROUTE_PHASE1_* (runtime side only)
   - DP-001: Ollama model name confirmation needed from founder for deployment docs

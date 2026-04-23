@@ -1,0 +1,1321 @@
+{
+  "matrix_name": "sub_agent_matrix",
+  "schema_version": "1.0.0",
+  "source_registry": "sub_agents/SUB_AGENT_RUNTIME_REGISTRY.yaml",
+  "generated_at": "2026-04-23T08:52:06.347098+00:00",
+  "total_sub_agents": 36,
+  "family_totals": {
+    "topic": 4,
+    "script": 4,
+    "context": 4,
+    "media": 4,
+    "publishing": 3,
+    "analytics": 3,
+    "system_foundation": 3,
+    "governance": 2,
+    "system_bridge": 2,
+    "parent_pack": 6,
+    "system_error": 1
+  },
+  "workflow_class_totals": {
+    "child": 19,
+    "child_workflow": 3,
+    "system": 2,
+    "parent": 2,
+    "governance": 2,
+    "system_bridge": 1,
+    "planning": 1,
+    "parent_pack": 6
+  },
+  "entries": [
+    {
+      "workflow_slug": "cwf_110",
+      "workflow_id": "CWF-110",
+      "workflow_name": "cwf110_topic_discovery",
+      "workflow_class": "child",
+      "workflow_family": "topic",
+      "parent_pack": "WF-100",
+      "primary_director": "Narada",
+      "supporting_directors": [
+        "Chanakya",
+        "Chandra"
+      ],
+      "governance_authority": [],
+      "allowed_directors": [
+        "Narada",
+        "Chanakya",
+        "Chandra"
+      ],
+      "required_inputs": [
+        "dossier_record",
+        "topic_intake_packet"
+      ],
+      "route_bindings": [],
+      "gate_rules": {
+        "enforce_director_binding": true,
+        "require_dossier_id": true,
+        "require_declared_inputs": true,
+        "require_governance_ack_on_release": false,
+        "escalate_to": "WF-900",
+        "severity": "normal"
+      },
+      "registry_path": "sub_agents/cwf_110/cwf_110_sub_agent.py",
+      "sub_agent_class": "Cwf110SubAgent",
+      "runtime_base": "WorkflowSubAgentBase",
+      "artifact_family": "cwf_110-sub-agent-packet",
+      "binding_runtime_check": "WorkflowSubAgentBase"
+    },
+    {
+      "workflow_slug": "cwf_120",
+      "workflow_id": "CWF-120",
+      "workflow_name": "cwf120_topic_qualification",
+      "workflow_class": "child",
+      "workflow_family": "topic",
+      "parent_pack": "WF-100",
+      "primary_director": "Chanakya",
+      "supporting_directors": [
+        "Krishna",
+        "Yama",
+        "Kubera"
+      ],
+      "governance_authority": [],
+      "allowed_directors": [
+        "Chanakya",
+        "Krishna",
+        "Yama",
+        "Kubera"
+      ],
+      "required_inputs": [
+        "topic_candidate_board"
+      ],
+      "route_bindings": [],
+      "gate_rules": {
+        "enforce_director_binding": true,
+        "require_dossier_id": true,
+        "require_declared_inputs": true,
+        "require_governance_ack_on_release": false,
+        "escalate_to": "WF-900",
+        "severity": "normal"
+      },
+      "registry_path": "sub_agents/cwf_120/cwf_120_sub_agent.py",
+      "sub_agent_class": "Cwf120SubAgent",
+      "runtime_base": "WorkflowSubAgentBase",
+      "artifact_family": "cwf_120-sub-agent-packet",
+      "binding_runtime_check": "WorkflowSubAgentBase"
+    },
+    {
+      "workflow_slug": "cwf_130",
+      "workflow_id": "CWF-130",
+      "workflow_name": "cwf130_topic_scoring",
+      "workflow_class": "child",
+      "workflow_family": "topic",
+      "parent_pack": "WF-100",
+      "primary_director": "Krishna",
+      "supporting_directors": [
+        "Narada",
+        "Chanakya",
+        "Chandra"
+      ],
+      "governance_authority": [],
+      "allowed_directors": [
+        "Krishna",
+        "Narada",
+        "Chanakya",
+        "Chandra"
+      ],
+      "required_inputs": [
+        "topic_finalization_packet"
+      ],
+      "route_bindings": [],
+      "gate_rules": {
+        "enforce_director_binding": true,
+        "require_dossier_id": true,
+        "require_declared_inputs": true,
+        "require_governance_ack_on_release": false,
+        "escalate_to": "WF-900",
+        "severity": "normal"
+      },
+      "registry_path": "sub_agents/cwf_130/cwf_130_sub_agent.py",
+      "sub_agent_class": "Cwf130SubAgent",
+      "runtime_base": "WorkflowSubAgentBase",
+      "artifact_family": "cwf_130-sub-agent-packet",
+      "binding_runtime_check": "WorkflowSubAgentBase"
+    },
+    {
+      "workflow_slug": "cwf_140",
+      "workflow_id": "CWF-140",
+      "workflow_name": "cwf140_research_synthesis",
+      "workflow_class": "child",
+      "workflow_family": "topic",
+      "parent_pack": "WF-100",
+      "primary_director": "Vyasa",
+      "supporting_directors": [
+        "Saraswati",
+        "Durga",
+        "Krishna"
+      ],
+      "governance_authority": [],
+      "allowed_directors": [
+        "Vyasa",
+        "Saraswati",
+        "Durga",
+        "Krishna"
+      ],
+      "required_inputs": [
+        "topic_finalization_packet"
+      ],
+      "route_bindings": [],
+      "gate_rules": {
+        "enforce_director_binding": true,
+        "require_dossier_id": true,
+        "require_declared_inputs": true,
+        "require_governance_ack_on_release": false,
+        "escalate_to": "WF-900",
+        "severity": "normal"
+      },
+      "registry_path": "sub_agents/cwf_140/cwf_140_sub_agent.py",
+      "sub_agent_class": "Cwf140SubAgent",
+      "runtime_base": "WorkflowSubAgentBase",
+      "artifact_family": "cwf_140-sub-agent-packet",
+      "binding_runtime_check": "WorkflowSubAgentBase"
+    },
+    {
+      "workflow_slug": "cwf_210",
+      "workflow_id": "CWF-210",
+      "workflow_name": "cwf210_script_generation",
+      "workflow_class": "child",
+      "workflow_family": "script",
+      "parent_pack": "WF-200",
+      "primary_director": "Vyasa",
+      "supporting_directors": [
+        "Saraswati",
+        "Krishna"
+      ],
+      "governance_authority": [],
+      "allowed_directors": [
+        "Vyasa",
+        "Saraswati",
+        "Krishna"
+      ],
+      "required_inputs": [
+        "topic_finalization_packet",
+        "research_synthesis_packet"
+      ],
+      "route_bindings": [],
+      "gate_rules": {
+        "enforce_director_binding": true,
+        "require_dossier_id": true,
+        "require_declared_inputs": true,
+        "require_governance_ack_on_release": false,
+        "escalate_to": "WF-900",
+        "severity": "normal"
+      },
+      "registry_path": "sub_agents/cwf_210/cwf_210_sub_agent.py",
+      "sub_agent_class": "Cwf210SubAgent",
+      "runtime_base": "WorkflowSubAgentBase",
+      "artifact_family": "cwf_210-sub-agent-packet",
+      "binding_runtime_check": "WorkflowSubAgentBase"
+    },
+    {
+      "workflow_slug": "cwf_220",
+      "workflow_id": "CWF-220",
+      "workflow_name": "cwf220_script_debate",
+      "workflow_class": "child",
+      "workflow_family": "script",
+      "parent_pack": "WF-200",
+      "primary_director": "Krishna",
+      "supporting_directors": [
+        "Durga",
+        "Yama",
+        "Saraswati"
+      ],
+      "governance_authority": [],
+      "allowed_directors": [
+        "Krishna",
+        "Durga",
+        "Yama",
+        "Saraswati"
+      ],
+      "required_inputs": [
+        "script_draft_packet"
+      ],
+      "route_bindings": [],
+      "gate_rules": {
+        "enforce_director_binding": true,
+        "require_dossier_id": true,
+        "require_declared_inputs": true,
+        "require_governance_ack_on_release": false,
+        "escalate_to": "WF-900",
+        "severity": "normal"
+      },
+      "registry_path": "sub_agents/cwf_220/cwf_220_sub_agent.py",
+      "sub_agent_class": "Cwf220SubAgent",
+      "runtime_base": "WorkflowSubAgentBase",
+      "artifact_family": "cwf_220-sub-agent-packet",
+      "binding_runtime_check": "WorkflowSubAgentBase"
+    },
+    {
+      "workflow_slug": "cwf_230",
+      "workflow_id": "CWF-230",
+      "workflow_name": "cwf230_script_refinement",
+      "workflow_class": "child",
+      "workflow_family": "script",
+      "parent_pack": "WF-200",
+      "primary_director": "Saraswati",
+      "supporting_directors": [
+        "Krishna",
+        "Vyasa"
+      ],
+      "governance_authority": [],
+      "allowed_directors": [
+        "Saraswati",
+        "Krishna",
+        "Vyasa"
+      ],
+      "required_inputs": [
+        "script_debate_packet"
+      ],
+      "route_bindings": [],
+      "gate_rules": {
+        "enforce_director_binding": true,
+        "require_dossier_id": true,
+        "require_declared_inputs": true,
+        "require_governance_ack_on_release": false,
+        "escalate_to": "WF-900",
+        "severity": "normal"
+      },
+      "registry_path": "sub_agents/cwf_230/cwf_230_sub_agent.py",
+      "sub_agent_class": "Cwf230SubAgent",
+      "runtime_base": "WorkflowSubAgentBase",
+      "artifact_family": "cwf_230-sub-agent-packet",
+      "binding_runtime_check": "WorkflowSubAgentBase"
+    },
+    {
+      "workflow_slug": "cwf_240",
+      "workflow_id": "CWF-240",
+      "workflow_name": "cwf240_final_script_shaping",
+      "workflow_class": "child",
+      "workflow_family": "script",
+      "parent_pack": "WF-200",
+      "primary_director": "Krishna",
+      "supporting_directors": [
+        "Saraswati",
+        "Durga"
+      ],
+      "governance_authority": [],
+      "allowed_directors": [
+        "Krishna",
+        "Saraswati",
+        "Durga"
+      ],
+      "required_inputs": [
+        "script_refinement_packet"
+      ],
+      "route_bindings": [],
+      "gate_rules": {
+        "enforce_director_binding": true,
+        "require_dossier_id": true,
+        "require_declared_inputs": true,
+        "require_governance_ack_on_release": false,
+        "escalate_to": "WF-900",
+        "severity": "normal"
+      },
+      "registry_path": "sub_agents/cwf_240/cwf_240_sub_agent.py",
+      "sub_agent_class": "Cwf240SubAgent",
+      "runtime_base": "WorkflowSubAgentBase",
+      "artifact_family": "cwf_240-sub-agent-packet",
+      "binding_runtime_check": "WorkflowSubAgentBase"
+    },
+    {
+      "workflow_slug": "cwf_310",
+      "workflow_id": "CWF-310",
+      "workflow_name": "cwf310_execution_context_builder",
+      "workflow_class": "child",
+      "workflow_family": "context",
+      "parent_pack": "WF-300",
+      "primary_director": "Krishna",
+      "supporting_directors": [
+        "Durga"
+      ],
+      "governance_authority": [],
+      "allowed_directors": [
+        "Krishna",
+        "Durga"
+      ],
+      "required_inputs": [
+        "final_script_packet"
+      ],
+      "route_bindings": [],
+      "gate_rules": {
+        "enforce_director_binding": true,
+        "require_dossier_id": true,
+        "require_declared_inputs": true,
+        "require_governance_ack_on_release": false,
+        "escalate_to": "WF-900",
+        "severity": "normal"
+      },
+      "registry_path": "sub_agents/cwf_310/cwf_310_sub_agent.py",
+      "sub_agent_class": "Cwf310SubAgent",
+      "runtime_base": "WorkflowSubAgentBase",
+      "artifact_family": "cwf_310-sub-agent-packet",
+      "binding_runtime_check": "WorkflowSubAgentBase"
+    },
+    {
+      "workflow_slug": "cwf_320",
+      "workflow_id": "CWF-320",
+      "workflow_name": "cwf320_platform_packager",
+      "workflow_class": "child",
+      "workflow_family": "context",
+      "parent_pack": "WF-300",
+      "primary_director": "Saraswati",
+      "supporting_directors": [
+        "Krishna"
+      ],
+      "governance_authority": [],
+      "allowed_directors": [
+        "Saraswati",
+        "Krishna"
+      ],
+      "required_inputs": [
+        "execution_context_packet"
+      ],
+      "route_bindings": [],
+      "gate_rules": {
+        "enforce_director_binding": true,
+        "require_dossier_id": true,
+        "require_declared_inputs": true,
+        "require_governance_ack_on_release": false,
+        "escalate_to": "WF-900",
+        "severity": "normal"
+      },
+      "registry_path": "sub_agents/cwf_320/cwf_320_sub_agent.py",
+      "sub_agent_class": "Cwf320SubAgent",
+      "runtime_base": "WorkflowSubAgentBase",
+      "artifact_family": "cwf_320-sub-agent-packet",
+      "binding_runtime_check": "WorkflowSubAgentBase"
+    },
+    {
+      "workflow_slug": "cwf_330",
+      "workflow_id": "CWF-330",
+      "workflow_name": "cwf330_asset_brief_generator",
+      "workflow_class": "child",
+      "workflow_family": "context",
+      "parent_pack": "WF-300",
+      "primary_director": "Durga",
+      "supporting_directors": [
+        "Saraswati"
+      ],
+      "governance_authority": [],
+      "allowed_directors": [
+        "Durga",
+        "Saraswati"
+      ],
+      "required_inputs": [
+        "platform_package_packet"
+      ],
+      "route_bindings": [],
+      "gate_rules": {
+        "enforce_director_binding": true,
+        "require_dossier_id": true,
+        "require_declared_inputs": true,
+        "require_governance_ack_on_release": false,
+        "escalate_to": "WF-900",
+        "severity": "normal"
+      },
+      "registry_path": "sub_agents/cwf_330/cwf_330_sub_agent.py",
+      "sub_agent_class": "Cwf330SubAgent",
+      "runtime_base": "WorkflowSubAgentBase",
+      "artifact_family": "cwf_330-sub-agent-packet",
+      "binding_runtime_check": "WorkflowSubAgentBase"
+    },
+    {
+      "workflow_slug": "cwf_340",
+      "workflow_id": "CWF-340",
+      "workflow_name": "cwf340_lineage_validator",
+      "workflow_class": "child",
+      "workflow_family": "context",
+      "parent_pack": "WF-300",
+      "primary_director": "Krishna",
+      "supporting_directors": [
+        "Yama",
+        "Kubera"
+      ],
+      "governance_authority": [],
+      "allowed_directors": [
+        "Krishna",
+        "Yama",
+        "Kubera"
+      ],
+      "required_inputs": [
+        "asset_brief_packet",
+        "execution_context_packet",
+        "platform_package_packet",
+        "final_script_packet"
+      ],
+      "route_bindings": [],
+      "gate_rules": {
+        "enforce_director_binding": true,
+        "require_dossier_id": true,
+        "require_declared_inputs": true,
+        "require_governance_ack_on_release": false,
+        "escalate_to": "WF-900",
+        "severity": "normal"
+      },
+      "registry_path": "sub_agents/cwf_340/cwf_340_sub_agent.py",
+      "sub_agent_class": "Cwf340SubAgent",
+      "runtime_base": "WorkflowSubAgentBase",
+      "artifact_family": "cwf_340-sub-agent-packet",
+      "binding_runtime_check": "WorkflowSubAgentBase"
+    },
+    {
+      "workflow_slug": "cwf_410",
+      "workflow_id": "CWF-410",
+      "workflow_name": "cwf410_thumbnail_generator",
+      "workflow_class": "child",
+      "workflow_family": "media",
+      "parent_pack": "WF-400",
+      "primary_director": "Durga",
+      "supporting_directors": [
+        "Saraswati"
+      ],
+      "governance_authority": [],
+      "allowed_directors": [
+        "Durga",
+        "Saraswati"
+      ],
+      "required_inputs": [
+        "context_engineering_packet"
+      ],
+      "route_bindings": [],
+      "gate_rules": {
+        "enforce_director_binding": true,
+        "require_dossier_id": true,
+        "require_declared_inputs": true,
+        "require_governance_ack_on_release": false,
+        "escalate_to": "WF-900",
+        "severity": "normal"
+      },
+      "registry_path": "sub_agents/cwf_410/cwf_410_sub_agent.py",
+      "sub_agent_class": "Cwf410SubAgent",
+      "runtime_base": "WorkflowSubAgentBase",
+      "artifact_family": "cwf_410-sub-agent-packet",
+      "binding_runtime_check": "WorkflowSubAgentBase"
+    },
+    {
+      "workflow_slug": "cwf_420",
+      "workflow_id": "CWF-420",
+      "workflow_name": "cwf420_visual_asset_planner",
+      "workflow_class": "child",
+      "workflow_family": "media",
+      "parent_pack": "WF-400",
+      "primary_director": "Durga",
+      "supporting_directors": [
+        "Krishna"
+      ],
+      "governance_authority": [],
+      "allowed_directors": [
+        "Durga",
+        "Krishna"
+      ],
+      "required_inputs": [
+        "thumbnail_concept_packet"
+      ],
+      "route_bindings": [],
+      "gate_rules": {
+        "enforce_director_binding": true,
+        "require_dossier_id": true,
+        "require_declared_inputs": true,
+        "require_governance_ack_on_release": false,
+        "escalate_to": "WF-900",
+        "severity": "normal"
+      },
+      "registry_path": "sub_agents/cwf_420/cwf_420_sub_agent.py",
+      "sub_agent_class": "Cwf420SubAgent",
+      "runtime_base": "WorkflowSubAgentBase",
+      "artifact_family": "cwf_420-sub-agent-packet",
+      "binding_runtime_check": "WorkflowSubAgentBase"
+    },
+    {
+      "workflow_slug": "cwf_430",
+      "workflow_id": "CWF-430",
+      "workflow_name": "cwf430_audio_script_optimizer",
+      "workflow_class": "child",
+      "workflow_family": "media",
+      "parent_pack": "WF-400",
+      "primary_director": "Saraswati",
+      "supporting_directors": [
+        "Durga"
+      ],
+      "governance_authority": [],
+      "allowed_directors": [
+        "Saraswati",
+        "Durga"
+      ],
+      "required_inputs": [
+        "visual_asset_plan_packet"
+      ],
+      "route_bindings": [],
+      "gate_rules": {
+        "enforce_director_binding": true,
+        "require_dossier_id": true,
+        "require_declared_inputs": true,
+        "require_governance_ack_on_release": false,
+        "escalate_to": "WF-900",
+        "severity": "normal"
+      },
+      "registry_path": "sub_agents/cwf_430/cwf_430_sub_agent.py",
+      "sub_agent_class": "Cwf430SubAgent",
+      "runtime_base": "WorkflowSubAgentBase",
+      "artifact_family": "cwf_430-sub-agent-packet",
+      "binding_runtime_check": "WorkflowSubAgentBase"
+    },
+    {
+      "workflow_slug": "cwf_440",
+      "workflow_id": "CWF-440",
+      "workflow_name": "cwf440_media_package_finalizer",
+      "workflow_class": "child",
+      "workflow_family": "media",
+      "parent_pack": "WF-400",
+      "primary_director": "Krishna",
+      "supporting_directors": [
+        "Durga",
+        "Saraswati"
+      ],
+      "governance_authority": [],
+      "allowed_directors": [
+        "Krishna",
+        "Durga",
+        "Saraswati"
+      ],
+      "required_inputs": [
+        "audio_optimized_script_packet",
+        "visual_asset_plan_packet",
+        "thumbnail_concept_packet"
+      ],
+      "route_bindings": [],
+      "gate_rules": {
+        "enforce_director_binding": true,
+        "require_dossier_id": true,
+        "require_declared_inputs": true,
+        "require_governance_ack_on_release": false,
+        "escalate_to": "WF-900",
+        "severity": "normal"
+      },
+      "registry_path": "sub_agents/cwf_440/cwf_440_sub_agent.py",
+      "sub_agent_class": "Cwf440SubAgent",
+      "runtime_base": "WorkflowSubAgentBase",
+      "artifact_family": "cwf_440-sub-agent-packet",
+      "binding_runtime_check": "WorkflowSubAgentBase"
+    },
+    {
+      "workflow_slug": "cwf_510",
+      "workflow_id": "CWF-510",
+      "workflow_name": "cwf510_platform_metadata_generator",
+      "workflow_class": "child",
+      "workflow_family": "publishing",
+      "parent_pack": "WF-500",
+      "primary_director": "Chanakya",
+      "supporting_directors": [
+        "Krishna",
+        "Saraswati"
+      ],
+      "governance_authority": [],
+      "allowed_directors": [
+        "Chanakya",
+        "Krishna",
+        "Saraswati"
+      ],
+      "required_inputs": [
+        "media_production_packet"
+      ],
+      "route_bindings": [],
+      "gate_rules": {
+        "enforce_director_binding": true,
+        "require_dossier_id": true,
+        "require_declared_inputs": true,
+        "require_governance_ack_on_release": false,
+        "escalate_to": "WF-900",
+        "severity": "normal"
+      },
+      "registry_path": "sub_agents/cwf_510/cwf_510_sub_agent.py",
+      "sub_agent_class": "Cwf510SubAgent",
+      "runtime_base": "WorkflowSubAgentBase",
+      "artifact_family": "cwf_510-sub-agent-packet",
+      "binding_runtime_check": "WorkflowSubAgentBase"
+    },
+    {
+      "workflow_slug": "cwf_520",
+      "workflow_id": "CWF-520",
+      "workflow_name": "cwf520_distribution_planner",
+      "workflow_class": "child",
+      "workflow_family": "publishing",
+      "parent_pack": "WF-500",
+      "primary_director": "Krishna",
+      "supporting_directors": [
+        "Chanakya"
+      ],
+      "governance_authority": [],
+      "allowed_directors": [
+        "Krishna",
+        "Chanakya"
+      ],
+      "required_inputs": [
+        "platform_metadata_packet"
+      ],
+      "route_bindings": [],
+      "gate_rules": {
+        "enforce_director_binding": true,
+        "require_dossier_id": true,
+        "require_declared_inputs": true,
+        "require_governance_ack_on_release": false,
+        "escalate_to": "WF-900",
+        "severity": "normal"
+      },
+      "registry_path": "sub_agents/cwf_520/cwf_520_sub_agent.py",
+      "sub_agent_class": "Cwf520SubAgent",
+      "runtime_base": "WorkflowSubAgentBase",
+      "artifact_family": "cwf_520-sub-agent-packet",
+      "binding_runtime_check": "WorkflowSubAgentBase"
+    },
+    {
+      "workflow_slug": "cwf_530",
+      "workflow_id": "CWF-530",
+      "workflow_name": "cwf530_publish_readiness_checker",
+      "workflow_class": "child",
+      "workflow_family": "publishing",
+      "parent_pack": "WF-500",
+      "primary_director": "Yama",
+      "supporting_directors": [
+        "Krishna"
+      ],
+      "governance_authority": [],
+      "allowed_directors": [
+        "Yama",
+        "Krishna"
+      ],
+      "required_inputs": [
+        "distribution_plan_packet",
+        "platform_metadata_packet"
+      ],
+      "route_bindings": [],
+      "gate_rules": {
+        "enforce_director_binding": true,
+        "require_dossier_id": true,
+        "require_declared_inputs": true,
+        "require_governance_ack_on_release": true,
+        "escalate_to": "WF-900",
+        "severity": "normal"
+      },
+      "registry_path": "sub_agents/cwf_530/cwf_530_sub_agent.py",
+      "sub_agent_class": "Cwf530SubAgent",
+      "runtime_base": "WorkflowSubAgentBase",
+      "artifact_family": "cwf_530-sub-agent-packet",
+      "binding_runtime_check": "WorkflowSubAgentBase"
+    },
+    {
+      "workflow_slug": "cwf_610",
+      "workflow_id": "CWF-610",
+      "workflow_name": "performance_metrics_collector",
+      "workflow_class": "child_workflow",
+      "workflow_family": "analytics",
+      "parent_pack": "",
+      "primary_director": "Krishna",
+      "supporting_directors": [],
+      "governance_authority": [],
+      "allowed_directors": [
+        "Krishna"
+      ],
+      "required_inputs": [],
+      "route_bindings": [],
+      "gate_rules": {
+        "enforce_director_binding": true,
+        "require_dossier_id": true,
+        "require_declared_inputs": true,
+        "require_governance_ack_on_release": false,
+        "escalate_to": "WF-900",
+        "severity": "normal"
+      },
+      "registry_path": "sub_agents/cwf_610/cwf_610_sub_agent.py",
+      "sub_agent_class": "Cwf610SubAgent",
+      "runtime_base": "WorkflowSubAgentBase",
+      "artifact_family": "cwf_610-sub-agent-packet",
+      "binding_runtime_check": "WorkflowSubAgentBase"
+    },
+    {
+      "workflow_slug": "cwf_620",
+      "workflow_id": "CWF-620",
+      "workflow_name": "audience_feedback_aggregator",
+      "workflow_class": "child_workflow",
+      "workflow_family": "analytics",
+      "parent_pack": "",
+      "primary_director": "Krishna",
+      "supporting_directors": [],
+      "governance_authority": [],
+      "allowed_directors": [
+        "Krishna"
+      ],
+      "required_inputs": [],
+      "route_bindings": [],
+      "gate_rules": {
+        "enforce_director_binding": true,
+        "require_dossier_id": true,
+        "require_declared_inputs": true,
+        "require_governance_ack_on_release": false,
+        "escalate_to": "WF-900",
+        "severity": "normal"
+      },
+      "registry_path": "sub_agents/cwf_620/cwf_620_sub_agent.py",
+      "sub_agent_class": "Cwf620SubAgent",
+      "runtime_base": "WorkflowSubAgentBase",
+      "artifact_family": "cwf_620-sub-agent-packet",
+      "binding_runtime_check": "WorkflowSubAgentBase"
+    },
+    {
+      "workflow_slug": "cwf_630",
+      "workflow_id": "CWF-630",
+      "workflow_name": "evolution_signal_synthesizer",
+      "workflow_class": "child_workflow",
+      "workflow_family": "analytics",
+      "parent_pack": "",
+      "primary_director": "Krishna",
+      "supporting_directors": [],
+      "governance_authority": [],
+      "allowed_directors": [
+        "Krishna"
+      ],
+      "required_inputs": [],
+      "route_bindings": [],
+      "gate_rules": {
+        "enforce_director_binding": true,
+        "require_dossier_id": true,
+        "require_declared_inputs": true,
+        "require_governance_ack_on_release": false,
+        "escalate_to": "WF-900",
+        "severity": "normal"
+      },
+      "registry_path": "sub_agents/cwf_630/cwf_630_sub_agent.py",
+      "sub_agent_class": "Cwf630SubAgent",
+      "runtime_base": "WorkflowSubAgentBase",
+      "artifact_family": "cwf_630-sub-agent-packet",
+      "binding_runtime_check": "WorkflowSubAgentBase"
+    },
+    {
+      "workflow_slug": "wf_000",
+      "workflow_id": "WF-000",
+      "workflow_name": "wf000_health_check",
+      "workflow_class": "system",
+      "workflow_family": "system_foundation",
+      "parent_pack": "",
+      "primary_director": "Krishna",
+      "supporting_directors": [],
+      "governance_authority": [],
+      "allowed_directors": [
+        "Krishna"
+      ],
+      "required_inputs": [
+        "health_probe_request"
+      ],
+      "route_bindings": [
+        "ROUTE_PHASE1_STANDARD",
+        "ROUTE_PHASE1_FAST"
+      ],
+      "gate_rules": {
+        "enforce_director_binding": true,
+        "require_dossier_id": true,
+        "require_declared_inputs": true,
+        "require_governance_ack_on_release": false,
+        "escalate_to": "WF-900",
+        "severity": "high"
+      },
+      "registry_path": "sub_agents/wf_000/wf_000_sub_agent.py",
+      "sub_agent_class": "Wf000SubAgent",
+      "runtime_base": "WorkflowSubAgentBase",
+      "artifact_family": "wf_000-sub-agent-packet",
+      "binding_runtime_check": "WorkflowSubAgentBase"
+    },
+    {
+      "workflow_slug": "wf_001",
+      "workflow_id": "WF-001",
+      "workflow_name": "wf001_dossier_create",
+      "workflow_class": "parent",
+      "workflow_family": "system_foundation",
+      "parent_pack": "",
+      "primary_director": "Krishna",
+      "supporting_directors": [],
+      "governance_authority": [],
+      "allowed_directors": [
+        "Krishna"
+      ],
+      "required_inputs": [
+        "intake_packet"
+      ],
+      "route_bindings": [
+        "ROUTE_PHASE1_STANDARD",
+        "ROUTE_PHASE1_FAST"
+      ],
+      "gate_rules": {
+        "enforce_director_binding": true,
+        "require_dossier_id": true,
+        "require_declared_inputs": true,
+        "require_governance_ack_on_release": false,
+        "escalate_to": "WF-900",
+        "severity": "normal"
+      },
+      "registry_path": "sub_agents/wf_001/wf_001_sub_agent.py",
+      "sub_agent_class": "Wf001SubAgent",
+      "runtime_base": "WorkflowSubAgentBase",
+      "artifact_family": "wf_001-sub-agent-packet",
+      "binding_runtime_check": "WorkflowSubAgentBase"
+    },
+    {
+      "workflow_slug": "wf_010",
+      "workflow_id": "WF-010",
+      "workflow_name": "wf010_parent_orchestrator",
+      "workflow_class": "parent",
+      "workflow_family": "system_foundation",
+      "parent_pack": "",
+      "primary_director": "Krishna",
+      "supporting_directors": [],
+      "governance_authority": [],
+      "allowed_directors": [
+        "Krishna"
+      ],
+      "required_inputs": [
+        "dossier_record",
+        "route_signal"
+      ],
+      "route_bindings": [
+        "ROUTE_PHASE1_STANDARD",
+        "ROUTE_PHASE1_FAST",
+        "ROUTE_PHASE1_REPLAY"
+      ],
+      "gate_rules": {
+        "enforce_director_binding": true,
+        "require_dossier_id": true,
+        "require_declared_inputs": true,
+        "require_governance_ack_on_release": false,
+        "escalate_to": "WF-900",
+        "severity": "normal"
+      },
+      "registry_path": "sub_agents/wf_010/wf_010_sub_agent.py",
+      "sub_agent_class": "Wf010SubAgent",
+      "runtime_base": "WorkflowSubAgentBase",
+      "artifact_family": "wf_010-sub-agent-packet",
+      "binding_runtime_check": "WorkflowSubAgentBase"
+    },
+    {
+      "workflow_slug": "wf_020",
+      "workflow_id": "WF-020",
+      "workflow_name": "wf020_final_approval",
+      "workflow_class": "governance",
+      "workflow_family": "governance",
+      "parent_pack": "",
+      "primary_director": "Yama",
+      "supporting_directors": [],
+      "governance_authority": [
+        "Krishna"
+      ],
+      "allowed_directors": [
+        "Yama",
+        "Krishna"
+      ],
+      "required_inputs": [
+        "final_script_packet",
+        "media_production_packet"
+      ],
+      "route_bindings": [],
+      "gate_rules": {
+        "enforce_director_binding": true,
+        "require_dossier_id": true,
+        "require_declared_inputs": true,
+        "require_governance_ack_on_release": true,
+        "escalate_to": "WF-900",
+        "severity": "high"
+      },
+      "registry_path": "sub_agents/wf_020/wf_020_sub_agent.py",
+      "sub_agent_class": "Wf020SubAgent",
+      "runtime_base": "WorkflowSubAgentBase",
+      "artifact_family": "wf_020-sub-agent-packet",
+      "binding_runtime_check": "WorkflowSubAgentBase"
+    },
+    {
+      "workflow_slug": "wf_021",
+      "workflow_id": "WF-021",
+      "workflow_name": "wf021_replay_remodify",
+      "workflow_class": "governance",
+      "workflow_family": "governance",
+      "parent_pack": "",
+      "primary_director": "Yama",
+      "supporting_directors": [
+        "Krishna",
+        "Vyasa"
+      ],
+      "governance_authority": [],
+      "allowed_directors": [
+        "Yama",
+        "Krishna",
+        "Vyasa"
+      ],
+      "required_inputs": [
+        "rejection_packet",
+        "replay_context"
+      ],
+      "route_bindings": [],
+      "gate_rules": {
+        "enforce_director_binding": true,
+        "require_dossier_id": true,
+        "require_declared_inputs": true,
+        "require_governance_ack_on_release": false,
+        "escalate_to": "WF-900",
+        "severity": "high"
+      },
+      "registry_path": "sub_agents/wf_021/wf_021_sub_agent.py",
+      "sub_agent_class": "Wf021SubAgent",
+      "runtime_base": "WorkflowSubAgentBase",
+      "artifact_family": "wf_021-sub-agent-packet",
+      "binding_runtime_check": "WorkflowSubAgentBase"
+    },
+    {
+      "workflow_slug": "wf_022",
+      "workflow_id": "WF-022",
+      "workflow_name": "wf022_provider_packet_bridge",
+      "workflow_class": "system_bridge",
+      "workflow_family": "system_bridge",
+      "parent_pack": "",
+      "primary_director": "Krishna",
+      "supporting_directors": [],
+      "governance_authority": [
+        "Yama",
+        "Kubera"
+      ],
+      "allowed_directors": [
+        "Krishna",
+        "Yama",
+        "Kubera"
+      ],
+      "required_inputs": [
+        "approved_packet",
+        "provider_target"
+      ],
+      "route_bindings": [],
+      "gate_rules": {
+        "enforce_director_binding": true,
+        "require_dossier_id": true,
+        "require_declared_inputs": true,
+        "require_governance_ack_on_release": false,
+        "escalate_to": "WF-900",
+        "severity": "high"
+      },
+      "registry_path": "sub_agents/wf_022/wf_022_sub_agent.py",
+      "sub_agent_class": "Wf022SubAgent",
+      "runtime_base": "WorkflowSubAgentBase",
+      "artifact_family": "wf_022-sub-agent-packet",
+      "binding_runtime_check": "WorkflowSubAgentBase"
+    },
+    {
+      "workflow_slug": "wf_023",
+      "workflow_id": "WF-023",
+      "workflow_name": "wf023_downstream_resource_preparation",
+      "workflow_class": "planning",
+      "workflow_family": "system_bridge",
+      "parent_pack": "",
+      "primary_director": "Aruna",
+      "supporting_directors": [],
+      "governance_authority": [
+        "Krishna"
+      ],
+      "allowed_directors": [
+        "Aruna",
+        "Krishna"
+      ],
+      "required_inputs": [
+        "final_script_packet",
+        "context_engineering_packet"
+      ],
+      "route_bindings": [],
+      "gate_rules": {
+        "enforce_director_binding": true,
+        "require_dossier_id": true,
+        "require_declared_inputs": true,
+        "require_governance_ack_on_release": false,
+        "escalate_to": "WF-900",
+        "severity": "normal"
+      },
+      "registry_path": "sub_agents/wf_023/wf_023_sub_agent.py",
+      "sub_agent_class": "Wf023SubAgent",
+      "runtime_base": "WorkflowSubAgentBase",
+      "artifact_family": "wf_023-sub-agent-packet",
+      "binding_runtime_check": "WorkflowSubAgentBase"
+    },
+    {
+      "workflow_slug": "wf_100",
+      "workflow_id": "WF-100",
+      "workflow_name": "wf100_topic_intelligence_pack",
+      "workflow_class": "parent_pack",
+      "workflow_family": "parent_pack",
+      "parent_pack": "",
+      "primary_director": "Narada",
+      "supporting_directors": [],
+      "governance_authority": [
+        "Yama",
+        "Kubera"
+      ],
+      "allowed_directors": [
+        "Narada",
+        "Yama",
+        "Kubera"
+      ],
+      "required_inputs": [
+        "dossier_record",
+        "orchestration_decision"
+      ],
+      "route_bindings": [
+        "ROUTE_PHASE1_STANDARD",
+        "ROUTE_PHASE1_FAST"
+      ],
+      "gate_rules": {
+        "enforce_director_binding": true,
+        "require_dossier_id": true,
+        "require_declared_inputs": true,
+        "require_governance_ack_on_release": false,
+        "escalate_to": "WF-900",
+        "severity": "medium"
+      },
+      "registry_path": "sub_agents/wf_100/wf_100_sub_agent.py",
+      "sub_agent_class": "Wf100SubAgent",
+      "runtime_base": "WorkflowSubAgentBase",
+      "artifact_family": "wf_100-sub-agent-packet",
+      "binding_runtime_check": "WorkflowSubAgentBase"
+    },
+    {
+      "workflow_slug": "wf_200",
+      "workflow_id": "WF-200",
+      "workflow_name": "wf200_script_intelligence_pack",
+      "workflow_class": "parent_pack",
+      "workflow_family": "parent_pack",
+      "parent_pack": "",
+      "primary_director": "Vyasa",
+      "supporting_directors": [],
+      "governance_authority": [
+        "Yama",
+        "Kubera"
+      ],
+      "allowed_directors": [
+        "Vyasa",
+        "Yama",
+        "Kubera"
+      ],
+      "required_inputs": [
+        "topic_finalization_packet",
+        "research_synthesis_packet",
+        "orchestration_decision"
+      ],
+      "route_bindings": [
+        "ROUTE_PHASE1_STANDARD",
+        "ROUTE_PHASE1_FAST"
+      ],
+      "gate_rules": {
+        "enforce_director_binding": true,
+        "require_dossier_id": true,
+        "require_declared_inputs": true,
+        "require_governance_ack_on_release": false,
+        "escalate_to": "WF-900",
+        "severity": "medium"
+      },
+      "registry_path": "sub_agents/wf_200/wf_200_sub_agent.py",
+      "sub_agent_class": "Wf200SubAgent",
+      "runtime_base": "WorkflowSubAgentBase",
+      "artifact_family": "wf_200-sub-agent-packet",
+      "binding_runtime_check": "WorkflowSubAgentBase"
+    },
+    {
+      "workflow_slug": "wf_300",
+      "workflow_id": "WF-300",
+      "workflow_name": "wf300_context_engineering_pack",
+      "workflow_class": "parent_pack",
+      "workflow_family": "parent_pack",
+      "parent_pack": "",
+      "primary_director": "Krishna",
+      "supporting_directors": [],
+      "governance_authority": [
+        "Yama",
+        "Kubera"
+      ],
+      "allowed_directors": [
+        "Krishna",
+        "Yama",
+        "Kubera"
+      ],
+      "required_inputs": [
+        "final_script_packet"
+      ],
+      "route_bindings": [
+        "ROUTE_PHASE1_STANDARD",
+        "ROUTE_PHASE1_FAST"
+      ],
+      "gate_rules": {
+        "enforce_director_binding": true,
+        "require_dossier_id": true,
+        "require_declared_inputs": true,
+        "require_governance_ack_on_release": false,
+        "escalate_to": "WF-900",
+        "severity": "medium"
+      },
+      "registry_path": "sub_agents/wf_300/wf_300_sub_agent.py",
+      "sub_agent_class": "Wf300SubAgent",
+      "runtime_base": "WorkflowSubAgentBase",
+      "artifact_family": "wf_300-sub-agent-packet",
+      "binding_runtime_check": "WorkflowSubAgentBase"
+    },
+    {
+      "workflow_slug": "wf_400",
+      "workflow_id": "WF-400",
+      "workflow_name": "wf400_media_production_pack",
+      "workflow_class": "parent_pack",
+      "workflow_family": "parent_pack",
+      "parent_pack": "",
+      "primary_director": "Krishna",
+      "supporting_directors": [],
+      "governance_authority": [
+        "Durga",
+        "Saraswati"
+      ],
+      "allowed_directors": [
+        "Krishna",
+        "Durga",
+        "Saraswati"
+      ],
+      "required_inputs": [
+        "context_engineering_packet"
+      ],
+      "route_bindings": [
+        "ROUTE_PHASE1_STANDARD",
+        "ROUTE_PHASE1_FAST"
+      ],
+      "gate_rules": {
+        "enforce_director_binding": true,
+        "require_dossier_id": true,
+        "require_declared_inputs": true,
+        "require_governance_ack_on_release": false,
+        "escalate_to": "WF-900",
+        "severity": "medium"
+      },
+      "registry_path": "sub_agents/wf_400/wf_400_sub_agent.py",
+      "sub_agent_class": "Wf400SubAgent",
+      "runtime_base": "WorkflowSubAgentBase",
+      "artifact_family": "wf_400-sub-agent-packet",
+      "binding_runtime_check": "WorkflowSubAgentBase"
+    },
+    {
+      "workflow_slug": "wf_500",
+      "workflow_id": "WF-500",
+      "workflow_name": "wf500_publishing_distribution_pack",
+      "workflow_class": "parent_pack",
+      "workflow_family": "parent_pack",
+      "parent_pack": "",
+      "primary_director": "Krishna",
+      "supporting_directors": [],
+      "governance_authority": [
+        "Yama",
+        "Krishna"
+      ],
+      "allowed_directors": [
+        "Krishna",
+        "Yama"
+      ],
+      "required_inputs": [
+        "media_production_packet"
+      ],
+      "route_bindings": [
+        "ROUTE_PHASE1_STANDARD",
+        "ROUTE_PHASE1_FAST"
+      ],
+      "gate_rules": {
+        "enforce_director_binding": true,
+        "require_dossier_id": true,
+        "require_declared_inputs": true,
+        "require_governance_ack_on_release": true,
+        "escalate_to": "WF-900",
+        "severity": "medium"
+      },
+      "registry_path": "sub_agents/wf_500/wf_500_sub_agent.py",
+      "sub_agent_class": "Wf500SubAgent",
+      "runtime_base": "WorkflowSubAgentBase",
+      "artifact_family": "wf_500-sub-agent-packet",
+      "binding_runtime_check": "WorkflowSubAgentBase"
+    },
+    {
+      "workflow_slug": "wf_600",
+      "workflow_id": "WF-600",
+      "workflow_name": "wf600_analytics_evolution_pack",
+      "workflow_class": "parent_pack",
+      "workflow_family": "parent_pack",
+      "parent_pack": "",
+      "primary_director": "Chandra",
+      "supporting_directors": [],
+      "governance_authority": [
+        "Chitragupta",
+        "Yama"
+      ],
+      "allowed_directors": [
+        "Chandra",
+        "Chitragupta",
+        "Yama"
+      ],
+      "required_inputs": [
+        "publish_ready_packet",
+        "runtime_context"
+      ],
+      "route_bindings": [
+        "ROUTE_PHASE1_STANDARD",
+        "ROUTE_PHASE1_ANALYTICS"
+      ],
+      "gate_rules": {
+        "enforce_director_binding": true,
+        "require_dossier_id": true,
+        "require_declared_inputs": true,
+        "require_governance_ack_on_release": false,
+        "escalate_to": "WF-900",
+        "severity": "medium"
+      },
+      "registry_path": "sub_agents/wf_600/wf_600_sub_agent.py",
+      "sub_agent_class": "Wf600SubAgent",
+      "runtime_base": "WorkflowSubAgentBase",
+      "artifact_family": "wf_600-sub-agent-packet",
+      "binding_runtime_check": "WorkflowSubAgentBase"
+    },
+    {
+      "workflow_slug": "wf_900",
+      "workflow_id": "WF-900",
+      "workflow_name": "wf900_error_handler",
+      "workflow_class": "system",
+      "workflow_family": "system_error",
+      "parent_pack": "",
+      "primary_director": "Krishna",
+      "supporting_directors": [],
+      "governance_authority": [],
+      "allowed_directors": [
+        "Krishna"
+      ],
+      "required_inputs": [
+        "error_event"
+      ],
+      "route_bindings": [
+        "ROUTE_PHASE1_REPLAY"
+      ],
+      "gate_rules": {
+        "enforce_director_binding": true,
+        "require_dossier_id": true,
+        "require_declared_inputs": true,
+        "require_governance_ack_on_release": true,
+        "escalate_to": "WF-900",
+        "severity": "high"
+      },
+      "registry_path": "sub_agents/wf_900/wf_900_sub_agent.py",
+      "sub_agent_class": "Wf900SubAgent",
+      "runtime_base": "WorkflowSubAgentBase",
+      "artifact_family": "wf_900-sub-agent-packet",
+      "binding_runtime_check": "WorkflowSubAgentBase"
+    }
+  ]
+}

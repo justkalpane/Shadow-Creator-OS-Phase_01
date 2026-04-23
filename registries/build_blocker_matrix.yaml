@@ -11,11 +11,10 @@ blockers:
   - blocker_id: BB-019
     title: Live route IDs do not match repo canonical route IDs
     severity: P0
-    state: repo_side_resolved_runtime_pending
+    state: resolved_p0
     blocking_scope: build
     linked_decision_packets:
       - DP-006
     remediation_owner: founder
     required_fix: >
-      Rename live route rows to the canonical ROUTE_PHASE1_* IDs inside n8n and
-      ensure all runtime lookups use the canonical names.
+      Live route rows and runtime lookups now use canonical ROUTE_PHASE1_* IDs.

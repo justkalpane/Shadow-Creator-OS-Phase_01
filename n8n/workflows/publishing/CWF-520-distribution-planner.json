@@ -12,7 +12,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const platform_metadata_packet = $json.platform_metadata_packet || $json;\nconst dossier_id = $json.dossier_id || platform_metadata_packet.dossier_ref || 'TEST-DOSSIER-' + Date.now();\nconst target_platforms = platform_metadata_packet.payload ? (platform_metadata_packet.payload.context ? platform_metadata_packet.payload.context.target_platforms || [] : []) : [];\nreturn [{\n  json: {\n    workflow_id: 'CWF-520',\n    workflow_name: 'distribution_planner',\n    vein: 'publishing_vein',\n    dossier_id: dossier_id,\n    platform_metadata_packet: platform_metadata_packet,\n    target_platforms: target_platforms,\n    route_id: $json.route_id || 'ROUTE-001',\n    execution_timestamp: new Date().toISOString(),\n    vein_stage: 'publishing',\n    metadata_packet_id: platform_metadata_packet.instance_id || 'PMP-UNKNOWN'\n  }\n}];"
+        "jsCode": "const platform_metadata_packet = $json.platform_metadata_packet || $json;\nconst dossier_id = $json.dossier_id || platform_metadata_packet.dossier_ref || 'TEST-DOSSIER-' + Date.now();\nconst target_platforms = platform_metadata_packet.payload ? (platform_metadata_packet.payload.context ? platform_metadata_packet.payload.context.target_platforms || [] : []) : [];\nreturn [{\n  json: {\n    workflow_id: 'CWF-520',\n    workflow_name: 'distribution_planner',\n    vein: 'publishing_vein',\n    dossier_id: dossier_id,\n    platform_metadata_packet: platform_metadata_packet,\n    target_platforms: target_platforms,\n    route_id: $json.route_id || 'ROUTE_PHASE1_STANDARD',\n    execution_timestamp: new Date().toISOString(),\n    vein_stage: 'publishing',\n    metadata_packet_id: platform_metadata_packet.instance_id || 'PMP-UNKNOWN'\n  }\n}];"
       },
       "id": "normalize_distribution_input",
       "name": "Normalize Distribution Input",
@@ -22,7 +22,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const context = {\n  role_definition: 'distribution_schedule_architect',\n  behavior_model: 'strategic, timing-aware, audience-optimal scheduling',\n  operating_method: 'ingest → evaluate_windows → sequence_platforms → build_repurpose_plan → emit',\n  allowed_tools: ['deterministic_transforms', 'schedule_calculators', 'registry_lookups'],\n  forbidden_tools: ['unsupervised_publisher', 'content_modifier', 'live_platform_apis_without_approval'],\n  error_escalation: 'WF-900',\n  fallback_on_missing_packet: 'route_to_WF900',\n  mutation_law: {\n    reads: ['dossier.publishing.platform_metadata_packets', 'dossier.runtime'],\n    writes: ['dossier.publishing.distribution_plan_packets', 'dossier.runtime.distribution_log'],\n    forbidden_overwrites: ['dossier_identity', 'approval_namespaces', 'dossier.context']\n  }\n};\nreturn [{\n  json: {\n    ...$json,\n    context_packet: context,\n    context_packet_validated: true,\n    skill_execution_plan: [\n      { skill_id: 'D-502', name: 'SEO Optimizer', priority: 1 },\n      { skill_id: 'D-503', name: 'Distribution Scheduler', priority: 2 }\n    ]\n  }\n}];"
+        "jsCode": "const context = {\n  role_definition: 'distribution_schedule_architect',\n  behavior_model: 'strategic, timing-aware, audience-optimal scheduling',\n  operating_method: 'ingest â†’ evaluate_windows â†’ sequence_platforms â†’ build_repurpose_plan â†’ emit',\n  allowed_tools: ['deterministic_transforms', 'schedule_calculators', 'registry_lookups'],\n  forbidden_tools: ['unsupervised_publisher', 'content_modifier', 'live_platform_apis_without_approval'],\n  error_escalation: 'WF-900',\n  fallback_on_missing_packet: 'route_to_WF900',\n  mutation_law: {\n    reads: ['dossier.publishing.platform_metadata_packets', 'dossier.runtime'],\n    writes: ['dossier.publishing.distribution_plan_packets', 'dossier.runtime.distribution_log'],\n    forbidden_overwrites: ['dossier_identity', 'approval_namespaces', 'dossier.context']\n  }\n};\nreturn [{\n  json: {\n    ...$json,\n    context_packet: context,\n    context_packet_validated: true,\n    skill_execution_plan: [\n      { skill_id: 'D-502', name: 'SEO Optimizer', priority: 1 },\n      { skill_id: 'D-503', name: 'Distribution Scheduler', priority: 2 }\n    ]\n  }\n}];"
       },
       "id": "inject_context_packet",
       "name": "Inject Context Packet",
@@ -105,3 +105,4 @@
   "active": true,
   "settings": {}
 }
+

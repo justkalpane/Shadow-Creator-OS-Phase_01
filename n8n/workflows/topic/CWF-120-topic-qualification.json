@@ -12,7 +12,7 @@
     },
     {
       "parameters": {
-        "jsCode": "return [{\n  json: {\n    workflow_id: 'CWF-120',\n    vein: 'qualification_vein',\n    dossier_id: $json.dossier_id || 'TEST-DOSSIER',\n    candidates: $json.candidates || [],\n    route_id: $json.route_id || 'ROUTE-001',\n    execution_timestamp: new Date().toISOString(),\n    qualification_checks: ['demand_fit', 'competition_fit', 'longevity_fit', 'audience_fit', 'budget_fit', 'policy_fit']\n  }\n}];"
+        "jsCode": "return [{\n  json: {\n    workflow_id: 'CWF-120',\n    vein: 'qualification_vein',\n    dossier_id: $json.dossier_id || 'TEST-DOSSIER',\n    candidates: $json.candidates || [],\n    route_id: $json.route_id || 'ROUTE_PHASE1_STANDARD',\n    execution_timestamp: new Date().toISOString(),\n    qualification_checks: ['demand_fit', 'competition_fit', 'longevity_fit', 'audience_fit', 'budget_fit', 'policy_fit']\n  }\n}];"
       },
       "id": "normalize_qualification_input",
       "name": "Normalize Qualification Input",

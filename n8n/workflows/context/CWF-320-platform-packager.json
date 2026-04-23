@@ -12,7 +12,7 @@
     },
     {
       "parameters": {
-        "jsCode": "return [{\n  json: {\n    workflow_id: 'CWF-320',\n    vein: 'context_engineering_vein',\n    dossier_id: $json.dossier_id || ($json.execution_context_packet && $json.execution_context_packet.dossier_ref) || 'TEST-DOSSIER',\n    execution_context_packet: $json.execution_context_packet || $json,\n    target_platform: $json.target_platform || ($json.execution_context_packet && $json.execution_context_packet.payload && $json.execution_context_packet.payload.context && $json.execution_context_packet.payload.context.target_platform) || 'youtube',\n    route_id: $json.route_id || 'ROUTE-001',\n    execution_timestamp: new Date().toISOString()\n  }\n}];"
+        "jsCode": "return [{\n  json: {\n    workflow_id: 'CWF-320',\n    vein: 'context_engineering_vein',\n    dossier_id: $json.dossier_id || ($json.execution_context_packet && $json.execution_context_packet.dossier_ref) || 'TEST-DOSSIER',\n    execution_context_packet: $json.execution_context_packet || $json,\n    target_platform: $json.target_platform || ($json.execution_context_packet && $json.execution_context_packet.payload && $json.execution_context_packet.payload.context && $json.execution_context_packet.payload.context.target_platform) || 'youtube',\n    route_id: $json.route_id || 'ROUTE_PHASE1_STANDARD',\n    execution_timestamp: new Date().toISOString()\n  }\n}];"
       },
       "id": "normalize_input",
       "name": "Normalize Input",
@@ -104,3 +104,4 @@
   "active": true,
   "settings": {}
 }
+

@@ -12,7 +12,7 @@
     },
     {
       "parameters": {
-        "jsCode": "return [{\n  json: {\n    workflow_id: 'CWF-130',\n    vein: 'scoring_vein',\n    dossier_id: $json.dossier_id || 'TEST-DOSSIER',\n    qualified_candidates: $json.qualified_candidates || [],\n    route_id: $json.route_id || 'ROUTE-001',\n    execution_timestamp: new Date().toISOString(),\n    score_dimensions: ['trend_strength', 'search_demand', 'content_gap', 'audience_pain_match', 'longevity', 'governance_risk', 'budget_fit']\n  }\n}];"
+        "jsCode": "return [{\n  json: {\n    workflow_id: 'CWF-130',\n    vein: 'scoring_vein',\n    dossier_id: $json.dossier_id || 'TEST-DOSSIER',\n    qualified_candidates: $json.qualified_candidates || [],\n    route_id: $json.route_id || 'ROUTE_PHASE1_STANDARD',\n    execution_timestamp: new Date().toISOString(),\n    score_dimensions: ['trend_strength', 'search_demand', 'content_gap', 'audience_pain_match', 'longevity', 'governance_risk', 'budget_fit']\n  }\n}];"
       },
       "id": "normalize_scoring_input",
       "name": "Normalize Scoring Input",
@@ -83,7 +83,7 @@
     },
     {
       "parameters": {
-        "jsCode": "return [{\n  json: {\n    workflow_id: 'CWF-130',\n    error_type: 'packet_validation_failure',\n    error_source: 'CWF-130-topic-scoring',\n    escalation_target: 'WF-900',\n    escalation_authority: 'Krishna',\n    escalation_path: 'Krishna → Durga → Aruna → WF-900',\n    validation_errors: $json.validation_errors || [],\n    packet_snapshot: $json.original_packet || {},\n    escalated_at: new Date().toISOString()\n  }\n}];"
+        "jsCode": "return [{\n  json: {\n    workflow_id: 'CWF-130',\n    error_type: 'packet_validation_failure',\n    error_source: 'CWF-130-topic-scoring',\n    escalation_target: 'WF-900',\n    escalation_authority: 'Krishna',\n    escalation_path: 'Krishna â†’ Durga â†’ Aruna â†’ WF-900',\n    validation_errors: $json.validation_errors || [],\n    packet_snapshot: $json.original_packet || {},\n    escalated_at: new Date().toISOString()\n  }\n}];"
       },
       "id": "route_to_error_handler",
       "name": "Route to WF-900",
