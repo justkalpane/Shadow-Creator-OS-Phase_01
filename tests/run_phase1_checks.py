@@ -27,6 +27,8 @@ scripts = [
     ROOT / 'validate_build_status.py',
     ROOT / 'validate_sub_skill_integrations.py',
     ROOT / 'validate_workflow_payload_contracts.py',
+    ROOT / 'validate_hierarchical_runtime_bindings.py',
+    ROOT / 'validate_hierarchical_full_plan_trace.py',
 ]
 
 for script in scripts:

@@ -10,8 +10,24 @@ def run(intent: str, context: dict[str, Any] | None = None) -> dict[str, Any]:
     ctx = context or {}
     text_intent = str(intent or "").strip()
     use_director = bool(ctx.get("use_director", False))
+    if "use_hierarchy" in ctx:
+        use_hierarchy = bool(ctx.get("use_hierarchy"))
+    else:
+        use_hierarchy = not use_director
 
     try:
+        if use_hierarchy:
+            from engine.hierarchical_runtime import HierarchicalRuntime
+
+            result = HierarchicalRuntime().run_intent(text_intent, ctx)
+            return {
+                "status": "success" if result.get("status") == "success" else "failed",
+                "mode": "hierarchy",
+                "intent": text_intent,
+                "result": result,
+                "error": None if result.get("status") == "success" else "hierarchical_execution_failed",
+            }
+
         if use_director:
             from engine.director_engine import DirectorEngine
 
