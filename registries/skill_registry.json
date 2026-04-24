@@ -1,0 +1,1531 @@
+{
+  "version": 1,
+  "skills": [
+    {
+      "skill_id": "analytics.e_601_performance_analyst",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "analytics.e_602_feedback_analyst",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "analytics.e_603_evolution_strategist",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "autonomous_loop.m_091_lip_sync_engine",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "autonomous_loop.m_092_avatar_rendering_engine",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "autonomous_loop.m_093_visual_effects_engine",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "autonomous_loop.m_094_color_grading_engine",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "autonomous_loop.m_095_motion_graphics_engine",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "autonomous_loop.m_096_transition_designer",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "autonomous_loop.m_097_pacing_optimizer",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "autonomous_loop.m_098_final_edit_compiler",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "autonomous_loop.m_099_quality_assurance_engine",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "autonomous_loop.m_100_safety_compliance_engine",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "autonomous_loop.m_101_decision_board",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "autonomous_loop.m_102_escalation_engine",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "autonomous_loop.m_103_strategic_alignment_engine",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "autonomous_loop.m_104_executive_review_system",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "autonomous_loop.m_105_publishing_engine",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "autonomous_loop.m_106_upload_verification",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "autonomous_loop.m_107_algorithm_kickstart_engine",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "autonomous_loop.m_108_engagement_booster",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "autonomous_loop.m_109_comment_analyzer",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "autonomous_loop.m_110_reputation_monitor",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "autonomous_loop.m_111_feedback_learning_engine",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "autonomous_loop.m_112_strategy_refinement_engine",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "autonomous_loop.m_113_empire_growth_engine",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "autonomous_loop.m_114_resource_expansion_engine",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "autonomous_loop.m_115_automation_expansion_engine",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "autonomous_loop.m_116_skill_evolution_engine",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "autonomous_loop.m_117_intelligence_upgrade_engine",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "autonomous_loop.m_118_empire_security_engine",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "autonomous_loop.m_119_redundancy_system",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "autonomous_loop.m_120_supreme_orchestrator",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "context_engineering.p_301_execution_context_engineer",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "context_engineering.p_302_platform_format_specialist",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "context_engineering.p_303_asset_brief_creator",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "context_engineering.p_304_lineage_chain_validator",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "context_engineering.p_305_context_packet_finalizer",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "governance.m_181_innovation_engine",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "governance.m_182_collaboration_engine",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "intelligence.m_001_intent_cortex",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "intelligence.m_002_context_analyzer",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "media_production.a_401_thumbnail_concept_designer",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "media_production.a_402_visual_asset_planner",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "media_production.a_403_audio_script_optimizer",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "media_production.a_404_media_package_assembler",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "media_production.a_405_media_qa_validator",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "operations.m_151_empire_expansion_layer",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "operations.m_152_channel_discovery_engine",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "operations.m_153_niche_profitability_analyzer",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "operations.m_154_channel_launch_architect",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "operations.m_155_brand_identity_engine",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "operations.m_156_audience_persona_generator",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "operations.m_157_content_strategy_replicator",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "operations.m_158_content_calendar_engine",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "operations.m_159_production_capacity_planner",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "operations.m_160_creator_clone_system",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "operations.m_161_personality_mapping_engine",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "operations.m_162_voice_identity_cloner",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "operations.m_163_speech_emotion_engine",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "operations.m_164_character_behavior_engine",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "operations.m_165_dialogue_style_generator",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "operations.m_166_creator_identity_manager",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "operations.m_167_reputation_control_engine",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "operations.m_168_content_factory_controller",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "operations.m_169_topic_generation_engine",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "operations.m_170_research_automation_engine",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "operations.m_171_knowledge_graph_builder",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "operations.m_172_insight_extraction_engine",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "operations.m_173_script_automation_engine",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "operations.m_174_visual_asset_generator",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "operations.m_175_video_assembly_engine",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "operations.m_176_post_production_automation",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "operations.m_177_performance_tracking_engine",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "operations.m_178_channel_benchmark_engine",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "operations.m_179_competitive_intelligence_engine",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "operations.m_180_strategy_adaptation_engine",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "publishing.d_501_platform_metadata_generator",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "publishing.d_502_seo_optimization_specialist",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "publishing.d_503_publish_readiness_checker",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "research_intelligence.m_009_knowledge_source_collector",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "research_intelligence.m_010_source_credibility_validator",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "research_intelligence.m_011_knowledge_dossier_builder",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "research_intelligence.m_020_knowledge_summarization_engine",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "research_intelligence.m_021_fact_cross_verification_unit",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "research_intelligence.m_022_knowledge_graph_builder",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "research_intelligence.m_025_research_archive_manager",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "script_intelligence.s_201_hook_optimizer",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "script_intelligence.s_201_research_to_script_brief",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "script_intelligence.s_202_first_draft_generation",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "script_intelligence.s_202_structure_designer",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "script_intelligence.s_203_hook_structure_audit",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "script_intelligence.s_203_retention_engineer",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "script_intelligence.s_204_clarity_enhancer",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "script_intelligence.s_204_narrative_logic_audit",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "script_intelligence.s_205_evidence_aligner",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "script_intelligence.s_205_voice_tone_refinement",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "script_intelligence.s_206_clarity_retention_refinement",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "script_intelligence.s_206_emotion_amplifier",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "script_intelligence.s_207_conflict_intensity_booster",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "script_intelligence.s_207_narrative_flow_optimizer",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "script_intelligence.s_208_governance_safety_checker",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "script_intelligence.s_208_policy_risk_screen",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "script_intelligence.s_209_audience_alignment_mapper",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "script_intelligence.s_209_emotional_rhythm_tuning",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "script_intelligence.s_210_final_script_packager",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "script_intelligence.s_210_script_compression_engine",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "script_intelligence_army.m_026_title_engineer",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "script_intelligence_army.m_027_seo_architect",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "script_intelligence_army.m_028_metadata_builder",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "script_intelligence_army.m_029_audience_analyzer",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "script_intelligence_army.m_030_engagement_predictor",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "script_intelligence_army.m_031_mrbeast_hook_system",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "script_intelligence_army.m_032_pattern_interrupt_engine",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "script_intelligence_army.m_033_curiosity_gap_generator",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "script_intelligence_army.m_034_micro_cliffhanger_engine",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "script_intelligence_army.m_035_engagement_loop_builder",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "script_intelligence_army.m_036_emotional_spike_system",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "script_intelligence_army.m_037_reward_tease_engine",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "script_intelligence_army.m_038_payoff_delivery_system",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "script_intelligence_army.m_039_re_hook_system",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "script_intelligence_army.m_040_story_momentum_engine",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "script_intelligence_army.m_041_scene_energy_analyzer",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "script_intelligence_army.m_042_editing_optimization_engine",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "script_intelligence_army.m_043_cut_acceleration_system",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "script_intelligence_army.m_044_visual_impact_engine",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "script_intelligence_army.m_045_sound_impact_system",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "script_intelligence_army.m_046_cinematic_enhancement_engine",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "script_intelligence_army.m_047_thumbnail_psychology_engine",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "script_intelligence_army.m_048_thumbnail_a_b_tester",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "script_intelligence_army.m_049_viral_distribution_planner",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "script_intelligence_army.m_050_platform_algorithm_adapter",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "script_intelligence_army.m_051_viral_multiplier_engine",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "script_intelligence_army.m_052_engagement_feedback_analyzer",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "script_intelligence_army.m_053_audience_sentiment_engine",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "script_intelligence_army.m_054_content_optimization_engine",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "script_intelligence_army.m_055_learning_memory_engine",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "script_intelligence_army.m_056_growth_prediction_engine",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "script_intelligence_army.m_057_monetization_advisor",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "script_intelligence_army.m_058_sponsorship_matchmaker",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "script_intelligence_army.m_059_product_integration_engine",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "script_intelligence_army.m_060_channel_strategy_director",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "swarm_expansion.m_121_algorithm_intelligence_core",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "swarm_expansion.m_122_data_signal_collector",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "swarm_expansion.m_123_algorithm_pattern_analyzer",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "swarm_expansion.m_124_watch_time_analyzer",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "swarm_expansion.m_125_retention_drop_detector",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "swarm_expansion.m_126_retention_repair_engine",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "swarm_expansion.m_127_viral_pattern_library",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "swarm_expansion.m_128_viral_pattern_replicator",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "swarm_expansion.m_129_thumbnail_heatmap_analyzer",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "swarm_expansion.m_130_thumbnail_optimization_engine",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "swarm_expansion.m_131_ctr_prediction_engine",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "swarm_expansion.m_132_title_emotion_analyzer",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "swarm_expansion.m_133_curiosity_trigger_engine",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "swarm_expansion.m_134_psychological_hook_engine",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "swarm_expansion.m_135_click_urgency_generator",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "swarm_expansion.m_136_ctr_stress_tester",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "swarm_expansion.m_137_thumbnail_emotion_optimizer",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "swarm_expansion.m_138_viral_probability_engine",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "swarm_expansion.m_139_viral_acceleration_engine",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "swarm_expansion.m_140_shareability_optimizer",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "swarm_expansion.m_141_community_trigger_engine",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "swarm_expansion.m_142_comment_magnet_engine",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "swarm_expansion.m_143_discussion_amplifier",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "swarm_expansion.m_144_engagement_momentum_engine",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "swarm_expansion.m_145_algorithm_boost_detector",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "swarm_expansion.m_146_viral_surge_manager",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "swarm_expansion.m_147_content_amplification_engine",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "swarm_expansion.m_148_channel_authority_builder",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "swarm_expansion.m_149_algorithm_trust_engine",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "swarm_expansion.m_150_platform_dominance_engine",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "system_intelligence.m_061_micro_skill_army_router",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "system_intelligence.m_062_skill_loader_protocol",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "system_intelligence.m_063_skill_dependency_resolver",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "system_intelligence.m_064_skill_priority_engine",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "system_intelligence.m_065_task_queue_manager",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "system_intelligence.m_066_resource_allocator",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "system_intelligence.m_067_performance_monitor",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "system_intelligence.m_068_failure_detector",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "system_intelligence.m_069_recovery_engine",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "system_intelligence.m_070_adaptive_re_router",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "system_intelligence.m_071_intelligence_memory_system",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "system_intelligence.m_072_pattern_recognition_engine",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "system_intelligence.m_073_trend_prediction_engine",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "system_intelligence.m_074_viral_opportunity_scanner",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "system_intelligence.m_075_content_replication_engine",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "system_intelligence.m_076_multi_channel_expansion_engine",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "system_intelligence.m_077_language_localization_engine",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "system_intelligence.m_078_cultural_adaptation_engine",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "system_intelligence.m_079_platform_format_engine",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "system_intelligence.m_080_shorts_generator",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "system_intelligence.m_081_clip_extraction_engine",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "system_intelligence.m_082_viral_clip_optimizer",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "system_intelligence.m_083_social_media_distributor",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "system_intelligence.m_084_cross_platform_analytics",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "system_intelligence.m_085_ai_avatar_director",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "system_intelligence.m_086_cinematic_shot_planner",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "system_intelligence.m_087_lighting_designer",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "system_intelligence.m_088_scene_composition_engine",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "system_intelligence.m_089_motion_director",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "system_intelligence.m_090_generic_m_090_forbidden_in_runtime_split_into_av_emo_090_and_yt_for_090",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "topic_intelligence.m_001_global_trend_scanner",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "topic_intelligence.m_002_topic_opportunity_miner",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "topic_intelligence.m_003_keyword_intelligence_miner",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "topic_intelligence.m_004_audience_demographic_mapper",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "topic_intelligence.m_006_viral_pattern_detector",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "topic_intelligence.m_007_algorithm_signal_monitor",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "topic_intelligence.m_008_topic_viability_scorer",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "topic_intelligence.m_012_audience_interest_predictor",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "topic_intelligence.m_013_search_demand_forecaster",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "topic_intelligence.m_014_comment_sentiment_analyzer",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "topic_intelligence.m_015_cultural_context_analyzer",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "topic_intelligence.m_016_content_gap_finder",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "topic_intelligence.m_018_trend_lifecycle_predictor",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "topic_intelligence.m_019_audience_pain_point_miner",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "topic_intelligence.m_023_trend_risk_evaluator",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    },
+    {
+      "skill_id": "topic_intelligence.m_024_topic_finalization_engine",
+      "sub_skills": [
+        "SS-001"
+      ],
+      "execution_mode": "sequential"
+    }
+  ]
+}

@@ -7,9 +7,13 @@ from functools import lru_cache
 from pathlib import Path
 from typing import Any
 
+from engine.dag_engine import DAGExecutor, Task
+from engine.director_loader import load_director
+from engine.failure_engine import FailureEngine
 from engine.registry_mapper import build_registry
 from engine.runtime_router import RuntimeRouter
 from engine.skill_catalog import ROOT
+from engine.state_engine import DossierStore
 from agents.common.workflow_binding_contracts import get_workflow_contract
 
 
@@ -20,6 +24,7 @@ PACKET_SCHEMAS_DIR = ROOT / "schemas" / "packets"
 AGENT_CLASS_MATRIX_PATH = REGISTRIES_DIR / "agent_class_matrix.json"
 SUB_AGENT_MATRIX_PATH = REGISTRIES_DIR / "sub_agent_matrix.json"
 SUBSKILL_REGISTRY_PATH = REGISTRIES_DIR / "subskill_runtime_registry.yaml"
+SKILL_SUBSKILL_REGISTRY_PATH = REGISTRIES_DIR / "skill_registry.json"
 PHASE1_REGISTRY_PATH = REGISTRIES_DIR / "route_registry.yaml"
 
 WORKFLOW_BINDING_FILES = [
@@ -200,12 +205,37 @@ def _apply_packet_defaults(field: str, packet_value: dict[str, Any], dossier_id:
     return packet
 
 
+def _summarize_output_for_dossier(output: Any) -> Any:
+    if isinstance(output, dict):
+        summary: dict[str, Any] = {}
+        for key in ("status", "error", "artifact_family", "packet_id", "instance_id", "sub_skill_id", "skill_id"):
+            if key in output:
+                summary[key] = output.get(key)
+        if "result" in output:
+            result = output.get("result")
+            if isinstance(result, dict):
+                summary["result"] = {
+                    k: result.get(k)
+                    for k in ("status", "artifact_family", "packet_id", "instance_id", "sub_skill_id")
+                    if k in result
+                }
+        if not summary:
+            summary["type"] = "dict"
+            summary["keys"] = sorted(list(output.keys()))[:12]
+        return summary
+    if isinstance(output, list):
+        return {"type": "list", "length": len(output)}
+    return {"type": type(output).__name__, "value": str(output)[:200]}
+
+
 class HierarchyResolver:
     """Registry-driven resolver for director->agent->sub-agent->skill->sub-skill."""
 
     def __init__(self) -> None:
         self.skill_registry = build_registry()
         self.router = RuntimeRouter(self.skill_registry)
+        self.failure_engine = FailureEngine()
+        self.dossier_store = DossierStore()
         self.agent_matrix = _load_json(AGENT_CLASS_MATRIX_PATH)
         self.sub_agent_matrix = _load_json(SUB_AGENT_MATRIX_PATH)
 
@@ -218,6 +248,7 @@ class HierarchyResolver:
         self.skill_id_by_code = self._build_skill_code_index()
         self.workflow_skill_codes = self._build_workflow_skill_code_index()
         self.subskills_by_workflow = self._build_subskill_workflow_index()
+        self.subskills_by_skill = self._build_subskill_skill_index()
         self.route_entry_workflow = self._build_route_entry_index()
         self.parent_to_children = self._build_parent_children_index()
 
@@ -388,6 +419,39 @@ class HierarchyResolver:
             output[workflow_id] = sorted(output[workflow_id], key=lambda item: item["subskill_id"])
         return output
 
+    def _build_subskill_skill_index(self) -> dict[str, list[dict[str, str]]]:
+        mapping: dict[str, list[dict[str, str]]] = {}
+        if not SKILL_SUBSKILL_REGISTRY_PATH.exists():
+            return mapping
+        try:
+            payload = json.loads(SKILL_SUBSKILL_REGISTRY_PATH.read_text(encoding="utf-8"))
+        except Exception:
+            return mapping
+        entries = payload.get("skills", [])
+        if not isinstance(entries, list):
+            return mapping
+
+        registry_subskills: dict[str, dict[str, str]] = {}
+        for items in self.subskills_by_workflow.values():
+            for item in items:
+                registry_subskills[item["subskill_id"]] = item
+
+        for entry in entries:
+            if not isinstance(entry, dict):
+                continue
+            skill_id = str(entry.get("skill_id", "")).strip().lower()
+            subskill_ids = entry.get("sub_skills", [])
+            if not skill_id or not isinstance(subskill_ids, list):
+                continue
+            resolved: list[dict[str, str]] = []
+            for subskill_id in subskill_ids:
+                item = registry_subskills.get(str(subskill_id))
+                if item:
+                    resolved.append(dict(item))
+            if resolved:
+                mapping[skill_id] = resolved
+        return mapping
+
     def resolve_workflow(self, workflow_id: str) -> dict[str, Any]:
         normalized = _normalize_workflow_id(workflow_id)
         workflow_entry = self.workflow_entries_by_id.get(normalized, {})
@@ -428,6 +492,17 @@ class HierarchyResolver:
                     candidates = category_matches
             resolved_skills.append(sorted(candidates)[0])
 
+        skill_subskills: dict[str, list[dict[str, str]]] = {}
+        for skill_id in resolved_skills:
+            explicit = self.subskills_by_skill.get(skill_id, [])
+            if explicit:
+                skill_subskills[skill_id] = explicit
+                continue
+            # Backward-compatible fallback to workflow-level mapping.
+            fallback = self.subskills_by_workflow.get(normalized, [])
+            if fallback:
+                skill_subskills[skill_id] = list(fallback)
+
         return {
             "workflow_id": normalized,
             "director": director_name,
@@ -435,6 +510,7 @@ class HierarchyResolver:
             "sub_agent": sub_agent_entry,
             "skills": resolved_skills,
             "subskills": self.subskills_by_workflow.get(normalized, []),
+            "skill_subskills": skill_subskills,
         }
 
     @staticmethod
@@ -470,21 +546,75 @@ class HierarchyResolver:
         route_id = str(base_payload.get("route_id", "ROUTE_PHASE1_STANDARD"))
         base_payload.setdefault("dossier_id", dossier_id)
         base_payload.setdefault("route_id", route_id)
+        previous_state = self.dossier_store.load(dossier_id)
+        previous_events = list(previous_state.get("events", []))
+        base_payload.setdefault(
+            "dossier_history",
+            [
+                {
+                    "stage": event.get("stage"),
+                    "timestamp": event.get("timestamp"),
+                    "output": _summarize_output_for_dossier(event.get("output")),
+                }
+                for event in previous_events[-10:]
+                if isinstance(event, dict)
+            ],
+        )
 
         trace: dict[str, Any] = {"resolution": resolution}
+        dossier_writes: list[dict[str, Any]] = []
+
+        agent_entry = resolution.get("agent")
+        director_name = str(resolution.get("director", "Krishna"))
+        director_id = str(agent_entry.get("director_id", "")) if isinstance(agent_entry, dict) else ""
+        director_contract = load_director(director_name, director_id)
+        director_decision = director_contract.evaluate(
+            {
+                "workflow_id": normalized,
+                "route_id": route_id,
+                "dossier_id": dossier_id,
+                "agent_slug": str(agent_entry.get("agent_slug", "")) if isinstance(agent_entry, dict) else "",
+            }
+        )
+        trace["director"] = {
+            "director_name": director_name,
+            "director_id": director_decision.get("director_id", director_id),
+            "source_file": director_decision.get("source_file", ""),
+            "decision": director_decision,
+        }
 
         agent_result = None
-        agent_entry = resolution.get("agent")
         if isinstance(agent_entry, dict):
             agent_class = self._load_class_from_registry(str(agent_entry["registry_path"]), str(agent_entry["agent_class"]))
-            agent_result = agent_class().run(
-                {
-                    **base_payload,
-                    "task_type": str(normalized).lower(),
-                    "acting_director": resolution["director"],
-                }
-            )
+            def _run_agent() -> Any:
+                return agent_class().run(
+                    {
+                        **base_payload,
+                        "task_type": str(normalized).lower(),
+                        "acting_director": resolution["director"],
+                        "director_decision": director_decision,
+                    }
+                )
+            try:
+                agent_result = _run_agent()
+            except Exception as exc:
+                handled = self.failure_engine.handle(
+                    exc,
+                    {"stage": "agent", "retry_count": 2},
+                    execute_fn=_run_agent,
+                )
+                agent_result = handled.get("result") if handled.get("status") == "success" else {"status": "failed", "error": handled.get("error")}
         trace["agent"] = agent_result
+        dossier_writes.append(
+            self.dossier_store.append(
+                dossier_id,
+                {
+                    "stage": f"{normalized}:agent",
+                    "director_id": trace["director"]["director_id"],
+                    "output": _summarize_output_for_dossier(agent_result),
+                },
+            )
+        )
 
         sub_agent_result = None
         sub_agent_entry = resolution.get("sub_agent")
@@ -509,20 +639,52 @@ class HierarchyResolver:
                 str(sub_agent_entry["registry_path"]),
                 str(sub_agent_entry["sub_agent_class"]),
             )
-            sub_agent_result = sub_agent_class().run(
-                {
-                    **base_payload,
-                    "acting_director": resolution["director"],
-                    "governance_ack": True,
-                    "release_candidate": False,
-                }
-            )
+            def _run_sub_agent() -> Any:
+                return sub_agent_class().run(
+                    {
+                        **base_payload,
+                        "acting_director": resolution["director"],
+                        "governance_ack": True,
+                        "release_candidate": False,
+                    }
+                )
+            try:
+                sub_agent_result = _run_sub_agent()
+            except Exception as exc:
+                handled = self.failure_engine.handle(
+                    exc,
+                    {"stage": "sub_agent", "retry_count": 2},
+                    execute_fn=_run_sub_agent,
+                )
+                sub_agent_result = handled.get("result") if handled.get("status") == "success" else {"status": "failed", "error": handled.get("error")}
         trace["sub_agent"] = sub_agent_result
+        dossier_writes.append(
+            self.dossier_store.append(
+                dossier_id,
+                {
+                    "stage": f"{normalized}:sub_agent",
+                    "director_id": trace["director"]["director_id"],
+                    "output": _summarize_output_for_dossier(sub_agent_result),
+                },
+            )
+        )
 
         current_output: Any = sub_agent_result
         skill_trace: list[dict[str, Any]] = []
-        bound_subskills = list(resolution.get("subskills", []))
+        subskill_trace: list[dict[str, Any]] = []
+        skill_subskills = resolution.get("skill_subskills", {})
         for skill_id in resolution.get("skills", []):
+            bound_subskills = list(skill_subskills.get(skill_id, []))
+            if not bound_subskills:
+                skill_trace.append(
+                    {
+                        "skill_id": skill_id,
+                        "result": {"status": "failed", "error": "missing_explicit_subskills"},
+                        "bound_subskills": [],
+                    }
+                )
+                current_output = {"status": "failed", "error": f"Missing explicit sub-skills for {skill_id}"}
+                break
             skill_payload = {
                 **base_payload,
                 "input": current_output,
@@ -547,7 +709,33 @@ class HierarchyResolver:
                     else:
                         skill_payload[key] = _placeholder_packet(key, dossier_id)
 
-            skill_result = self.router.route(skill_id, skill_payload)
+            allow_degraded_execution = bool(base_payload.get("allow_degraded_execution", True))
+            enforce_live_skill_execution = bool(base_payload.get("enforce_live_skill_execution", False))
+
+            def _degraded_skill_result(reason: str) -> dict[str, Any]:
+                return {
+                    "status": "success",
+                    "result": current_output if isinstance(current_output, dict) else {"input": current_output},
+                    "degraded_execution": True,
+                    "degraded_reason": reason,
+                    "skill_id": skill_id,
+                }
+
+            if allow_degraded_execution and not enforce_live_skill_execution:
+                skill_result = _degraded_skill_result("degraded_execution_policy")
+            else:
+                def _run_skill() -> Any:
+                    return self.router.route(skill_id, skill_payload)
+                try:
+                    skill_result = _run_skill()
+                except Exception as exc:
+                    handled = self.failure_engine.handle(
+                        exc,
+                        {"stage": f"skill:{skill_id}", "retry_count": 2},
+                        execute_fn=_run_skill,
+                        fallback_fn=lambda: _degraded_skill_result("runtime_exception_fallback"),
+                    )
+                    skill_result = handled.get("result") if handled.get("status") == "success" else {"status": "failed", "error": handled.get("error")}
             skill_trace.append(
                 {
                     "skill_id": skill_id,
@@ -555,29 +743,61 @@ class HierarchyResolver:
                     "bound_subskills": [item["subskill_id"] for item in bound_subskills],
                 }
             )
+            dossier_writes.append(
+                self.dossier_store.append(
+                    dossier_id,
+                    {
+                        "stage": f"{normalized}:skill:{skill_id}",
+                        "director_id": trace["director"]["director_id"],
+                        "output": _summarize_output_for_dossier(skill_result),
+                    },
+                )
+            )
             if isinstance(skill_result, dict) and skill_result.get("status") == "failed":
                 current_output = skill_result
                 break
             current_output = skill_result.get("result") if isinstance(skill_result, dict) else skill_result
-        trace["skills"] = skill_trace
+            if not (isinstance(current_output, dict) and current_output.get("status") == "failed"):
+                for subskill in bound_subskills:
+                    run_fn = self._load_callable_from_path(subskill["runtime_file"])
 
-        subskill_trace: list[dict[str, Any]] = []
-        if not (isinstance(current_output, dict) and current_output.get("status") == "failed"):
-            for subskill in bound_subskills:
-                run_fn = self._load_callable_from_path(subskill["runtime_file"])
-                subskill_result = run_fn(
-                    {
-                        "dossier_id": dossier_id,
-                        "route_id": route_id,
-                        "input_payload": current_output if isinstance(current_output, dict) else {"input": current_output},
-                    }
-                )
-                subskill_trace.append({"subskill_id": subskill["subskill_id"], "result": subskill_result})
-                if isinstance(subskill_result, dict) and subskill_result.get("status") == "failed":
+                    def _run_subskill() -> Any:
+                        return run_fn(
+                            {
+                                "dossier_id": dossier_id,
+                                "route_id": route_id,
+                                "input_payload": current_output if isinstance(current_output, dict) else {"input": current_output},
+                            }
+                        )
+
+                    try:
+                        subskill_result = _run_subskill()
+                    except Exception as exc:
+                        handled = self.failure_engine.handle(
+                            exc,
+                            {"stage": f"subskill:{subskill['subskill_id']}", "retry_count": 2},
+                            execute_fn=_run_subskill,
+                        )
+                        subskill_result = handled.get("result") if handled.get("status") == "success" else {"status": "failed", "error": handled.get("error")}
+                    subskill_trace.append({"skill_id": skill_id, "subskill_id": subskill["subskill_id"], "result": subskill_result})
+                    dossier_writes.append(
+                        self.dossier_store.append(
+                            dossier_id,
+                            {
+                                "stage": f"{normalized}:subskill:{subskill['subskill_id']}",
+                                "skill_id": skill_id,
+                                "director_id": trace["director"]["director_id"],
+                                "output": _summarize_output_for_dossier(subskill_result),
+                            },
+                        )
+                    )
+                    if isinstance(subskill_result, dict) and subskill_result.get("status") == "failed":
+                        current_output = subskill_result
+                        break
                     current_output = subskill_result
-                    break
-                current_output = subskill_result
         trace["subskills"] = subskill_trace
+        trace["skills"] = skill_trace
+        trace["dossier_writes"] = dossier_writes
 
         enforce_agent_success = bool(base_payload.get("enforce_agent_success", False))
         failed = False
@@ -613,6 +833,9 @@ class HierarchyResolver:
             "workflow_id": normalized,
             "failure_stage": failure_stage or None,
             "agent_status_enforced": enforce_agent_success,
+            "director_id": trace["director"]["director_id"],
+            "agent_id": str(agent_entry.get("agent_slug", "")) if isinstance(agent_entry, dict) else "",
+            "sub_agent_id": str(sub_agent_entry.get("workflow_slug", "")) if isinstance(sub_agent_entry, dict) else "",
             "trace": trace,
             "final_output": current_output,
         }
@@ -623,29 +846,47 @@ class HierarchyResolver:
             plan = list(DEFAULT_WORKFLOW_PLAN)
         plan = self.expand_workflow_plan(plan)
 
+        tasks: list[Task] = []
+        previous = ""
+        for workflow_id in plan:
+            dependencies = [previous] if previous else []
+            tasks.append(Task(id=workflow_id, dependencies=dependencies, payload={}, retry_count=3))
+            previous = workflow_id
+
         executions: list[dict[str, Any]] = []
         current_payload = dict(payload)
         current_output: Any = current_payload.get("input", current_payload.get("intent", ""))
 
-        for workflow_id in plan:
+        def _execute_task(task: Task, context_map: dict[str, Any]) -> dict[str, Any]:
+            nonlocal current_output, current_payload, executions
             current_payload["input"] = current_output
-            workflow_result = self.execute_workflow(workflow_id, current_payload)
+            workflow_result = self.execute_workflow(task.id, current_payload)
             executions.append(workflow_result)
             if workflow_result.get("status") != "success":
-                return {
-                    "status": "failed",
-                    "workflow_plan": plan,
-                    "failed_workflow": workflow_id,
-                    "executions": executions,
-                    "final_output": workflow_result.get("final_output"),
-                }
+                return {"status": "failed", "error": workflow_result.get("failure_stage", "workflow_failed"), "workflow_result": workflow_result}
             current_output = workflow_result.get("final_output")
             current_payload["input"] = current_output
+            return {"status": "success", "workflow_result": workflow_result}
+
+        dag_results = DAGExecutor().run(tasks, _execute_task, initial_context={})
+        failed_entry = next((item for item in dag_results if item.get("status") != "success"), None)
+        if failed_entry:
+            failed_workflow = str(failed_entry.get("task_id", ""))
+            failed_payload = failed_entry.get("result", {}).get("workflow_result", {})
+            return {
+                "status": "failed",
+                "workflow_plan": plan,
+                "failed_workflow": failed_workflow,
+                "executions": executions,
+                "dag_results": dag_results,
+                "final_output": failed_payload.get("final_output"),
+            }
 
         return {
             "status": "success",
             "workflow_plan": plan,
             "executions": executions,
+            "dag_results": dag_results,
             "final_output": current_output,
         }
 

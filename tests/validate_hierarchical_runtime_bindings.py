@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import sys
+import time
 from pathlib import Path
 
 
@@ -18,6 +19,7 @@ def _assert(condition: bool, message: str) -> None:
 
 def main() -> None:
     resolver = HierarchyResolver()
+    dossier_id = f"TEST-HIERARCHY-CWF310-{int(time.time())}"
 
     _assert(resolver.skill_registry, "Skill registry is empty.")
     _assert(resolver.workflow_entries_by_id, "Workflow registry map is empty.")
@@ -34,7 +36,7 @@ def main() -> None:
     execution = resolver.execute_workflow(
         "CWF-310",
         {
-            "dossier_id": "TEST-HIERARCHY-CWF310",
+            "dossier_id": dossier_id,
             "route_id": "ROUTE_PHASE1_STANDARD",
             "intent": "validate hierarchy bindings",
             "final_script_packet": {"placeholder": True},

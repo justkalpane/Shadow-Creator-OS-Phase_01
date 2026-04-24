@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import sys
+import time
 from pathlib import Path
 
 
@@ -23,6 +24,7 @@ def _norm(workflow_id: str) -> str:
 def main() -> None:
     runtime = HierarchicalRuntime()
     resolver = HierarchyResolver()
+    dossier_id = f"TEST-HIER-FULL-{int(time.time())}"
 
     plan = ["WF-100", "WF-200", "WF-300", "WF-400", "WF-500", "WF-600"]
     result = runtime.run_intent(
@@ -30,10 +32,10 @@ def main() -> None:
         {
             "route_id": "ROUTE_PHASE1_STANDARD",
             "workflow_plan": plan,
-            "dossier_id": "TEST-HIER-FULL",
+            "dossier_id": dossier_id,
             "payload": {
-                "final_script_packet": {"packet_id": "FSP-TEST", "dossier_id": "TEST-HIER-FULL", "status": "created"},
-                "publish_ready_packet": {"packet_id": "PRP-TEST", "dossier_id": "TEST-HIER-FULL", "status": "created"},
+                "final_script_packet": {"packet_id": "FSP-TEST", "dossier_id": dossier_id, "status": "created"},
+                "publish_ready_packet": {"packet_id": "PRP-TEST", "dossier_id": dossier_id, "status": "created"},
                 "runtime_context": {"mode": "test"},
             },
         },
@@ -49,15 +51,21 @@ def main() -> None:
 
     for item in executions:
         _assert(item.get("status") == "success", f"Workflow failed in full trace: {item.get('workflow_id')}")
+        _assert(str(item.get("director_id", "")).strip(), f"Missing director_id at workflow level: {item.get('workflow_id')}")
+        _assert(str(item.get("agent_id", "")).strip(), f"Missing agent_id at workflow level: {item.get('workflow_id')}")
+        _assert(str(item.get("sub_agent_id", "")).strip(), f"Missing sub_agent_id at workflow level: {item.get('workflow_id')}")
         trace = item.get("trace", {})
         resolution = trace.get("resolution", {})
         _assert(resolution.get("director"), f"Missing director resolution for {item.get('workflow_id')}")
         _assert(isinstance(resolution.get("agent"), dict), f"Missing agent resolution for {item.get('workflow_id')}")
         _assert(isinstance(resolution.get("sub_agent"), dict), f"Missing sub-agent resolution for {item.get('workflow_id')}")
+        _assert(isinstance(trace.get("director"), dict), f"Missing director trace block: {item.get('workflow_id')}")
+        _assert(str(trace.get("director", {}).get("director_id", "")).strip(), f"Missing director trace ID: {item.get('workflow_id')}")
 
         skills = trace.get("skills", [])
         _assert(isinstance(skills, list), f"Invalid skill trace shape for {item.get('workflow_id')}")
         for skill_item in skills:
+            _assert(str(skill_item.get("skill_id", "")).strip(), f"Missing skill_id in trace for {item.get('workflow_id')}")
             _assert("bound_subskills" in skill_item, f"Missing skill->subskill binding trace for {item.get('workflow_id')}")
             result_block = skill_item.get("result", {})
             _assert(isinstance(result_block, dict), f"Invalid skill result block for {item.get('workflow_id')}")
@@ -66,9 +74,13 @@ def main() -> None:
         subskills = trace.get("subskills", [])
         _assert(isinstance(subskills, list), f"Invalid sub-skill trace shape for {item.get('workflow_id')}")
         for subskill_item in subskills:
+            _assert(str(subskill_item.get("subskill_id", "")).strip(), f"Missing sub_skill_id in trace for {item.get('workflow_id')}")
             subskill_result = subskill_item.get("result", {})
             _assert(isinstance(subskill_result, dict), f"Invalid sub-skill result block for {item.get('workflow_id')}")
             _assert(subskill_result.get("status") == "success", f"Sub-skill failed for {item.get('workflow_id')}: {subskill_item.get('subskill_id')}")
+
+        dossier_writes = trace.get("dossier_writes", [])
+        _assert(isinstance(dossier_writes, list) and dossier_writes, f"Missing dossier writes in trace: {item.get('workflow_id')}")
 
     print("Validated strict hierarchical WF-100->WF-600 execution traces successfully.")
 
