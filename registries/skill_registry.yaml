@@ -1,7 +1,7 @@
 ﻿version: 1
 registry_id: skill_registry
-generated_at: "2026-04-26T01:49:42+05:30"
-status: PARTIAL_WAVE_3_PHASE3A_PHASE1C_AND_PHASE2C
+generated_at: "2026-04-25T20:49:06.196Z"
+status: PARTIAL_WAVE_4_PHASE3B_PHASE3A_PHASE1C_AND_PHASE2C
 registry_scope:
   authoritative_for:
     - M-121
@@ -39,7 +39,22 @@ registry_scope:
     - M-213
     - M-214
     - M-215
-  note: canonical registry contains Wave 1 and Wave 2 scopes; additional skills appended in later waves
+    - M-216
+    - M-217
+    - M-218
+    - M-219
+    - M-220
+    - M-221
+    - M-222
+    - M-223
+    - M-224
+    - M-225
+    - M-226
+    - M-227
+    - M-228
+    - M-229
+    - M-230
+  note: canonical registry contains Waves 1 through 4 scopes; additional skills appended in later waves
 skills:
   - skill_id: M-121
     skill_name: TikTok Script Optimizer
@@ -934,3 +949,391 @@ skills:
     escalation_workflow: WF-900
     replay_workflow: WF-021
     status: ACTIVE_WAVE_3
+  - skill_id: M-216
+    skill_name: Shot List Generator
+    legacy_skill_name: Shot List Generator
+    alias_names:
+      - none
+    file_path: skills/media_video/M-216-shot-list-generator.skill.md
+    phase_assignment: PHASE_3B_VIDEO
+    vein_assignment: media_vein
+    owner_director: Narada
+    strategic_authority_director: Krishna
+    upstream_skill_dependencies:
+      - M-130
+      - M-106
+    downstream_skill_consumers:
+      - M-217
+    producer_workflow: CWF-410
+    consumer_workflows:
+      - CWF-410
+    output_packet_family: shot_list_packet
+    schema_ref: schemas/packets/shot_list_packet.schema.json
+    dossier_write_target: dossier.media_vein.shot_list_generator
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_WAVE_4
+  - skill_id: M-217
+    skill_name: B-Roll Sourcing Strategy
+    legacy_skill_name: B-Roll Requirements Mapper
+    alias_names:
+      - B-Roll Requirements Mapper
+    file_path: skills/media_video/M-217-b-roll-sourcing-strategy.skill.md
+    phase_assignment: PHASE_3B_VIDEO
+    vein_assignment: media_vein
+    owner_director: Vyasa
+    strategic_authority_director: Krishna
+    upstream_skill_dependencies:
+      - M-216
+    downstream_skill_consumers:
+      - M-218
+    producer_workflow: CWF-410
+    consumer_workflows:
+      - CWF-410
+    output_packet_family: broll_packet
+    schema_ref: schemas/packets/broll_packet.schema.json
+    dossier_write_target: dossier.media_vein.b_roll_sourcing_strategy
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_WAVE_4
+  - skill_id: M-218
+    skill_name: Video Editing Script
+    legacy_skill_name: Editing Sequence Designer
+    alias_names:
+      - Editing Sequence Designer
+    file_path: skills/media_video/M-218-video-editing-script.skill.md
+    phase_assignment: PHASE_3B_VIDEO
+    vein_assignment: media_vein
+    owner_director: Shiva
+    strategic_authority_director: Krishna
+    upstream_skill_dependencies:
+      - M-216
+      - M-114
+      - M-106
+    downstream_skill_consumers:
+      - M-219
+    producer_workflow: CWF-410
+    consumer_workflows:
+      - CWF-410
+    output_packet_family: editing_sequence_packet
+    schema_ref: schemas/packets/editing_sequence_packet.schema.json
+    dossier_write_target: dossier.media_vein.video_editing_script
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_WAVE_4
+  - skill_id: M-219
+    skill_name: Color Grading Brief
+    legacy_skill_name: Color Grading Specification
+    alias_names:
+      - Color Grading Specification
+    file_path: skills/media_video/M-219-color-grading-brief.skill.md
+    phase_assignment: PHASE_3B_VIDEO
+    vein_assignment: media_vein
+    owner_director: Narada
+    strategic_authority_director: Krishna
+    upstream_skill_dependencies:
+      - M-202
+      - M-106
+    downstream_skill_consumers:
+      - M-220
+    producer_workflow: CWF-410
+    consumer_workflows:
+      - CWF-410
+    output_packet_family: color_grading_packet
+    schema_ref: schemas/packets/color_grading_packet.schema.json
+    dossier_write_target: dossier.media_vein.color_grading_brief
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_WAVE_4
+  - skill_id: M-220
+    skill_name: Sound Design Specifications
+    legacy_skill_name: Sound Design Brief
+    alias_names:
+      - Sound Design Brief
+    file_path: skills/media_video/M-220-sound-design-specifications.skill.md
+    phase_assignment: PHASE_3B_VIDEO
+    vein_assignment: media_vein
+    owner_director: Narada
+    strategic_authority_director: Krishna
+    upstream_skill_dependencies:
+      - M-114
+      - M-106
+    downstream_skill_consumers:
+      - M-221
+    producer_workflow: CWF-410
+    consumer_workflows:
+      - CWF-410
+    output_packet_family: sound_design_packet
+    schema_ref: schemas/packets/sound_design_packet.schema.json
+    dossier_write_target: dossier.media_vein.sound_design_specifications
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_WAVE_4
+  - skill_id: M-221
+    skill_name: Motion Graphics Storyboard
+    legacy_skill_name: Motion Graphics Designer
+    alias_names:
+      - Motion Graphics Designer
+    file_path: skills/media_video/M-221-motion-graphics-storyboard.skill.md
+    phase_assignment: PHASE_3B_VIDEO
+    vein_assignment: media_vein
+    owner_director: Shiva
+    strategic_authority_director: Krishna
+    upstream_skill_dependencies:
+      - M-210
+      - M-201
+    downstream_skill_consumers:
+      - M-222
+    producer_workflow: CWF-410
+    consumer_workflows:
+      - CWF-410
+    output_packet_family: motion_graphics_packet
+    schema_ref: schemas/packets/motion_graphics_packet.schema.json
+    dossier_write_target: dossier.media_vein.motion_graphics_storyboard
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_WAVE_4
+  - skill_id: M-222
+    skill_name: Video Transitions Optimizer
+    legacy_skill_name: Transition Sequence Builder
+    alias_names:
+      - Transition Sequence Builder
+    file_path: skills/media_video/M-222-video-transitions-optimizer.skill.md
+    phase_assignment: PHASE_3B_VIDEO
+    vein_assignment: media_vein
+    owner_director: Narada
+    strategic_authority_director: Krishna
+    upstream_skill_dependencies:
+      - M-218
+      - M-221
+    downstream_skill_consumers:
+      - M-223
+    producer_workflow: CWF-410
+    consumer_workflows:
+      - CWF-410
+    output_packet_family: transition_packet
+    schema_ref: schemas/packets/transition_packet.schema.json
+    dossier_write_target: dossier.media_vein.video_transitions_optimizer
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_WAVE_4
+  - skill_id: M-223
+    skill_name: Pacing and Rhythm Editor
+    legacy_skill_name: Pacing & Rhythm Optimizer
+    alias_names:
+      - Pacing & Rhythm Optimizer
+    file_path: skills/media_video/M-223-pacing-rhythm-editor.skill.md
+    phase_assignment: PHASE_3B_VIDEO
+    vein_assignment: media_vein
+    owner_director: Shiva
+    strategic_authority_director: Krishna
+    upstream_skill_dependencies:
+      - M-114
+      - M-218
+      - M-220
+    downstream_skill_consumers:
+      - M-224
+    producer_workflow: CWF-410
+    consumer_workflows:
+      - CWF-410
+    output_packet_family: pacing_optimization_packet
+    schema_ref: schemas/packets/pacing_optimization_packet.schema.json
+    dossier_write_target: dossier.media_vein.pacing_rhythm_editor
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_WAVE_4
+  - skill_id: M-224
+    skill_name: Title Card Generator
+    legacy_skill_name: Title & Text Overlay Designer
+    alias_names:
+      - Title & Text Overlay Designer
+    file_path: skills/media_video/M-224-title-card-generator.skill.md
+    phase_assignment: PHASE_3B_VIDEO
+    vein_assignment: media_vein
+    owner_director: Vyasa
+    strategic_authority_director: Krishna
+    upstream_skill_dependencies:
+      - M-110
+      - M-120
+      - M-203
+      - M-201
+    downstream_skill_consumers:
+      - M-225
+    producer_workflow: CWF-410
+    consumer_workflows:
+      - CWF-410
+    output_packet_family: title_text_packet
+    schema_ref: schemas/packets/title_text_packet.schema.json
+    dossier_write_target: dossier.media_vein.title_card_generator
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_WAVE_4
+  - skill_id: M-225
+    skill_name: Thumbnail Designer
+    legacy_skill_name: Thumbnail Optimizer
+    alias_names:
+      - Thumbnail Optimizer
+    file_path: skills/media_video/M-225-thumbnail-designer.skill.md
+    phase_assignment: PHASE_3B_VIDEO
+    vein_assignment: media_vein
+    owner_director: Narada
+    strategic_authority_director: Krishna
+    upstream_skill_dependencies:
+      - M-201
+    downstream_skill_consumers:
+      - M-226
+    producer_workflow: CWF-410
+    consumer_workflows:
+      - CWF-410
+    output_packet_family: thumbnail_packet
+    schema_ref: schemas/packets/thumbnail_packet.schema.json
+    dossier_write_target: dossier.media_vein.thumbnail_designer
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_WAVE_4
+  - skill_id: M-226
+    skill_name: Video SEO Optimizer
+    legacy_skill_name: Video SEO Specification
+    alias_names:
+      - Video SEO Specification
+    file_path: skills/media_video/M-226-video-seo-optimizer.skill.md
+    phase_assignment: PHASE_3B_VIDEO
+    vein_assignment: media_vein
+    owner_director: Saraswati
+    strategic_authority_director: Krishna
+    upstream_skill_dependencies:
+      - M-110
+      - M-120
+      - M-122
+      - M-001
+    downstream_skill_consumers:
+      - M-227
+    producer_workflow: CWF-410
+    consumer_workflows:
+      - CWF-410
+    output_packet_family: video_seo_packet
+    schema_ref: schemas/packets/video_seo_packet.schema.json
+    dossier_write_target: dossier.media_vein.video_seo_optimizer
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_WAVE_4
+  - skill_id: M-227
+    skill_name: Captions and Subtitle Generator
+    legacy_skill_name: Caption & Subtitle Generator
+    alias_names:
+      - Caption & Subtitle Generator
+      - Captions & Subtitle Generator
+    file_path: skills/media_video/M-227-captions-subtitle-generator.skill.md
+    phase_assignment: PHASE_3B_VIDEO
+    vein_assignment: media_vein
+    owner_director: Saraswati
+    strategic_authority_director: Krishna
+    upstream_skill_dependencies:
+      - M-110
+      - M-120
+    downstream_skill_consumers:
+      - M-228
+    producer_workflow: CWF-410
+    consumer_workflows:
+      - CWF-410
+    output_packet_family: caption_packet
+    schema_ref: schemas/packets/caption_packet.schema.json
+    dossier_write_target: dossier.media_vein.captions_subtitle_generator
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_WAVE_4
+  - skill_id: M-228
+    skill_name: Multi-Angle Cut Strategy
+    legacy_skill_name: Multi-Angle Coordination Engine
+    alias_names:
+      - Multi-Angle Coordination Engine
+    file_path: skills/media_video/M-228-multi-angle-cut-strategy.skill.md
+    phase_assignment: PHASE_3B_VIDEO
+    vein_assignment: media_vein
+    owner_director: Vyasa
+    strategic_authority_director: Krishna
+    upstream_skill_dependencies:
+      - M-216
+      - M-218
+    downstream_skill_consumers:
+      - M-229
+    producer_workflow: CWF-410
+    consumer_workflows:
+      - CWF-410
+    output_packet_family: multiangle_packet
+    schema_ref: schemas/packets/multiangle_packet.schema.json
+    dossier_write_target: dossier.media_vein.multi_angle_cut_strategy
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_WAVE_4
+  - skill_id: M-229
+    skill_name: Video Performance Predictor
+    legacy_skill_name: Video Performance Predictor
+    alias_names:
+      - none
+    file_path: skills/media_video/M-229-video-performance-predictor.skill.md
+    phase_assignment: PHASE_3B_VIDEO
+    vein_assignment: media_vein
+    owner_director: Krishna
+    strategic_authority_director: Krishna
+    upstream_skill_dependencies:
+      - M-216
+      - M-217
+      - M-218
+      - M-219
+      - M-220
+      - M-221
+      - M-222
+      - M-223
+      - M-224
+      - M-225
+      - M-226
+      - M-227
+      - M-228
+    downstream_skill_consumers:
+      - M-230
+    producer_workflow: CWF-410
+    consumer_workflows:
+      - CWF-410
+    output_packet_family: performance_prediction_packet
+    schema_ref: schemas/packets/performance_prediction_packet.schema.json
+    dossier_write_target: dossier.media_vein.video_performance_predictor
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_WAVE_4
+  - skill_id: M-230
+    skill_name: Platform-Specific Video Adapter
+    legacy_skill_name: Platform Video Adapter
+    alias_names:
+      - Platform Video Adapter
+    file_path: skills/media_video/M-230-platform-specific-video-adapter.skill.md
+    phase_assignment: PHASE_3B_VIDEO
+    vein_assignment: media_vein
+    owner_director: Narada
+    strategic_authority_director: Krishna
+    upstream_skill_dependencies:
+      - M-216
+      - M-217
+      - M-218
+      - M-219
+      - M-220
+      - M-221
+      - M-222
+      - M-223
+      - M-224
+      - M-225
+      - M-226
+      - M-227
+      - M-228
+      - M-229
+    downstream_skill_consumers:
+      - M-231
+    producer_workflow: CWF-410
+    consumer_workflows:
+      - CWF-430
+    output_packet_family: platform_video_packet
+    schema_ref: schemas/packets/platform_video_packet.schema.json
+    dossier_write_target: dossier.media_vein.platform_specific_video_adapter
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_WAVE_4

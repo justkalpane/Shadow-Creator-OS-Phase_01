@@ -1,7 +1,7 @@
 ﻿version: 1
 registry_id: workflow_bindings
-generated_at: "2026-04-26T01:49:42+05:30"
-status: PARTIAL_WAVE_3_PHASE3A_PHASE1C_AND_PHASE2C
+generated_at: "2026-04-25T20:49:06.196Z"
+status: PARTIAL_WAVE_4_PHASE3B_PHASE3A_PHASE1C_AND_PHASE2C
 bindings:
   - skill_id: M-121
     producer_workflow: CWF-230
@@ -421,6 +421,186 @@ bindings:
       on_success:
         next_skill: M-216
         next_workflow: CWF-410
+      on_error: WF-900
+      on_replay: WF-021
+    deterministic_contract: true
+  - skill_id: M-216
+    producer_workflow: CWF-410
+    consumer_workflows:
+      - CWF-410
+    emitted_packet_family: shot_list_packet
+    routing:
+      on_success:
+        next_skill: M-217
+        next_workflow: CWF-410
+      on_error: WF-900
+      on_replay: WF-021
+    deterministic_contract: true
+  - skill_id: M-217
+    producer_workflow: CWF-410
+    consumer_workflows:
+      - CWF-410
+    emitted_packet_family: broll_packet
+    routing:
+      on_success:
+        next_skill: M-218
+        next_workflow: CWF-410
+      on_error: WF-900
+      on_replay: WF-021
+    deterministic_contract: true
+  - skill_id: M-218
+    producer_workflow: CWF-410
+    consumer_workflows:
+      - CWF-410
+    emitted_packet_family: editing_sequence_packet
+    routing:
+      on_success:
+        next_skill: M-219
+        next_workflow: CWF-410
+      on_error: WF-900
+      on_replay: WF-021
+    deterministic_contract: true
+  - skill_id: M-219
+    producer_workflow: CWF-410
+    consumer_workflows:
+      - CWF-410
+    emitted_packet_family: color_grading_packet
+    routing:
+      on_success:
+        next_skill: M-220
+        next_workflow: CWF-410
+      on_error: WF-900
+      on_replay: WF-021
+    deterministic_contract: true
+  - skill_id: M-220
+    producer_workflow: CWF-410
+    consumer_workflows:
+      - CWF-410
+    emitted_packet_family: sound_design_packet
+    routing:
+      on_success:
+        next_skill: M-221
+        next_workflow: CWF-410
+      on_error: WF-900
+      on_replay: WF-021
+    deterministic_contract: true
+  - skill_id: M-221
+    producer_workflow: CWF-410
+    consumer_workflows:
+      - CWF-410
+    emitted_packet_family: motion_graphics_packet
+    routing:
+      on_success:
+        next_skill: M-222
+        next_workflow: CWF-410
+      on_error: WF-900
+      on_replay: WF-021
+    deterministic_contract: true
+  - skill_id: M-222
+    producer_workflow: CWF-410
+    consumer_workflows:
+      - CWF-410
+    emitted_packet_family: transition_packet
+    routing:
+      on_success:
+        next_skill: M-223
+        next_workflow: CWF-410
+      on_error: WF-900
+      on_replay: WF-021
+    deterministic_contract: true
+  - skill_id: M-223
+    producer_workflow: CWF-410
+    consumer_workflows:
+      - CWF-410
+    emitted_packet_family: pacing_optimization_packet
+    routing:
+      on_success:
+        next_skill: M-224
+        next_workflow: CWF-410
+      on_error: WF-900
+      on_replay: WF-021
+    deterministic_contract: true
+  - skill_id: M-224
+    producer_workflow: CWF-410
+    consumer_workflows:
+      - CWF-410
+    emitted_packet_family: title_text_packet
+    routing:
+      on_success:
+        next_skill: M-225
+        next_workflow: CWF-410
+      on_error: WF-900
+      on_replay: WF-021
+    deterministic_contract: true
+  - skill_id: M-225
+    producer_workflow: CWF-410
+    consumer_workflows:
+      - CWF-410
+    emitted_packet_family: thumbnail_packet
+    routing:
+      on_success:
+        next_skill: M-226
+        next_workflow: CWF-410
+      on_error: WF-900
+      on_replay: WF-021
+    deterministic_contract: true
+  - skill_id: M-226
+    producer_workflow: CWF-410
+    consumer_workflows:
+      - CWF-410
+    emitted_packet_family: video_seo_packet
+    routing:
+      on_success:
+        next_skill: M-227
+        next_workflow: CWF-410
+      on_error: WF-900
+      on_replay: WF-021
+    deterministic_contract: true
+  - skill_id: M-227
+    producer_workflow: CWF-410
+    consumer_workflows:
+      - CWF-410
+    emitted_packet_family: caption_packet
+    routing:
+      on_success:
+        next_skill: M-228
+        next_workflow: CWF-410
+      on_error: WF-900
+      on_replay: WF-021
+    deterministic_contract: true
+  - skill_id: M-228
+    producer_workflow: CWF-410
+    consumer_workflows:
+      - CWF-410
+    emitted_packet_family: multiangle_packet
+    routing:
+      on_success:
+        next_skill: M-229
+        next_workflow: CWF-410
+      on_error: WF-900
+      on_replay: WF-021
+    deterministic_contract: true
+  - skill_id: M-229
+    producer_workflow: CWF-410
+    consumer_workflows:
+      - CWF-410
+    emitted_packet_family: performance_prediction_packet
+    routing:
+      on_success:
+        next_skill: M-230
+        next_workflow: CWF-410
+      on_error: WF-900
+      on_replay: WF-021
+    deterministic_contract: true
+  - skill_id: M-230
+    producer_workflow: CWF-410
+    consumer_workflows:
+      - CWF-430
+    emitted_packet_family: platform_video_packet
+    routing:
+      on_success:
+        next_skill: M-231
+        next_workflow: CWF-430
       on_error: WF-900
       on_replay: WF-021
     deterministic_contract: true
