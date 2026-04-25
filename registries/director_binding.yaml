@@ -1,7 +1,7 @@
 version: 1
 registry_id: director_binding
-generated_at: "2026-04-25T20:49:06.196Z"
-status: PARTIAL_WAVE_4_PHASE3B_PHASE3A_PHASE1C_AND_PHASE2C
+generated_at: "2026-04-25T21:20:18.747Z"
+status: PARTIAL_WAVE_5_PHASE3C_PHASE3B_PHASE3A_PHASE1C_AND_PHASE2C
 directors:
   - canonical_name: Narada
     director_id: DIR-STRTv1-002
@@ -13,10 +13,11 @@ directors:
       - phase2c_platform_variants
       - phase3a_graphics
       - phase3b_video
+      - phase3c_audio
     escalation_authority: WF-900
     veto_authority: no
     behavior_model: deterministic execution with registry-bound routing
-    routing_responsibility: phase1c nuance capture, phase2c adaptation, phase3a distribution-safe visual routing, and phase3b video adaptation
+    routing_responsibility: phase1c nuance capture, phase2c adaptation, phase3a distribution-safe visual routing, phase3b video adaptation, and phase3c audio adaptation
     failure_handling_responsibility: escalate validation failures to WF-900
     mapped_skills:
       - M-027
@@ -32,6 +33,11 @@ directors:
       - M-222
       - M-225
       - M-230
+      - M-231
+      - M-232
+      - M-233
+      - M-239
+      - M-242
     mapped_workflows:
       - CWF-140
       - CWF-230
@@ -49,10 +55,11 @@ directors:
       - phase2c_platform_variants
       - phase3a_graphics
       - phase3b_video
+      - phase3c_audio
     escalation_authority: WF-900
     veto_authority: no
     behavior_model: deterministic structure-first transformation
-    routing_responsibility: research, script structure, graphics composition, and video sequencing coherence
+    routing_responsibility: research, script structure, graphics composition, video sequencing coherence, and audio package structuring
     failure_handling_responsibility: escalate integrity conflicts to WF-900
     mapped_skills:
       - M-024
@@ -69,6 +76,8 @@ directors:
       - M-217
       - M-224
       - M-228
+      - M-234
+      - M-241
     mapped_workflows:
       - CWF-140
       - CWF-230
@@ -86,10 +95,11 @@ directors:
       - phase2c_platform_variants
       - phase3a_graphics
       - phase3b_video
+      - phase3c_audio
     escalation_authority: WF-900
     veto_authority: no
     behavior_model: deterministic evidence-grounded conversion
-    routing_responsibility: source interrogation, readability, accessibility, limitations transparency, and metadata integrity
+    routing_responsibility: source interrogation, readability, accessibility, limitations transparency, metadata integrity, and audio accessibility compliance
     failure_handling_responsibility: escalate evidence inconsistencies to WF-900
     mapped_skills:
       - M-021
@@ -101,11 +111,15 @@ directors:
       - M-207
       - M-226
       - M-227
+      - M-235
+      - M-243
+      - M-244
     mapped_workflows:
       - CWF-140
       - CWF-230
       - CWF-310
       - CWF-410
+      - CWF-430
   - canonical_name: Krishna
     director_id: DIR-ORCHv1-001
     archetype: strategic authority and orchestrator
@@ -116,6 +130,7 @@ directors:
       - phase2c_platform_variants
       - phase3a_graphics
       - phase3b_video
+      - phase3c_audio
     escalation_authority: WF-900
     veto_authority: yes
     behavior_model: deterministic orchestration and governance arbitration
@@ -126,6 +141,7 @@ directors:
       - M-125
       - M-127
       - M-229
+      - M-245
     mapped_workflows:
       - CWF-140
       - CWF-230
@@ -145,10 +161,11 @@ directors:
       - phase2c_platform_variants
       - phase3a_graphics
       - phase3b_video
+      - phase3c_audio
     escalation_authority: WF-900
     veto_authority: yes
     behavior_model: deterministic harmonization and change analysis
-    routing_responsibility: longitudinal transitions, animation harmonization, dark-mode adaptation, and edit rhythm optimization
+    routing_responsibility: longitudinal transitions, animation harmonization, dark-mode adaptation, edit rhythm optimization, and signal-chain transformation
     failure_handling_responsibility: escalate temporal integrity violations
     mapped_skills:
       - M-022
@@ -158,31 +175,38 @@ directors:
       - M-218
       - M-221
       - M-223
+      - M-236
+      - M-238
     mapped_workflows:
       - CWF-140
       - CWF-240
       - CWF-310
       - CWF-410
+      - CWF-430
       - WF-900
   - canonical_name: Brihaspati
     director_id: DIR-RSRCHv1-003
     archetype: logical analyzer and final judge
     authority_level: RESEARCH_ADJUDICATION
-    governance_role: causal adjudication, final research certification, and brand-rule adjudication
+    governance_role: causal adjudication, final research certification, and quality adjudication
     allowed_skill_families:
       - phase1c_conditional_research
       - phase3a_graphics
+      - phase3c_audio
     escalation_authority: WF-900
     veto_authority: yes
     behavior_model: deterministic adjudication and confidence certification
-    routing_responsibility: causal inference, brand validation adjudication, and final stage integrity checks
+    routing_responsibility: causal inference, brand validation adjudication, final stage integrity checks, and audio quality adjudication
     failure_handling_responsibility: escalate unresolved logical conflicts to WF-900
     mapped_skills:
       - M-023
       - M-030
       - M-206
+      - M-237
+      - M-240
     mapped_workflows:
       - CWF-140
       - CWF-310
+      - CWF-430
       - WF-200
       - WF-900

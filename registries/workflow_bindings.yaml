@@ -1,7 +1,7 @@
 ﻿version: 1
 registry_id: workflow_bindings
-generated_at: "2026-04-25T20:49:06.196Z"
-status: PARTIAL_WAVE_4_PHASE3B_PHASE3A_PHASE1C_AND_PHASE2C
+generated_at: "2026-04-25T21:20:18.747Z"
+status: PARTIAL_WAVE_5_PHASE3C_PHASE3B_PHASE3A_PHASE1C_AND_PHASE2C
 bindings:
   - skill_id: M-121
     producer_workflow: CWF-230
@@ -600,6 +600,186 @@ bindings:
     routing:
       on_success:
         next_skill: M-231
+        next_workflow: CWF-430
+      on_error: WF-900
+      on_replay: WF-021
+    deterministic_contract: true
+  - skill_id: M-231
+    producer_workflow: CWF-430
+    consumer_workflows:
+      - CWF-430
+    emitted_packet_family: voiceover_spec_packet
+    routing:
+      on_success:
+        next_skill: M-232
+        next_workflow: CWF-430
+      on_error: WF-900
+      on_replay: WF-021
+    deterministic_contract: true
+  - skill_id: M-232
+    producer_workflow: CWF-430
+    consumer_workflows:
+      - CWF-430
+    emitted_packet_family: sound_palette_packet
+    routing:
+      on_success:
+        next_skill: M-233
+        next_workflow: CWF-430
+      on_error: WF-900
+      on_replay: WF-021
+    deterministic_contract: true
+  - skill_id: M-233
+    producer_workflow: CWF-430
+    consumer_workflows:
+      - CWF-430
+    emitted_packet_family: music_packet
+    routing:
+      on_success:
+        next_skill: M-234
+        next_workflow: CWF-430
+      on_error: WF-900
+      on_replay: WF-021
+    deterministic_contract: true
+  - skill_id: M-234
+    producer_workflow: CWF-430
+    consumer_workflows:
+      - CWF-430
+    emitted_packet_family: podcast_audio_packet
+    routing:
+      on_success:
+        next_skill: M-235
+        next_workflow: CWF-430
+      on_error: WF-900
+      on_replay: WF-021
+    deterministic_contract: true
+  - skill_id: M-235
+    producer_workflow: CWF-430
+    consumer_workflows:
+      - CWF-430
+    emitted_packet_family: acoustics_packet
+    routing:
+      on_success:
+        next_skill: M-236
+        next_workflow: CWF-430
+      on_error: WF-900
+      on_replay: WF-021
+    deterministic_contract: true
+  - skill_id: M-236
+    producer_workflow: CWF-430
+    consumer_workflows:
+      - CWF-430
+    emitted_packet_family: noise_reduction_packet
+    routing:
+      on_success:
+        next_skill: M-237
+        next_workflow: CWF-430
+      on_error: WF-900
+      on_replay: WF-021
+    deterministic_contract: true
+  - skill_id: M-237
+    producer_workflow: CWF-430
+    consumer_workflows:
+      - CWF-430
+    emitted_packet_family: levels_packet
+    routing:
+      on_success:
+        next_skill: M-238
+        next_workflow: CWF-430
+      on_error: WF-900
+      on_replay: WF-021
+    deterministic_contract: true
+  - skill_id: M-238
+    producer_workflow: CWF-430
+    consumer_workflows:
+      - CWF-430
+    emitted_packet_family: compression_eq_packet
+    routing:
+      on_success:
+        next_skill: M-239
+        next_workflow: CWF-430
+      on_error: WF-900
+      on_replay: WF-021
+    deterministic_contract: true
+  - skill_id: M-239
+    producer_workflow: CWF-430
+    consumer_workflows:
+      - CWF-430
+    emitted_packet_family: reverb_effects_packet
+    routing:
+      on_success:
+        next_skill: M-240
+        next_workflow: CWF-430
+      on_error: WF-900
+      on_replay: WF-021
+    deterministic_contract: true
+  - skill_id: M-240
+    producer_workflow: CWF-430
+    consumer_workflows:
+      - CWF-430
+    emitted_packet_family: mix_master_packet
+    routing:
+      on_success:
+        next_skill: M-241
+        next_workflow: CWF-430
+      on_error: WF-900
+      on_replay: WF-021
+    deterministic_contract: true
+  - skill_id: M-241
+    producer_workflow: CWF-430
+    consumer_workflows:
+      - CWF-430
+    emitted_packet_family: intro_outro_packet
+    routing:
+      on_success:
+        next_skill: M-242
+        next_workflow: CWF-430
+      on_error: WF-900
+      on_replay: WF-021
+    deterministic_contract: true
+  - skill_id: M-242
+    producer_workflow: CWF-430
+    consumer_workflows:
+      - CWF-430
+    emitted_packet_family: transition_sound_packet
+    routing:
+      on_success:
+        next_skill: M-243
+        next_workflow: CWF-430
+      on_error: WF-900
+      on_replay: WF-021
+    deterministic_contract: true
+  - skill_id: M-243
+    producer_workflow: CWF-430
+    consumer_workflows:
+      - CWF-430
+    emitted_packet_family: transcript_packet
+    routing:
+      on_success:
+        next_skill: M-244
+        next_workflow: CWF-430
+      on_error: WF-900
+      on_replay: WF-021
+    deterministic_contract: true
+  - skill_id: M-244
+    producer_workflow: CWF-430
+    consumer_workflows:
+      - CWF-430
+    emitted_packet_family: audio_accessibility_packet
+    routing:
+      on_success:
+        next_skill: M-245
+        next_workflow: CWF-430
+      on_error: WF-900
+      on_replay: WF-021
+    deterministic_contract: true
+  - skill_id: M-245
+    producer_workflow: CWF-430
+    consumer_workflows:
+      - CWF-430
+    emitted_packet_family: audio_performance_packet
+    routing:
+      on_success:
+        next_skill: M-301
         next_workflow: CWF-430
       on_error: WF-900
       on_replay: WF-021

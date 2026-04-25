@@ -1,7 +1,7 @@
 ﻿version: 1
 registry_id: schema_registry
-generated_at: "2026-04-25T20:49:06.196Z"
-status: PARTIAL_WAVE_4_PHASE3B_PHASE3A_PHASE1C_AND_PHASE2C
+generated_at: "2026-04-25T21:20:18.747Z"
+status: PARTIAL_WAVE_5_PHASE3C_PHASE3B_PHASE3A_PHASE1C_AND_PHASE2C
 schemas:
   - artifact_family: tiktok_script_packet
     schema_version: "1.0.0"
@@ -843,6 +843,261 @@ schemas:
       - M-230
     producer_workflows:
       - CWF-410
+    envelope_contract:
+      required_fields:
+        - instance_id
+        - artifact_family
+        - schema_version
+        - producer_workflow
+        - dossier_ref
+        - created_at
+        - status
+        - payload
+  - artifact_family: voiceover_spec_packet
+    schema_version: "1.0.0"
+    schema_path: schemas/packets/voiceover_spec_packet.schema.json
+    producer_skills:
+      - M-231
+    producer_workflows:
+      - CWF-430
+    envelope_contract:
+      required_fields:
+        - instance_id
+        - artifact_family
+        - schema_version
+        - producer_workflow
+        - dossier_ref
+        - created_at
+        - status
+        - payload
+  - artifact_family: sound_palette_packet
+    schema_version: "1.0.0"
+    schema_path: schemas/packets/sound_palette_packet.schema.json
+    producer_skills:
+      - M-232
+    producer_workflows:
+      - CWF-430
+    envelope_contract:
+      required_fields:
+        - instance_id
+        - artifact_family
+        - schema_version
+        - producer_workflow
+        - dossier_ref
+        - created_at
+        - status
+        - payload
+  - artifact_family: music_packet
+    schema_version: "1.0.0"
+    schema_path: schemas/packets/music_packet.schema.json
+    producer_skills:
+      - M-233
+    producer_workflows:
+      - CWF-430
+    envelope_contract:
+      required_fields:
+        - instance_id
+        - artifact_family
+        - schema_version
+        - producer_workflow
+        - dossier_ref
+        - created_at
+        - status
+        - payload
+  - artifact_family: podcast_audio_packet
+    schema_version: "1.0.0"
+    schema_path: schemas/packets/podcast_audio_packet.schema.json
+    producer_skills:
+      - M-234
+    producer_workflows:
+      - CWF-430
+    envelope_contract:
+      required_fields:
+        - instance_id
+        - artifact_family
+        - schema_version
+        - producer_workflow
+        - dossier_ref
+        - created_at
+        - status
+        - payload
+  - artifact_family: acoustics_packet
+    schema_version: "1.0.0"
+    schema_path: schemas/packets/acoustics_packet.schema.json
+    producer_skills:
+      - M-235
+    producer_workflows:
+      - CWF-430
+    envelope_contract:
+      required_fields:
+        - instance_id
+        - artifact_family
+        - schema_version
+        - producer_workflow
+        - dossier_ref
+        - created_at
+        - status
+        - payload
+  - artifact_family: noise_reduction_packet
+    schema_version: "1.0.0"
+    schema_path: schemas/packets/noise_reduction_packet.schema.json
+    producer_skills:
+      - M-236
+    producer_workflows:
+      - CWF-430
+    envelope_contract:
+      required_fields:
+        - instance_id
+        - artifact_family
+        - schema_version
+        - producer_workflow
+        - dossier_ref
+        - created_at
+        - status
+        - payload
+  - artifact_family: levels_packet
+    schema_version: "1.0.0"
+    schema_path: schemas/packets/levels_packet.schema.json
+    producer_skills:
+      - M-237
+    producer_workflows:
+      - CWF-430
+    envelope_contract:
+      required_fields:
+        - instance_id
+        - artifact_family
+        - schema_version
+        - producer_workflow
+        - dossier_ref
+        - created_at
+        - status
+        - payload
+  - artifact_family: compression_eq_packet
+    schema_version: "1.0.0"
+    schema_path: schemas/packets/compression_eq_packet.schema.json
+    producer_skills:
+      - M-238
+    producer_workflows:
+      - CWF-430
+    envelope_contract:
+      required_fields:
+        - instance_id
+        - artifact_family
+        - schema_version
+        - producer_workflow
+        - dossier_ref
+        - created_at
+        - status
+        - payload
+  - artifact_family: reverb_effects_packet
+    schema_version: "1.0.0"
+    schema_path: schemas/packets/reverb_effects_packet.schema.json
+    producer_skills:
+      - M-239
+    producer_workflows:
+      - CWF-430
+    envelope_contract:
+      required_fields:
+        - instance_id
+        - artifact_family
+        - schema_version
+        - producer_workflow
+        - dossier_ref
+        - created_at
+        - status
+        - payload
+  - artifact_family: mix_master_packet
+    schema_version: "1.0.0"
+    schema_path: schemas/packets/mix_master_packet.schema.json
+    producer_skills:
+      - M-240
+    producer_workflows:
+      - CWF-430
+    envelope_contract:
+      required_fields:
+        - instance_id
+        - artifact_family
+        - schema_version
+        - producer_workflow
+        - dossier_ref
+        - created_at
+        - status
+        - payload
+  - artifact_family: intro_outro_packet
+    schema_version: "1.0.0"
+    schema_path: schemas/packets/intro_outro_packet.schema.json
+    producer_skills:
+      - M-241
+    producer_workflows:
+      - CWF-430
+    envelope_contract:
+      required_fields:
+        - instance_id
+        - artifact_family
+        - schema_version
+        - producer_workflow
+        - dossier_ref
+        - created_at
+        - status
+        - payload
+  - artifact_family: transition_sound_packet
+    schema_version: "1.0.0"
+    schema_path: schemas/packets/transition_sound_packet.schema.json
+    producer_skills:
+      - M-242
+    producer_workflows:
+      - CWF-430
+    envelope_contract:
+      required_fields:
+        - instance_id
+        - artifact_family
+        - schema_version
+        - producer_workflow
+        - dossier_ref
+        - created_at
+        - status
+        - payload
+  - artifact_family: transcript_packet
+    schema_version: "1.0.0"
+    schema_path: schemas/packets/transcript_packet.schema.json
+    producer_skills:
+      - M-243
+    producer_workflows:
+      - CWF-430
+    envelope_contract:
+      required_fields:
+        - instance_id
+        - artifact_family
+        - schema_version
+        - producer_workflow
+        - dossier_ref
+        - created_at
+        - status
+        - payload
+  - artifact_family: audio_accessibility_packet
+    schema_version: "1.0.0"
+    schema_path: schemas/packets/audio_accessibility_packet.schema.json
+    producer_skills:
+      - M-244
+    producer_workflows:
+      - CWF-430
+    envelope_contract:
+      required_fields:
+        - instance_id
+        - artifact_family
+        - schema_version
+        - producer_workflow
+        - dossier_ref
+        - created_at
+        - status
+        - payload
+  - artifact_family: audio_performance_packet
+    schema_version: "1.0.0"
+    schema_path: schemas/packets/audio_performance_packet.schema.json
+    producer_skills:
+      - M-245
+    producer_workflows:
+      - CWF-430
     envelope_contract:
       required_fields:
         - instance_id

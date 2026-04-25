@@ -1,7 +1,7 @@
 ﻿version: 1
 registry_id: skill_registry
-generated_at: "2026-04-25T20:49:06.196Z"
-status: PARTIAL_WAVE_4_PHASE3B_PHASE3A_PHASE1C_AND_PHASE2C
+generated_at: "2026-04-25T21:20:18.747Z"
+status: PARTIAL_WAVE_5_PHASE3C_PHASE3B_PHASE3A_PHASE1C_AND_PHASE2C
 registry_scope:
   authoritative_for:
     - M-121
@@ -54,7 +54,22 @@ registry_scope:
     - M-228
     - M-229
     - M-230
-  note: canonical registry contains Waves 1 through 4 scopes; additional skills appended in later waves
+    - M-231
+    - M-232
+    - M-233
+    - M-234
+    - M-235
+    - M-236
+    - M-237
+    - M-238
+    - M-239
+    - M-240
+    - M-241
+    - M-242
+    - M-243
+    - M-244
+    - M-245
+  note: canonical registry contains Waves 1 through 5 scopes; additional skills appended in later waves
 skills:
   - skill_id: M-121
     skill_name: TikTok Script Optimizer
@@ -1337,3 +1352,382 @@ skills:
     escalation_workflow: WF-900
     replay_workflow: WF-021
     status: ACTIVE_WAVE_4
+  - skill_id: M-231
+    skill_name: Voiceover Direction Script
+    legacy_skill_name: Voiceover Direction Specification
+    alias_names:
+      - Voiceover Direction Specification
+    file_path: skills/media_audio/M-231-voiceover-direction-script.skill.md
+    phase_assignment: PHASE_3C_AUDIO
+    vein_assignment: media_vein
+    owner_director: Narada
+    strategic_authority_director: Krishna
+    upstream_skill_dependencies:
+      - M-110
+      - M-120
+      - M-113
+      - M-106
+    downstream_skill_consumers:
+      - M-232
+    producer_workflow: CWF-430
+    consumer_workflows:
+      - CWF-430
+    output_packet_family: voiceover_spec_packet
+    schema_ref: schemas/packets/voiceover_spec_packet.schema.json
+    dossier_write_target: dossier.media_vein.voiceover_direction_script
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_WAVE_5
+  - skill_id: M-232
+    skill_name: Sound Design Brief
+    legacy_skill_name: Sound Design Palette Creator
+    alias_names:
+      - Sound Design Palette Creator
+    file_path: skills/media_audio/M-232-sound-design-brief.skill.md
+    phase_assignment: PHASE_3C_AUDIO
+    vein_assignment: media_vein
+    owner_director: Narada
+    strategic_authority_director: Krishna
+    upstream_skill_dependencies:
+      - M-220
+      - M-106
+    downstream_skill_consumers:
+      - M-233
+    producer_workflow: CWF-430
+    consumer_workflows:
+      - CWF-430
+    output_packet_family: sound_palette_packet
+    schema_ref: schemas/packets/sound_palette_packet.schema.json
+    dossier_write_target: dossier.media_vein.sound_design_brief
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_WAVE_5
+  - skill_id: M-233
+    skill_name: Music Selection Advisor
+    legacy_skill_name: Music Selection Curator
+    alias_names:
+      - Music Selection Curator
+    file_path: skills/media_audio/M-233-music-selection-advisor.skill.md
+    phase_assignment: PHASE_3C_AUDIO
+    vein_assignment: media_vein
+    owner_director: Narada
+    strategic_authority_director: Krishna
+    upstream_skill_dependencies:
+      - M-114
+      - M-106
+    downstream_skill_consumers:
+      - M-234
+    producer_workflow: CWF-430
+    consumer_workflows:
+      - CWF-430
+    output_packet_family: music_packet
+    schema_ref: schemas/packets/music_packet.schema.json
+    dossier_write_target: dossier.media_vein.music_selection_advisor
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_WAVE_5
+  - skill_id: M-234
+    skill_name: Podcast Audio Optimization
+    legacy_skill_name: Podcast Optimization Engine
+    alias_names:
+      - Podcast Optimization Engine
+    file_path: skills/media_audio/M-234-podcast-audio-optimization.skill.md
+    phase_assignment: PHASE_3C_AUDIO
+    vein_assignment: media_vein
+    owner_director: Vyasa
+    strategic_authority_director: Krishna
+    upstream_skill_dependencies:
+      - M-124
+      - M-231
+      - M-232
+    downstream_skill_consumers:
+      - M-235
+    producer_workflow: CWF-430
+    consumer_workflows:
+      - CWF-430
+    output_packet_family: podcast_audio_packet
+    schema_ref: schemas/packets/podcast_audio_packet.schema.json
+    dossier_write_target: dossier.media_vein.podcast_audio_optimization
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_WAVE_5
+  - skill_id: M-235
+    skill_name: Acoustic Environment Analyzer
+    legacy_skill_name: Acoustic Environment Analyzer
+    alias_names:
+      - none
+    file_path: skills/media_audio/M-235-acoustic-environment-analyzer.skill.md
+    phase_assignment: PHASE_3C_AUDIO
+    vein_assignment: media_vein
+    owner_director: Saraswati
+    strategic_authority_director: Krishna
+    upstream_skill_dependencies:
+      - M-234
+    downstream_skill_consumers:
+      - M-236
+    producer_workflow: CWF-430
+    consumer_workflows:
+      - CWF-430
+    output_packet_family: acoustics_packet
+    schema_ref: schemas/packets/acoustics_packet.schema.json
+    dossier_write_target: dossier.media_vein.acoustic_environment_analyzer
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_WAVE_5
+  - skill_id: M-236
+    skill_name: Noise Reduction Strategy
+    legacy_skill_name: Noise Reduction Specification
+    alias_names:
+      - Noise Reduction Specification
+    file_path: skills/media_audio/M-236-noise-reduction-strategy.skill.md
+    phase_assignment: PHASE_3C_AUDIO
+    vein_assignment: media_vein
+    owner_director: Shiva
+    strategic_authority_director: Krishna
+    upstream_skill_dependencies:
+      - M-235
+    downstream_skill_consumers:
+      - M-237
+    producer_workflow: CWF-430
+    consumer_workflows:
+      - CWF-430
+    output_packet_family: noise_reduction_packet
+    schema_ref: schemas/packets/noise_reduction_packet.schema.json
+    dossier_write_target: dossier.media_vein.noise_reduction_strategy
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_WAVE_5
+  - skill_id: M-237
+    skill_name: Audio Levels and Normalization
+    legacy_skill_name: Levels & Dynamics Optimizer
+    alias_names:
+      - Levels & Dynamics Optimizer
+    file_path: skills/media_audio/M-237-audio-levels-normalization.skill.md
+    phase_assignment: PHASE_3C_AUDIO
+    vein_assignment: media_vein
+    owner_director: Brihaspati
+    strategic_authority_director: Krishna
+    upstream_skill_dependencies:
+      - M-231
+      - M-233
+      - M-232
+    downstream_skill_consumers:
+      - M-238
+    producer_workflow: CWF-430
+    consumer_workflows:
+      - CWF-430
+    output_packet_family: levels_packet
+    schema_ref: schemas/packets/levels_packet.schema.json
+    dossier_write_target: dossier.media_vein.audio_levels_normalization
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_WAVE_5
+  - skill_id: M-238
+    skill_name: Compression and EQ Specifications
+    legacy_skill_name: Compression & EQ Specification
+    alias_names:
+      - Compression & EQ Specification
+    file_path: skills/media_audio/M-238-compression-eq-specifications.skill.md
+    phase_assignment: PHASE_3C_AUDIO
+    vein_assignment: media_vein
+    owner_director: Shiva
+    strategic_authority_director: Krishna
+    upstream_skill_dependencies:
+      - M-237
+    downstream_skill_consumers:
+      - M-239
+    producer_workflow: CWF-430
+    consumer_workflows:
+      - CWF-430
+    output_packet_family: compression_eq_packet
+    schema_ref: schemas/packets/compression_eq_packet.schema.json
+    dossier_write_target: dossier.media_vein.compression_eq_specifications
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_WAVE_5
+  - skill_id: M-239
+    skill_name: Reverb and Effects Designer
+    legacy_skill_name: Reverb & Spatial Effects Designer
+    alias_names:
+      - Reverb & Spatial Effects Designer
+    file_path: skills/media_audio/M-239-reverb-effects-designer.skill.md
+    phase_assignment: PHASE_3C_AUDIO
+    vein_assignment: media_vein
+    owner_director: Narada
+    strategic_authority_director: Krishna
+    upstream_skill_dependencies:
+      - M-106
+      - M-231
+    downstream_skill_consumers:
+      - M-240
+    producer_workflow: CWF-430
+    consumer_workflows:
+      - CWF-430
+    output_packet_family: reverb_effects_packet
+    schema_ref: schemas/packets/reverb_effects_packet.schema.json
+    dossier_write_target: dossier.media_vein.reverb_effects_designer
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_WAVE_5
+  - skill_id: M-240
+    skill_name: Audio Mixing Guide
+    legacy_skill_name: Mix & Master Specification
+    alias_names:
+      - Mix & Master Specification
+    file_path: skills/media_audio/M-240-audio-mixing-guide.skill.md
+    phase_assignment: PHASE_3C_AUDIO
+    vein_assignment: media_vein
+    owner_director: Brihaspati
+    strategic_authority_director: Krishna
+    upstream_skill_dependencies:
+      - M-231
+      - M-232
+      - M-233
+      - M-234
+      - M-235
+      - M-236
+      - M-237
+      - M-238
+      - M-239
+    downstream_skill_consumers:
+      - M-241
+    producer_workflow: CWF-430
+    consumer_workflows:
+      - CWF-430
+    output_packet_family: mix_master_packet
+    schema_ref: schemas/packets/mix_master_packet.schema.json
+    dossier_write_target: dossier.media_vein.audio_mixing_guide
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_WAVE_5
+  - skill_id: M-241
+    skill_name: Mastering Specifications
+    legacy_skill_name: Intro & Outro Designer
+    alias_names:
+      - Intro & Outro Designer
+    file_path: skills/media_audio/M-241-mastering-specifications.skill.md
+    phase_assignment: PHASE_3C_AUDIO
+    vein_assignment: media_vein
+    owner_director: Vyasa
+    strategic_authority_director: Krishna
+    upstream_skill_dependencies:
+      - M-201
+      - M-233
+    downstream_skill_consumers:
+      - M-242
+    producer_workflow: CWF-430
+    consumer_workflows:
+      - CWF-430
+    output_packet_family: intro_outro_packet
+    schema_ref: schemas/packets/intro_outro_packet.schema.json
+    dossier_write_target: dossier.media_vein.mastering_specifications
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_WAVE_5
+  - skill_id: M-242
+    skill_name: Podcast Intro or Outro Designer
+    legacy_skill_name: Transition Sound Designer
+    alias_names:
+      - Transition Sound Designer
+    file_path: skills/media_audio/M-242-podcast-intro-outro-designer.skill.md
+    phase_assignment: PHASE_3C_AUDIO
+    vein_assignment: media_vein
+    owner_director: Narada
+    strategic_authority_director: Krishna
+    upstream_skill_dependencies:
+      - M-218
+      - M-232
+    downstream_skill_consumers:
+      - M-243
+    producer_workflow: CWF-430
+    consumer_workflows:
+      - CWF-430
+    output_packet_family: transition_sound_packet
+    schema_ref: schemas/packets/transition_sound_packet.schema.json
+    dossier_write_target: dossier.media_vein.podcast_intro_outro_designer
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_WAVE_5
+  - skill_id: M-243
+    skill_name: Audio Transitions Optimizer
+    legacy_skill_name: Transcript & Captions Generator
+    alias_names:
+      - Transcript & Captions Generator
+    file_path: skills/media_audio/M-243-audio-transitions-optimizer.skill.md
+    phase_assignment: PHASE_3C_AUDIO
+    vein_assignment: media_vein
+    owner_director: Saraswati
+    strategic_authority_director: Krishna
+    upstream_skill_dependencies:
+      - M-110
+      - M-124
+    downstream_skill_consumers:
+      - M-244
+    producer_workflow: CWF-430
+    consumer_workflows:
+      - CWF-430
+    output_packet_family: transcript_packet
+    schema_ref: schemas/packets/transcript_packet.schema.json
+    dossier_write_target: dossier.media_vein.audio_transitions_optimizer
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_WAVE_5
+  - skill_id: M-244
+    skill_name: Transcript Generator
+    legacy_skill_name: Accessibility Audio Specification
+    alias_names:
+      - Accessibility Audio Specification
+    file_path: skills/media_audio/M-244-transcript-generator.skill.md
+    phase_assignment: PHASE_3C_AUDIO
+    vein_assignment: media_vein
+    owner_director: Saraswati
+    strategic_authority_director: Krishna
+    upstream_skill_dependencies:
+      - M-243
+    downstream_skill_consumers:
+      - M-245
+    producer_workflow: CWF-430
+    consumer_workflows:
+      - CWF-430
+    output_packet_family: audio_accessibility_packet
+    schema_ref: schemas/packets/audio_accessibility_packet.schema.json
+    dossier_write_target: dossier.media_vein.transcript_generator
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_WAVE_5
+  - skill_id: M-245
+    skill_name: Accessibility Audio Description
+    legacy_skill_name: Audio Performance Predictor
+    alias_names:
+      - Audio Performance Predictor
+    file_path: skills/media_audio/M-245-accessibility-audio-description.skill.md
+    phase_assignment: PHASE_3C_AUDIO
+    vein_assignment: media_vein
+    owner_director: Krishna
+    strategic_authority_director: Krishna
+    upstream_skill_dependencies:
+      - M-231
+      - M-232
+      - M-233
+      - M-234
+      - M-235
+      - M-236
+      - M-237
+      - M-238
+      - M-239
+      - M-240
+      - M-241
+      - M-242
+      - M-243
+      - M-244
+    downstream_skill_consumers:
+      - M-301
+    producer_workflow: CWF-430
+    consumer_workflows:
+      - CWF-430
+    output_packet_family: audio_performance_packet
+    schema_ref: schemas/packets/audio_performance_packet.schema.json
+    dossier_write_target: dossier.media_vein.accessibility_audio_description
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_WAVE_5

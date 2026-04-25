@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "mix_master_packet",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "instance_id",
+    "artifact_family",
+    "schema_version",
+    "producer_workflow",
+    "dossier_ref",
+    "created_at",
+    "status",
+    "payload"
+  ],
+  "properties": {
+    "instance_id": {
+      "type": "string"
+    },
+    "artifact_family": {
+      "type": "string",
+      "const": "mix_master_packet"
+    },
+    "schema_version": {
+      "type": "string"
+    },
+    "producer_workflow": {
+      "type": "string"
+    },
+    "dossier_ref": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "CREATED",
+        "PARTIAL",
+        "FAILED",
+        "EMPTY"
+      ]
+    },
+    "payload": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "skill_id",
+        "skill_name",
+        "primary_output",
+        "routing"
+      ],
+      "properties": {
+        "skill_id": {
+          "type": "string",
+          "const": "M-240"
+        },
+        "skill_name": {
+          "type": "string"
+        },
+        "primary_output": {
+          "type": "object"
+        },
+        "routing": {
+          "type": "object"
+        }
+      }
+    }
+  }
+}
