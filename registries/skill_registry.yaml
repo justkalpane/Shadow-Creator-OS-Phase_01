@@ -1,7 +1,7 @@
 ﻿version: 1
 registry_id: skill_registry
 generated_at: "2026-04-26T01:49:42+05:30"
-status: PARTIAL_WAVE_2_PHASE1C_AND_PHASE2C
+status: PARTIAL_WAVE_3_PHASE3A_PHASE1C_AND_PHASE2C
 registry_scope:
   authoritative_for:
     - M-121
@@ -24,6 +24,21 @@ registry_scope:
     - M-028
     - M-029
     - M-030
+    - M-201
+    - M-202
+    - M-203
+    - M-204
+    - M-205
+    - M-206
+    - M-207
+    - M-208
+    - M-209
+    - M-210
+    - M-211
+    - M-212
+    - M-213
+    - M-214
+    - M-215
   note: canonical registry contains Wave 1 and Wave 2 scopes; additional skills appended in later waves
 skills:
   - skill_id: M-121
@@ -513,3 +528,409 @@ skills:
     escalation_workflow: WF-900
     replay_workflow: WF-021
     status: ACTIVE_WAVE_2
+  - skill_id: M-201
+    skill_name: Visual Design Brief Generator
+    legacy_skill_name: Design Brief Generator
+    alias_names:
+      - Design Brief Generator
+    file_path: skills/media_graphics/M-201-visual-design-brief-generator.skill.md
+    phase_assignment: PHASE_3A_GRAPHICS
+    vein_assignment: media_vein
+    owner_director: Vyasa
+    strategic_authority_director: Krishna
+    upstream_skill_dependencies:
+      - M-130
+    downstream_skill_consumers:
+      - M-202
+      - M-203
+      - M-204
+      - M-205
+      - M-206
+      - M-207
+      - M-208
+      - M-209
+      - M-210
+      - M-211
+      - M-212
+      - M-213
+      - M-214
+      - M-215
+    producer_workflow: CWF-310
+    consumer_workflows:
+      - CWF-310
+    output_packet_family: design_brief_packet
+    schema_ref: schemas/packets/design_brief_packet.schema.json
+    dossier_write_target: dossier.media_vein.visual_design_brief_generator
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_WAVE_3
+  - skill_id: M-202
+    skill_name: Color Palette Optimizer
+    legacy_skill_name: Color Palette Optimizer
+    alias_names:
+      - none
+    file_path: skills/media_graphics/M-202-color-palette-optimizer.skill.md
+    phase_assignment: PHASE_3A_GRAPHICS
+    vein_assignment: media_vein
+    owner_director: Narada
+    strategic_authority_director: Krishna
+    upstream_skill_dependencies:
+      - M-201
+    downstream_skill_consumers:
+      - M-203
+    producer_workflow: CWF-310
+    consumer_workflows:
+      - CWF-310
+    output_packet_family: color_palette_packet
+    schema_ref: schemas/packets/color_palette_packet.schema.json
+    dossier_write_target: dossier.media_vein.color_palette_optimizer
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_WAVE_3
+  - skill_id: M-203
+    skill_name: Typography Selector
+    legacy_skill_name: Typography Selector
+    alias_names:
+      - none
+    file_path: skills/media_graphics/M-203-typography-selector.skill.md
+    phase_assignment: PHASE_3A_GRAPHICS
+    vein_assignment: media_vein
+    owner_director: Saraswati
+    strategic_authority_director: Krishna
+    upstream_skill_dependencies:
+      - M-201
+    downstream_skill_consumers:
+      - M-204
+    producer_workflow: CWF-310
+    consumer_workflows:
+      - CWF-310
+    output_packet_family: typography_packet
+    schema_ref: schemas/packets/typography_packet.schema.json
+    dossier_write_target: dossier.media_vein.typography_selector
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_WAVE_3
+  - skill_id: M-204
+    skill_name: Layout Composition Strategist
+    legacy_skill_name: Layout Grid Generator
+    alias_names:
+      - Layout Grid Generator
+    file_path: skills/media_graphics/M-204-layout-composition-strategist.skill.md
+    phase_assignment: PHASE_3A_GRAPHICS
+    vein_assignment: media_vein
+    owner_director: Vyasa
+    strategic_authority_director: Krishna
+    upstream_skill_dependencies:
+      - M-201
+      - M-130
+    downstream_skill_consumers:
+      - M-205
+    producer_workflow: CWF-310
+    consumer_workflows:
+      - CWF-310
+    output_packet_family: layout_packet
+    schema_ref: schemas/packets/layout_packet.schema.json
+    dossier_write_target: dossier.media_vein.layout_composition_strategist
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_WAVE_3
+  - skill_id: M-205
+    skill_name: Icon and Illustration Mapper
+    legacy_skill_name: Icon Set Designer
+    alias_names:
+      - Icon Set Designer
+    file_path: skills/media_graphics/M-205-icon-illustration-mapper.skill.md
+    phase_assignment: PHASE_3A_GRAPHICS
+    vein_assignment: media_vein
+    owner_director: Vyasa
+    strategic_authority_director: Krishna
+    upstream_skill_dependencies:
+      - M-201
+      - M-204
+    downstream_skill_consumers:
+      - M-206
+    producer_workflow: CWF-310
+    consumer_workflows:
+      - CWF-310
+    output_packet_family: icon_set_packet
+    schema_ref: schemas/packets/icon_set_packet.schema.json
+    dossier_write_target: dossier.media_vein.icon_illustration_mapper
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_WAVE_3
+  - skill_id: M-206
+    skill_name: Brand Consistency Validator
+    legacy_skill_name: Brand Consistency Validator
+    alias_names:
+      - none
+    file_path: skills/media_graphics/M-206-brand-consistency-validator.skill.md
+    phase_assignment: PHASE_3A_GRAPHICS
+    vein_assignment: media_vein
+    owner_director: Brihaspati
+    strategic_authority_director: Krishna
+    upstream_skill_dependencies:
+      - M-202
+      - M-203
+      - M-204
+      - M-205
+    downstream_skill_consumers:
+      - M-207
+    producer_workflow: CWF-310
+    consumer_workflows:
+      - CWF-310
+    output_packet_family: brand_consistency_packet
+    schema_ref: schemas/packets/brand_consistency_packet.schema.json
+    dossier_write_target: dossier.media_vein.brand_consistency_validator
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_WAVE_3
+  - skill_id: M-207
+    skill_name: Accessibility Analyzer
+    legacy_skill_name: Accessibility Auditor (Graphics)
+    alias_names:
+      - Graphics Accessibility Auditor
+    file_path: skills/media_graphics/M-207-accessibility-analyzer.skill.md
+    phase_assignment: PHASE_3A_GRAPHICS
+    vein_assignment: media_vein
+    owner_director: Saraswati
+    strategic_authority_director: Krishna
+    upstream_skill_dependencies:
+      - M-202
+      - M-203
+      - M-204
+    downstream_skill_consumers:
+      - M-208
+    producer_workflow: CWF-310
+    consumer_workflows:
+      - CWF-310
+    output_packet_family: accessibility_packet
+    schema_ref: schemas/packets/accessibility_packet.schema.json
+    dossier_write_target: dossier.media_vein.accessibility_analyzer
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_WAVE_3
+  - skill_id: M-208
+    skill_name: Image Asset Sourcing Advisor
+    legacy_skill_name: Asset Library Manager
+    alias_names:
+      - Asset Library Manager
+    file_path: skills/media_graphics/M-208-image-asset-sourcing-advisor.skill.md
+    phase_assignment: PHASE_3A_GRAPHICS
+    vein_assignment: media_vein
+    owner_director: Vyasa
+    strategic_authority_director: Krishna
+    upstream_skill_dependencies:
+      - M-201
+      - M-202
+      - M-203
+      - M-204
+      - M-205
+      - M-206
+      - M-207
+    downstream_skill_consumers:
+      - M-209
+    producer_workflow: CWF-310
+    consumer_workflows:
+      - CWF-310
+    output_packet_family: asset_library_packet
+    schema_ref: schemas/packets/asset_library_packet.schema.json
+    dossier_write_target: dossier.media_vein.image_asset_sourcing_advisor
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_WAVE_3
+  - skill_id: M-209
+    skill_name: Infographic Structure Designer
+    legacy_skill_name: Infographic Data Visualizer
+    alias_names:
+      - Infographic Data Visualizer
+    file_path: skills/media_graphics/M-209-infographic-structure-designer.skill.md
+    phase_assignment: PHASE_3A_GRAPHICS
+    vein_assignment: media_vein
+    owner_director: Vyasa
+    strategic_authority_director: Krishna
+    upstream_skill_dependencies:
+      - M-201
+      - M-126
+      - M-015
+    downstream_skill_consumers:
+      - M-210
+    producer_workflow: CWF-310
+    consumer_workflows:
+      - CWF-310
+    output_packet_family: data_visualization_packet
+    schema_ref: schemas/packets/data_visualization_packet.schema.json
+    dossier_write_target: dossier.media_vein.infographic_structure_designer
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_WAVE_3
+  - skill_id: M-210
+    skill_name: Animation and Transition Specifier
+    legacy_skill_name: Animation Specification Designer
+    alias_names:
+      - Animation Specification Designer
+    file_path: skills/media_graphics/M-210-animation-transition-specifier.skill.md
+    phase_assignment: PHASE_3A_GRAPHICS
+    vein_assignment: media_vein
+    owner_director: Shiva
+    strategic_authority_director: Krishna
+    upstream_skill_dependencies:
+      - M-201
+      - M-204
+      - M-209
+    downstream_skill_consumers:
+      - M-211
+    producer_workflow: CWF-310
+    consumer_workflows:
+      - CWF-310
+    output_packet_family: animation_spec_packet
+    schema_ref: schemas/packets/animation_spec_packet.schema.json
+    dossier_write_target: dossier.media_vein.animation_transition_specifier
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_WAVE_3
+  - skill_id: M-211
+    skill_name: Mobile-First Layout Optimizer
+    legacy_skill_name: Mobile Optimization Engine
+    alias_names:
+      - Mobile Optimization Engine
+    file_path: skills/media_graphics/M-211-mobile-first-layout-optimizer.skill.md
+    phase_assignment: PHASE_3A_GRAPHICS
+    vein_assignment: media_vein
+    owner_director: Narada
+    strategic_authority_director: Krishna
+    upstream_skill_dependencies:
+      - M-201
+      - M-202
+      - M-203
+      - M-204
+      - M-205
+      - M-206
+      - M-207
+      - M-208
+      - M-209
+      - M-210
+    downstream_skill_consumers:
+      - M-212
+    producer_workflow: CWF-310
+    consumer_workflows:
+      - CWF-310
+    output_packet_family: mobile_optimization_packet
+    schema_ref: schemas/packets/mobile_optimization_packet.schema.json
+    dossier_write_target: dossier.media_vein.mobile_first_layout_optimizer
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_WAVE_3
+  - skill_id: M-212
+    skill_name: Dark Mode Variant Generator
+    legacy_skill_name: Dark Mode Variant Generator
+    alias_names:
+      - none
+    file_path: skills/media_graphics/M-212-dark-mode-variant-generator.skill.md
+    phase_assignment: PHASE_3A_GRAPHICS
+    vein_assignment: media_vein
+    owner_director: Shiva
+    strategic_authority_director: Krishna
+    upstream_skill_dependencies:
+      - M-202
+      - M-201
+      - M-203
+      - M-204
+      - M-205
+      - M-206
+      - M-207
+      - M-208
+      - M-209
+      - M-210
+      - M-211
+    downstream_skill_consumers:
+      - M-213
+    producer_workflow: CWF-310
+    consumer_workflows:
+      - CWF-310
+    output_packet_family: dark_mode_packet
+    schema_ref: schemas/packets/dark_mode_packet.schema.json
+    dossier_write_target: dossier.media_vein.dark_mode_variant_generator
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_WAVE_3
+  - skill_id: M-213
+    skill_name: Print-Ready Format Converter
+    legacy_skill_name: Print Format Adapter
+    alias_names:
+      - Print Format Adapter
+    file_path: skills/media_graphics/M-213-print-ready-format-converter.skill.md
+    phase_assignment: PHASE_3A_GRAPHICS
+    vein_assignment: media_vein
+    owner_director: Vyasa
+    strategic_authority_director: Krishna
+    upstream_skill_dependencies:
+      - M-201
+      - M-202
+      - M-203
+      - M-204
+      - M-205
+      - M-206
+      - M-207
+      - M-208
+      - M-209
+      - M-210
+      - M-211
+      - M-212
+    downstream_skill_consumers:
+      - M-214
+    producer_workflow: CWF-310
+    consumer_workflows:
+      - CWF-310
+    output_packet_family: print_adaptation_packet
+    schema_ref: schemas/packets/print_adaptation_packet.schema.json
+    dossier_write_target: dossier.media_vein.print_ready_format_converter
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_WAVE_3
+  - skill_id: M-214
+    skill_name: Social Media Graphics Optimizer
+    legacy_skill_name: Social Media Asset Generator
+    alias_names:
+      - Social Media Asset Generator
+    file_path: skills/media_graphics/M-214-social-media-graphics-optimizer.skill.md
+    phase_assignment: PHASE_3A_GRAPHICS
+    vein_assignment: media_vein
+    owner_director: Narada
+    strategic_authority_director: Krishna
+    upstream_skill_dependencies:
+      - M-201
+      - M-128
+    downstream_skill_consumers:
+      - M-215
+    producer_workflow: CWF-310
+    consumer_workflows:
+      - CWF-310
+    output_packet_family: social_asset_packet
+    schema_ref: schemas/packets/social_asset_packet.schema.json
+    dossier_write_target: dossier.media_vein.social_media_graphics_optimizer
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_WAVE_3
+  - skill_id: M-215
+    skill_name: Banner and Header Designer
+    legacy_skill_name: Banner/Header Designer
+    alias_names:
+      - Banner/Header Designer
+    file_path: skills/media_graphics/M-215-banner-header-designer.skill.md
+    phase_assignment: PHASE_3A_GRAPHICS
+    vein_assignment: media_vein
+    owner_director: Vyasa
+    strategic_authority_director: Krishna
+    upstream_skill_dependencies:
+      - M-201
+    downstream_skill_consumers:
+      - M-216
+    producer_workflow: CWF-310
+    consumer_workflows:
+      - CWF-410
+    output_packet_family: banner_packet
+    schema_ref: schemas/packets/banner_packet.schema.json
+    dossier_write_target: dossier.media_vein.banner_header_designer
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_WAVE_3

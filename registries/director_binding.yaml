@@ -1,7 +1,7 @@
-﻿version: 1
+version: 1
 registry_id: director_binding
-generated_at: "2026-04-26T01:49:42+05:30"
-status: PARTIAL_WAVE_2_PHASE1C_AND_PHASE2C
+generated_at: "2026-04-25T20:38:03.104Z"
+status: PARTIAL_WAVE_3_PHASE3A_PHASE1C_AND_PHASE2C
 directors:
   - canonical_name: Narada
     director_id: DIR-STRTv1-002
@@ -11,20 +11,25 @@ directors:
     allowed_skill_families:
       - phase1c_conditional_research
       - phase2c_platform_variants
+      - phase3a_graphics
     escalation_authority: WF-900
     veto_authority: no
     behavior_model: deterministic execution with registry-bound routing
-    routing_responsibility: phase1c nuance capture and phase2c adaptation routes
+    routing_responsibility: phase1c nuance capture, phase2c adaptation, and phase3a distribution-safe visual routing
     failure_handling_responsibility: escalate validation failures to WF-900
     mapped_skills:
       - M-027
       - M-121
       - M-124
       - M-128
+      - M-202
+      - M-211
+      - M-214
     mapped_workflows:
       - CWF-140
       - CWF-230
       - CWF-240
+      - CWF-310
   - canonical_name: Vyasa
     director_id: DIR-RSRCHv1-002
     archetype: organizer and synthesis authority
@@ -33,32 +38,43 @@ directors:
     allowed_skill_families:
       - phase1c_conditional_research
       - phase2c_platform_variants
+      - phase3a_graphics
     escalation_authority: WF-900
     veto_authority: no
     behavior_model: deterministic structure-first transformation
-    routing_responsibility: research and script structure synthesis
+    routing_responsibility: research, script structure, and graphics composition coherence
     failure_handling_responsibility: escalate integrity conflicts to WF-900
     mapped_skills:
       - M-024
       - M-122
       - M-126
       - M-129
+      - M-201
+      - M-204
+      - M-205
+      - M-208
+      - M-209
+      - M-213
+      - M-215
     mapped_workflows:
       - CWF-140
       - CWF-230
       - CWF-240
+      - CWF-310
+      - CWF-410
   - canonical_name: Saraswati
     director_id: DIR-DISTv1-002
     archetype: knowledge keeper and transparency advocate
     authority_level: CONTENT_CONTROL
-    governance_role: evidence clarity and assumption transparency owner
+    governance_role: evidence clarity and accessibility transparency owner
     allowed_skill_families:
       - phase1c_conditional_research
       - phase2c_platform_variants
+      - phase3a_graphics
     escalation_authority: WF-900
     veto_authority: no
     behavior_model: deterministic evidence-grounded conversion
-    routing_responsibility: source interrogation and limitations transparency
+    routing_responsibility: source interrogation, readability, accessibility, and limitations transparency
     failure_handling_responsibility: escalate evidence inconsistencies to WF-900
     mapped_skills:
       - M-021
@@ -66,9 +82,12 @@ directors:
       - M-026
       - M-029
       - M-123
+      - M-203
+      - M-207
     mapped_workflows:
       - CWF-140
       - CWF-230
+      - CWF-310
   - canonical_name: Krishna
     director_id: DIR-ORCHv1-001
     archetype: strategic authority and orchestrator
@@ -77,6 +96,7 @@ directors:
     allowed_skill_families:
       - phase1c_conditional_research
       - phase2c_platform_variants
+      - phase3a_graphics
     escalation_authority: WF-900
     veto_authority: yes
     behavior_model: deterministic orchestration and governance arbitration
@@ -90,6 +110,7 @@ directors:
       - CWF-140
       - CWF-230
       - CWF-240
+      - CWF-310
       - WF-021
       - WF-900
   - canonical_name: Shiva
@@ -100,14 +121,17 @@ directors:
     allowed_skill_families:
       - phase1c_conditional_research
       - phase2c_platform_variants
+      - phase3a_graphics
     escalation_authority: WF-900
     veto_authority: yes
     behavior_model: deterministic harmonization and change analysis
-    routing_responsibility: longitudinal transitions and coordination routing
+    routing_responsibility: longitudinal transitions, animation harmonization, and dark-mode adaptation
     failure_handling_responsibility: escalate temporal integrity violations
     mapped_skills:
       - M-022
       - M-130
+      - M-210
+      - M-212
     mapped_workflows:
       - CWF-140
       - CWF-240
@@ -117,18 +141,21 @@ directors:
     director_id: DIR-RSRCHv1-003
     archetype: logical analyzer and final judge
     authority_level: RESEARCH_ADJUDICATION
-    governance_role: causal adjudication and final research certification
+    governance_role: causal adjudication, final research certification, and brand-rule adjudication
     allowed_skill_families:
       - phase1c_conditional_research
+      - phase3a_graphics
     escalation_authority: WF-900
     veto_authority: yes
     behavior_model: deterministic adjudication and confidence certification
-    routing_responsibility: causal inference and final phase1c seal routing
+    routing_responsibility: causal inference, brand validation adjudication, and final stage integrity checks
     failure_handling_responsibility: escalate unresolved logical conflicts to WF-900
     mapped_skills:
       - M-023
       - M-030
+      - M-206
     mapped_workflows:
       - CWF-140
+      - CWF-310
       - WF-200
       - WF-900

@@ -1,7 +1,7 @@
 ﻿version: 1
 registry_id: schema_registry
 generated_at: "2026-04-26T01:49:42+05:30"
-status: PARTIAL_WAVE_2_PHASE1C_AND_PHASE2C
+status: PARTIAL_WAVE_3_PHASE3A_PHASE1C_AND_PHASE2C
 schemas:
   - artifact_family: tiktok_script_packet
     schema_version: "1.0.0"
@@ -333,6 +333,261 @@ schemas:
       - M-030
     producer_workflows:
       - CWF-140
+    envelope_contract:
+      required_fields:
+        - instance_id
+        - artifact_family
+        - schema_version
+        - producer_workflow
+        - dossier_ref
+        - created_at
+        - status
+        - payload
+  - artifact_family: design_brief_packet
+    schema_version: "1.0.0"
+    schema_path: schemas/packets/design_brief_packet.schema.json
+    producer_skills:
+      - M-201
+    producer_workflows:
+      - CWF-310
+    envelope_contract:
+      required_fields:
+        - instance_id
+        - artifact_family
+        - schema_version
+        - producer_workflow
+        - dossier_ref
+        - created_at
+        - status
+        - payload
+  - artifact_family: color_palette_packet
+    schema_version: "1.0.0"
+    schema_path: schemas/packets/color_palette_packet.schema.json
+    producer_skills:
+      - M-202
+    producer_workflows:
+      - CWF-310
+    envelope_contract:
+      required_fields:
+        - instance_id
+        - artifact_family
+        - schema_version
+        - producer_workflow
+        - dossier_ref
+        - created_at
+        - status
+        - payload
+  - artifact_family: typography_packet
+    schema_version: "1.0.0"
+    schema_path: schemas/packets/typography_packet.schema.json
+    producer_skills:
+      - M-203
+    producer_workflows:
+      - CWF-310
+    envelope_contract:
+      required_fields:
+        - instance_id
+        - artifact_family
+        - schema_version
+        - producer_workflow
+        - dossier_ref
+        - created_at
+        - status
+        - payload
+  - artifact_family: layout_packet
+    schema_version: "1.0.0"
+    schema_path: schemas/packets/layout_packet.schema.json
+    producer_skills:
+      - M-204
+    producer_workflows:
+      - CWF-310
+    envelope_contract:
+      required_fields:
+        - instance_id
+        - artifact_family
+        - schema_version
+        - producer_workflow
+        - dossier_ref
+        - created_at
+        - status
+        - payload
+  - artifact_family: icon_set_packet
+    schema_version: "1.0.0"
+    schema_path: schemas/packets/icon_set_packet.schema.json
+    producer_skills:
+      - M-205
+    producer_workflows:
+      - CWF-310
+    envelope_contract:
+      required_fields:
+        - instance_id
+        - artifact_family
+        - schema_version
+        - producer_workflow
+        - dossier_ref
+        - created_at
+        - status
+        - payload
+  - artifact_family: brand_consistency_packet
+    schema_version: "1.0.0"
+    schema_path: schemas/packets/brand_consistency_packet.schema.json
+    producer_skills:
+      - M-206
+    producer_workflows:
+      - CWF-310
+    envelope_contract:
+      required_fields:
+        - instance_id
+        - artifact_family
+        - schema_version
+        - producer_workflow
+        - dossier_ref
+        - created_at
+        - status
+        - payload
+  - artifact_family: accessibility_packet
+    schema_version: "1.0.0"
+    schema_path: schemas/packets/accessibility_packet.schema.json
+    producer_skills:
+      - M-207
+    producer_workflows:
+      - CWF-310
+    envelope_contract:
+      required_fields:
+        - instance_id
+        - artifact_family
+        - schema_version
+        - producer_workflow
+        - dossier_ref
+        - created_at
+        - status
+        - payload
+  - artifact_family: asset_library_packet
+    schema_version: "1.0.0"
+    schema_path: schemas/packets/asset_library_packet.schema.json
+    producer_skills:
+      - M-208
+    producer_workflows:
+      - CWF-310
+    envelope_contract:
+      required_fields:
+        - instance_id
+        - artifact_family
+        - schema_version
+        - producer_workflow
+        - dossier_ref
+        - created_at
+        - status
+        - payload
+  - artifact_family: data_visualization_packet
+    schema_version: "1.0.0"
+    schema_path: schemas/packets/data_visualization_packet.schema.json
+    producer_skills:
+      - M-209
+    producer_workflows:
+      - CWF-310
+    envelope_contract:
+      required_fields:
+        - instance_id
+        - artifact_family
+        - schema_version
+        - producer_workflow
+        - dossier_ref
+        - created_at
+        - status
+        - payload
+  - artifact_family: animation_spec_packet
+    schema_version: "1.0.0"
+    schema_path: schemas/packets/animation_spec_packet.schema.json
+    producer_skills:
+      - M-210
+    producer_workflows:
+      - CWF-310
+    envelope_contract:
+      required_fields:
+        - instance_id
+        - artifact_family
+        - schema_version
+        - producer_workflow
+        - dossier_ref
+        - created_at
+        - status
+        - payload
+  - artifact_family: mobile_optimization_packet
+    schema_version: "1.0.0"
+    schema_path: schemas/packets/mobile_optimization_packet.schema.json
+    producer_skills:
+      - M-211
+    producer_workflows:
+      - CWF-310
+    envelope_contract:
+      required_fields:
+        - instance_id
+        - artifact_family
+        - schema_version
+        - producer_workflow
+        - dossier_ref
+        - created_at
+        - status
+        - payload
+  - artifact_family: dark_mode_packet
+    schema_version: "1.0.0"
+    schema_path: schemas/packets/dark_mode_packet.schema.json
+    producer_skills:
+      - M-212
+    producer_workflows:
+      - CWF-310
+    envelope_contract:
+      required_fields:
+        - instance_id
+        - artifact_family
+        - schema_version
+        - producer_workflow
+        - dossier_ref
+        - created_at
+        - status
+        - payload
+  - artifact_family: print_adaptation_packet
+    schema_version: "1.0.0"
+    schema_path: schemas/packets/print_adaptation_packet.schema.json
+    producer_skills:
+      - M-213
+    producer_workflows:
+      - CWF-310
+    envelope_contract:
+      required_fields:
+        - instance_id
+        - artifact_family
+        - schema_version
+        - producer_workflow
+        - dossier_ref
+        - created_at
+        - status
+        - payload
+  - artifact_family: social_asset_packet
+    schema_version: "1.0.0"
+    schema_path: schemas/packets/social_asset_packet.schema.json
+    producer_skills:
+      - M-214
+    producer_workflows:
+      - CWF-310
+    envelope_contract:
+      required_fields:
+        - instance_id
+        - artifact_family
+        - schema_version
+        - producer_workflow
+        - dossier_ref
+        - created_at
+        - status
+        - payload
+  - artifact_family: banner_packet
+    schema_version: "1.0.0"
+    schema_path: schemas/packets/banner_packet.schema.json
+    producer_skills:
+      - M-215
+    producer_workflows:
+      - CWF-310
     envelope_contract:
       required_fields:
         - instance_id
