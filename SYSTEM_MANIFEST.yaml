@@ -1,8 +1,13 @@
 version: 3
 manifest_type: system_manifest
 generated_at: "2026-04-20"
-status: phase1_complete_wf600_complete_all_director_contracts_complete
+status: phase1_partial_wave1_phase2c_registry_overlay_in_progress
 empire_ref: registries/empire_registry.instance.json
+canonical_registry_refs:
+  skill_registry: registries/skill_registry.yaml
+  workflow_bindings: registries/workflow_bindings.yaml
+  schema_registry: registries/schema_registry.yaml
+  director_binding: registries/director_binding.yaml
 
 # ============================================================
 # SHADOW CREATOR OS — SYSTEM MANIFEST

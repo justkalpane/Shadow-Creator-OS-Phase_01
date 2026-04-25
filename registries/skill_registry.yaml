@@ -1,0 +1,253 @@
+﻿version: 1
+registry_id: skill_registry
+generated_at: "2026-04-26T01:31:25+05:30"
+status: PARTIAL_WAVE_1_PHASE2C
+registry_scope:
+  authoritative_for:
+    - M-121
+    - M-122
+    - M-123
+    - M-124
+    - M-125
+    - M-126
+    - M-127
+    - M-128
+    - M-129
+    - M-130
+  note: canonical registry started in Wave 1; additional skills will be appended in later waves
+skills:
+  - skill_id: M-121
+    skill_name: TikTok Script Optimizer
+    legacy_skill_name: Algorithm Intelligence Core
+    file_path: skills/swarm_expansion/M-121-algorithm-intelligence-core.skill.md
+    phase_assignment: PHASE_2C_PLATFORM_VARIANTS
+    vein_assignment: script_vein
+    owner_director: Narada
+    strategic_authority_director: Krishna
+    upstream_skill_dependencies:
+      - M-110
+      - M-120
+    downstream_skill_consumers:
+      - M-130
+    producer_workflow: CWF-230
+    consumer_workflows:
+      - CWF-240
+    output_packet_family: tiktok_script_packet
+    schema_ref: schemas/packets/tiktok_script_packet.schema.json
+    dossier_write_target: dossier.script_vein.tiktok_script_optimizer
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_WAVE_1
+  - skill_id: M-122
+    skill_name: YouTube Script Optimizer
+    legacy_skill_name: Data Signal Collector
+    file_path: skills/swarm_expansion/M-122-data-signal-collector.skill.md
+    phase_assignment: PHASE_2C_PLATFORM_VARIANTS
+    vein_assignment: script_vein
+    owner_director: Vyasa
+    strategic_authority_director: Krishna
+    upstream_skill_dependencies:
+      - M-110
+      - M-120
+    downstream_skill_consumers:
+      - M-130
+    producer_workflow: CWF-230
+    consumer_workflows:
+      - CWF-240
+    output_packet_family: youtube_script_packet
+    schema_ref: schemas/packets/youtube_script_packet.schema.json
+    dossier_write_target: dossier.script_vein.youtube_script_optimizer
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_WAVE_1
+  - skill_id: M-123
+    skill_name: Blog Article Generator
+    legacy_skill_name: Algorithm Pattern Analyzer
+    file_path: skills/swarm_expansion/M-123-algorithm-pattern-analyzer.skill.md
+    phase_assignment: PHASE_2C_PLATFORM_VARIANTS
+    vein_assignment: script_vein
+    owner_director: Saraswati
+    strategic_authority_director: Krishna
+    upstream_skill_dependencies:
+      - M-110
+      - M-120
+      - M-018
+    downstream_skill_consumers:
+      - M-130
+    producer_workflow: CWF-230
+    consumer_workflows:
+      - CWF-240
+    output_packet_family: blog_article_packet
+    schema_ref: schemas/packets/blog_article_packet.schema.json
+    dossier_write_target: dossier.script_vein.blog_article_generator
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_WAVE_1
+  - skill_id: M-124
+    skill_name: Podcast Script Generator
+    legacy_skill_name: Watch-Time Analyzer
+    file_path: skills/swarm_expansion/M-124-watch-time-analyzer.skill.md
+    phase_assignment: PHASE_2C_PLATFORM_VARIANTS
+    vein_assignment: script_vein
+    owner_director: Narada
+    strategic_authority_director: Krishna
+    upstream_skill_dependencies:
+      - M-110
+      - M-120
+    downstream_skill_consumers:
+      - M-130
+    producer_workflow: CWF-230
+    consumer_workflows:
+      - CWF-240
+    output_packet_family: podcast_script_packet
+    schema_ref: schemas/packets/podcast_script_packet.schema.json
+    dossier_write_target: dossier.script_vein.podcast_script_generator
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_WAVE_1
+  - skill_id: M-125
+    skill_name: LinkedIn Article Generator
+    legacy_skill_name: Retention Drop Detector
+    file_path: skills/swarm_expansion/M-125-retention-drop-detector.skill.md
+    phase_assignment: PHASE_2C_PLATFORM_VARIANTS
+    vein_assignment: script_vein
+    owner_director: Krishna
+    strategic_authority_director: Krishna
+    upstream_skill_dependencies:
+      - M-110
+      - M-120
+    downstream_skill_consumers:
+      - M-130
+    producer_workflow: CWF-230
+    consumer_workflows:
+      - CWF-240
+    output_packet_family: linkedin_packet
+    schema_ref: schemas/packets/linkedin_packet.schema.json
+    dossier_write_target: dossier.script_vein.linkedin_article_generator
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_WAVE_1
+  - skill_id: M-126
+    skill_name: Infographic Script Generator
+    legacy_skill_name: Retention Repair Engine
+    file_path: skills/swarm_expansion/M-126-retention-repair-engine.skill.md
+    phase_assignment: PHASE_2C_PLATFORM_VARIANTS
+    vein_assignment: script_vein
+    owner_director: Vyasa
+    strategic_authority_director: Krishna
+    upstream_skill_dependencies:
+      - M-110
+      - M-120
+      - M-107
+    downstream_skill_consumers:
+      - M-130
+    producer_workflow: CWF-230
+    consumer_workflows:
+      - CWF-240
+    output_packet_family: infographic_script_packet
+    schema_ref: schemas/packets/infographic_script_packet.schema.json
+    dossier_write_target: dossier.script_vein.infographic_script_generator
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_WAVE_1
+  - skill_id: M-127
+    skill_name: Email Sequence Generator
+    legacy_skill_name: Viral Pattern Library
+    file_path: skills/swarm_expansion/M-127-viral-pattern-library.skill.md
+    phase_assignment: PHASE_2C_PLATFORM_VARIANTS
+    vein_assignment: script_vein
+    owner_director: Krishna
+    strategic_authority_director: Krishna
+    upstream_skill_dependencies:
+      - M-110
+      - M-120
+      - M-002
+      - M-109
+    downstream_skill_consumers:
+      - M-130
+    producer_workflow: CWF-230
+    consumer_workflows:
+      - CWF-240
+    output_packet_family: email_sequence_packet
+    schema_ref: schemas/packets/email_sequence_packet.schema.json
+    dossier_write_target: dossier.script_vein.email_sequence_generator
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_WAVE_1
+  - skill_id: M-128
+    skill_name: Social Media Caption Generator
+    legacy_skill_name: Viral Pattern Replicator
+    file_path: skills/swarm_expansion/M-128-viral-pattern-replicator.skill.md
+    phase_assignment: PHASE_2C_PLATFORM_VARIANTS
+    vein_assignment: script_vein
+    owner_director: Narada
+    strategic_authority_director: Krishna
+    upstream_skill_dependencies:
+      - M-110
+      - M-120
+    downstream_skill_consumers:
+      - M-130
+    producer_workflow: CWF-230
+    consumer_workflows:
+      - CWF-240
+    output_packet_family: social_media_packet
+    schema_ref: schemas/packets/social_media_packet.schema.json
+    dossier_write_target: dossier.script_vein.social_media_caption_generator
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_WAVE_1
+  - skill_id: M-129
+    skill_name: Newsletter Script Generator
+    legacy_skill_name: Thumbnail Heatmap Analyzer
+    file_path: skills/swarm_expansion/M-129-thumbnail-heatmap-analyzer.skill.md
+    phase_assignment: PHASE_2C_PLATFORM_VARIANTS
+    vein_assignment: script_vein
+    owner_director: Vyasa
+    strategic_authority_director: Krishna
+    upstream_skill_dependencies:
+      - M-110
+      - M-120
+      - M-002
+    downstream_skill_consumers:
+      - M-130
+    producer_workflow: CWF-230
+    consumer_workflows:
+      - CWF-240
+    output_packet_family: newsletter_packet
+    schema_ref: schemas/packets/newsletter_packet.schema.json
+    dossier_write_target: dossier.script_vein.newsletter_script_generator
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_WAVE_1
+  - skill_id: M-130
+    skill_name: Multi-Format Coordinate Manager
+    legacy_skill_name: Thumbnail Optimization Engine
+    file_path: skills/swarm_expansion/M-130-thumbnail-optimization-engine.skill.md
+    phase_assignment: PHASE_2C_PLATFORM_VARIANTS
+    vein_assignment: script_vein
+    owner_director: Shiva
+    strategic_authority_director: Krishna
+    upstream_skill_dependencies:
+      - M-121
+      - M-122
+      - M-123
+      - M-124
+      - M-125
+      - M-126
+      - M-127
+      - M-128
+      - M-129
+    downstream_skill_consumers:
+      - M-201
+      - M-216
+      - M-231
+    producer_workflow: CWF-240
+    consumer_workflows:
+      - CWF-310
+    output_packet_family: format_coordination_packet
+    schema_ref: schemas/packets/format_coordination_packet.schema.json
+    dossier_write_target: dossier.script_vein.multi_format_coordinate_manager
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_WAVE_1
+

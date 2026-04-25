@@ -1,0 +1,175 @@
+﻿version: 1
+registry_id: schema_registry
+generated_at: "2026-04-26T01:31:25+05:30"
+status: PARTIAL_WAVE_1_PHASE2C
+schemas:
+  - artifact_family: tiktok_script_packet
+    schema_version: "1.0.0"
+    schema_path: schemas/packets/tiktok_script_packet.schema.json
+    producer_skills:
+      - M-121
+    producer_workflows:
+      - CWF-230
+    envelope_contract:
+      required_fields:
+        - instance_id
+        - artifact_family
+        - schema_version
+        - producer_workflow
+        - dossier_ref
+        - created_at
+        - status
+        - payload
+  - artifact_family: youtube_script_packet
+    schema_version: "1.0.0"
+    schema_path: schemas/packets/youtube_script_packet.schema.json
+    producer_skills:
+      - M-122
+    producer_workflows:
+      - CWF-230
+    envelope_contract:
+      required_fields:
+        - instance_id
+        - artifact_family
+        - schema_version
+        - producer_workflow
+        - dossier_ref
+        - created_at
+        - status
+        - payload
+  - artifact_family: blog_article_packet
+    schema_version: "1.0.0"
+    schema_path: schemas/packets/blog_article_packet.schema.json
+    producer_skills:
+      - M-123
+    producer_workflows:
+      - CWF-230
+    envelope_contract:
+      required_fields:
+        - instance_id
+        - artifact_family
+        - schema_version
+        - producer_workflow
+        - dossier_ref
+        - created_at
+        - status
+        - payload
+  - artifact_family: podcast_script_packet
+    schema_version: "1.0.0"
+    schema_path: schemas/packets/podcast_script_packet.schema.json
+    producer_skills:
+      - M-124
+    producer_workflows:
+      - CWF-230
+    envelope_contract:
+      required_fields:
+        - instance_id
+        - artifact_family
+        - schema_version
+        - producer_workflow
+        - dossier_ref
+        - created_at
+        - status
+        - payload
+  - artifact_family: linkedin_packet
+    schema_version: "1.0.0"
+    schema_path: schemas/packets/linkedin_packet.schema.json
+    producer_skills:
+      - M-125
+    producer_workflows:
+      - CWF-230
+    envelope_contract:
+      required_fields:
+        - instance_id
+        - artifact_family
+        - schema_version
+        - producer_workflow
+        - dossier_ref
+        - created_at
+        - status
+        - payload
+  - artifact_family: infographic_script_packet
+    schema_version: "1.0.0"
+    schema_path: schemas/packets/infographic_script_packet.schema.json
+    producer_skills:
+      - M-126
+    producer_workflows:
+      - CWF-230
+    envelope_contract:
+      required_fields:
+        - instance_id
+        - artifact_family
+        - schema_version
+        - producer_workflow
+        - dossier_ref
+        - created_at
+        - status
+        - payload
+  - artifact_family: email_sequence_packet
+    schema_version: "1.0.0"
+    schema_path: schemas/packets/email_sequence_packet.schema.json
+    producer_skills:
+      - M-127
+    producer_workflows:
+      - CWF-230
+    envelope_contract:
+      required_fields:
+        - instance_id
+        - artifact_family
+        - schema_version
+        - producer_workflow
+        - dossier_ref
+        - created_at
+        - status
+        - payload
+  - artifact_family: social_media_packet
+    schema_version: "1.0.0"
+    schema_path: schemas/packets/social_media_packet.schema.json
+    producer_skills:
+      - M-128
+    producer_workflows:
+      - CWF-230
+    envelope_contract:
+      required_fields:
+        - instance_id
+        - artifact_family
+        - schema_version
+        - producer_workflow
+        - dossier_ref
+        - created_at
+        - status
+        - payload
+  - artifact_family: newsletter_packet
+    schema_version: "1.0.0"
+    schema_path: schemas/packets/newsletter_packet.schema.json
+    producer_skills:
+      - M-129
+    producer_workflows:
+      - CWF-230
+    envelope_contract:
+      required_fields:
+        - instance_id
+        - artifact_family
+        - schema_version
+        - producer_workflow
+        - dossier_ref
+        - created_at
+        - status
+        - payload
+  - artifact_family: format_coordination_packet
+    schema_version: "1.0.0"
+    schema_path: schemas/packets/format_coordination_packet.schema.json
+    producer_skills:
+      - M-130
+    producer_workflows:
+      - CWF-240
+    envelope_contract:
+      required_fields:
+        - instance_id
+        - artifact_family
+        - schema_version
+        - producer_workflow
+        - dossier_ref
+        - created_at
+        - status
+        - payload

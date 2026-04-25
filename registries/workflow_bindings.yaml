@@ -1,0 +1,125 @@
+﻿version: 1
+registry_id: workflow_bindings
+generated_at: "2026-04-26T01:31:25+05:30"
+status: PARTIAL_WAVE_1_PHASE2C
+bindings:
+  - skill_id: M-121
+    producer_workflow: CWF-230
+    consumer_workflows:
+      - CWF-240
+    emitted_packet_family: tiktok_script_packet
+    routing:
+      on_success:
+        next_skill: M-130
+        next_workflow: CWF-240
+      on_error: WF-900
+      on_replay: WF-021
+    deterministic_contract: true
+  - skill_id: M-122
+    producer_workflow: CWF-230
+    consumer_workflows:
+      - CWF-240
+    emitted_packet_family: youtube_script_packet
+    routing:
+      on_success:
+        next_skill: M-130
+        next_workflow: CWF-240
+      on_error: WF-900
+      on_replay: WF-021
+    deterministic_contract: true
+  - skill_id: M-123
+    producer_workflow: CWF-230
+    consumer_workflows:
+      - CWF-240
+    emitted_packet_family: blog_article_packet
+    routing:
+      on_success:
+        next_skill: M-130
+        next_workflow: CWF-240
+      on_error: WF-900
+      on_replay: WF-021
+    deterministic_contract: true
+  - skill_id: M-124
+    producer_workflow: CWF-230
+    consumer_workflows:
+      - CWF-240
+    emitted_packet_family: podcast_script_packet
+    routing:
+      on_success:
+        next_skill: M-130
+        next_workflow: CWF-240
+      on_error: WF-900
+      on_replay: WF-021
+    deterministic_contract: true
+  - skill_id: M-125
+    producer_workflow: CWF-230
+    consumer_workflows:
+      - CWF-240
+    emitted_packet_family: linkedin_packet
+    routing:
+      on_success:
+        next_skill: M-130
+        next_workflow: CWF-240
+      on_error: WF-900
+      on_replay: WF-021
+    deterministic_contract: true
+  - skill_id: M-126
+    producer_workflow: CWF-230
+    consumer_workflows:
+      - CWF-240
+    emitted_packet_family: infographic_script_packet
+    routing:
+      on_success:
+        next_skill: M-130
+        next_workflow: CWF-240
+      on_error: WF-900
+      on_replay: WF-021
+    deterministic_contract: true
+  - skill_id: M-127
+    producer_workflow: CWF-230
+    consumer_workflows:
+      - CWF-240
+    emitted_packet_family: email_sequence_packet
+    routing:
+      on_success:
+        next_skill: M-130
+        next_workflow: CWF-240
+      on_error: WF-900
+      on_replay: WF-021
+    deterministic_contract: true
+  - skill_id: M-128
+    producer_workflow: CWF-230
+    consumer_workflows:
+      - CWF-240
+    emitted_packet_family: social_media_packet
+    routing:
+      on_success:
+        next_skill: M-130
+        next_workflow: CWF-240
+      on_error: WF-900
+      on_replay: WF-021
+    deterministic_contract: true
+  - skill_id: M-129
+    producer_workflow: CWF-230
+    consumer_workflows:
+      - CWF-240
+    emitted_packet_family: newsletter_packet
+    routing:
+      on_success:
+        next_skill: M-130
+        next_workflow: CWF-240
+      on_error: WF-900
+      on_replay: WF-021
+    deterministic_contract: true
+  - skill_id: M-130
+    producer_workflow: CWF-240
+    consumer_workflows:
+      - CWF-310
+    emitted_packet_family: format_coordination_packet
+    routing:
+      on_success:
+        next_skill: M-201
+        next_workflow: CWF-310
+      on_error: WF-900
+      on_replay: WF-021
+    deterministic_contract: true

@@ -1,133 +1,188 @@
-﻿# SKL-PH1-DATA-SIGNAL-COLLECTOR
+﻿# SKL-PH2C-M-122-YOUTUBE_SCRIPT_OPTIMIZER
 
 ## 1. Skill Identity
-- **Skill ID:** M-122
-- **Skill Name:** Data Signal Collector
-- **Version:** 1.0.0
-- **Phase Scope:** PHASE_1_TOPIC_TO_SCRIPT
-- **Classification:** github_source_of_truth
-- **Owner Workflow:** SE-N8N-WF
-- **Consumer Workflows:** WF-500, WF-600
-- **Vein/Route/Stage:** expansion_vein / topic_to_script / Stage_E_Expansion
+- Skill ID: M-122
+- Skill Name: YouTube Script Optimizer
+- Legacy Alias (Filename Compatibility): Data Signal Collector
+- Vein Assignment: script_vein
+- Phase Assignment: PHASE_2C_PLATFORM_VARIANTS
+- Owner Director: Vyasa
+- Strategic Authority Director: Krishna
 
 ## 2. Purpose
-Replica skill artifact for M-122 (Data Signal Collector), generated using the latest repository skill DNA template and runtime contract. This skill preserves the same structure, routing semantics, escalation behavior, and mutation law as the current compliant skills.
+Expand script to 5-15 minute YouTube format with chapter structure, retention pacing, and search-ready metadata hooks.
 
 ## 3. DNA Injection
-- **Role Definition:** data-signal-collector_executor
-- **DNA Archetype:** Indra
-- **Behavior Model:** deterministic, registry-bound, escalation-safe
-- **Operating Method:** ingest -> validate -> execute -> emit -> index
-- **Working Style:** evidence-first, schema-locked, replay-aware
+- Archetype: Vyasa (structure organizer)
+- Behavior Model: deterministic, packet-typed, governance-bound, append-only
+- Operating Pattern: ingest -> validate -> transform -> verify -> emit -> append -> route
+- Platform Specifics: 5-15 minute long-form, chapter blocks, retention curve shaping, SEO-aware intro and description cues
 
 ## 4. Workflow Injection
-- **Producer:** WF
-- **Direct Consumers:** WF-500, WF-600
-- **Upstream Dependencies:** workflow_registry, skill_loader_registry, dossier packet context
-- **Downstream Handoff:** data-signal-collector_packet -> downstream workflow chain
-- **Escalation Path:** SE-N8N-WF-900 on validation failure or critical runtime errors
-- **Fallback Path:** return partial packet with status "PARTIAL" and explicit failure reasons
-- **Replay Path:** SE-N8N-WF-021 when remodify/replay is requested
+- Producer Workflow: CWF-230
+- Consumer Workflows: CWF-240
+- Upstream Dependencies: base_script (from M-110/M-120), creator_voice_profile, platform_constraints.youtube
+- Downstream Consumers: M-130 Multi-Format Coordinate Manager
+- Escalation Path: WF-900
+- Replay Path: WF-021
+- Fallback Mode: emit status PARTIAL only when non-critical optional inputs are absent and core schema integrity remains valid
 
 ## 5. Inputs
-**Required:**
-- dossier_id (string) - parent dossier identifier
-- input_payload (object) - upstream packet payload for this skill
-- route_id (string) - active route context
+**Required Inputs**
+- dossier_id (string): target dossier identity
+- route_id (string): active orchestration route
+- instance_id (string): runtime execution instance
+- base_script_packet (object): canonical source script artifact from M-110/M-120
+- creator_profile (object): creator tone and audience constraints
+- workflow_context (object): current workflow metadata and lineage context
 
-**Optional:**
-- constraints (object) - quality/cost/latency constraints
-- hints (array) - execution hints from upstream steps
+**Optional Inputs**
+- research_support_packet (object): supporting research claims and references
+- platform_constraints (object): per-platform limits, style, policy constraints
+- brand_guidelines (object): tonal, visual, lexical guardrails
+- variant_count (integer, default 3): bounded variant generation count
 
 ## 6. Execution Logic
-```text
-1. Validate dossier_id and input_payload schema
-2. Resolve runtime context and routing envelope
-3. Execute core transformation logic for M-122
-4. Apply deterministic validation checks
-5. Emit packet and write additive dossier patch
-6. Register packet in se_packet_index
-7. On critical error: escalate to WF-900
-```
-## 7. Outputs
+STEP 1: Validate input envelope and required fields against input_schema.
+STEP 2: Resolve upstream lineage from base_script_packet and workflow context.
+STEP 3: Load deterministic platform contract for YouTube Script Optimizer.
+STEP 4: Transform source script into platform draft.
+  A. Normalize lexical and structural pattern.
+  B. Apply platform timing or length constraints.
+  C. Preserve factual claims and CTA intent.
+STEP 5: Generate platform-native cues for execution clarity.
+STEP 6: Build bounded variants (1..variant_count) with deterministic ranking keys.
+STEP 7: Run governance and safety checks.
+  A. Policy-screen claims and CTA language.
+  B. Validate creator-profile alignment.
+  C. Reject forbidden mutations or untyped packet payloads.
+STEP 8: Assemble typed output packet youtube_script_packet and validate against JSON schema.
+STEP 9: Append packet to dossier.script_vein.youtube_script_optimizer and append lineage row to se_packet_index.
+STEP 10: Emit routing decision (success, replay, escalate) with deterministic next-hop references.
 
-**Primary Output Packet:**
-```json
+## 7. Outputs
+- Output Packet Family: youtube_script_packet
+- JSON Schema Reference: schemas/packets/youtube_script_packet.schema.json
+- Dossier Write Target: dossier.script_vein.youtube_script_optimizer
+- se_packet_index Registration: required append row with lineage and audit metadata
+
+~~~json
 {
-  "instance_id": "M-122-[timestamp]",
-  "artifact_family": "data-signal-collector_packet",
+  "instance_id": "M-122-[timestamp]-[instance]",
+  "artifact_family": "youtube_script_packet",
   "schema_version": "1.0.0",
-  "producer_workflow": "SE-N8N-WF",
+  "producer_workflow": "CWF-230",
   "dossier_ref": "[dossier_id]",
-  "created_at": "[ISO timestamp]",
-  "status": "CREATED | PARTIAL | EMPTY",
+  "created_at": "[ISO-8601]",
+  "status": "CREATED|PARTIAL|FAILED",
   "payload": {
     "skill_id": "M-122",
-    "skill_name": "Data Signal Collector",
-    "result": {}
+    "skill_name": "YouTube Script Optimizer",
+    "platform": "YouTube",
+    "primary_output": {
+      "chapter_structured_script": "[platform-adapted artifact]"
+    },
+    "variants": [
+      {"variant_id": "V1", "rank": 1},
+      {"variant_id": "V2", "rank": 2},
+      {"variant_id": "V3", "rank": 3}
+    ],
+    "routing": {
+      "on_success": "M-130",
+      "on_error": "WF-900",
+      "on_replay": "WF-021"
+    }
   }
 }
-```
-**Write Targets:**
-- dossier.expansion_vein.data-signal-collector (append_to_array)
-- se_packet_index (single index row)
+~~~
 
 ## 8. Governance
-- **Director Binding:** Indra (owner), Krishna (strategic authority)
-- **Veto Power:** no
-- **Approval Gate:** none unless downstream workflow requires explicit approval
-- **Policy Requirements:**
-  - Use patch-only mutation law
-  - Never overwrite existing dossier fields
-  - Maintain packet lineage and audit references
+- Governance Owner: Vyasa
+- Strategic Authority: Krishna
+- Approval Contract: deterministic execution; no untyped emissions; no destructive mutation
+- Escalation Trigger Classes: input contract failure, schema failure, policy failure, mutation-law violation
+- Mandatory Escalation Workflow: WF-900
+- Replay or Remodify Workflow: WF-021
 
-## 9. Tool / Runtime Usage
+## 9. Tool/Runtime Usage
+**Allowed**
+- Deterministic text transforms and formatting engines
+- Registered schema validation
+- Registry lookups (skill_registry.yaml, workflow_bindings.yaml, schema_registry.yaml, director_binding.yaml)
+- Append-only dossier and packet-index writers
 
-**Allowed:**
-- deterministic transforms
-- schema validation and packet shaping
-- route-aware dossier patch appends
-
-**Forbidden:**
-- destructive mutations
-- unauthorized namespace writes
-- bypassing governance escalation paths
+**Forbidden**
+- Non-deterministic generation branches
+- Any randomization (random, Math.random, seedless stochastic pathing)
+- Unregistered external tool calls
+- Untyped packet emission
+- Direct overwrite, delete, or replace mutation behavior
 
 ## 10. Mutation Law
+**Allowed Mutations**
+- append_to_array
+- create_new_packet
+- create_new_index_row
+- append_audit_entry
 
-**Reads:**
-- dossier scoped context slices
-- route/workflow registry contracts
-- upstream packet payloads
+**Required Mutation Metadata**
+- timestamp
+- writer_id
+- skill_id
+- instance_id
+- schema_version
+- lineage_reference
+- audit_entry
 
-**Writes:**
-- dossier.expansion_vein.data-signal-collector (append_only)
-- se_packet_index row for packet traceability
-
-**Forbidden Mutations:**
-- overwrite of prior dossier values
-- write to unrelated namespaces
-- mutation without packet metadata
+**Forbidden Mutations**
+- overwrite existing dossier fields
+- replace arrays
+- delete prior data
+- mutate historical packets
+- mutate historical approval decisions
+- mutate existing se_packet_index rows
 
 ## 11. Best Practices
-- Keep transformations deterministic and replay-safe
-- Preserve source evidence/provenance in packet payload
-- Emit explicit partial status on non-critical source gaps
-- Keep escalation payload machine-readable for WF-900
+- Preserve source-script semantic intent before style adaptation.
+- Keep all transformations deterministic and seedless.
+- Apply platform limits before linguistic polish to avoid truncation defects.
+- Maintain explicit lineage from source packet to emitted variant packet.
+- Route all hard validation failures to WF-900 with typed error details.
+- Route replay/remodify requests to WF-021 with stable replay metadata.
+- Never mutate dossier fields outside dossier.script_vein.youtube_script_optimizer.
+- Keep every variant auditable with stable variant identifiers.
+- Run schema validation before dossier and index writes.
+- Keep audience-voice alignment tied to provided creator profile inputs.
+- Ensure CTA phrasing remains policy-safe and context-bound.
+- Record every write with timestamp, writer_id, skill_id, and lineage_reference.
 
-## 12. Validation / Done
+## 12. Validation/Done
+**Test Cases**
+- TEST-PH2C-M-122-001: Valid required inputs produce deterministic youtube_script_packet output
+- TEST-PH2C-M-122-002: Missing dossier_id routes to WF-900 with explicit validation error
+- TEST-PH2C-M-122-003: Missing base input payload routes to WF-900 without packet emission
+- TEST-PH2C-M-122-004: Unsupported route_id resolves via deterministic fallback and logs route correction
+- TEST-PH2C-M-122-005: Platform constraints are enforced without random branch selection
+- TEST-PH2C-M-122-006: Primary output field chapter_structured_script is present and non-empty
+- TEST-PH2C-M-122-007: Variant generation creates exactly 3 bounded variants when requested
+- TEST-PH2C-M-122-008: Governance safety check blocks forbidden claims and routes to WF-900
+- TEST-PH2C-M-122-009: Replay request envelope routes to WF-021 with replay-ready context
+- TEST-PH2C-M-122-010: Schema validation rejects untyped payload before dossier mutation
+- TEST-PH2C-M-122-011: Dossier write target uses dossier.script_vein.youtube_script_optimizer only
+- TEST-PH2C-M-122-012: Mutation uses append_to_array and never overwrites prior packet history
+- TEST-PH2C-M-122-013: se_packet_index row is appended with lineage_reference and instance_id
+- TEST-PH2C-M-122-014: Output packet includes timestamp, writer_id, skill_id, instance_id, schema_version
+- TEST-PH2C-M-122-015: Downstream routing hint is deterministic for identical input state
+- TEST-PH2C-M-122-016: Forbidden mutation attempt is rejected and escalated to WF-900
+- TEST-PH2C-M-122-017: Audit entry captures operation, route_id, source packet, and confidence markers
+- TEST-PH2C-M-122-018: Acceptance gate fails closed when governance metadata is incomplete
 
-**Acceptance Tests:**
-- TEST-PH1-M122-001: valid input produces CREATED packet
-- TEST-PH1-M122-002: invalid input escalates to WF-900
-- TEST-PH1-M122-003: dossier patch is additive only
-
-**Done Criteria:**
-- Output packet schema conforms to family contract
-- Additive dossier patch applied with no overwrite
-- se_packet_index row produced
-- Replay path and escalation path are defined
-
-
-
-
+**Acceptance Criteria**
+- All 12 required sections are present in exact order.
+- Execution logic has at least 10 deterministic steps.
+- Output packet family is typed and schema-bound.
+- Dossier mutation is append-only and restricted to dossier.script_vein namespace.
+- se_packet_index append row includes full lineage metadata.
+- Escalation path WF-900 and replay path WF-021 are explicitly wired.
+- Minimum 18 tests are defined and traceable to requirements.
+- Upstream and downstream contract references are complete and non-ambiguous.
