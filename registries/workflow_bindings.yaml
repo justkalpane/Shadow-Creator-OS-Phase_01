@@ -1,7 +1,7 @@
 ﻿version: 1
 registry_id: workflow_bindings
-generated_at: "2026-04-26T01:31:25+05:30"
-status: PARTIAL_WAVE_1_PHASE2C
+generated_at: "2026-04-26T01:49:42+05:30"
+status: PARTIAL_WAVE_2_PHASE1C_AND_PHASE2C
 bindings:
   - skill_id: M-121
     producer_workflow: CWF-230
@@ -120,6 +120,127 @@ bindings:
       on_success:
         next_skill: M-201
         next_workflow: CWF-310
+      on_error: WF-900
+      on_replay: WF-021
+    deterministic_contract: true
+  - skill_id: M-021
+    producer_workflow: CWF-140
+    consumer_workflows:
+      - CWF-140
+    emitted_packet_family: primary_source_interrogation_packet
+    routing:
+      on_success:
+        next_skill: M-022
+        next_workflow: CWF-140
+      on_error: WF-900
+      on_replay: WF-021
+    deterministic_contract: true
+  - skill_id: M-022
+    producer_workflow: CWF-140
+    consumer_workflows:
+      - CWF-140
+    emitted_packet_family: longitudinal_packet
+    routing:
+      on_success:
+        next_skill: M-023
+        next_workflow: CWF-140
+      on_error: WF-900
+      on_replay: WF-021
+    deterministic_contract: true
+  - skill_id: M-023
+    producer_workflow: CWF-140
+    consumer_workflows:
+      - CWF-140
+    emitted_packet_family: causal_inference_packet
+    routing:
+      on_success:
+        next_skill: M-024
+        next_workflow: CWF-140
+      on_error: WF-900
+      on_replay: WF-021
+    deterministic_contract: true
+  - skill_id: M-024
+    producer_workflow: CWF-140
+    consumer_workflows:
+      - CWF-140
+    emitted_packet_family: meta_analysis_packet
+    routing:
+      on_success:
+        next_skill: M-025
+        next_workflow: CWF-140
+      on_error: WF-900
+      on_replay: WF-021
+    deterministic_contract: true
+  - skill_id: M-025
+    producer_workflow: CWF-140
+    consumer_workflows:
+      - CWF-140
+    emitted_packet_family: assumption_validation_packet
+    routing:
+      on_success:
+        next_skill: M-026
+        next_workflow: CWF-140
+      on_error: WF-900
+      on_replay: WF-021
+    deterministic_contract: true
+  - skill_id: M-026
+    producer_workflow: CWF-140
+    consumer_workflows:
+      - CWF-140
+    emitted_packet_family: knowledge_gap_packet
+    routing:
+      on_success:
+        next_skill: M-027
+        next_workflow: CWF-140
+      on_error: WF-900
+      on_replay: WF-021
+    deterministic_contract: true
+  - skill_id: M-027
+    producer_workflow: CWF-140
+    consumer_workflows:
+      - CWF-140
+    emitted_packet_family: nuance_packet
+    routing:
+      on_success:
+        next_skill: M-028
+        next_workflow: CWF-140
+      on_error: WF-900
+      on_replay: WF-021
+    deterministic_contract: true
+  - skill_id: M-028
+    producer_workflow: CWF-140
+    consumer_workflows:
+      - CWF-140
+    emitted_packet_family: prediction_packet
+    routing:
+      on_success:
+        next_skill: M-029
+        next_workflow: CWF-140
+      on_error: WF-900
+      on_replay: WF-021
+    deterministic_contract: true
+  - skill_id: M-029
+    producer_workflow: CWF-140
+    consumer_workflows:
+      - CWF-140
+    emitted_packet_family: limitations_packet
+    routing:
+      on_success:
+        next_skill: M-030
+        next_workflow: CWF-140
+      on_error: WF-900
+      on_replay: WF-021
+    deterministic_contract: true
+  - skill_id: M-030
+    producer_workflow: CWF-140
+    consumer_workflows:
+      - WF-200
+      - CWF-210
+    emitted_packet_family: phase_1c_completion_packet
+    routing:
+      on_success:
+        next_skill: M-105
+        next_workflow: WF-200
       on_error: WF-900
       on_replay: WF-021
     deterministic_contract: true

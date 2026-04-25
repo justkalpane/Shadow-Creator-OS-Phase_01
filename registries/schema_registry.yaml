@@ -1,7 +1,7 @@
 ﻿version: 1
 registry_id: schema_registry
-generated_at: "2026-04-26T01:31:25+05:30"
-status: PARTIAL_WAVE_1_PHASE2C
+generated_at: "2026-04-26T01:49:42+05:30"
+status: PARTIAL_WAVE_2_PHASE1C_AND_PHASE2C
 schemas:
   - artifact_family: tiktok_script_packet
     schema_version: "1.0.0"
@@ -163,6 +163,176 @@ schemas:
       - M-130
     producer_workflows:
       - CWF-240
+    envelope_contract:
+      required_fields:
+        - instance_id
+        - artifact_family
+        - schema_version
+        - producer_workflow
+        - dossier_ref
+        - created_at
+        - status
+        - payload
+  - artifact_family: primary_source_interrogation_packet
+    schema_version: "1.0.0"
+    schema_path: schemas/packets/primary_source_interrogation_packet.schema.json
+    producer_skills:
+      - M-021
+    producer_workflows:
+      - CWF-140
+    envelope_contract:
+      required_fields:
+        - instance_id
+        - artifact_family
+        - schema_version
+        - producer_workflow
+        - dossier_ref
+        - created_at
+        - status
+        - payload
+  - artifact_family: longitudinal_packet
+    schema_version: "1.0.0"
+    schema_path: schemas/packets/longitudinal_packet.schema.json
+    producer_skills:
+      - M-022
+    producer_workflows:
+      - CWF-140
+    envelope_contract:
+      required_fields:
+        - instance_id
+        - artifact_family
+        - schema_version
+        - producer_workflow
+        - dossier_ref
+        - created_at
+        - status
+        - payload
+  - artifact_family: causal_inference_packet
+    schema_version: "1.0.0"
+    schema_path: schemas/packets/causal_inference_packet.schema.json
+    producer_skills:
+      - M-023
+    producer_workflows:
+      - CWF-140
+    envelope_contract:
+      required_fields:
+        - instance_id
+        - artifact_family
+        - schema_version
+        - producer_workflow
+        - dossier_ref
+        - created_at
+        - status
+        - payload
+  - artifact_family: meta_analysis_packet
+    schema_version: "1.0.0"
+    schema_path: schemas/packets/meta_analysis_packet.schema.json
+    producer_skills:
+      - M-024
+    producer_workflows:
+      - CWF-140
+    envelope_contract:
+      required_fields:
+        - instance_id
+        - artifact_family
+        - schema_version
+        - producer_workflow
+        - dossier_ref
+        - created_at
+        - status
+        - payload
+  - artifact_family: assumption_validation_packet
+    schema_version: "1.0.0"
+    schema_path: schemas/packets/assumption_validation_packet.schema.json
+    producer_skills:
+      - M-025
+    producer_workflows:
+      - CWF-140
+    envelope_contract:
+      required_fields:
+        - instance_id
+        - artifact_family
+        - schema_version
+        - producer_workflow
+        - dossier_ref
+        - created_at
+        - status
+        - payload
+  - artifact_family: knowledge_gap_packet
+    schema_version: "1.0.0"
+    schema_path: schemas/packets/knowledge_gap_packet.schema.json
+    producer_skills:
+      - M-026
+    producer_workflows:
+      - CWF-140
+    envelope_contract:
+      required_fields:
+        - instance_id
+        - artifact_family
+        - schema_version
+        - producer_workflow
+        - dossier_ref
+        - created_at
+        - status
+        - payload
+  - artifact_family: nuance_packet
+    schema_version: "1.0.0"
+    schema_path: schemas/packets/nuance_packet.schema.json
+    producer_skills:
+      - M-027
+    producer_workflows:
+      - CWF-140
+    envelope_contract:
+      required_fields:
+        - instance_id
+        - artifact_family
+        - schema_version
+        - producer_workflow
+        - dossier_ref
+        - created_at
+        - status
+        - payload
+  - artifact_family: prediction_packet
+    schema_version: "1.0.0"
+    schema_path: schemas/packets/prediction_packet.schema.json
+    producer_skills:
+      - M-028
+    producer_workflows:
+      - CWF-140
+    envelope_contract:
+      required_fields:
+        - instance_id
+        - artifact_family
+        - schema_version
+        - producer_workflow
+        - dossier_ref
+        - created_at
+        - status
+        - payload
+  - artifact_family: limitations_packet
+    schema_version: "1.0.0"
+    schema_path: schemas/packets/limitations_packet.schema.json
+    producer_skills:
+      - M-029
+    producer_workflows:
+      - CWF-140
+    envelope_contract:
+      required_fields:
+        - instance_id
+        - artifact_family
+        - schema_version
+        - producer_workflow
+        - dossier_ref
+        - created_at
+        - status
+        - payload
+  - artifact_family: phase_1c_completion_packet
+    schema_version: "1.0.0"
+    schema_path: schemas/packets/phase_1c_completion_packet.schema.json
+    producer_skills:
+      - M-030
+    producer_workflows:
+      - CWF-140
     envelope_contract:
       required_fields:
         - instance_id

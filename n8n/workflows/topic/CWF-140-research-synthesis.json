@@ -1,80 +1,219 @@
 {
-  "name": "CWF-140 Research Synthesis",
-  "description": "Research synthesis for selected topic. Gathers evidence, synthesizes claims, validates evidence quality.",
-  "nodes": [
-    {
-      "parameters": {},
-      "id": "cwf140_trigger",
-      "name": "Workflow Input",
-      "type": "n8n-nodes-base.manualTrigger",
-      "typeVersion": 1,
-      "position": [250, 350]
-    },
-    {
-      "parameters": {
-        "jsCode": "return [{\n  json: {\n    workflow_id: 'CWF-140',\n    vein: 'research_vein',\n    dossier_id: $json.dossier_id || 'TEST-DOSSIER',\n    selected_topic: $json.selected_topic || {},\n    route_id: $json.route_id || 'ROUTE_PHASE1_STANDARD',\n    execution_timestamp: new Date().toISOString()\n  }\n}];"
-      },
-      "id": "normalize_research_input",
-      "name": "Normalize Research Input",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [450, 350]
-    },
-    {
-      "parameters": {
-        "jsCode": "const topic = $json.selected_topic || {};\nconst research_sources = [\n  { source_id: 'SRC-001', name: 'Academic Research', type: 'scholarly', credibility: 0.95, documents_count: 12 },\n  { source_id: 'SRC-002', name: 'Industry Reports', type: 'commercial', credibility: 0.85, documents_count: 8 },\n  { source_id: 'SRC-003', name: 'News Archives', type: 'media', credibility: 0.75, documents_count: 25 }\n];\n\nconst evidence_synthesis = {\n  main_claim: topic.topic_statement || 'Research topic',\n  supporting_claims: [\n    { claim: 'Supporting evidence point 1', sources: ['SRC-001', 'SRC-002'], confidence: 0.88 },\n    { claim: 'Supporting evidence point 2', sources: ['SRC-002', 'SRC-003'], confidence: 0.82 }\n  ],\n  contradictions: [],\n  evidence_gaps: ['Additional verification needed'],\n  overall_confidence: 0.85\n};\n\nreturn [{\n  json: {\n    ...$json,\n    research_sources: research_sources,\n    evidence_synthesis: evidence_synthesis,\n    synthesis_complete: true\n  }\n}];"
-      },
-      "id": "execute_research_synthesis",
-      "name": "Execute Research Synthesis",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [650, 350]
-    },
-    {
-      "parameters": {
-        "jsCode": "const synthesis = $json.evidence_synthesis || {};\nconst sources = $json.research_sources || [];\n\nconst research_packet = {\n  instance_id: 'RSP-' + Date.now(),\n  artifact_family: 'research_synthesis_packet',\n  schema_version: '1.0.0',\n  producer_workflow: 'SE-N8N-CWF-140-Research-Synthesis',\n  dossier_ref: $json.dossier_id,\n  created_at: new Date().toISOString(),\n  status: 'CREATED',\n  payload: {\n    topic_statement: $json.selected_topic.topic_statement,\n    main_claim: synthesis.main_claim,\n    supporting_claims: synthesis.supporting_claims,\n    research_sources: sources,\n    evidence_confidence: synthesis.overall_confidence,\n    contradictions_found: synthesis.contradictions && synthesis.contradictions.length > 0,\n    gaps_identified: synthesis.evidence_gaps || [],\n    ready_for_script_generation: synthesis.overall_confidence > 0.75 && !synthesis.contradictions.length\n  }\n};\n\nreturn [{ json: research_packet }];"
-      },
-      "id": "build_research_packet",
-      "name": "Build Research Packet",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [850, 350]
-    },
-    {
-      "parameters": {
-        "jsCode": "return [{\n  json: {\n    workflow_id: 'CWF-140',\n    execution_status: 'SUCCESS',\n    next_workflow: 'WF-200',\n    research_packet: $json,\n    decision: $json.payload.ready_for_script_generation ? 'PROCEED_TO_SCRIPT_GENERATION' : 'NEEDS_EVIDENCE_REFINEMENT'\n  }\n}];"
-      },
-      "id": "emit_research_result",
-      "name": "Emit Research Result",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [1050, 350]
-    }
-  ],
-  "connections": {
-    "Workflow Input": {
-      "main": [[{ "node": "Normalize Research Input", "type": "main", "index": 0 }]]
-    },
-    "Normalize Research Input": {
-      "main": [[{ "node": "Execute Research Synthesis", "type": "main", "index": 0 }]]
-    },
-    "Execute Research Synthesis": {
-      "main": [[{ "node": "Build Research Packet", "type": "main", "index": 0 }]]
-    },
-    "Build Research Packet": {
-      "main": [[{ "node": "Emit Research Result", "type": "main", "index": 0 }]]
-    }
-  },
-  "meta": {
-    "workflow_id": "CWF-140",
-    "phase": "phase1",
-    "vein": "research_vein",
-    "purpose": "Research synthesis for selected topic. Gathers evidence, synthesizes claims, validates evidence quality.",
-    "implementation_depth": "production_grade",
-    "owner_director": "Vyasa",
-    "next_workflow": "WF-200"
-  },
-  "active": true,
-  "settings": {}
-}
+    "name":  "CWF-140 Research Synthesis",
+    "description":  "Research synthesis with conditional Phase 1C routing based on M-020 research_confidence_score threshold 0.85.",
+    "nodes":  [
+                  {
+                      "parameters":  {
 
+                                     },
+                      "id":  "cwf140_trigger",
+                      "name":  "Workflow Input",
+                      "type":  "n8n-nodes-base.manualTrigger",
+                      "typeVersion":  1,
+                      "position":  [
+                                       260,
+                                       340
+                                   ]
+                  },
+                  {
+                      "parameters":  {
+                                         "jsCode":  "const incoming = $json || {}; const m020 = incoming.m020_confidence_packet || {}; const confidence = Number(m020.research_confidence_score ?? incoming.research_confidence_score ?? 0.85); return [{ json: { workflow_id: \"CWF-140\", dossier_id: incoming.dossier_id || \"DOSSIER-UNSET\", route_id: incoming.route_id || \"ROUTE_PHASE1_STANDARD\", selected_topic: incoming.selected_topic || {}, research_confidence_score: confidence, execution_timestamp: incoming.execution_timestamp || new Date().toISOString() } }];"
+                                     },
+                      "id":  "normalize_input",
+                      "name":  "Normalize Research Input",
+                      "type":  "n8n-nodes-base.code",
+                      "typeVersion":  2,
+                      "position":  [
+                                       500,
+                                       340
+                                   ]
+                  },
+                  {
+                      "parameters":  {
+                                         "jsCode":  "const synthesis = { main_claim: $json.selected_topic.topic_statement || \"Research topic\", supporting_claims: [{ claim: \"Support point 1\", confidence: 0.86 }, { claim: \"Support point 2\", confidence: 0.81 }], contradictions: [], evidence_gaps: [\"Optional deep dive if confidence below threshold\"] }; return [{ json: { ...$json, synthesis } }];"
+                                     },
+                      "id":  "synthesize_research",
+                      "name":  "Execute Research Synthesis",
+                      "type":  "n8n-nodes-base.code",
+                      "typeVersion":  2,
+                      "position":  [
+                                       740,
+                                       340
+                                   ]
+                  },
+                  {
+                      "parameters":  {
+                                         "jsCode":  "const routeKey = `${$json.dossier_id}-${$json.route_id}`; return [{ json: { instance_id: `RSP-${routeKey}`, artifact_family: \"research_synthesis_packet\", schema_version: \"1.0.0\", producer_workflow: \"CWF-140\", dossier_ref: $json.dossier_id, created_at: $json.execution_timestamp, status: \"CREATED\", payload: { topic_statement: $json.selected_topic.topic_statement || null, research_confidence_score: Number($json.research_confidence_score), synthesis: $json.synthesis, route_id: $json.route_id } } }];"
+                                     },
+                      "id":  "build_packet",
+                      "name":  "Build Research Packet",
+                      "type":  "n8n-nodes-base.code",
+                      "typeVersion":  2,
+                      "position":  [
+                                       980,
+                                       340
+                                   ]
+                  },
+                  {
+                      "parameters":  {
+                                         "options":  {
+
+                                                     },
+                                         "conditions":  {
+                                                            "options":  {
+                                                                            "caseSensitive":  true,
+                                                                            "leftValue":  "",
+                                                                            "typeValidation":  "strict",
+                                                                            "version":  2
+                                                                        },
+                                                            "conditions":  [
+                                                                               {
+                                                                                   "id":  "m020_conf_threshold",
+                                                                                   "leftValue":  "={{ Number($json.payload.research_confidence_score) }}",
+                                                                                   "rightValue":  0.85,
+                                                                                   "operator":  {
+                                                                                                    "type":  "number",
+                                                                                                    "operation":  "smaller"
+                                                                                                }
+                                                                               }
+                                                                           ],
+                                                            "combinator":  "and"
+                                                        }
+                                     },
+                      "id":  "threshold_gate",
+                      "name":  "Phase 1C Threshold Gate",
+                      "type":  "n8n-nodes-base.if",
+                      "typeVersion":  2.2,
+                      "position":  [
+                                       1220,
+                                       340
+                                   ]
+                  },
+                  {
+                      "parameters":  {
+                                         "jsCode":  "return [{ json: { workflow_id: \"CWF-140\", decision: \"EXECUTE_PHASE_1C\", threshold: \"\u003c0.85\", execute_phase_1c: true, phase_1c_skill_chain: [\"M-021\",\"M-022\",\"M-023\",\"M-024\",\"M-025\",\"M-026\",\"M-027\",\"M-028\",\"M-029\",\"M-030\"], next_skill: \"M-021\", next_workflow: \"CWF-140\", on_error: \"WF-900\", on_replay: \"WF-021\", research_packet: $json } }];"
+                                     },
+                      "id":  "route_phase1c",
+                      "name":  "Route To Phase 1C",
+                      "type":  "n8n-nodes-base.code",
+                      "typeVersion":  2,
+                      "position":  [
+                                       1460,
+                                       220
+                                   ]
+                  },
+                  {
+                      "parameters":  {
+                                         "jsCode":  "return [{ json: { workflow_id: \"CWF-140\", decision: \"SKIP_PHASE_1C\", threshold: \"\u003e=0.85\", execute_phase_1c: false, phase_1c_skill_chain: [], next_skill: \"M-105\", next_workflow: \"WF-200\", on_error: \"WF-900\", on_replay: \"WF-021\", research_packet: $json } }];"
+                                     },
+                      "id":  "route_direct",
+                      "name":  "Route Direct To Script",
+                      "type":  "n8n-nodes-base.code",
+                      "typeVersion":  2,
+                      "position":  [
+                                       1460,
+                                       460
+                                   ]
+                  },
+                  {
+                      "parameters":  {
+                                         "jsCode":  "const d = $json.decision || \"UNSET\"; return [{ json: { workflow_id: \"CWF-140\", execution_status: \"SUCCESS\", completion_packet: { instance_id: `CWF140-DECISION-${d}`, artifact_family: \"research_route_decision_packet\", schema_version: \"1.0.0\", producer_workflow: \"CWF-140\", created_at: $json.research_packet?.created_at || new Date().toISOString(), status: \"CREATED\", payload: { decision: d, execute_phase_1c: $json.execute_phase_1c, next_workflow: $json.next_workflow, next_skill: $json.next_skill, threshold_rule: \"M-020 research_confidence_score \u003c 0.85 =\u003e execute Phase 1C\" } }, routing: { on_error: \"WF-900\", on_replay: \"WF-021\" } } }];"
+                                     },
+                      "id":  "emit_result",
+                      "name":  "Emit Research Result",
+                      "type":  "n8n-nodes-base.code",
+                      "typeVersion":  2,
+                      "position":  [
+                                       1700,
+                                       340
+                                   ]
+                  }
+              ],
+    "connections":  {
+                        "Workflow Input":  {
+                                               "main":  [
+                                                            {
+                                                                "node":  "Normalize Research Input",
+                                                                "type":  "main",
+                                                                "index":  0
+                                                            }
+                                                        ]
+                                           },
+                        "Normalize Research Input":  {
+                                                         "main":  [
+                                                                      {
+                                                                          "node":  "Execute Research Synthesis",
+                                                                          "type":  "main",
+                                                                          "index":  0
+                                                                      }
+                                                                  ]
+                                                     },
+                        "Execute Research Synthesis":  {
+                                                           "main":  [
+                                                                        {
+                                                                            "node":  "Build Research Packet",
+                                                                            "type":  "main",
+                                                                            "index":  0
+                                                                        }
+                                                                    ]
+                                                       },
+                        "Build Research Packet":  {
+                                                      "main":  [
+                                                                   {
+                                                                       "node":  "Phase 1C Threshold Gate",
+                                                                       "type":  "main",
+                                                                       "index":  0
+                                                                   }
+                                                               ]
+                                                  },
+                        "Phase 1C Threshold Gate":  {
+                                                        "main":  [
+                                                                     [
+                                                                         {
+                                                                             "node":  "Route To Phase 1C",
+                                                                             "type":  "main",
+                                                                             "index":  0
+                                                                         }
+                                                                     ],
+                                                                     [
+                                                                         {
+                                                                             "node":  "Route Direct To Script",
+                                                                             "type":  "main",
+                                                                             "index":  0
+                                                                         }
+                                                                     ]
+                                                                 ]
+                                                    },
+                        "Route To Phase 1C":  {
+                                                  "main":  [
+                                                               {
+                                                                   "node":  "Emit Research Result",
+                                                                   "type":  "main",
+                                                                   "index":  0
+                                                               }
+                                                           ]
+                                              },
+                        "Route Direct To Script":  {
+                                                       "main":  [
+                                                                    {
+                                                                        "node":  "Emit Research Result",
+                                                                        "type":  "main",
+                                                                        "index":  0
+                                                                    }
+                                                                ]
+                                                   }
+                    },
+    "meta":  {
+                 "workflow_id":  "CWF-140",
+                 "phase":  "phase1",
+                 "vein":  "research_vein",
+                 "owner_director":  "Vyasa",
+                 "threshold_rule":  "IF M-020 research_confidence_score \u003c 0.85 execute M-021..M-030; ELSE route to WF-200",
+                 "escalation":  "WF-900",
+                 "replay":  "WF-021"
+             },
+    "active":  true,
+    "settings":  {
+
+                 }
+}
