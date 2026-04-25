@@ -1,4 +1,20 @@
 workflow_id: WF-021
+completion_packet_emission: required
+required_node_contract:
+  - trigger_node
+  - dossier_load_node
+  - registry_lookup_node
+  - skill_execution_node
+  - packet_validation_node
+  - append_only_dossier_write_node
+  - packet_index_write_node
+  - wf900_error_routing_node
+  - next_stage_routing_node
+  - completion_packet_emission_node
+wf900_error_route: WF-900
+execution_contract: executable_json_required
+legacy_workflow_json: n8n/workflows/approval/WF-021-replay-remodify.json
+canonical_workflow_json: n8n/workflows/WF-021.json
 name: wf021_replay_remodify
 class: governance
 entry_mode: event_selected

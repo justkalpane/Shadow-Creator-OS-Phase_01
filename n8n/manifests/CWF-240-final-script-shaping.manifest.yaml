@@ -1,4 +1,20 @@
 workflow_id: CWF-240
+completion_packet_emission: required
+required_node_contract:
+  - trigger_node
+  - dossier_load_node
+  - registry_lookup_node
+  - skill_execution_node
+  - packet_validation_node
+  - append_only_dossier_write_node
+  - packet_index_write_node
+  - wf900_error_routing_node
+  - next_stage_routing_node
+  - completion_packet_emission_node
+wf900_error_route: WF-900
+execution_contract: executable_json_required
+legacy_workflow_json: n8n/workflows/script/CWF-240-final-script-shaping.json
+canonical_workflow_json: n8n/workflows/CWF-240.json
 name: cwf240_final_script_shaping
 class: child
 parent_pack: WF-200

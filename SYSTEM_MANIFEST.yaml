@@ -1,7 +1,7 @@
 version: 3
 manifest_type: system_manifest
-generated_at: "2026-04-20"
-status: phase1_partial_wave1_phase2c_registry_overlay_in_progress
+generated_at: "2026-04-25"
+status: phase1_partial_wave6_canonical_workflow_jsons_in_progress
 empire_ref: registries/empire_registry.instance.json
 canonical_registry_refs:
   skill_registry: registries/skill_registry.yaml
@@ -45,7 +45,8 @@ workflow_packs:
     name: final_approval
     status: repo_present
     workflow_depth: production_grade
-    file: n8n/workflows/approval/WF-020-final-approval.json
+    file: n8n/workflows/WF-020.json
+    legacy_file: n8n/workflows/approval/WF-020-final-approval.json
     owner_director: Krishna
     vein: approval_vein
 
@@ -53,7 +54,8 @@ workflow_packs:
     name: replay_remodify
     status: repo_present
     workflow_depth: production_grade
-    file: n8n/workflows/approval/WF-021-replay-remodify.json
+    file: n8n/workflows/WF-021.json
+    legacy_file: n8n/workflows/approval/WF-021-replay-remodify.json
     owner_director: Yama
     vein: replay_vein
 
@@ -68,7 +70,8 @@ workflow_packs:
     name: topic_discovery
     status: repo_present
     workflow_depth: production_grade
-    file: n8n/workflows/topic/CWF-110-topic-discovery.json
+    file: n8n/workflows/CWF-110.json
+    legacy_file: n8n/workflows/topic/CWF-110-topic-discovery.json
     owner_director: Narada
     vein: discovery_vein
     output_packet: topic_candidate_board
@@ -77,7 +80,8 @@ workflow_packs:
     name: topic_qualification
     status: repo_present
     workflow_depth: production_grade
-    file: n8n/workflows/topic/CWF-120-topic-qualification.json
+    file: n8n/workflows/CWF-120.json
+    legacy_file: n8n/workflows/topic/CWF-120-topic-qualification.json
     owner_director: Chanakya
     vein: qualification_vein
     output_packet: topic_finalization_packet
@@ -86,7 +90,8 @@ workflow_packs:
     name: topic_scoring
     status: repo_present
     workflow_depth: production_grade
-    file: n8n/workflows/topic/CWF-130-topic-scoring.json
+    file: n8n/workflows/CWF-130.json
+    legacy_file: n8n/workflows/topic/CWF-130-topic-scoring.json
     owner_director: Krishna
     vein: scoring_vein
     output_packet: topic_scorecard
@@ -95,7 +100,8 @@ workflow_packs:
     name: research_synthesis
     status: repo_present
     workflow_depth: production_grade
-    file: n8n/workflows/topic/CWF-140-research-synthesis.json
+    file: n8n/workflows/CWF-140.json
+    legacy_file: n8n/workflows/topic/CWF-140-research-synthesis.json
     owner_director: Vyasa
     vein: research_vein
     output_packet: research_synthesis_packet
@@ -111,7 +117,8 @@ workflow_packs:
     name: script_generation
     status: repo_present
     workflow_depth: production_grade
-    file: n8n/workflows/script/CWF-210-script-generation.json
+    file: n8n/workflows/CWF-210.json
+    legacy_file: n8n/workflows/script/CWF-210-script-generation.json
     owner_director: Saraswati
     vein: narrative_vein
     output_packet: script_draft_packet
@@ -120,7 +127,8 @@ workflow_packs:
     name: script_debate
     status: repo_present
     workflow_depth: production_grade
-    file: n8n/workflows/script/CWF-220-script-debate.json
+    file: n8n/workflows/CWF-220.json
+    legacy_file: n8n/workflows/script/CWF-220-script-debate.json
     owner_director: Krishna
     vein: narrative_vein
     output_packet: script_debate_packet
@@ -129,7 +137,8 @@ workflow_packs:
     name: script_refinement
     status: repo_present
     workflow_depth: production_grade
-    file: n8n/workflows/script/CWF-230-script-refinement.json
+    file: n8n/workflows/CWF-230.json
+    legacy_file: n8n/workflows/script/CWF-230-script-refinement.json
     owner_director: Saraswati
     vein: narrative_vein
     output_packet: script_refinement_packet
@@ -138,7 +147,8 @@ workflow_packs:
     name: final_script_shaping
     status: repo_present
     workflow_depth: production_grade
-    file: n8n/workflows/script/CWF-240-final-script-shaping.json
+    file: n8n/workflows/CWF-240.json
+    legacy_file: n8n/workflows/script/CWF-240-final-script-shaping.json
     owner_director: Krishna
     vein: narrative_vein
     output_packet: final_script_packet

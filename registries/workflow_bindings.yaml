@@ -1,7 +1,7 @@
 ﻿version: 1
 registry_id: workflow_bindings
-generated_at: "2026-04-25T21:20:18.747Z"
-status: PARTIAL_WAVE_5_PHASE3C_PHASE3B_PHASE3A_PHASE1C_AND_PHASE2C
+generated_at: "2026-04-25T21:28:24.371Z"
+status: PARTIAL_WAVE_6_EXECUTABLE_N8N_WORKFLOWS_WITH_MANIFEST_SYNC
 bindings:
   - skill_id: M-121
     producer_workflow: CWF-230
@@ -784,3 +784,64 @@ bindings:
       on_error: WF-900
       on_replay: WF-021
     deterministic_contract: true
+canonical_workflow_jsons:
+  - workflow_id: CWF-110
+    canonical_json: n8n/workflows/CWF-110.json
+    legacy_json: n8n/workflows/topic/CWF-110-topic-discovery.json
+    required_nodes: 10
+    wf900_error_route: WF-900
+    completion_packet_emission: true
+  - workflow_id: CWF-120
+    canonical_json: n8n/workflows/CWF-120.json
+    legacy_json: n8n/workflows/topic/CWF-120-topic-qualification.json
+    required_nodes: 10
+    wf900_error_route: WF-900
+    completion_packet_emission: true
+  - workflow_id: CWF-130
+    canonical_json: n8n/workflows/CWF-130.json
+    legacy_json: n8n/workflows/topic/CWF-130-topic-scoring.json
+    required_nodes: 10
+    wf900_error_route: WF-900
+    completion_packet_emission: true
+  - workflow_id: CWF-140
+    canonical_json: n8n/workflows/CWF-140.json
+    legacy_json: n8n/workflows/topic/CWF-140-research-synthesis.json
+    required_nodes: 10
+    wf900_error_route: WF-900
+    completion_packet_emission: true
+  - workflow_id: CWF-210
+    canonical_json: n8n/workflows/CWF-210.json
+    legacy_json: n8n/workflows/script/CWF-210-script-generation.json
+    required_nodes: 10
+    wf900_error_route: WF-900
+    completion_packet_emission: true
+  - workflow_id: CWF-220
+    canonical_json: n8n/workflows/CWF-220.json
+    legacy_json: n8n/workflows/script/CWF-220-script-debate.json
+    required_nodes: 10
+    wf900_error_route: WF-900
+    completion_packet_emission: true
+  - workflow_id: CWF-230
+    canonical_json: n8n/workflows/CWF-230.json
+    legacy_json: n8n/workflows/script/CWF-230-script-refinement.json
+    required_nodes: 10
+    wf900_error_route: WF-900
+    completion_packet_emission: true
+  - workflow_id: CWF-240
+    canonical_json: n8n/workflows/CWF-240.json
+    legacy_json: n8n/workflows/script/CWF-240-final-script-shaping.json
+    required_nodes: 10
+    wf900_error_route: WF-900
+    completion_packet_emission: true
+  - workflow_id: WF-020
+    canonical_json: n8n/workflows/WF-020.json
+    legacy_json: n8n/workflows/approval/WF-020-final-approval.json
+    required_nodes: 10
+    wf900_error_route: WF-900
+    completion_packet_emission: true
+  - workflow_id: WF-021
+    canonical_json: n8n/workflows/WF-021.json
+    legacy_json: n8n/workflows/approval/WF-021-replay-remodify.json
+    required_nodes: 10
+    wf900_error_route: WF-900
+    completion_packet_emission: true
