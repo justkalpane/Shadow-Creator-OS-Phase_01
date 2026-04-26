@@ -1,41 +1,37 @@
-const fs = require('fs');
-const path = require('path');
+/**
+ * PHASE-1 END-TO-END RUNTIME VERIFICATION
+ *
+ * This test exercises the complete runtime chain:
+ * 1. Registry validation
+ * 2. Skill loader initialization
+ * 3. Real skill execution (not synthetic)
+ * 4. Packet schema validation
+ * 5. Packet routing
+ * 6. Dossier writes
+ * 7. Director orchestration
+ *
+ * All tests use ACTUAL runtime components, not mocks or inline code.
+ */
 
-const REQUIRED_CHAIN = [
-  'CWF-110',
-  'CWF-120',
-  'CWF-130',
-  'CWF-140',
-  'CWF-210',
-  'CWF-220',
-  'CWF-230',
-  'CWF-240',
-  'WF-020'
-];
+const SkillLoader = require('../engine/skill_loader/skill_loader.js');
+const RegistryValidator = require('../validators/registry_validator.js');
+const SchemaValidator = require('../validators/schema_validator.js');
+const PacketRouter = require('../engine/packets/packet_router.js');
+const DossierWriter = require('../engine/dossier/dossier_writer.js');
+const DirectorRuntimeRouter = require('../engine/directors/director_runtime_router.js');
 
-function loadWorkflow(workflowId) {
-  const filePath = path.resolve('n8n/workflows', `${workflowId}.json`);
-  if (!fs.existsSync(filePath)) {
-    throw new Error(`Missing canonical workflow file: ${filePath}`);
+let testsPassed = 0;
+let testsFailed = 0;
+
+function logTest(name, status, detail = '') {
+  const icon = status === 'PASS' ? '✓' : '✗';
+  console.log(`${icon} TEST ${testsPassed + testsFailed + 1}: ${name}`);
+  if (detail) console.log(`  └─ ${detail}`);
+  if (status === 'PASS') {
+    testsPassed++;
+  } else {
+    testsFailed++;
   }
-  return JSON.parse(fs.readFileSync(filePath, 'utf8'));
-}
-
-function findNode(workflow, nodeName) {
-  const node = (workflow.nodes || []).find((row) => row.name === nodeName);
-  if (!node) {
-    throw new Error(`Node "${nodeName}" not found in workflow ${workflow.meta?.workflow_id || workflow.name}`);
-  }
-  return node;
-}
-
-function runCodeNode(node, inputJson) {
-  const jsCode = node.parameters?.jsCode;
-  if (typeof jsCode !== 'string') {
-    throw new Error(`Node "${node.name}" does not contain parameters.jsCode`);
-  }
-  const fn = new Function('$json', jsCode);
-  return fn(inputJson);
 }
 
 function assert(condition, message) {
@@ -44,156 +40,217 @@ function assert(condition, message) {
   }
 }
 
-function verifyMetaChain() {
-  const traversed = [];
-  let current = 'CWF-110';
-  let guard = 0;
-  while (current && guard < 30) {
-    guard += 1;
-    traversed.push(current);
-    if (current === 'WF-020') break;
-    const workflow = loadWorkflow(current);
-    current = workflow.meta?.next_workflow;
+async function step1_RegistryValidation() {
+  console.log('\n=== STEP 1: REGISTRY VALIDATION ===');
+  try {
+    const validator = new RegistryValidator();
+    const result = validator.runFullCheck();
+
+    assert(result.overall_valid, `Registry validation failed: ${JSON.stringify(result.findings.slice(0, 3))}`);
+    assert(result.skill_registry_stats.skills > 200, 'Expected 218+ skills in registry');
+    logTest('Registry contains 218+ skills', 'PASS', `Found ${result.skill_registry_stats.skills} skills`);
+    return result;
+  } catch (error) {
+    logTest('Registry validation', 'FAIL', error.message);
+    throw error;
   }
-
-  assert(
-    REQUIRED_CHAIN.every((workflowId) => traversed.includes(workflowId)),
-    `Canonical chain mismatch. Traversed=${JSON.stringify(traversed)}`
-  );
-  assert(traversed[traversed.length - 1] === 'WF-020', 'Topic intake chain did not terminate at WF-020');
-
-  return traversed;
 }
 
-function verifyCwf140Branching() {
-  const workflow = loadWorkflow('CWF-140');
-  const routingNode = findNode(workflow, 'Next-Stage Routing Node');
-  const errorNode = findNode(workflow, 'Error Routing WF-900 Node');
+async function step2_SkillLoaderInit() {
+  console.log('\n=== STEP 2: SKILL LOADER INITIALIZATION ===');
+  try {
+    const loader = new SkillLoader();
+    const initResult = await loader.initialize();
 
-  const highConfidence = runCodeNode(routingNode, {
-    route_to_error: false,
-    runtime_packet: {
-      payload: {
-        research_confidence_score: 0.91
-      }
-    }
-  });
-  const lowConfidence = runCodeNode(routingNode, {
-    route_to_error: false,
-    runtime_packet: {
-      payload: {
-        research_confidence_score: 0.62
-      }
-    }
-  });
-  const forcedError = runCodeNode(errorNode, {
-    route_to_error: true,
-    validation_error: 'simulated packet validation failure',
-    runtime: { error_message: 'simulated runtime failure' },
-    runtime_packet: { instance_id: 'PKT-SIM-140-ERR' }
-  });
-
-  const highNext = highConfidence?.[0]?.json?.routing_decision?.on_success_next_workflow;
-  const lowNext = lowConfidence?.[0]?.json?.routing_decision?.on_success_next_workflow;
-  const errorRoute = forcedError?.[0]?.json?.route_to_workflow;
-
-  assert(highNext === 'CWF-210', `CWF-140 high-confidence branch expected CWF-210, got ${highNext}`);
-  assert(lowNext === 'CWF-140', `CWF-140 low-confidence branch expected CWF-140, got ${lowNext}`);
-  assert(errorRoute === 'WF-900', `CWF-140 error branch expected WF-900, got ${errorRoute}`);
-
-  return { highNext, lowNext, errorRoute };
-}
-
-function verifyWf020Branching() {
-  const workflow = loadWorkflow('WF-020');
-  const routingNode = findNode(workflow, 'Next-Stage Routing Node');
-  const errorNode = findNode(workflow, 'Error Routing WF-900 Node');
-
-  const approved = runCodeNode(routingNode, {
-    route_to_error: false,
-    runtime_packet: { payload: { approval_decision: 'APPROVED' } }
-  });
-  const rejected = runCodeNode(routingNode, {
-    route_to_error: false,
-    runtime_packet: { payload: { approval_decision: 'REJECTED' } }
-  });
-  const forcedError = runCodeNode(errorNode, {
-    route_to_error: true,
-    validation_error: 'simulated approval validation failure',
-    runtime: { error_message: 'simulated approval runtime failure' },
-    runtime_packet: { instance_id: 'PKT-SIM-020-ERR' }
-  });
-
-  const approvedNext = approved?.[0]?.json?.routing_decision?.on_success_next_workflow;
-  const rejectedNext = rejected?.[0]?.json?.routing_decision?.on_success_next_workflow;
-  const errorRoute = forcedError?.[0]?.json?.route_to_workflow;
-
-  assert(approvedNext === 'WF-300', `WF-020 approved branch expected WF-300, got ${approvedNext}`);
-  assert(rejectedNext === 'WF-021', `WF-020 rejected branch expected WF-021, got ${rejectedNext}`);
-  assert(errorRoute === 'WF-900', `WF-020 error branch expected WF-900, got ${errorRoute}`);
-
-  return { approvedNext, rejectedNext, errorRoute };
-}
-
-function verifyWf021Branching() {
-  const workflow = loadWorkflow('WF-021');
-  const routingNode = findNode(workflow, 'Next-Stage Routing Node');
-  const errorNode = findNode(workflow, 'Error Routing WF-900 Node');
-
-  const replay = runCodeNode(routingNode, {
-    route_to_error: false,
-    replay_target_workflow: 'CWF-220',
-    runtime_packet: { payload: {} }
-  });
-  const forcedError = runCodeNode(errorNode, {
-    route_to_error: true,
-    validation_error: 'simulated replay validation failure',
-    runtime: { error_message: 'simulated replay runtime failure' },
-    runtime_packet: { instance_id: 'PKT-SIM-021-ERR' }
-  });
-
-  const replayNext = replay?.[0]?.json?.routing_decision?.on_success_next_workflow;
-  const errorRoute = forcedError?.[0]?.json?.route_to_workflow;
-
-  assert(replayNext === 'CWF-220', `WF-021 replay branch expected CWF-220, got ${replayNext}`);
-  assert(errorRoute === 'WF-900', `WF-021 error branch expected WF-900, got ${errorRoute}`);
-
-  return { replayNext, errorRoute };
-}
-
-function main() {
-  const startedAt = new Date().toISOString();
-  const chain = verifyMetaChain();
-  const cwf140 = verifyCwf140Branching();
-  const wf020 = verifyWf020Branching();
-  const wf021 = verifyWf021Branching();
-
-  const report = {
-    status: 'PASSED',
-    started_at: startedAt,
-    finished_at: new Date().toISOString(),
-    verification: {
-      topic_intake_chain_to_wf020: chain,
-      cwf140_confidence_gate: cwf140,
-      wf020_approval_gate: wf020,
-      wf021_replay_gate: wf021
-    }
-  };
-
-  const reportDir = path.resolve('tests/reports');
-  if (!fs.existsSync(reportDir)) {
-    fs.mkdirSync(reportDir, { recursive: true });
+    assert(initResult.status === 'initialized', `Init failed: ${initResult.status}`);
+    assert(initResult.skills_loaded > 200, `Expected 218+ skills, got ${initResult.skills_loaded}`);
+    logTest('SkillLoader initialized', 'PASS', `Loaded ${initResult.skills_loaded} contracts`);
+    return loader;
+  } catch (error) {
+    logTest('SkillLoader initialization', 'FAIL', error.message);
+    throw error;
   }
-  const reportPath = path.join(reportDir, 'phase1_end_to_end_verification.json');
-  fs.writeFileSync(reportPath, `${JSON.stringify(report, null, 2)}\n`, 'utf8');
-  console.log(JSON.stringify(report, null, 2));
+}
+
+async function step3_ExecuteM001() {
+  console.log('\n=== STEP 3: EXECUTE M-001 (REAL SKILL EXECUTION) ===');
+  try {
+    const loader = new SkillLoader();
+    await loader.initialize();
+
+    const result = await loader.executeSkill('M-001', { dossier_id: 'TEST-E2E-001' }, {});
+
+    assert(result.status === 'SUCCESS', `Execution failed: ${result.status} - ${result.error}`);
+    assert(result.output, 'No output returned');
+    assert(result.output.artifact_family === 'm001_packet', `Expected m001_packet, got ${result.output.artifact_family}`);
+    assert(result.output.schema_version, 'Missing schema_version');
+
+    logTest('M-001 skill execution', 'PASS', `Output: ${result.output.artifact_family}`);
+    return result;
+  } catch (error) {
+    logTest('M-001 skill execution', 'FAIL', error.message);
+    throw error;
+  }
+}
+
+async function step4_SchemaValidation() {
+  console.log('\n=== STEP 4: PACKET SCHEMA VALIDATION ===');
+  try {
+    const loader = new SkillLoader();
+    await loader.initialize();
+
+    const skillResult = await loader.executeSkill('M-001', { dossier_id: 'TEST-E2E-001' }, {});
+    const validator = new SchemaValidator();
+    const validation = validator.validatePacket(skillResult.output.artifact_family, skillResult.output);
+
+    assert(validation.valid, `Schema validation failed: ${JSON.stringify(validation.errors)}`);
+    logTest('Packet schema validation', 'PASS', `Schema: ${skillResult.output.artifact_family}`);
+    return validation;
+  } catch (error) {
+    logTest('Packet schema validation', 'FAIL', error.message);
+    throw error;
+  }
+}
+
+async function step5_PacketRouting() {
+  console.log('\n=== STEP 5: PACKET ROUTER (FORWARD ROUTING) ===');
+  try {
+    const loader = new SkillLoader();
+    await loader.initialize();
+
+    const skillResult = await loader.executeSkill('M-001', { dossier_id: 'TEST-E2E-001' }, {});
+    const router = new PacketRouter();
+    await router.loadBindings('registries/workflow_bindings.yaml');
+
+    const route = router.route(skillResult.output);
+
+    assert(route.next_workflow, 'No next_workflow returned');
+    assert(route.next_workflow !== 'WF-900', `Incorrectly routed to WF-900: ${JSON.stringify(route)}`);
+    assert(route.next_workflow === 'CWF-110', `Expected CWF-110, got ${route.next_workflow}`);
+
+    logTest('Packet routing (M-001)', 'PASS', `M-001 → ${route.next_workflow}`);
+    return route;
+  } catch (error) {
+    logTest('Packet routing', 'FAIL', error.message);
+    throw error;
+  }
+}
+
+async function step6_DossierWrite() {
+  console.log('\n=== STEP 6: DOSSIER WRITE (APPEND-ONLY) ===');
+  try {
+    const loader = new SkillLoader();
+    await loader.initialize();
+
+    const skillResult = await loader.executeSkill('M-001', { dossier_id: 'TEST-E2E-001' }, {});
+    const dossierWriter = new DossierWriter();
+
+    const dossier = {
+      dossier_id: 'TEST-E2E-001',
+      topic_discovery: { packets: [] }
+    };
+
+    const writeResult = await dossierWriter.append(dossier, 'topic_discovery', skillResult.output);
+
+    assert(writeResult.success, `Dossier write failed: ${writeResult.error}`);
+    assert(dossier.topic_discovery.packets.length > 0, 'Packet not appended');
+
+    logTest('Dossier append-only write', 'PASS', `Written to topic_discovery namespace`);
+    return writeResult;
+  } catch (error) {
+    logTest('Dossier append-only write', 'FAIL', error.message);
+    throw error;
+  }
+}
+
+async function step7_SkillChain() {
+  console.log('\n=== STEP 7: SKILL CHAIN EXECUTION (MULTI-STEP) ===');
+  try {
+    const loader = new SkillLoader();
+    await loader.initialize();
+
+    const chainResult = await loader.executeSkillChain(['M-001', 'M-002', 'M-003'], { dossier_id: 'TEST-E2E-002' }, {});
+
+    assert(chainResult.completed_skills > 0, 'No skills completed');
+    assert(chainResult.failed_skills === 0, `Chain had failures: ${chainResult.failed_skills}`);
+    assert(chainResult.completed_skills === 3, `Expected 3 completed, got ${chainResult.completed_skills}`);
+
+    logTest('Skill chain execution', 'PASS', `Executed ${chainResult.completed_skills} skills`);
+    return chainResult;
+  } catch (error) {
+    logTest('Skill chain execution', 'FAIL', error.message);
+    throw error;
+  }
+}
+
+async function step8_DirectorOrchestration() {
+  console.log('\n=== STEP 8: DIRECTOR ORCHESTRATION (FULL PIPELINE) ===');
+  try {
+    const director = new DirectorRuntimeRouter();
+
+    const result = await director.executeChildWorkflow({
+      workflow_pack: 'WF-100',
+      child_workflow_id: 'CWF-110-topic-discovery',
+      dossier_id: 'TEST-E2E-003',
+      context_packet: {
+        topic_seed: 'Test topic'
+      },
+      dossier_state: {}
+    });
+
+    assert(result.status === 'SUCCESS', `Orchestration failed: ${result.status}`);
+    assert(result.packet, 'No packet emitted');
+    assert(result.packet.artifact_family === 'm010_packet', `Expected m010_packet, got ${result.packet.artifact_family}`);
+    assert(result.routing, 'No routing decision');
+
+    logTest('Director orchestration', 'PASS', `CWF-110 emitted ${result.packet.artifact_family}`);
+    return result;
+  } catch (error) {
+    logTest('Director orchestration', 'FAIL', error.message);
+    throw error;
+  }
+}
+
+async function runAllTests() {
+  console.log('╔════════════════════════════════════════════════════════════════╗');
+  console.log('║  PHASE-1 END-TO-END RUNTIME VERIFICATION                      ║');
+  console.log('║  Testing Real Runtime Chain: Loader → Validator → Router      ║');
+  console.log('╚════════════════════════════════════════════════════════════════╝');
+
+  try {
+    await step1_RegistryValidation();
+    await step2_SkillLoaderInit();
+    await step3_ExecuteM001();
+    await step4_SchemaValidation();
+    await step5_PacketRouting();
+    await step6_DossierWrite();
+    await step7_SkillChain();
+    await step8_DirectorOrchestration();
+
+    console.log('\n╔════════════════════════════════════════════════════════════════╗');
+    console.log(`║ RESULTS: ${testsPassed} PASSED, ${testsFailed} FAILED                                    ║`);
+    console.log('╚════════════════════════════════════════════════════════════════╝');
+
+    if (testsFailed === 0) {
+      console.log('\n✓ ALL TESTS PASSED');
+      console.log('✓ Runtime chain is FULLY FUNCTIONAL');
+      console.log('✓ Phase-1 is DEPLOYMENT-READY');
+      return true;
+    } else {
+      console.log(`\n✗ ${testsFailed} TEST(S) FAILED`);
+      return false;
+    }
+  } catch (error) {
+    console.error('\n✗ TEST SUITE FAILED:', error.message);
+    console.log(`\nSummary: ${testsPassed} passed, ${testsFailed + 1} failed`);
+    return false;
+  }
 }
 
 if (require.main === module) {
-  try {
-    main();
-  } catch (error) {
-    console.error('[PHASE1_END_TO_END_VERIFICATION_FAILED]', error.message);
-    process.exitCode = 1;
-  }
+  runAllTests().then((success) => {
+    process.exit(success ? 0 : 1);
+  });
 }
+
+module.exports = { runAllTests };

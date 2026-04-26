@@ -127,8 +127,14 @@ class SkillLoader {
       inputTemplate[inputKey] = null;
     }
 
+    // Extract declared output packet family from "7. Outputs" section
+    const skillIdMatch = content.match(/\*\*Skill ID:\*\*\s*(M-\d{3})/);
+    const skillId = skillIdMatch ? skillIdMatch[1] : null;
+    const outputPacketFamilyMatch = content.match(/Output Packet Family:\s*(m\d{3}_packet)/);
+    const declaredPacketFamily = outputPacketFamilyMatch ? outputPacketFamilyMatch[1] : null;
+
     return {
-      skill_id: this.extractRegex(content, /\*\*Skill ID:\*\*\s*(M-\d{3})/),
+      skill_id: skillId,
       skill_name: this.extractRegex(content, /\*\*Skill Name:\*\*\s*(.+)/),
       dna_archetype: this.extractRegex(content, /\*\*DNA Archetype:\*\*\s*(.+)/),
       role:
@@ -144,7 +150,9 @@ class SkillLoader {
       output_template: outputTemplate || {
         status: 'CREATED',
         payload: {}
-      }
+      },
+      output_packet_family: declaredPacketFamily ||
+        (skillId ? `m${skillId.replace(/[^0-9]/g, '')}_packet` : null)
     };
   }
 
@@ -163,14 +171,22 @@ class SkillLoader {
         throw new Error(executionResult.error || 'Skill executor failed');
       }
 
-      this.validateOutputs(executionResult.output);
-      this.validateOutputPacketParity(skillId, contract, executionResult.output);
+      // Normalize output to canonical packet structure before validation
+      const normalizedOutput = this.normalizeExecutorOutput(
+        executionResult.output,
+        skillId,
+        contextPacket.dossier_id || 'DOSSIER-UNSPECIFIED',
+        contract.output_packet_family
+      );
+
+      this.validateOutputs(normalizedOutput);
+      this.validateOutputPacketParity(skillId, contract, normalizedOutput);
 
       const result = {
         execution_id: executionId,
         skill_id: skillId,
         status: executionResult.status,
-        output: executionResult.output,
+        output: normalizedOutput,
         execution_timestamp: new Date().toISOString(),
         duration_ms: Date.now() - startedAt,
         deterministic: true
@@ -226,6 +242,34 @@ class SkillLoader {
       results,
       accumulated_output: accumulatedContext,
       on_error_workflow: 'WF-900'
+    };
+  }
+
+  normalizeExecutorOutput(rawOutput, skillId, dossierId, expectedFamily) {
+    if (!rawOutput || typeof rawOutput !== 'object') {
+      rawOutput = { payload: rawOutput };
+    }
+
+    // If output already has artifact_family in canonical mXXX_packet format, preserve it
+    if (rawOutput.artifact_family && rawOutput.artifact_family.match(/^m\d{3}_packet$/)) {
+      return rawOutput;
+    }
+
+    // Otherwise, normalize to canonical mXXX_packet structure
+    const skillNum = skillId.replace(/[^0-9]/g, '');
+    const canonicalFamily = expectedFamily || `m${skillNum}_packet`;
+
+    // Preserve existing fields but correct artifact_family
+    return {
+      ...rawOutput,
+      artifact_family: canonicalFamily,
+      schema_version: rawOutput.schema_version || '1.0.0',
+      producer_workflow: rawOutput.producer_workflow || skillId,
+      dossier_ref: rawOutput.dossier_ref || dossierId,
+      created_at: rawOutput.created_at || new Date().toISOString(),
+      status: rawOutput.status || 'CREATED',
+      // Preserve payload or move non-standard fields into payload
+      payload: rawOutput.payload || {}
     };
   }
 

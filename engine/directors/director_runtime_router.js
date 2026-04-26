@@ -29,18 +29,31 @@ class DirectorRuntimeRouter {
     this.approvalRouter = new ApprovalRouter({ queue_path: this.config.approval_queue_path });
 
     this.childWorkflowContracts = {
-      'CWF-110-topic-discovery': { artifact_family: 'topic_candidate_board', namespace: 'discovery', owner_director: 'Narada' },
-      'CWF-120-topic-qualification': { artifact_family: 'topic_finalization_packet', namespace: 'qualification', owner_director: 'Chanakya' },
-      'CWF-130-topic-scoring': { artifact_family: 'topic_scorecard', namespace: 'scoring', owner_director: 'Krishna' },
-      'CWF-140-research-synthesis': { artifact_family: 'research_synthesis_packet', namespace: 'research', owner_director: 'Vyasa' },
-      'CWF-210-script-generation': { artifact_family: 'script_draft_packet', namespace: 'script', owner_director: 'Saraswati' },
-      'CWF-220-script-debate': { artifact_family: 'script_debate_packet', namespace: 'script', owner_director: 'Krishna' },
-      'CWF-230-script-refinement': { artifact_family: 'script_refinement_packet', namespace: 'script', owner_director: 'Saraswati' },
-      'CWF-240-final-script-shaping': { artifact_family: 'final_script_packet', namespace: 'script', owner_director: 'Krishna' },
-      'CWF-310-execution-context-builder': { artifact_family: 'execution_context_packet', namespace: 'context', owner_director: 'Krishna' },
-      'CWF-320-platform-packager': { artifact_family: 'platform_package_packet', namespace: 'context', owner_director: 'Krishna' },
-      'CWF-330-asset-brief-generator': { artifact_family: 'asset_brief_packet', namespace: 'context', owner_director: 'Krishna' },
-      'CWF-340-lineage-validator': { artifact_family: 'context_engineering_packet', namespace: 'context', owner_director: 'Krishna' }
+      // Topic Intelligence Lane (WF-100 pack)
+      // CWF-110 executes M-001 to M-010 → output is m010_packet (topic discovery)
+      'CWF-110-topic-discovery': { artifact_family: 'm010_packet', semantic_type: 'topic_candidate_board', namespace: 'discovery', owner_director: 'Narada' },
+      // CWF-120 executes M-011 to M-020 → output is m020_packet (topic qualification)
+      'CWF-120-topic-qualification': { artifact_family: 'm020_packet', semantic_type: 'topic_finalization_packet', namespace: 'qualification', owner_director: 'Chanakya' },
+      // CWF-130 executes M-021 to M-040 → output is m040_packet (topic scoring)
+      'CWF-130-topic-scoring': { artifact_family: 'm040_packet', semantic_type: 'topic_scorecard', namespace: 'scoring', owner_director: 'Krishna' },
+      // CWF-140 executes M-041 to M-080 → output is m080_packet (research synthesis)
+      'CWF-140-research-synthesis': { artifact_family: 'm080_packet', semantic_type: 'research_synthesis_packet', namespace: 'research', owner_director: 'Vyasa' },
+
+      // Script Intelligence Lane (WF-200 pack)
+      // CWF-210 executes M-081 to M-120 → output is m120_packet (script generation)
+      'CWF-210-script-generation': { artifact_family: 'm120_packet', semantic_type: 'script_draft_packet', namespace: 'script', owner_director: 'Saraswati' },
+      // CWF-220 executes M-121 to M-150 → output is m150_packet (script debate)
+      'CWF-220-script-debate': { artifact_family: 'm150_packet', semantic_type: 'script_debate_packet', namespace: 'script', owner_director: 'Krishna' },
+      // CWF-230 executes M-151 to M-180 → output is m180_packet (script refinement)
+      'CWF-230-script-refinement': { artifact_family: 'm180_packet', semantic_type: 'script_refinement_packet', namespace: 'script', owner_director: 'Saraswati' },
+      // CWF-240 executes M-181 to M-218 → output is m218_packet (final script shaping)
+      'CWF-240-final-script-shaping': { artifact_family: 'm218_packet', semantic_type: 'final_script_packet', namespace: 'script', owner_director: 'Krishna' },
+
+      // Future Phase Stubs (Phase 2+)
+      'CWF-310-execution-context-builder': { artifact_family: 'm310_packet', semantic_type: 'execution_context_packet', namespace: 'context', owner_director: 'Krishna' },
+      'CWF-320-platform-packager': { artifact_family: 'm320_packet', semantic_type: 'platform_package_packet', namespace: 'context', owner_director: 'Krishna' },
+      'CWF-330-asset-brief-generator': { artifact_family: 'm330_packet', semantic_type: 'asset_brief_packet', namespace: 'context', owner_director: 'Krishna' },
+      'CWF-340-lineage-validator': { artifact_family: 'm340_packet', semantic_type: 'context_engineering_packet', namespace: 'context', owner_director: 'Krishna' }
     };
   }
 
@@ -490,6 +503,7 @@ class DirectorRuntimeRouter {
       status: 'CREATED',
       created_at: new Date().toISOString(),
       payload: {
+        semantic_artifact_type: contract.semantic_type || contract.artifact_family,
         narrative: {
           skill_outputs: chainResult.results.map((r) => ({
             skill_id: r.skill_id,

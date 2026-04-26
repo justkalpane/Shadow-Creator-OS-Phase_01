@@ -690,11 +690,24 @@ class RegistryValidator {
     const testMatches = text.match(/TEST-[A-Z0-9-]+/g) || [];
     const hasWf900 = text.includes('WF-900');
 
+    // Extract skill_id and output_packet_family for parity validation
+    const skillIdMatch = text.match(/\*\*Skill ID:\*\*\s*(M-\d{3})/);
+    const skillId = skillIdMatch ? skillIdMatch[1] : null;
+    const outputPacketFamilyMatch = text.match(/Output Packet Family:\s*(m\d{3}_packet)/);
+    const declaredPacketFamily = outputPacketFamilyMatch ? outputPacketFamilyMatch[1] : null;
+    const schemaRefMatch = text.match(/Schema Reference:\s*(schemas\/packets\/[^\s]+\.schema\.json)/);
+    const schemaRef = schemaRefMatch ? schemaRefMatch[1] : null;
+
     return {
       template_valid: templateValid,
       detected_sections: sectionHeaders,
       test_count: testMatches.length,
-      has_wf900: hasWf900
+      has_wf900: hasWf900,
+      skill_id: skillId,
+      output_packet_family: declaredPacketFamily ||
+        (skillId ? `m${skillId.replace(/[^0-9]/g, '')}_packet` : null),
+      schema_ref: schemaRef ||
+        (skillId ? `schemas/packets/m${skillId.replace(/[^0-9]/g, '')}_packet.schema.json` : null)
     };
   }
 
