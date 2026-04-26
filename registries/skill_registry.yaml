@@ -1,4 +1,4 @@
-﻿version: 1
+version: 1
 registry_id: skill_registry
 generated_at: "2026-04-26T22:45:00.000Z"
 status: PARTIAL_WAVE_9_CANONICAL_REGISTRY_CLOSURE_HARDENED
@@ -390,7 +390,7 @@ skills:
     file_path: skills/topic_intelligence/M-023-trend-risk-evaluator.skill.md
     phase_assignment: PHASE_1C_CONDITIONAL_RESEARCH
     vein_assignment: research_vein
-    owner_director: Brihaspati
+    owner_director: Agastya
     strategic_authority_director: Krishna
     upstream_skill_dependencies:
       - M-015
@@ -570,7 +570,7 @@ skills:
     file_path: skills/script_intelligence_army/M-030-engagement-predictor.skill.md
     phase_assignment: PHASE_1C_CONDITIONAL_RESEARCH
     vein_assignment: research_vein
-    owner_director: Brihaspati
+    owner_director: Agastya
     strategic_authority_director: Krishna
     upstream_skill_dependencies:
       - M-021
@@ -732,7 +732,7 @@ skills:
     file_path: skills/media_graphics/M-206-brand-consistency-validator.skill.md
     phase_assignment: PHASE_3A_GRAPHICS
     vein_assignment: media_vein
-    owner_director: Brihaspati
+    owner_director: Agastya
     strategic_authority_director: Krishna
     upstream_skill_dependencies:
       - M-202
@@ -1541,7 +1541,7 @@ skills:
     file_path: skills/media_audio/M-237-audio-levels-normalization.skill.md
     phase_assignment: PHASE_3C_AUDIO
     vein_assignment: media_vein
-    owner_director: Brihaspati
+    owner_director: Agastya
     strategic_authority_director: Krishna
     upstream_skill_dependencies:
       - M-231
@@ -1613,7 +1613,7 @@ skills:
     file_path: skills/media_audio/M-240-audio-mixing-guide.skill.md
     phase_assignment: PHASE_3C_AUDIO
     vein_assignment: media_vein
-    owner_director: Brihaspati
+    owner_director: Agastya
     strategic_authority_director: Krishna
     upstream_skill_dependencies:
       - M-231
@@ -1767,3 +1767,4 @@ skills:
     escalation_workflow: WF-900
     replay_workflow: WF-021
     status: ACTIVE_WAVE_5
+

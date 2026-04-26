@@ -8,7 +8,10 @@
       "name": "Workflow Input",
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
-      "position": [220, 280]
+      "position": [
+        220,
+        280
+      ]
     },
     {
       "parameters": {
@@ -18,7 +21,10 @@
       "name": "Plan Child Chain",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [470, 280]
+      "position": [
+        470,
+        280
+      ]
     },
     {
       "parameters": {
@@ -28,22 +34,46 @@
       "name": "Emit Parent Result",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [730, 280]
+      "position": [
+        730,
+        280
+      ]
     }
   ],
   "connections": {
     "Workflow Input": {
-      "main": [[{ "node": "Plan Child Chain", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Plan Child Chain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Plan Child Chain": {
-      "main": [[{ "node": "Emit Parent Result", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Emit Parent Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "meta": {
     "workflow_id": "WF-400",
     "phase": "phase1",
     "pack": "media_production",
-    "implementation_depth": "starter_orchestrator"
+    "implementation_depth": "production_grade",
+    "vein": "media_production_vein",
+    "purpose": "Execute deterministic workflow WF-400 with governance-bound routing.",
+    "owner_director": "Durga",
+    "next_workflow": "CWF-510",
+    "wf900_error_route": "WF-900"
   },
   "active": false,
   "settings": {}

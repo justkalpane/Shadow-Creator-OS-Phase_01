@@ -7,7 +7,10 @@
       "name": "Manual Trigger",
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
-      "position": [200, 300]
+      "position": [
+        200,
+        300
+      ]
     },
     {
       "parameters": {
@@ -17,7 +20,10 @@
       "name": "Normalize Orchestration Input",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [460, 300]
+      "position": [
+        460,
+        300
+      ]
     },
     {
       "parameters": {
@@ -27,7 +33,10 @@
       "name": "Resolve Route",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [740, 300]
+      "position": [
+        740,
+        300
+      ]
     },
     {
       "parameters": {
@@ -44,7 +53,10 @@
       "name": "Route Is Replay?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
-      "position": [1000, 300]
+      "position": [
+        1000,
+        300
+      ]
     },
     {
       "parameters": {
@@ -54,7 +66,10 @@
       "name": "Prepare Replay Decision",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1260, 180]
+      "position": [
+        1260,
+        180
+      ]
     },
     {
       "parameters": {
@@ -71,7 +86,10 @@
       "name": "Route Is Fast?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
-      "position": [1260, 380]
+      "position": [
+        1260,
+        380
+      ]
     },
     {
       "parameters": {
@@ -81,7 +99,10 @@
       "name": "Prepare Fast Decision",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1520, 320]
+      "position": [
+        1520,
+        320
+      ]
     },
     {
       "parameters": {
@@ -91,29 +112,80 @@
       "name": "Prepare Standard Decision",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1520, 440]
+      "position": [
+        1520,
+        440
+      ]
     }
   ],
   "connections": {
     "Manual Trigger": {
-      "main": [[{ "node": "Normalize Orchestration Input", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Normalize Orchestration Input",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Normalize Orchestration Input": {
-      "main": [[{ "node": "Resolve Route", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Resolve Route",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Resolve Route": {
-      "main": [[{ "node": "Route Is Replay?", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Route Is Replay?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Route Is Replay?": {
       "main": [
-        [{ "node": "Prepare Replay Decision", "type": "main", "index": 0 }],
-        [{ "node": "Route Is Fast?", "type": "main", "index": 0 }]
+        [
+          {
+            "node": "Prepare Replay Decision",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Route Is Fast?",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     },
     "Route Is Fast?": {
       "main": [
-        [{ "node": "Prepare Fast Decision", "type": "main", "index": 0 }],
-        [{ "node": "Prepare Standard Decision", "type": "main", "index": 0 }]
+        [
+          {
+            "node": "Prepare Fast Decision",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Prepare Standard Decision",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     }
   },
@@ -122,8 +194,15 @@
     "workflow_id": "WF-010",
     "phase": "phase1",
     "purpose": "Select the route and orchestrate downstream Phase-1 workflow packs",
-    "writes": ["namespaces.runtime", "namespaces.approval"],
-    "implementation_depth": "starter_node_chain"
+    "writes": [
+      "namespaces.runtime",
+      "namespaces.approval"
+    ],
+    "implementation_depth": "production_grade",
+    "vein": "orchestration_vein",
+    "owner_director": "Krishna",
+    "next_workflow": "WF-100",
+    "wf900_error_route": "WF-900"
   },
   "active": false,
   "settings": {}

@@ -8,7 +8,10 @@
       "name": "Workflow Input",
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
-      "position": [250, 350]
+      "position": [
+        250,
+        350
+      ]
     },
     {
       "parameters": {
@@ -18,7 +21,10 @@
       "name": "Normalize Approval Input",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [450, 350]
+      "position": [
+        450,
+        350
+      ]
     },
     {
       "parameters": {
@@ -28,7 +34,10 @@
       "name": "Execute Approval Checklist",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [600, 350]
+      "position": [
+        600,
+        350
+      ]
     },
     {
       "parameters": {
@@ -38,7 +47,10 @@
       "name": "Build Approval Queue Entry",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [750, 350]
+      "position": [
+        750,
+        350
+      ]
     },
     {
       "parameters": {
@@ -48,7 +60,10 @@
       "name": "Build Approval Decision Packet",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [900, 350]
+      "position": [
+        900,
+        350
+      ]
     },
     {
       "parameters": {
@@ -58,7 +73,10 @@
       "name": "Validate Approval Packet",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1050, 350]
+      "position": [
+        1050,
+        350
+      ]
     },
     {
       "parameters": {
@@ -68,27 +86,78 @@
       "name": "Emit Approval Result",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1200, 350]
+      "position": [
+        1200,
+        350
+      ]
     }
   ],
   "connections": {
     "Workflow Input": {
-      "main": [[{ "node": "Normalize Approval Input", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Normalize Approval Input",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Normalize Approval Input": {
-      "main": [[{ "node": "Execute Approval Checklist", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Execute Approval Checklist",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Execute Approval Checklist": {
-      "main": [[{ "node": "Build Approval Queue Entry", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Build Approval Queue Entry",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Build Approval Queue Entry": {
-      "main": [[{ "node": "Build Approval Decision Packet", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Build Approval Decision Packet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Build Approval Decision Packet": {
-      "main": [[{ "node": "Validate Approval Packet", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Validate Approval Packet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Validate Approval Packet": {
-      "main": [[{ "node": "Emit Approval Result", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Emit Approval Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "meta": {
@@ -98,10 +167,14 @@
     "purpose": "Final approval queue management. Routes approval decisions to downstream pipeline or triggers replay/remodify.",
     "implementation_depth": "production_grade",
     "owner_director": "Krishna",
-    "supporting_directors": ["Vyasa", "Saraswati", "Durga"],
-    "next_workflow": "WF-300"
+    "supporting_directors": [
+      "Vyasa",
+      "Saraswati",
+      "Durga"
+    ],
+    "next_workflow": "WF-300",
+    "wf900_error_route": "WF-900"
   },
   "active": true,
   "settings": {}
 }
-

@@ -8,7 +8,10 @@
       "name": "Workflow Input",
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
-      "position": [250, 350]
+      "position": [
+        250,
+        350
+      ]
     },
     {
       "parameters": {
@@ -18,7 +21,10 @@
       "name": "Normalize Readiness Input",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [450, 350]
+      "position": [
+        450,
+        350
+      ]
     },
     {
       "parameters": {
@@ -28,7 +34,10 @@
       "name": "Inject Context Packet",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [650, 350]
+      "position": [
+        650,
+        350
+      ]
     },
     {
       "parameters": {
@@ -38,7 +47,10 @@
       "name": "Verify Assets Present",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [850, 350]
+      "position": [
+        850,
+        350
+      ]
     },
     {
       "parameters": {
@@ -48,7 +60,10 @@
       "name": "Execute D-503 (Gate Validation)",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1050, 350]
+      "position": [
+        1050,
+        350
+      ]
     },
     {
       "parameters": {
@@ -58,7 +73,10 @@
       "name": "Build Publish Ready Packet",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1250, 350]
+      "position": [
+        1250,
+        350
+      ]
     },
     {
       "parameters": {
@@ -68,27 +86,78 @@
       "name": "Emit Readiness Result",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1450, 350]
+      "position": [
+        1450,
+        350
+      ]
     }
   ],
   "connections": {
     "Workflow Input": {
-      "main": [[{ "node": "Normalize Readiness Input", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Normalize Readiness Input",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Normalize Readiness Input": {
-      "main": [[{ "node": "Inject Context Packet", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Inject Context Packet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Inject Context Packet": {
-      "main": [[{ "node": "Verify Assets Present", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Verify Assets Present",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Verify Assets Present": {
-      "main": [[{ "node": "Execute D-503 (Gate Validation)", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Execute D-503 (Gate Validation)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Execute D-503 (Gate Validation)": {
-      "main": [[{ "node": "Build Publish Ready Packet", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Build Publish Ready Packet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Build Publish Ready Packet": {
-      "main": [[{ "node": "Emit Readiness Result", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Emit Readiness Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "meta": {
@@ -98,11 +167,15 @@
     "purpose": "Final gate check for all assets, metadata, governance, and schedule before sealing publish_ready_packet",
     "implementation_depth": "production_grade",
     "owner_director": "Yama",
-    "supporting_directors": ["Krishna"],
-    "skill_dependencies": ["D-503"],
-    "next_workflow": "WF-600"
+    "supporting_directors": [
+      "Krishna"
+    ],
+    "skill_dependencies": [
+      "D-503"
+    ],
+    "next_workflow": "WF-600",
+    "wf900_error_route": "WF-900"
   },
   "active": true,
   "settings": {}
 }
-

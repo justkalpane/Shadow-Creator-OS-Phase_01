@@ -8,7 +8,10 @@
       "name": "Workflow Input",
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
-      "position": [250, 350]
+      "position": [
+        250,
+        350
+      ]
     },
     {
       "parameters": {
@@ -18,7 +21,10 @@
       "name": "Normalize Qualification Input",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [450, 350]
+      "position": [
+        450,
+        350
+      ]
     },
     {
       "parameters": {
@@ -28,7 +34,10 @@
       "name": "Execute Qualification Checks",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [650, 350]
+      "position": [
+        650,
+        350
+      ]
     },
     {
       "parameters": {
@@ -38,7 +47,10 @@
       "name": "Build Qualification Packet",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [850, 350]
+      "position": [
+        850,
+        350
+      ]
     },
     {
       "parameters": {
@@ -48,7 +60,10 @@
       "name": "Validate Qualification Packet",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1050, 350]
+      "position": [
+        1050,
+        350
+      ]
     },
     {
       "parameters": {
@@ -58,24 +73,67 @@
       "name": "Emit Qualification Result",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1250, 350]
+      "position": [
+        1250,
+        350
+      ]
     }
   ],
   "connections": {
     "Workflow Input": {
-      "main": [[{ "node": "Normalize Qualification Input", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Normalize Qualification Input",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Normalize Qualification Input": {
-      "main": [[{ "node": "Execute Qualification Checks", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Execute Qualification Checks",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Execute Qualification Checks": {
-      "main": [[{ "node": "Build Qualification Packet", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Build Qualification Packet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Build Qualification Packet": {
-      "main": [[{ "node": "Validate Qualification Packet", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Validate Qualification Packet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Validate Qualification Packet": {
-      "main": [[{ "node": "Emit Qualification Result", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Emit Qualification Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "meta": {
@@ -85,8 +143,13 @@
     "purpose": "Reject weak, irrelevant, low-ROI, or off-strategy topics before scoring",
     "implementation_depth": "production_grade",
     "owner_director": "Chanakya",
-    "supporting_directors": ["Krishna", "Yama", "Kubera"],
-    "next_workflow": "CWF-130"
+    "supporting_directors": [
+      "Krishna",
+      "Yama",
+      "Kubera"
+    ],
+    "next_workflow": "CWF-130",
+    "wf900_error_route": "WF-900"
   },
   "active": true,
   "settings": {}

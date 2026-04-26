@@ -249,7 +249,8 @@
       "wf900_error_routing_node",
       "next_stage_routing_node",
       "completion_packet_emission_node"
-    ]
+    ],
+    "wf900_error_route": "WF-900"
   },
   "active": true,
   "settings": {}

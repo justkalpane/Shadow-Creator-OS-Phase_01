@@ -8,7 +8,10 @@
       "name": "Workflow Input",
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
-      "position": [250, 350]
+      "position": [
+        250,
+        350
+      ]
     },
     {
       "parameters": {
@@ -18,7 +21,10 @@
       "name": "Normalize Input",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [450, 350]
+      "position": [
+        450,
+        350
+      ]
     },
     {
       "parameters": {
@@ -28,7 +34,10 @@
       "name": "Validate Packet Presence",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [600, 350]
+      "position": [
+        600,
+        350
+      ]
     },
     {
       "parameters": {
@@ -38,7 +47,10 @@
       "name": "Trace Lineage Chain (P-304)",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [750, 350]
+      "position": [
+        750,
+        350
+      ]
     },
     {
       "parameters": {
@@ -48,7 +60,10 @@
       "name": "Validate Quality Gates (P-304)",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [900, 350]
+      "position": [
+        900,
+        350
+      ]
     },
     {
       "parameters": {
@@ -58,7 +73,10 @@
       "name": "Build Context Engineering Packet (P-305)",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1050, 350]
+      "position": [
+        1050,
+        350
+      ]
     },
     {
       "parameters": {
@@ -68,27 +86,78 @@
       "name": "Emit Result",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1200, 350]
+      "position": [
+        1200,
+        350
+      ]
     }
   ],
   "connections": {
     "Workflow Input": {
-      "main": [[{ "node": "Normalize Input", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Normalize Input",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Normalize Input": {
-      "main": [[{ "node": "Validate Packet Presence", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Validate Packet Presence",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Validate Packet Presence": {
-      "main": [[{ "node": "Trace Lineage Chain (P-304)", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Trace Lineage Chain (P-304)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Trace Lineage Chain (P-304)": {
-      "main": [[{ "node": "Validate Quality Gates (P-304)", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Validate Quality Gates (P-304)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Validate Quality Gates (P-304)": {
-      "main": [[{ "node": "Build Context Engineering Packet (P-305)", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Build Context Engineering Packet (P-305)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Build Context Engineering Packet (P-305)": {
-      "main": [[{ "node": "Emit Result", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Emit Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "meta": {
@@ -98,10 +167,13 @@
     "purpose": "Validate the full lineage chain from topic through research, script, and context engineering â€” seal and emit the final context_engineering_packet gating entry to WF-400.",
     "implementation_depth": "production_grade",
     "owner_director": "Krishna",
-    "supporting_directors": ["Yama", "Kubera"],
-    "next_workflow": "WF-400"
+    "supporting_directors": [
+      "Yama",
+      "Kubera"
+    ],
+    "next_workflow": "WF-400",
+    "wf900_error_route": "WF-900"
   },
   "active": true,
   "settings": {}
 }
-

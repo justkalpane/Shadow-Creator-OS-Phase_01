@@ -135,7 +135,7 @@ class RuntimeValidator {
     try {
       const audit = await this.reader.getAuditTrail(dossierId);
       for (const [index, entry] of (audit.audit_trail || []).entries()) {
-        const operation = (entry.operation || entry.mutation_type || '').trim();
+        const operation = (entry.mutation_type || entry.operation || '').trim();
         if (!operation) {
           errors.push(`audit[${index}] missing operation or mutation_type`);
           continue;

@@ -8,7 +8,10 @@
       "name": "Workflow Input",
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
-      "position": [250, 300]
+      "position": [
+        250,
+        300
+      ]
     },
     {
       "parameters": {
@@ -18,7 +21,10 @@
       "name": "Normalize Publishing Input",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [450, 300]
+      "position": [
+        450,
+        300
+      ]
     },
     {
       "parameters": {
@@ -28,7 +34,10 @@
       "name": "Inject Context Packet",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [650, 300]
+      "position": [
+        650,
+        300
+      ]
     },
     {
       "parameters": {
@@ -38,7 +47,10 @@
       "name": "Execute D-501 (Metadata Generator)",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [850, 300]
+      "position": [
+        850,
+        300
+      ]
     },
     {
       "parameters": {
@@ -48,7 +60,10 @@
       "name": "Execute D-502 (SEO Optimizer)",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1050, 300]
+      "position": [
+        1050,
+        300
+      ]
     },
     {
       "parameters": {
@@ -58,7 +73,10 @@
       "name": "Build Platform Metadata Packet",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1250, 300]
+      "position": [
+        1250,
+        300
+      ]
     },
     {
       "parameters": {
@@ -68,27 +86,78 @@
       "name": "Emit Metadata Result",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1450, 300]
+      "position": [
+        1450,
+        300
+      ]
     }
   ],
   "connections": {
     "Workflow Input": {
-      "main": [[{ "node": "Normalize Publishing Input", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Normalize Publishing Input",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Normalize Publishing Input": {
-      "main": [[{ "node": "Inject Context Packet", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Inject Context Packet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Inject Context Packet": {
-      "main": [[{ "node": "Execute D-501 (Metadata Generator)", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Execute D-501 (Metadata Generator)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Execute D-501 (Metadata Generator)": {
-      "main": [[{ "node": "Execute D-502 (SEO Optimizer)", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Execute D-502 (SEO Optimizer)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Execute D-502 (SEO Optimizer)": {
-      "main": [[{ "node": "Build Platform Metadata Packet", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Build Platform Metadata Packet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Build Platform Metadata Packet": {
-      "main": [[{ "node": "Emit Metadata Result", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Emit Metadata Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "meta": {
@@ -98,11 +167,17 @@
     "purpose": "Generate SEO-optimized titles, descriptions, tags, chapters, and hashtags for each target platform",
     "implementation_depth": "production_grade",
     "owner_director": "Chanakya",
-    "supporting_directors": ["Krishna", "Saraswati"],
-    "skill_dependencies": ["D-501", "D-502"],
-    "next_workflow": "CWF-520"
+    "supporting_directors": [
+      "Krishna",
+      "Saraswati"
+    ],
+    "skill_dependencies": [
+      "D-501",
+      "D-502"
+    ],
+    "next_workflow": "CWF-520",
+    "wf900_error_route": "WF-900"
   },
   "active": true,
   "settings": {}
 }
-

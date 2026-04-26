@@ -8,7 +8,10 @@
       "name": "Workflow Input",
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
-      "position": [250, 350]
+      "position": [
+        250,
+        350
+      ]
     },
     {
       "parameters": {
@@ -18,7 +21,10 @@
       "name": "Normalize Debate Input",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [450, 350]
+      "position": [
+        450,
+        350
+      ]
     },
     {
       "parameters": {
@@ -28,7 +34,10 @@
       "name": "Execute Hook Structure Audit (S-203)",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [600, 250]
+      "position": [
+        600,
+        250
+      ]
     },
     {
       "parameters": {
@@ -38,7 +47,10 @@
       "name": "Execute Structural Assessment (S-204)",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [750, 250]
+      "position": [
+        750,
+        250
+      ]
     },
     {
       "parameters": {
@@ -48,7 +60,10 @@
       "name": "Execute Evidence Validation (S-205)",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [900, 250]
+      "position": [
+        900,
+        250
+      ]
     },
     {
       "parameters": {
@@ -58,7 +73,10 @@
       "name": "Execute Retention Flow Assessment (S-207)",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1050, 250]
+      "position": [
+        1050,
+        250
+      ]
     },
     {
       "parameters": {
@@ -68,7 +86,10 @@
       "name": "Execute Governance Safety Check (S-208)",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1200, 350]
+      "position": [
+        1200,
+        350
+      ]
     },
     {
       "parameters": {
@@ -78,7 +99,10 @@
       "name": "Build Debate Packet",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1350, 350]
+      "position": [
+        1350,
+        350
+      ]
     },
     {
       "parameters": {
@@ -88,7 +112,10 @@
       "name": "Validate Debate Packet",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1500, 350]
+      "position": [
+        1500,
+        350
+      ]
     },
     {
       "parameters": {
@@ -98,36 +125,111 @@
       "name": "Emit Debate Result",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1650, 350]
+      "position": [
+        1650,
+        350
+      ]
     }
   ],
   "connections": {
     "Workflow Input": {
-      "main": [[{ "node": "Normalize Debate Input", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Normalize Debate Input",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Normalize Debate Input": {
-      "main": [[{ "node": "Execute Hook Structure Audit (S-203)", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Execute Hook Structure Audit (S-203)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Execute Hook Structure Audit (S-203)": {
-      "main": [[{ "node": "Execute Structural Assessment (S-204)", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Execute Structural Assessment (S-204)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Execute Structural Assessment (S-204)": {
-      "main": [[{ "node": "Execute Evidence Validation (S-205)", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Execute Evidence Validation (S-205)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Execute Evidence Validation (S-205)": {
-      "main": [[{ "node": "Execute Retention Assessment (S-207)", "type": "main", "index": 0 }]]
-    },
-    "Execute Retention Assessment (S-207)": {
-      "main": [[{ "node": "Execute Governance Check (S-208)", "type": "main", "index": 0 }]]
-    },
-    "Execute Governance Check (S-208)": {
-      "main": [[{ "node": "Build Debate Packet", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Execute Retention Flow Assessment (S-207)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Build Debate Packet": {
-      "main": [[{ "node": "Validate Debate Packet", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Validate Debate Packet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Validate Debate Packet": {
-      "main": [[{ "node": "Emit Debate Result", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Emit Debate Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Retention Flow Assessment (S-207)": {
+      "main": [
+        [
+          {
+            "node": "Execute Governance Safety Check (S-208)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Governance Safety Check (S-208)": {
+      "main": [
+        [
+          {
+            "node": "Build Debate Packet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "meta": {
@@ -137,11 +239,14 @@
     "purpose": "Challenge the script draft for weak hooks, weak structure, unsupported claims, and retention risks. Gatekeeping workflow with critique-based decision routing.",
     "implementation_depth": "production_grade",
     "owner_director": "Krishna",
-    "supporting_directors": ["Durga", "Yama", "Saraswati"],
-    "next_workflow": "CWF-230"
+    "supporting_directors": [
+      "Durga",
+      "Yama",
+      "Saraswati"
+    ],
+    "next_workflow": "CWF-230",
+    "wf900_error_route": "WF-900"
   },
   "active": true,
   "settings": {}
 }
-
-

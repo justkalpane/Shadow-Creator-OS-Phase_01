@@ -8,7 +8,10 @@
       "name": "Workflow Input",
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
-      "position": [250, 350]
+      "position": [
+        250,
+        350
+      ]
     },
     {
       "parameters": {
@@ -18,7 +21,10 @@
       "name": "Normalize Input",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [450, 350]
+      "position": [
+        450,
+        350
+      ]
     },
     {
       "parameters": {
@@ -28,7 +34,10 @@
       "name": "Validate Context Packet",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [600, 350]
+      "position": [
+        600,
+        350
+      ]
     },
     {
       "parameters": {
@@ -38,7 +47,10 @@
       "name": "Apply Platform Format (P-302)",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [750, 350]
+      "position": [
+        750,
+        350
+      ]
     },
     {
       "parameters": {
@@ -48,7 +60,10 @@
       "name": "Generate Platform Metadata (P-302)",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [900, 350]
+      "position": [
+        900,
+        350
+      ]
     },
     {
       "parameters": {
@@ -58,7 +73,10 @@
       "name": "Build Platform Package Packet",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1050, 350]
+      "position": [
+        1050,
+        350
+      ]
     },
     {
       "parameters": {
@@ -68,27 +86,78 @@
       "name": "Emit Result",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1200, 350]
+      "position": [
+        1200,
+        350
+      ]
     }
   ],
   "connections": {
     "Workflow Input": {
-      "main": [[{ "node": "Normalize Input", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Normalize Input",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Normalize Input": {
-      "main": [[{ "node": "Validate Context Packet", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Validate Context Packet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Validate Context Packet": {
-      "main": [[{ "node": "Apply Platform Format (P-302)", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Apply Platform Format (P-302)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Apply Platform Format (P-302)": {
-      "main": [[{ "node": "Generate Platform Metadata (P-302)", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Generate Platform Metadata (P-302)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Generate Platform Metadata (P-302)": {
-      "main": [[{ "node": "Build Platform Package Packet", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Build Platform Package Packet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Build Platform Package Packet": {
-      "main": [[{ "node": "Emit Result", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Emit Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "meta": {
@@ -98,10 +167,12 @@
     "purpose": "Package the execution-context-wrapped script into a platform-specific delivery format for YouTube, blog, podcast, or email.",
     "implementation_depth": "production_grade",
     "owner_director": "Saraswati",
-    "supporting_directors": ["Krishna"],
-    "next_workflow": "CWF-330"
+    "supporting_directors": [
+      "Krishna"
+    ],
+    "next_workflow": "CWF-330",
+    "wf900_error_route": "WF-900"
   },
   "active": true,
   "settings": {}
 }
-

@@ -8,7 +8,10 @@
       "name": "Workflow Input",
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
-      "position": [250, 350]
+      "position": [
+        250,
+        350
+      ]
     },
     {
       "parameters": {
@@ -18,7 +21,10 @@
       "name": "Normalize Script Input",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [450, 350]
+      "position": [
+        450,
+        350
+      ]
     },
     {
       "parameters": {
@@ -28,7 +34,10 @@
       "name": "Execute S-201 (Research to Script Brief)",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [650, 350]
+      "position": [
+        650,
+        350
+      ]
     },
     {
       "parameters": {
@@ -38,7 +47,10 @@
       "name": "Execute S-202 (First Draft Generation)",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [850, 350]
+      "position": [
+        850,
+        350
+      ]
     },
     {
       "parameters": {
@@ -48,7 +60,10 @@
       "name": "Execute S-203 (Hook Structure Audit)",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1050, 350]
+      "position": [
+        1050,
+        350
+      ]
     },
     {
       "parameters": {
@@ -58,7 +73,10 @@
       "name": "Build Script Draft Packet",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1250, 350]
+      "position": [
+        1250,
+        350
+      ]
     },
     {
       "parameters": {
@@ -68,7 +86,10 @@
       "name": "Validate Draft Packet",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1450, 350]
+      "position": [
+        1450,
+        350
+      ]
     },
     {
       "parameters": {
@@ -78,7 +99,10 @@
       "name": "Prepare Dossier Delta",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1650, 350]
+      "position": [
+        1650,
+        350
+      ]
     },
     {
       "parameters": {
@@ -88,7 +112,10 @@
       "name": "Prepare Packet Index Write",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1850, 350]
+      "position": [
+        1850,
+        350
+      ]
     },
     {
       "parameters": {
@@ -98,36 +125,111 @@
       "name": "Emit Script Generation Result",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [2050, 350]
+      "position": [
+        2050,
+        350
+      ]
     }
   ],
   "connections": {
     "Workflow Input": {
-      "main": [[{ "node": "Normalize Script Input", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Normalize Script Input",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Normalize Script Input": {
-      "main": [[{ "node": "Execute S-201 (Research to Script Brief)", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Execute S-201 (Research to Script Brief)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Execute S-201 (Research to Script Brief)": {
-      "main": [[{ "node": "Execute S-202 (First Draft Generation)", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Execute S-202 (First Draft Generation)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Execute S-202 (First Draft Generation)": {
-      "main": [[{ "node": "Execute S-203 (Hook Structure Audit)", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Execute S-203 (Hook Structure Audit)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Execute S-203 (Hook Structure Audit)": {
-      "main": [[{ "node": "Build Script Draft Packet", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Build Script Draft Packet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Build Script Draft Packet": {
-      "main": [[{ "node": "Validate Draft Packet", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Validate Draft Packet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Validate Draft Packet": {
-      "main": [[{ "node": "Prepare Dossier Delta", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Prepare Dossier Delta",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Prepare Dossier Delta": {
-      "main": [[{ "node": "Prepare Packet Index Write", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Prepare Packet Index Write",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Prepare Packet Index Write": {
-      "main": [[{ "node": "Emit Script Generation Result", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Emit Script Generation Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "meta": {
@@ -137,14 +239,26 @@
     "purpose": "Create the first structured script draft from the selected topic and research synthesis",
     "implementation_depth": "production_grade",
     "owner_director": "Vyasa",
-    "supporting_directors": ["Saraswati", "Krishna"],
-    "skill_dependencies": ["S-201", "S-202", "S-203"],
-    "input_packets": ["topic_finalization_packet", "research_synthesis_packet"],
+    "supporting_directors": [
+      "Saraswati",
+      "Krishna"
+    ],
+    "skill_dependencies": [
+      "S-201",
+      "S-202",
+      "S-203"
+    ],
+    "input_packets": [
+      "topic_finalization_packet",
+      "research_synthesis_packet"
+    ],
     "output_packet": "script_draft_packet",
-    "dossier_namespace_writes": ["script"],
-    "next_workflow": "CWF-220"
+    "dossier_namespace_writes": [
+      "script"
+    ],
+    "next_workflow": "CWF-220",
+    "wf900_error_route": "WF-900"
   },
   "active": true,
   "settings": {}
 }
-

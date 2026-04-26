@@ -8,7 +8,10 @@
       "name": "Workflow Input",
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
-      "position": [220, 320]
+      "position": [
+        220,
+        320
+      ]
     },
     {
       "parameters": {
@@ -18,7 +21,10 @@
       "name": "Normalize Planning Input",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [470, 320]
+      "position": [
+        470,
+        320
+      ]
     },
     {
       "parameters": {
@@ -28,7 +34,10 @@
       "name": "Build Prep Plan",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [730, 320]
+      "position": [
+        730,
+        320
+      ]
     },
     {
       "parameters": {
@@ -38,25 +47,56 @@
       "name": "Validate Prep Plan",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [990, 320]
+      "position": [
+        990,
+        320
+      ]
     }
   ],
   "connections": {
     "Workflow Input": {
-      "main": [[{ "node": "Normalize Planning Input", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Normalize Planning Input",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Normalize Planning Input": {
-      "main": [[{ "node": "Build Prep Plan", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Build Prep Plan",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Build Prep Plan": {
-      "main": [[{ "node": "Validate Prep Plan", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Validate Prep Plan",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "meta": {
     "workflow_id": "WF-023",
     "phase": "phase1",
     "vein": "planning_vein",
-    "implementation_depth": "starter_node_chain"
+    "implementation_depth": "production_grade",
+    "purpose": "Execute deterministic workflow WF-023 with governance-bound routing.",
+    "owner_director": "Aruna",
+    "next_workflow": "WF-020",
+    "wf900_error_route": "WF-900"
   },
   "active": false,
   "settings": {}

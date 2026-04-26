@@ -10,7 +10,10 @@
       "name": "Workflow Input",
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
-      "position": [250, 350]
+      "position": [
+        250,
+        350
+      ]
     },
     {
       "parameters": {
@@ -20,7 +23,10 @@
       "name": "Normalize Input",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [450, 350]
+      "position": [
+        450,
+        350
+      ]
     },
     {
       "parameters": {
@@ -30,7 +36,10 @@
       "name": "A-401 Thumbnail Concept Creator",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [650, 350]
+      "position": [
+        650,
+        350
+      ]
     },
     {
       "parameters": {
@@ -40,7 +49,10 @@
       "name": "A-402 Visual Hook Designer",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [850, 350]
+      "position": [
+        850,
+        350
+      ]
     },
     {
       "parameters": {
@@ -50,7 +62,10 @@
       "name": "Build Packet",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1050, 350]
+      "position": [
+        1050,
+        350
+      ]
     },
     {
       "parameters": {
@@ -60,7 +75,10 @@
       "name": "Validate Packet",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1250, 350]
+      "position": [
+        1250,
+        350
+      ]
     },
     {
       "parameters": {
@@ -70,28 +88,88 @@
       "name": "Emit Result",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1450, 350]
+      "position": [
+        1450,
+        350
+      ]
     }
   ],
   "connections": {
     "Workflow Input": {
-      "main": [[{ "node": "Normalize Input", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Normalize Input",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Normalize Input": {
-      "main": [[{ "node": "A-401 Thumbnail Concept Creator", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "A-401 Thumbnail Concept Creator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "A-401 Thumbnail Concept Creator": {
-      "main": [[{ "node": "A-402 Visual Hook Designer", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "A-402 Visual Hook Designer",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "A-402 Visual Hook Designer": {
-      "main": [[{ "node": "Build Packet", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Build Packet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Build Packet": {
-      "main": [[{ "node": "Validate Packet", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Validate Packet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Validate Packet": {
-      "main": [[{ "node": "Emit Result", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Emit Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
+  },
+  "meta": {
+    "workflow_id": "CWF-410",
+    "phase": "phase4_media_production",
+    "vein": "media_vein",
+    "purpose": "Execute deterministic child workflow CWF-410 with packet-governed handoff.",
+    "implementation_depth": "production_grade",
+    "owner_director": "Durga",
+    "next_workflow": "CWF-420",
+    "wf900_error_route": "WF-900"
   }
 }
-

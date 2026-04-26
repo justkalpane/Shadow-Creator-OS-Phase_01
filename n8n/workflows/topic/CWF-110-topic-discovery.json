@@ -8,7 +8,10 @@
       "name": "Workflow Input",
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
-      "position": [250, 300]
+      "position": [
+        250,
+        300
+      ]
     },
     {
       "parameters": {
@@ -18,7 +21,10 @@
       "name": "Normalize Discovery Input",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [450, 300]
+      "position": [
+        450,
+        300
+      ]
     },
     {
       "parameters": {
@@ -28,7 +34,10 @@
       "name": "Plan Skill Execution",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [650, 300]
+      "position": [
+        650,
+        300
+      ]
     },
     {
       "parameters": {
@@ -38,7 +47,10 @@
       "name": "Inject Context Packet",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [850, 300]
+      "position": [
+        850,
+        300
+      ]
     },
     {
       "parameters": {
@@ -48,7 +60,10 @@
       "name": "Execute M-001 (Trend Scanner)",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1050, 200]
+      "position": [
+        1050,
+        200
+      ]
     },
     {
       "parameters": {
@@ -58,7 +73,10 @@
       "name": "Execute M-002 (Opportunity Miner)",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1050, 350]
+      "position": [
+        1050,
+        350
+      ]
     },
     {
       "parameters": {
@@ -68,7 +86,10 @@
       "name": "Execute M-003 (Keyword Miner)",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1050, 500]
+      "position": [
+        1050,
+        500
+      ]
     },
     {
       "parameters": {
@@ -78,7 +99,10 @@
       "name": "Execute M-004 (Audience Mapper)",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1250, 200]
+      "position": [
+        1250,
+        200
+      ]
     },
     {
       "parameters": {
@@ -88,7 +112,10 @@
       "name": "Execute M-006 (Viral Detector)",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1250, 350]
+      "position": [
+        1250,
+        350
+      ]
     },
     {
       "parameters": {
@@ -98,7 +125,10 @@
       "name": "Execute M-007 (Algorithm Monitor)",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1250, 500]
+      "position": [
+        1250,
+        500
+      ]
     },
     {
       "parameters": {
@@ -108,7 +138,10 @@
       "name": "Build Candidate Board Packet",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1450, 350]
+      "position": [
+        1450,
+        350
+      ]
     },
     {
       "parameters": {
@@ -118,7 +151,10 @@
       "name": "Validate Packet Structure",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1650, 350]
+      "position": [
+        1650,
+        350
+      ]
     },
     {
       "parameters": {
@@ -128,7 +164,10 @@
       "name": "Prepare Dossier Delta",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1850, 350]
+      "position": [
+        1850,
+        350
+      ]
     },
     {
       "parameters": {
@@ -138,7 +177,10 @@
       "name": "Prepare Packet Index Write",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [2050, 350]
+      "position": [
+        2050,
+        350
+      ]
     },
     {
       "parameters": {
@@ -148,51 +190,187 @@
       "name": "Emit Discovery Result",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [2250, 350]
+      "position": [
+        2250,
+        350
+      ]
     }
   ],
   "connections": {
     "Workflow Input": {
-      "main": [[{ "node": "Normalize Discovery Input", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Normalize Discovery Input",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Normalize Discovery Input": {
-      "main": [[{ "node": "Plan Skill Execution", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Plan Skill Execution",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Plan Skill Execution": {
-      "main": [[{ "node": "Inject Context Packet", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Inject Context Packet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Inject Context Packet": {
-      "main": [[{ "node": "Execute M-001 (Trend Scanner)", "type": "main", "index": 0 }], [{ "node": "Execute M-002 (Opportunity Miner)", "type": "main", "index": 0 }], [{ "node": "Execute M-003 (Keyword Miner)", "type": "main", "index": 0 }], [{ "node": "Execute M-004 (Audience Mapper)", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Execute M-001 (Trend Scanner)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Execute M-002 (Opportunity Miner)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Execute M-003 (Keyword Miner)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Execute M-004 (Audience Mapper)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Execute M-001 (Trend Scanner)": {
-      "main": [[{ "node": "Execute M-006 (Viral Detector)", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Execute M-006 (Viral Detector)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Execute M-002 (Opportunity Miner)": {
-      "main": [[{ "node": "Build Candidate Board Packet", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Build Candidate Board Packet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Execute M-003 (Keyword Miner)": {
-      "main": [[{ "node": "Build Candidate Board Packet", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Build Candidate Board Packet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Execute M-004 (Audience Mapper)": {
-      "main": [[{ "node": "Execute M-007 (Algorithm Monitor)", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Execute M-007 (Algorithm Monitor)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Execute M-006 (Viral Detector)": {
-      "main": [[{ "node": "Build Candidate Board Packet", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Build Candidate Board Packet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Execute M-007 (Algorithm Monitor)": {
-      "main": [[{ "node": "Build Candidate Board Packet", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Build Candidate Board Packet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Build Candidate Board Packet": {
-      "main": [[{ "node": "Validate Packet Structure", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Validate Packet Structure",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Validate Packet Structure": {
-      "main": [[{ "node": "Prepare Dossier Delta", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Prepare Dossier Delta",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Prepare Dossier Delta": {
-      "main": [[{ "node": "Prepare Packet Index Write", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Prepare Packet Index Write",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Prepare Packet Index Write": {
-      "main": [[{ "node": "Emit Discovery Result", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Emit Discovery Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "meta": {
@@ -202,11 +380,21 @@
     "purpose": "Identify candidate topics using trend, demand, competitor, audience, and source signals",
     "implementation_depth": "production_grade",
     "owner_director": "Narada",
-    "supporting_directors": ["Chanakya", "Chandra"],
-    "skill_dependencies": ["M-001", "M-002", "M-003", "M-004", "M-006", "M-007"],
-    "next_workflow": "CWF-120"
+    "supporting_directors": [
+      "Chanakya",
+      "Chandra"
+    ],
+    "skill_dependencies": [
+      "M-001",
+      "M-002",
+      "M-003",
+      "M-004",
+      "M-006",
+      "M-007"
+    ],
+    "next_workflow": "CWF-120",
+    "wf900_error_route": "WF-900"
   },
   "active": true,
   "settings": {}
 }
-

@@ -8,7 +8,10 @@
       "name": "Workflow Input",
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
-      "position": [250, 350]
+      "position": [
+        250,
+        350
+      ]
     },
     {
       "parameters": {
@@ -18,7 +21,10 @@
       "name": "Normalize Input",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [450, 350]
+      "position": [
+        450,
+        350
+      ]
     },
     {
       "parameters": {
@@ -28,7 +34,10 @@
       "name": "Build Approval Record",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [600, 350]
+      "position": [
+        600,
+        350
+      ]
     },
     {
       "parameters": {
@@ -38,18 +47,28 @@
       "name": "Process Approval Decision",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [750, 350]
+      "position": [
+        750,
+        350
+      ]
     },
     {
       "parameters": {
         "conditions": {
-          "options": {"caseSensitive": true, "leftValue": "", "typeValidation": "strict"},
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
           "conditions": [
             {
               "id": "check_approval",
               "leftValue": "={{ $json.approval_status }}",
               "rightValue": "PENDING",
-              "operator": {"type": "string", "operation": "equals"}
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
             }
           ],
           "combinator": "and"
@@ -59,7 +78,10 @@
       "name": "Approval Decision Gate",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
-      "position": [900, 350]
+      "position": [
+        900,
+        350
+      ]
     },
     {
       "parameters": {
@@ -69,7 +91,10 @@
       "name": "Emit Approved",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1050, 220]
+      "position": [
+        1050,
+        220
+      ]
     },
     {
       "parameters": {
@@ -79,7 +104,10 @@
       "name": "Emit Rejected",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1050, 480]
+      "position": [
+        1050,
+        480
+      ]
     },
     {
       "parameters": {
@@ -89,27 +117,80 @@
       "name": "Route to Approval Queue",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1050, 350]
+      "position": [
+        1050,
+        350
+      ]
     }
   ],
   "connections": {
     "Workflow Input": {
-      "main": [[{ "node": "Normalize Input", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Normalize Input",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Normalize Input": {
-      "main": [[{ "node": "Build Approval Record", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Build Approval Record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Build Approval Record": {
-      "main": [[{ "node": "Process Approval Decision", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Process Approval Decision",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Process Approval Decision": {
-      "main": [[{ "node": "Approval Decision Gate", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Approval Decision Gate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Approval Decision Gate": {
       "main": [
-        [{ "node": "Emit Approved Result", "type": "main", "index": 0 }],
-        [{ "node": "Emit Rejected Result", "type": "main", "index": 0 }],
-        [{ "node": "Route to Approval Queue", "type": "main", "index": 0 }]
+        [
+          {
+            "node": "Emit Approved",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Emit Rejected",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Route to Approval Queue",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     }
   },
@@ -120,9 +201,14 @@
     "purpose": "Final approval gate for script after debate phase, routing to refinement or replay",
     "implementation_depth": "production_grade",
     "owner_director": "Aruna",
-    "supporting_directors": ["Yama", "Durga"],
+    "supporting_directors": [
+      "Yama",
+      "Durga"
+    ],
     "next_workflow_on_approved": "CWF-230",
-    "next_workflow_on_rejected": "WF-021"
+    "next_workflow_on_rejected": "WF-021",
+    "next_workflow": "WF-300",
+    "wf900_error_route": "WF-900"
   },
   "active": true,
   "settings": {}

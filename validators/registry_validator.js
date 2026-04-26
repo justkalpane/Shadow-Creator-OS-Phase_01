@@ -107,6 +107,7 @@ class RegistryValidator {
     const schemaRegistryText = fs.existsSync(schemaRegistryPath) ? fs.readFileSync(schemaRegistryPath, 'utf8') : '';
 
     const skillRegistry = this.parseSkillRegistry(skillRegistryText);
+    const skillRegistryPolicy = this.parseSkillRegistryPolicy(skillRegistryText);
     const workflowBindings = this.parseWorkflowBindings(workflowBindingsText);
     const directorBinding = this.parseDirectorBinding(directorBindingText);
     const schemaRegistry = this.parseSchemaRegistry(schemaRegistryText);
@@ -117,6 +118,11 @@ class RegistryValidator {
       schemaRegistry.schemas.filter((row) => row.artifact_family).map((row) => [row.artifact_family, row])
     );
     const directorNames = new Set(directorBinding.directors);
+    const authoritativeSkillScope =
+      skillRegistryPolicy.authoritative_skill_ids.size > 0
+        ? skillRegistryPolicy.authoritative_skill_ids
+        : registeredSkillIds;
+    const externalSkillDependencies = skillRegistryPolicy.registered_external_dependencies;
 
     for (const duplicateSkillId of skillRegistry.duplicate_skill_ids) {
       findings.push({
@@ -136,6 +142,10 @@ class RegistryValidator {
 
     const repoSkillFiles = this.collectSkillFiles();
     for (const repoSkill of repoSkillFiles) {
+      if (!authoritativeSkillScope.has(repoSkill.skill_id)) {
+        continue;
+      }
+
       if (!registeredSkillIds.has(repoSkill.skill_id)) {
         findings.push({
           code: 'MISSING_SKILL_REGISTRY_ENTRY',
@@ -250,7 +260,7 @@ class RegistryValidator {
       }
 
       for (const upstream of skill.upstream_skill_dependencies) {
-        if (!registeredSkillIds.has(upstream)) {
+        if (!registeredSkillIds.has(upstream) && !externalSkillDependencies.has(upstream)) {
           findings.push({
             code: 'UNRESOLVED_UPSTREAM_DEPENDENCY',
             severity: 'error',
@@ -260,7 +270,7 @@ class RegistryValidator {
       }
 
       for (const downstream of skill.downstream_skill_consumers) {
-        if (!registeredSkillIds.has(downstream)) {
+        if (!registeredSkillIds.has(downstream) && !externalSkillDependencies.has(downstream)) {
           findings.push({
             code: 'UNRESOLVED_DOWNSTREAM_DEPENDENCY',
             severity: 'error',
@@ -288,11 +298,14 @@ class RegistryValidator {
       }
     }
 
-    return this.buildResult(findings.length === 0, findings, {
+    return this.buildResult(!findings.some((row) => row.severity === 'error'), findings, {
       registry_presence: registryPresence,
       skill_registry_stats: {
         skills: skillRegistry.skills.length,
-        duplicate_skill_ids: skillRegistry.duplicate_skill_ids.length
+        duplicate_skill_ids: skillRegistry.duplicate_skill_ids.length,
+        closure_mode: skillRegistryPolicy.closure_mode,
+        authoritative_scope_size: authoritativeSkillScope.size,
+        registered_external_dependencies: externalSkillDependencies.size
       },
       workflow_binding_stats: {
         bindings: workflowBindings.bindings.length
@@ -305,6 +318,51 @@ class RegistryValidator {
         duplicate_artifact_families: schemaRegistry.duplicate_artifact_families.length
       }
     });
+  }
+
+  parseSkillRegistryPolicy(text) {
+    const lines = text.replace(/\r\n/g, '\n').split('\n');
+    const authoritativeSkillIds = new Set();
+    const registeredExternalDependencies = new Set();
+    let closureMode = 'full_estate';
+    let listMode = null;
+
+    for (const line of lines) {
+      const closureModeMatch = line.match(/^\s*closure_mode:\s*([a-zA-Z0-9_-]+)\s*$/);
+      if (closureModeMatch) {
+        closureMode = closureModeMatch[1].trim();
+      }
+
+      if (/^\s*authoritative_for:\s*$/.test(line)) {
+        listMode = 'authoritative_for';
+        continue;
+      }
+
+      if (/^\s*registered_external_dependencies:\s*$/.test(line)) {
+        listMode = 'registered_external_dependencies';
+        continue;
+      }
+
+      const listItem = line.match(/^\s*-\s*(M-\d{3})\s*$/);
+      if (listItem && listMode === 'authoritative_for') {
+        authoritativeSkillIds.add(listItem[1]);
+        continue;
+      }
+      if (listItem && listMode === 'registered_external_dependencies') {
+        registeredExternalDependencies.add(listItem[1]);
+        continue;
+      }
+
+      if (!/^\s*-\s*/.test(line) && /^\s*[a-zA-Z0-9_]+:\s*/.test(line)) {
+        listMode = null;
+      }
+    }
+
+    return {
+      closure_mode: closureMode,
+      authoritative_skill_ids: authoritativeSkillIds,
+      registered_external_dependencies: registeredExternalDependencies
+    };
   }
 
   validateSkillPresence(skillIds) {

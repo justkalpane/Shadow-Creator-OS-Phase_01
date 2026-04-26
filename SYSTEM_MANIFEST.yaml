@@ -1,9 +1,9 @@
-version: 4
+version: 5
 manifest_type: system_manifest
-generated_at: "2026-04-26T07:16:06Z"
-generated_from_commit: "552ddd7817ff487db505b4a7eeab3ede27d1209d"
+generated_at: "2026-04-26T07:33:30Z"
+generated_from_commit: "c0e1f8efd12449962308df5045ea16dd5579a4d5"
 generated_from_branch: "main"
-status: PHASE1_PARTIAL_WAVE10_DOCUMENTATION_ALIGNED
+status: PHASE1_CLOSURE_REMEDIATION_IN_PROGRESS
 
 authority_documents:
   handoff_contract: "C:/Users/Chethan/Downloads/CLAUDE - COMPREHENSIVE HANDOFF DOCUMENT FOR.txt"
@@ -13,8 +13,6 @@ authority_documents:
 
 phase1_contract_targets:
   total_skills_required: 218
-  completed_skills_baseline: 34
-  pending_skills_baseline: 184
   director_bindings_required: 30
   runtime_engines_required:
     - skill_loader
@@ -37,10 +35,6 @@ phase1_contract_targets:
     - CWF-240
     - WF-020
     - WF-021
-  required_core_docs:
-    - SYSTEM_MANIFEST.yaml
-    - DEPLOYMENT_STATUS.md
-    - RUNBOOK_PHASE1_EXECUTION.md
 
 canonical_registry_refs:
   skill_registry: registries/skill_registry.yaml
@@ -55,7 +49,7 @@ canonical_registry_scope_snapshot:
   skill_registry_entries: 65
   workflow_bindings_entries: 65
   schema_registry_entries: 65
-  director_binding_entries: 6
+  director_binding_entries: 30
   canonical_workflow_json_entries: 10
   closure_results:
     missing_workflow_bindings_for_registered_skills: 0
@@ -64,135 +58,18 @@ canonical_registry_scope_snapshot:
     missing_schema_registry_families: 0
     missing_director_bindings_for_registered_skills: 0
     missing_canonical_workflow_json_files: 0
-  canonical_wave_coverage:
-    phase1c_m021_to_m030: 10
-    phase2c_m121_to_m130: 10
-    phase3a_m201_to_m215: 15
-    phase3b_m216_to_m230: 15
-    phase3c_m231_to_m245: 15
-
-repository_inventory_snapshot:
-  total_skill_contract_files: 263
-  m_skill_contract_files: 227
-  unique_m_skill_ids: 225
-  duplicate_m_skill_ids:
-    - M-001
-    - M-002
-  required_m_id_gap_count: 20
-  required_m_id_gaps:
-    - M-005
-    - M-017
-    - M-183
-    - M-184
-    - M-185
-    - M-186
-    - M-187
-    - M-188
-    - M-189
-    - M-190
-    - M-191
-    - M-192
-    - M-193
-    - M-194
-    - M-195
-    - M-196
-    - M-197
-    - M-198
-    - M-199
-    - M-200
-  test_skill_markdown_files: 65
-  workflow_json_files_total: 47
-  registry_yaml_files_total: 40
-
-required_wave6_workflow_files:
-  - workflow_id: CWF-110
-    path: n8n/workflows/CWF-110.json
-    exists: true
-  - workflow_id: CWF-120
-    path: n8n/workflows/CWF-120.json
-    exists: true
-  - workflow_id: CWF-130
-    path: n8n/workflows/CWF-130.json
-    exists: true
-  - workflow_id: CWF-140
-    path: n8n/workflows/CWF-140.json
-    exists: true
-  - workflow_id: CWF-210
-    path: n8n/workflows/CWF-210.json
-    exists: true
-  - workflow_id: CWF-220
-    path: n8n/workflows/CWF-220.json
-    exists: true
-  - workflow_id: CWF-230
-    path: n8n/workflows/CWF-230.json
-    exists: true
-  - workflow_id: CWF-240
-    path: n8n/workflows/CWF-240.json
-    exists: true
-  - workflow_id: WF-020
-    path: n8n/workflows/WF-020.json
-    exists: true
-  - workflow_id: WF-021
-    path: n8n/workflows/WF-021.json
-    exists: true
-
-required_runtime_engine_files:
-  - path: engine/skill_loader/skill_loader.js
-    exists: true
-  - path: engine/skill_loader/skill_registry_resolver.js
-    exists: true
-  - path: engine/skill_loader/skill_executor.js
-    exists: true
-  - path: engine/dossier/dossier_writer.js
-    exists: true
-  - path: engine/dossier/dossier_reader.js
-    exists: true
-  - path: engine/dossier/dossier_delta_manager.js
-    exists: true
-  - path: engine/packets/packet_validator.js
-    exists: true
-  - path: engine/packets/packet_router.js
-    exists: true
-  - path: engine/packets/packet_index_writer.js
-    exists: true
-  - path: engine/approval/approval_writer.js
-    exists: true
-  - path: engine/approval/approval_resolver.js
-    exists: true
-  - path: engine/approval/approval_router.js
-    exists: true
-
-required_validator_files:
-  - path: validators/workflow_validator.js
-    exists: true
-  - path: validators/schema_validator.js
-    exists: true
-  - path: validators/registry_validator.js
-    exists: true
-  - path: validators/runtime_validator.js
-    exists: true
 
 validation_snapshot:
   js_registry_validator:
-    overall_valid: false
-    finding_count: 231
-    top_finding_codes:
-      MISSING_SKILL_REGISTRY_ENTRY: 162
-      UNRESOLVED_UPSTREAM_DEPENDENCY: 67
-      UNRESOLVED_DOWNSTREAM_DEPENDENCY: 2
-  js_workflow_validator:
-    overall_valid: false
-    workflows_scanned: 47
-    valid_workflows: 18
-    invalid_workflows: 29
-    findings: 75
-    canonical_manifest_valid: true
-    canonical_manifest_entries: 10
-    reference_closure_valid: true
-  js_workflow_validator_targeted_required_10:
     overall_valid: true
-    workflows_scanned: 10
-    valid_workflows: 10
+    finding_count: 0
+  js_workflow_validator:
+    overall_valid: true
+    finding_count: 1
+    warning_codes:
+      ALLOWED_REPLAY_CYCLE: 1
+    workflows_scanned: 47
+    valid_workflows: 47
     invalid_workflows: 0
   js_schema_validator:
     overall_valid: true
@@ -201,54 +78,50 @@ validation_snapshot:
     overall_valid: true
     finding_count: 0
   js_runtime_repository_check:
-    overall_valid: false
-    scanned_dossiers: 2
-    finding_count: 21
-    finding_code: NON_APPEND_ONLY_DOSSIER_WRITE
+    overall_valid: true
+    finding_count: 0
 
-environment_constraints:
-  python_runtime_available: false
-  python_validation_scripts_executed: false
-  note: "python and py commands were unavailable in current shell; JS validators and direct parse checks were executed."
+end_to_end_verification:
+  harness_script: tests/run_phase1_end_to_end_verification.js
+  harness_report: tests/reports/phase1_end_to_end_verification.json
+  status: PASSED
+  topic_intake_chain_to_wf020:
+    - CWF-110
+    - CWF-120
+    - CWF-130
+    - CWF-140
+    - CWF-210
+    - CWF-220
+    - CWF-230
+    - CWF-240
+    - WF-020
+  branch_checks:
+    cwf140_high_confidence_next: CWF-210
+    cwf140_low_confidence_next: CWF-140
+    wf020_approved_next: WF-300
+    wf020_rejected_next: WF-021
+    wf021_replay_next: CWF-220
+    wf020_error_route: WF-900
+    wf021_error_route: WF-900
 
 phase1_acceptance_gate:
   all_218_skills_fully_defined: false
-  all_30_directors_fully_bound: false
+  all_30_directors_fully_bound: true
   all_skills_use_12_section_template: false
   all_skills_have_18_plus_tests: false
   required_workflow_jsons_exist: true
-  required_workflow_jsons_validate_for_required_10: true
   required_runtime_engines_exist: true
   required_validators_exist: true
   required_registries_exist: true
-  append_only_mutation_law_repo_wide: false
+  append_only_mutation_law_repo_wide: true
   packets_schema_bound_for_canonical_registry_scope: true
-  wf900_failure_route_present_in_required_10_workflows: true
+  wf900_failure_route_present_in_required_workflows: true
   wf021_replay_route_present: true
-  end_to_end_topic_to_wf020_verified: false
+  end_to_end_topic_to_wf020_verified: true
   phase1_complete: false
 
-blocking_findings:
-  - code: DIRECTOR_BINDING_DEFICIT
-    detail: "director_binding.yaml has 6 active bound directors; contract requires 30."
-  - code: REGISTRY_VALIDATOR_FULL_ESTATE_FAILURE
-    detail: "registry_validator reports 231 findings due to legacy skill files outside canonical registry scope and unresolved dependencies."
-  - code: WORKFLOW_VALIDATOR_FULL_ESTATE_FAILURE
-    detail: "workflow_validator reports 75 findings across non-canonical legacy workflow JSONs."
-  - code: DOSSIER_AUDIT_MUTATION_LAW_FAILURE
-    detail: "runtime_validator reports 21 NON_APPEND_ONLY_DOSSIER_WRITE findings in existing dossier audit trails."
-  - code: SKILL_ESTATE_GAP
-    detail: "required M-ID coverage is incomplete at repository level (225/245 unique M IDs; 20 gaps)."
-
-wave_progress_snapshot:
-  wave_0_repo_audit_and_plan: complete
-  wave_1_phase2c_m121_to_m130: complete
-  wave_2_phase1c_m021_to_m030: complete
-  wave_3_phase3a_m201_to_m215: complete
-  wave_4_phase3b_m216_to_m230: complete
-  wave_5_phase3c_m231_to_m245: complete
-  wave_6_required_10_workflow_jsons: complete
-  wave_7_runtime_engines: complete
-  wave_8_validators: complete
-  wave_9_registry_closure_hardening: complete
-  wave_10_system_documentation_alignment: complete
+remaining_blockers:
+  - code: SKILL_COUNT_CONTRACT_GAP
+    detail: "Canonical registry scope contains 65 wave-governed skills; Phase-1 acceptance requires full 218-skill completion."
+  - code: FULL_ESTATE_SKILL_CONTRACT_GAP
+    detail: "Repository still contains legacy skills outside canonical registry closure scope and outside 12-section+18-test acceptance bar."

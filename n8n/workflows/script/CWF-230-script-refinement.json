@@ -8,7 +8,10 @@
       "name": "Workflow Input",
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
-      "position": [250, 350]
+      "position": [
+        250,
+        350
+      ]
     },
     {
       "parameters": {
@@ -18,7 +21,10 @@
       "name": "Normalize Refinement Input",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [450, 350]
+      "position": [
+        450,
+        350
+      ]
     },
     {
       "parameters": {
@@ -28,7 +34,10 @@
       "name": "Extract Critique Points",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [600, 250]
+      "position": [
+        600,
+        250
+      ]
     },
     {
       "parameters": {
@@ -38,7 +47,10 @@
       "name": "Execute Hook Refinement (S-203-variant)",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [750, 250]
+      "position": [
+        750,
+        250
+      ]
     },
     {
       "parameters": {
@@ -48,7 +60,10 @@
       "name": "Execute Structure Refinement (S-204-variant)",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [900, 250]
+      "position": [
+        900,
+        250
+      ]
     },
     {
       "parameters": {
@@ -58,7 +73,10 @@
       "name": "Execute Evidence Strengthening (S-205-variant)",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1050, 250]
+      "position": [
+        1050,
+        250
+      ]
     },
     {
       "parameters": {
@@ -68,7 +86,10 @@
       "name": "Execute Flow Optimization (S-207-variant)",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1200, 350]
+      "position": [
+        1200,
+        350
+      ]
     },
     {
       "parameters": {
@@ -78,7 +99,10 @@
       "name": "Build Refinement Packet",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1350, 350]
+      "position": [
+        1350,
+        350
+      ]
     },
     {
       "parameters": {
@@ -88,7 +112,10 @@
       "name": "Validate Refinement Packet",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1500, 350]
+      "position": [
+        1500,
+        350
+      ]
     },
     {
       "parameters": {
@@ -98,36 +125,111 @@
       "name": "Emit Refinement Result",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1650, 350]
+      "position": [
+        1650,
+        350
+      ]
     }
   ],
   "connections": {
     "Workflow Input": {
-      "main": [[{ "node": "Normalize Refinement Input", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Normalize Refinement Input",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Normalize Refinement Input": {
-      "main": [[{ "node": "Extract Critique Points", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Extract Critique Points",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Extract Critique Points": {
-      "main": [[{ "node": "Execute Hook Refinement (S-203-variant)", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Execute Hook Refinement (S-203-variant)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Execute Hook Refinement (S-203-variant)": {
-      "main": [[{ "node": "Execute Structure Refinement (S-204-variant)", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Execute Structure Refinement (S-204-variant)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Execute Structure Refinement (S-204-variant)": {
-      "main": [[{ "node": "Execute Evidence Strengthening (S-205-variant)", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Execute Evidence Strengthening (S-205-variant)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Execute Evidence Strengthening (S-205-variant)": {
-      "main": [[{ "node": "Execute Flow Optimization (S-207-variant)", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Execute Flow Optimization (S-207-variant)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Execute Flow Optimization (S-207-variant)": {
-      "main": [[{ "node": "Build Refinement Packet", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Build Refinement Packet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Build Refinement Packet": {
-      "main": [[{ "node": "Validate Refinement Packet", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Validate Refinement Packet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Validate Refinement Packet": {
-      "main": [[{ "node": "Emit Refinement Result", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Emit Refinement Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "meta": {
@@ -137,10 +239,13 @@
     "purpose": "Refine the debated script draft by resolving critique points and improving clarity, retention, and support.",
     "implementation_depth": "production_grade",
     "owner_director": "Saraswati",
-    "supporting_directors": ["Krishna", "Vyasa"],
-    "next_workflow": "CWF-240"
+    "supporting_directors": [
+      "Krishna",
+      "Vyasa"
+    ],
+    "next_workflow": "CWF-240",
+    "wf900_error_route": "WF-900"
   },
   "active": true,
   "settings": {}
 }
-

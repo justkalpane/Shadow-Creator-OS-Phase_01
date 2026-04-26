@@ -8,7 +8,10 @@
       "name": "Workflow Input",
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
-      "position": [250, 350]
+      "position": [
+        250,
+        350
+      ]
     },
     {
       "parameters": {
@@ -18,7 +21,10 @@
       "name": "Normalize Input",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [450, 350]
+      "position": [
+        450,
+        350
+      ]
     },
     {
       "parameters": {
@@ -28,7 +34,10 @@
       "name": "Validate Platform Packet",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [600, 350]
+      "position": [
+        600,
+        350
+      ]
     },
     {
       "parameters": {
@@ -38,7 +47,10 @@
       "name": "Generate Thumbnail Brief (P-303)",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [750, 350]
+      "position": [
+        750,
+        350
+      ]
     },
     {
       "parameters": {
@@ -48,7 +60,10 @@
       "name": "Generate B-Roll Cues (P-303)",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [900, 350]
+      "position": [
+        900,
+        350
+      ]
     },
     {
       "parameters": {
@@ -58,7 +73,10 @@
       "name": "Generate Caption and Audio Brief (P-303)",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1050, 350]
+      "position": [
+        1050,
+        350
+      ]
     },
     {
       "parameters": {
@@ -68,7 +86,10 @@
       "name": "Build Asset Brief Packet",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1200, 350]
+      "position": [
+        1200,
+        350
+      ]
     },
     {
       "parameters": {
@@ -78,30 +99,89 @@
       "name": "Emit Result",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1350, 350]
+      "position": [
+        1350,
+        350
+      ]
     }
   ],
   "connections": {
     "Workflow Input": {
-      "main": [[{ "node": "Normalize Input", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Normalize Input",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Normalize Input": {
-      "main": [[{ "node": "Validate Platform Packet", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Validate Platform Packet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Validate Platform Packet": {
-      "main": [[{ "node": "Generate Thumbnail Brief (P-303)", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Generate Thumbnail Brief (P-303)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Generate Thumbnail Brief (P-303)": {
-      "main": [[{ "node": "Generate B-Roll Cues (P-303)", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Generate B-Roll Cues (P-303)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Generate B-Roll Cues (P-303)": {
-      "main": [[{ "node": "Generate Caption and Audio Brief (P-303)", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Generate Caption and Audio Brief (P-303)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Generate Caption and Audio Brief (P-303)": {
-      "main": [[{ "node": "Build Asset Brief Packet", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Build Asset Brief Packet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Build Asset Brief Packet": {
-      "main": [[{ "node": "Emit Result", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Emit Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "meta": {
@@ -111,10 +191,12 @@
     "purpose": "Generate downstream asset briefs for media production â€” thumbnail direction, visual cues, B-roll notes, caption requirements, and audio direction.",
     "implementation_depth": "production_grade",
     "owner_director": "Durga",
-    "supporting_directors": ["Saraswati"],
-    "next_workflow": "CWF-340"
+    "supporting_directors": [
+      "Saraswati"
+    ],
+    "next_workflow": "CWF-340",
+    "wf900_error_route": "WF-900"
   },
   "active": true,
   "settings": {}
 }
-

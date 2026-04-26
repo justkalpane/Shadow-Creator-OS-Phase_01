@@ -8,7 +8,10 @@
       "name": "Workflow Input",
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
-      "position": [250, 350]
+      "position": [
+        250,
+        350
+      ]
     },
     {
       "parameters": {
@@ -18,7 +21,10 @@
       "name": "Normalize Replay Input",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [450, 350]
+      "position": [
+        450,
+        350
+      ]
     },
     {
       "parameters": {
@@ -28,7 +34,10 @@
       "name": "Determine Replay Target",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [600, 350]
+      "position": [
+        600,
+        350
+      ]
     },
     {
       "parameters": {
@@ -38,7 +47,10 @@
       "name": "Prepare Dossier Context",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [750, 350]
+      "position": [
+        750,
+        350
+      ]
     },
     {
       "parameters": {
@@ -48,7 +60,10 @@
       "name": "Build Replay Routing Packet",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [900, 350]
+      "position": [
+        900,
+        350
+      ]
     },
     {
       "parameters": {
@@ -58,7 +73,10 @@
       "name": "Validate Replay Packet",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1050, 350]
+      "position": [
+        1050,
+        350
+      ]
     },
     {
       "parameters": {
@@ -68,27 +86,78 @@
       "name": "Emit Replay Result",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1200, 350]
+      "position": [
+        1200,
+        350
+      ]
     }
   ],
   "connections": {
     "Workflow Input": {
-      "main": [[{ "node": "Normalize Replay Input", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Normalize Replay Input",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Normalize Replay Input": {
-      "main": [[{ "node": "Determine Replay Target", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Determine Replay Target",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Determine Replay Target": {
-      "main": [[{ "node": "Prepare Dossier Context", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Prepare Dossier Context",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Prepare Dossier Context": {
-      "main": [[{ "node": "Build Replay Routing Packet", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Build Replay Routing Packet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Build Replay Routing Packet": {
-      "main": [[{ "node": "Validate Replay Packet", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Validate Replay Packet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Validate Replay Packet": {
-      "main": [[{ "node": "Emit Replay Result", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Emit Replay Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "meta": {
@@ -98,8 +167,13 @@
     "purpose": "Route replay decisions back to appropriate stage based on rejection reason. Max 3 iterations.",
     "implementation_depth": "production_grade",
     "owner_director": "Yama",
-    "supporting_directors": ["Krishna", "Vyasa", "Saraswati"],
-    "next_workflow": "dynamic"
+    "supporting_directors": [
+      "Krishna",
+      "Vyasa",
+      "Saraswati"
+    ],
+    "next_workflow": "dynamic",
+    "wf900_error_route": "WF-900"
   },
   "active": true,
   "settings": {}

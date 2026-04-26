@@ -8,7 +8,10 @@
       "name": "Workflow Input",
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
-      "position": [250, 300]
+      "position": [
+        250,
+        300
+      ]
     },
     {
       "parameters": {
@@ -18,7 +21,10 @@
       "name": "Normalize Distribution Input",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [450, 300]
+      "position": [
+        450,
+        300
+      ]
     },
     {
       "parameters": {
@@ -28,7 +34,10 @@
       "name": "Inject Context Packet",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [650, 300]
+      "position": [
+        650,
+        300
+      ]
     },
     {
       "parameters": {
@@ -38,7 +47,10 @@
       "name": "Execute D-502 (SEO Timing)",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [850, 300]
+      "position": [
+        850,
+        300
+      ]
     },
     {
       "parameters": {
@@ -48,7 +60,10 @@
       "name": "Execute D-503 (Distribution Scheduler)",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1050, 300]
+      "position": [
+        1050,
+        300
+      ]
     },
     {
       "parameters": {
@@ -58,7 +73,10 @@
       "name": "Build Distribution Plan Packet",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1250, 300]
+      "position": [
+        1250,
+        300
+      ]
     },
     {
       "parameters": {
@@ -68,27 +86,78 @@
       "name": "Emit Distribution Result",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1450, 300]
+      "position": [
+        1450,
+        300
+      ]
     }
   ],
   "connections": {
     "Workflow Input": {
-      "main": [[{ "node": "Normalize Distribution Input", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Normalize Distribution Input",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Normalize Distribution Input": {
-      "main": [[{ "node": "Inject Context Packet", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Inject Context Packet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Inject Context Packet": {
-      "main": [[{ "node": "Execute D-502 (SEO Timing)", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Execute D-502 (SEO Timing)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Execute D-502 (SEO Timing)": {
-      "main": [[{ "node": "Execute D-503 (Distribution Scheduler)", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Execute D-503 (Distribution Scheduler)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Execute D-503 (Distribution Scheduler)": {
-      "main": [[{ "node": "Build Distribution Plan Packet", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Build Distribution Plan Packet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Build Distribution Plan Packet": {
-      "main": [[{ "node": "Emit Distribution Result", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Emit Distribution Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "meta": {
@@ -98,11 +167,16 @@
     "purpose": "Plan publishing schedule, cross-platform distribution order, and repurposing strategy",
     "implementation_depth": "production_grade",
     "owner_director": "Krishna",
-    "supporting_directors": ["Chanakya"],
-    "skill_dependencies": ["D-502", "D-503"],
-    "next_workflow": "CWF-530"
+    "supporting_directors": [
+      "Chanakya"
+    ],
+    "skill_dependencies": [
+      "D-502",
+      "D-503"
+    ],
+    "next_workflow": "CWF-530",
+    "wf900_error_route": "WF-900"
   },
   "active": true,
   "settings": {}
 }
-

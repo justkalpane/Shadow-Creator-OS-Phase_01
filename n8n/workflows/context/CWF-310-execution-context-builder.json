@@ -8,7 +8,10 @@
       "name": "Workflow Input",
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
-      "position": [250, 350]
+      "position": [
+        250,
+        350
+      ]
     },
     {
       "parameters": {
@@ -18,7 +21,10 @@
       "name": "Normalize Input",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [450, 350]
+      "position": [
+        450,
+        350
+      ]
     },
     {
       "parameters": {
@@ -28,7 +34,10 @@
       "name": "Validate Script Packet",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [600, 350]
+      "position": [
+        600,
+        350
+      ]
     },
     {
       "parameters": {
@@ -38,7 +47,10 @@
       "name": "Resolve Tool Set (P-301)",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [750, 350]
+      "position": [
+        750,
+        350
+      ]
     },
     {
       "parameters": {
@@ -48,7 +60,10 @@
       "name": "Build Execution Constraints (P-301)",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [900, 350]
+      "position": [
+        900,
+        350
+      ]
     },
     {
       "parameters": {
@@ -58,7 +73,10 @@
       "name": "Build Execution Context Packet",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1050, 350]
+      "position": [
+        1050,
+        350
+      ]
     },
     {
       "parameters": {
@@ -68,27 +86,78 @@
       "name": "Emit Result",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1200, 350]
+      "position": [
+        1200,
+        350
+      ]
     }
   ],
   "connections": {
     "Workflow Input": {
-      "main": [[{ "node": "Normalize Input", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Normalize Input",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Normalize Input": {
-      "main": [[{ "node": "Validate Script Packet", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Validate Script Packet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Validate Script Packet": {
-      "main": [[{ "node": "Resolve Tool Set (P-301)", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Resolve Tool Set (P-301)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Resolve Tool Set (P-301)": {
-      "main": [[{ "node": "Build Execution Constraints (P-301)", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Build Execution Constraints (P-301)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Build Execution Constraints (P-301)": {
-      "main": [[{ "node": "Build Execution Context Packet", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Build Execution Context Packet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Build Execution Context Packet": {
-      "main": [[{ "node": "Emit Result", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Emit Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "meta": {
@@ -98,10 +167,12 @@
     "purpose": "Engineer the runtime context envelope for the final script packet â€” defining allowed tools, execution constraints, and platform-specific runtime rules.",
     "implementation_depth": "production_grade",
     "owner_director": "Krishna",
-    "supporting_directors": ["Durga"],
-    "next_workflow": "CWF-320"
+    "supporting_directors": [
+      "Durga"
+    ],
+    "next_workflow": "CWF-320",
+    "wf900_error_route": "WF-900"
   },
   "active": true,
   "settings": {}
 }
-

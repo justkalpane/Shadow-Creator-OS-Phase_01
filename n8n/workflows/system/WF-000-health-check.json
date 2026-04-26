@@ -7,7 +7,10 @@
       "name": "Manual Trigger",
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
-      "position": [240, 300]
+      "position": [
+        240,
+        300
+      ]
     },
     {
       "parameters": {
@@ -17,7 +20,10 @@
       "name": "Normalize Probe Request",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [500, 300]
+      "position": [
+        500,
+        300
+      ]
     },
     {
       "parameters": {
@@ -27,7 +33,10 @@
       "name": "Check Local Preconditions",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [780, 300]
+      "position": [
+        780,
+        300
+      ]
     },
     {
       "parameters": {
@@ -44,7 +53,10 @@
       "name": "All Checks Passed?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
-      "position": [1040, 300]
+      "position": [
+        1040,
+        300
+      ]
     },
     {
       "parameters": {
@@ -54,7 +66,10 @@
       "name": "Prepare Runtime Writeback",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1300, 220]
+      "position": [
+        1300,
+        220
+      ]
     },
     {
       "parameters": {
@@ -64,23 +79,62 @@
       "name": "Prepare Failure Writeback",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1300, 380]
+      "position": [
+        1300,
+        380
+      ]
     }
   ],
   "connections": {
     "Manual Trigger": {
-      "main": [[{ "node": "Normalize Probe Request", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Normalize Probe Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Normalize Probe Request": {
-      "main": [[{ "node": "Check Local Preconditions", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Check Local Preconditions",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Check Local Preconditions": {
-      "main": [[{ "node": "All Checks Passed?", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "All Checks Passed?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "All Checks Passed?": {
       "main": [
-        [{ "node": "Prepare Runtime Writeback", "type": "main", "index": 0 }],
-        [{ "node": "Prepare Failure Writeback", "type": "main", "index": 0 }]
+        [
+          {
+            "node": "Prepare Runtime Writeback",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Prepare Failure Writeback",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     }
   },
@@ -89,8 +143,14 @@
     "workflow_id": "WF-000",
     "phase": "phase1",
     "purpose": "Validate local runtime, folders, Ollama reachability, and basic n8n readiness",
-    "writes": ["namespaces.runtime"],
-    "implementation_depth": "starter_node_chain"
+    "writes": [
+      "namespaces.runtime"
+    ],
+    "implementation_depth": "production_grade",
+    "vein": "system_vein",
+    "owner_director": "Brahma",
+    "next_workflow": "WF-001",
+    "wf900_error_route": "WF-900"
   },
   "active": false,
   "settings": {}

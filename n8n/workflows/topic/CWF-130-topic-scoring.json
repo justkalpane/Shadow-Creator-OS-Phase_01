@@ -8,7 +8,10 @@
       "name": "Workflow Input",
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
-      "position": [250, 350]
+      "position": [
+        250,
+        350
+      ]
     },
     {
       "parameters": {
@@ -18,7 +21,10 @@
       "name": "Normalize Scoring Input",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [450, 350]
+      "position": [
+        450,
+        350
+      ]
     },
     {
       "parameters": {
@@ -28,7 +34,10 @@
       "name": "Execute Scoring Algorithm",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [650, 350]
+      "position": [
+        650,
+        350
+      ]
     },
     {
       "parameters": {
@@ -38,7 +47,10 @@
       "name": "Build Scorecard Packet",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [850, 350]
+      "position": [
+        850,
+        350
+      ]
     },
     {
       "parameters": {
@@ -48,7 +60,10 @@
       "name": "Build Finalization Packet",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1050, 350]
+      "position": [
+        1050,
+        350
+      ]
     },
     {
       "parameters": {
@@ -58,18 +73,28 @@
       "name": "Validate Finalization Packet",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1150, 350]
+      "position": [
+        1150,
+        350
+      ]
     },
     {
       "parameters": {
         "conditions": {
-          "options": {"caseSensitive": true, "leftValue": "", "typeValidation": "strict"},
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
           "conditions": [
             {
               "id": "check_validation",
               "leftValue": "={{ $json.validation_status }}",
               "rightValue": "FAILED",
-              "operator": {"type": "string", "operation": "equals"}
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
             }
           ],
           "combinator": "and"
@@ -79,7 +104,10 @@
       "name": "Validation Gate",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
-      "position": [1300, 350]
+      "position": [
+        1300,
+        350
+      ]
     },
     {
       "parameters": {
@@ -89,7 +117,10 @@
       "name": "Route to WF-900",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1450, 220]
+      "position": [
+        1450,
+        220
+      ]
     },
     {
       "parameters": {
@@ -99,32 +130,95 @@
       "name": "Emit Scoring Result",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1450, 450]
+      "position": [
+        1450,
+        450
+      ]
     }
   ],
   "connections": {
     "Workflow Input": {
-      "main": [[{ "node": "Normalize Scoring Input", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Normalize Scoring Input",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Normalize Scoring Input": {
-      "main": [[{ "node": "Execute Scoring Algorithm", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Execute Scoring Algorithm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Execute Scoring Algorithm": {
-      "main": [[{ "node": "Build Scorecard Packet", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Build Scorecard Packet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Build Scorecard Packet": {
-      "main": [[{ "node": "Build Finalization Packet", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Build Finalization Packet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Build Finalization Packet": {
-      "main": [[{ "node": "Validate Finalization Packet", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Validate Finalization Packet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Validate Finalization Packet": {
-      "main": [[{ "node": "Validation Gate", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Validation Gate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Validation Gate": {
       "main": [
-        [{ "node": "Route to WF-900", "type": "main", "index": 0 }],
-        [{ "node": "Emit Scoring Result", "type": "main", "index": 0 }]
+        [
+          {
+            "node": "Route to WF-900",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Emit Scoring Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     }
   },
@@ -135,8 +229,13 @@
     "purpose": "Score approved topics and rank the final candidates for research synthesis",
     "implementation_depth": "production_grade",
     "owner_director": "Krishna",
-    "supporting_directors": ["Narada", "Chanakya", "Chandra"],
-    "next_workflow": "CWF-140"
+    "supporting_directors": [
+      "Narada",
+      "Chanakya",
+      "Chandra"
+    ],
+    "next_workflow": "CWF-140",
+    "wf900_error_route": "WF-900"
   },
   "active": true,
   "settings": {}

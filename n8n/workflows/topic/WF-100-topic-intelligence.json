@@ -7,7 +7,10 @@
       "name": "Manual Trigger",
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
-      "position": [220, 300]
+      "position": [
+        220,
+        300
+      ]
     },
     {
       "parameters": {
@@ -17,7 +20,10 @@
       "name": "Normalize Pack Input",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [470, 300]
+      "position": [
+        470,
+        300
+      ]
     },
     {
       "parameters": {
@@ -27,7 +33,10 @@
       "name": "Prepare Discovery Call",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [730, 300]
+      "position": [
+        730,
+        300
+      ]
     },
     {
       "parameters": {
@@ -37,18 +46,45 @@
       "name": "Prepare Pack Result",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [990, 300]
+      "position": [
+        990,
+        300
+      ]
     }
   ],
   "connections": {
     "Manual Trigger": {
-      "main": [[{ "node": "Normalize Pack Input", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Normalize Pack Input",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Normalize Pack Input": {
-      "main": [[{ "node": "Prepare Discovery Call", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Prepare Discovery Call",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Prepare Discovery Call": {
-      "main": [[{ "node": "Prepare Pack Result", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Prepare Pack Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "pinData": {},
@@ -56,8 +92,17 @@
     "workflow_id": "WF-100",
     "phase": "phase1",
     "purpose": "Parent pack for topic discovery, qualification, scoring, and research synthesis",
-    "writes": ["namespaces.discovery", "namespaces.research", "namespaces.runtime", "namespaces.approval"],
-    "implementation_depth": "starter_pack_chain"
+    "writes": [
+      "namespaces.discovery",
+      "namespaces.research",
+      "namespaces.runtime",
+      "namespaces.approval"
+    ],
+    "implementation_depth": "production_grade",
+    "vein": "topic_intelligence_vein",
+    "owner_director": "Narada",
+    "next_workflow": "CWF-110",
+    "wf900_error_route": "WF-900"
   },
   "active": false,
   "settings": {}

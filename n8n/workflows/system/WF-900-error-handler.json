@@ -7,7 +7,10 @@
       "name": "Manual Trigger",
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
-      "position": [240, 300]
+      "position": [
+        240,
+        300
+      ]
     },
     {
       "parameters": {
@@ -17,7 +20,10 @@
       "name": "Normalize Error Envelope",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [500, 300]
+      "position": [
+        500,
+        300
+      ]
     },
     {
       "parameters": {
@@ -27,7 +33,10 @@
       "name": "Resolve Error Family",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [800, 300]
+      "position": [
+        800,
+        300
+      ]
     },
     {
       "parameters": {
@@ -44,7 +53,10 @@
       "name": "Replay Eligible?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
-      "position": [1060, 300]
+      "position": [
+        1060,
+        300
+      ]
     },
     {
       "parameters": {
@@ -54,7 +66,10 @@
       "name": "Prepare Replay Instruction",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1320, 220]
+      "position": [
+        1320,
+        220
+      ]
     },
     {
       "parameters": {
@@ -64,23 +79,62 @@
       "name": "Prepare Manual Remediation",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1320, 380]
+      "position": [
+        1320,
+        380
+      ]
     }
   ],
   "connections": {
     "Manual Trigger": {
-      "main": [[{ "node": "Normalize Error Envelope", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Normalize Error Envelope",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Normalize Error Envelope": {
-      "main": [[{ "node": "Resolve Error Family", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Resolve Error Family",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Resolve Error Family": {
-      "main": [[{ "node": "Replay Eligible?", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Replay Eligible?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Replay Eligible?": {
       "main": [
-        [{ "node": "Prepare Replay Instruction", "type": "main", "index": 0 }],
-        [{ "node": "Prepare Manual Remediation", "type": "main", "index": 0 }]
+        [
+          {
+            "node": "Prepare Replay Instruction",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Prepare Manual Remediation",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     }
   },
@@ -89,8 +143,15 @@
     "workflow_id": "WF-900",
     "phase": "phase1",
     "purpose": "Normalize runtime failures, write error events, and route replay or remediation",
-    "writes": ["namespaces.runtime", "namespaces.approval"],
-    "implementation_depth": "starter_node_chain"
+    "writes": [
+      "namespaces.runtime",
+      "namespaces.approval"
+    ],
+    "implementation_depth": "production_grade",
+    "vein": "error_vein",
+    "owner_director": "Krishna",
+    "next_workflow": "WF-021",
+    "wf900_error_route": "WF-900"
   },
   "active": false,
   "settings": {}

@@ -1,21 +1,184 @@
-version: 1
+version: 2
 registry_id: director_binding
-generated_at: "2026-04-26T22:45:00.000Z"
-status: PARTIAL_WAVE_9_CANONICAL_REGISTRY_CLOSURE_HARDENED
+generated_at: "2026-04-26T07:29:26.600Z"
+status: COMPLETE_PHASE1_CLOSURE_REMEDIATION
 closure_contract:
   required_total_directors: 30
-  active_bound_directors: 6
-  pending_director_bindings: 24
-  mapped_skill_scope: M-021_to_M-245_wave_scope
+  active_bound_directors: 30
+  pending_director_bindings: 0
+  mapped_skill_scope: M-021_to_M-245_wave_scope_plus_governance_directors
   escalation_workflow: WF-900
   replay_workflow: WF-021
   governance_enforced: true
 directors:
-  - canonical_name: Narada
-    director_id: DIR-STRTv1-002
-    archetype: strategic information gatherer and platform strategist
-    authority_level: OPERATIONS_CONTROL
-    governance_role: routing and platform adaptation owner
+  - canonical_name: Krishna
+    director_id: DIR-ORCHv1-001
+    archetype: orchestrator | decision arbiter | multi-domain controller
+    authority_level: STRATEGIC_CONTROL
+    governance_role: global arbitration and policy authority
+    allowed_skill_families:
+      - phase1c_conditional_research
+      - phase2c_platform_variants
+      - phase3a_graphics
+      - phase3b_video
+      - phase3c_audio
+    escalation_authority: WF-900
+    veto_authority: yes
+    behavior_model: deterministic, policy-bound supreme vision execution
+    routing_responsibility: Orchestrator | Decision Arbiter | Multi-Domain Controller
+    failure_handling_responsibility: route contract and runtime failures to WF-900 with audit trace
+    mapped_skills:
+      - M-021
+      - M-022
+      - M-023
+      - M-024
+      - M-025
+      - M-026
+      - M-027
+      - M-028
+      - M-029
+      - M-030
+      - M-121
+      - M-122
+      - M-123
+      - M-124
+      - M-125
+      - M-126
+      - M-127
+      - M-128
+      - M-129
+      - M-130
+      - M-201
+      - M-202
+      - M-203
+      - M-204
+      - M-205
+      - M-206
+      - M-207
+      - M-208
+      - M-209
+      - M-210
+      - M-211
+      - M-212
+      - M-213
+      - M-214
+      - M-215
+      - M-216
+      - M-217
+      - M-218
+      - M-219
+      - M-220
+      - M-221
+      - M-222
+      - M-223
+      - M-224
+      - M-225
+      - M-226
+      - M-227
+      - M-228
+      - M-229
+      - M-230
+      - M-231
+      - M-232
+      - M-233
+      - M-234
+      - M-235
+      - M-236
+      - M-237
+      - M-238
+      - M-239
+      - M-240
+      - M-241
+      - M-242
+      - M-243
+      - M-244
+      - M-245
+    mapped_workflows:
+      - CWF-140
+      - CWF-230
+      - CWF-240
+      - CWF-310
+      - CWF-410
+      - CWF-430
+      - WF-900
+  - canonical_name: Vishnu
+    director_id: DIR-ORCHv1-002
+    archetype: ha coordinator | failover master
+    authority_level: STRATEGIC_CONTROL
+    governance_role: global arbitration and policy authority
+    allowed_skill_families:
+      - phase1c_conditional_research
+      - phase2c_platform_variants
+      - phase3a_graphics
+      - phase3b_video
+      - phase3c_audio
+    escalation_authority: WF-900
+    veto_authority: yes
+    behavior_model: deterministic, policy-bound supreme vision execution
+    routing_responsibility: HA Coordinator | Failover Master
+    failure_handling_responsibility: route contract and runtime failures to WF-900 with audit trace
+    mapped_skills:
+      - NONE_ASSIGNED_IN_CANONICAL_SCOPE
+    mapped_workflows:
+      - WF-900
+  - canonical_name: Shiva
+    director_id: DIR-ORCHv1-003
+    archetype: autonomous intelligence loop | creative destruction
+    authority_level: STRATEGIC_CONTROL
+    governance_role: global arbitration and policy authority
+    allowed_skill_families:
+      - phase1c_conditional_research
+      - phase2c_platform_variants
+      - phase3a_graphics
+      - phase3b_video
+      - phase3c_audio
+    escalation_authority: WF-900
+    veto_authority: yes
+    behavior_model: deterministic, policy-bound supreme vision execution
+    routing_responsibility: Autonomous Intelligence Loop | Creative Destruction
+    failure_handling_responsibility: route contract and runtime failures to WF-900 with audit trace
+    mapped_skills:
+      - M-022
+      - M-130
+      - M-210
+      - M-212
+      - M-218
+      - M-221
+      - M-223
+      - M-236
+      - M-238
+    mapped_workflows:
+      - CWF-140
+      - CWF-240
+      - CWF-310
+      - CWF-410
+      - CWF-430
+      - WF-900
+  - canonical_name: Brahma
+    director_id: DIR-ORCHv1-004
+    archetype: governance keeper | councils coordinator
+    authority_level: STRATEGIC_CONTROL
+    governance_role: global arbitration and policy authority
+    allowed_skill_families:
+      - phase1c_conditional_research
+      - phase2c_platform_variants
+      - phase3a_graphics
+      - phase3b_video
+      - phase3c_audio
+    escalation_authority: WF-900
+    veto_authority: yes
+    behavior_model: deterministic, policy-bound supreme vision execution
+    routing_responsibility: Governance Keeper | Councils Coordinator
+    failure_handling_responsibility: route contract and runtime failures to WF-900 with audit trace
+    mapped_skills:
+      - NONE_ASSIGNED_IN_CANONICAL_SCOPE
+    mapped_workflows:
+      - WF-900
+  - canonical_name: Shakti
+    director_id: DIR-ORCHv1-005
+    archetype: creative force amplifier | distribution velocity
+    authority_level: STRATEGIC_CONTROL
+    governance_role: global arbitration and policy authority
     allowed_skill_families:
       - phase1c_conditional_research
       - phase2c_platform_variants
@@ -24,9 +187,49 @@ directors:
       - phase3c_audio
     escalation_authority: WF-900
     veto_authority: no
-    behavior_model: deterministic execution with registry-bound routing
-    routing_responsibility: phase1c nuance capture, phase2c adaptation, phase3a distribution-safe visual routing, phase3b video adaptation, and phase3c audio adaptation
-    failure_handling_responsibility: escalate validation failures to WF-900
+    behavior_model: deterministic, policy-bound supreme vision execution
+    routing_responsibility: Creative Force Amplifier | Distribution Velocity
+    failure_handling_responsibility: route contract and runtime failures to WF-900 with audit trace
+    mapped_skills:
+      - NONE_ASSIGNED_IN_CANONICAL_SCOPE
+    mapped_workflows:
+      - WF-900
+  - canonical_name: Chanakya
+    director_id: DIR-STRTv1-001
+    archetype: strategic filtering | opportunity selection
+    authority_level: OPERATIONS_CONTROL
+    governance_role: strategic routing and competitive positioning authority
+    allowed_skill_families:
+      - phase1c_conditional_research
+      - phase2c_platform_variants
+      - phase3a_graphics
+      - phase3b_video
+      - phase3c_audio
+    escalation_authority: WF-900
+    veto_authority: yes
+    behavior_model: deterministic, policy-bound strategy execution
+    routing_responsibility: Strategic Filtering | Opportunity Selection
+    failure_handling_responsibility: route contract and runtime failures to WF-900 with audit trace
+    mapped_skills:
+      - NONE_ASSIGNED_IN_CANONICAL_SCOPE
+    mapped_workflows:
+      - WF-900
+  - canonical_name: Narada
+    director_id: DIR-STRTv1-002
+    archetype: operations | distribution | optimization
+    authority_level: OPERATIONS_CONTROL
+    governance_role: strategic routing and competitive positioning authority
+    allowed_skill_families:
+      - phase1c_conditional_research
+      - phase2c_platform_variants
+      - phase3a_graphics
+      - phase3b_video
+      - phase3c_audio
+    escalation_authority: WF-900
+    veto_authority: yes
+    behavior_model: deterministic, policy-bound strategy execution
+    routing_responsibility: Operations | Distribution | Optimization
+    failure_handling_responsibility: route contract and runtime failures to WF-900 with audit trace
     mapped_skills:
       - M-027
       - M-121
@@ -49,15 +252,15 @@ directors:
     mapped_workflows:
       - CWF-140
       - CWF-230
-      - CWF-240
       - CWF-310
       - CWF-410
       - CWF-430
-  - canonical_name: Vyasa
-    director_id: DIR-RSRCHv1-002
-    archetype: organizer and synthesis authority
-    authority_level: NARRATIVE_CONTROL
-    governance_role: synthesis and structure integrity owner
+      - WF-900
+  - canonical_name: Ravana
+    director_id: DIR-STRTv1-003
+    archetype: alternative strategy | conflict manager
+    authority_level: OPERATIONS_CONTROL
+    governance_role: strategic routing and competitive positioning authority
     allowed_skill_families:
       - phase1c_conditional_research
       - phase2c_platform_variants
@@ -66,9 +269,89 @@ directors:
       - phase3c_audio
     escalation_authority: WF-900
     veto_authority: no
-    behavior_model: deterministic structure-first transformation
-    routing_responsibility: research, script structure, graphics composition, video sequencing coherence, and audio package structuring
-    failure_handling_responsibility: escalate integrity conflicts to WF-900
+    behavior_model: deterministic, policy-bound strategy execution
+    routing_responsibility: Alternative Strategy | Conflict Manager
+    failure_handling_responsibility: route contract and runtime failures to WF-900 with audit trace
+    mapped_skills:
+      - NONE_ASSIGNED_IN_CANONICAL_SCOPE
+    mapped_workflows:
+      - WF-900
+  - canonical_name: Durga
+    director_id: DIR-STRTv1-004
+    archetype: protection | veto logic | safety enforcement
+    authority_level: OPERATIONS_CONTROL
+    governance_role: strategic routing and competitive positioning authority
+    allowed_skill_families:
+      - phase1c_conditional_research
+      - phase2c_platform_variants
+      - phase3a_graphics
+      - phase3b_video
+      - phase3c_audio
+    escalation_authority: WF-900
+    veto_authority: no
+    behavior_model: deterministic, policy-bound strategy execution
+    routing_responsibility: Protection | Veto Logic | Safety Enforcement
+    failure_handling_responsibility: route contract and runtime failures to WF-900 with audit trace
+    mapped_skills:
+      - NONE_ASSIGNED_IN_CANONICAL_SCOPE
+    mapped_workflows:
+      - WF-900
+  - canonical_name: Yudhishthira
+    director_id: DIR-STRTv1-005
+    archetype: dharma/governance validation
+    authority_level: OPERATIONS_CONTROL
+    governance_role: strategic routing and competitive positioning authority
+    allowed_skill_families:
+      - phase1c_conditional_research
+      - phase2c_platform_variants
+      - phase3a_graphics
+      - phase3b_video
+      - phase3c_audio
+    escalation_authority: WF-900
+    veto_authority: no
+    behavior_model: deterministic, policy-bound strategy execution
+    routing_responsibility: Dharma/Governance Validation
+    failure_handling_responsibility: route contract and runtime failures to WF-900 with audit trace
+    mapped_skills:
+      - NONE_ASSIGNED_IN_CANONICAL_SCOPE
+    mapped_workflows:
+      - WF-900
+  - canonical_name: Valmiki
+    director_id: DIR-RSRCHv1-001
+    archetype: research synthesis | knowledge structuring
+    authority_level: RESEARCH_CONTROL
+    governance_role: evidence synthesis and research integrity authority
+    allowed_skill_families:
+      - phase1c_conditional_research
+      - phase2c_platform_variants
+      - phase3a_graphics
+      - phase3b_video
+      - phase3c_audio
+    escalation_authority: WF-900
+    veto_authority: yes
+    behavior_model: deterministic, policy-bound research execution
+    routing_responsibility: Research Synthesis | Knowledge Structuring
+    failure_handling_responsibility: route contract and runtime failures to WF-900 with audit trace
+    mapped_skills:
+      - NONE_ASSIGNED_IN_CANONICAL_SCOPE
+    mapped_workflows:
+      - WF-900
+  - canonical_name: Vyasa
+    director_id: DIR-RSRCHv1-002
+    archetype: content creation | knowledge graph management
+    authority_level: RESEARCH_CONTROL
+    governance_role: evidence synthesis and research integrity authority
+    allowed_skill_families:
+      - phase1c_conditional_research
+      - phase2c_platform_variants
+      - phase3a_graphics
+      - phase3b_video
+      - phase3c_audio
+    escalation_authority: WF-900
+    veto_authority: yes
+    behavior_model: deterministic, policy-bound research execution
+    routing_responsibility: Content Creation | Knowledge Graph Management
+    failure_handling_responsibility: route contract and runtime failures to WF-900 with audit trace
     mapped_skills:
       - M-024
       - M-122
@@ -89,15 +372,15 @@ directors:
     mapped_workflows:
       - CWF-140
       - CWF-230
-      - CWF-240
       - CWF-310
       - CWF-410
       - CWF-430
-  - canonical_name: Saraswati
-    director_id: DIR-DISTv1-002
-    archetype: knowledge keeper and transparency advocate
-    authority_level: CONTENT_CONTROL
-    governance_role: evidence clarity and accessibility transparency owner
+      - WF-900
+  - canonical_name: Agastya
+    director_id: DIR-RSRCHv1-003
+    archetype: deep analysis | insight extraction
+    authority_level: RESEARCH_CONTROL
+    governance_role: evidence synthesis and research integrity authority
     allowed_skill_families:
       - phase1c_conditional_research
       - phase2c_platform_variants
@@ -106,9 +389,289 @@ directors:
       - phase3c_audio
     escalation_authority: WF-900
     veto_authority: no
-    behavior_model: deterministic evidence-grounded conversion
-    routing_responsibility: source interrogation, readability, accessibility, limitations transparency, metadata integrity, and audio accessibility compliance
-    failure_handling_responsibility: escalate evidence inconsistencies to WF-900
+    behavior_model: deterministic, policy-bound research execution
+    routing_responsibility: Deep Analysis | Insight Extraction
+    failure_handling_responsibility: route contract and runtime failures to WF-900 with audit trace
+    mapped_skills:
+      - NONE_ASSIGNED_IN_CANONICAL_SCOPE
+    mapped_workflows:
+      - WF-900
+  - canonical_name: Parashara
+    director_id: DIR-RSRCHv1-004
+    archetype: trend analysis | pattern discovery
+    authority_level: RESEARCH_CONTROL
+    governance_role: evidence synthesis and research integrity authority
+    allowed_skill_families:
+      - phase1c_conditional_research
+      - phase2c_platform_variants
+      - phase3a_graphics
+      - phase3b_video
+      - phase3c_audio
+    escalation_authority: WF-900
+    veto_authority: yes
+    behavior_model: deterministic, policy-bound research execution
+    routing_responsibility: Trend Analysis | Pattern Discovery
+    failure_handling_responsibility: route contract and runtime failures to WF-900 with audit trace
+    mapped_skills:
+      - NONE_ASSIGNED_IN_CANONICAL_SCOPE
+    mapped_workflows:
+      - WF-900
+  - canonical_name: Ganesha
+    director_id: DIR-RSRCHv1-005
+    archetype: neural index router | routing intelligence
+    authority_level: RESEARCH_CONTROL
+    governance_role: evidence synthesis and research integrity authority
+    allowed_skill_families:
+      - phase1c_conditional_research
+      - phase2c_platform_variants
+      - phase3a_graphics
+      - phase3b_video
+      - phase3c_audio
+    escalation_authority: WF-900
+    veto_authority: yes
+    behavior_model: deterministic, policy-bound research execution
+    routing_responsibility: Neural Index Router | Routing Intelligence
+    failure_handling_responsibility: route contract and runtime failures to WF-900 with audit trace
+    mapped_skills:
+      - NONE_ASSIGNED_IN_CANONICAL_SCOPE
+    mapped_workflows:
+      - WF-900
+  - canonical_name: Tumburu
+    director_id: DIR-PRODv1-001
+    archetype: audio production | voice direction
+    authority_level: PRODUCTION_CONTROL
+    governance_role: execution quality and delivery reliability authority
+    allowed_skill_families:
+      - phase1c_conditional_research
+      - phase2c_platform_variants
+      - phase3a_graphics
+      - phase3b_video
+      - phase3c_audio
+    escalation_authority: WF-900
+    veto_authority: yes
+    behavior_model: deterministic, policy-bound production execution
+    routing_responsibility: Audio Production | Voice Direction
+    failure_handling_responsibility: route contract and runtime failures to WF-900 with audit trace
+    mapped_skills:
+      - NONE_ASSIGNED_IN_CANONICAL_SCOPE
+    mapped_workflows:
+      - WF-900
+  - canonical_name: Arjuna
+    director_id: DIR-PRODv1-002
+    archetype: script execution | narrative warfare
+    authority_level: PRODUCTION_CONTROL
+    governance_role: execution quality and delivery reliability authority
+    allowed_skill_families:
+      - phase1c_conditional_research
+      - phase2c_platform_variants
+      - phase3a_graphics
+      - phase3b_video
+      - phase3c_audio
+    escalation_authority: WF-900
+    veto_authority: yes
+    behavior_model: deterministic, policy-bound production execution
+    routing_responsibility: Script Execution | Narrative Warfare
+    failure_handling_responsibility: route contract and runtime failures to WF-900 with audit trace
+    mapped_skills:
+      - NONE_ASSIGNED_IN_CANONICAL_SCOPE
+    mapped_workflows:
+      - WF-900
+  - canonical_name: Maya
+    director_id: DIR-PRODv1-003
+    archetype: visual production | creative visualization
+    authority_level: PRODUCTION_CONTROL
+    governance_role: execution quality and delivery reliability authority
+    allowed_skill_families:
+      - phase1c_conditional_research
+      - phase2c_platform_variants
+      - phase3a_graphics
+      - phase3b_video
+      - phase3c_audio
+    escalation_authority: WF-900
+    veto_authority: yes
+    behavior_model: deterministic, policy-bound production execution
+    routing_responsibility: Visual Production | Creative Visualization
+    failure_handling_responsibility: route contract and runtime failures to WF-900 with audit trace
+    mapped_skills:
+      - NONE_ASSIGNED_IN_CANONICAL_SCOPE
+    mapped_workflows:
+      - WF-900
+  - canonical_name: Vishwakarma
+    director_id: DIR-PRODv1-004
+    archetype: architecture | technical production
+    authority_level: PRODUCTION_CONTROL
+    governance_role: execution quality and delivery reliability authority
+    allowed_skill_families:
+      - phase1c_conditional_research
+      - phase2c_platform_variants
+      - phase3a_graphics
+      - phase3b_video
+      - phase3c_audio
+    escalation_authority: WF-900
+    veto_authority: yes
+    behavior_model: deterministic, policy-bound production execution
+    routing_responsibility: Architecture | Technical Production
+    failure_handling_responsibility: route contract and runtime failures to WF-900 with audit trace
+    mapped_skills:
+      - NONE_ASSIGNED_IN_CANONICAL_SCOPE
+    mapped_workflows:
+      - WF-900
+  - canonical_name: Agni
+    director_id: DIR-PRODv1-005
+    archetype: energy/momentum | urgency injection
+    authority_level: PRODUCTION_CONTROL
+    governance_role: execution quality and delivery reliability authority
+    allowed_skill_families:
+      - phase1c_conditional_research
+      - phase2c_platform_variants
+      - phase3a_graphics
+      - phase3b_video
+      - phase3c_audio
+    escalation_authority: WF-900
+    veto_authority: no
+    behavior_model: deterministic, policy-bound production execution
+    routing_responsibility: Energy/Momentum | Urgency Injection
+    failure_handling_responsibility: route contract and runtime failures to WF-900 with audit trace
+    mapped_skills:
+      - NONE_ASSIGNED_IN_CANONICAL_SCOPE
+    mapped_workflows:
+      - WF-900
+  - canonical_name: Hanuman
+    director_id: DIR-CINv1-001
+    archetype: speed | fast-track execution
+    authority_level: MEDIA_CONTROL
+    governance_role: visual pacing and media experience authority
+    allowed_skill_families:
+      - phase1c_conditional_research
+      - phase2c_platform_variants
+      - phase3a_graphics
+      - phase3b_video
+      - phase3c_audio
+    escalation_authority: WF-900
+    veto_authority: no
+    behavior_model: deterministic, policy-bound cinematic execution
+    routing_responsibility: Speed | Fast-Track Execution
+    failure_handling_responsibility: route contract and runtime failures to WF-900 with audit trace
+    mapped_skills:
+      - NONE_ASSIGNED_IN_CANONICAL_SCOPE
+    mapped_workflows:
+      - WF-900
+  - canonical_name: Nataraja
+    director_id: DIR-CINv1-002
+    archetype: pacing | editing | flow control
+    authority_level: MEDIA_CONTROL
+    governance_role: visual pacing and media experience authority
+    allowed_skill_families:
+      - phase1c_conditional_research
+      - phase2c_platform_variants
+      - phase3a_graphics
+      - phase3b_video
+      - phase3c_audio
+    escalation_authority: WF-900
+    veto_authority: yes
+    behavior_model: deterministic, policy-bound cinematic execution
+    routing_responsibility: Pacing | Editing | Flow Control
+    failure_handling_responsibility: route contract and runtime failures to WF-900 with audit trace
+    mapped_skills:
+      - NONE_ASSIGNED_IN_CANONICAL_SCOPE
+    mapped_workflows:
+      - WF-900
+  - canonical_name: Garuda
+    director_id: DIR-CINv1-003
+    archetype: distribution velocity | rapid publishing
+    authority_level: MEDIA_CONTROL
+    governance_role: visual pacing and media experience authority
+    allowed_skill_families:
+      - phase1c_conditional_research
+      - phase2c_platform_variants
+      - phase3a_graphics
+      - phase3b_video
+      - phase3c_audio
+    escalation_authority: WF-900
+    veto_authority: no
+    behavior_model: deterministic, policy-bound cinematic execution
+    routing_responsibility: Distribution Velocity | Rapid Publishing
+    failure_handling_responsibility: route contract and runtime failures to WF-900 with audit trace
+    mapped_skills:
+      - NONE_ASSIGNED_IN_CANONICAL_SCOPE
+    mapped_workflows:
+      - WF-900
+  - canonical_name: Varuna
+    director_id: DIR-CINv1-004
+    archetype: flow | liquid narrative | adaptability
+    authority_level: MEDIA_CONTROL
+    governance_role: visual pacing and media experience authority
+    allowed_skill_families:
+      - phase1c_conditional_research
+      - phase2c_platform_variants
+      - phase3a_graphics
+      - phase3b_video
+      - phase3c_audio
+    escalation_authority: WF-900
+    veto_authority: no
+    behavior_model: deterministic, policy-bound cinematic execution
+    routing_responsibility: Flow | Liquid Narrative | Adaptability
+    failure_handling_responsibility: route contract and runtime failures to WF-900 with audit trace
+    mapped_skills:
+      - NONE_ASSIGNED_IN_CANONICAL_SCOPE
+    mapped_workflows:
+      - WF-900
+  - canonical_name: Indra
+    director_id: DIR-CINv1-005
+    archetype: premium tier | high-value production
+    authority_level: MEDIA_CONTROL
+    governance_role: visual pacing and media experience authority
+    allowed_skill_families:
+      - phase1c_conditional_research
+      - phase2c_platform_variants
+      - phase3a_graphics
+      - phase3b_video
+      - phase3c_audio
+    escalation_authority: WF-900
+    veto_authority: no
+    behavior_model: deterministic, policy-bound cinematic execution
+    routing_responsibility: Premium Tier | High-Value Production
+    failure_handling_responsibility: route contract and runtime failures to WF-900 with audit trace
+    mapped_skills:
+      - NONE_ASSIGNED_IN_CANONICAL_SCOPE
+    mapped_workflows:
+      - WF-900
+  - canonical_name: Kama
+    director_id: DIR-DISTv1-001
+    archetype: engagement | conversion | audience attraction
+    authority_level: DISTRIBUTION_CONTROL
+    governance_role: distribution optimization and audience reach authority
+    allowed_skill_families:
+      - phase1c_conditional_research
+      - phase2c_platform_variants
+      - phase3a_graphics
+      - phase3b_video
+      - phase3c_audio
+    escalation_authority: WF-900
+    veto_authority: yes
+    behavior_model: deterministic, policy-bound distribution & evolution execution
+    routing_responsibility: Engagement | Conversion | Audience Attraction
+    failure_handling_responsibility: route contract and runtime failures to WF-900 with audit trace
+    mapped_skills:
+      - NONE_ASSIGNED_IN_CANONICAL_SCOPE
+    mapped_workflows:
+      - WF-900
+  - canonical_name: Saraswati
+    director_id: DIR-DISTv1-002
+    archetype: knowledge dissemination | content multiplication
+    authority_level: DISTRIBUTION_CONTROL
+    governance_role: distribution optimization and audience reach authority
+    allowed_skill_families:
+      - phase1c_conditional_research
+      - phase2c_platform_variants
+      - phase3a_graphics
+      - phase3b_video
+      - phase3c_audio
+    escalation_authority: WF-900
+    veto_authority: yes
+    behavior_model: deterministic, policy-bound distribution & evolution execution
+    routing_responsibility: Knowledge Dissemination | Content Multiplication
+    failure_handling_responsibility: route contract and runtime failures to WF-900 with audit trace
     mapped_skills:
       - M-021
       - M-025
@@ -128,11 +691,12 @@ directors:
       - CWF-310
       - CWF-410
       - CWF-430
-  - canonical_name: Krishna
-    director_id: DIR-ORCHv1-001
-    archetype: strategic authority and orchestrator
-    authority_level: STRATEGIC_CONTROL
-    governance_role: arbitration, policy authority, and routing governance
+      - WF-900
+  - canonical_name: Kubera
+    director_id: KERNEL-COST-001
+    archetype: cost/budget authority | financial gate
+    authority_level: KERNEL_GOVERNANCE_CONTROL
+    governance_role: kernel gatekeeping and policy enforcement authority
     allowed_skill_families:
       - phase1c_conditional_research
       - phase2c_platform_variants
@@ -141,29 +705,18 @@ directors:
       - phase3c_audio
     escalation_authority: WF-900
     veto_authority: yes
-    behavior_model: deterministic orchestration and governance arbitration
-    routing_responsibility: threshold-gated routing and cross-phase handoff control
-    failure_handling_responsibility: authorize replay and escalation decisions
+    behavior_model: deterministic, policy-bound distribution & evolution (kernel spine) execution
+    routing_responsibility: Cost/Budget Authority | Financial Gate
+    failure_handling_responsibility: route contract and runtime failures to WF-900 with audit trace
     mapped_skills:
-      - M-028
-      - M-125
-      - M-127
-      - M-229
-      - M-245
+      - NONE_ASSIGNED_IN_CANONICAL_SCOPE
     mapped_workflows:
-      - CWF-140
-      - CWF-230
-      - CWF-240
-      - CWF-310
-      - CWF-410
-      - CWF-430
-      - WF-021
       - WF-900
-  - canonical_name: Shiva
-    director_id: DIR-ORCHv1-003
-    archetype: transformer and harmonizer
-    authority_level: COORDINATION_CONTROL
-    governance_role: temporal analysis and cross-format coordination owner
+  - canonical_name: Yama
+    director_id: KERNEL-POLICY-001
+    archetype: policy/legality gate | governance enforcement
+    authority_level: KERNEL_GOVERNANCE_CONTROL
+    governance_role: kernel gatekeeping and policy enforcement authority
     allowed_skill_families:
       - phase1c_conditional_research
       - phase2c_platform_variants
@@ -172,49 +725,30 @@ directors:
       - phase3c_audio
     escalation_authority: WF-900
     veto_authority: yes
-    behavior_model: deterministic harmonization and change analysis
-    routing_responsibility: longitudinal transitions, animation harmonization, dark-mode adaptation, edit rhythm optimization, and signal-chain transformation
-    failure_handling_responsibility: escalate temporal integrity violations
+    behavior_model: deterministic, policy-bound distribution & evolution (kernel spine) execution
+    routing_responsibility: Policy/Legality Gate | Governance Enforcement
+    failure_handling_responsibility: route contract and runtime failures to WF-900 with audit trace
     mapped_skills:
-      - M-022
-      - M-130
-      - M-210
-      - M-212
-      - M-218
-      - M-221
-      - M-223
-      - M-236
-      - M-238
+      - NONE_ASSIGNED_IN_CANONICAL_SCOPE
     mapped_workflows:
-      - CWF-140
-      - CWF-240
-      - CWF-310
-      - CWF-410
-      - CWF-430
       - WF-900
-  - canonical_name: Brihaspati
-    director_id: DIR-RSRCHv1-003
-    archetype: logical analyzer and final judge
-    authority_level: RESEARCH_ADJUDICATION
-    governance_role: causal adjudication, final research certification, and quality adjudication
+  - canonical_name: Aruna
+    director_id: KERNEL-FLOW-001
+    archetype: flow building | resource gating | neural routing
+    authority_level: KERNEL_GOVERNANCE_CONTROL
+    governance_role: kernel gatekeeping and policy enforcement authority
     allowed_skill_families:
       - phase1c_conditional_research
+      - phase2c_platform_variants
       - phase3a_graphics
+      - phase3b_video
       - phase3c_audio
     escalation_authority: WF-900
     veto_authority: yes
-    behavior_model: deterministic adjudication and confidence certification
-    routing_responsibility: causal inference, brand validation adjudication, final stage integrity checks, and audio quality adjudication
-    failure_handling_responsibility: escalate unresolved logical conflicts to WF-900
+    behavior_model: deterministic, policy-bound distribution & evolution (kernel spine) execution
+    routing_responsibility: Flow Building | Resource Gating | Neural Routing
+    failure_handling_responsibility: route contract and runtime failures to WF-900 with audit trace
     mapped_skills:
-      - M-023
-      - M-030
-      - M-206
-      - M-237
-      - M-240
+      - NONE_ASSIGNED_IN_CANONICAL_SCOPE
     mapped_workflows:
-      - CWF-140
-      - CWF-310
-      - CWF-430
-      - WF-200
       - WF-900

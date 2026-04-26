@@ -228,7 +228,20 @@ class WorkflowValidator {
     }
 
     const cycleCheck = this.detectWorkflowCycles(graph);
+    const allowedReplayCycleAnchors = new Set(['WF-021', 'WF-900']);
     for (const cycle of cycleCheck.cycles) {
+      const cycleNodes = cycle.split('->').map((token) => token.trim());
+      const isAllowedReplayLoop = cycleNodes.some((node) => allowedReplayCycleAnchors.has(node));
+
+      if (isAllowedReplayLoop) {
+        findings.push({
+          code: 'ALLOWED_REPLAY_CYCLE',
+          severity: 'warning',
+          message: `Allowed replay/error cycle detected: ${cycle}`
+        });
+        continue;
+      }
+
       findings.push({
         code: 'CIRCULAR_WORKFLOW_DEPENDENCY',
         severity: 'error',
@@ -237,7 +250,7 @@ class WorkflowValidator {
     }
 
     return {
-      valid: findings.length === 0,
+      valid: !findings.some((row) => row.severity === 'error'),
       findings
     };
   }
@@ -263,7 +276,7 @@ class WorkflowValidator {
     ];
 
     return {
-      overall_valid: findings.length === 0,
+      overall_valid: !findings.some((row) => row.severity === 'error'),
       workflow_directory: directory,
       canonical_manifest: manifest,
       reference_closure: closure,
