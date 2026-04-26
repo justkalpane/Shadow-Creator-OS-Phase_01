@@ -5,15 +5,15 @@ const SkillExecutor = require('./skill_executor');
 class SkillLoader {
   constructor(config = {}) {
     this.config = {
-      skill_registry_path: config.skill_registry_path || './registries/skill_registry_wf100.yaml',
+      skill_registry_path: config.skill_registry_path || './registries/skill_registry.yaml',
       skills_root: config.skills_root || './skills',
       timeout_ms: config.timeout_ms || 30000,
-      retry_count: config.retry_count || 2,
       strict_dependency_check: config.strict_dependency_check !== false
     };
 
     this.skills_registry = {};
     this.execution_log = [];
+    this.execution_counter = 0;
     this.resolver = new SkillRegistryResolver({
       registry_path: this.config.skill_registry_path,
       skills_root: this.config.skills_root
@@ -24,6 +24,9 @@ class SkillLoader {
   async initialize() {
     try {
       const resolution = this.resolver.resolveRegistrySkills();
+      if (resolution.duplicate_skill_ids.length > 0) {
+        throw new Error(`Duplicate skill IDs in registry: ${resolution.duplicate_skill_ids.join(', ')}`);
+      }
       if (resolution.missing_skill_files.length > 0) {
         throw new Error(`Registry skills missing files: ${resolution.missing_skill_files.join(', ')}`);
       }
@@ -51,7 +54,10 @@ class SkillLoader {
         registry_path: this.config.skill_registry_path
       };
     } catch (error) {
-      this.log('ERROR', 'SkillLoader initialization failed', { error: error.message });
+      this.log('ERROR', 'SkillLoader initialization failed', {
+        error: error.message,
+        route_to_workflow: 'WF-900'
+      });
       throw error;
     }
   }
@@ -66,18 +72,23 @@ class SkillLoader {
 
   loadSkillContract(filePath, expectedSkillId = null) {
     const content = fs.readFileSync(filePath, 'utf8');
-    const parsed = content.includes('SKILL_ID:') ? this.parseLegacySkillContract(content) : this.parseMarkdownSkillContract(content);
+    const parsed = content.includes('SKILL_ID:')
+      ? this.parseLegacySkillContract(content)
+      : this.parseMarkdownSkillContract(content);
 
     if (!parsed.skill_id) {
       parsed.skill_id = expectedSkillId;
     }
     if (expectedSkillId && parsed.skill_id !== expectedSkillId) {
-      throw new Error(`Skill ID mismatch in ${filePath}: expected ${expectedSkillId}, found ${parsed.skill_id}`);
+      throw new Error(
+        `Skill ID mismatch in ${filePath}: expected ${expectedSkillId}, found ${parsed.skill_id}`
+      );
     }
 
     parsed.file_path = filePath;
     parsed.required_inputs = this.extractRequiredInputs(parsed.input_template);
     parsed.dependencies = Array.isArray(parsed.dependencies) ? parsed.dependencies : [];
+    parsed.deterministic_contract = true;
     return parsed;
   }
 
@@ -90,9 +101,6 @@ class SkillLoader {
       dependencies: this.parseDependencies(this.extractBlockField(content, 'DEPENDENCIES')),
       route_map: this.extractBlockField(content, 'ROUTE_MAP'),
       approval_gate: this.extractBlockField(content, 'APPROVAL_GATE'),
-      veto_power: this.extractBlockField(content, 'VETO_POWER'),
-      immune_signature: this.extractBlockField(content, 'IMMUNE_SIGNATURE'),
-      action_trigger: this.extractBlockField(content, 'ACTION_TRIGGER'),
       process: this.extractBlockField(content, 'PROCESS'),
       input_template: this.parseJsonField(content, 'INPUT_VARIABLES'),
       output_template: this.parseJsonField(content, 'OUTPUT_FORMAT')
@@ -102,7 +110,7 @@ class SkillLoader {
       contract.output_template = {
         skill_id: contract.skill_id,
         output_type: `${contract.skill_id ? contract.skill_id.toLowerCase() : 'unknown'}_output`,
-        status: 'created',
+        status: 'CREATED',
         payload: {}
       };
     }
@@ -120,27 +128,28 @@ class SkillLoader {
     }
 
     return {
-      skill_id: this.extractRegex(content, /\*\*Skill ID:\*\*\s*([A-Z]-\d{3})/),
+      skill_id: this.extractRegex(content, /\*\*Skill ID:\*\*\s*(M-\d{3})/),
       skill_name: this.extractRegex(content, /\*\*Skill Name:\*\*\s*(.+)/),
       dna_archetype: this.extractRegex(content, /\*\*DNA Archetype:\*\*\s*(.+)/),
-      role: this.extractRegex(content, /\*\*Role Definition:\*\*\s*(.+)/) || this.extractSectionParagraph(content, '## 2. Purpose'),
-      dependencies: this.parseDependencies(this.extractRegex(content, /\*\*Upstream Dependencies:\*\*\s*(.+)/)),
+      role:
+        this.extractRegex(content, /\*\*Role Definition:\*\*\s*(.+)/) ||
+        this.extractSectionParagraph(content, '## 2. Purpose'),
+      dependencies: this.parseDependencies(
+        this.extractRegex(content, /\*\*Upstream Dependencies:\*\*\s*(.+)/)
+      ),
       route_map: this.extractRegex(content, /\*\*Vein\/Route\/Stage:\*\*\s*(.+)/),
       approval_gate: this.extractRegex(content, /\*\*Approval Gate:\*\*\s*(.+)/) || 'none',
-      veto_power: this.extractRegex(content, /\*\*Veto Power:\*\*\s*(.+)/) || 'no',
-      immune_signature: this.extractRegex(content, /\*\*Immune Signature:\*\*\s*(.+)/) || '',
-      action_trigger: this.extractSectionParagraph(content, '## 5. Inputs'),
       process: this.extractSectionParagraph(content, '## 6. Execution Logic'),
       input_template: inputTemplate,
       output_template: outputTemplate || {
-        status: 'created',
+        status: 'CREATED',
         payload: {}
       }
     };
   }
 
   async executeSkill(skillId, contextPacket, dossierState) {
-    const executionId = this.buildExecutionId();
+    const executionId = this.buildExecutionId(skillId, contextPacket);
     const startedAt = Date.now();
 
     try {
@@ -150,6 +159,10 @@ class SkillLoader {
       this.validateInputs(normalizedContext, contract.required_inputs || []);
 
       const executionResult = await this.executor.execute(contract, normalizedContext, dossierState);
+      if (executionResult.status === 'FAILED') {
+        throw new Error(executionResult.error || 'Skill executor failed');
+      }
+
       this.validateOutputs(executionResult.output);
 
       const result = {
@@ -158,7 +171,8 @@ class SkillLoader {
         status: executionResult.status,
         output: executionResult.output,
         execution_timestamp: new Date().toISOString(),
-        duration_ms: Date.now() - startedAt
+        duration_ms: Date.now() - startedAt,
+        deterministic: true
       };
 
       this.log('INFO', 'Skill execution completed', {
@@ -180,7 +194,8 @@ class SkillLoader {
         error: error.message,
         execution_timestamp: new Date().toISOString(),
         duration_ms: Date.now() - startedAt,
-        fallback_action: 'escalate_to_wf900'
+        next_workflow: 'WF-900',
+        route_reason: 'runtime_engine_error'
       };
     }
   }
@@ -193,19 +208,23 @@ class SkillLoader {
       const result = await this.executeSkill(skillId, accumulatedContext, dossierState);
       results.push(result);
       if (result.status === 'FAILED') {
-        this.log('WARN', 'Skill chain interrupted on skill failure', { skill_id: skillId, next_action: 'escalate' });
+        this.log('WARN', 'Skill chain interrupted on skill failure', {
+          skill_id: skillId,
+          next_action: 'WF-900'
+        });
         break;
       }
       accumulatedContext[`${skillId}_output`] = result.output;
     }
 
     return {
-      chain_id: `CHAIN-${Date.now()}`,
+      chain_id: `CHAIN-${this.computeHash({ skillIds, contextPacket }).slice(0, 12)}`,
       skill_count: skillIds.length,
       completed_skills: results.filter((r) => r.status === 'SUCCESS').length,
       failed_skills: results.filter((r) => r.status === 'FAILED').length,
       results,
-      accumulated_output: accumulatedContext
+      accumulated_output: accumulatedContext,
+      on_error_workflow: 'WF-900'
     };
   }
 
@@ -223,6 +242,9 @@ class SkillLoader {
     }
     if (!output.artifact_family && !output.output_type) {
       throw new Error('Invalid output: requires artifact_family or output_type');
+    }
+    if (!output.schema_version) {
+      throw new Error('Invalid output: requires schema_version');
     }
   }
 
@@ -254,7 +276,6 @@ class SkillLoader {
     if (!block) {
       return {};
     }
-
     const fromFenced = this.extractJsonFromFence(block);
     if (fromFenced) {
       return fromFenced;
@@ -319,7 +340,7 @@ class SkillLoader {
       .split(/[\n,]/)
       .map((value) => value.trim())
       .map((value) => value.replace(/^-\s*/, ''))
-      .filter((value) => /^[A-Z]-\d{3}$/.test(value));
+      .filter((value) => /^M-\d{3}$/.test(value));
   }
 
   extractRequiredInputs(inputTemplate) {
@@ -369,8 +390,36 @@ class SkillLoader {
     }
   }
 
-  buildExecutionId() {
-    return `SKL-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
+  buildExecutionId(skillId, contextPacket) {
+    this.execution_counter += 1;
+    const hash = this.computeHash({
+      skill_id: skillId,
+      context: contextPacket || {},
+      sequence: this.execution_counter
+    });
+    return `SKL-${skillId}-${hash.slice(0, 12)}`;
+  }
+
+  computeHash(value) {
+    const serialized = this.stableStringify(value);
+    let hash = 2166136261;
+    for (let i = 0; i < serialized.length; i += 1) {
+      hash ^= serialized.charCodeAt(i);
+      hash = Math.imul(hash, 16777619);
+    }
+    return (hash >>> 0).toString(16).padStart(8, '0');
+  }
+
+  stableStringify(value) {
+    if (value === null || typeof value !== 'object') {
+      return JSON.stringify(value);
+    }
+    if (Array.isArray(value)) {
+      return `[${value.map((item) => this.stableStringify(item)).join(',')}]`;
+    }
+    const keys = Object.keys(value).sort();
+    const pairs = keys.map((k) => `${JSON.stringify(k)}:${this.stableStringify(value[k])}`);
+    return `{${pairs.join(',')}}`;
   }
 
   log(level, message, data = {}) {
@@ -403,19 +452,3 @@ class SkillLoader {
 }
 
 module.exports = SkillLoader;
-
-if (require.main === module) {
-  (async () => {
-    const loader = new SkillLoader();
-    const initialized = await loader.initialize();
-    console.log('SkillLoader Init:', JSON.stringify(initialized, null, 2));
-
-    const testContext = {
-      dossier_id: 'TEST-001',
-      discovery_brief: {},
-      source_refs: []
-    };
-    const result = await loader.executeSkill('M-001', testContext, {});
-    console.log('Skill Execution Result:', JSON.stringify(result, null, 2));
-  })();
-}

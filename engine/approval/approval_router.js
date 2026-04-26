@@ -1,6 +1,6 @@
 /**
  * Approval Router Engine
- * Routes post-resolution decisions to WF-300 (approved), WF-021 (rejected/remodify), or WF-900 (error).
+ * Routes approval outcomes with deterministic WF-021 / WF-900 guarantees.
  */
 
 const ApprovalResolver = require('./approval_resolver');
@@ -9,102 +9,149 @@ class ApprovalRouter {
   constructor(config = {}) {
     this.resolver = new ApprovalResolver(config);
     this.routing_log = [];
+    this.routing_counter = 0;
   }
 
-  /**
-   * Route approval based on resolved decision
-   * @param {string} queue_entry_id
-   * @param {string} decision - APPROVED | REJECTED | REMODIFY
-   * @param {string} resolved_by
-   * @param {object} context - { rejection_reason, redirect_to, notes }
-   * @returns {object} - { status, next_workflow, action, payload }
-   */
-  async routeApprovalDecision(queue_entry_id, decision, resolved_by, context = {}) {
-    const routing_id = 'APR-' + Date.now();
+  async routeApprovalDecision(queueEntryId, decision, resolvedBy, context = {}) {
+    const routingId = this.buildRoutingId(queueEntryId, decision);
 
     try {
-      // Resolve in queue
-      const resolution = await this.resolver.resolveDecision(queue_entry_id, decision, resolved_by, context);
+      const resolution = await this.resolver.resolveDecision(
+        queueEntryId,
+        decision,
+        resolvedBy,
+        context
+      );
+      const routingAction = this.normalizeRouting(decision, resolution.routing_action);
 
-      const routing_action = resolution.routing_action;
-
-      // Build routing payload
-      const routing_payload = {
-        routing_id,
-        source_queue_entry_id: queue_entry_id,
+      const payload = {
+        routing_id: routingId,
+        source_queue_entry_id: queueEntryId,
         resolution_id: resolution.resolution_id,
         decision,
-        resolved_by,
-        next_workflow: routing_action.next_workflow,
-        action: routing_action.action
+        resolved_by: resolvedBy,
+        next_workflow: routingAction.next_workflow,
+        action: routingAction.action,
+        route_reason: routingAction.action
       };
 
-      // Append decision-specific context
       if (decision === 'REJECTED' || decision === 'REMODIFY') {
-        routing_payload.rejection_reason = routing_action.rejection_reason || null;
-        routing_payload.modification_guidance = routing_action.modification_guidance || null;
-        routing_payload.redirect_target = routing_action.next_workflow;
+        payload.rejection_reason = routingAction.rejection_reason || null;
+        payload.modification_guidance = routingAction.modification_guidance || null;
       }
 
-      if (decision === 'APPROVED') {
-        routing_payload.media_pipeline_ready = true;
-        routing_payload.next_phase = 'MEDIA_PRODUCTION';
-      }
-
-      this.log({ routing_id, queue_entry_id, decision, next_workflow: routing_action.next_workflow });
+      this.log({
+        routing_id: routingId,
+        queue_entry_id: queueEntryId,
+        decision,
+        next_workflow: routingAction.next_workflow,
+        status: 'SUCCESS'
+      });
 
       return {
         status: 'SUCCESS',
-        routing_id,
-        next_workflow: routing_action.next_workflow,
-        action: routing_action.action,
-        payload: routing_payload
+        routing_id: routingId,
+        next_workflow: routingAction.next_workflow,
+        action: routingAction.action,
+        payload,
+        route_to_workflow: null
       };
-
-    } catch (e) {
-      this.log({ routing_id, queue_entry_id, status: 'FAILED', error: e.message });
+    } catch (error) {
+      const routed = this.buildRoutedError(error.message);
+      this.log({
+        routing_id: routingId,
+        queue_entry_id: queueEntryId,
+        status: 'FAILED',
+        error: routed.message,
+        next_workflow: routed.route_to_workflow
+      });
 
       return {
         status: 'FAILED',
-        routing_id,
-        next_workflow: 'WF-900',
+        routing_id: routingId,
+        next_workflow: routed.route_to_workflow,
         action: 'ESCALATE_ROUTING_ERROR',
-        error: e.message
+        error: routed.message,
+        route_to_workflow: routed.route_to_workflow
       };
     }
   }
 
-  /**
-   * Check for expired approvals and escalate
-   */
-  async checkExpiredApprovals() {
-    const pending = await this.resolver.loadQueue().then(q => q.entries.filter(e => e.status === 'PENDING'));
-    const now = Date.now();
-    const expired = pending.filter(e => new Date(e.deadline).getTime() < now);
+  normalizeRouting(decision, routingAction) {
+    const normalized = {
+      next_workflow: routingAction?.next_workflow || 'WF-900',
+      action: routingAction?.action || 'ESCALATE_ROUTING_ERROR',
+      rejection_reason: routingAction?.rejection_reason || null,
+      modification_guidance: routingAction?.modification_guidance || null
+    };
 
-    const escalations = [];
-    for (const entry of expired) {
-      escalations.push({
-        queue_entry_id: entry.queue_entry_id,
-        dossier_ref: entry.dossier_ref,
-        expired_at: entry.deadline,
-        escalate_to: 'WF-900',
-        reason: 'APPROVAL_DEADLINE_EXCEEDED'
-      });
+    if ((decision === 'REJECTED' || decision === 'REMODIFY') && normalized.next_workflow !== 'WF-021') {
+      normalized.next_workflow = 'WF-021';
+      normalized.action = 'ROUTE_REPLAY_REMODIFY';
     }
 
+    return normalized;
+  }
+
+  async checkExpiredApprovals() {
+    const queue = await this.resolver.loadQueue();
+    const resolutions = Array.isArray(queue.resolutions) ? queue.resolutions : [];
+    const resolvedSet = new Set(resolutions.map((row) => row.queue_entry_id));
+    const now = Date.now();
+
+    const pending = queue.entries.filter(
+      (entry) => entry.status === 'PENDING' && !resolvedSet.has(entry.queue_entry_id)
+    );
+
+    const expired = pending.filter((entry) => {
+      const deadline = new Date(entry.deadline).getTime();
+      return Number.isFinite(deadline) && deadline < now;
+    });
+
+    const escalations = expired.map((entry) => ({
+      queue_entry_id: entry.queue_entry_id,
+      dossier_ref: entry.dossier_ref,
+      expired_at: entry.deadline,
+      escalate_to: 'WF-900',
+      reason: 'APPROVAL_DEADLINE_EXCEEDED'
+    }));
+
     return {
-      expired_count: expired.length,
+      expired_count: escalations.length,
       escalations
     };
   }
 
-  log(entry) {
-    this.routing_log.push({ ...entry, timestamp: new Date().toISOString() });
-    if (entry.status === 'FAILED') console.error('[APPROVAL_ROUTING_FAILED]', entry.error);
+  buildRoutingId(queueEntryId, decision) {
+    this.routing_counter += 1;
+    const signature = `${queueEntryId}|${decision}|${this.routing_counter}`;
+    let hash = 2166136261;
+    for (let i = 0; i < signature.length; i += 1) {
+      hash ^= signature.charCodeAt(i);
+      hash = Math.imul(hash, 16777619);
+    }
+    return `APR-${(hash >>> 0).toString(16).padStart(8, '0')}`;
   }
 
-  getRoutingLog() { return this.routing_log; }
+  buildRoutedError(message) {
+    const error = new Error(message);
+    error.route_to_workflow = 'WF-900';
+    return error;
+  }
+
+  log(entry) {
+    this.routing_log.push({
+      ...entry,
+      timestamp: entry.timestamp || new Date().toISOString()
+    });
+    if (entry.status === 'FAILED') {
+      console.error('[APPROVAL_ROUTING_FAILED]', entry.error);
+    }
+  }
+
+  getRoutingLog() {
+    return this.routing_log;
+  }
 }
 
 module.exports = ApprovalRouter;

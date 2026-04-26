@@ -1,393 +1,244 @@
 /**
  * Packet Validator Engine
- * Validates packets against schema, enforces 5-section structure, checks lineage.
- * Rules: artifact_family required, schema_version required, all 5 sections must be present
+ * Validates packet envelope + registry schema contract before emission.
  */
+
+const fs = require('fs');
+const path = require('path');
 
 class PacketValidator {
   constructor(config = {}) {
     this.config = {
       strict_mode: config.strict_mode !== false,
-      allow_missing_sections: config.allow_missing_sections || false
+      schema_registry_path: config.schema_registry_path || './registries/schema_registry.yaml'
     };
 
     this.validation_log = [];
-
-    // Define packet schema families
-    this.schema_families = {
-      'topic_candidate_board': {
-        sections: ['narrative', 'context', 'evidence', 'quality', 'status'],
-        producer_workflows: ['CWF-110'],
-        critical_fields: {
-          narrative: ['topic_candidates', 'signals'],
-          context: ['discovered_from', 'discovery_timestamp'],
-          evidence: ['candidate_count'],
-          quality: ['discovery_confidence'],
-          status: ['next_workflow']
-        }
-      },
-      'topic_finalization_packet': {
-        sections: ['narrative', 'context', 'evidence', 'quality', 'status'],
-        producer_workflows: ['CWF-120', 'CWF-130'],
-        critical_fields: {
-          narrative: ['qualified_candidates', 'rejected_candidates'],
-          context: ['sourced_from_packet_id'],
-          evidence: ['qualification_checks'],
-          quality: ['decision_summary'],
-          status: ['next_workflow']
-        }
-      },
-      'topic_scorecard': {
-        sections: ['narrative', 'context', 'evidence', 'quality', 'status'],
-        producer_workflows: ['CWF-130'],
-        critical_fields: {
-          narrative: ['evaluated_candidates'],
-          context: ['sourced_from_packet_id'],
-          evidence: ['scorecard'],
-          quality: ['top_candidate_assessment'],
-          status: ['promotion_decision']
-        }
-      },
-      'research_synthesis_packet': {
-        sections: ['narrative', 'context', 'evidence', 'quality', 'status'],
-        producer_workflows: ['CWF-140'],
-        critical_fields: {
-          narrative: ['main_claim'],
-          context: ['sourced_from_packet_id'],
-          evidence: ['supporting_claims'],
-          quality: ['overall_confidence'],
-          status: ['ready_for_script_generation']
-        }
-      },
-      'script_draft_packet': {
-        sections: ['narrative', 'context', 'evidence', 'quality', 'status'],
-        producer_workflows: ['CWF-210'],
-        critical_fields: {
-          narrative: ['title', 'hook', 'body', 'closing'],
-          context: ['topic_statement', 'research_confidence'],
-          evidence: ['main_claim', 'supporting_claims'],
-          quality: ['draft_confidence'],
-          status: ['generation_phase']
-        }
-      },
-      'script_debate_packet': {
-        sections: ['narrative', 'context', 'evidence', 'quality', 'status'],
-        producer_workflows: ['CWF-220'],
-        critical_fields: {
-          narrative: ['original_draft'],
-          context: ['sourced_from_packet_id'],
-          evidence: ['critique_points'],
-          quality: ['overall_debate_decision'],
-          status: ['debate_result']
-        }
-      },
-      'script_refinement_packet': {
-        sections: ['narrative', 'context', 'evidence', 'quality', 'status'],
-        producer_workflows: ['CWF-230'],
-        critical_fields: {
-          narrative: ['refined_title', 'refined_hook'],
-          context: ['sourced_from_debate_packet_id'],
-          evidence: ['new_supporting_evidence'],
-          quality: ['overall_quality_improvement'],
-          status: ['refinement_complete']
-        }
-      },
-      'final_script_packet': {
-        sections: ['narrative', 'context', 'evidence', 'quality', 'status'],
-        producer_workflows: ['CWF-240'],
-        critical_fields: {
-          narrative: ['production_ready_title'],
-          context: ['target_platform'],
-          evidence: ['sources_cited'],
-          quality: ['seo_readiness', 'governance_compliance'],
-          status: ['ready_for_approval']
-        }
-      },
-      'approval_decision_packet': {
-        sections: ['approval_request', 'context', 'evidence', 'quality', 'status'],
-        producer_workflows: ['WF-020'],
-        critical_fields: {
-          approval_request: ['approval_request_id'],
-          context: ['owner_director'],
-          evidence: ['quality_checklist'],
-          quality: ['overall_recommendation'],
-          status: ['possible_decisions']
-        }
-      },
-      'replay_routing_packet': {
-        sections: ['routing_decision', 'context', 'evidence', 'quality', 'status'],
-        producer_workflows: ['WF-021'],
-        critical_fields: {
-          routing_decision: ['target_workflow'],
-          context: ['current_replay_iteration'],
-          evidence: ['rejection_context'],
-          quality: ['routing_confidence'],
-          status: ['decision_path']
-        }
-      },
-      'execution_context_packet': {
-        sections: ['narrative', 'context', 'evidence', 'quality', 'status'],
-        producer_workflows: ['CWF-310'],
-        critical_fields: {
-          narrative: ['execution_strategy'],
-          context: ['sourced_from_packet_id'],
-          evidence: ['constraint_set'],
-          quality: ['context_integrity'],
-          status: ['context_ready']
-        }
-      },
-      'platform_package_packet': {
-        sections: ['narrative', 'context', 'evidence', 'quality', 'status'],
-        producer_workflows: ['CWF-320'],
-        critical_fields: {
-          narrative: ['platform_targets'],
-          context: ['sourced_from_packet_id'],
-          evidence: ['package_elements'],
-          quality: ['platform_fit'],
-          status: ['package_ready']
-        }
-      },
-      'asset_brief_packet': {
-        sections: ['narrative', 'context', 'evidence', 'quality', 'status'],
-        producer_workflows: ['CWF-330'],
-        critical_fields: {
-          narrative: ['asset_plan'],
-          context: ['sourced_from_packet_id'],
-          evidence: ['brief_components'],
-          quality: ['brief_quality'],
-          status: ['asset_brief_ready']
-        }
-      },
-      'context_engineering_packet': {
-        sections: ['narrative', 'context', 'evidence', 'quality', 'status'],
-        producer_workflows: ['CWF-340'],
-        critical_fields: {
-          narrative: ['context_summary'],
-          context: ['sourced_from_packet_id'],
-          evidence: ['lineage_checks'],
-          quality: ['final_context_confidence'],
-          status: ['context_engineering_complete']
-        }
-      }
-    };
+    this.schemaLookup = this.loadSchemaLookup();
   }
 
-  /**
-   * Validate packet against schema
-   */
   validatePacket(packet) {
-    const validation_id = 'VAL-' + Date.now();
+    const validationId = `VAL-${Date.now()}-${this.validation_log.length + 1}`;
     const errors = [];
     const warnings = [];
 
     try {
-      // 1. Validate envelope
-      const envelope_check = this.validateEnvelope(packet);
-      if (!envelope_check.valid) {
-        errors.push(...envelope_check.errors);
+      const envelope = this.validateEnvelope(packet);
+      if (!envelope.valid) {
+        errors.push(...envelope.errors);
       }
 
-      // 2. Get schema family
-      const artifact_family = packet.artifact_family || 'UNKNOWN';
-      const schema = this.schema_families[artifact_family];
-
-      if (!schema) {
-        errors.push(`Unknown artifact_family: ${artifact_family}`);
+      const artifactFamily = packet?.artifact_family || 'UNKNOWN';
+      const schemaPath = this.schemaLookup[artifactFamily];
+      if (!schemaPath) {
+        errors.push(`No schema registry mapping for artifact_family: ${artifactFamily}`);
       } else {
-        // 3. Validate sections
-        const sections_check = this.validateSections(packet, schema);
-        if (!sections_check.valid) {
-          errors.push(...sections_check.errors);
-        }
-        warnings.push(...sections_check.warnings);
-
-        // 4. Validate critical fields
-        const critical_check = this.validateCriticalFields(packet, schema);
-        if (!critical_check.valid) {
-          errors.push(...critical_check.errors);
-        }
-
-        // 5. Validate lineage
-        const lineage_check = this.validateLineage(packet);
-        if (!lineage_check.valid) {
-          warnings.push(...lineage_check.warnings);
+        const schemaValidation = this.validateAgainstSchema(packet, schemaPath);
+        if (!schemaValidation.valid) {
+          errors.push(...schemaValidation.errors);
         }
       }
 
-      const is_valid = errors.length === 0;
+      const lineage = this.validateLineage(packet);
+      warnings.push(...lineage.warnings);
 
-      // Log validation
+      const valid = errors.length === 0;
       this.logValidation({
-        validation_id,
-        packet_instance_id: packet.instance_id || 'UNKNOWN',
-        artifact_family: artifact_family,
-        valid: is_valid,
-        errors: errors,
-        warnings: warnings
+        validation_id: validationId,
+        packet_instance_id: packet?.instance_id || 'UNKNOWN',
+        artifact_family: artifactFamily,
+        valid,
+        errors,
+        warnings,
+        route_to_workflow: valid ? null : 'WF-900'
       });
 
       return {
-        valid: is_valid,
-        validation_id: validation_id,
-        errors: errors,
-        warnings: warnings,
-        packet_instance_id: packet.instance_id,
-        timestamp: new Date().toISOString()
+        valid,
+        validation_id: validationId,
+        errors,
+        warnings,
+        packet_instance_id: packet?.instance_id,
+        timestamp: new Date().toISOString(),
+        route_to_workflow: valid ? null : 'WF-900'
       };
-
-    } catch (e) {
+    } catch (error) {
       this.logValidation({
-        validation_id,
-        artifact_family: packet.artifact_family || 'UNKNOWN',
+        validation_id: validationId,
+        packet_instance_id: packet?.instance_id || 'UNKNOWN',
+        artifact_family: packet?.artifact_family || 'UNKNOWN',
         valid: false,
-        error: e.message
+        errors: [error.message],
+        warnings: [],
+        route_to_workflow: 'WF-900'
       });
-
       return {
         valid: false,
-        validation_id: validation_id,
-        error: e.message,
-        timestamp: new Date().toISOString()
+        validation_id: validationId,
+        errors: [error.message],
+        warnings: [],
+        timestamp: new Date().toISOString(),
+        route_to_workflow: 'WF-900'
       };
     }
   }
 
-  /**
-   * Validate packet envelope (metadata)
-   */
+  validateBatch(packets) {
+    const results = packets.map((packet) => this.validatePacket(packet));
+    return {
+      total_packets: packets.length,
+      valid_packets: results.filter((r) => r.valid).length,
+      invalid_packets: results.filter((r) => !r.valid).length,
+      results
+    };
+  }
+
   validateEnvelope(packet) {
     const errors = [];
-
-    const required_fields = ['instance_id', 'artifact_family', 'schema_version', 'producer_workflow', 'dossier_ref', 'status', 'payload'];
-
-    for (const field of required_fields) {
-      if (!(field in packet)) {
+    const required = [
+      'instance_id',
+      'artifact_family',
+      'schema_version',
+      'producer_workflow',
+      'dossier_ref',
+      'status',
+      'payload'
+    ];
+    for (const field of required) {
+      if (!(field in (packet || {}))) {
         errors.push(`Missing required envelope field: ${field}`);
       }
     }
-
-    if (packet.artifact_family && !this.schema_families[packet.artifact_family]) {
-      errors.push(`Unknown artifact_family: ${packet.artifact_family}`);
-    }
-
-    return {
-      valid: errors.length === 0,
-      errors: errors
-    };
+    return { valid: errors.length === 0, errors };
   }
 
-  /**
-   * Validate 5-section structure
-   */
-  validateSections(packet, schema) {
-    const errors = [];
-    const warnings = [];
-
-    const payload = packet.payload || {};
-    const required_sections = schema.sections || [];
-
-    for (const section of required_sections) {
-      if (!(section in payload)) {
-        errors.push(`Missing section: ${section}`);
-      }
+  validateAgainstSchema(packet, schemaPath) {
+    const absPath = path.resolve(schemaPath);
+    if (!fs.existsSync(absPath)) {
+      return { valid: false, errors: [`Schema file not found: ${schemaPath}`] };
     }
 
-    return {
-      valid: errors.length === 0,
-      errors: errors,
-      warnings: warnings
-    };
+    let schema;
+    try {
+      schema = JSON.parse(fs.readFileSync(absPath, 'utf8'));
+    } catch (error) {
+      return { valid: false, errors: [`Schema parse failed (${schemaPath}): ${error.message}`] };
+    }
+
+    const errors = [];
+    this.validateNode(packet, schema, '$', errors);
+    return { valid: errors.length === 0, errors };
   }
 
-  /**
-   * Validate critical fields present
-   */
-  validateCriticalFields(packet, schema) {
-    const errors = [];
-    const payload = packet.payload || {};
-    const critical_fields = schema.critical_fields || {};
+  validateNode(value, schema, nodePath, errors) {
+    if (!schema || typeof schema !== 'object') {
+      return;
+    }
 
-    for (const [section, fields] of Object.entries(critical_fields)) {
-      const section_data = payload[section] || {};
-
-      for (const field of fields) {
-        if (!(field in section_data)) {
-          errors.push(`Missing critical field: ${section}.${field}`);
+    if (Array.isArray(schema.required) && value && typeof value === 'object') {
+      for (const key of schema.required) {
+        if (!(key in value)) {
+          errors.push(`Schema required violation at ${nodePath}: missing "${key}"`);
         }
       }
     }
 
-    return {
-      valid: errors.length === 0,
-      errors: errors
-    };
-  }
-
-  /**
-   * Validate lineage tracking
-   */
-  validateLineage(packet) {
-    const warnings = [];
-    const payload = packet.payload || {};
-
-    // For most packets, expect sourced_from reference or topic/research references
-    const context = payload.context || {};
-
-    const has_lineage = (
-      context.sourced_from_packet_id ||
-      context.sourced_from_topic_id ||
-      context.sourced_from_research_id ||
-      context.sourced_from_debate_packet_id ||
-      context.sourced_from_refinement_packet_id
-    );
-
-    if (!has_lineage && packet.artifact_family !== 'topic_candidate_board') {
-      warnings.push('No sourced_from reference found. Lineage may not be fully tracked.');
+    if (schema.type) {
+      const typeOk =
+        (schema.type === 'object' && value && typeof value === 'object' && !Array.isArray(value)) ||
+        (schema.type === 'array' && Array.isArray(value)) ||
+        (schema.type === 'string' && typeof value === 'string') ||
+        (schema.type === 'number' && typeof value === 'number') ||
+        (schema.type === 'integer' && Number.isInteger(value)) ||
+        (schema.type === 'boolean' && typeof value === 'boolean') ||
+        (schema.type === 'null' && value === null);
+      if (!typeOk) {
+        errors.push(`Schema type violation at ${nodePath}: expected ${schema.type}`);
+        return;
+      }
     }
 
-    return {
-      valid: true,
-      warnings: warnings
-    };
+    if (Object.prototype.hasOwnProperty.call(schema, 'const') && value !== schema.const) {
+      errors.push(`Schema const violation at ${nodePath}: expected ${JSON.stringify(schema.const)}`);
+    }
+
+    if (Array.isArray(schema.enum) && !schema.enum.includes(value)) {
+      errors.push(`Schema enum violation at ${nodePath}: value "${value}" not allowed`);
+    }
+
+    if (schema.type === 'object' && schema.properties && value && typeof value === 'object') {
+      for (const [key, childSchema] of Object.entries(schema.properties)) {
+        if (key in value) {
+          this.validateNode(value[key], childSchema, `${nodePath}.${key}`, errors);
+        }
+      }
+      if (schema.additionalProperties === false) {
+        const allowed = new Set(Object.keys(schema.properties));
+        for (const key of Object.keys(value)) {
+          if (!allowed.has(key)) {
+            errors.push(`Schema additionalProperties violation at ${nodePath}: "${key}" not allowed`);
+          }
+        }
+      }
+    }
+
+    if (schema.type === 'array' && schema.items && Array.isArray(value)) {
+      for (let i = 0; i < value.length; i += 1) {
+        this.validateNode(value[i], schema.items, `${nodePath}[${i}]`, errors);
+      }
+    }
   }
 
-  /**
-   * Batch validate packets
-   */
-  validateBatch(packets) {
-    const results = packets.map(p => this.validatePacket(p));
-
-    return {
-      total_packets: packets.length,
-      valid_packets: results.filter(r => r.valid).length,
-      invalid_packets: results.filter(r => !r.valid).length,
-      results: results
-    };
+  validateLineage(packet) {
+    const warnings = [];
+    const payload = packet?.payload || {};
+    const lineage = payload?.context?.sourced_from_packet_id || payload?.lineage_reference;
+    if (!lineage && packet?.artifact_family !== 'topic_candidate_board') {
+      warnings.push('No lineage reference found in packet payload/context');
+    }
+    return { valid: true, warnings };
   }
 
-  /**
-   * Log validation
-   */
+  loadSchemaLookup() {
+    const registryPath = path.resolve(this.config.schema_registry_path);
+    if (!fs.existsSync(registryPath)) {
+      return {};
+    }
+    const text = fs.readFileSync(registryPath, 'utf8').replace(/\r\n/g, '\n');
+    const lines = text.split('\n');
+    const lookup = {};
+    let currentFamily = null;
+
+    for (const line of lines) {
+      const familyMatch = line.match(/^\s*-\s*artifact_family:\s*([a-zA-Z0-9_\-]+)\s*$/);
+      if (familyMatch) {
+        currentFamily = familyMatch[1];
+        continue;
+      }
+
+      if (currentFamily) {
+        const pathMatch = line.match(/^\s*schema_path:\s*(.+?)\s*$/);
+        if (pathMatch) {
+          lookup[currentFamily] = pathMatch[1].trim();
+          currentFamily = null;
+        }
+      }
+    }
+
+    return lookup;
+  }
+
   logValidation(entry) {
     this.validation_log.push({
       ...entry,
-      timestamp: new Date().toISOString()
+      timestamp: entry.timestamp || new Date().toISOString()
     });
   }
 
-  /**
-   * Get validation log
-   */
   getValidationLog(filter = {}) {
     let log = this.validation_log;
-
-    if (filter.valid !== undefined) {
-      log = log.filter(v => v.valid === filter.valid);
-    }
-    if (filter.artifact_family) {
-      log = log.filter(v => v.artifact_family === filter.artifact_family);
-    }
-
+    if (filter.valid !== undefined) log = log.filter((v) => v.valid === filter.valid);
+    if (filter.artifact_family) log = log.filter((v) => v.artifact_family === filter.artifact_family);
     return log;
   }
 }

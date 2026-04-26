@@ -1,7 +1,6 @@
 /**
  * Dossier Writer Engine
- * Patch-only mutations with namespace ownership, version tracking, and audit trails.
- * Enforces: NO overwrites, NO field deletions, namespace-owned writes only.
+ * Enforces append-only mutation law and audit metadata completeness.
  */
 
 const fs = require('fs');
@@ -10,197 +9,179 @@ const path = require('path');
 class DossierWriter {
   constructor(config = {}) {
     this.config = {
-      dossier_base_path: config.dossier_base_path || './dossiers/',
-      enable_audit_trail: config.enable_audit_trail !== false,
-      strict_mode: config.strict_mode !== false,
-      max_version: config.max_version || 999
+      dossier_base_path: config.dossier_base_path || './dossiers',
+      strict_mode: config.strict_mode !== false
     };
 
     this.mutation_log = [];
+    this.mutation_counter = 0;
     this.namespace_ownership = {
-      'discovery': { owner: 'discovery_vein', forbidden_overwrites: [] },
-      'qualification': { owner: 'qualification_vein', forbidden_overwrites: [] },
-      'scoring': { owner: 'scoring_vein', forbidden_overwrites: [] },
-      'research': { owner: 'research_vein', forbidden_overwrites: [] },
-      'script': { owner: 'narrative_vein', forbidden_overwrites: [] },
-      'context': { owner: 'context_engineering_vein', forbidden_overwrites: [] },
-      'approval': { owner: 'approval_vein', forbidden_overwrites: [] },
-      'replay': { owner: 'replay_vein', forbidden_overwrites: [] },
-      'runtime': { owner: 'runtime_vein', forbidden_overwrites: [] }
+      discovery: { owner: 'discovery_vein' },
+      qualification: { owner: 'qualification_vein' },
+      scoring: { owner: 'scoring_vein' },
+      research: { owner: 'research_vein' },
+      script: { owner: 'narrative_vein' },
+      context: { owner: 'context_engineering_vein' },
+      approval: { owner: 'approval_vein' },
+      replay: { owner: 'replay_vein' },
+      runtime: { owner: 'runtime_vein' },
+      media_vein: { owner: 'media_vein' },
+      script_vein: { owner: 'script_vein' },
+      research_vein: { owner: 'research_vein' }
     };
+    this.allowedMutationTypes = new Set([
+      'append_to_array',
+      'create_new_packet',
+      'create_new_index_row',
+      'append_audit_entry'
+    ]);
   }
 
-  /**
-   * Write patch to dossier (mutation_type: append, append_to_array, version_bump)
-   * @param {string} dossier_id - Dossier ID
-   * @param {object} delta - {namespace, mutation_type, target, value, audit_entry}
-   * @returns {object} - {status, mutation_id, version, timestamp}
-   */
-  async writeDelta(dossier_id, delta) {
-    const mutation_id = 'MUT-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
+  async writeDelta(dossierId, delta) {
+    const mutationId = this.buildMutationId(dossierId, delta);
 
     try {
-      // 1. Validate delta structure
       this.validateDelta(delta);
+      this.validateNamespaceOwnership(delta.namespace);
 
-      // 2. Validate namespace ownership
-      const namespace_owner = this.namespace_ownership[delta.namespace];
-      if (!namespace_owner) {
-        throw new Error(`Namespace "${delta.namespace}" not recognized. Allowed: ${Object.keys(this.namespace_ownership).join(', ')}`);
-      }
+      const dossier = await this.loadDossier(dossierId);
+      const currentVersion = Number(dossier._version || 0);
 
-      // 3. Load current dossier version
-      const dossier = await this.loadDossier(dossier_id);
-      const current_version = dossier._version || 0;
-
-      // 4. Validate mutation doesn't overwrite
       this.validateNoOverwrite(dossier, delta);
+      const mutated = this.applyMutation(dossier, delta);
 
-      // 5. Apply patch (mutation_type)
-      const mutated_dossier = await this.applyMutation(dossier, delta);
-
-      // 6. Update version and audit trail
-      mutated_dossier._version = current_version + 1;
-      if (!mutated_dossier._audit_trail) {
-        mutated_dossier._audit_trail = [];
+      mutated._version = currentVersion + 1;
+      if (!Array.isArray(mutated._audit_trail)) {
+        mutated._audit_trail = [];
       }
 
-      // 7. Create audit entry
-      const audit_entry = {
-        mutation_id: mutation_id,
-        timestamp: new Date().toISOString(),
-        workflow_id: delta.audit_entry?.workflow_id || 'UNKNOWN',
-        operation: delta.audit_entry?.operation || 'MUTATION',
+      const auditEntry = {
+        mutation_id: mutationId,
+        timestamp: delta.timestamp,
+        workflow_id: delta.audit_entry?.workflow_id || delta.writer_id || 'UNKNOWN',
+        operation: delta.audit_entry?.operation || delta.mutation_type,
         namespace: delta.namespace,
         mutation_type: delta.mutation_type,
         target_path: delta.target,
-        owner_workflow: namespace_owner.owner,
-        version_before: current_version,
-        version_after: current_version + 1,
-        lineage_intact: delta.audit_entry?.lineage_intact || false
+        owner_workflow: this.namespace_ownership[delta.namespace].owner,
+        version_before: currentVersion,
+        version_after: currentVersion + 1,
+        lineage_intact: true,
+        writer_id: delta.writer_id,
+        skill_id: delta.skill_id,
+        instance_id: delta.instance_id,
+        schema_version: delta.schema_version,
+        lineage_reference: delta.lineage_reference
       };
+      mutated._audit_trail.push(auditEntry);
 
-      mutated_dossier._audit_trail.push(audit_entry);
+      await this.saveDossier(dossierId, mutated);
 
-      // 8. Persist to disk
-      await this.saveDossier(dossier_id, mutated_dossier);
-
-      // 9. Log mutation
       this.logMutation({
-        mutation_id,
-        dossier_id,
+        mutation_id: mutationId,
+        dossier_id: dossierId,
         status: 'SUCCESS',
-        version: mutated_dossier._version,
-        timestamp: new Date().toISOString(),
+        version: mutated._version,
         namespace: delta.namespace,
-        mutation_type: delta.mutation_type
+        mutation_type: delta.mutation_type,
+        route_to_workflow: null
       });
 
       return {
         status: 'SUCCESS',
-        mutation_id: mutation_id,
-        version: mutated_dossier._version,
-        timestamp: new Date().toISOString(),
-        dossier_id: dossier_id
+        mutation_id: mutationId,
+        version: mutated._version,
+        timestamp: delta.timestamp,
+        dossier_id: dossierId
       };
-
-    } catch (e) {
+    } catch (error) {
+      const routed = this.buildRoutedError(error.message);
       this.logMutation({
-        mutation_id,
-        dossier_id,
+        mutation_id: mutationId,
+        dossier_id: dossierId,
         status: 'FAILED',
-        error: e.message,
-        timestamp: new Date().toISOString()
+        error: routed.message,
+        route_to_workflow: routed.route_to_workflow
       });
-      throw e;
+      throw routed;
     }
   }
 
-  /**
-   * Validate delta structure
-   */
   validateDelta(delta) {
-    const required_fields = ['namespace', 'mutation_type', 'target', 'value'];
-    const missing = required_fields.filter(f => !(f in delta));
+    const required = [
+      'namespace',
+      'mutation_type',
+      'target',
+      'value',
+      'timestamp',
+      'writer_id',
+      'skill_id',
+      'instance_id',
+      'schema_version',
+      'lineage_reference',
+      'audit_entry'
+    ];
 
+    const missing = required.filter((f) => !(f in (delta || {})));
     if (missing.length > 0) {
       throw new Error(`Invalid delta: missing required fields ${missing.join(', ')}`);
     }
 
-    const valid_mutation_types = ['append', 'append_to_array', 'version_bump'];
-    if (!valid_mutation_types.includes(delta.mutation_type)) {
-      throw new Error(`Invalid mutation_type "${delta.mutation_type}". Allowed: ${valid_mutation_types.join(', ')}`);
+    if (!this.allowedMutationTypes.has(delta.mutation_type)) {
+      throw new Error(
+        `Invalid mutation_type "${delta.mutation_type}". Allowed: ${Array.from(this.allowedMutationTypes).join(', ')}`
+      );
     }
   }
 
-  /**
-   * Validate that mutation doesn't overwrite existing fields (patch-only law)
-   */
-  validateNoOverwrite(dossier, delta) {
-    const target_path = delta.target;
-    const path_parts = target_path.split('.');
-
-    let current = dossier;
-    for (let i = 0; i < path_parts.length - 1; i++) {
-      const part = path_parts[i];
-      if (!(part in current)) {
-        current[part] = {};
-      }
-      current = current[part];
+  validateNamespaceOwnership(namespace) {
+    if (!this.namespace_ownership[namespace]) {
+      throw new Error(
+        `Namespace "${namespace}" not recognized. Allowed: ${Object.keys(this.namespace_ownership).join(', ')}`
+      );
     }
+  }
 
-    const final_key = path_parts[path_parts.length - 1];
+  validateNoOverwrite(dossier, delta) {
+    const { parent, finalKey, exists } = this.resolvePath(dossier, delta.target, true);
 
-    // For append mutations: target must not exist OR must be array
-    if (delta.mutation_type === 'append_to_array') {
-      if (final_key in current && !Array.isArray(current[final_key])) {
+    if (delta.mutation_type === 'append_to_array' || delta.mutation_type === 'create_new_index_row') {
+      if (exists && !Array.isArray(parent[finalKey])) {
         throw new Error(`Cannot append to non-array field: ${delta.target}`);
       }
-    } else if (delta.mutation_type === 'append') {
-      // For simple append: target must not exist (strict mode)
-      if (this.config.strict_mode && final_key in current) {
-        throw new Error(`Patch-only violation: cannot overwrite existing field ${delta.target}`);
-      }
+      return;
+    }
+
+    if (delta.mutation_type === 'create_new_packet' && exists) {
+      throw new Error(`Patch-only violation: cannot overwrite existing field ${delta.target}`);
     }
   }
 
-  /**
-   * Apply mutation based on mutation_type
-   */
-  async applyMutation(dossier, delta) {
-    const path_parts = delta.target.split('.');
-    let current = dossier;
-
-    // Navigate/create path
-    for (let i = 0; i < path_parts.length - 1; i++) {
-      const part = path_parts[i];
-      if (!(part in current)) {
-        current[part] = {};
-      }
-      current = current[part];
-    }
-
-    const final_key = path_parts[path_parts.length - 1];
+  applyMutation(dossier, delta) {
+    const { parent, finalKey } = this.resolvePath(dossier, delta.target, true);
 
     switch (delta.mutation_type) {
       case 'append_to_array':
-        if (!Array.isArray(current[final_key])) {
-          current[final_key] = [];
+        if (!Array.isArray(parent[finalKey])) {
+          parent[finalKey] = [];
         }
-        current[final_key].push(delta.value);
+        parent[finalKey].push(delta.value);
         break;
-
-      case 'append':
-        if (final_key in current && this.config.strict_mode) {
-          throw new Error(`Cannot overwrite field: ${delta.target}`);
+      case 'create_new_packet':
+        parent[finalKey] = delta.value;
+        break;
+      case 'create_new_index_row':
+        if (!Array.isArray(parent[finalKey])) {
+          parent[finalKey] = [];
         }
-        current[final_key] = delta.value;
+        parent[finalKey].push(delta.value);
         break;
-
-      case 'version_bump':
-        current[final_key] = (current[final_key] || 0) + (delta.value || 1);
+      case 'append_audit_entry':
+        if (!Array.isArray(parent[finalKey])) {
+          parent[finalKey] = [];
+        }
+        parent[finalKey].push(delta.value);
         break;
-
       default:
         throw new Error(`Unknown mutation_type: ${delta.mutation_type}`);
     }
@@ -208,61 +189,92 @@ class DossierWriter {
     return dossier;
   }
 
-  /**
-   * Load dossier from disk
-   */
-  async loadDossier(dossier_id) {
-    try {
-      const dossier_path = path.join(this.config.dossier_base_path, `${dossier_id}.json`);
-      if (fs.existsSync(dossier_path)) {
-        const content = fs.readFileSync(dossier_path, 'utf8');
-        return JSON.parse(content);
+  resolvePath(root, targetPath, createMissing = false) {
+    const pathParts = String(targetPath || '').split('.');
+    if (pathParts.length === 0 || !pathParts[0]) {
+      throw new Error(`Invalid target path: ${targetPath}`);
+    }
+
+    let current = root;
+    for (let i = 0; i < pathParts.length - 1; i += 1) {
+      const part = pathParts[i];
+      if (!(part in current)) {
+        if (!createMissing) {
+          return { parent: null, finalKey: null, exists: false };
+        }
+        current[part] = {};
       }
-      return { dossier_id: dossier_id, _version: 0, _created_at: new Date().toISOString() };
-    } catch (e) {
-      throw new Error(`Failed to load dossier ${dossier_id}: ${e.message}`);
+      if (typeof current[part] !== 'object' || current[part] === null || Array.isArray(current[part])) {
+        if (!createMissing) {
+          return { parent: null, finalKey: null, exists: false };
+        }
+        throw new Error(`Cannot navigate through non-object segment "${part}" in ${targetPath}`);
+      }
+      current = current[part];
     }
+
+    const finalKey = pathParts[pathParts.length - 1];
+    return { parent: current, finalKey, exists: Object.prototype.hasOwnProperty.call(current, finalKey) };
   }
 
-  /**
-   * Save dossier to disk
-   */
-  async saveDossier(dossier_id, dossier) {
+  async loadDossier(dossierId) {
     try {
-      const dossier_path = path.join(this.config.dossier_base_path, `${dossier_id}.json`);
-      fs.writeFileSync(dossier_path, JSON.stringify(dossier, null, 2));
-      return true;
-    } catch (e) {
-      throw new Error(`Failed to save dossier ${dossier_id}: ${e.message}`);
+      const dossierPath = path.join(this.config.dossier_base_path, `${dossierId}.json`);
+      if (!fs.existsSync(dossierPath)) {
+        return { dossier_id: dossierId, _version: 0, _created_at: new Date().toISOString(), _audit_trail: [] };
+      }
+      return JSON.parse(fs.readFileSync(dossierPath, 'utf8'));
+    } catch (error) {
+      throw new Error(`Failed to load dossier ${dossierId}: ${error.message}`);
     }
   }
 
-  /**
-   * Log mutation for audit
-   */
+  async saveDossier(dossierId, dossier) {
+    try {
+      const dossierPath = path.join(this.config.dossier_base_path, `${dossierId}.json`);
+      const dir = path.dirname(dossierPath);
+      if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir, { recursive: true });
+      }
+      fs.writeFileSync(dossierPath, JSON.stringify(dossier, null, 2));
+      return true;
+    } catch (error) {
+      throw new Error(`Failed to save dossier ${dossierId}: ${error.message}`);
+    }
+  }
+
+  buildMutationId(dossierId, delta) {
+    this.mutation_counter += 1;
+    const signature = `${dossierId}|${delta?.target || ''}|${delta?.instance_id || ''}|${this.mutation_counter}`;
+    let hash = 2166136261;
+    for (let i = 0; i < signature.length; i += 1) {
+      hash ^= signature.charCodeAt(i);
+      hash = Math.imul(hash, 16777619);
+    }
+    return `MUT-${(hash >>> 0).toString(16).padStart(8, '0')}`;
+  }
+
+  buildRoutedError(message) {
+    const error = new Error(message);
+    error.route_to_workflow = 'WF-900';
+    return error;
+  }
+
   logMutation(entry) {
-    this.mutation_log.push(entry);
+    this.mutation_log.push({
+      ...entry,
+      timestamp: entry.timestamp || new Date().toISOString()
+    });
     if (entry.status === 'FAILED') {
       console.error(`[MUTATION_FAILED] ${entry.mutation_id}: ${entry.error}`);
     }
   }
 
-  /**
-   * Get mutation history
-   */
   getMutationLog(filter = {}) {
     let log = this.mutation_log;
-
-    if (filter.dossier_id) {
-      log = log.filter(m => m.dossier_id === filter.dossier_id);
-    }
-    if (filter.status) {
-      log = log.filter(m => m.status === filter.status);
-    }
-    if (filter.namespace) {
-      log = log.filter(m => m.namespace === filter.namespace);
-    }
-
+    if (filter.dossier_id) log = log.filter((m) => m.dossier_id === filter.dossier_id);
+    if (filter.status) log = log.filter((m) => m.status === filter.status);
+    if (filter.namespace) log = log.filter((m) => m.namespace === filter.namespace);
     return log;
   }
 }

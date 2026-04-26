@@ -1,7 +1,6 @@
 /**
  * Dossier Reader Engine
- * Read-only access to dossier state by namespace or field path.
- * Tracks access patterns without mutation.
+ * Read-only access to dossier state with access auditing.
  */
 
 const fs = require('fs');
@@ -10,32 +9,22 @@ const path = require('path');
 class DossierReader {
   constructor(config = {}) {
     this.config = {
-      dossier_base_path: config.dossier_base_path || './dossiers/',
+      dossier_base_path: config.dossier_base_path || './dossiers',
       enable_access_log: config.enable_access_log !== false
     };
 
     this.access_log = [];
+    this.access_counter = 0;
   }
 
-  /**
-   * Read entire dossier
-   */
-  async readDossier(dossier_id) {
-    const access_id = 'ACC-' + Date.now();
+  async readDossier(dossierId) {
+    const accessId = this.buildAccessId(dossierId, 'READ_FULL_DOSSIER');
 
     try {
-      const dossier_path = path.join(this.config.dossier_base_path, `${dossier_id}.json`);
-
-      if (!fs.existsSync(dossier_path)) {
-        throw new Error(`Dossier not found: ${dossier_id}`);
-      }
-
-      const content = fs.readFileSync(dossier_path, 'utf8');
-      const dossier = JSON.parse(content);
-
+      const dossier = await this.loadDossier(dossierId);
       this.logAccess({
-        access_id,
-        dossier_id,
+        access_id: accessId,
+        dossier_id: dossierId,
         operation: 'READ_FULL_DOSSIER',
         path: null,
         version: dossier._version || 0,
@@ -43,221 +32,177 @@ class DossierReader {
       });
 
       return {
-        dossier_id: dossier_id,
+        dossier_id: dossierId,
         version: dossier._version || 0,
         data: dossier,
         accessed_at: new Date().toISOString()
       };
-
-    } catch (e) {
+    } catch (error) {
       this.logAccess({
-        access_id,
-        dossier_id,
+        access_id: accessId,
+        dossier_id: dossierId,
         operation: 'READ_FULL_DOSSIER',
         status: 'FAILED',
-        error: e.message
+        error: error.message,
+        route_to_workflow: 'WF-900'
       });
-      throw e;
+      throw this.buildRoutedError(error.message);
     }
   }
 
-  /**
-   * Read namespace from dossier
-   */
-  async readNamespace(dossier_id, namespace) {
-    const access_id = 'ACC-' + Date.now();
+  async readNamespace(dossierId, namespace) {
+    const accessId = this.buildAccessId(dossierId, 'READ_NAMESPACE');
 
     try {
-      const dossier = await this.loadDossier(dossier_id);
-      const namespace_data = dossier[namespace] || null;
+      const dossier = await this.loadDossier(dossierId);
+      const namespaceData = dossier[namespace] || null;
 
       this.logAccess({
-        access_id,
-        dossier_id,
+        access_id: accessId,
+        dossier_id: dossierId,
         operation: 'READ_NAMESPACE',
         path: namespace,
-        namespace: namespace,
+        namespace,
         version: dossier._version || 0,
         status: 'SUCCESS'
       });
 
       return {
-        dossier_id: dossier_id,
-        namespace: namespace,
-        data: namespace_data,
+        dossier_id: dossierId,
+        namespace,
+        data: namespaceData,
         version: dossier._version || 0,
         accessed_at: new Date().toISOString()
       };
-
-    } catch (e) {
+    } catch (error) {
       this.logAccess({
-        access_id,
-        dossier_id,
+        access_id: accessId,
+        dossier_id: dossierId,
         operation: 'READ_NAMESPACE',
         path: namespace,
         status: 'FAILED',
-        error: e.message
+        error: error.message,
+        route_to_workflow: 'WF-900'
       });
-      throw e;
+      throw this.buildRoutedError(error.message);
     }
   }
 
-  /**
-   * Read field/path from dossier
-   */
-  async readField(dossier_id, field_path) {
-    const access_id = 'ACC-' + Date.now();
+  async readField(dossierId, fieldPath) {
+    const accessId = this.buildAccessId(dossierId, 'READ_FIELD');
 
     try {
-      const dossier = await this.loadDossier(dossier_id);
-      const value = this.getValueByPath(dossier, field_path);
-
-      const path_parts = field_path.split('.');
-      const namespace = path_parts[0];
+      const dossier = await this.loadDossier(dossierId);
+      const value = this.getValueByPath(dossier, fieldPath);
+      const namespace = String(fieldPath || '').split('.')[0] || null;
 
       this.logAccess({
-        access_id,
-        dossier_id,
+        access_id: accessId,
+        dossier_id: dossierId,
         operation: 'READ_FIELD',
-        path: field_path,
-        namespace: namespace,
+        path: fieldPath,
+        namespace,
         version: dossier._version || 0,
         status: value !== undefined ? 'SUCCESS' : 'NOT_FOUND'
       });
 
       return {
-        dossier_id: dossier_id,
-        field_path: field_path,
-        value: value,
+        dossier_id: dossierId,
+        field_path: fieldPath,
+        value,
         found: value !== undefined,
         version: dossier._version || 0,
         accessed_at: new Date().toISOString()
       };
-
-    } catch (e) {
+    } catch (error) {
       this.logAccess({
-        access_id,
-        dossier_id,
+        access_id: accessId,
+        dossier_id: dossierId,
         operation: 'READ_FIELD',
-        path: field_path,
+        path: fieldPath,
         status: 'FAILED',
-        error: e.message
+        error: error.message,
+        route_to_workflow: 'WF-900'
       });
-      throw e;
+      throw this.buildRoutedError(error.message);
     }
   }
 
-  /**
-   * Get all namespaces present in dossier
-   */
-  async getNamespaces(dossier_id) {
+  async getNamespaces(dossierId) {
+    const dossier = await this.loadDossier(dossierId);
+    const namespaces = Object.keys(dossier).filter((k) => !k.startsWith('_'));
+    return {
+      dossier_id: dossierId,
+      namespaces,
+      namespace_count: namespaces.length,
+      version: dossier._version || 0,
+      accessed_at: new Date().toISOString()
+    };
+  }
+
+  async getAuditTrail(dossierId, filter = {}) {
+    const dossier = await this.loadDossier(dossierId);
+    let auditTrail = Array.isArray(dossier._audit_trail) ? dossier._audit_trail : [];
+
+    if (filter.workflow_id) auditTrail = auditTrail.filter((a) => a.workflow_id === filter.workflow_id);
+    if (filter.operation) auditTrail = auditTrail.filter((a) => a.operation === filter.operation);
+    if (filter.namespace) auditTrail = auditTrail.filter((a) => a.namespace === filter.namespace);
+
+    return {
+      dossier_id: dossierId,
+      audit_trail: auditTrail,
+      total_mutations: auditTrail.length,
+      version: dossier._version || 0,
+      accessed_at: new Date().toISOString()
+    };
+  }
+
+  async verifyLineageIntegrity(dossierId) {
+    const dossier = await this.loadDossier(dossierId);
+    const auditTrail = Array.isArray(dossier._audit_trail) ? dossier._audit_trail : [];
+
+    const violations = [];
+    for (const entry of auditTrail) {
+      if (entry.lineage_intact === false) {
+        violations.push({
+          mutation_id: entry.mutation_id,
+          issue: 'lineage_not_marked_intact',
+          workflow_id: entry.workflow_id
+        });
+      }
+      if (!entry.lineage_reference) {
+        violations.push({
+          mutation_id: entry.mutation_id,
+          issue: 'missing_lineage_reference',
+          workflow_id: entry.workflow_id
+        });
+      }
+    }
+
+    return {
+      dossier_id: dossierId,
+      integrity_ok: violations.length === 0,
+      total_mutations_checked: auditTrail.length,
+      violations,
+      version: dossier._version || 0
+    };
+  }
+
+  async loadDossier(dossierId) {
     try {
-      const dossier = await this.loadDossier(dossier_id);
-
-      const namespaces = Object.keys(dossier).filter(k => !k.startsWith('_'));
-
-      return {
-        dossier_id: dossier_id,
-        namespaces: namespaces,
-        namespace_count: namespaces.length,
-        version: dossier._version || 0,
-        accessed_at: new Date().toISOString()
-      };
-
-    } catch (e) {
-      throw e;
+      const dossierPath = path.join(this.config.dossier_base_path, `${dossierId}.json`);
+      if (!fs.existsSync(dossierPath)) {
+        throw new Error(`Dossier not found: ${dossierId}`);
+      }
+      return JSON.parse(fs.readFileSync(dossierPath, 'utf8'));
+    } catch (error) {
+      throw new Error(`Failed to load dossier ${dossierId}: ${error.message}`);
     }
   }
 
-  /**
-   * Get audit trail
-   */
-  async getAuditTrail(dossier_id, filter = {}) {
-    try {
-      const dossier = await this.loadDossier(dossier_id);
-      let audit_trail = dossier._audit_trail || [];
-
-      if (filter.workflow_id) {
-        audit_trail = audit_trail.filter(a => a.workflow_id === filter.workflow_id);
-      }
-      if (filter.operation) {
-        audit_trail = audit_trail.filter(a => a.operation === filter.operation);
-      }
-      if (filter.namespace) {
-        audit_trail = audit_trail.filter(a => a.namespace === filter.namespace);
-      }
-
-      return {
-        dossier_id: dossier_id,
-        audit_trail: audit_trail,
-        total_mutations: audit_trail.length,
-        version: dossier._version || 0,
-        accessed_at: new Date().toISOString()
-      };
-
-    } catch (e) {
-      throw e;
-    }
-  }
-
-  /**
-   * Verify mutation lineage integrity
-   */
-  async verifyLineageIntegrity(dossier_id) {
-    try {
-      const dossier = await this.loadDossier(dossier_id);
-      const audit_trail = dossier._audit_trail || [];
-
-      let integrity_ok = true;
-      const violations = [];
-
-      for (const entry of audit_trail) {
-        if (!entry.lineage_intact) {
-          integrity_ok = false;
-          violations.push({
-            mutation_id: entry.mutation_id,
-            issue: 'lineage_not_marked_intact',
-            workflow_id: entry.workflow_id
-          });
-        }
-      }
-
-      return {
-        dossier_id: dossier_id,
-        integrity_ok: integrity_ok,
-        total_mutations_checked: audit_trail.length,
-        violations: violations,
-        version: dossier._version || 0
-      };
-
-    } catch (e) {
-      throw e;
-    }
-  }
-
-  /**
-   * Load dossier from disk
-   */
-  async loadDossier(dossier_id) {
-    try {
-      const dossier_path = path.join(this.config.dossier_base_path, `${dossier_id}.json`);
-      if (!fs.existsSync(dossier_path)) {
-        throw new Error(`Dossier not found: ${dossier_id}`);
-      }
-      const content = fs.readFileSync(dossier_path, 'utf8');
-      return JSON.parse(content);
-    } catch (e) {
-      throw new Error(`Failed to load dossier ${dossier_id}: ${e.message}`);
-    }
-  }
-
-  /**
-   * Get value by dot-notation path
-   */
-  getValueByPath(obj, path) {
-    const parts = path.split('.');
+  getValueByPath(obj, fieldPath) {
+    const parts = String(fieldPath || '').split('.');
     let current = obj;
-
     for (const part of parts) {
       if (current && typeof current === 'object' && part in current) {
         current = current[part];
@@ -265,33 +210,33 @@ class DossierReader {
         return undefined;
       }
     }
-
     return current;
   }
 
-  /**
-   * Log access for audit
-   */
-  logAccess(entry) {
-    this.access_log.push(entry);
+  buildAccessId(dossierId, op) {
+    this.access_counter += 1;
+    return `ACC-${dossierId}-${op}-${this.access_counter}`;
   }
 
-  /**
-   * Get access log
-   */
+  buildRoutedError(message) {
+    const error = new Error(message);
+    error.route_to_workflow = 'WF-900';
+    return error;
+  }
+
+  logAccess(entry) {
+    if (!this.config.enable_access_log) return;
+    this.access_log.push({
+      ...entry,
+      timestamp: entry.timestamp || new Date().toISOString()
+    });
+  }
+
   getAccessLog(filter = {}) {
     let log = this.access_log;
-
-    if (filter.dossier_id) {
-      log = log.filter(a => a.dossier_id === filter.dossier_id);
-    }
-    if (filter.operation) {
-      log = log.filter(a => a.operation === filter.operation);
-    }
-    if (filter.status) {
-      log = log.filter(a => a.status === filter.status);
-    }
-
+    if (filter.dossier_id) log = log.filter((a) => a.dossier_id === filter.dossier_id);
+    if (filter.operation) log = log.filter((a) => a.operation === filter.operation);
+    if (filter.status) log = log.filter((a) => a.status === filter.status);
     return log;
   }
 }
