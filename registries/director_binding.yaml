@@ -1,12 +1,12 @@
-version: 2
+version: 3
 registry_id: director_binding
-generated_at: "2026-04-26T07:29:26.600Z"
-status: COMPLETE_PHASE1_CLOSURE_REMEDIATION
+generated_at: "2026-04-26T07:41:29.131Z"
+status: COMPLETE_PHASE1_ACCEPTANCE_218_SCOPE
 closure_contract:
   required_total_directors: 30
   active_bound_directors: 30
   pending_director_bindings: 0
-  mapped_skill_scope: M-021_to_M-245_wave_scope_plus_governance_directors
+  mapped_skill_scope: acceptance_218_m_skill_scope
   escalation_workflow: WF-900
   replay_workflow: WF-021
   governance_enforced: true
@@ -28,78 +28,33 @@ directors:
     routing_responsibility: Orchestrator | Decision Arbiter | Multi-Domain Controller
     failure_handling_responsibility: route contract and runtime failures to WF-900 with audit trace
     mapped_skills:
-      - M-021
-      - M-022
-      - M-023
-      - M-024
-      - M-025
+      - M-001
       - M-026
-      - M-027
-      - M-028
-      - M-029
-      - M-030
-      - M-121
-      - M-122
+      - M-033
+      - M-056
+      - M-063
+      - M-086
+      - M-100
       - M-123
-      - M-124
-      - M-125
-      - M-126
-      - M-127
-      - M-128
-      - M-129
       - M-130
+      - M-153
+      - M-160
       - M-201
-      - M-202
-      - M-203
-      - M-204
-      - M-205
-      - M-206
-      - M-207
       - M-208
-      - M-209
-      - M-210
-      - M-211
-      - M-212
-      - M-213
-      - M-214
-      - M-215
-      - M-216
-      - M-217
-      - M-218
-      - M-219
-      - M-220
-      - M-221
-      - M-222
-      - M-223
-      - M-224
-      - M-225
-      - M-226
-      - M-227
-      - M-228
-      - M-229
-      - M-230
       - M-231
-      - M-232
-      - M-233
-      - M-234
-      - M-235
-      - M-236
-      - M-237
       - M-238
-      - M-239
-      - M-240
-      - M-241
-      - M-242
-      - M-243
-      - M-244
-      - M-245
     mapped_workflows:
+      - CWF-110
+      - CWF-120
       - CWF-140
+      - CWF-210
+      - CWF-220
       - CWF-230
       - CWF-240
-      - CWF-310
       - CWF-410
+      - CWF-420
       - CWF-430
+      - WF-020
       - WF-900
   - canonical_name: Vishnu
     director_id: DIR-ORCHv1-002
@@ -118,8 +73,33 @@ directors:
     routing_responsibility: HA Coordinator | Failover Master
     failure_handling_responsibility: route contract and runtime failures to WF-900 with audit trace
     mapped_skills:
-      - NONE_ASSIGNED_IN_CANONICAL_SCOPE
+      - M-002
+      - M-027
+      - M-034
+      - M-057
+      - M-064
+      - M-087
+      - M-101
+      - M-124
+      - M-131
+      - M-154
+      - M-161
+      - M-202
+      - M-209
+      - M-232
+      - M-239
     mapped_workflows:
+      - CWF-110
+      - CWF-120
+      - CWF-140
+      - CWF-210
+      - CWF-220
+      - CWF-230
+      - CWF-240
+      - CWF-410
+      - CWF-420
+      - CWF-430
+      - WF-020
       - WF-900
   - canonical_name: Shiva
     director_id: DIR-ORCHv1-003
@@ -138,21 +118,33 @@ directors:
     routing_responsibility: Autonomous Intelligence Loop | Creative Destruction
     failure_handling_responsibility: route contract and runtime failures to WF-900 with audit trace
     mapped_skills:
-      - M-022
-      - M-130
+      - M-003
+      - M-028
+      - M-035
+      - M-058
+      - M-065
+      - M-088
+      - M-102
+      - M-125
+      - M-132
+      - M-155
+      - M-162
+      - M-203
       - M-210
-      - M-212
-      - M-218
-      - M-221
-      - M-223
-      - M-236
-      - M-238
+      - M-233
+      - M-240
     mapped_workflows:
+      - CWF-110
+      - CWF-120
       - CWF-140
+      - CWF-210
+      - CWF-220
+      - CWF-230
       - CWF-240
-      - CWF-310
       - CWF-410
+      - CWF-420
       - CWF-430
+      - WF-020
       - WF-900
   - canonical_name: Brahma
     director_id: DIR-ORCHv1-004
@@ -171,8 +163,33 @@ directors:
     routing_responsibility: Governance Keeper | Councils Coordinator
     failure_handling_responsibility: route contract and runtime failures to WF-900 with audit trace
     mapped_skills:
-      - NONE_ASSIGNED_IN_CANONICAL_SCOPE
+      - M-004
+      - M-029
+      - M-036
+      - M-059
+      - M-066
+      - M-089
+      - M-103
+      - M-126
+      - M-133
+      - M-156
+      - M-163
+      - M-204
+      - M-211
+      - M-234
+      - M-241
     mapped_workflows:
+      - CWF-110
+      - CWF-120
+      - CWF-140
+      - CWF-210
+      - CWF-220
+      - CWF-230
+      - CWF-240
+      - CWF-410
+      - CWF-420
+      - CWF-430
+      - WF-020
       - WF-900
   - canonical_name: Shakti
     director_id: DIR-ORCHv1-005
@@ -191,8 +208,33 @@ directors:
     routing_responsibility: Creative Force Amplifier | Distribution Velocity
     failure_handling_responsibility: route contract and runtime failures to WF-900 with audit trace
     mapped_skills:
-      - NONE_ASSIGNED_IN_CANONICAL_SCOPE
+      - M-006
+      - M-030
+      - M-037
+      - M-060
+      - M-067
+      - M-090
+      - M-104
+      - M-127
+      - M-134
+      - M-157
+      - M-164
+      - M-205
+      - M-212
+      - M-235
+      - M-242
     mapped_workflows:
+      - CWF-110
+      - CWF-120
+      - CWF-140
+      - CWF-210
+      - CWF-220
+      - CWF-230
+      - CWF-240
+      - CWF-410
+      - CWF-420
+      - CWF-430
+      - WF-020
       - WF-900
   - canonical_name: Chanakya
     director_id: DIR-STRTv1-001
@@ -211,8 +253,32 @@ directors:
     routing_responsibility: Strategic Filtering | Opportunity Selection
     failure_handling_responsibility: route contract and runtime failures to WF-900 with audit trace
     mapped_skills:
-      - NONE_ASSIGNED_IN_CANONICAL_SCOPE
+      - M-007
+      - M-031
+      - M-038
+      - M-061
+      - M-068
+      - M-098
+      - M-105
+      - M-128
+      - M-135
+      - M-158
+      - M-165
+      - M-206
+      - M-213
+      - M-236
+      - M-243
     mapped_workflows:
+      - CWF-110
+      - CWF-120
+      - CWF-210
+      - CWF-220
+      - CWF-230
+      - CWF-240
+      - CWF-410
+      - CWF-420
+      - CWF-430
+      - WF-020
       - WF-900
   - canonical_name: Narada
     director_id: DIR-STRTv1-002
@@ -231,30 +297,32 @@ directors:
     routing_responsibility: Operations | Distribution | Optimization
     failure_handling_responsibility: route contract and runtime failures to WF-900 with audit trace
     mapped_skills:
-      - M-027
-      - M-121
-      - M-124
-      - M-128
-      - M-202
-      - M-211
+      - M-008
+      - M-032
+      - M-039
+      - M-062
+      - M-069
+      - M-099
+      - M-106
+      - M-129
+      - M-136
+      - M-159
+      - M-166
+      - M-207
       - M-214
-      - M-216
-      - M-219
-      - M-220
-      - M-222
-      - M-225
-      - M-230
-      - M-231
-      - M-232
-      - M-233
-      - M-239
-      - M-242
+      - M-237
+      - M-244
     mapped_workflows:
-      - CWF-140
+      - CWF-110
+      - CWF-120
+      - CWF-210
+      - CWF-220
       - CWF-230
-      - CWF-310
+      - CWF-240
       - CWF-410
+      - CWF-420
       - CWF-430
+      - WF-020
       - WF-900
   - canonical_name: Ravana
     director_id: DIR-STRTv1-003
@@ -273,8 +341,33 @@ directors:
     routing_responsibility: Alternative Strategy | Conflict Manager
     failure_handling_responsibility: route contract and runtime failures to WF-900 with audit trace
     mapped_skills:
-      - NONE_ASSIGNED_IN_CANONICAL_SCOPE
+      - M-001
+      - M-009
+      - M-033
+      - M-040
+      - M-063
+      - M-070
+      - M-100
+      - M-107
+      - M-130
+      - M-137
+      - M-160
+      - M-167
+      - M-208
+      - M-215
+      - M-238
+      - M-245
     mapped_workflows:
+      - CWF-110
+      - CWF-120
+      - CWF-210
+      - CWF-220
+      - CWF-230
+      - CWF-240
+      - CWF-410
+      - CWF-420
+      - CWF-430
+      - WF-020
       - WF-900
   - canonical_name: Durga
     director_id: DIR-STRTv1-004
@@ -293,8 +386,31 @@ directors:
     routing_responsibility: Protection | Veto Logic | Safety Enforcement
     failure_handling_responsibility: route contract and runtime failures to WF-900 with audit trace
     mapped_skills:
-      - NONE_ASSIGNED_IN_CANONICAL_SCOPE
+      - M-002
+      - M-010
+      - M-034
+      - M-041
+      - M-064
+      - M-071
+      - M-101
+      - M-108
+      - M-131
+      - M-138
+      - M-161
+      - M-168
+      - M-209
+      - M-216
+      - M-239
     mapped_workflows:
+      - CWF-110
+      - CWF-120
+      - CWF-210
+      - CWF-220
+      - CWF-240
+      - CWF-410
+      - CWF-420
+      - CWF-430
+      - WF-020
       - WF-900
   - canonical_name: Yudhishthira
     director_id: DIR-STRTv1-005
@@ -313,8 +429,31 @@ directors:
     routing_responsibility: Dharma/Governance Validation
     failure_handling_responsibility: route contract and runtime failures to WF-900 with audit trace
     mapped_skills:
-      - NONE_ASSIGNED_IN_CANONICAL_SCOPE
+      - M-003
+      - M-011
+      - M-035
+      - M-042
+      - M-065
+      - M-072
+      - M-102
+      - M-109
+      - M-132
+      - M-139
+      - M-162
+      - M-169
+      - M-210
+      - M-217
+      - M-240
     mapped_workflows:
+      - CWF-110
+      - CWF-120
+      - CWF-210
+      - CWF-220
+      - CWF-240
+      - CWF-410
+      - CWF-420
+      - CWF-430
+      - WF-020
       - WF-900
   - canonical_name: Valmiki
     director_id: DIR-RSRCHv1-001
@@ -333,8 +472,31 @@ directors:
     routing_responsibility: Research Synthesis | Knowledge Structuring
     failure_handling_responsibility: route contract and runtime failures to WF-900 with audit trace
     mapped_skills:
-      - NONE_ASSIGNED_IN_CANONICAL_SCOPE
+      - M-004
+      - M-012
+      - M-036
+      - M-043
+      - M-066
+      - M-073
+      - M-103
+      - M-110
+      - M-133
+      - M-140
+      - M-163
+      - M-170
+      - M-211
+      - M-218
+      - M-241
     mapped_workflows:
+      - CWF-110
+      - CWF-120
+      - CWF-210
+      - CWF-220
+      - CWF-240
+      - CWF-410
+      - CWF-420
+      - CWF-430
+      - WF-020
       - WF-900
   - canonical_name: Vyasa
     director_id: DIR-RSRCHv1-002
@@ -353,28 +515,31 @@ directors:
     routing_responsibility: Content Creation | Knowledge Graph Management
     failure_handling_responsibility: route contract and runtime failures to WF-900 with audit trace
     mapped_skills:
-      - M-024
-      - M-122
-      - M-126
-      - M-129
-      - M-201
-      - M-204
-      - M-205
-      - M-208
-      - M-209
-      - M-213
-      - M-215
-      - M-217
-      - M-224
-      - M-228
-      - M-234
-      - M-241
+      - M-006
+      - M-013
+      - M-037
+      - M-044
+      - M-067
+      - M-074
+      - M-104
+      - M-111
+      - M-134
+      - M-141
+      - M-164
+      - M-171
+      - M-212
+      - M-219
+      - M-242
     mapped_workflows:
-      - CWF-140
-      - CWF-230
-      - CWF-310
+      - CWF-110
+      - CWF-120
+      - CWF-210
+      - CWF-220
+      - CWF-240
       - CWF-410
+      - CWF-420
       - CWF-430
+      - WF-020
       - WF-900
   - canonical_name: Agastya
     director_id: DIR-RSRCHv1-003
@@ -393,8 +558,31 @@ directors:
     routing_responsibility: Deep Analysis | Insight Extraction
     failure_handling_responsibility: route contract and runtime failures to WF-900 with audit trace
     mapped_skills:
-      - NONE_ASSIGNED_IN_CANONICAL_SCOPE
+      - M-007
+      - M-014
+      - M-038
+      - M-045
+      - M-068
+      - M-075
+      - M-105
+      - M-112
+      - M-135
+      - M-142
+      - M-165
+      - M-172
+      - M-213
+      - M-220
+      - M-243
     mapped_workflows:
+      - CWF-110
+      - CWF-120
+      - CWF-210
+      - CWF-220
+      - CWF-240
+      - CWF-410
+      - CWF-420
+      - CWF-430
+      - WF-020
       - WF-900
   - canonical_name: Parashara
     director_id: DIR-RSRCHv1-004
@@ -413,8 +601,31 @@ directors:
     routing_responsibility: Trend Analysis | Pattern Discovery
     failure_handling_responsibility: route contract and runtime failures to WF-900 with audit trace
     mapped_skills:
-      - NONE_ASSIGNED_IN_CANONICAL_SCOPE
+      - M-008
+      - M-015
+      - M-039
+      - M-046
+      - M-069
+      - M-076
+      - M-106
+      - M-113
+      - M-136
+      - M-143
+      - M-166
+      - M-173
+      - M-214
+      - M-221
+      - M-244
     mapped_workflows:
+      - CWF-110
+      - CWF-120
+      - CWF-210
+      - CWF-220
+      - CWF-240
+      - CWF-410
+      - CWF-420
+      - CWF-430
+      - WF-020
       - WF-900
   - canonical_name: Ganesha
     director_id: DIR-RSRCHv1-005
@@ -433,8 +644,31 @@ directors:
     routing_responsibility: Neural Index Router | Routing Intelligence
     failure_handling_responsibility: route contract and runtime failures to WF-900 with audit trace
     mapped_skills:
-      - NONE_ASSIGNED_IN_CANONICAL_SCOPE
+      - M-009
+      - M-016
+      - M-040
+      - M-047
+      - M-070
+      - M-077
+      - M-107
+      - M-114
+      - M-137
+      - M-144
+      - M-167
+      - M-174
+      - M-215
+      - M-222
+      - M-245
     mapped_workflows:
+      - CWF-110
+      - CWF-120
+      - CWF-210
+      - CWF-220
+      - CWF-240
+      - CWF-410
+      - CWF-420
+      - CWF-430
+      - WF-020
       - WF-900
   - canonical_name: Tumburu
     director_id: DIR-PRODv1-001
@@ -453,8 +687,29 @@ directors:
     routing_responsibility: Audio Production | Voice Direction
     failure_handling_responsibility: route contract and runtime failures to WF-900 with audit trace
     mapped_skills:
-      - NONE_ASSIGNED_IN_CANONICAL_SCOPE
+      - M-010
+      - M-018
+      - M-041
+      - M-048
+      - M-071
+      - M-078
+      - M-108
+      - M-115
+      - M-138
+      - M-145
+      - M-168
+      - M-175
+      - M-216
+      - M-223
     mapped_workflows:
+      - CWF-110
+      - CWF-120
+      - CWF-210
+      - CWF-220
+      - CWF-240
+      - CWF-420
+      - CWF-430
+      - WF-020
       - WF-900
   - canonical_name: Arjuna
     director_id: DIR-PRODv1-002
@@ -473,8 +728,29 @@ directors:
     routing_responsibility: Script Execution | Narrative Warfare
     failure_handling_responsibility: route contract and runtime failures to WF-900 with audit trace
     mapped_skills:
-      - NONE_ASSIGNED_IN_CANONICAL_SCOPE
+      - M-011
+      - M-019
+      - M-042
+      - M-049
+      - M-072
+      - M-079
+      - M-109
+      - M-116
+      - M-139
+      - M-146
+      - M-169
+      - M-176
+      - M-217
+      - M-224
     mapped_workflows:
+      - CWF-110
+      - CWF-120
+      - CWF-210
+      - CWF-220
+      - CWF-240
+      - CWF-420
+      - CWF-430
+      - WF-020
       - WF-900
   - canonical_name: Maya
     director_id: DIR-PRODv1-003
@@ -493,8 +769,29 @@ directors:
     routing_responsibility: Visual Production | Creative Visualization
     failure_handling_responsibility: route contract and runtime failures to WF-900 with audit trace
     mapped_skills:
-      - NONE_ASSIGNED_IN_CANONICAL_SCOPE
+      - M-012
+      - M-020
+      - M-043
+      - M-050
+      - M-073
+      - M-080
+      - M-110
+      - M-117
+      - M-140
+      - M-147
+      - M-170
+      - M-177
+      - M-218
+      - M-225
     mapped_workflows:
+      - CWF-110
+      - CWF-120
+      - CWF-210
+      - CWF-220
+      - CWF-240
+      - CWF-420
+      - CWF-430
+      - WF-020
       - WF-900
   - canonical_name: Vishwakarma
     director_id: DIR-PRODv1-004
@@ -513,8 +810,30 @@ directors:
     routing_responsibility: Architecture | Technical Production
     failure_handling_responsibility: route contract and runtime failures to WF-900 with audit trace
     mapped_skills:
-      - NONE_ASSIGNED_IN_CANONICAL_SCOPE
+      - M-013
+      - M-021
+      - M-044
+      - M-051
+      - M-074
+      - M-081
+      - M-111
+      - M-118
+      - M-141
+      - M-148
+      - M-171
+      - M-178
+      - M-219
+      - M-226
     mapped_workflows:
+      - CWF-110
+      - CWF-120
+      - CWF-140
+      - CWF-210
+      - CWF-220
+      - CWF-240
+      - CWF-420
+      - CWF-430
+      - WF-020
       - WF-900
   - canonical_name: Agni
     director_id: DIR-PRODv1-005
@@ -533,8 +852,30 @@ directors:
     routing_responsibility: Energy/Momentum | Urgency Injection
     failure_handling_responsibility: route contract and runtime failures to WF-900 with audit trace
     mapped_skills:
-      - NONE_ASSIGNED_IN_CANONICAL_SCOPE
+      - M-014
+      - M-022
+      - M-045
+      - M-052
+      - M-075
+      - M-082
+      - M-112
+      - M-119
+      - M-142
+      - M-149
+      - M-172
+      - M-179
+      - M-220
+      - M-227
     mapped_workflows:
+      - CWF-110
+      - CWF-120
+      - CWF-140
+      - CWF-210
+      - CWF-220
+      - CWF-240
+      - CWF-420
+      - CWF-430
+      - WF-020
       - WF-900
   - canonical_name: Hanuman
     director_id: DIR-CINv1-001
@@ -553,8 +894,30 @@ directors:
     routing_responsibility: Speed | Fast-Track Execution
     failure_handling_responsibility: route contract and runtime failures to WF-900 with audit trace
     mapped_skills:
-      - NONE_ASSIGNED_IN_CANONICAL_SCOPE
+      - M-015
+      - M-023
+      - M-046
+      - M-053
+      - M-076
+      - M-083
+      - M-113
+      - M-120
+      - M-143
+      - M-150
+      - M-173
+      - M-180
+      - M-221
+      - M-228
     mapped_workflows:
+      - CWF-110
+      - CWF-120
+      - CWF-140
+      - CWF-210
+      - CWF-220
+      - CWF-240
+      - CWF-420
+      - CWF-430
+      - WF-020
       - WF-900
   - canonical_name: Nataraja
     director_id: DIR-CINv1-002
@@ -573,8 +936,31 @@ directors:
     routing_responsibility: Pacing | Editing | Flow Control
     failure_handling_responsibility: route contract and runtime failures to WF-900 with audit trace
     mapped_skills:
-      - NONE_ASSIGNED_IN_CANONICAL_SCOPE
+      - M-016
+      - M-024
+      - M-047
+      - M-054
+      - M-077
+      - M-084
+      - M-114
+      - M-121
+      - M-144
+      - M-151
+      - M-174
+      - M-181
+      - M-222
+      - M-229
     mapped_workflows:
+      - CWF-110
+      - CWF-120
+      - CWF-140
+      - CWF-210
+      - CWF-220
+      - CWF-230
+      - CWF-240
+      - CWF-420
+      - CWF-430
+      - WF-020
       - WF-900
   - canonical_name: Garuda
     director_id: DIR-CINv1-003
@@ -593,8 +979,31 @@ directors:
     routing_responsibility: Distribution Velocity | Rapid Publishing
     failure_handling_responsibility: route contract and runtime failures to WF-900 with audit trace
     mapped_skills:
-      - NONE_ASSIGNED_IN_CANONICAL_SCOPE
+      - M-018
+      - M-025
+      - M-048
+      - M-055
+      - M-078
+      - M-085
+      - M-115
+      - M-122
+      - M-145
+      - M-152
+      - M-175
+      - M-182
+      - M-223
+      - M-230
     mapped_workflows:
+      - CWF-110
+      - CWF-120
+      - CWF-140
+      - CWF-210
+      - CWF-220
+      - CWF-230
+      - CWF-240
+      - CWF-420
+      - CWF-430
+      - WF-020
       - WF-900
   - canonical_name: Varuna
     director_id: DIR-CINv1-004
@@ -613,8 +1022,32 @@ directors:
     routing_responsibility: Flow | Liquid Narrative | Adaptability
     failure_handling_responsibility: route contract and runtime failures to WF-900 with audit trace
     mapped_skills:
-      - NONE_ASSIGNED_IN_CANONICAL_SCOPE
+      - M-019
+      - M-026
+      - M-049
+      - M-056
+      - M-079
+      - M-086
+      - M-116
+      - M-123
+      - M-146
+      - M-153
+      - M-176
+      - M-201
+      - M-224
+      - M-231
     mapped_workflows:
+      - CWF-110
+      - CWF-120
+      - CWF-140
+      - CWF-210
+      - CWF-220
+      - CWF-230
+      - CWF-240
+      - CWF-410
+      - CWF-420
+      - CWF-430
+      - WF-020
       - WF-900
   - canonical_name: Indra
     director_id: DIR-CINv1-005
@@ -633,8 +1066,32 @@ directors:
     routing_responsibility: Premium Tier | High-Value Production
     failure_handling_responsibility: route contract and runtime failures to WF-900 with audit trace
     mapped_skills:
-      - NONE_ASSIGNED_IN_CANONICAL_SCOPE
+      - M-020
+      - M-027
+      - M-050
+      - M-057
+      - M-080
+      - M-087
+      - M-117
+      - M-124
+      - M-147
+      - M-154
+      - M-177
+      - M-202
+      - M-225
+      - M-232
     mapped_workflows:
+      - CWF-110
+      - CWF-120
+      - CWF-140
+      - CWF-210
+      - CWF-220
+      - CWF-230
+      - CWF-240
+      - CWF-410
+      - CWF-420
+      - CWF-430
+      - WF-020
       - WF-900
   - canonical_name: Kama
     director_id: DIR-DISTv1-001
@@ -653,8 +1110,30 @@ directors:
     routing_responsibility: Engagement | Conversion | Audience Attraction
     failure_handling_responsibility: route contract and runtime failures to WF-900 with audit trace
     mapped_skills:
-      - NONE_ASSIGNED_IN_CANONICAL_SCOPE
+      - M-021
+      - M-028
+      - M-051
+      - M-058
+      - M-081
+      - M-088
+      - M-118
+      - M-125
+      - M-148
+      - M-155
+      - M-178
+      - M-203
+      - M-226
+      - M-233
     mapped_workflows:
+      - CWF-140
+      - CWF-210
+      - CWF-220
+      - CWF-230
+      - CWF-240
+      - CWF-410
+      - CWF-420
+      - CWF-430
+      - WF-020
       - WF-900
   - canonical_name: Saraswati
     director_id: DIR-DISTv1-002
@@ -673,24 +1152,30 @@ directors:
     routing_responsibility: Knowledge Dissemination | Content Multiplication
     failure_handling_responsibility: route contract and runtime failures to WF-900 with audit trace
     mapped_skills:
-      - M-021
-      - M-025
-      - M-026
+      - M-022
       - M-029
-      - M-123
-      - M-203
-      - M-207
-      - M-226
+      - M-052
+      - M-059
+      - M-082
+      - M-089
+      - M-119
+      - M-126
+      - M-149
+      - M-156
+      - M-179
+      - M-204
       - M-227
-      - M-235
-      - M-243
-      - M-244
+      - M-234
     mapped_workflows:
       - CWF-140
+      - CWF-210
+      - CWF-220
       - CWF-230
-      - CWF-310
+      - CWF-240
       - CWF-410
+      - CWF-420
       - CWF-430
+      - WF-020
       - WF-900
   - canonical_name: Kubera
     director_id: KERNEL-COST-001
@@ -709,8 +1194,30 @@ directors:
     routing_responsibility: Cost/Budget Authority | Financial Gate
     failure_handling_responsibility: route contract and runtime failures to WF-900 with audit trace
     mapped_skills:
-      - NONE_ASSIGNED_IN_CANONICAL_SCOPE
+      - M-023
+      - M-030
+      - M-053
+      - M-060
+      - M-083
+      - M-090
+      - M-120
+      - M-127
+      - M-150
+      - M-157
+      - M-180
+      - M-205
+      - M-228
+      - M-235
     mapped_workflows:
+      - CWF-140
+      - CWF-210
+      - CWF-220
+      - CWF-230
+      - CWF-240
+      - CWF-410
+      - CWF-420
+      - CWF-430
+      - WF-020
       - WF-900
   - canonical_name: Yama
     director_id: KERNEL-POLICY-001
@@ -729,8 +1236,30 @@ directors:
     routing_responsibility: Policy/Legality Gate | Governance Enforcement
     failure_handling_responsibility: route contract and runtime failures to WF-900 with audit trace
     mapped_skills:
-      - NONE_ASSIGNED_IN_CANONICAL_SCOPE
+      - M-024
+      - M-031
+      - M-054
+      - M-061
+      - M-084
+      - M-098
+      - M-121
+      - M-128
+      - M-151
+      - M-158
+      - M-181
+      - M-206
+      - M-229
+      - M-236
     mapped_workflows:
+      - CWF-140
+      - CWF-210
+      - CWF-220
+      - CWF-230
+      - CWF-240
+      - CWF-410
+      - CWF-420
+      - CWF-430
+      - WF-020
       - WF-900
   - canonical_name: Aruna
     director_id: KERNEL-FLOW-001
@@ -749,6 +1278,28 @@ directors:
     routing_responsibility: Flow Building | Resource Gating | Neural Routing
     failure_handling_responsibility: route contract and runtime failures to WF-900 with audit trace
     mapped_skills:
-      - NONE_ASSIGNED_IN_CANONICAL_SCOPE
+      - M-025
+      - M-032
+      - M-055
+      - M-062
+      - M-085
+      - M-099
+      - M-122
+      - M-129
+      - M-152
+      - M-159
+      - M-182
+      - M-207
+      - M-230
+      - M-237
     mapped_workflows:
+      - CWF-140
+      - CWF-210
+      - CWF-220
+      - CWF-230
+      - CWF-240
+      - CWF-410
+      - CWF-420
+      - CWF-430
+      - WF-020
       - WF-900

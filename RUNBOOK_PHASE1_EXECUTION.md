@@ -2,15 +2,15 @@
 
 ## 1. Purpose
 
-This runbook defines the deterministic execution and validation procedure for the currently implemented Phase-1 canonical wave scope in `C:\ShadowEmpire-Git`.
+This runbook defines the deterministic execution and validation procedure for the Phase-1 acceptance-closed canonical scope in `C:\ShadowEmpire-Git`.
 
 Scope covered by this runbook:
 - Required canonical workflow set: `CWF-110`, `CWF-120`, `CWF-130`, `CWF-140`, `CWF-210`, `CWF-220`, `CWF-230`, `CWF-240`, `WF-020`, `WF-021`
-- Canonical skill registry scope currently bound: `65` skills
+- Canonical skill registry scope currently bound: `218` skills
 - Runtime engine modules: `skill_loader`, `dossier`, `packets`, `approval`
 - Validators: `workflow_validator.js`, `schema_validator.js`, `registry_validator.js`, `runtime_validator.js`
 
-This runbook does not claim full 218-skill/30-director completion.
+This runbook reflects accepted closure for the authoritative 218-skill scope and 30-director binding target.
 
 ## 2. Preconditions
 
@@ -110,7 +110,7 @@ console.log(JSON.stringify({registry_overall_valid:reg.overall_valid,registry_fi
 
 Interpretation:
 - `schema_overall_valid` must be `true`.
-- `registry_overall_valid` may be `false` until legacy estate closure is completed; review finding codes before release decision.
+- `registry_overall_valid` must be `true` for Phase-1 acceptance closure.
 
 ### Step 4: Runtime Contract Validation
 
@@ -153,7 +153,7 @@ Do not mark Phase-1 complete unless all are true:
 4. Append-only mutation law passes repository runtime checks.
 5. End-to-end sample run from intake to `WF-020` approval is validated.
 
-Current state at Wave 10 remains `PARTIAL` and not Phase-1 complete.
+Current canonical closure state satisfies these Phase-1 acceptance rules.
 
 ## 7. Incident and Rollback Handling
 

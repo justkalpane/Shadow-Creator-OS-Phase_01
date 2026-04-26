@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "M-158 packet schema",
+  "type": "object",
+  "required": [
+    "instance_id",
+    "artifact_family",
+    "schema_version",
+    "producer_workflow",
+    "dossier_ref",
+    "created_at",
+    "status",
+    "payload"
+  ],
+  "properties": {
+    "instance_id": {
+      "type": "string"
+    },
+    "artifact_family": {
+      "type": "string",
+      "const": "m158_packet"
+    },
+    "schema_version": {
+      "type": "string"
+    },
+    "producer_workflow": {
+      "type": "string"
+    },
+    "dossier_ref": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "payload": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": true
+}

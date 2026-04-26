@@ -1,19 +1,27 @@
-version: 1
+version: 3
 registry_id: skill_registry
-generated_at: "2026-04-26T22:45:00.000Z"
-status: PARTIAL_WAVE_9_CANONICAL_REGISTRY_CLOSURE_HARDENED
+generated_at: "2026-04-26T07:41:29.123Z"
+status: COMPLETE_PHASE1_ACCEPTANCE_218_SCOPE
 registry_scope:
   authoritative_for:
-    - M-121
-    - M-122
-    - M-123
-    - M-124
-    - M-125
-    - M-126
-    - M-127
-    - M-128
-    - M-129
-    - M-130
+    - M-001
+    - M-002
+    - M-003
+    - M-004
+    - M-006
+    - M-007
+    - M-008
+    - M-009
+    - M-010
+    - M-011
+    - M-012
+    - M-013
+    - M-014
+    - M-015
+    - M-016
+    - M-018
+    - M-019
+    - M-020
     - M-021
     - M-022
     - M-023
@@ -24,6 +32,151 @@ registry_scope:
     - M-028
     - M-029
     - M-030
+    - M-031
+    - M-032
+    - M-033
+    - M-034
+    - M-035
+    - M-036
+    - M-037
+    - M-038
+    - M-039
+    - M-040
+    - M-041
+    - M-042
+    - M-043
+    - M-044
+    - M-045
+    - M-046
+    - M-047
+    - M-048
+    - M-049
+    - M-050
+    - M-051
+    - M-052
+    - M-053
+    - M-054
+    - M-055
+    - M-056
+    - M-057
+    - M-058
+    - M-059
+    - M-060
+    - M-061
+    - M-062
+    - M-063
+    - M-064
+    - M-065
+    - M-066
+    - M-067
+    - M-068
+    - M-069
+    - M-070
+    - M-071
+    - M-072
+    - M-073
+    - M-074
+    - M-075
+    - M-076
+    - M-077
+    - M-078
+    - M-079
+    - M-080
+    - M-081
+    - M-082
+    - M-083
+    - M-084
+    - M-085
+    - M-086
+    - M-087
+    - M-088
+    - M-089
+    - M-090
+    - M-098
+    - M-099
+    - M-100
+    - M-101
+    - M-102
+    - M-103
+    - M-104
+    - M-105
+    - M-106
+    - M-107
+    - M-108
+    - M-109
+    - M-110
+    - M-111
+    - M-112
+    - M-113
+    - M-114
+    - M-115
+    - M-116
+    - M-117
+    - M-118
+    - M-119
+    - M-120
+    - M-121
+    - M-122
+    - M-123
+    - M-124
+    - M-125
+    - M-126
+    - M-127
+    - M-128
+    - M-129
+    - M-130
+    - M-131
+    - M-132
+    - M-133
+    - M-134
+    - M-135
+    - M-136
+    - M-137
+    - M-138
+    - M-139
+    - M-140
+    - M-141
+    - M-142
+    - M-143
+    - M-144
+    - M-145
+    - M-146
+    - M-147
+    - M-148
+    - M-149
+    - M-150
+    - M-151
+    - M-152
+    - M-153
+    - M-154
+    - M-155
+    - M-156
+    - M-157
+    - M-158
+    - M-159
+    - M-160
+    - M-161
+    - M-162
+    - M-163
+    - M-164
+    - M-165
+    - M-166
+    - M-167
+    - M-168
+    - M-169
+    - M-170
+    - M-171
+    - M-172
+    - M-173
+    - M-174
+    - M-175
+    - M-176
+    - M-177
+    - M-178
+    - M-179
+    - M-180
+    - M-181
+    - M-182
     - M-201
     - M-202
     - M-203
@@ -69,1702 +222,4384 @@ registry_scope:
     - M-243
     - M-244
     - M-245
-  note: canonical registry contains Waves 1 through 5 scopes; additional skills appended in later waves
+  excluded_legacy_ids:
+    - M-091
+    - M-092
+    - M-093
+    - M-094
+    - M-095
+    - M-096
+    - M-097
 canonical_closure:
   closure_mode: canonical_scope_only
-  scope_skill_count: 65
-  workflow_binding_alignment_count: 65
-  schema_alignment_count: 65
-  external_dependency_policy: allow_registered_external_dependencies
-  registered_external_dependencies:
-    - M-001
-    - M-002
-    - M-008
-    - M-009
-    - M-010
-    - M-011
-    - M-012
-    - M-013
-    - M-014
-    - M-015
-    - M-016
-    - M-017
-    - M-018
-    - M-019
-    - M-020
-    - M-105
-    - M-106
-    - M-107
-    - M-109
-    - M-110
-    - M-113
-    - M-114
-    - M-120
-    - M-301
+  scope_skill_count: 218
+  workflow_binding_alignment_count: 218
+  schema_alignment_count: 218
+  external_dependency_policy: disallow_external_dependencies
+  registered_external_dependencies: []
   hard_requirements:
     - wf900_escalation_required
     - wf021_replay_route_required
     - append_only_mutation_law
     - typed_packet_emission_required
 skills:
-  - skill_id: M-121
-    skill_name: TikTok Script Optimizer
-    legacy_skill_name: Algorithm Intelligence Core
-    file_path: skills/swarm_expansion/M-121-algorithm-intelligence-core.skill.md
-    phase_assignment: PHASE_2C_PLATFORM_VARIANTS
-    vein_assignment: script_vein
+  - skill_id: M-001
+    skill_name: Intent Cortex
+    file_path: skills/intelligence/M-001-intent-cortex.skill.md
+    phase_assignment: PHASE_1B_TOPIC_AND_RESEARCH_BASE
+    vein_assignment: research_vein
+    owner_director: Krishna
+    strategic_authority_director: Ravana
+    upstream_skill_dependencies:
+      []
+    downstream_skill_consumers:
+      - M-002
+    producer_workflow: CWF-110
+    consumer_workflows:
+      - CWF-120
+    output_packet_family: m001_packet
+    schema_ref: schemas/packets/m001_packet.schema.json
+    dossier_write_target: dossier.research_vein.intent_cortex
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-002
+    skill_name: Context Analyzer
+    file_path: skills/intelligence/M-002-context-analyzer.skill.md
+    phase_assignment: PHASE_1B_TOPIC_AND_RESEARCH_BASE
+    vein_assignment: research_vein
+    owner_director: Vishnu
+    strategic_authority_director: Durga
+    upstream_skill_dependencies:
+      - M-001
+    downstream_skill_consumers:
+      - M-003
+    producer_workflow: CWF-110
+    consumer_workflows:
+      - CWF-120
+    output_packet_family: m002_packet
+    schema_ref: schemas/packets/m002_packet.schema.json
+    dossier_write_target: dossier.research_vein.context_analyzer
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-003
+    skill_name: Keyword Intelligence Miner
+    file_path: skills/topic_intelligence/M-003-keyword-intelligence-miner.skill.md
+    phase_assignment: PHASE_1B_TOPIC_AND_RESEARCH_BASE
+    vein_assignment: research_vein
+    owner_director: Shiva
+    strategic_authority_director: Yudhishthira
+    upstream_skill_dependencies:
+      - M-002
+    downstream_skill_consumers:
+      - M-004
+    producer_workflow: CWF-110
+    consumer_workflows:
+      - CWF-120
+    output_packet_family: m003_packet
+    schema_ref: schemas/packets/m003_packet.schema.json
+    dossier_write_target: dossier.research_vein.keyword_intelligence_miner
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-004
+    skill_name: Audience Demographic Mapper
+    file_path: skills/topic_intelligence/M-004-audience-demographic-mapper.skill.md
+    phase_assignment: PHASE_1B_TOPIC_AND_RESEARCH_BASE
+    vein_assignment: research_vein
+    owner_director: Brahma
+    strategic_authority_director: Valmiki
+    upstream_skill_dependencies:
+      - M-003
+    downstream_skill_consumers:
+      - M-006
+    producer_workflow: CWF-110
+    consumer_workflows:
+      - CWF-120
+    output_packet_family: m004_packet
+    schema_ref: schemas/packets/m004_packet.schema.json
+    dossier_write_target: dossier.research_vein.audience_demographic_mapper
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-006
+    skill_name: Viral Pattern Detector
+    file_path: skills/topic_intelligence/M-006-viral-pattern-detector.skill.md
+    phase_assignment: PHASE_1B_TOPIC_AND_RESEARCH_BASE
+    vein_assignment: research_vein
+    owner_director: Shakti
+    strategic_authority_director: Vyasa
+    upstream_skill_dependencies:
+      - M-004
+    downstream_skill_consumers:
+      - M-007
+    producer_workflow: CWF-110
+    consumer_workflows:
+      - CWF-120
+    output_packet_family: m006_packet
+    schema_ref: schemas/packets/m006_packet.schema.json
+    dossier_write_target: dossier.research_vein.viral_pattern_detector
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-007
+    skill_name: Algorithm Signal Monitor
+    file_path: skills/topic_intelligence/M-007-algorithm-signal-monitor.skill.md
+    phase_assignment: PHASE_1B_TOPIC_AND_RESEARCH_BASE
+    vein_assignment: research_vein
+    owner_director: Chanakya
+    strategic_authority_director: Agastya
+    upstream_skill_dependencies:
+      - M-006
+    downstream_skill_consumers:
+      - M-008
+    producer_workflow: CWF-110
+    consumer_workflows:
+      - CWF-120
+    output_packet_family: m007_packet
+    schema_ref: schemas/packets/m007_packet.schema.json
+    dossier_write_target: dossier.research_vein.algorithm_signal_monitor
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-008
+    skill_name: Topic Viability Scorer
+    file_path: skills/topic_intelligence/M-008-topic-viability-scorer.skill.md
+    phase_assignment: PHASE_1B_TOPIC_AND_RESEARCH_BASE
+    vein_assignment: research_vein
     owner_director: Narada
-    strategic_authority_director: Krishna
+    strategic_authority_director: Parashara
     upstream_skill_dependencies:
-      - M-110
-      - M-120
+      - M-007
     downstream_skill_consumers:
-      - M-130
-    producer_workflow: CWF-230
+      - M-009
+    producer_workflow: CWF-110
     consumer_workflows:
-      - CWF-240
-    output_packet_family: tiktok_script_packet
-    schema_ref: schemas/packets/tiktok_script_packet.schema.json
-    dossier_write_target: dossier.script_vein.tiktok_script_optimizer
+      - CWF-120
+    output_packet_family: m008_packet
+    schema_ref: schemas/packets/m008_packet.schema.json
+    dossier_write_target: dossier.research_vein.topic_viability_scorer
     escalation_workflow: WF-900
     replay_workflow: WF-021
-    status: ACTIVE_WAVE_1
-  - skill_id: M-122
-    skill_name: YouTube Script Optimizer
-    legacy_skill_name: Data Signal Collector
-    file_path: skills/swarm_expansion/M-122-data-signal-collector.skill.md
-    phase_assignment: PHASE_2C_PLATFORM_VARIANTS
-    vein_assignment: script_vein
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-009
+    skill_name: Knowledge Source Collector
+    file_path: skills/research_intelligence/M-009-knowledge-source-collector.skill.md
+    phase_assignment: PHASE_1B_TOPIC_AND_RESEARCH_BASE
+    vein_assignment: research_vein
+    owner_director: Ravana
+    strategic_authority_director: Ganesha
+    upstream_skill_dependencies:
+      - M-008
+    downstream_skill_consumers:
+      - M-010
+    producer_workflow: CWF-110
+    consumer_workflows:
+      - CWF-120
+    output_packet_family: m009_packet
+    schema_ref: schemas/packets/m009_packet.schema.json
+    dossier_write_target: dossier.research_vein.knowledge_source_collector
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-010
+    skill_name: Source Credibility Validator
+    file_path: skills/research_intelligence/M-010-source-credibility-validator.skill.md
+    phase_assignment: PHASE_1B_TOPIC_AND_RESEARCH_BASE
+    vein_assignment: research_vein
+    owner_director: Durga
+    strategic_authority_director: Tumburu
+    upstream_skill_dependencies:
+      - M-009
+    downstream_skill_consumers:
+      - M-011
+    producer_workflow: CWF-110
+    consumer_workflows:
+      - CWF-120
+    output_packet_family: m010_packet
+    schema_ref: schemas/packets/m010_packet.schema.json
+    dossier_write_target: dossier.research_vein.source_credibility_validator
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-011
+    skill_name: Knowledge Dossier Builder
+    file_path: skills/research_intelligence/M-011-knowledge-dossier-builder.skill.md
+    phase_assignment: PHASE_1B_TOPIC_AND_RESEARCH_BASE
+    vein_assignment: research_vein
+    owner_director: Yudhishthira
+    strategic_authority_director: Arjuna
+    upstream_skill_dependencies:
+      - M-010
+    downstream_skill_consumers:
+      - M-012
+    producer_workflow: CWF-110
+    consumer_workflows:
+      - CWF-120
+    output_packet_family: m011_packet
+    schema_ref: schemas/packets/m011_packet.schema.json
+    dossier_write_target: dossier.research_vein.knowledge_dossier_builder
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-012
+    skill_name: Audience Interest Predictor
+    file_path: skills/topic_intelligence/M-012-audience-interest-predictor.skill.md
+    phase_assignment: PHASE_1B_TOPIC_AND_RESEARCH_BASE
+    vein_assignment: research_vein
+    owner_director: Valmiki
+    strategic_authority_director: Maya
+    upstream_skill_dependencies:
+      - M-011
+    downstream_skill_consumers:
+      - M-013
+    producer_workflow: CWF-110
+    consumer_workflows:
+      - CWF-120
+    output_packet_family: m012_packet
+    schema_ref: schemas/packets/m012_packet.schema.json
+    dossier_write_target: dossier.research_vein.audience_interest_predictor
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-013
+    skill_name: Search Demand Forecaster
+    file_path: skills/topic_intelligence/M-013-search-demand-forecaster.skill.md
+    phase_assignment: PHASE_1B_TOPIC_AND_RESEARCH_BASE
+    vein_assignment: research_vein
     owner_director: Vyasa
-    strategic_authority_director: Krishna
+    strategic_authority_director: Vishwakarma
     upstream_skill_dependencies:
-      - M-110
-      - M-120
+      - M-012
     downstream_skill_consumers:
-      - M-130
-    producer_workflow: CWF-230
+      - M-014
+    producer_workflow: CWF-110
     consumer_workflows:
-      - CWF-240
-    output_packet_family: youtube_script_packet
-    schema_ref: schemas/packets/youtube_script_packet.schema.json
-    dossier_write_target: dossier.script_vein.youtube_script_optimizer
+      - CWF-120
+    output_packet_family: m013_packet
+    schema_ref: schemas/packets/m013_packet.schema.json
+    dossier_write_target: dossier.research_vein.search_demand_forecaster
     escalation_workflow: WF-900
     replay_workflow: WF-021
-    status: ACTIVE_WAVE_1
-  - skill_id: M-123
-    skill_name: Blog Article Generator
-    legacy_skill_name: Algorithm Pattern Analyzer
-    file_path: skills/swarm_expansion/M-123-algorithm-pattern-analyzer.skill.md
-    phase_assignment: PHASE_2C_PLATFORM_VARIANTS
-    vein_assignment: script_vein
-    owner_director: Saraswati
-    strategic_authority_director: Krishna
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-014
+    skill_name: Comment Sentiment Analyzer
+    file_path: skills/topic_intelligence/M-014-comment-sentiment-analyzer.skill.md
+    phase_assignment: PHASE_1B_TOPIC_AND_RESEARCH_BASE
+    vein_assignment: research_vein
+    owner_director: Agastya
+    strategic_authority_director: Agni
     upstream_skill_dependencies:
-      - M-110
-      - M-120
+      - M-013
+    downstream_skill_consumers:
+      - M-015
+    producer_workflow: CWF-110
+    consumer_workflows:
+      - CWF-120
+    output_packet_family: m014_packet
+    schema_ref: schemas/packets/m014_packet.schema.json
+    dossier_write_target: dossier.research_vein.comment_sentiment_analyzer
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-015
+    skill_name: Cultural Context Analyzer
+    file_path: skills/topic_intelligence/M-015-cultural-context-analyzer.skill.md
+    phase_assignment: PHASE_1B_TOPIC_AND_RESEARCH_BASE
+    vein_assignment: research_vein
+    owner_director: Parashara
+    strategic_authority_director: Hanuman
+    upstream_skill_dependencies:
+      - M-014
+    downstream_skill_consumers:
+      - M-016
+    producer_workflow: CWF-110
+    consumer_workflows:
+      - CWF-120
+    output_packet_family: m015_packet
+    schema_ref: schemas/packets/m015_packet.schema.json
+    dossier_write_target: dossier.research_vein.cultural_context_analyzer
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-016
+    skill_name: Content Gap Finder
+    file_path: skills/topic_intelligence/M-016-content-gap-finder.skill.md
+    phase_assignment: PHASE_1B_TOPIC_AND_RESEARCH_BASE
+    vein_assignment: research_vein
+    owner_director: Ganesha
+    strategic_authority_director: Nataraja
+    upstream_skill_dependencies:
+      - M-015
+    downstream_skill_consumers:
+      - M-018
+    producer_workflow: CWF-110
+    consumer_workflows:
+      - CWF-120
+    output_packet_family: m016_packet
+    schema_ref: schemas/packets/m016_packet.schema.json
+    dossier_write_target: dossier.research_vein.content_gap_finder
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-018
+    skill_name: Trend Lifecycle Predictor
+    file_path: skills/topic_intelligence/M-018-trend-lifecycle-predictor.skill.md
+    phase_assignment: PHASE_1B_TOPIC_AND_RESEARCH_BASE
+    vein_assignment: research_vein
+    owner_director: Tumburu
+    strategic_authority_director: Garuda
+    upstream_skill_dependencies:
+      - M-016
+    downstream_skill_consumers:
+      - M-019
+    producer_workflow: CWF-110
+    consumer_workflows:
+      - CWF-120
+    output_packet_family: m018_packet
+    schema_ref: schemas/packets/m018_packet.schema.json
+    dossier_write_target: dossier.research_vein.trend_lifecycle_predictor
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-019
+    skill_name: Audience Pain Point Miner
+    file_path: skills/topic_intelligence/M-019-audience-pain-point-miner.skill.md
+    phase_assignment: PHASE_1B_TOPIC_AND_RESEARCH_BASE
+    vein_assignment: research_vein
+    owner_director: Arjuna
+    strategic_authority_director: Varuna
+    upstream_skill_dependencies:
       - M-018
     downstream_skill_consumers:
-      - M-130
-    producer_workflow: CWF-230
+      - M-020
+    producer_workflow: CWF-110
     consumer_workflows:
-      - CWF-240
-    output_packet_family: blog_article_packet
-    schema_ref: schemas/packets/blog_article_packet.schema.json
-    dossier_write_target: dossier.script_vein.blog_article_generator
+      - CWF-120
+    output_packet_family: m019_packet
+    schema_ref: schemas/packets/m019_packet.schema.json
+    dossier_write_target: dossier.research_vein.audience_pain_point_miner
     escalation_workflow: WF-900
     replay_workflow: WF-021
-    status: ACTIVE_WAVE_1
-  - skill_id: M-124
-    skill_name: Podcast Script Generator
-    legacy_skill_name: Watch-Time Analyzer
-    file_path: skills/swarm_expansion/M-124-watch-time-analyzer.skill.md
-    phase_assignment: PHASE_2C_PLATFORM_VARIANTS
-    vein_assignment: script_vein
-    owner_director: Narada
-    strategic_authority_director: Krishna
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-020
+    skill_name: Knowledge Summarization Engine
+    file_path: skills/research_intelligence/M-020-knowledge-summarization-engine.skill.md
+    phase_assignment: PHASE_1B_TOPIC_AND_RESEARCH_BASE
+    vein_assignment: research_vein
+    owner_director: Maya
+    strategic_authority_director: Indra
     upstream_skill_dependencies:
-      - M-110
-      - M-120
+      - M-019
     downstream_skill_consumers:
-      - M-130
-    producer_workflow: CWF-230
+      - M-021
+    producer_workflow: CWF-110
     consumer_workflows:
-      - CWF-240
-    output_packet_family: podcast_script_packet
-    schema_ref: schemas/packets/podcast_script_packet.schema.json
-    dossier_write_target: dossier.script_vein.podcast_script_generator
+      - CWF-120
+    output_packet_family: m020_packet
+    schema_ref: schemas/packets/m020_packet.schema.json
+    dossier_write_target: dossier.research_vein.knowledge_summarization_engine
     escalation_workflow: WF-900
     replay_workflow: WF-021
-    status: ACTIVE_WAVE_1
-  - skill_id: M-125
-    skill_name: LinkedIn Article Generator
-    legacy_skill_name: Retention Drop Detector
-    file_path: skills/swarm_expansion/M-125-retention-drop-detector.skill.md
-    phase_assignment: PHASE_2C_PLATFORM_VARIANTS
-    vein_assignment: script_vein
-    owner_director: Krishna
-    strategic_authority_director: Krishna
-    upstream_skill_dependencies:
-      - M-110
-      - M-120
-    downstream_skill_consumers:
-      - M-130
-    producer_workflow: CWF-230
-    consumer_workflows:
-      - CWF-240
-    output_packet_family: linkedin_packet
-    schema_ref: schemas/packets/linkedin_packet.schema.json
-    dossier_write_target: dossier.script_vein.linkedin_article_generator
-    escalation_workflow: WF-900
-    replay_workflow: WF-021
-    status: ACTIVE_WAVE_1
-  - skill_id: M-126
-    skill_name: Infographic Script Generator
-    legacy_skill_name: Retention Repair Engine
-    file_path: skills/swarm_expansion/M-126-retention-repair-engine.skill.md
-    phase_assignment: PHASE_2C_PLATFORM_VARIANTS
-    vein_assignment: script_vein
-    owner_director: Vyasa
-    strategic_authority_director: Krishna
-    upstream_skill_dependencies:
-      - M-110
-      - M-120
-      - M-107
-    downstream_skill_consumers:
-      - M-130
-    producer_workflow: CWF-230
-    consumer_workflows:
-      - CWF-240
-    output_packet_family: infographic_script_packet
-    schema_ref: schemas/packets/infographic_script_packet.schema.json
-    dossier_write_target: dossier.script_vein.infographic_script_generator
-    escalation_workflow: WF-900
-    replay_workflow: WF-021
-    status: ACTIVE_WAVE_1
-  - skill_id: M-127
-    skill_name: Email Sequence Generator
-    legacy_skill_name: Viral Pattern Library
-    file_path: skills/swarm_expansion/M-127-viral-pattern-library.skill.md
-    phase_assignment: PHASE_2C_PLATFORM_VARIANTS
-    vein_assignment: script_vein
-    owner_director: Krishna
-    strategic_authority_director: Krishna
-    upstream_skill_dependencies:
-      - M-110
-      - M-120
-      - M-002
-      - M-109
-    downstream_skill_consumers:
-      - M-130
-    producer_workflow: CWF-230
-    consumer_workflows:
-      - CWF-240
-    output_packet_family: email_sequence_packet
-    schema_ref: schemas/packets/email_sequence_packet.schema.json
-    dossier_write_target: dossier.script_vein.email_sequence_generator
-    escalation_workflow: WF-900
-    replay_workflow: WF-021
-    status: ACTIVE_WAVE_1
-  - skill_id: M-128
-    skill_name: Social Media Caption Generator
-    legacy_skill_name: Viral Pattern Replicator
-    file_path: skills/swarm_expansion/M-128-viral-pattern-replicator.skill.md
-    phase_assignment: PHASE_2C_PLATFORM_VARIANTS
-    vein_assignment: script_vein
-    owner_director: Narada
-    strategic_authority_director: Krishna
-    upstream_skill_dependencies:
-      - M-110
-      - M-120
-    downstream_skill_consumers:
-      - M-130
-    producer_workflow: CWF-230
-    consumer_workflows:
-      - CWF-240
-    output_packet_family: social_media_packet
-    schema_ref: schemas/packets/social_media_packet.schema.json
-    dossier_write_target: dossier.script_vein.social_media_caption_generator
-    escalation_workflow: WF-900
-    replay_workflow: WF-021
-    status: ACTIVE_WAVE_1
-  - skill_id: M-129
-    skill_name: Newsletter Script Generator
-    legacy_skill_name: Thumbnail Heatmap Analyzer
-    file_path: skills/swarm_expansion/M-129-thumbnail-heatmap-analyzer.skill.md
-    phase_assignment: PHASE_2C_PLATFORM_VARIANTS
-    vein_assignment: script_vein
-    owner_director: Vyasa
-    strategic_authority_director: Krishna
-    upstream_skill_dependencies:
-      - M-110
-      - M-120
-      - M-002
-    downstream_skill_consumers:
-      - M-130
-    producer_workflow: CWF-230
-    consumer_workflows:
-      - CWF-240
-    output_packet_family: newsletter_packet
-    schema_ref: schemas/packets/newsletter_packet.schema.json
-    dossier_write_target: dossier.script_vein.newsletter_script_generator
-    escalation_workflow: WF-900
-    replay_workflow: WF-021
-    status: ACTIVE_WAVE_1
-  - skill_id: M-130
-    skill_name: Multi-Format Coordinate Manager
-    legacy_skill_name: Thumbnail Optimization Engine
-    file_path: skills/swarm_expansion/M-130-thumbnail-optimization-engine.skill.md
-    phase_assignment: PHASE_2C_PLATFORM_VARIANTS
-    vein_assignment: script_vein
-    owner_director: Shiva
-    strategic_authority_director: Krishna
-    upstream_skill_dependencies:
-      - M-121
-      - M-122
-      - M-123
-      - M-124
-      - M-125
-      - M-126
-      - M-127
-      - M-128
-      - M-129
-    downstream_skill_consumers:
-      - M-201
-      - M-216
-      - M-231
-    producer_workflow: CWF-240
-    consumer_workflows:
-      - CWF-310
-    output_packet_family: format_coordination_packet
-    schema_ref: schemas/packets/format_coordination_packet.schema.json
-    dossier_write_target: dossier.script_vein.multi_format_coordinate_manager
-    escalation_workflow: WF-900
-    replay_workflow: WF-021
-    status: ACTIVE_WAVE_1
+    status: ACTIVE_ACCEPTANCE_SCOPE
   - skill_id: M-021
-    skill_name: Primary Source Interrogator
-    legacy_skill_name: Fact Cross-Verification Unit
+    skill_name: Fact Cross Verification Unit
     file_path: skills/research_intelligence/M-021-fact-cross-verification-unit.skill.md
     phase_assignment: PHASE_1C_CONDITIONAL_RESEARCH
     vein_assignment: research_vein
-    owner_director: Saraswati
-    strategic_authority_director: Krishna
+    owner_director: Vishwakarma
+    strategic_authority_director: Kama
     upstream_skill_dependencies:
-      - M-015
-      - M-017
+      - M-020
     downstream_skill_consumers:
       - M-022
     producer_workflow: CWF-140
     consumer_workflows:
-      - CWF-140
-    output_packet_family: primary_source_interrogation_packet
-    schema_ref: schemas/packets/primary_source_interrogation_packet.schema.json
-    dossier_write_target: dossier.research_vein.primary_source_interrogator
+      - CWF-210
+    output_packet_family: m021_packet
+    schema_ref: schemas/packets/m021_packet.schema.json
+    dossier_write_target: dossier.research_vein.fact_cross_verification_unit
     escalation_workflow: WF-900
     replay_workflow: WF-021
-    status: ACTIVE_WAVE_2
+    status: ACTIVE_ACCEPTANCE_SCOPE
   - skill_id: M-022
-    skill_name: Longitudinal Analysis Engine
-    legacy_skill_name: Knowledge Graph Builder
+    skill_name: Knowledge Graph Builder
     file_path: skills/research_intelligence/M-022-knowledge-graph-builder.skill.md
     phase_assignment: PHASE_1C_CONDITIONAL_RESEARCH
     vein_assignment: research_vein
-    owner_director: Shiva
-    strategic_authority_director: Krishna
+    owner_director: Agni
+    strategic_authority_director: Saraswati
     upstream_skill_dependencies:
-      - M-018
+      - M-021
     downstream_skill_consumers:
       - M-023
     producer_workflow: CWF-140
     consumer_workflows:
-      - CWF-140
-    output_packet_family: longitudinal_packet
-    schema_ref: schemas/packets/longitudinal_packet.schema.json
-    dossier_write_target: dossier.research_vein.longitudinal_analysis_engine
+      - CWF-210
+    output_packet_family: m022_packet
+    schema_ref: schemas/packets/m022_packet.schema.json
+    dossier_write_target: dossier.research_vein.knowledge_graph_builder
     escalation_workflow: WF-900
     replay_workflow: WF-021
-    status: ACTIVE_WAVE_2
+    status: ACTIVE_ACCEPTANCE_SCOPE
   - skill_id: M-023
-    skill_name: Causal Inference Builder
-    legacy_skill_name: Trend Risk Evaluator
+    skill_name: Trend Risk Evaluator
     file_path: skills/topic_intelligence/M-023-trend-risk-evaluator.skill.md
     phase_assignment: PHASE_1C_CONDITIONAL_RESEARCH
     vein_assignment: research_vein
-    owner_director: Agastya
-    strategic_authority_director: Krishna
+    owner_director: Hanuman
+    strategic_authority_director: Kubera
     upstream_skill_dependencies:
-      - M-015
-      - M-016
       - M-022
     downstream_skill_consumers:
       - M-024
     producer_workflow: CWF-140
     consumer_workflows:
-      - CWF-140
-    output_packet_family: causal_inference_packet
-    schema_ref: schemas/packets/causal_inference_packet.schema.json
-    dossier_write_target: dossier.research_vein.causal_inference_builder
+      - CWF-210
+    output_packet_family: m023_packet
+    schema_ref: schemas/packets/m023_packet.schema.json
+    dossier_write_target: dossier.research_vein.trend_risk_evaluator
     escalation_workflow: WF-900
     replay_workflow: WF-021
-    status: ACTIVE_WAVE_2
+    status: ACTIVE_ACCEPTANCE_SCOPE
   - skill_id: M-024
-    skill_name: Meta-Analysis Synthesizer
-    legacy_skill_name: Topic Finalization Engine
+    skill_name: Topic Finalization Engine
     file_path: skills/topic_intelligence/M-024-topic-finalization-engine.skill.md
     phase_assignment: PHASE_1C_CONDITIONAL_RESEARCH
     vein_assignment: research_vein
-    owner_director: Vyasa
-    strategic_authority_director: Krishna
+    owner_director: Nataraja
+    strategic_authority_director: Yama
     upstream_skill_dependencies:
-      - M-021
-      - M-022
       - M-023
     downstream_skill_consumers:
       - M-025
     producer_workflow: CWF-140
     consumer_workflows:
-      - CWF-140
-    output_packet_family: meta_analysis_packet
-    schema_ref: schemas/packets/meta_analysis_packet.schema.json
-    dossier_write_target: dossier.research_vein.meta_analysis_synthesizer
+      - CWF-210
+    output_packet_family: m024_packet
+    schema_ref: schemas/packets/m024_packet.schema.json
+    dossier_write_target: dossier.research_vein.topic_finalization_engine
     escalation_workflow: WF-900
     replay_workflow: WF-021
-    status: ACTIVE_WAVE_2
+    status: ACTIVE_ACCEPTANCE_SCOPE
   - skill_id: M-025
-    skill_name: Assumption Validator
-    legacy_skill_name: Research Archive Manager
+    skill_name: Research Archive Manager
     file_path: skills/research_intelligence/M-025-research-archive-manager.skill.md
     phase_assignment: PHASE_1C_CONDITIONAL_RESEARCH
     vein_assignment: research_vein
-    owner_director: Saraswati
-    strategic_authority_director: Krishna
+    owner_director: Garuda
+    strategic_authority_director: Aruna
     upstream_skill_dependencies:
-      - M-023
       - M-024
     downstream_skill_consumers:
       - M-026
     producer_workflow: CWF-140
     consumer_workflows:
-      - CWF-140
-    output_packet_family: assumption_validation_packet
-    schema_ref: schemas/packets/assumption_validation_packet.schema.json
-    dossier_write_target: dossier.research_vein.assumption_validator
+      - CWF-210
+    output_packet_family: m025_packet
+    schema_ref: schemas/packets/m025_packet.schema.json
+    dossier_write_target: dossier.research_vein.research_archive_manager
     escalation_workflow: WF-900
     replay_workflow: WF-021
-    status: ACTIVE_WAVE_2
+    status: ACTIVE_ACCEPTANCE_SCOPE
   - skill_id: M-026
-    skill_name: Knowledge Gap Identifier
-    legacy_skill_name: Title Engineer
+    skill_name: Title Engineer
     file_path: skills/script_intelligence_army/M-026-title-engineer.skill.md
     phase_assignment: PHASE_1C_CONDITIONAL_RESEARCH
     vein_assignment: research_vein
-    owner_director: Saraswati
+    owner_director: Varuna
     strategic_authority_director: Krishna
     upstream_skill_dependencies:
-      - M-008
-      - M-009
-      - M-010
-      - M-011
-      - M-012
-      - M-013
-      - M-014
-      - M-015
-      - M-016
-      - M-017
-      - M-018
-      - M-019
-      - M-020
-      - M-021
-      - M-022
-      - M-023
-      - M-024
       - M-025
     downstream_skill_consumers:
       - M-027
     producer_workflow: CWF-140
     consumer_workflows:
-      - CWF-140
-    output_packet_family: knowledge_gap_packet
-    schema_ref: schemas/packets/knowledge_gap_packet.schema.json
-    dossier_write_target: dossier.research_vein.knowledge_gap_identifier
+      - CWF-210
+    output_packet_family: m026_packet
+    schema_ref: schemas/packets/m026_packet.schema.json
+    dossier_write_target: dossier.research_vein.title_engineer
     escalation_workflow: WF-900
     replay_workflow: WF-021
-    status: ACTIVE_WAVE_2
+    status: ACTIVE_ACCEPTANCE_SCOPE
   - skill_id: M-027
-    skill_name: Nuance Capture Engine
-    legacy_skill_name: SEO Architect
+    skill_name: Seo Architect
     file_path: skills/script_intelligence_army/M-027-seo-architect.skill.md
     phase_assignment: PHASE_1C_CONDITIONAL_RESEARCH
     vein_assignment: research_vein
-    owner_director: Narada
-    strategic_authority_director: Krishna
+    owner_director: Indra
+    strategic_authority_director: Vishnu
     upstream_skill_dependencies:
       - M-026
-      - M-018
-      - M-017
     downstream_skill_consumers:
       - M-028
     producer_workflow: CWF-140
     consumer_workflows:
-      - CWF-140
-    output_packet_family: nuance_packet
-    schema_ref: schemas/packets/nuance_packet.schema.json
-    dossier_write_target: dossier.research_vein.nuance_capture_engine
+      - CWF-210
+    output_packet_family: m027_packet
+    schema_ref: schemas/packets/m027_packet.schema.json
+    dossier_write_target: dossier.research_vein.seo_architect
     escalation_workflow: WF-900
     replay_workflow: WF-021
-    status: ACTIVE_WAVE_2
+    status: ACTIVE_ACCEPTANCE_SCOPE
   - skill_id: M-028
-    skill_name: Predictive Extrapolation
-    legacy_skill_name: Metadata Builder
+    skill_name: Metadata Builder
     file_path: skills/script_intelligence_army/M-028-metadata-builder.skill.md
     phase_assignment: PHASE_1C_CONDITIONAL_RESEARCH
     vein_assignment: research_vein
-    owner_director: Krishna
-    strategic_authority_director: Krishna
+    owner_director: Kama
+    strategic_authority_director: Shiva
     upstream_skill_dependencies:
-      - M-022
-      - M-023
-      - M-025
+      - M-027
     downstream_skill_consumers:
       - M-029
     producer_workflow: CWF-140
     consumer_workflows:
-      - CWF-140
-    output_packet_family: prediction_packet
-    schema_ref: schemas/packets/prediction_packet.schema.json
-    dossier_write_target: dossier.research_vein.predictive_extrapolation
+      - CWF-210
+    output_packet_family: m028_packet
+    schema_ref: schemas/packets/m028_packet.schema.json
+    dossier_write_target: dossier.research_vein.metadata_builder
     escalation_workflow: WF-900
     replay_workflow: WF-021
-    status: ACTIVE_WAVE_2
+    status: ACTIVE_ACCEPTANCE_SCOPE
   - skill_id: M-029
-    skill_name: Research Limitations Documenter
-    legacy_skill_name: Audience Analyzer
+    skill_name: Audience Analyzer
     file_path: skills/script_intelligence_army/M-029-audience-analyzer.skill.md
     phase_assignment: PHASE_1C_CONDITIONAL_RESEARCH
     vein_assignment: research_vein
     owner_director: Saraswati
-    strategic_authority_director: Krishna
+    strategic_authority_director: Brahma
     upstream_skill_dependencies:
-      - M-021
-      - M-022
-      - M-023
-      - M-024
-      - M-025
-      - M-026
-      - M-027
       - M-028
     downstream_skill_consumers:
       - M-030
     producer_workflow: CWF-140
     consumer_workflows:
-      - CWF-140
-    output_packet_family: limitations_packet
-    schema_ref: schemas/packets/limitations_packet.schema.json
-    dossier_write_target: dossier.research_vein.research_limitations_documenter
+      - CWF-210
+    output_packet_family: m029_packet
+    schema_ref: schemas/packets/m029_packet.schema.json
+    dossier_write_target: dossier.research_vein.audience_analyzer
     escalation_workflow: WF-900
     replay_workflow: WF-021
-    status: ACTIVE_WAVE_2
+    status: ACTIVE_ACCEPTANCE_SCOPE
   - skill_id: M-030
-    skill_name: Final Research Dossier Seal
-    legacy_skill_name: Engagement Predictor
+    skill_name: Engagement Predictor
     file_path: skills/script_intelligence_army/M-030-engagement-predictor.skill.md
     phase_assignment: PHASE_1C_CONDITIONAL_RESEARCH
     vein_assignment: research_vein
-    owner_director: Agastya
-    strategic_authority_director: Krishna
+    owner_director: Kubera
+    strategic_authority_director: Shakti
     upstream_skill_dependencies:
-      - M-021
-      - M-022
-      - M-023
-      - M-024
-      - M-025
-      - M-026
-      - M-027
-      - M-028
       - M-029
     downstream_skill_consumers:
-      - M-105
+      - M-031
     producer_workflow: CWF-140
     consumer_workflows:
-      - WF-200
       - CWF-210
-    output_packet_family: phase_1c_completion_packet
-    schema_ref: schemas/packets/phase_1c_completion_packet.schema.json
-    dossier_write_target: dossier.research_vein.final_research_dossier_seal
+    output_packet_family: m030_packet
+    schema_ref: schemas/packets/m030_packet.schema.json
+    dossier_write_target: dossier.research_vein.engagement_predictor
     escalation_workflow: WF-900
     replay_workflow: WF-021
-    status: ACTIVE_WAVE_2
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-031
+    skill_name: Mrbeast Hook System
+    file_path: skills/script_intelligence_army/M-031-mrbeast-hook-system.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Yama
+    strategic_authority_director: Chanakya
+    upstream_skill_dependencies:
+      - M-030
+    downstream_skill_consumers:
+      - M-032
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m031_packet
+    schema_ref: schemas/packets/m031_packet.schema.json
+    dossier_write_target: dossier.script_vein.mrbeast_hook_system
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-032
+    skill_name: Pattern Interrupt Engine
+    file_path: skills/script_intelligence_army/M-032-pattern-interrupt-engine.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Aruna
+    strategic_authority_director: Narada
+    upstream_skill_dependencies:
+      - M-031
+    downstream_skill_consumers:
+      - M-033
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m032_packet
+    schema_ref: schemas/packets/m032_packet.schema.json
+    dossier_write_target: dossier.script_vein.pattern_interrupt_engine
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-033
+    skill_name: Curiosity Gap Generator
+    file_path: skills/script_intelligence_army/M-033-curiosity-gap-generator.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Krishna
+    strategic_authority_director: Ravana
+    upstream_skill_dependencies:
+      - M-032
+    downstream_skill_consumers:
+      - M-034
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m033_packet
+    schema_ref: schemas/packets/m033_packet.schema.json
+    dossier_write_target: dossier.script_vein.curiosity_gap_generator
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-034
+    skill_name: Micro Cliffhanger Engine
+    file_path: skills/script_intelligence_army/M-034-micro-cliffhanger-engine.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Vishnu
+    strategic_authority_director: Durga
+    upstream_skill_dependencies:
+      - M-033
+    downstream_skill_consumers:
+      - M-035
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m034_packet
+    schema_ref: schemas/packets/m034_packet.schema.json
+    dossier_write_target: dossier.script_vein.micro_cliffhanger_engine
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-035
+    skill_name: Engagement Loop Builder
+    file_path: skills/script_intelligence_army/M-035-engagement-loop-builder.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Shiva
+    strategic_authority_director: Yudhishthira
+    upstream_skill_dependencies:
+      - M-034
+    downstream_skill_consumers:
+      - M-036
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m035_packet
+    schema_ref: schemas/packets/m035_packet.schema.json
+    dossier_write_target: dossier.script_vein.engagement_loop_builder
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-036
+    skill_name: Emotional Spike System
+    file_path: skills/script_intelligence_army/M-036-emotional-spike-system.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Brahma
+    strategic_authority_director: Valmiki
+    upstream_skill_dependencies:
+      - M-035
+    downstream_skill_consumers:
+      - M-037
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m036_packet
+    schema_ref: schemas/packets/m036_packet.schema.json
+    dossier_write_target: dossier.script_vein.emotional_spike_system
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-037
+    skill_name: Reward Tease Engine
+    file_path: skills/script_intelligence_army/M-037-reward-tease-engine.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Shakti
+    strategic_authority_director: Vyasa
+    upstream_skill_dependencies:
+      - M-036
+    downstream_skill_consumers:
+      - M-038
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m037_packet
+    schema_ref: schemas/packets/m037_packet.schema.json
+    dossier_write_target: dossier.script_vein.reward_tease_engine
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-038
+    skill_name: Payoff Delivery System
+    file_path: skills/script_intelligence_army/M-038-payoff-delivery-system.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Chanakya
+    strategic_authority_director: Agastya
+    upstream_skill_dependencies:
+      - M-037
+    downstream_skill_consumers:
+      - M-039
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m038_packet
+    schema_ref: schemas/packets/m038_packet.schema.json
+    dossier_write_target: dossier.script_vein.payoff_delivery_system
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-039
+    skill_name: Re Hook System
+    file_path: skills/script_intelligence_army/M-039-re-hook-system.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Narada
+    strategic_authority_director: Parashara
+    upstream_skill_dependencies:
+      - M-038
+    downstream_skill_consumers:
+      - M-040
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m039_packet
+    schema_ref: schemas/packets/m039_packet.schema.json
+    dossier_write_target: dossier.script_vein.re_hook_system
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-040
+    skill_name: Story Momentum Engine
+    file_path: skills/script_intelligence_army/M-040-story-momentum-engine.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Ravana
+    strategic_authority_director: Ganesha
+    upstream_skill_dependencies:
+      - M-039
+    downstream_skill_consumers:
+      - M-041
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m040_packet
+    schema_ref: schemas/packets/m040_packet.schema.json
+    dossier_write_target: dossier.script_vein.story_momentum_engine
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-041
+    skill_name: Scene Energy Analyzer
+    file_path: skills/script_intelligence_army/M-041-scene-energy-analyzer.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Durga
+    strategic_authority_director: Tumburu
+    upstream_skill_dependencies:
+      - M-040
+    downstream_skill_consumers:
+      - M-042
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m041_packet
+    schema_ref: schemas/packets/m041_packet.schema.json
+    dossier_write_target: dossier.script_vein.scene_energy_analyzer
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-042
+    skill_name: Editing Optimization Engine
+    file_path: skills/script_intelligence_army/M-042-editing-optimization-engine.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Yudhishthira
+    strategic_authority_director: Arjuna
+    upstream_skill_dependencies:
+      - M-041
+    downstream_skill_consumers:
+      - M-043
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m042_packet
+    schema_ref: schemas/packets/m042_packet.schema.json
+    dossier_write_target: dossier.script_vein.editing_optimization_engine
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-043
+    skill_name: Cut Acceleration System
+    file_path: skills/script_intelligence_army/M-043-cut-acceleration-system.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Valmiki
+    strategic_authority_director: Maya
+    upstream_skill_dependencies:
+      - M-042
+    downstream_skill_consumers:
+      - M-044
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m043_packet
+    schema_ref: schemas/packets/m043_packet.schema.json
+    dossier_write_target: dossier.script_vein.cut_acceleration_system
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-044
+    skill_name: Visual Impact Engine
+    file_path: skills/script_intelligence_army/M-044-visual-impact-engine.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Vyasa
+    strategic_authority_director: Vishwakarma
+    upstream_skill_dependencies:
+      - M-043
+    downstream_skill_consumers:
+      - M-045
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m044_packet
+    schema_ref: schemas/packets/m044_packet.schema.json
+    dossier_write_target: dossier.script_vein.visual_impact_engine
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-045
+    skill_name: Sound Impact System
+    file_path: skills/script_intelligence_army/M-045-sound-impact-system.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Agastya
+    strategic_authority_director: Agni
+    upstream_skill_dependencies:
+      - M-044
+    downstream_skill_consumers:
+      - M-046
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m045_packet
+    schema_ref: schemas/packets/m045_packet.schema.json
+    dossier_write_target: dossier.script_vein.sound_impact_system
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-046
+    skill_name: Cinematic Enhancement Engine
+    file_path: skills/script_intelligence_army/M-046-cinematic-enhancement-engine.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Parashara
+    strategic_authority_director: Hanuman
+    upstream_skill_dependencies:
+      - M-045
+    downstream_skill_consumers:
+      - M-047
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m046_packet
+    schema_ref: schemas/packets/m046_packet.schema.json
+    dossier_write_target: dossier.script_vein.cinematic_enhancement_engine
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-047
+    skill_name: Thumbnail Psychology Engine
+    file_path: skills/script_intelligence_army/M-047-thumbnail-psychology-engine.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Ganesha
+    strategic_authority_director: Nataraja
+    upstream_skill_dependencies:
+      - M-046
+    downstream_skill_consumers:
+      - M-048
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m047_packet
+    schema_ref: schemas/packets/m047_packet.schema.json
+    dossier_write_target: dossier.script_vein.thumbnail_psychology_engine
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-048
+    skill_name: Thumbnail A B Tester
+    file_path: skills/script_intelligence_army/M-048-thumbnail-a-b-tester.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Tumburu
+    strategic_authority_director: Garuda
+    upstream_skill_dependencies:
+      - M-047
+    downstream_skill_consumers:
+      - M-049
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m048_packet
+    schema_ref: schemas/packets/m048_packet.schema.json
+    dossier_write_target: dossier.script_vein.thumbnail_a_b_tester
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-049
+    skill_name: Viral Distribution Planner
+    file_path: skills/script_intelligence_army/M-049-viral-distribution-planner.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Arjuna
+    strategic_authority_director: Varuna
+    upstream_skill_dependencies:
+      - M-048
+    downstream_skill_consumers:
+      - M-050
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m049_packet
+    schema_ref: schemas/packets/m049_packet.schema.json
+    dossier_write_target: dossier.script_vein.viral_distribution_planner
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-050
+    skill_name: Platform Algorithm Adapter
+    file_path: skills/script_intelligence_army/M-050-platform-algorithm-adapter.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Maya
+    strategic_authority_director: Indra
+    upstream_skill_dependencies:
+      - M-049
+    downstream_skill_consumers:
+      - M-051
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m050_packet
+    schema_ref: schemas/packets/m050_packet.schema.json
+    dossier_write_target: dossier.script_vein.platform_algorithm_adapter
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-051
+    skill_name: Viral Multiplier Engine
+    file_path: skills/script_intelligence_army/M-051-viral-multiplier-engine.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Vishwakarma
+    strategic_authority_director: Kama
+    upstream_skill_dependencies:
+      - M-050
+    downstream_skill_consumers:
+      - M-052
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m051_packet
+    schema_ref: schemas/packets/m051_packet.schema.json
+    dossier_write_target: dossier.script_vein.viral_multiplier_engine
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-052
+    skill_name: Engagement Feedback Analyzer
+    file_path: skills/script_intelligence_army/M-052-engagement-feedback-analyzer.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Agni
+    strategic_authority_director: Saraswati
+    upstream_skill_dependencies:
+      - M-051
+    downstream_skill_consumers:
+      - M-053
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m052_packet
+    schema_ref: schemas/packets/m052_packet.schema.json
+    dossier_write_target: dossier.script_vein.engagement_feedback_analyzer
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-053
+    skill_name: Audience Sentiment Engine
+    file_path: skills/script_intelligence_army/M-053-audience-sentiment-engine.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Hanuman
+    strategic_authority_director: Kubera
+    upstream_skill_dependencies:
+      - M-052
+    downstream_skill_consumers:
+      - M-054
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m053_packet
+    schema_ref: schemas/packets/m053_packet.schema.json
+    dossier_write_target: dossier.script_vein.audience_sentiment_engine
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-054
+    skill_name: Content Optimization Engine
+    file_path: skills/script_intelligence_army/M-054-content-optimization-engine.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Nataraja
+    strategic_authority_director: Yama
+    upstream_skill_dependencies:
+      - M-053
+    downstream_skill_consumers:
+      - M-055
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m054_packet
+    schema_ref: schemas/packets/m054_packet.schema.json
+    dossier_write_target: dossier.script_vein.content_optimization_engine
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-055
+    skill_name: Learning Memory Engine
+    file_path: skills/script_intelligence_army/M-055-learning-memory-engine.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Garuda
+    strategic_authority_director: Aruna
+    upstream_skill_dependencies:
+      - M-054
+    downstream_skill_consumers:
+      - M-056
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m055_packet
+    schema_ref: schemas/packets/m055_packet.schema.json
+    dossier_write_target: dossier.script_vein.learning_memory_engine
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-056
+    skill_name: Growth Prediction Engine
+    file_path: skills/script_intelligence_army/M-056-growth-prediction-engine.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Varuna
+    strategic_authority_director: Krishna
+    upstream_skill_dependencies:
+      - M-055
+    downstream_skill_consumers:
+      - M-057
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m056_packet
+    schema_ref: schemas/packets/m056_packet.schema.json
+    dossier_write_target: dossier.script_vein.growth_prediction_engine
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-057
+    skill_name: Monetization Advisor
+    file_path: skills/script_intelligence_army/M-057-monetization-advisor.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Indra
+    strategic_authority_director: Vishnu
+    upstream_skill_dependencies:
+      - M-056
+    downstream_skill_consumers:
+      - M-058
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m057_packet
+    schema_ref: schemas/packets/m057_packet.schema.json
+    dossier_write_target: dossier.script_vein.monetization_advisor
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-058
+    skill_name: Sponsorship Matchmaker
+    file_path: skills/script_intelligence_army/M-058-sponsorship-matchmaker.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Kama
+    strategic_authority_director: Shiva
+    upstream_skill_dependencies:
+      - M-057
+    downstream_skill_consumers:
+      - M-059
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m058_packet
+    schema_ref: schemas/packets/m058_packet.schema.json
+    dossier_write_target: dossier.script_vein.sponsorship_matchmaker
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-059
+    skill_name: Product Integration Engine
+    file_path: skills/script_intelligence_army/M-059-product-integration-engine.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Saraswati
+    strategic_authority_director: Brahma
+    upstream_skill_dependencies:
+      - M-058
+    downstream_skill_consumers:
+      - M-060
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m059_packet
+    schema_ref: schemas/packets/m059_packet.schema.json
+    dossier_write_target: dossier.script_vein.product_integration_engine
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-060
+    skill_name: Channel Strategy Director
+    file_path: skills/script_intelligence_army/M-060-channel-strategy-director.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Kubera
+    strategic_authority_director: Shakti
+    upstream_skill_dependencies:
+      - M-059
+    downstream_skill_consumers:
+      - M-061
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m060_packet
+    schema_ref: schemas/packets/m060_packet.schema.json
+    dossier_write_target: dossier.script_vein.channel_strategy_director
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-061
+    skill_name: Micro Skill Army Router
+    file_path: skills/system_intelligence/M-061-micro-skill-army-router.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Yama
+    strategic_authority_director: Chanakya
+    upstream_skill_dependencies:
+      - M-060
+    downstream_skill_consumers:
+      - M-062
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m061_packet
+    schema_ref: schemas/packets/m061_packet.schema.json
+    dossier_write_target: dossier.script_vein.micro_skill_army_router
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-062
+    skill_name: Skill Loader Protocol
+    file_path: skills/system_intelligence/M-062-skill-loader-protocol.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Aruna
+    strategic_authority_director: Narada
+    upstream_skill_dependencies:
+      - M-061
+    downstream_skill_consumers:
+      - M-063
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m062_packet
+    schema_ref: schemas/packets/m062_packet.schema.json
+    dossier_write_target: dossier.script_vein.skill_loader_protocol
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-063
+    skill_name: Skill Dependency Resolver
+    file_path: skills/system_intelligence/M-063-skill-dependency-resolver.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Krishna
+    strategic_authority_director: Ravana
+    upstream_skill_dependencies:
+      - M-062
+    downstream_skill_consumers:
+      - M-064
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m063_packet
+    schema_ref: schemas/packets/m063_packet.schema.json
+    dossier_write_target: dossier.script_vein.skill_dependency_resolver
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-064
+    skill_name: Skill Priority Engine
+    file_path: skills/system_intelligence/M-064-skill-priority-engine.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Vishnu
+    strategic_authority_director: Durga
+    upstream_skill_dependencies:
+      - M-063
+    downstream_skill_consumers:
+      - M-065
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m064_packet
+    schema_ref: schemas/packets/m064_packet.schema.json
+    dossier_write_target: dossier.script_vein.skill_priority_engine
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-065
+    skill_name: Task Queue Manager
+    file_path: skills/system_intelligence/M-065-task-queue-manager.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Shiva
+    strategic_authority_director: Yudhishthira
+    upstream_skill_dependencies:
+      - M-064
+    downstream_skill_consumers:
+      - M-066
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m065_packet
+    schema_ref: schemas/packets/m065_packet.schema.json
+    dossier_write_target: dossier.script_vein.task_queue_manager
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-066
+    skill_name: Resource Allocator
+    file_path: skills/system_intelligence/M-066-resource-allocator.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Brahma
+    strategic_authority_director: Valmiki
+    upstream_skill_dependencies:
+      - M-065
+    downstream_skill_consumers:
+      - M-067
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m066_packet
+    schema_ref: schemas/packets/m066_packet.schema.json
+    dossier_write_target: dossier.script_vein.resource_allocator
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-067
+    skill_name: Performance Monitor
+    file_path: skills/system_intelligence/M-067-performance-monitor.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Shakti
+    strategic_authority_director: Vyasa
+    upstream_skill_dependencies:
+      - M-066
+    downstream_skill_consumers:
+      - M-068
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m067_packet
+    schema_ref: schemas/packets/m067_packet.schema.json
+    dossier_write_target: dossier.script_vein.performance_monitor
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-068
+    skill_name: Failure Detector
+    file_path: skills/system_intelligence/M-068-failure-detector.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Chanakya
+    strategic_authority_director: Agastya
+    upstream_skill_dependencies:
+      - M-067
+    downstream_skill_consumers:
+      - M-069
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m068_packet
+    schema_ref: schemas/packets/m068_packet.schema.json
+    dossier_write_target: dossier.script_vein.failure_detector
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-069
+    skill_name: Recovery Engine
+    file_path: skills/system_intelligence/M-069-recovery-engine.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Narada
+    strategic_authority_director: Parashara
+    upstream_skill_dependencies:
+      - M-068
+    downstream_skill_consumers:
+      - M-070
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m069_packet
+    schema_ref: schemas/packets/m069_packet.schema.json
+    dossier_write_target: dossier.script_vein.recovery_engine
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-070
+    skill_name: Adaptive Re Router
+    file_path: skills/system_intelligence/M-070-adaptive-re-router.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Ravana
+    strategic_authority_director: Ganesha
+    upstream_skill_dependencies:
+      - M-069
+    downstream_skill_consumers:
+      - M-071
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m070_packet
+    schema_ref: schemas/packets/m070_packet.schema.json
+    dossier_write_target: dossier.script_vein.adaptive_re_router
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-071
+    skill_name: Intelligence Memory System
+    file_path: skills/system_intelligence/M-071-intelligence-memory-system.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Durga
+    strategic_authority_director: Tumburu
+    upstream_skill_dependencies:
+      - M-070
+    downstream_skill_consumers:
+      - M-072
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m071_packet
+    schema_ref: schemas/packets/m071_packet.schema.json
+    dossier_write_target: dossier.script_vein.intelligence_memory_system
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-072
+    skill_name: Pattern Recognition Engine
+    file_path: skills/system_intelligence/M-072-pattern-recognition-engine.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Yudhishthira
+    strategic_authority_director: Arjuna
+    upstream_skill_dependencies:
+      - M-071
+    downstream_skill_consumers:
+      - M-073
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m072_packet
+    schema_ref: schemas/packets/m072_packet.schema.json
+    dossier_write_target: dossier.script_vein.pattern_recognition_engine
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-073
+    skill_name: Trend Prediction Engine
+    file_path: skills/system_intelligence/M-073-trend-prediction-engine.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Valmiki
+    strategic_authority_director: Maya
+    upstream_skill_dependencies:
+      - M-072
+    downstream_skill_consumers:
+      - M-074
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m073_packet
+    schema_ref: schemas/packets/m073_packet.schema.json
+    dossier_write_target: dossier.script_vein.trend_prediction_engine
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-074
+    skill_name: Viral Opportunity Scanner
+    file_path: skills/system_intelligence/M-074-viral-opportunity-scanner.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Vyasa
+    strategic_authority_director: Vishwakarma
+    upstream_skill_dependencies:
+      - M-073
+    downstream_skill_consumers:
+      - M-075
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m074_packet
+    schema_ref: schemas/packets/m074_packet.schema.json
+    dossier_write_target: dossier.script_vein.viral_opportunity_scanner
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-075
+    skill_name: Content Replication Engine
+    file_path: skills/system_intelligence/M-075-content-replication-engine.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Agastya
+    strategic_authority_director: Agni
+    upstream_skill_dependencies:
+      - M-074
+    downstream_skill_consumers:
+      - M-076
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m075_packet
+    schema_ref: schemas/packets/m075_packet.schema.json
+    dossier_write_target: dossier.script_vein.content_replication_engine
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-076
+    skill_name: Multi Channel Expansion Engine
+    file_path: skills/system_intelligence/M-076-multi-channel-expansion-engine.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Parashara
+    strategic_authority_director: Hanuman
+    upstream_skill_dependencies:
+      - M-075
+    downstream_skill_consumers:
+      - M-077
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m076_packet
+    schema_ref: schemas/packets/m076_packet.schema.json
+    dossier_write_target: dossier.script_vein.multi_channel_expansion_engine
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-077
+    skill_name: Language Localization Engine
+    file_path: skills/system_intelligence/M-077-language-localization-engine.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Ganesha
+    strategic_authority_director: Nataraja
+    upstream_skill_dependencies:
+      - M-076
+    downstream_skill_consumers:
+      - M-078
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m077_packet
+    schema_ref: schemas/packets/m077_packet.schema.json
+    dossier_write_target: dossier.script_vein.language_localization_engine
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-078
+    skill_name: Cultural Adaptation Engine
+    file_path: skills/system_intelligence/M-078-cultural-adaptation-engine.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Tumburu
+    strategic_authority_director: Garuda
+    upstream_skill_dependencies:
+      - M-077
+    downstream_skill_consumers:
+      - M-079
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m078_packet
+    schema_ref: schemas/packets/m078_packet.schema.json
+    dossier_write_target: dossier.script_vein.cultural_adaptation_engine
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-079
+    skill_name: Platform Format Engine
+    file_path: skills/system_intelligence/M-079-platform-format-engine.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Arjuna
+    strategic_authority_director: Varuna
+    upstream_skill_dependencies:
+      - M-078
+    downstream_skill_consumers:
+      - M-080
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m079_packet
+    schema_ref: schemas/packets/m079_packet.schema.json
+    dossier_write_target: dossier.script_vein.platform_format_engine
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-080
+    skill_name: Shorts Generator
+    file_path: skills/system_intelligence/M-080-shorts-generator.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Maya
+    strategic_authority_director: Indra
+    upstream_skill_dependencies:
+      - M-079
+    downstream_skill_consumers:
+      - M-081
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m080_packet
+    schema_ref: schemas/packets/m080_packet.schema.json
+    dossier_write_target: dossier.script_vein.shorts_generator
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-081
+    skill_name: Clip Extraction Engine
+    file_path: skills/system_intelligence/M-081-clip-extraction-engine.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Vishwakarma
+    strategic_authority_director: Kama
+    upstream_skill_dependencies:
+      - M-080
+    downstream_skill_consumers:
+      - M-082
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m081_packet
+    schema_ref: schemas/packets/m081_packet.schema.json
+    dossier_write_target: dossier.script_vein.clip_extraction_engine
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-082
+    skill_name: Viral Clip Optimizer
+    file_path: skills/system_intelligence/M-082-viral-clip-optimizer.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Agni
+    strategic_authority_director: Saraswati
+    upstream_skill_dependencies:
+      - M-081
+    downstream_skill_consumers:
+      - M-083
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m082_packet
+    schema_ref: schemas/packets/m082_packet.schema.json
+    dossier_write_target: dossier.script_vein.viral_clip_optimizer
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-083
+    skill_name: Social Media Distributor
+    file_path: skills/system_intelligence/M-083-social-media-distributor.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Hanuman
+    strategic_authority_director: Kubera
+    upstream_skill_dependencies:
+      - M-082
+    downstream_skill_consumers:
+      - M-084
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m083_packet
+    schema_ref: schemas/packets/m083_packet.schema.json
+    dossier_write_target: dossier.script_vein.social_media_distributor
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-084
+    skill_name: Cross Platform Analytics
+    file_path: skills/system_intelligence/M-084-cross-platform-analytics.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Nataraja
+    strategic_authority_director: Yama
+    upstream_skill_dependencies:
+      - M-083
+    downstream_skill_consumers:
+      - M-085
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m084_packet
+    schema_ref: schemas/packets/m084_packet.schema.json
+    dossier_write_target: dossier.script_vein.cross_platform_analytics
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-085
+    skill_name: Ai Avatar Director
+    file_path: skills/system_intelligence/M-085-ai-avatar-director.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Garuda
+    strategic_authority_director: Aruna
+    upstream_skill_dependencies:
+      - M-084
+    downstream_skill_consumers:
+      - M-086
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m085_packet
+    schema_ref: schemas/packets/m085_packet.schema.json
+    dossier_write_target: dossier.script_vein.ai_avatar_director
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-086
+    skill_name: Cinematic Shot Planner
+    file_path: skills/system_intelligence/M-086-cinematic-shot-planner.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Varuna
+    strategic_authority_director: Krishna
+    upstream_skill_dependencies:
+      - M-085
+    downstream_skill_consumers:
+      - M-087
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m086_packet
+    schema_ref: schemas/packets/m086_packet.schema.json
+    dossier_write_target: dossier.script_vein.cinematic_shot_planner
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-087
+    skill_name: Lighting Designer
+    file_path: skills/system_intelligence/M-087-lighting-designer.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Indra
+    strategic_authority_director: Vishnu
+    upstream_skill_dependencies:
+      - M-086
+    downstream_skill_consumers:
+      - M-088
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m087_packet
+    schema_ref: schemas/packets/m087_packet.schema.json
+    dossier_write_target: dossier.script_vein.lighting_designer
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-088
+    skill_name: Scene Composition Engine
+    file_path: skills/system_intelligence/M-088-scene-composition-engine.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Kama
+    strategic_authority_director: Shiva
+    upstream_skill_dependencies:
+      - M-087
+    downstream_skill_consumers:
+      - M-089
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m088_packet
+    schema_ref: schemas/packets/m088_packet.schema.json
+    dossier_write_target: dossier.script_vein.scene_composition_engine
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-089
+    skill_name: Motion Director
+    file_path: skills/system_intelligence/M-089-motion-director.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Saraswati
+    strategic_authority_director: Brahma
+    upstream_skill_dependencies:
+      - M-088
+    downstream_skill_consumers:
+      - M-090
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m089_packet
+    schema_ref: schemas/packets/m089_packet.schema.json
+    dossier_write_target: dossier.script_vein.motion_director
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-090
+    skill_name: Generic M 090 Forbidden In Runtime Split Into Av Emo 090 And Yt For 090
+    file_path: skills/system_intelligence/M-090-generic-m-090-forbidden-in-runtime-split-into-av-emo-090-and-yt-for-090.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Kubera
+    strategic_authority_director: Shakti
+    upstream_skill_dependencies:
+      - M-089
+    downstream_skill_consumers:
+      - M-098
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m090_packet
+    schema_ref: schemas/packets/m090_packet.schema.json
+    dossier_write_target: dossier.script_vein.generic_m_090_forbidden_in_runtime_split_into_av_emo_090_and_yt_for_090
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-098
+    skill_name: Final Edit Compiler
+    file_path: skills/autonomous_loop/M-098-final-edit-compiler.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Yama
+    strategic_authority_director: Chanakya
+    upstream_skill_dependencies:
+      - M-090
+    downstream_skill_consumers:
+      - M-099
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m098_packet
+    schema_ref: schemas/packets/m098_packet.schema.json
+    dossier_write_target: dossier.script_vein.final_edit_compiler
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-099
+    skill_name: Quality Assurance Engine
+    file_path: skills/autonomous_loop/M-099-quality-assurance-engine.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Aruna
+    strategic_authority_director: Narada
+    upstream_skill_dependencies:
+      - M-098
+    downstream_skill_consumers:
+      - M-100
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m099_packet
+    schema_ref: schemas/packets/m099_packet.schema.json
+    dossier_write_target: dossier.script_vein.quality_assurance_engine
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-100
+    skill_name: Safety Compliance Engine
+    file_path: skills/autonomous_loop/M-100-safety-compliance-engine.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Krishna
+    strategic_authority_director: Ravana
+    upstream_skill_dependencies:
+      - M-099
+    downstream_skill_consumers:
+      - M-101
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m100_packet
+    schema_ref: schemas/packets/m100_packet.schema.json
+    dossier_write_target: dossier.script_vein.safety_compliance_engine
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-101
+    skill_name: Decision Board
+    file_path: skills/autonomous_loop/M-101-decision-board.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Vishnu
+    strategic_authority_director: Durga
+    upstream_skill_dependencies:
+      - M-100
+    downstream_skill_consumers:
+      - M-102
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m101_packet
+    schema_ref: schemas/packets/m101_packet.schema.json
+    dossier_write_target: dossier.script_vein.decision_board
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-102
+    skill_name: Escalation Engine
+    file_path: skills/autonomous_loop/M-102-escalation-engine.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Shiva
+    strategic_authority_director: Yudhishthira
+    upstream_skill_dependencies:
+      - M-101
+    downstream_skill_consumers:
+      - M-103
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m102_packet
+    schema_ref: schemas/packets/m102_packet.schema.json
+    dossier_write_target: dossier.script_vein.escalation_engine
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-103
+    skill_name: Strategic Alignment Engine
+    file_path: skills/autonomous_loop/M-103-strategic-alignment-engine.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Brahma
+    strategic_authority_director: Valmiki
+    upstream_skill_dependencies:
+      - M-102
+    downstream_skill_consumers:
+      - M-104
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m103_packet
+    schema_ref: schemas/packets/m103_packet.schema.json
+    dossier_write_target: dossier.script_vein.strategic_alignment_engine
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-104
+    skill_name: Executive Review System
+    file_path: skills/autonomous_loop/M-104-executive-review-system.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Shakti
+    strategic_authority_director: Vyasa
+    upstream_skill_dependencies:
+      - M-103
+    downstream_skill_consumers:
+      - M-105
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m104_packet
+    schema_ref: schemas/packets/m104_packet.schema.json
+    dossier_write_target: dossier.script_vein.executive_review_system
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-105
+    skill_name: Publishing Engine
+    file_path: skills/autonomous_loop/M-105-publishing-engine.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Chanakya
+    strategic_authority_director: Agastya
+    upstream_skill_dependencies:
+      - M-104
+    downstream_skill_consumers:
+      - M-106
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m105_packet
+    schema_ref: schemas/packets/m105_packet.schema.json
+    dossier_write_target: dossier.script_vein.publishing_engine
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-106
+    skill_name: Upload Verification
+    file_path: skills/autonomous_loop/M-106-upload-verification.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Narada
+    strategic_authority_director: Parashara
+    upstream_skill_dependencies:
+      - M-105
+    downstream_skill_consumers:
+      - M-107
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m106_packet
+    schema_ref: schemas/packets/m106_packet.schema.json
+    dossier_write_target: dossier.script_vein.upload_verification
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-107
+    skill_name: Algorithm Kickstart Engine
+    file_path: skills/autonomous_loop/M-107-algorithm-kickstart-engine.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Ravana
+    strategic_authority_director: Ganesha
+    upstream_skill_dependencies:
+      - M-106
+    downstream_skill_consumers:
+      - M-108
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m107_packet
+    schema_ref: schemas/packets/m107_packet.schema.json
+    dossier_write_target: dossier.script_vein.algorithm_kickstart_engine
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-108
+    skill_name: Engagement Booster
+    file_path: skills/autonomous_loop/M-108-engagement-booster.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Durga
+    strategic_authority_director: Tumburu
+    upstream_skill_dependencies:
+      - M-107
+    downstream_skill_consumers:
+      - M-109
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m108_packet
+    schema_ref: schemas/packets/m108_packet.schema.json
+    dossier_write_target: dossier.script_vein.engagement_booster
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-109
+    skill_name: Comment Analyzer
+    file_path: skills/autonomous_loop/M-109-comment-analyzer.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Yudhishthira
+    strategic_authority_director: Arjuna
+    upstream_skill_dependencies:
+      - M-108
+    downstream_skill_consumers:
+      - M-110
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m109_packet
+    schema_ref: schemas/packets/m109_packet.schema.json
+    dossier_write_target: dossier.script_vein.comment_analyzer
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-110
+    skill_name: Reputation Monitor
+    file_path: skills/autonomous_loop/M-110-reputation-monitor.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Valmiki
+    strategic_authority_director: Maya
+    upstream_skill_dependencies:
+      - M-109
+    downstream_skill_consumers:
+      - M-111
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m110_packet
+    schema_ref: schemas/packets/m110_packet.schema.json
+    dossier_write_target: dossier.script_vein.reputation_monitor
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-111
+    skill_name: Feedback Learning Engine
+    file_path: skills/autonomous_loop/M-111-feedback-learning-engine.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Vyasa
+    strategic_authority_director: Vishwakarma
+    upstream_skill_dependencies:
+      - M-110
+    downstream_skill_consumers:
+      - M-112
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m111_packet
+    schema_ref: schemas/packets/m111_packet.schema.json
+    dossier_write_target: dossier.script_vein.feedback_learning_engine
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-112
+    skill_name: Strategy Refinement Engine
+    file_path: skills/autonomous_loop/M-112-strategy-refinement-engine.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Agastya
+    strategic_authority_director: Agni
+    upstream_skill_dependencies:
+      - M-111
+    downstream_skill_consumers:
+      - M-113
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m112_packet
+    schema_ref: schemas/packets/m112_packet.schema.json
+    dossier_write_target: dossier.script_vein.strategy_refinement_engine
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-113
+    skill_name: Empire Growth Engine
+    file_path: skills/autonomous_loop/M-113-empire-growth-engine.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Parashara
+    strategic_authority_director: Hanuman
+    upstream_skill_dependencies:
+      - M-112
+    downstream_skill_consumers:
+      - M-114
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m113_packet
+    schema_ref: schemas/packets/m113_packet.schema.json
+    dossier_write_target: dossier.script_vein.empire_growth_engine
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-114
+    skill_name: Resource Expansion Engine
+    file_path: skills/autonomous_loop/M-114-resource-expansion-engine.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Ganesha
+    strategic_authority_director: Nataraja
+    upstream_skill_dependencies:
+      - M-113
+    downstream_skill_consumers:
+      - M-115
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m114_packet
+    schema_ref: schemas/packets/m114_packet.schema.json
+    dossier_write_target: dossier.script_vein.resource_expansion_engine
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-115
+    skill_name: Automation Expansion Engine
+    file_path: skills/autonomous_loop/M-115-automation-expansion-engine.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Tumburu
+    strategic_authority_director: Garuda
+    upstream_skill_dependencies:
+      - M-114
+    downstream_skill_consumers:
+      - M-116
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m115_packet
+    schema_ref: schemas/packets/m115_packet.schema.json
+    dossier_write_target: dossier.script_vein.automation_expansion_engine
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-116
+    skill_name: Skill Evolution Engine
+    file_path: skills/autonomous_loop/M-116-skill-evolution-engine.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Arjuna
+    strategic_authority_director: Varuna
+    upstream_skill_dependencies:
+      - M-115
+    downstream_skill_consumers:
+      - M-117
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m116_packet
+    schema_ref: schemas/packets/m116_packet.schema.json
+    dossier_write_target: dossier.script_vein.skill_evolution_engine
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-117
+    skill_name: Intelligence Upgrade Engine
+    file_path: skills/autonomous_loop/M-117-intelligence-upgrade-engine.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Maya
+    strategic_authority_director: Indra
+    upstream_skill_dependencies:
+      - M-116
+    downstream_skill_consumers:
+      - M-118
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m117_packet
+    schema_ref: schemas/packets/m117_packet.schema.json
+    dossier_write_target: dossier.script_vein.intelligence_upgrade_engine
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-118
+    skill_name: Empire Security Engine
+    file_path: skills/autonomous_loop/M-118-empire-security-engine.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Vishwakarma
+    strategic_authority_director: Kama
+    upstream_skill_dependencies:
+      - M-117
+    downstream_skill_consumers:
+      - M-119
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m118_packet
+    schema_ref: schemas/packets/m118_packet.schema.json
+    dossier_write_target: dossier.script_vein.empire_security_engine
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-119
+    skill_name: Redundancy System
+    file_path: skills/autonomous_loop/M-119-redundancy-system.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Agni
+    strategic_authority_director: Saraswati
+    upstream_skill_dependencies:
+      - M-118
+    downstream_skill_consumers:
+      - M-120
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m119_packet
+    schema_ref: schemas/packets/m119_packet.schema.json
+    dossier_write_target: dossier.script_vein.redundancy_system
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-120
+    skill_name: Supreme Orchestrator
+    file_path: skills/autonomous_loop/M-120-supreme-orchestrator.skill.md
+    phase_assignment: PHASE_2A_SCRIPT_CORE
+    vein_assignment: script_vein
+    owner_director: Hanuman
+    strategic_authority_director: Kubera
+    upstream_skill_dependencies:
+      - M-119
+    downstream_skill_consumers:
+      - M-121
+    producer_workflow: CWF-210
+    consumer_workflows:
+      - CWF-220
+    output_packet_family: m120_packet
+    schema_ref: schemas/packets/m120_packet.schema.json
+    dossier_write_target: dossier.script_vein.supreme_orchestrator
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-121
+    skill_name: Algorithm Intelligence Core
+    file_path: skills/swarm_expansion/M-121-algorithm-intelligence-core.skill.md
+    phase_assignment: PHASE_2C_PLATFORM_VARIANTS
+    vein_assignment: script_vein
+    owner_director: Nataraja
+    strategic_authority_director: Yama
+    upstream_skill_dependencies:
+      - M-120
+    downstream_skill_consumers:
+      - M-122
+    producer_workflow: CWF-230
+    consumer_workflows:
+      - CWF-240
+    output_packet_family: m121_packet
+    schema_ref: schemas/packets/m121_packet.schema.json
+    dossier_write_target: dossier.script_vein.algorithm_intelligence_core
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-122
+    skill_name: Data Signal Collector
+    file_path: skills/swarm_expansion/M-122-data-signal-collector.skill.md
+    phase_assignment: PHASE_2C_PLATFORM_VARIANTS
+    vein_assignment: script_vein
+    owner_director: Garuda
+    strategic_authority_director: Aruna
+    upstream_skill_dependencies:
+      - M-121
+    downstream_skill_consumers:
+      - M-123
+    producer_workflow: CWF-230
+    consumer_workflows:
+      - CWF-240
+    output_packet_family: m122_packet
+    schema_ref: schemas/packets/m122_packet.schema.json
+    dossier_write_target: dossier.script_vein.data_signal_collector
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-123
+    skill_name: Algorithm Pattern Analyzer
+    file_path: skills/swarm_expansion/M-123-algorithm-pattern-analyzer.skill.md
+    phase_assignment: PHASE_2C_PLATFORM_VARIANTS
+    vein_assignment: script_vein
+    owner_director: Varuna
+    strategic_authority_director: Krishna
+    upstream_skill_dependencies:
+      - M-122
+    downstream_skill_consumers:
+      - M-124
+    producer_workflow: CWF-230
+    consumer_workflows:
+      - CWF-240
+    output_packet_family: m123_packet
+    schema_ref: schemas/packets/m123_packet.schema.json
+    dossier_write_target: dossier.script_vein.algorithm_pattern_analyzer
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-124
+    skill_name: Watch Time Analyzer
+    file_path: skills/swarm_expansion/M-124-watch-time-analyzer.skill.md
+    phase_assignment: PHASE_2C_PLATFORM_VARIANTS
+    vein_assignment: script_vein
+    owner_director: Indra
+    strategic_authority_director: Vishnu
+    upstream_skill_dependencies:
+      - M-123
+    downstream_skill_consumers:
+      - M-125
+    producer_workflow: CWF-230
+    consumer_workflows:
+      - CWF-240
+    output_packet_family: m124_packet
+    schema_ref: schemas/packets/m124_packet.schema.json
+    dossier_write_target: dossier.script_vein.watch_time_analyzer
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-125
+    skill_name: Retention Drop Detector
+    file_path: skills/swarm_expansion/M-125-retention-drop-detector.skill.md
+    phase_assignment: PHASE_2C_PLATFORM_VARIANTS
+    vein_assignment: script_vein
+    owner_director: Kama
+    strategic_authority_director: Shiva
+    upstream_skill_dependencies:
+      - M-124
+    downstream_skill_consumers:
+      - M-126
+    producer_workflow: CWF-230
+    consumer_workflows:
+      - CWF-240
+    output_packet_family: m125_packet
+    schema_ref: schemas/packets/m125_packet.schema.json
+    dossier_write_target: dossier.script_vein.retention_drop_detector
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-126
+    skill_name: Retention Repair Engine
+    file_path: skills/swarm_expansion/M-126-retention-repair-engine.skill.md
+    phase_assignment: PHASE_2C_PLATFORM_VARIANTS
+    vein_assignment: script_vein
+    owner_director: Saraswati
+    strategic_authority_director: Brahma
+    upstream_skill_dependencies:
+      - M-125
+    downstream_skill_consumers:
+      - M-127
+    producer_workflow: CWF-230
+    consumer_workflows:
+      - CWF-240
+    output_packet_family: m126_packet
+    schema_ref: schemas/packets/m126_packet.schema.json
+    dossier_write_target: dossier.script_vein.retention_repair_engine
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-127
+    skill_name: Viral Pattern Library
+    file_path: skills/swarm_expansion/M-127-viral-pattern-library.skill.md
+    phase_assignment: PHASE_2C_PLATFORM_VARIANTS
+    vein_assignment: script_vein
+    owner_director: Kubera
+    strategic_authority_director: Shakti
+    upstream_skill_dependencies:
+      - M-126
+    downstream_skill_consumers:
+      - M-128
+    producer_workflow: CWF-230
+    consumer_workflows:
+      - CWF-240
+    output_packet_family: m127_packet
+    schema_ref: schemas/packets/m127_packet.schema.json
+    dossier_write_target: dossier.script_vein.viral_pattern_library
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-128
+    skill_name: Viral Pattern Replicator
+    file_path: skills/swarm_expansion/M-128-viral-pattern-replicator.skill.md
+    phase_assignment: PHASE_2C_PLATFORM_VARIANTS
+    vein_assignment: script_vein
+    owner_director: Yama
+    strategic_authority_director: Chanakya
+    upstream_skill_dependencies:
+      - M-127
+    downstream_skill_consumers:
+      - M-129
+    producer_workflow: CWF-230
+    consumer_workflows:
+      - CWF-240
+    output_packet_family: m128_packet
+    schema_ref: schemas/packets/m128_packet.schema.json
+    dossier_write_target: dossier.script_vein.viral_pattern_replicator
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-129
+    skill_name: Thumbnail Heatmap Analyzer
+    file_path: skills/swarm_expansion/M-129-thumbnail-heatmap-analyzer.skill.md
+    phase_assignment: PHASE_2C_PLATFORM_VARIANTS
+    vein_assignment: script_vein
+    owner_director: Aruna
+    strategic_authority_director: Narada
+    upstream_skill_dependencies:
+      - M-128
+    downstream_skill_consumers:
+      - M-130
+    producer_workflow: CWF-230
+    consumer_workflows:
+      - CWF-240
+    output_packet_family: m129_packet
+    schema_ref: schemas/packets/m129_packet.schema.json
+    dossier_write_target: dossier.script_vein.thumbnail_heatmap_analyzer
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-130
+    skill_name: Thumbnail Optimization Engine
+    file_path: skills/swarm_expansion/M-130-thumbnail-optimization-engine.skill.md
+    phase_assignment: PHASE_2C_PLATFORM_VARIANTS
+    vein_assignment: script_vein
+    owner_director: Krishna
+    strategic_authority_director: Ravana
+    upstream_skill_dependencies:
+      - M-129
+    downstream_skill_consumers:
+      - M-131
+    producer_workflow: CWF-230
+    consumer_workflows:
+      - CWF-240
+    output_packet_family: m130_packet
+    schema_ref: schemas/packets/m130_packet.schema.json
+    dossier_write_target: dossier.script_vein.thumbnail_optimization_engine
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-131
+    skill_name: Ctr Prediction Engine
+    file_path: skills/swarm_expansion/M-131-ctr-prediction-engine.skill.md
+    phase_assignment: PHASE_2D_EXPANSION
+    vein_assignment: script_vein
+    owner_director: Vishnu
+    strategic_authority_director: Durga
+    upstream_skill_dependencies:
+      - M-130
+    downstream_skill_consumers:
+      - M-132
+    producer_workflow: CWF-240
+    consumer_workflows:
+      - WF-020
+    output_packet_family: m131_packet
+    schema_ref: schemas/packets/m131_packet.schema.json
+    dossier_write_target: dossier.script_vein.ctr_prediction_engine
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-132
+    skill_name: Title Emotion Analyzer
+    file_path: skills/swarm_expansion/M-132-title-emotion-analyzer.skill.md
+    phase_assignment: PHASE_2D_EXPANSION
+    vein_assignment: script_vein
+    owner_director: Shiva
+    strategic_authority_director: Yudhishthira
+    upstream_skill_dependencies:
+      - M-131
+    downstream_skill_consumers:
+      - M-133
+    producer_workflow: CWF-240
+    consumer_workflows:
+      - WF-020
+    output_packet_family: m132_packet
+    schema_ref: schemas/packets/m132_packet.schema.json
+    dossier_write_target: dossier.script_vein.title_emotion_analyzer
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-133
+    skill_name: Curiosity Trigger Engine
+    file_path: skills/swarm_expansion/M-133-curiosity-trigger-engine.skill.md
+    phase_assignment: PHASE_2D_EXPANSION
+    vein_assignment: script_vein
+    owner_director: Brahma
+    strategic_authority_director: Valmiki
+    upstream_skill_dependencies:
+      - M-132
+    downstream_skill_consumers:
+      - M-134
+    producer_workflow: CWF-240
+    consumer_workflows:
+      - WF-020
+    output_packet_family: m133_packet
+    schema_ref: schemas/packets/m133_packet.schema.json
+    dossier_write_target: dossier.script_vein.curiosity_trigger_engine
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-134
+    skill_name: Psychological Hook Engine
+    file_path: skills/swarm_expansion/M-134-psychological-hook-engine.skill.md
+    phase_assignment: PHASE_2D_EXPANSION
+    vein_assignment: script_vein
+    owner_director: Shakti
+    strategic_authority_director: Vyasa
+    upstream_skill_dependencies:
+      - M-133
+    downstream_skill_consumers:
+      - M-135
+    producer_workflow: CWF-240
+    consumer_workflows:
+      - WF-020
+    output_packet_family: m134_packet
+    schema_ref: schemas/packets/m134_packet.schema.json
+    dossier_write_target: dossier.script_vein.psychological_hook_engine
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-135
+    skill_name: Click Urgency Generator
+    file_path: skills/swarm_expansion/M-135-click-urgency-generator.skill.md
+    phase_assignment: PHASE_2D_EXPANSION
+    vein_assignment: script_vein
+    owner_director: Chanakya
+    strategic_authority_director: Agastya
+    upstream_skill_dependencies:
+      - M-134
+    downstream_skill_consumers:
+      - M-136
+    producer_workflow: CWF-240
+    consumer_workflows:
+      - WF-020
+    output_packet_family: m135_packet
+    schema_ref: schemas/packets/m135_packet.schema.json
+    dossier_write_target: dossier.script_vein.click_urgency_generator
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-136
+    skill_name: Ctr Stress Tester
+    file_path: skills/swarm_expansion/M-136-ctr-stress-tester.skill.md
+    phase_assignment: PHASE_2D_EXPANSION
+    vein_assignment: script_vein
+    owner_director: Narada
+    strategic_authority_director: Parashara
+    upstream_skill_dependencies:
+      - M-135
+    downstream_skill_consumers:
+      - M-137
+    producer_workflow: CWF-240
+    consumer_workflows:
+      - WF-020
+    output_packet_family: m136_packet
+    schema_ref: schemas/packets/m136_packet.schema.json
+    dossier_write_target: dossier.script_vein.ctr_stress_tester
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-137
+    skill_name: Thumbnail Emotion Optimizer
+    file_path: skills/swarm_expansion/M-137-thumbnail-emotion-optimizer.skill.md
+    phase_assignment: PHASE_2D_EXPANSION
+    vein_assignment: script_vein
+    owner_director: Ravana
+    strategic_authority_director: Ganesha
+    upstream_skill_dependencies:
+      - M-136
+    downstream_skill_consumers:
+      - M-138
+    producer_workflow: CWF-240
+    consumer_workflows:
+      - WF-020
+    output_packet_family: m137_packet
+    schema_ref: schemas/packets/m137_packet.schema.json
+    dossier_write_target: dossier.script_vein.thumbnail_emotion_optimizer
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-138
+    skill_name: Viral Probability Engine
+    file_path: skills/swarm_expansion/M-138-viral-probability-engine.skill.md
+    phase_assignment: PHASE_2D_EXPANSION
+    vein_assignment: script_vein
+    owner_director: Durga
+    strategic_authority_director: Tumburu
+    upstream_skill_dependencies:
+      - M-137
+    downstream_skill_consumers:
+      - M-139
+    producer_workflow: CWF-240
+    consumer_workflows:
+      - WF-020
+    output_packet_family: m138_packet
+    schema_ref: schemas/packets/m138_packet.schema.json
+    dossier_write_target: dossier.script_vein.viral_probability_engine
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-139
+    skill_name: Viral Acceleration Engine
+    file_path: skills/swarm_expansion/M-139-viral-acceleration-engine.skill.md
+    phase_assignment: PHASE_2D_EXPANSION
+    vein_assignment: script_vein
+    owner_director: Yudhishthira
+    strategic_authority_director: Arjuna
+    upstream_skill_dependencies:
+      - M-138
+    downstream_skill_consumers:
+      - M-140
+    producer_workflow: CWF-240
+    consumer_workflows:
+      - WF-020
+    output_packet_family: m139_packet
+    schema_ref: schemas/packets/m139_packet.schema.json
+    dossier_write_target: dossier.script_vein.viral_acceleration_engine
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-140
+    skill_name: Shareability Optimizer
+    file_path: skills/swarm_expansion/M-140-shareability-optimizer.skill.md
+    phase_assignment: PHASE_2D_EXPANSION
+    vein_assignment: script_vein
+    owner_director: Valmiki
+    strategic_authority_director: Maya
+    upstream_skill_dependencies:
+      - M-139
+    downstream_skill_consumers:
+      - M-141
+    producer_workflow: CWF-240
+    consumer_workflows:
+      - WF-020
+    output_packet_family: m140_packet
+    schema_ref: schemas/packets/m140_packet.schema.json
+    dossier_write_target: dossier.script_vein.shareability_optimizer
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-141
+    skill_name: Community Trigger Engine
+    file_path: skills/swarm_expansion/M-141-community-trigger-engine.skill.md
+    phase_assignment: PHASE_2D_EXPANSION
+    vein_assignment: script_vein
+    owner_director: Vyasa
+    strategic_authority_director: Vishwakarma
+    upstream_skill_dependencies:
+      - M-140
+    downstream_skill_consumers:
+      - M-142
+    producer_workflow: CWF-240
+    consumer_workflows:
+      - WF-020
+    output_packet_family: m141_packet
+    schema_ref: schemas/packets/m141_packet.schema.json
+    dossier_write_target: dossier.script_vein.community_trigger_engine
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-142
+    skill_name: Comment Magnet Engine
+    file_path: skills/swarm_expansion/M-142-comment-magnet-engine.skill.md
+    phase_assignment: PHASE_2D_EXPANSION
+    vein_assignment: script_vein
+    owner_director: Agastya
+    strategic_authority_director: Agni
+    upstream_skill_dependencies:
+      - M-141
+    downstream_skill_consumers:
+      - M-143
+    producer_workflow: CWF-240
+    consumer_workflows:
+      - WF-020
+    output_packet_family: m142_packet
+    schema_ref: schemas/packets/m142_packet.schema.json
+    dossier_write_target: dossier.script_vein.comment_magnet_engine
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-143
+    skill_name: Discussion Amplifier
+    file_path: skills/swarm_expansion/M-143-discussion-amplifier.skill.md
+    phase_assignment: PHASE_2D_EXPANSION
+    vein_assignment: script_vein
+    owner_director: Parashara
+    strategic_authority_director: Hanuman
+    upstream_skill_dependencies:
+      - M-142
+    downstream_skill_consumers:
+      - M-144
+    producer_workflow: CWF-240
+    consumer_workflows:
+      - WF-020
+    output_packet_family: m143_packet
+    schema_ref: schemas/packets/m143_packet.schema.json
+    dossier_write_target: dossier.script_vein.discussion_amplifier
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-144
+    skill_name: Engagement Momentum Engine
+    file_path: skills/swarm_expansion/M-144-engagement-momentum-engine.skill.md
+    phase_assignment: PHASE_2D_EXPANSION
+    vein_assignment: script_vein
+    owner_director: Ganesha
+    strategic_authority_director: Nataraja
+    upstream_skill_dependencies:
+      - M-143
+    downstream_skill_consumers:
+      - M-145
+    producer_workflow: CWF-240
+    consumer_workflows:
+      - WF-020
+    output_packet_family: m144_packet
+    schema_ref: schemas/packets/m144_packet.schema.json
+    dossier_write_target: dossier.script_vein.engagement_momentum_engine
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-145
+    skill_name: Algorithm Boost Detector
+    file_path: skills/swarm_expansion/M-145-algorithm-boost-detector.skill.md
+    phase_assignment: PHASE_2D_EXPANSION
+    vein_assignment: script_vein
+    owner_director: Tumburu
+    strategic_authority_director: Garuda
+    upstream_skill_dependencies:
+      - M-144
+    downstream_skill_consumers:
+      - M-146
+    producer_workflow: CWF-240
+    consumer_workflows:
+      - WF-020
+    output_packet_family: m145_packet
+    schema_ref: schemas/packets/m145_packet.schema.json
+    dossier_write_target: dossier.script_vein.algorithm_boost_detector
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-146
+    skill_name: Viral Surge Manager
+    file_path: skills/swarm_expansion/M-146-viral-surge-manager.skill.md
+    phase_assignment: PHASE_2D_EXPANSION
+    vein_assignment: script_vein
+    owner_director: Arjuna
+    strategic_authority_director: Varuna
+    upstream_skill_dependencies:
+      - M-145
+    downstream_skill_consumers:
+      - M-147
+    producer_workflow: CWF-240
+    consumer_workflows:
+      - WF-020
+    output_packet_family: m146_packet
+    schema_ref: schemas/packets/m146_packet.schema.json
+    dossier_write_target: dossier.script_vein.viral_surge_manager
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-147
+    skill_name: Content Amplification Engine
+    file_path: skills/swarm_expansion/M-147-content-amplification-engine.skill.md
+    phase_assignment: PHASE_2D_EXPANSION
+    vein_assignment: script_vein
+    owner_director: Maya
+    strategic_authority_director: Indra
+    upstream_skill_dependencies:
+      - M-146
+    downstream_skill_consumers:
+      - M-148
+    producer_workflow: CWF-240
+    consumer_workflows:
+      - WF-020
+    output_packet_family: m147_packet
+    schema_ref: schemas/packets/m147_packet.schema.json
+    dossier_write_target: dossier.script_vein.content_amplification_engine
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-148
+    skill_name: Channel Authority Builder
+    file_path: skills/swarm_expansion/M-148-channel-authority-builder.skill.md
+    phase_assignment: PHASE_2D_EXPANSION
+    vein_assignment: script_vein
+    owner_director: Vishwakarma
+    strategic_authority_director: Kama
+    upstream_skill_dependencies:
+      - M-147
+    downstream_skill_consumers:
+      - M-149
+    producer_workflow: CWF-240
+    consumer_workflows:
+      - WF-020
+    output_packet_family: m148_packet
+    schema_ref: schemas/packets/m148_packet.schema.json
+    dossier_write_target: dossier.script_vein.channel_authority_builder
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-149
+    skill_name: Algorithm Trust Engine
+    file_path: skills/swarm_expansion/M-149-algorithm-trust-engine.skill.md
+    phase_assignment: PHASE_2D_EXPANSION
+    vein_assignment: script_vein
+    owner_director: Agni
+    strategic_authority_director: Saraswati
+    upstream_skill_dependencies:
+      - M-148
+    downstream_skill_consumers:
+      - M-150
+    producer_workflow: CWF-240
+    consumer_workflows:
+      - WF-020
+    output_packet_family: m149_packet
+    schema_ref: schemas/packets/m149_packet.schema.json
+    dossier_write_target: dossier.script_vein.algorithm_trust_engine
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-150
+    skill_name: Platform Dominance Engine
+    file_path: skills/swarm_expansion/M-150-platform-dominance-engine.skill.md
+    phase_assignment: PHASE_2D_EXPANSION
+    vein_assignment: script_vein
+    owner_director: Hanuman
+    strategic_authority_director: Kubera
+    upstream_skill_dependencies:
+      - M-149
+    downstream_skill_consumers:
+      - M-151
+    producer_workflow: CWF-240
+    consumer_workflows:
+      - WF-020
+    output_packet_family: m150_packet
+    schema_ref: schemas/packets/m150_packet.schema.json
+    dossier_write_target: dossier.script_vein.platform_dominance_engine
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-151
+    skill_name: Empire Expansion Layer
+    file_path: skills/operations/M-151-empire-expansion-layer.skill.md
+    phase_assignment: PHASE_2D_EXPANSION
+    vein_assignment: script_vein
+    owner_director: Nataraja
+    strategic_authority_director: Yama
+    upstream_skill_dependencies:
+      - M-150
+    downstream_skill_consumers:
+      - M-152
+    producer_workflow: CWF-240
+    consumer_workflows:
+      - WF-020
+    output_packet_family: m151_packet
+    schema_ref: schemas/packets/m151_packet.schema.json
+    dossier_write_target: dossier.script_vein.empire_expansion_layer
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-152
+    skill_name: Channel Discovery Engine
+    file_path: skills/operations/M-152-channel-discovery-engine.skill.md
+    phase_assignment: PHASE_2D_EXPANSION
+    vein_assignment: script_vein
+    owner_director: Garuda
+    strategic_authority_director: Aruna
+    upstream_skill_dependencies:
+      - M-151
+    downstream_skill_consumers:
+      - M-153
+    producer_workflow: CWF-240
+    consumer_workflows:
+      - WF-020
+    output_packet_family: m152_packet
+    schema_ref: schemas/packets/m152_packet.schema.json
+    dossier_write_target: dossier.script_vein.channel_discovery_engine
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-153
+    skill_name: Niche Profitability Analyzer
+    file_path: skills/operations/M-153-niche-profitability-analyzer.skill.md
+    phase_assignment: PHASE_2D_EXPANSION
+    vein_assignment: script_vein
+    owner_director: Varuna
+    strategic_authority_director: Krishna
+    upstream_skill_dependencies:
+      - M-152
+    downstream_skill_consumers:
+      - M-154
+    producer_workflow: CWF-240
+    consumer_workflows:
+      - WF-020
+    output_packet_family: m153_packet
+    schema_ref: schemas/packets/m153_packet.schema.json
+    dossier_write_target: dossier.script_vein.niche_profitability_analyzer
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-154
+    skill_name: Channel Launch Architect
+    file_path: skills/operations/M-154-channel-launch-architect.skill.md
+    phase_assignment: PHASE_2D_EXPANSION
+    vein_assignment: script_vein
+    owner_director: Indra
+    strategic_authority_director: Vishnu
+    upstream_skill_dependencies:
+      - M-153
+    downstream_skill_consumers:
+      - M-155
+    producer_workflow: CWF-240
+    consumer_workflows:
+      - WF-020
+    output_packet_family: m154_packet
+    schema_ref: schemas/packets/m154_packet.schema.json
+    dossier_write_target: dossier.script_vein.channel_launch_architect
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-155
+    skill_name: Brand Identity Engine
+    file_path: skills/operations/M-155-brand-identity-engine.skill.md
+    phase_assignment: PHASE_2D_EXPANSION
+    vein_assignment: script_vein
+    owner_director: Kama
+    strategic_authority_director: Shiva
+    upstream_skill_dependencies:
+      - M-154
+    downstream_skill_consumers:
+      - M-156
+    producer_workflow: CWF-240
+    consumer_workflows:
+      - WF-020
+    output_packet_family: m155_packet
+    schema_ref: schemas/packets/m155_packet.schema.json
+    dossier_write_target: dossier.script_vein.brand_identity_engine
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-156
+    skill_name: Audience Persona Generator
+    file_path: skills/operations/M-156-audience-persona-generator.skill.md
+    phase_assignment: PHASE_2D_EXPANSION
+    vein_assignment: script_vein
+    owner_director: Saraswati
+    strategic_authority_director: Brahma
+    upstream_skill_dependencies:
+      - M-155
+    downstream_skill_consumers:
+      - M-157
+    producer_workflow: CWF-240
+    consumer_workflows:
+      - WF-020
+    output_packet_family: m156_packet
+    schema_ref: schemas/packets/m156_packet.schema.json
+    dossier_write_target: dossier.script_vein.audience_persona_generator
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-157
+    skill_name: Content Strategy Replicator
+    file_path: skills/operations/M-157-content-strategy-replicator.skill.md
+    phase_assignment: PHASE_2D_EXPANSION
+    vein_assignment: script_vein
+    owner_director: Kubera
+    strategic_authority_director: Shakti
+    upstream_skill_dependencies:
+      - M-156
+    downstream_skill_consumers:
+      - M-158
+    producer_workflow: CWF-240
+    consumer_workflows:
+      - WF-020
+    output_packet_family: m157_packet
+    schema_ref: schemas/packets/m157_packet.schema.json
+    dossier_write_target: dossier.script_vein.content_strategy_replicator
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-158
+    skill_name: Content Calendar Engine
+    file_path: skills/operations/M-158-content-calendar-engine.skill.md
+    phase_assignment: PHASE_2D_EXPANSION
+    vein_assignment: script_vein
+    owner_director: Yama
+    strategic_authority_director: Chanakya
+    upstream_skill_dependencies:
+      - M-157
+    downstream_skill_consumers:
+      - M-159
+    producer_workflow: CWF-240
+    consumer_workflows:
+      - WF-020
+    output_packet_family: m158_packet
+    schema_ref: schemas/packets/m158_packet.schema.json
+    dossier_write_target: dossier.script_vein.content_calendar_engine
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-159
+    skill_name: Production Capacity Planner
+    file_path: skills/operations/M-159-production-capacity-planner.skill.md
+    phase_assignment: PHASE_2D_EXPANSION
+    vein_assignment: script_vein
+    owner_director: Aruna
+    strategic_authority_director: Narada
+    upstream_skill_dependencies:
+      - M-158
+    downstream_skill_consumers:
+      - M-160
+    producer_workflow: CWF-240
+    consumer_workflows:
+      - WF-020
+    output_packet_family: m159_packet
+    schema_ref: schemas/packets/m159_packet.schema.json
+    dossier_write_target: dossier.script_vein.production_capacity_planner
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-160
+    skill_name: Creator Clone System
+    file_path: skills/operations/M-160-creator-clone-system.skill.md
+    phase_assignment: PHASE_2D_EXPANSION
+    vein_assignment: script_vein
+    owner_director: Krishna
+    strategic_authority_director: Ravana
+    upstream_skill_dependencies:
+      - M-159
+    downstream_skill_consumers:
+      - M-161
+    producer_workflow: CWF-240
+    consumer_workflows:
+      - WF-020
+    output_packet_family: m160_packet
+    schema_ref: schemas/packets/m160_packet.schema.json
+    dossier_write_target: dossier.script_vein.creator_clone_system
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-161
+    skill_name: Personality Mapping Engine
+    file_path: skills/operations/M-161-personality-mapping-engine.skill.md
+    phase_assignment: PHASE_2D_EXPANSION
+    vein_assignment: script_vein
+    owner_director: Vishnu
+    strategic_authority_director: Durga
+    upstream_skill_dependencies:
+      - M-160
+    downstream_skill_consumers:
+      - M-162
+    producer_workflow: CWF-240
+    consumer_workflows:
+      - WF-020
+    output_packet_family: m161_packet
+    schema_ref: schemas/packets/m161_packet.schema.json
+    dossier_write_target: dossier.script_vein.personality_mapping_engine
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-162
+    skill_name: Voice Identity Cloner
+    file_path: skills/operations/M-162-voice-identity-cloner.skill.md
+    phase_assignment: PHASE_2D_EXPANSION
+    vein_assignment: script_vein
+    owner_director: Shiva
+    strategic_authority_director: Yudhishthira
+    upstream_skill_dependencies:
+      - M-161
+    downstream_skill_consumers:
+      - M-163
+    producer_workflow: CWF-240
+    consumer_workflows:
+      - WF-020
+    output_packet_family: m162_packet
+    schema_ref: schemas/packets/m162_packet.schema.json
+    dossier_write_target: dossier.script_vein.voice_identity_cloner
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-163
+    skill_name: Speech Emotion Engine
+    file_path: skills/operations/M-163-speech-emotion-engine.skill.md
+    phase_assignment: PHASE_2D_EXPANSION
+    vein_assignment: script_vein
+    owner_director: Brahma
+    strategic_authority_director: Valmiki
+    upstream_skill_dependencies:
+      - M-162
+    downstream_skill_consumers:
+      - M-164
+    producer_workflow: CWF-240
+    consumer_workflows:
+      - WF-020
+    output_packet_family: m163_packet
+    schema_ref: schemas/packets/m163_packet.schema.json
+    dossier_write_target: dossier.script_vein.speech_emotion_engine
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-164
+    skill_name: Character Behavior Engine
+    file_path: skills/operations/M-164-character-behavior-engine.skill.md
+    phase_assignment: PHASE_2D_EXPANSION
+    vein_assignment: script_vein
+    owner_director: Shakti
+    strategic_authority_director: Vyasa
+    upstream_skill_dependencies:
+      - M-163
+    downstream_skill_consumers:
+      - M-165
+    producer_workflow: CWF-240
+    consumer_workflows:
+      - WF-020
+    output_packet_family: m164_packet
+    schema_ref: schemas/packets/m164_packet.schema.json
+    dossier_write_target: dossier.script_vein.character_behavior_engine
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-165
+    skill_name: Dialogue Style Generator
+    file_path: skills/operations/M-165-dialogue-style-generator.skill.md
+    phase_assignment: PHASE_2D_EXPANSION
+    vein_assignment: script_vein
+    owner_director: Chanakya
+    strategic_authority_director: Agastya
+    upstream_skill_dependencies:
+      - M-164
+    downstream_skill_consumers:
+      - M-166
+    producer_workflow: CWF-240
+    consumer_workflows:
+      - WF-020
+    output_packet_family: m165_packet
+    schema_ref: schemas/packets/m165_packet.schema.json
+    dossier_write_target: dossier.script_vein.dialogue_style_generator
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-166
+    skill_name: Creator Identity Manager
+    file_path: skills/operations/M-166-creator-identity-manager.skill.md
+    phase_assignment: PHASE_2D_EXPANSION
+    vein_assignment: script_vein
+    owner_director: Narada
+    strategic_authority_director: Parashara
+    upstream_skill_dependencies:
+      - M-165
+    downstream_skill_consumers:
+      - M-167
+    producer_workflow: CWF-240
+    consumer_workflows:
+      - WF-020
+    output_packet_family: m166_packet
+    schema_ref: schemas/packets/m166_packet.schema.json
+    dossier_write_target: dossier.script_vein.creator_identity_manager
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-167
+    skill_name: Reputation Control Engine
+    file_path: skills/operations/M-167-reputation-control-engine.skill.md
+    phase_assignment: PHASE_2D_EXPANSION
+    vein_assignment: script_vein
+    owner_director: Ravana
+    strategic_authority_director: Ganesha
+    upstream_skill_dependencies:
+      - M-166
+    downstream_skill_consumers:
+      - M-168
+    producer_workflow: CWF-240
+    consumer_workflows:
+      - WF-020
+    output_packet_family: m167_packet
+    schema_ref: schemas/packets/m167_packet.schema.json
+    dossier_write_target: dossier.script_vein.reputation_control_engine
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-168
+    skill_name: Content Factory Controller
+    file_path: skills/operations/M-168-content-factory-controller.skill.md
+    phase_assignment: PHASE_2D_EXPANSION
+    vein_assignment: script_vein
+    owner_director: Durga
+    strategic_authority_director: Tumburu
+    upstream_skill_dependencies:
+      - M-167
+    downstream_skill_consumers:
+      - M-169
+    producer_workflow: CWF-240
+    consumer_workflows:
+      - WF-020
+    output_packet_family: m168_packet
+    schema_ref: schemas/packets/m168_packet.schema.json
+    dossier_write_target: dossier.script_vein.content_factory_controller
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-169
+    skill_name: Topic Generation Engine
+    file_path: skills/operations/M-169-topic-generation-engine.skill.md
+    phase_assignment: PHASE_2D_EXPANSION
+    vein_assignment: script_vein
+    owner_director: Yudhishthira
+    strategic_authority_director: Arjuna
+    upstream_skill_dependencies:
+      - M-168
+    downstream_skill_consumers:
+      - M-170
+    producer_workflow: CWF-240
+    consumer_workflows:
+      - WF-020
+    output_packet_family: m169_packet
+    schema_ref: schemas/packets/m169_packet.schema.json
+    dossier_write_target: dossier.script_vein.topic_generation_engine
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-170
+    skill_name: Research Automation Engine
+    file_path: skills/operations/M-170-research-automation-engine.skill.md
+    phase_assignment: PHASE_2D_EXPANSION
+    vein_assignment: script_vein
+    owner_director: Valmiki
+    strategic_authority_director: Maya
+    upstream_skill_dependencies:
+      - M-169
+    downstream_skill_consumers:
+      - M-171
+    producer_workflow: CWF-240
+    consumer_workflows:
+      - WF-020
+    output_packet_family: m170_packet
+    schema_ref: schemas/packets/m170_packet.schema.json
+    dossier_write_target: dossier.script_vein.research_automation_engine
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-171
+    skill_name: Knowledge Graph Builder
+    file_path: skills/operations/M-171-knowledge-graph-builder.skill.md
+    phase_assignment: PHASE_2D_EXPANSION
+    vein_assignment: script_vein
+    owner_director: Vyasa
+    strategic_authority_director: Vishwakarma
+    upstream_skill_dependencies:
+      - M-170
+    downstream_skill_consumers:
+      - M-172
+    producer_workflow: CWF-240
+    consumer_workflows:
+      - WF-020
+    output_packet_family: m171_packet
+    schema_ref: schemas/packets/m171_packet.schema.json
+    dossier_write_target: dossier.script_vein.knowledge_graph_builder
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-172
+    skill_name: Insight Extraction Engine
+    file_path: skills/operations/M-172-insight-extraction-engine.skill.md
+    phase_assignment: PHASE_2D_EXPANSION
+    vein_assignment: script_vein
+    owner_director: Agastya
+    strategic_authority_director: Agni
+    upstream_skill_dependencies:
+      - M-171
+    downstream_skill_consumers:
+      - M-173
+    producer_workflow: CWF-240
+    consumer_workflows:
+      - WF-020
+    output_packet_family: m172_packet
+    schema_ref: schemas/packets/m172_packet.schema.json
+    dossier_write_target: dossier.script_vein.insight_extraction_engine
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-173
+    skill_name: Script Automation Engine
+    file_path: skills/operations/M-173-script-automation-engine.skill.md
+    phase_assignment: PHASE_2D_EXPANSION
+    vein_assignment: script_vein
+    owner_director: Parashara
+    strategic_authority_director: Hanuman
+    upstream_skill_dependencies:
+      - M-172
+    downstream_skill_consumers:
+      - M-174
+    producer_workflow: CWF-240
+    consumer_workflows:
+      - WF-020
+    output_packet_family: m173_packet
+    schema_ref: schemas/packets/m173_packet.schema.json
+    dossier_write_target: dossier.script_vein.script_automation_engine
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-174
+    skill_name: Visual Asset Generator
+    file_path: skills/operations/M-174-visual-asset-generator.skill.md
+    phase_assignment: PHASE_2D_EXPANSION
+    vein_assignment: script_vein
+    owner_director: Ganesha
+    strategic_authority_director: Nataraja
+    upstream_skill_dependencies:
+      - M-173
+    downstream_skill_consumers:
+      - M-175
+    producer_workflow: CWF-240
+    consumer_workflows:
+      - WF-020
+    output_packet_family: m174_packet
+    schema_ref: schemas/packets/m174_packet.schema.json
+    dossier_write_target: dossier.script_vein.visual_asset_generator
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-175
+    skill_name: Video Assembly Engine
+    file_path: skills/operations/M-175-video-assembly-engine.skill.md
+    phase_assignment: PHASE_2D_EXPANSION
+    vein_assignment: script_vein
+    owner_director: Tumburu
+    strategic_authority_director: Garuda
+    upstream_skill_dependencies:
+      - M-174
+    downstream_skill_consumers:
+      - M-176
+    producer_workflow: CWF-240
+    consumer_workflows:
+      - WF-020
+    output_packet_family: m175_packet
+    schema_ref: schemas/packets/m175_packet.schema.json
+    dossier_write_target: dossier.script_vein.video_assembly_engine
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-176
+    skill_name: Post Production Automation
+    file_path: skills/operations/M-176-post-production-automation.skill.md
+    phase_assignment: PHASE_2D_EXPANSION
+    vein_assignment: script_vein
+    owner_director: Arjuna
+    strategic_authority_director: Varuna
+    upstream_skill_dependencies:
+      - M-175
+    downstream_skill_consumers:
+      - M-177
+    producer_workflow: CWF-240
+    consumer_workflows:
+      - WF-020
+    output_packet_family: m176_packet
+    schema_ref: schemas/packets/m176_packet.schema.json
+    dossier_write_target: dossier.script_vein.post_production_automation
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-177
+    skill_name: Performance Tracking Engine
+    file_path: skills/operations/M-177-performance-tracking-engine.skill.md
+    phase_assignment: PHASE_2D_EXPANSION
+    vein_assignment: script_vein
+    owner_director: Maya
+    strategic_authority_director: Indra
+    upstream_skill_dependencies:
+      - M-176
+    downstream_skill_consumers:
+      - M-178
+    producer_workflow: CWF-240
+    consumer_workflows:
+      - WF-020
+    output_packet_family: m177_packet
+    schema_ref: schemas/packets/m177_packet.schema.json
+    dossier_write_target: dossier.script_vein.performance_tracking_engine
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-178
+    skill_name: Channel Benchmark Engine
+    file_path: skills/operations/M-178-channel-benchmark-engine.skill.md
+    phase_assignment: PHASE_2D_EXPANSION
+    vein_assignment: script_vein
+    owner_director: Vishwakarma
+    strategic_authority_director: Kama
+    upstream_skill_dependencies:
+      - M-177
+    downstream_skill_consumers:
+      - M-179
+    producer_workflow: CWF-240
+    consumer_workflows:
+      - WF-020
+    output_packet_family: m178_packet
+    schema_ref: schemas/packets/m178_packet.schema.json
+    dossier_write_target: dossier.script_vein.channel_benchmark_engine
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-179
+    skill_name: Competitive Intelligence Engine
+    file_path: skills/operations/M-179-competitive-intelligence-engine.skill.md
+    phase_assignment: PHASE_2D_EXPANSION
+    vein_assignment: script_vein
+    owner_director: Agni
+    strategic_authority_director: Saraswati
+    upstream_skill_dependencies:
+      - M-178
+    downstream_skill_consumers:
+      - M-180
+    producer_workflow: CWF-240
+    consumer_workflows:
+      - WF-020
+    output_packet_family: m179_packet
+    schema_ref: schemas/packets/m179_packet.schema.json
+    dossier_write_target: dossier.script_vein.competitive_intelligence_engine
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-180
+    skill_name: Strategy Adaptation Engine
+    file_path: skills/operations/M-180-strategy-adaptation-engine.skill.md
+    phase_assignment: PHASE_2D_EXPANSION
+    vein_assignment: script_vein
+    owner_director: Hanuman
+    strategic_authority_director: Kubera
+    upstream_skill_dependencies:
+      - M-179
+    downstream_skill_consumers:
+      - M-181
+    producer_workflow: CWF-240
+    consumer_workflows:
+      - WF-020
+    output_packet_family: m180_packet
+    schema_ref: schemas/packets/m180_packet.schema.json
+    dossier_write_target: dossier.script_vein.strategy_adaptation_engine
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-181
+    skill_name: Innovation Engine
+    file_path: skills/governance/M-181-innovation-engine.skill.md
+    phase_assignment: PHASE_2D_EXPANSION
+    vein_assignment: script_vein
+    owner_director: Nataraja
+    strategic_authority_director: Yama
+    upstream_skill_dependencies:
+      - M-180
+    downstream_skill_consumers:
+      - M-182
+    producer_workflow: CWF-240
+    consumer_workflows:
+      - WF-020
+    output_packet_family: m181_packet
+    schema_ref: schemas/packets/m181_packet.schema.json
+    dossier_write_target: dossier.script_vein.innovation_engine
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
+  - skill_id: M-182
+    skill_name: Collaboration Engine
+    file_path: skills/governance/M-182-collaboration-engine.skill.md
+    phase_assignment: PHASE_2D_EXPANSION
+    vein_assignment: script_vein
+    owner_director: Garuda
+    strategic_authority_director: Aruna
+    upstream_skill_dependencies:
+      - M-181
+    downstream_skill_consumers:
+      - M-201
+    producer_workflow: CWF-240
+    consumer_workflows:
+      - WF-020
+    output_packet_family: m182_packet
+    schema_ref: schemas/packets/m182_packet.schema.json
+    dossier_write_target: dossier.script_vein.collaboration_engine
+    escalation_workflow: WF-900
+    replay_workflow: WF-021
+    status: ACTIVE_ACCEPTANCE_SCOPE
   - skill_id: M-201
     skill_name: Visual Design Brief Generator
-    legacy_skill_name: Design Brief Generator
-    alias_names:
-      - Design Brief Generator
     file_path: skills/media_graphics/M-201-visual-design-brief-generator.skill.md
     phase_assignment: PHASE_3A_GRAPHICS
     vein_assignment: media_vein
-    owner_director: Vyasa
+    owner_director: Varuna
     strategic_authority_director: Krishna
     upstream_skill_dependencies:
-      - M-130
+      - M-182
     downstream_skill_consumers:
       - M-202
-      - M-203
-      - M-204
-      - M-205
-      - M-206
-      - M-207
-      - M-208
-      - M-209
-      - M-210
-      - M-211
-      - M-212
-      - M-213
-      - M-214
-      - M-215
-    producer_workflow: CWF-310
+    producer_workflow: CWF-410
     consumer_workflows:
-      - CWF-310
-    output_packet_family: design_brief_packet
-    schema_ref: schemas/packets/design_brief_packet.schema.json
+      - CWF-420
+    output_packet_family: m201_packet
+    schema_ref: schemas/packets/m201_packet.schema.json
     dossier_write_target: dossier.media_vein.visual_design_brief_generator
     escalation_workflow: WF-900
     replay_workflow: WF-021
-    status: ACTIVE_WAVE_3
+    status: ACTIVE_ACCEPTANCE_SCOPE
   - skill_id: M-202
     skill_name: Color Palette Optimizer
-    legacy_skill_name: Color Palette Optimizer
-    alias_names:
-      - none
     file_path: skills/media_graphics/M-202-color-palette-optimizer.skill.md
     phase_assignment: PHASE_3A_GRAPHICS
     vein_assignment: media_vein
-    owner_director: Narada
-    strategic_authority_director: Krishna
+    owner_director: Indra
+    strategic_authority_director: Vishnu
     upstream_skill_dependencies:
       - M-201
     downstream_skill_consumers:
       - M-203
-    producer_workflow: CWF-310
+    producer_workflow: CWF-410
     consumer_workflows:
-      - CWF-310
-    output_packet_family: color_palette_packet
-    schema_ref: schemas/packets/color_palette_packet.schema.json
+      - CWF-420
+    output_packet_family: m202_packet
+    schema_ref: schemas/packets/m202_packet.schema.json
     dossier_write_target: dossier.media_vein.color_palette_optimizer
     escalation_workflow: WF-900
     replay_workflow: WF-021
-    status: ACTIVE_WAVE_3
+    status: ACTIVE_ACCEPTANCE_SCOPE
   - skill_id: M-203
     skill_name: Typography Selector
-    legacy_skill_name: Typography Selector
-    alias_names:
-      - none
     file_path: skills/media_graphics/M-203-typography-selector.skill.md
     phase_assignment: PHASE_3A_GRAPHICS
     vein_assignment: media_vein
-    owner_director: Saraswati
-    strategic_authority_director: Krishna
+    owner_director: Kama
+    strategic_authority_director: Shiva
     upstream_skill_dependencies:
-      - M-201
+      - M-202
     downstream_skill_consumers:
       - M-204
-    producer_workflow: CWF-310
+    producer_workflow: CWF-410
     consumer_workflows:
-      - CWF-310
-    output_packet_family: typography_packet
-    schema_ref: schemas/packets/typography_packet.schema.json
+      - CWF-420
+    output_packet_family: m203_packet
+    schema_ref: schemas/packets/m203_packet.schema.json
     dossier_write_target: dossier.media_vein.typography_selector
     escalation_workflow: WF-900
     replay_workflow: WF-021
-    status: ACTIVE_WAVE_3
+    status: ACTIVE_ACCEPTANCE_SCOPE
   - skill_id: M-204
     skill_name: Layout Composition Strategist
-    legacy_skill_name: Layout Grid Generator
-    alias_names:
-      - Layout Grid Generator
     file_path: skills/media_graphics/M-204-layout-composition-strategist.skill.md
     phase_assignment: PHASE_3A_GRAPHICS
     vein_assignment: media_vein
-    owner_director: Vyasa
-    strategic_authority_director: Krishna
+    owner_director: Saraswati
+    strategic_authority_director: Brahma
     upstream_skill_dependencies:
-      - M-201
-      - M-130
+      - M-203
     downstream_skill_consumers:
       - M-205
-    producer_workflow: CWF-310
+    producer_workflow: CWF-410
     consumer_workflows:
-      - CWF-310
-    output_packet_family: layout_packet
-    schema_ref: schemas/packets/layout_packet.schema.json
+      - CWF-420
+    output_packet_family: m204_packet
+    schema_ref: schemas/packets/m204_packet.schema.json
     dossier_write_target: dossier.media_vein.layout_composition_strategist
     escalation_workflow: WF-900
     replay_workflow: WF-021
-    status: ACTIVE_WAVE_3
+    status: ACTIVE_ACCEPTANCE_SCOPE
   - skill_id: M-205
-    skill_name: Icon and Illustration Mapper
-    legacy_skill_name: Icon Set Designer
-    alias_names:
-      - Icon Set Designer
+    skill_name: Icon Illustration Mapper
     file_path: skills/media_graphics/M-205-icon-illustration-mapper.skill.md
     phase_assignment: PHASE_3A_GRAPHICS
     vein_assignment: media_vein
-    owner_director: Vyasa
-    strategic_authority_director: Krishna
+    owner_director: Kubera
+    strategic_authority_director: Shakti
     upstream_skill_dependencies:
-      - M-201
       - M-204
     downstream_skill_consumers:
       - M-206
-    producer_workflow: CWF-310
+    producer_workflow: CWF-410
     consumer_workflows:
-      - CWF-310
-    output_packet_family: icon_set_packet
-    schema_ref: schemas/packets/icon_set_packet.schema.json
+      - CWF-420
+    output_packet_family: m205_packet
+    schema_ref: schemas/packets/m205_packet.schema.json
     dossier_write_target: dossier.media_vein.icon_illustration_mapper
     escalation_workflow: WF-900
     replay_workflow: WF-021
-    status: ACTIVE_WAVE_3
+    status: ACTIVE_ACCEPTANCE_SCOPE
   - skill_id: M-206
     skill_name: Brand Consistency Validator
-    legacy_skill_name: Brand Consistency Validator
-    alias_names:
-      - none
     file_path: skills/media_graphics/M-206-brand-consistency-validator.skill.md
     phase_assignment: PHASE_3A_GRAPHICS
     vein_assignment: media_vein
-    owner_director: Agastya
-    strategic_authority_director: Krishna
+    owner_director: Yama
+    strategic_authority_director: Chanakya
     upstream_skill_dependencies:
-      - M-202
-      - M-203
-      - M-204
       - M-205
     downstream_skill_consumers:
       - M-207
-    producer_workflow: CWF-310
+    producer_workflow: CWF-410
     consumer_workflows:
-      - CWF-310
-    output_packet_family: brand_consistency_packet
-    schema_ref: schemas/packets/brand_consistency_packet.schema.json
+      - CWF-420
+    output_packet_family: m206_packet
+    schema_ref: schemas/packets/m206_packet.schema.json
     dossier_write_target: dossier.media_vein.brand_consistency_validator
     escalation_workflow: WF-900
     replay_workflow: WF-021
-    status: ACTIVE_WAVE_3
+    status: ACTIVE_ACCEPTANCE_SCOPE
   - skill_id: M-207
     skill_name: Accessibility Analyzer
-    legacy_skill_name: Accessibility Auditor (Graphics)
-    alias_names:
-      - Graphics Accessibility Auditor
     file_path: skills/media_graphics/M-207-accessibility-analyzer.skill.md
     phase_assignment: PHASE_3A_GRAPHICS
     vein_assignment: media_vein
-    owner_director: Saraswati
-    strategic_authority_director: Krishna
+    owner_director: Aruna
+    strategic_authority_director: Narada
     upstream_skill_dependencies:
-      - M-202
-      - M-203
-      - M-204
+      - M-206
     downstream_skill_consumers:
       - M-208
-    producer_workflow: CWF-310
+    producer_workflow: CWF-410
     consumer_workflows:
-      - CWF-310
-    output_packet_family: accessibility_packet
-    schema_ref: schemas/packets/accessibility_packet.schema.json
+      - CWF-420
+    output_packet_family: m207_packet
+    schema_ref: schemas/packets/m207_packet.schema.json
     dossier_write_target: dossier.media_vein.accessibility_analyzer
     escalation_workflow: WF-900
     replay_workflow: WF-021
-    status: ACTIVE_WAVE_3
+    status: ACTIVE_ACCEPTANCE_SCOPE
   - skill_id: M-208
     skill_name: Image Asset Sourcing Advisor
-    legacy_skill_name: Asset Library Manager
-    alias_names:
-      - Asset Library Manager
     file_path: skills/media_graphics/M-208-image-asset-sourcing-advisor.skill.md
     phase_assignment: PHASE_3A_GRAPHICS
     vein_assignment: media_vein
-    owner_director: Vyasa
-    strategic_authority_director: Krishna
+    owner_director: Krishna
+    strategic_authority_director: Ravana
     upstream_skill_dependencies:
-      - M-201
-      - M-202
-      - M-203
-      - M-204
-      - M-205
-      - M-206
       - M-207
     downstream_skill_consumers:
       - M-209
-    producer_workflow: CWF-310
+    producer_workflow: CWF-410
     consumer_workflows:
-      - CWF-310
-    output_packet_family: asset_library_packet
-    schema_ref: schemas/packets/asset_library_packet.schema.json
+      - CWF-420
+    output_packet_family: m208_packet
+    schema_ref: schemas/packets/m208_packet.schema.json
     dossier_write_target: dossier.media_vein.image_asset_sourcing_advisor
     escalation_workflow: WF-900
     replay_workflow: WF-021
-    status: ACTIVE_WAVE_3
+    status: ACTIVE_ACCEPTANCE_SCOPE
   - skill_id: M-209
     skill_name: Infographic Structure Designer
-    legacy_skill_name: Infographic Data Visualizer
-    alias_names:
-      - Infographic Data Visualizer
     file_path: skills/media_graphics/M-209-infographic-structure-designer.skill.md
     phase_assignment: PHASE_3A_GRAPHICS
     vein_assignment: media_vein
-    owner_director: Vyasa
-    strategic_authority_director: Krishna
+    owner_director: Vishnu
+    strategic_authority_director: Durga
     upstream_skill_dependencies:
-      - M-201
-      - M-126
-      - M-015
+      - M-208
     downstream_skill_consumers:
       - M-210
-    producer_workflow: CWF-310
+    producer_workflow: CWF-410
     consumer_workflows:
-      - CWF-310
-    output_packet_family: data_visualization_packet
-    schema_ref: schemas/packets/data_visualization_packet.schema.json
+      - CWF-420
+    output_packet_family: m209_packet
+    schema_ref: schemas/packets/m209_packet.schema.json
     dossier_write_target: dossier.media_vein.infographic_structure_designer
     escalation_workflow: WF-900
     replay_workflow: WF-021
-    status: ACTIVE_WAVE_3
+    status: ACTIVE_ACCEPTANCE_SCOPE
   - skill_id: M-210
-    skill_name: Animation and Transition Specifier
-    legacy_skill_name: Animation Specification Designer
-    alias_names:
-      - Animation Specification Designer
+    skill_name: Animation Transition Specifier
     file_path: skills/media_graphics/M-210-animation-transition-specifier.skill.md
     phase_assignment: PHASE_3A_GRAPHICS
     vein_assignment: media_vein
     owner_director: Shiva
-    strategic_authority_director: Krishna
+    strategic_authority_director: Yudhishthira
     upstream_skill_dependencies:
-      - M-201
-      - M-204
       - M-209
     downstream_skill_consumers:
       - M-211
-    producer_workflow: CWF-310
+    producer_workflow: CWF-410
     consumer_workflows:
-      - CWF-310
-    output_packet_family: animation_spec_packet
-    schema_ref: schemas/packets/animation_spec_packet.schema.json
+      - CWF-420
+    output_packet_family: m210_packet
+    schema_ref: schemas/packets/m210_packet.schema.json
     dossier_write_target: dossier.media_vein.animation_transition_specifier
     escalation_workflow: WF-900
     replay_workflow: WF-021
-    status: ACTIVE_WAVE_3
+    status: ACTIVE_ACCEPTANCE_SCOPE
   - skill_id: M-211
-    skill_name: Mobile-First Layout Optimizer
-    legacy_skill_name: Mobile Optimization Engine
-    alias_names:
-      - Mobile Optimization Engine
+    skill_name: Mobile First Layout Optimizer
     file_path: skills/media_graphics/M-211-mobile-first-layout-optimizer.skill.md
     phase_assignment: PHASE_3A_GRAPHICS
     vein_assignment: media_vein
-    owner_director: Narada
-    strategic_authority_director: Krishna
+    owner_director: Brahma
+    strategic_authority_director: Valmiki
     upstream_skill_dependencies:
-      - M-201
-      - M-202
-      - M-203
-      - M-204
-      - M-205
-      - M-206
-      - M-207
-      - M-208
-      - M-209
       - M-210
     downstream_skill_consumers:
       - M-212
-    producer_workflow: CWF-310
+    producer_workflow: CWF-410
     consumer_workflows:
-      - CWF-310
-    output_packet_family: mobile_optimization_packet
-    schema_ref: schemas/packets/mobile_optimization_packet.schema.json
+      - CWF-420
+    output_packet_family: m211_packet
+    schema_ref: schemas/packets/m211_packet.schema.json
     dossier_write_target: dossier.media_vein.mobile_first_layout_optimizer
     escalation_workflow: WF-900
     replay_workflow: WF-021
-    status: ACTIVE_WAVE_3
+    status: ACTIVE_ACCEPTANCE_SCOPE
   - skill_id: M-212
     skill_name: Dark Mode Variant Generator
-    legacy_skill_name: Dark Mode Variant Generator
-    alias_names:
-      - none
     file_path: skills/media_graphics/M-212-dark-mode-variant-generator.skill.md
     phase_assignment: PHASE_3A_GRAPHICS
     vein_assignment: media_vein
-    owner_director: Shiva
-    strategic_authority_director: Krishna
+    owner_director: Shakti
+    strategic_authority_director: Vyasa
     upstream_skill_dependencies:
-      - M-202
-      - M-201
-      - M-203
-      - M-204
-      - M-205
-      - M-206
-      - M-207
-      - M-208
-      - M-209
-      - M-210
       - M-211
     downstream_skill_consumers:
       - M-213
-    producer_workflow: CWF-310
+    producer_workflow: CWF-410
     consumer_workflows:
-      - CWF-310
-    output_packet_family: dark_mode_packet
-    schema_ref: schemas/packets/dark_mode_packet.schema.json
+      - CWF-420
+    output_packet_family: m212_packet
+    schema_ref: schemas/packets/m212_packet.schema.json
     dossier_write_target: dossier.media_vein.dark_mode_variant_generator
     escalation_workflow: WF-900
     replay_workflow: WF-021
-    status: ACTIVE_WAVE_3
+    status: ACTIVE_ACCEPTANCE_SCOPE
   - skill_id: M-213
-    skill_name: Print-Ready Format Converter
-    legacy_skill_name: Print Format Adapter
-    alias_names:
-      - Print Format Adapter
+    skill_name: Print Ready Format Converter
     file_path: skills/media_graphics/M-213-print-ready-format-converter.skill.md
     phase_assignment: PHASE_3A_GRAPHICS
     vein_assignment: media_vein
-    owner_director: Vyasa
-    strategic_authority_director: Krishna
+    owner_director: Chanakya
+    strategic_authority_director: Agastya
     upstream_skill_dependencies:
-      - M-201
-      - M-202
-      - M-203
-      - M-204
-      - M-205
-      - M-206
-      - M-207
-      - M-208
-      - M-209
-      - M-210
-      - M-211
       - M-212
     downstream_skill_consumers:
       - M-214
-    producer_workflow: CWF-310
+    producer_workflow: CWF-410
     consumer_workflows:
-      - CWF-310
-    output_packet_family: print_adaptation_packet
-    schema_ref: schemas/packets/print_adaptation_packet.schema.json
+      - CWF-420
+    output_packet_family: m213_packet
+    schema_ref: schemas/packets/m213_packet.schema.json
     dossier_write_target: dossier.media_vein.print_ready_format_converter
     escalation_workflow: WF-900
     replay_workflow: WF-021
-    status: ACTIVE_WAVE_3
+    status: ACTIVE_ACCEPTANCE_SCOPE
   - skill_id: M-214
     skill_name: Social Media Graphics Optimizer
-    legacy_skill_name: Social Media Asset Generator
-    alias_names:
-      - Social Media Asset Generator
     file_path: skills/media_graphics/M-214-social-media-graphics-optimizer.skill.md
     phase_assignment: PHASE_3A_GRAPHICS
     vein_assignment: media_vein
     owner_director: Narada
-    strategic_authority_director: Krishna
+    strategic_authority_director: Parashara
     upstream_skill_dependencies:
-      - M-201
-      - M-128
+      - M-213
     downstream_skill_consumers:
       - M-215
-    producer_workflow: CWF-310
+    producer_workflow: CWF-410
     consumer_workflows:
-      - CWF-310
-    output_packet_family: social_asset_packet
-    schema_ref: schemas/packets/social_asset_packet.schema.json
+      - CWF-420
+    output_packet_family: m214_packet
+    schema_ref: schemas/packets/m214_packet.schema.json
     dossier_write_target: dossier.media_vein.social_media_graphics_optimizer
     escalation_workflow: WF-900
     replay_workflow: WF-021
-    status: ACTIVE_WAVE_3
+    status: ACTIVE_ACCEPTANCE_SCOPE
   - skill_id: M-215
-    skill_name: Banner and Header Designer
-    legacy_skill_name: Banner/Header Designer
-    alias_names:
-      - Banner/Header Designer
+    skill_name: Banner Header Designer
     file_path: skills/media_graphics/M-215-banner-header-designer.skill.md
     phase_assignment: PHASE_3A_GRAPHICS
     vein_assignment: media_vein
-    owner_director: Vyasa
-    strategic_authority_director: Krishna
+    owner_director: Ravana
+    strategic_authority_director: Ganesha
     upstream_skill_dependencies:
-      - M-201
+      - M-214
     downstream_skill_consumers:
       - M-216
-    producer_workflow: CWF-310
+    producer_workflow: CWF-410
     consumer_workflows:
-      - CWF-410
-    output_packet_family: banner_packet
-    schema_ref: schemas/packets/banner_packet.schema.json
+      - CWF-420
+    output_packet_family: m215_packet
+    schema_ref: schemas/packets/m215_packet.schema.json
     dossier_write_target: dossier.media_vein.banner_header_designer
     escalation_workflow: WF-900
     replay_workflow: WF-021
-    status: ACTIVE_WAVE_3
+    status: ACTIVE_ACCEPTANCE_SCOPE
   - skill_id: M-216
     skill_name: Shot List Generator
-    legacy_skill_name: Shot List Generator
-    alias_names:
-      - none
     file_path: skills/media_video/M-216-shot-list-generator.skill.md
     phase_assignment: PHASE_3B_VIDEO
     vein_assignment: media_vein
-    owner_director: Narada
-    strategic_authority_director: Krishna
+    owner_director: Durga
+    strategic_authority_director: Tumburu
     upstream_skill_dependencies:
-      - M-130
-      - M-106
+      - M-215
     downstream_skill_consumers:
       - M-217
-    producer_workflow: CWF-410
+    producer_workflow: CWF-420
     consumer_workflows:
-      - CWF-410
-    output_packet_family: shot_list_packet
-    schema_ref: schemas/packets/shot_list_packet.schema.json
+      - CWF-430
+    output_packet_family: m216_packet
+    schema_ref: schemas/packets/m216_packet.schema.json
     dossier_write_target: dossier.media_vein.shot_list_generator
     escalation_workflow: WF-900
     replay_workflow: WF-021
-    status: ACTIVE_WAVE_4
+    status: ACTIVE_ACCEPTANCE_SCOPE
   - skill_id: M-217
-    skill_name: B-Roll Sourcing Strategy
-    legacy_skill_name: B-Roll Requirements Mapper
-    alias_names:
-      - B-Roll Requirements Mapper
+    skill_name: B Roll Sourcing Strategy
     file_path: skills/media_video/M-217-b-roll-sourcing-strategy.skill.md
     phase_assignment: PHASE_3B_VIDEO
     vein_assignment: media_vein
-    owner_director: Vyasa
-    strategic_authority_director: Krishna
+    owner_director: Yudhishthira
+    strategic_authority_director: Arjuna
     upstream_skill_dependencies:
       - M-216
     downstream_skill_consumers:
       - M-218
-    producer_workflow: CWF-410
+    producer_workflow: CWF-420
     consumer_workflows:
-      - CWF-410
-    output_packet_family: broll_packet
-    schema_ref: schemas/packets/broll_packet.schema.json
+      - CWF-430
+    output_packet_family: m217_packet
+    schema_ref: schemas/packets/m217_packet.schema.json
     dossier_write_target: dossier.media_vein.b_roll_sourcing_strategy
     escalation_workflow: WF-900
     replay_workflow: WF-021
-    status: ACTIVE_WAVE_4
+    status: ACTIVE_ACCEPTANCE_SCOPE
   - skill_id: M-218
     skill_name: Video Editing Script
-    legacy_skill_name: Editing Sequence Designer
-    alias_names:
-      - Editing Sequence Designer
     file_path: skills/media_video/M-218-video-editing-script.skill.md
     phase_assignment: PHASE_3B_VIDEO
     vein_assignment: media_vein
-    owner_director: Shiva
-    strategic_authority_director: Krishna
+    owner_director: Valmiki
+    strategic_authority_director: Maya
     upstream_skill_dependencies:
-      - M-216
-      - M-114
-      - M-106
+      - M-217
     downstream_skill_consumers:
       - M-219
-    producer_workflow: CWF-410
+    producer_workflow: CWF-420
     consumer_workflows:
-      - CWF-410
-    output_packet_family: editing_sequence_packet
-    schema_ref: schemas/packets/editing_sequence_packet.schema.json
+      - CWF-430
+    output_packet_family: m218_packet
+    schema_ref: schemas/packets/m218_packet.schema.json
     dossier_write_target: dossier.media_vein.video_editing_script
     escalation_workflow: WF-900
     replay_workflow: WF-021
-    status: ACTIVE_WAVE_4
+    status: ACTIVE_ACCEPTANCE_SCOPE
   - skill_id: M-219
     skill_name: Color Grading Brief
-    legacy_skill_name: Color Grading Specification
-    alias_names:
-      - Color Grading Specification
     file_path: skills/media_video/M-219-color-grading-brief.skill.md
     phase_assignment: PHASE_3B_VIDEO
     vein_assignment: media_vein
-    owner_director: Narada
-    strategic_authority_director: Krishna
+    owner_director: Vyasa
+    strategic_authority_director: Vishwakarma
     upstream_skill_dependencies:
-      - M-202
-      - M-106
+      - M-218
     downstream_skill_consumers:
       - M-220
-    producer_workflow: CWF-410
+    producer_workflow: CWF-420
     consumer_workflows:
-      - CWF-410
-    output_packet_family: color_grading_packet
-    schema_ref: schemas/packets/color_grading_packet.schema.json
+      - CWF-430
+    output_packet_family: m219_packet
+    schema_ref: schemas/packets/m219_packet.schema.json
     dossier_write_target: dossier.media_vein.color_grading_brief
     escalation_workflow: WF-900
     replay_workflow: WF-021
-    status: ACTIVE_WAVE_4
+    status: ACTIVE_ACCEPTANCE_SCOPE
   - skill_id: M-220
     skill_name: Sound Design Specifications
-    legacy_skill_name: Sound Design Brief
-    alias_names:
-      - Sound Design Brief
     file_path: skills/media_video/M-220-sound-design-specifications.skill.md
     phase_assignment: PHASE_3B_VIDEO
     vein_assignment: media_vein
-    owner_director: Narada
-    strategic_authority_director: Krishna
+    owner_director: Agastya
+    strategic_authority_director: Agni
     upstream_skill_dependencies:
-      - M-114
-      - M-106
+      - M-219
     downstream_skill_consumers:
       - M-221
-    producer_workflow: CWF-410
+    producer_workflow: CWF-420
     consumer_workflows:
-      - CWF-410
-    output_packet_family: sound_design_packet
-    schema_ref: schemas/packets/sound_design_packet.schema.json
+      - CWF-430
+    output_packet_family: m220_packet
+    schema_ref: schemas/packets/m220_packet.schema.json
     dossier_write_target: dossier.media_vein.sound_design_specifications
     escalation_workflow: WF-900
     replay_workflow: WF-021
-    status: ACTIVE_WAVE_4
+    status: ACTIVE_ACCEPTANCE_SCOPE
   - skill_id: M-221
     skill_name: Motion Graphics Storyboard
-    legacy_skill_name: Motion Graphics Designer
-    alias_names:
-      - Motion Graphics Designer
     file_path: skills/media_video/M-221-motion-graphics-storyboard.skill.md
     phase_assignment: PHASE_3B_VIDEO
     vein_assignment: media_vein
-    owner_director: Shiva
-    strategic_authority_director: Krishna
+    owner_director: Parashara
+    strategic_authority_director: Hanuman
     upstream_skill_dependencies:
-      - M-210
-      - M-201
+      - M-220
     downstream_skill_consumers:
       - M-222
-    producer_workflow: CWF-410
+    producer_workflow: CWF-420
     consumer_workflows:
-      - CWF-410
-    output_packet_family: motion_graphics_packet
-    schema_ref: schemas/packets/motion_graphics_packet.schema.json
+      - CWF-430
+    output_packet_family: m221_packet
+    schema_ref: schemas/packets/m221_packet.schema.json
     dossier_write_target: dossier.media_vein.motion_graphics_storyboard
     escalation_workflow: WF-900
     replay_workflow: WF-021
-    status: ACTIVE_WAVE_4
+    status: ACTIVE_ACCEPTANCE_SCOPE
   - skill_id: M-222
     skill_name: Video Transitions Optimizer
-    legacy_skill_name: Transition Sequence Builder
-    alias_names:
-      - Transition Sequence Builder
     file_path: skills/media_video/M-222-video-transitions-optimizer.skill.md
     phase_assignment: PHASE_3B_VIDEO
     vein_assignment: media_vein
-    owner_director: Narada
-    strategic_authority_director: Krishna
+    owner_director: Ganesha
+    strategic_authority_director: Nataraja
     upstream_skill_dependencies:
-      - M-218
       - M-221
     downstream_skill_consumers:
       - M-223
-    producer_workflow: CWF-410
+    producer_workflow: CWF-420
     consumer_workflows:
-      - CWF-410
-    output_packet_family: transition_packet
-    schema_ref: schemas/packets/transition_packet.schema.json
+      - CWF-430
+    output_packet_family: m222_packet
+    schema_ref: schemas/packets/m222_packet.schema.json
     dossier_write_target: dossier.media_vein.video_transitions_optimizer
     escalation_workflow: WF-900
     replay_workflow: WF-021
-    status: ACTIVE_WAVE_4
+    status: ACTIVE_ACCEPTANCE_SCOPE
   - skill_id: M-223
-    skill_name: Pacing and Rhythm Editor
-    legacy_skill_name: Pacing & Rhythm Optimizer
-    alias_names:
-      - Pacing & Rhythm Optimizer
+    skill_name: Pacing Rhythm Editor
     file_path: skills/media_video/M-223-pacing-rhythm-editor.skill.md
     phase_assignment: PHASE_3B_VIDEO
     vein_assignment: media_vein
-    owner_director: Shiva
-    strategic_authority_director: Krishna
+    owner_director: Tumburu
+    strategic_authority_director: Garuda
     upstream_skill_dependencies:
-      - M-114
-      - M-218
-      - M-220
+      - M-222
     downstream_skill_consumers:
       - M-224
-    producer_workflow: CWF-410
+    producer_workflow: CWF-420
     consumer_workflows:
-      - CWF-410
-    output_packet_family: pacing_optimization_packet
-    schema_ref: schemas/packets/pacing_optimization_packet.schema.json
+      - CWF-430
+    output_packet_family: m223_packet
+    schema_ref: schemas/packets/m223_packet.schema.json
     dossier_write_target: dossier.media_vein.pacing_rhythm_editor
     escalation_workflow: WF-900
     replay_workflow: WF-021
-    status: ACTIVE_WAVE_4
+    status: ACTIVE_ACCEPTANCE_SCOPE
   - skill_id: M-224
     skill_name: Title Card Generator
-    legacy_skill_name: Title & Text Overlay Designer
-    alias_names:
-      - Title & Text Overlay Designer
     file_path: skills/media_video/M-224-title-card-generator.skill.md
     phase_assignment: PHASE_3B_VIDEO
     vein_assignment: media_vein
-    owner_director: Vyasa
-    strategic_authority_director: Krishna
+    owner_director: Arjuna
+    strategic_authority_director: Varuna
     upstream_skill_dependencies:
-      - M-110
-      - M-120
-      - M-203
-      - M-201
+      - M-223
     downstream_skill_consumers:
       - M-225
-    producer_workflow: CWF-410
+    producer_workflow: CWF-420
     consumer_workflows:
-      - CWF-410
-    output_packet_family: title_text_packet
-    schema_ref: schemas/packets/title_text_packet.schema.json
+      - CWF-430
+    output_packet_family: m224_packet
+    schema_ref: schemas/packets/m224_packet.schema.json
     dossier_write_target: dossier.media_vein.title_card_generator
     escalation_workflow: WF-900
     replay_workflow: WF-021
-    status: ACTIVE_WAVE_4
+    status: ACTIVE_ACCEPTANCE_SCOPE
   - skill_id: M-225
     skill_name: Thumbnail Designer
-    legacy_skill_name: Thumbnail Optimizer
-    alias_names:
-      - Thumbnail Optimizer
     file_path: skills/media_video/M-225-thumbnail-designer.skill.md
     phase_assignment: PHASE_3B_VIDEO
     vein_assignment: media_vein
-    owner_director: Narada
-    strategic_authority_director: Krishna
+    owner_director: Maya
+    strategic_authority_director: Indra
     upstream_skill_dependencies:
-      - M-201
+      - M-224
     downstream_skill_consumers:
       - M-226
-    producer_workflow: CWF-410
+    producer_workflow: CWF-420
     consumer_workflows:
-      - CWF-410
-    output_packet_family: thumbnail_packet
-    schema_ref: schemas/packets/thumbnail_packet.schema.json
+      - CWF-430
+    output_packet_family: m225_packet
+    schema_ref: schemas/packets/m225_packet.schema.json
     dossier_write_target: dossier.media_vein.thumbnail_designer
     escalation_workflow: WF-900
     replay_workflow: WF-021
-    status: ACTIVE_WAVE_4
+    status: ACTIVE_ACCEPTANCE_SCOPE
   - skill_id: M-226
-    skill_name: Video SEO Optimizer
-    legacy_skill_name: Video SEO Specification
-    alias_names:
-      - Video SEO Specification
+    skill_name: Video Seo Optimizer
     file_path: skills/media_video/M-226-video-seo-optimizer.skill.md
     phase_assignment: PHASE_3B_VIDEO
     vein_assignment: media_vein
-    owner_director: Saraswati
-    strategic_authority_director: Krishna
+    owner_director: Vishwakarma
+    strategic_authority_director: Kama
     upstream_skill_dependencies:
-      - M-110
-      - M-120
-      - M-122
-      - M-001
+      - M-225
     downstream_skill_consumers:
       - M-227
-    producer_workflow: CWF-410
+    producer_workflow: CWF-420
     consumer_workflows:
-      - CWF-410
-    output_packet_family: video_seo_packet
-    schema_ref: schemas/packets/video_seo_packet.schema.json
+      - CWF-430
+    output_packet_family: m226_packet
+    schema_ref: schemas/packets/m226_packet.schema.json
     dossier_write_target: dossier.media_vein.video_seo_optimizer
     escalation_workflow: WF-900
     replay_workflow: WF-021
-    status: ACTIVE_WAVE_4
+    status: ACTIVE_ACCEPTANCE_SCOPE
   - skill_id: M-227
-    skill_name: Captions and Subtitle Generator
-    legacy_skill_name: Caption & Subtitle Generator
-    alias_names:
-      - Caption & Subtitle Generator
-      - Captions & Subtitle Generator
+    skill_name: Captions Subtitle Generator
     file_path: skills/media_video/M-227-captions-subtitle-generator.skill.md
     phase_assignment: PHASE_3B_VIDEO
     vein_assignment: media_vein
-    owner_director: Saraswati
-    strategic_authority_director: Krishna
+    owner_director: Agni
+    strategic_authority_director: Saraswati
     upstream_skill_dependencies:
-      - M-110
-      - M-120
+      - M-226
     downstream_skill_consumers:
       - M-228
-    producer_workflow: CWF-410
+    producer_workflow: CWF-420
     consumer_workflows:
-      - CWF-410
-    output_packet_family: caption_packet
-    schema_ref: schemas/packets/caption_packet.schema.json
+      - CWF-430
+    output_packet_family: m227_packet
+    schema_ref: schemas/packets/m227_packet.schema.json
     dossier_write_target: dossier.media_vein.captions_subtitle_generator
     escalation_workflow: WF-900
     replay_workflow: WF-021
-    status: ACTIVE_WAVE_4
+    status: ACTIVE_ACCEPTANCE_SCOPE
   - skill_id: M-228
-    skill_name: Multi-Angle Cut Strategy
-    legacy_skill_name: Multi-Angle Coordination Engine
-    alias_names:
-      - Multi-Angle Coordination Engine
+    skill_name: Multi Angle Cut Strategy
     file_path: skills/media_video/M-228-multi-angle-cut-strategy.skill.md
     phase_assignment: PHASE_3B_VIDEO
     vein_assignment: media_vein
-    owner_director: Vyasa
-    strategic_authority_director: Krishna
+    owner_director: Hanuman
+    strategic_authority_director: Kubera
     upstream_skill_dependencies:
-      - M-216
-      - M-218
+      - M-227
     downstream_skill_consumers:
       - M-229
-    producer_workflow: CWF-410
+    producer_workflow: CWF-420
     consumer_workflows:
-      - CWF-410
-    output_packet_family: multiangle_packet
-    schema_ref: schemas/packets/multiangle_packet.schema.json
+      - CWF-430
+    output_packet_family: m228_packet
+    schema_ref: schemas/packets/m228_packet.schema.json
     dossier_write_target: dossier.media_vein.multi_angle_cut_strategy
     escalation_workflow: WF-900
     replay_workflow: WF-021
-    status: ACTIVE_WAVE_4
+    status: ACTIVE_ACCEPTANCE_SCOPE
   - skill_id: M-229
     skill_name: Video Performance Predictor
-    legacy_skill_name: Video Performance Predictor
-    alias_names:
-      - none
     file_path: skills/media_video/M-229-video-performance-predictor.skill.md
     phase_assignment: PHASE_3B_VIDEO
     vein_assignment: media_vein
-    owner_director: Krishna
-    strategic_authority_director: Krishna
+    owner_director: Nataraja
+    strategic_authority_director: Yama
     upstream_skill_dependencies:
-      - M-216
-      - M-217
-      - M-218
-      - M-219
-      - M-220
-      - M-221
-      - M-222
-      - M-223
-      - M-224
-      - M-225
-      - M-226
-      - M-227
       - M-228
     downstream_skill_consumers:
       - M-230
-    producer_workflow: CWF-410
+    producer_workflow: CWF-420
     consumer_workflows:
-      - CWF-410
-    output_packet_family: performance_prediction_packet
-    schema_ref: schemas/packets/performance_prediction_packet.schema.json
+      - CWF-430
+    output_packet_family: m229_packet
+    schema_ref: schemas/packets/m229_packet.schema.json
     dossier_write_target: dossier.media_vein.video_performance_predictor
     escalation_workflow: WF-900
     replay_workflow: WF-021
-    status: ACTIVE_WAVE_4
+    status: ACTIVE_ACCEPTANCE_SCOPE
   - skill_id: M-230
-    skill_name: Platform-Specific Video Adapter
-    legacy_skill_name: Platform Video Adapter
-    alias_names:
-      - Platform Video Adapter
+    skill_name: Platform Specific Video Adapter
     file_path: skills/media_video/M-230-platform-specific-video-adapter.skill.md
     phase_assignment: PHASE_3B_VIDEO
     vein_assignment: media_vein
-    owner_director: Narada
-    strategic_authority_director: Krishna
+    owner_director: Garuda
+    strategic_authority_director: Aruna
     upstream_skill_dependencies:
-      - M-216
-      - M-217
-      - M-218
-      - M-219
-      - M-220
-      - M-221
-      - M-222
-      - M-223
-      - M-224
-      - M-225
-      - M-226
-      - M-227
-      - M-228
       - M-229
     downstream_skill_consumers:
       - M-231
-    producer_workflow: CWF-410
+    producer_workflow: CWF-420
     consumer_workflows:
       - CWF-430
-    output_packet_family: platform_video_packet
-    schema_ref: schemas/packets/platform_video_packet.schema.json
+    output_packet_family: m230_packet
+    schema_ref: schemas/packets/m230_packet.schema.json
     dossier_write_target: dossier.media_vein.platform_specific_video_adapter
     escalation_workflow: WF-900
     replay_workflow: WF-021
-    status: ACTIVE_WAVE_4
+    status: ACTIVE_ACCEPTANCE_SCOPE
   - skill_id: M-231
     skill_name: Voiceover Direction Script
-    legacy_skill_name: Voiceover Direction Specification
-    alias_names:
-      - Voiceover Direction Specification
     file_path: skills/media_audio/M-231-voiceover-direction-script.skill.md
     phase_assignment: PHASE_3C_AUDIO
     vein_assignment: media_vein
-    owner_director: Narada
+    owner_director: Varuna
     strategic_authority_director: Krishna
     upstream_skill_dependencies:
-      - M-110
-      - M-120
-      - M-113
-      - M-106
+      - M-230
     downstream_skill_consumers:
       - M-232
     producer_workflow: CWF-430
     consumer_workflows:
-      - CWF-430
-    output_packet_family: voiceover_spec_packet
-    schema_ref: schemas/packets/voiceover_spec_packet.schema.json
+      - WF-020
+    output_packet_family: m231_packet
+    schema_ref: schemas/packets/m231_packet.schema.json
     dossier_write_target: dossier.media_vein.voiceover_direction_script
     escalation_workflow: WF-900
     replay_workflow: WF-021
-    status: ACTIVE_WAVE_5
+    status: ACTIVE_ACCEPTANCE_SCOPE
   - skill_id: M-232
     skill_name: Sound Design Brief
-    legacy_skill_name: Sound Design Palette Creator
-    alias_names:
-      - Sound Design Palette Creator
     file_path: skills/media_audio/M-232-sound-design-brief.skill.md
     phase_assignment: PHASE_3C_AUDIO
     vein_assignment: media_vein
-    owner_director: Narada
-    strategic_authority_director: Krishna
+    owner_director: Indra
+    strategic_authority_director: Vishnu
     upstream_skill_dependencies:
-      - M-220
-      - M-106
+      - M-231
     downstream_skill_consumers:
       - M-233
     producer_workflow: CWF-430
     consumer_workflows:
-      - CWF-430
-    output_packet_family: sound_palette_packet
-    schema_ref: schemas/packets/sound_palette_packet.schema.json
+      - WF-020
+    output_packet_family: m232_packet
+    schema_ref: schemas/packets/m232_packet.schema.json
     dossier_write_target: dossier.media_vein.sound_design_brief
     escalation_workflow: WF-900
     replay_workflow: WF-021
-    status: ACTIVE_WAVE_5
+    status: ACTIVE_ACCEPTANCE_SCOPE
   - skill_id: M-233
     skill_name: Music Selection Advisor
-    legacy_skill_name: Music Selection Curator
-    alias_names:
-      - Music Selection Curator
     file_path: skills/media_audio/M-233-music-selection-advisor.skill.md
     phase_assignment: PHASE_3C_AUDIO
     vein_assignment: media_vein
-    owner_director: Narada
-    strategic_authority_director: Krishna
+    owner_director: Kama
+    strategic_authority_director: Shiva
     upstream_skill_dependencies:
-      - M-114
-      - M-106
+      - M-232
     downstream_skill_consumers:
       - M-234
     producer_workflow: CWF-430
     consumer_workflows:
-      - CWF-430
-    output_packet_family: music_packet
-    schema_ref: schemas/packets/music_packet.schema.json
+      - WF-020
+    output_packet_family: m233_packet
+    schema_ref: schemas/packets/m233_packet.schema.json
     dossier_write_target: dossier.media_vein.music_selection_advisor
     escalation_workflow: WF-900
     replay_workflow: WF-021
-    status: ACTIVE_WAVE_5
+    status: ACTIVE_ACCEPTANCE_SCOPE
   - skill_id: M-234
     skill_name: Podcast Audio Optimization
-    legacy_skill_name: Podcast Optimization Engine
-    alias_names:
-      - Podcast Optimization Engine
     file_path: skills/media_audio/M-234-podcast-audio-optimization.skill.md
     phase_assignment: PHASE_3C_AUDIO
     vein_assignment: media_vein
-    owner_director: Vyasa
-    strategic_authority_director: Krishna
+    owner_director: Saraswati
+    strategic_authority_director: Brahma
     upstream_skill_dependencies:
-      - M-124
-      - M-231
-      - M-232
+      - M-233
     downstream_skill_consumers:
       - M-235
     producer_workflow: CWF-430
     consumer_workflows:
-      - CWF-430
-    output_packet_family: podcast_audio_packet
-    schema_ref: schemas/packets/podcast_audio_packet.schema.json
+      - WF-020
+    output_packet_family: m234_packet
+    schema_ref: schemas/packets/m234_packet.schema.json
     dossier_write_target: dossier.media_vein.podcast_audio_optimization
     escalation_workflow: WF-900
     replay_workflow: WF-021
-    status: ACTIVE_WAVE_5
+    status: ACTIVE_ACCEPTANCE_SCOPE
   - skill_id: M-235
     skill_name: Acoustic Environment Analyzer
-    legacy_skill_name: Acoustic Environment Analyzer
-    alias_names:
-      - none
     file_path: skills/media_audio/M-235-acoustic-environment-analyzer.skill.md
     phase_assignment: PHASE_3C_AUDIO
     vein_assignment: media_vein
-    owner_director: Saraswati
-    strategic_authority_director: Krishna
+    owner_director: Kubera
+    strategic_authority_director: Shakti
     upstream_skill_dependencies:
       - M-234
     downstream_skill_consumers:
       - M-236
     producer_workflow: CWF-430
     consumer_workflows:
-      - CWF-430
-    output_packet_family: acoustics_packet
-    schema_ref: schemas/packets/acoustics_packet.schema.json
+      - WF-020
+    output_packet_family: m235_packet
+    schema_ref: schemas/packets/m235_packet.schema.json
     dossier_write_target: dossier.media_vein.acoustic_environment_analyzer
     escalation_workflow: WF-900
     replay_workflow: WF-021
-    status: ACTIVE_WAVE_5
+    status: ACTIVE_ACCEPTANCE_SCOPE
   - skill_id: M-236
     skill_name: Noise Reduction Strategy
-    legacy_skill_name: Noise Reduction Specification
-    alias_names:
-      - Noise Reduction Specification
     file_path: skills/media_audio/M-236-noise-reduction-strategy.skill.md
     phase_assignment: PHASE_3C_AUDIO
     vein_assignment: media_vein
-    owner_director: Shiva
-    strategic_authority_director: Krishna
+    owner_director: Yama
+    strategic_authority_director: Chanakya
     upstream_skill_dependencies:
       - M-235
     downstream_skill_consumers:
       - M-237
     producer_workflow: CWF-430
     consumer_workflows:
-      - CWF-430
-    output_packet_family: noise_reduction_packet
-    schema_ref: schemas/packets/noise_reduction_packet.schema.json
+      - WF-020
+    output_packet_family: m236_packet
+    schema_ref: schemas/packets/m236_packet.schema.json
     dossier_write_target: dossier.media_vein.noise_reduction_strategy
     escalation_workflow: WF-900
     replay_workflow: WF-021
-    status: ACTIVE_WAVE_5
+    status: ACTIVE_ACCEPTANCE_SCOPE
   - skill_id: M-237
-    skill_name: Audio Levels and Normalization
-    legacy_skill_name: Levels & Dynamics Optimizer
-    alias_names:
-      - Levels & Dynamics Optimizer
+    skill_name: Audio Levels Normalization
     file_path: skills/media_audio/M-237-audio-levels-normalization.skill.md
     phase_assignment: PHASE_3C_AUDIO
     vein_assignment: media_vein
-    owner_director: Agastya
-    strategic_authority_director: Krishna
+    owner_director: Aruna
+    strategic_authority_director: Narada
     upstream_skill_dependencies:
-      - M-231
-      - M-233
-      - M-232
+      - M-236
     downstream_skill_consumers:
       - M-238
     producer_workflow: CWF-430
     consumer_workflows:
-      - CWF-430
-    output_packet_family: levels_packet
-    schema_ref: schemas/packets/levels_packet.schema.json
+      - WF-020
+    output_packet_family: m237_packet
+    schema_ref: schemas/packets/m237_packet.schema.json
     dossier_write_target: dossier.media_vein.audio_levels_normalization
     escalation_workflow: WF-900
     replay_workflow: WF-021
-    status: ACTIVE_WAVE_5
+    status: ACTIVE_ACCEPTANCE_SCOPE
   - skill_id: M-238
-    skill_name: Compression and EQ Specifications
-    legacy_skill_name: Compression & EQ Specification
-    alias_names:
-      - Compression & EQ Specification
+    skill_name: Compression Eq Specifications
     file_path: skills/media_audio/M-238-compression-eq-specifications.skill.md
     phase_assignment: PHASE_3C_AUDIO
     vein_assignment: media_vein
-    owner_director: Shiva
-    strategic_authority_director: Krishna
+    owner_director: Krishna
+    strategic_authority_director: Ravana
     upstream_skill_dependencies:
       - M-237
     downstream_skill_consumers:
       - M-239
     producer_workflow: CWF-430
     consumer_workflows:
-      - CWF-430
-    output_packet_family: compression_eq_packet
-    schema_ref: schemas/packets/compression_eq_packet.schema.json
+      - WF-020
+    output_packet_family: m238_packet
+    schema_ref: schemas/packets/m238_packet.schema.json
     dossier_write_target: dossier.media_vein.compression_eq_specifications
     escalation_workflow: WF-900
     replay_workflow: WF-021
-    status: ACTIVE_WAVE_5
+    status: ACTIVE_ACCEPTANCE_SCOPE
   - skill_id: M-239
-    skill_name: Reverb and Effects Designer
-    legacy_skill_name: Reverb & Spatial Effects Designer
-    alias_names:
-      - Reverb & Spatial Effects Designer
+    skill_name: Reverb Effects Designer
     file_path: skills/media_audio/M-239-reverb-effects-designer.skill.md
     phase_assignment: PHASE_3C_AUDIO
     vein_assignment: media_vein
-    owner_director: Narada
-    strategic_authority_director: Krishna
+    owner_director: Vishnu
+    strategic_authority_director: Durga
     upstream_skill_dependencies:
-      - M-106
-      - M-231
+      - M-238
     downstream_skill_consumers:
       - M-240
     producer_workflow: CWF-430
     consumer_workflows:
-      - CWF-430
-    output_packet_family: reverb_effects_packet
-    schema_ref: schemas/packets/reverb_effects_packet.schema.json
+      - WF-020
+    output_packet_family: m239_packet
+    schema_ref: schemas/packets/m239_packet.schema.json
     dossier_write_target: dossier.media_vein.reverb_effects_designer
     escalation_workflow: WF-900
     replay_workflow: WF-021
-    status: ACTIVE_WAVE_5
+    status: ACTIVE_ACCEPTANCE_SCOPE
   - skill_id: M-240
     skill_name: Audio Mixing Guide
-    legacy_skill_name: Mix & Master Specification
-    alias_names:
-      - Mix & Master Specification
     file_path: skills/media_audio/M-240-audio-mixing-guide.skill.md
     phase_assignment: PHASE_3C_AUDIO
     vein_assignment: media_vein
-    owner_director: Agastya
-    strategic_authority_director: Krishna
+    owner_director: Shiva
+    strategic_authority_director: Yudhishthira
     upstream_skill_dependencies:
-      - M-231
-      - M-232
-      - M-233
-      - M-234
-      - M-235
-      - M-236
-      - M-237
-      - M-238
       - M-239
     downstream_skill_consumers:
       - M-241
     producer_workflow: CWF-430
     consumer_workflows:
-      - CWF-430
-    output_packet_family: mix_master_packet
-    schema_ref: schemas/packets/mix_master_packet.schema.json
+      - WF-020
+    output_packet_family: m240_packet
+    schema_ref: schemas/packets/m240_packet.schema.json
     dossier_write_target: dossier.media_vein.audio_mixing_guide
     escalation_workflow: WF-900
     replay_workflow: WF-021
-    status: ACTIVE_WAVE_5
+    status: ACTIVE_ACCEPTANCE_SCOPE
   - skill_id: M-241
     skill_name: Mastering Specifications
-    legacy_skill_name: Intro & Outro Designer
-    alias_names:
-      - Intro & Outro Designer
     file_path: skills/media_audio/M-241-mastering-specifications.skill.md
     phase_assignment: PHASE_3C_AUDIO
     vein_assignment: media_vein
-    owner_director: Vyasa
-    strategic_authority_director: Krishna
+    owner_director: Brahma
+    strategic_authority_director: Valmiki
     upstream_skill_dependencies:
-      - M-201
-      - M-233
+      - M-240
     downstream_skill_consumers:
       - M-242
     producer_workflow: CWF-430
     consumer_workflows:
-      - CWF-430
-    output_packet_family: intro_outro_packet
-    schema_ref: schemas/packets/intro_outro_packet.schema.json
+      - WF-020
+    output_packet_family: m241_packet
+    schema_ref: schemas/packets/m241_packet.schema.json
     dossier_write_target: dossier.media_vein.mastering_specifications
     escalation_workflow: WF-900
     replay_workflow: WF-021
-    status: ACTIVE_WAVE_5
+    status: ACTIVE_ACCEPTANCE_SCOPE
   - skill_id: M-242
-    skill_name: Podcast Intro or Outro Designer
-    legacy_skill_name: Transition Sound Designer
-    alias_names:
-      - Transition Sound Designer
+    skill_name: Podcast Intro Outro Designer
     file_path: skills/media_audio/M-242-podcast-intro-outro-designer.skill.md
     phase_assignment: PHASE_3C_AUDIO
     vein_assignment: media_vein
-    owner_director: Narada
-    strategic_authority_director: Krishna
+    owner_director: Shakti
+    strategic_authority_director: Vyasa
     upstream_skill_dependencies:
-      - M-218
-      - M-232
+      - M-241
     downstream_skill_consumers:
       - M-243
     producer_workflow: CWF-430
     consumer_workflows:
-      - CWF-430
-    output_packet_family: transition_sound_packet
-    schema_ref: schemas/packets/transition_sound_packet.schema.json
+      - WF-020
+    output_packet_family: m242_packet
+    schema_ref: schemas/packets/m242_packet.schema.json
     dossier_write_target: dossier.media_vein.podcast_intro_outro_designer
     escalation_workflow: WF-900
     replay_workflow: WF-021
-    status: ACTIVE_WAVE_5
+    status: ACTIVE_ACCEPTANCE_SCOPE
   - skill_id: M-243
     skill_name: Audio Transitions Optimizer
-    legacy_skill_name: Transcript & Captions Generator
-    alias_names:
-      - Transcript & Captions Generator
     file_path: skills/media_audio/M-243-audio-transitions-optimizer.skill.md
     phase_assignment: PHASE_3C_AUDIO
     vein_assignment: media_vein
-    owner_director: Saraswati
-    strategic_authority_director: Krishna
+    owner_director: Chanakya
+    strategic_authority_director: Agastya
     upstream_skill_dependencies:
-      - M-110
-      - M-124
+      - M-242
     downstream_skill_consumers:
       - M-244
     producer_workflow: CWF-430
     consumer_workflows:
-      - CWF-430
-    output_packet_family: transcript_packet
-    schema_ref: schemas/packets/transcript_packet.schema.json
+      - WF-020
+    output_packet_family: m243_packet
+    schema_ref: schemas/packets/m243_packet.schema.json
     dossier_write_target: dossier.media_vein.audio_transitions_optimizer
     escalation_workflow: WF-900
     replay_workflow: WF-021
-    status: ACTIVE_WAVE_5
+    status: ACTIVE_ACCEPTANCE_SCOPE
   - skill_id: M-244
     skill_name: Transcript Generator
-    legacy_skill_name: Accessibility Audio Specification
-    alias_names:
-      - Accessibility Audio Specification
     file_path: skills/media_audio/M-244-transcript-generator.skill.md
     phase_assignment: PHASE_3C_AUDIO
     vein_assignment: media_vein
-    owner_director: Saraswati
-    strategic_authority_director: Krishna
+    owner_director: Narada
+    strategic_authority_director: Parashara
     upstream_skill_dependencies:
       - M-243
     downstream_skill_consumers:
       - M-245
     producer_workflow: CWF-430
     consumer_workflows:
-      - CWF-430
-    output_packet_family: audio_accessibility_packet
-    schema_ref: schemas/packets/audio_accessibility_packet.schema.json
+      - WF-020
+    output_packet_family: m244_packet
+    schema_ref: schemas/packets/m244_packet.schema.json
     dossier_write_target: dossier.media_vein.transcript_generator
     escalation_workflow: WF-900
     replay_workflow: WF-021
-    status: ACTIVE_WAVE_5
+    status: ACTIVE_ACCEPTANCE_SCOPE
   - skill_id: M-245
     skill_name: Accessibility Audio Description
-    legacy_skill_name: Audio Performance Predictor
-    alias_names:
-      - Audio Performance Predictor
     file_path: skills/media_audio/M-245-accessibility-audio-description.skill.md
     phase_assignment: PHASE_3C_AUDIO
     vein_assignment: media_vein
-    owner_director: Krishna
-    strategic_authority_director: Krishna
+    owner_director: Ravana
+    strategic_authority_director: Ganesha
     upstream_skill_dependencies:
-      - M-231
-      - M-232
-      - M-233
-      - M-234
-      - M-235
-      - M-236
-      - M-237
-      - M-238
-      - M-239
-      - M-240
-      - M-241
-      - M-242
-      - M-243
       - M-244
     downstream_skill_consumers:
-      - M-301
+      []
     producer_workflow: CWF-430
     consumer_workflows:
-      - CWF-430
-    output_packet_family: audio_performance_packet
-    schema_ref: schemas/packets/audio_performance_packet.schema.json
+      - WF-020
+    output_packet_family: m245_packet
+    schema_ref: schemas/packets/m245_packet.schema.json
     dossier_write_target: dossier.media_vein.accessibility_audio_description
     escalation_workflow: WF-900
     replay_workflow: WF-021
-    status: ACTIVE_WAVE_5
-
+    status: ACTIVE_ACCEPTANCE_SCOPE
