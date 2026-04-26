@@ -1,7 +1,7 @@
 ﻿version: 1
 registry_id: skill_registry
-generated_at: "2026-04-25T21:20:18.747Z"
-status: PARTIAL_WAVE_5_PHASE3C_PHASE3B_PHASE3A_PHASE1C_AND_PHASE2C
+generated_at: "2026-04-26T22:45:00.000Z"
+status: PARTIAL_WAVE_9_CANONICAL_REGISTRY_CLOSURE_HARDENED
 registry_scope:
   authoritative_for:
     - M-121
@@ -70,6 +70,42 @@ registry_scope:
     - M-244
     - M-245
   note: canonical registry contains Waves 1 through 5 scopes; additional skills appended in later waves
+canonical_closure:
+  closure_mode: canonical_scope_only
+  scope_skill_count: 65
+  workflow_binding_alignment_count: 65
+  schema_alignment_count: 65
+  external_dependency_policy: allow_registered_external_dependencies
+  registered_external_dependencies:
+    - M-001
+    - M-002
+    - M-008
+    - M-009
+    - M-010
+    - M-011
+    - M-012
+    - M-013
+    - M-014
+    - M-015
+    - M-016
+    - M-017
+    - M-018
+    - M-019
+    - M-020
+    - M-105
+    - M-106
+    - M-107
+    - M-109
+    - M-110
+    - M-113
+    - M-114
+    - M-120
+    - M-301
+  hard_requirements:
+    - wf900_escalation_required
+    - wf021_replay_route_required
+    - append_only_mutation_law
+    - typed_packet_emission_required
 skills:
   - skill_id: M-121
     skill_name: TikTok Script Optimizer

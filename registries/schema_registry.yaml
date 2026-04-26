@@ -1,7 +1,21 @@
 ﻿version: 1
 registry_id: schema_registry
-generated_at: "2026-04-25T21:20:18.747Z"
-status: PARTIAL_WAVE_5_PHASE3C_PHASE3B_PHASE3A_PHASE1C_AND_PHASE2C
+generated_at: "2026-04-26T22:45:00.000Z"
+status: PARTIAL_WAVE_9_CANONICAL_REGISTRY_CLOSURE_HARDENED
+closure_contract:
+  schema_count: 65
+  strict_schema_binding: true
+  no_untyped_packets: true
+  packet_validator_engine: engine/packets/packet_validator.js
+  required_envelope_fields:
+    - instance_id
+    - artifact_family
+    - schema_version
+    - producer_workflow
+    - dossier_ref
+    - created_at
+    - status
+    - payload
 schemas:
   - artifact_family: tiktok_script_packet
     schema_version: "1.0.0"

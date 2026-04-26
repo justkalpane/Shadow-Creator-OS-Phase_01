@@ -1,7 +1,19 @@
 version: 1
+registry_id: mode_registry
+generated_at: "2026-04-26T22:45:00.000Z"
+status: PARTIAL_WAVE_9_CANONICAL_REGISTRY_CLOSURE_HARDENED
 owner: shadow_commander
-status: ACTIVE_PHASE1
 constitutional_authority_ref: docs/01-architecture/founder_creator_mode_law.md
+purpose: >
+  Canonical mode registry for user-facing operating modes and runtime
+  execution postures. Defines route legality, governance powers, and
+  non-overridable controls.
+closure_contract:
+  required_provider_registry: registries/provider_registry.yaml
+  required_governance_registry: registries/governance_rules.yaml
+  default_user_mode: creator
+  default_runtime_mode: local
+  wf900_on_mode_violation: true
 
 mode_definitions:
   founder:
@@ -48,9 +60,9 @@ mode_definitions:
     class: operating_mode
     human_facing_label: Builder Mode
     description: >
-      Repo-and-contract construction mode. Builder can read/write repo files,
-      create schemas and registries, and run validators. Builder cannot trigger
-      live workflows or access live runtime state.
+      Repo-and-contract construction mode. Builder can read or write repo
+      files, create schemas and registries, and run validators. Builder cannot
+      trigger live workflows or access live runtime state.
     legal_routes: []
     can_approve_premium: false
     can_access_rca: false
@@ -126,7 +138,7 @@ runtime_modes:
     default_phase1: false
     description: >
       Constrained local mode for untrusted devices. Read-heavy only. No secret,
-      no provider, no mutation execution.
+      no provider, and no mutation execution.
     allowed_worker_classes:
       - n8n_manual_operator
     provider_classes_allowed: []

@@ -1,0 +1,169 @@
+version: 1
+registry_id: governance_rules
+generated_at: "2026-04-26T22:45:00.000Z"
+status: PARTIAL_WAVE_9_CANONICAL_REGISTRY_CLOSURE_HARDENED
+owner: shadow_commander
+purpose: >
+  Canonical governance law registry for deterministic execution, registry-first
+  completion, append-only mutation control, and mandatory failure routing.
+closure_contract:
+  depends_on_registries:
+    - registries/skill_registry.yaml
+    - registries/workflow_bindings.yaml
+    - registries/director_binding.yaml
+    - registries/schema_registry.yaml
+    - registries/provider_registry.yaml
+    - registries/mode_registry.yaml
+  applies_to_engines:
+    - engine/skill_loader/skill_loader.js
+    - engine/dossier/dossier_writer.js
+    - engine/packets/packet_validator.js
+    - engine/approval/approval_router.js
+  applies_to_validators:
+    - validators/workflow_validator.js
+    - validators/schema_validator.js
+    - validators/registry_validator.js
+    - validators/runtime_validator.js
+
+rules:
+  - rule_id: GOV-001
+    name: Registry First Completion
+    category: closure
+    severity: critical
+    statement: >
+      No skill, workflow, schema, director binding, packet family, runtime
+      component, or validator is complete until registry references are present
+      and pass closure validation.
+    enforcement:
+      validator: registry_validator
+      failure_route: WF-900
+
+  - rule_id: GOV-002
+    name: Append-Only Mutation Law
+    category: mutation
+    severity: critical
+    statement: >
+      Dossier and packet index writes are append-only. Overwrite, delete,
+      replace-array, and historical mutation operations are forbidden.
+    allowed_mutations:
+      - append_to_array
+      - create_new_packet
+      - create_new_index_row
+      - append_audit_entry
+    forbidden_mutations:
+      - overwrite
+      - replace
+      - delete
+      - remove
+      - mutate_historical_packet
+      - mutate_historical_approval
+    enforcement:
+      runtime_component: engine/dossier/dossier_writer.js
+      validator: runtime_validator
+      failure_route: WF-900
+
+  - rule_id: GOV-003
+    name: Typed Packet Emission
+    category: packet
+    severity: critical
+    statement: >
+      All emitted packets must be schema-bound via schema_registry and include
+      required envelope fields. Untyped packet emission is forbidden.
+    required_envelope_fields:
+      - instance_id
+      - artifact_family
+      - schema_version
+      - producer_workflow
+      - dossier_ref
+      - created_at
+      - status
+      - payload
+    enforcement:
+      runtime_component: engine/packets/packet_validator.js
+      validator: schema_validator
+      failure_route: WF-900
+
+  - rule_id: GOV-004
+    name: Deterministic Runtime Contract
+    category: runtime
+    severity: critical
+    statement: >
+      Runtime engines must not use non-deterministic logic in execution
+      contracts. Seedless random logic is forbidden in production paths.
+    forbidden_patterns:
+      - Math.random
+      - random_without_seed
+    enforcement:
+      validator: runtime_validator
+      failure_route: WF-900
+
+  - rule_id: GOV-005
+    name: Error Escalation to WF-900
+    category: routing
+    severity: critical
+    statement: >
+      All validation and runtime failures must route to WF-900. Missing
+      escalation path is a contract violation.
+    enforcement:
+      validator: workflow_validator
+      required_error_route: WF-900
+
+  - rule_id: GOV-006
+    name: Replay and Remodify to WF-021
+    category: routing
+    severity: critical
+    statement: >
+      Rejected or remodify decisions must route to WF-021 for bounded replay
+      and remodification control.
+    enforcement:
+      runtime_component: engine/approval/approval_router.js
+      required_replay_route: WF-021
+
+  - rule_id: GOV-007
+    name: Skill Template and Test Contract
+    category: skill_contract
+    severity: critical
+    statement: >
+      Canonical skills must follow the 12-section template in fixed order and
+      define at least 18 tests.
+    template_sections:
+      - Skill Identity
+      - Purpose
+      - DNA Injection
+      - Workflow Injection
+      - Inputs
+      - Execution Logic
+      - Outputs
+      - Governance
+      - Tool/Runtime Usage
+      - Mutation Law
+      - Best Practices
+      - Validation/Done
+    minimum_test_count: 18
+    enforcement:
+      validator: registry_validator
+      failure_route: WF-900
+
+  - rule_id: GOV-008
+    name: Director Authority Binding
+    category: authority
+    severity: high
+    statement: >
+      Owner and strategic authority directors referenced by skills must exist in
+      director_binding and be auditable by mapped workflow contracts.
+    enforcement:
+      validator: registry_validator
+      failure_route: WF-900
+
+  - rule_id: GOV-009
+    name: Conditional Research Gate
+    category: routing
+    severity: high
+    statement: >
+      CWF-140 must enforce research confidence threshold gate. Values below
+      0.85 execute M-021..M-030 chain; values at or above 0.85 skip to CWF-210.
+    gate_workflow: CWF-140
+    threshold: 0.85
+    enforcement:
+      validator: workflow_validator
+      failure_route: WF-900

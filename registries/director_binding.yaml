@@ -1,7 +1,15 @@
 version: 1
 registry_id: director_binding
-generated_at: "2026-04-25T21:20:18.747Z"
-status: PARTIAL_WAVE_5_PHASE3C_PHASE3B_PHASE3A_PHASE1C_AND_PHASE2C
+generated_at: "2026-04-26T22:45:00.000Z"
+status: PARTIAL_WAVE_9_CANONICAL_REGISTRY_CLOSURE_HARDENED
+closure_contract:
+  required_total_directors: 30
+  active_bound_directors: 6
+  pending_director_bindings: 24
+  mapped_skill_scope: M-021_to_M-245_wave_scope
+  escalation_workflow: WF-900
+  replay_workflow: WF-021
+  governance_enforced: true
 directors:
   - canonical_name: Narada
     director_id: DIR-STRTv1-002

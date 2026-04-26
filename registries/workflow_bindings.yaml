@@ -1,7 +1,19 @@
 ﻿version: 1
 registry_id: workflow_bindings
-generated_at: "2026-04-25T21:28:24.371Z"
-status: PARTIAL_WAVE_6_EXECUTABLE_N8N_WORKFLOWS_WITH_MANIFEST_SYNC
+generated_at: "2026-04-26T22:45:00.000Z"
+status: PARTIAL_WAVE_9_CANONICAL_REGISTRY_CLOSURE_HARDENED
+closure_contract:
+  binding_count: 65
+  canonical_workflow_json_count: 10
+  required_error_route: WF-900
+  required_replay_route: WF-021
+  skill_registry_alignment_source: registries/skill_registry.yaml
+  schema_registry_alignment_source: registries/schema_registry.yaml
+  conditional_route_contracts:
+    - route_workflow: CWF-140
+      gate_input: M-020.research_confidence_score
+      route_when_lt_0_85: execute_phase_1c_chain_m021_to_m030
+      route_when_gte_0_85: skip_phase_1c_and_route_CWF-210
 bindings:
   - skill_id: M-121
     producer_workflow: CWF-230
