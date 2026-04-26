@@ -1,0 +1,41 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "M-340 Lineage Validator packet schema",
+  "type": "object",
+  "description": "Output packet from CWF-340 (Lineage Validator) - validates lineage chain and finalizes context engineering packet",
+  "required": ["instance_id", "artifact_family", "schema_version", "producer_workflow", "dossier_ref", "created_at", "status", "payload"],
+  "properties": {
+    "instance_id": {"type": "string"},
+    "artifact_family": {"type": "string", "const": "m340_packet"},
+    "schema_version": {"type": "string"},
+    "producer_workflow": {"type": "string"},
+    "dossier_ref": {"type": "string"},
+    "created_at": {"type": "string", "format": "date-time"},
+    "status": {"type": "string", "enum": ["CREATED", "FINALIZED", "VALIDATED", "FAILED"]},
+    "payload": {
+      "type": "object",
+      "properties": {
+        "semantic_artifact_type": {"type": "string", "enum": ["context_engineering_packet"]},
+        "narrative": {
+          "type": "object",
+          "properties": {
+            "lineage_chain": {"type": "array"},
+            "validation_results": {"type": "object"},
+            "quality_gates_summary": {"type": "object"}
+          }
+        },
+        "context": {"type": "object"},
+        "evidence": {
+          "type": "object",
+          "properties": {
+            "lineage_depth": {"type": "number"},
+            "validation_checkpoints_passed": {"type": "number"}
+          }
+        },
+        "quality": {"type": "object"},
+        "status": {"type": "object"}
+      }
+    }
+  },
+  "additionalProperties": true
+}

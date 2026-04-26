@@ -1,0 +1,36 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "M-330 Asset Brief Generator packet schema",
+  "type": "object",
+  "description": "Output packet from CWF-330 (Asset Brief Generator) - generates briefs for thumbnails, b-roll, captions, audio",
+  "required": ["instance_id", "artifact_family", "schema_version", "producer_workflow", "dossier_ref", "created_at", "status", "payload"],
+  "properties": {
+    "instance_id": {"type": "string"},
+    "artifact_family": {"type": "string", "const": "m330_packet"},
+    "schema_version": {"type": "string"},
+    "producer_workflow": {"type": "string"},
+    "dossier_ref": {"type": "string"},
+    "created_at": {"type": "string", "format": "date-time"},
+    "status": {"type": "string", "enum": ["CREATED", "FINALIZED", "VALIDATED", "FAILED"]},
+    "payload": {
+      "type": "object",
+      "properties": {
+        "semantic_artifact_type": {"type": "string", "enum": ["asset_brief_packet"]},
+        "narrative": {
+          "type": "object",
+          "properties": {
+            "thumbnail_brief": {"type": "object"},
+            "broll_cues": {"type": "array"},
+            "caption_brief": {"type": "object"},
+            "audio_brief": {"type": "object"}
+          }
+        },
+        "context": {"type": "object"},
+        "evidence": {"type": "object"},
+        "quality": {"type": "object"},
+        "status": {"type": "object"}
+      }
+    }
+  },
+  "additionalProperties": true
+}

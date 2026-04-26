@@ -25,6 +25,8 @@ class DossierWriter {
       approval: { owner: 'approval_vein' },
       replay: { owner: 'replay_vein' },
       runtime: { owner: 'runtime_vein' },
+      media: { owner: 'media_vein' },
+      publishing: { owner: 'publishing_vein' },
       media_vein: { owner: 'media_vein' },
       script_vein: { owner: 'script_vein' },
       research_vein: { owner: 'research_vein' }

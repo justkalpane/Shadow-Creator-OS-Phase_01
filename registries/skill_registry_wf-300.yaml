@@ -1,0 +1,11 @@
+workflow_pack: WF-300
+pack_name: "Execution Context / Media Pipeline"
+phase: "Phase-2"
+stage: "Stage-D"
+
+skills:
+  - P-301
+  - P-302
+  - P-303
+  - P-304
+  - P-305

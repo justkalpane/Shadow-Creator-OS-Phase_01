@@ -49,11 +49,22 @@ class DirectorRuntimeRouter {
       // CWF-240 executes M-181 to M-218 → output is m218_packet (final script shaping)
       'CWF-240-final-script-shaping': { artifact_family: 'm218_packet', semantic_type: 'final_script_packet', namespace: 'script', owner_director: 'Krishna' },
 
-      // Future Phase Stubs (Phase 2+)
+      // Execution Context / Media Pipeline (WF-300 pack)
       'CWF-310-execution-context-builder': { artifact_family: 'm310_packet', semantic_type: 'execution_context_packet', namespace: 'context', owner_director: 'Krishna' },
       'CWF-320-platform-packager': { artifact_family: 'm320_packet', semantic_type: 'platform_package_packet', namespace: 'context', owner_director: 'Krishna' },
       'CWF-330-asset-brief-generator': { artifact_family: 'm330_packet', semantic_type: 'asset_brief_packet', namespace: 'context', owner_director: 'Krishna' },
-      'CWF-340-lineage-validator': { artifact_family: 'm340_packet', semantic_type: 'context_engineering_packet', namespace: 'context', owner_director: 'Krishna' }
+      'CWF-340-lineage-validator': { artifact_family: 'm340_packet', semantic_type: 'context_engineering_packet', namespace: 'context', owner_director: 'Krishna' },
+
+      // Publishing Pipeline (WF-400 pack)
+      'CWF-410-thumbnail-generator': { artifact_family: 'm410_packet', semantic_type: 'thumbnail_concept_packet', namespace: 'media', owner_director: 'Krishna' },
+      'CWF-420-visual-asset-planner': { artifact_family: 'm420_packet', semantic_type: 'visual_asset_spec_packet', namespace: 'media', owner_director: 'Saraswati' },
+      'CWF-430-audio-script-optimizer': { artifact_family: 'm430_packet', semantic_type: 'audio_brief_packet', namespace: 'media', owner_director: 'Saraswati' },
+      'CWF-440-media-package-finalizer': { artifact_family: 'm440_packet', semantic_type: 'media_production_packet', namespace: 'media', owner_director: 'Krishna' },
+
+      // Analytics / Distribution Pipeline (WF-500 pack)
+      'CWF-510-platform-metadata-generator': { artifact_family: 'm510_packet', semantic_type: 'platform_metadata_packet', namespace: 'publishing', owner_director: 'Chanakya' },
+      'CWF-520-distribution-planner': { artifact_family: 'm520_packet', semantic_type: 'distribution_plan_packet', namespace: 'publishing', owner_director: 'Chanakya' },
+      'CWF-530-publish-readiness-checker': { artifact_family: 'm530_packet', semantic_type: 'publish_ready_packet', namespace: 'publishing', owner_director: 'Yama' }
     };
   }
 
@@ -554,6 +565,10 @@ class DirectorRuntimeRouter {
   async writeWorkflowOutputToDossier(childWorkflowId, dossierId, chainResult, packet) {
     const contract = this.childWorkflowContracts[childWorkflowId] || { namespace: 'runtime' };
     const target = `namespaces.${contract.namespace}.${childWorkflowId}.packets`;
+    const nowIso = new Date().toISOString();
+    const primarySkill = (chainResult.results && chainResult.results.length > 0)
+      ? chainResult.results[0].skill_id
+      : 'CHAIN_EXECUTOR';
 
     return this.dossierWriter.writeDelta(dossierId, {
       namespace: contract.namespace,
@@ -566,6 +581,12 @@ class DirectorRuntimeRouter {
         completed_skills: chainResult.completed_skills,
         created_at: packet.created_at
       },
+      timestamp: nowIso,
+      writer_id: childWorkflowId,
+      skill_id: primarySkill,
+      instance_id: packet.instance_id,
+      schema_version: packet.schema_version || '1.0.0',
+      lineage_reference: chainResult.chain_id || packet.instance_id,
       audit_entry: {
         workflow_id: childWorkflowId,
         operation: 'DIRECTOR_RUNTIME_EXECUTION',

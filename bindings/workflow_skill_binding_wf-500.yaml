@@ -1,0 +1,16 @@
+# WORKFLOW PACK: WF-500 (ANALYTICS / DISTRIBUTION PIPELINE)
+# Skill bindings for child workflows CWF-510 through CWF-530
+# Format: parser expects child_workflow_id -> skills array with correct indentation
+
+  CWF-510-platform-metadata-generator:
+    skills:
+      - D-501
+
+  CWF-520-distribution-planner:
+    skills:
+      - D-501
+      - D-502
+
+  CWF-530-publish-readiness-checker:
+    skills:
+      - D-503

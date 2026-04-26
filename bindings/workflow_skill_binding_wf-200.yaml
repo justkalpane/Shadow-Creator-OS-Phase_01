@@ -1,0 +1,31 @@
+# WORKFLOW PACK: WF-200 (SCRIPT INTELLIGENCE)
+# Skill bindings for child workflows CWF-210 through CWF-240
+# Format: parser expects child_workflow_id -> skills array with correct indentation
+
+  CWF-210-script-generation:
+    skills:
+      - M-041
+      - M-042
+      - M-043
+      - M-044
+
+  CWF-220-script-debate:
+    skills:
+      - M-051
+      - M-052
+      - M-053
+      - M-054
+
+  CWF-230-script-refinement:
+    skills:
+      - M-061
+      - M-062
+      - M-063
+      - M-064
+
+  CWF-240-final-script-shaping:
+    skills:
+      - M-071
+      - M-072
+      - M-073
+      - M-074

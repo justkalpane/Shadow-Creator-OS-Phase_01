@@ -1,0 +1,20 @@
+# WORKFLOW PACK: WF-400 (PUBLISHING PIPELINE)
+# Skill bindings for child workflows CWF-410 through CWF-440
+# Format: parser expects child_workflow_id -> skills array with correct indentation
+
+  CWF-410-thumbnail-generator:
+    skills:
+      - A-401
+
+  CWF-420-visual-asset-planner:
+    skills:
+      - A-402
+
+  CWF-430-audio-script-optimizer:
+    skills:
+      - A-403
+
+  CWF-440-media-package-finalizer:
+    skills:
+      - A-404
+      - A-405

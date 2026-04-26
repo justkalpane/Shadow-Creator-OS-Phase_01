@@ -1,0 +1,87 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "M-310 Execution Context Builder packet schema",
+  "type": "object",
+  "description": "Output packet from CWF-310 (Execution Context Builder) - builds tool set and execution constraints from final script",
+  "required": [
+    "instance_id",
+    "artifact_family",
+    "schema_version",
+    "producer_workflow",
+    "dossier_ref",
+    "created_at",
+    "status",
+    "payload"
+  ],
+  "properties": {
+    "instance_id": {
+      "type": "string",
+      "description": "Unique packet identifier"
+    },
+    "artifact_family": {
+      "type": "string",
+      "const": "m310_packet",
+      "description": "Packet artifact family identifier"
+    },
+    "schema_version": {
+      "type": "string",
+      "description": "Schema version"
+    },
+    "producer_workflow": {
+      "type": "string",
+      "description": "Producing workflow (CWF-310)"
+    },
+    "dossier_ref": {
+      "type": "string",
+      "description": "Reference to parent dossier"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Creation timestamp"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["CREATED", "FINALIZED", "VALIDATED", "FAILED"],
+      "description": "Packet status"
+    },
+    "payload": {
+      "type": "object",
+      "properties": {
+        "semantic_artifact_type": {
+          "type": "string",
+          "enum": ["execution_context_packet"]
+        },
+        "narrative": {
+          "type": "object",
+          "properties": {
+            "tool_set": { "type": "array" },
+            "execution_constraints": { "type": "object" },
+            "context_engineering_rules": { "type": "object" }
+          }
+        },
+        "context": {
+          "type": "object"
+        },
+        "evidence": {
+          "type": "object"
+        },
+        "quality": {
+          "type": "object",
+          "properties": {
+            "completeness": { "type": "number" },
+            "constraint_satisfaction": { "type": "number" }
+          }
+        },
+        "status": {
+          "type": "object",
+          "properties": {
+            "next_workflow": { "type": "string" },
+            "escalation_needed": { "type": "boolean" }
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties": true
+}

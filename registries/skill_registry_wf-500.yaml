@@ -1,0 +1,9 @@
+workflow_pack: WF-500
+pack_name: "Analytics / Distribution Pipeline"
+phase: "Phase-2"
+stage: "Stage-F"
+
+skills:
+  - D-501
+  - D-502
+  - D-503

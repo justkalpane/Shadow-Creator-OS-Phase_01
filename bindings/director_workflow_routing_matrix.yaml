@@ -1,0 +1,169 @@
+# DIRECTOR WORKFLOW ROUTING MATRIX
+# Maps each director to its authorized workflows and escalation paths
+# Authority: Defines who controls what workflow stage
+
+directors:
+  TopicIntelligenceDirector:
+    role: "Topic discovery and qualification authority"
+    authority_scope:
+      - CWF-110
+      - CWF-120
+      - CWF-130
+      - CWF-140
+    reads_namespaces:
+      - discovery
+      - qualification
+      - scoring
+      - research
+    writes_namespaces:
+      - discovery
+      - qualification
+      - scoring
+      - research
+    escalation_path:
+      - veto_receiver: ExecutiveDirector
+      - veto_condition: "topic_score < 0.4"
+      - approval_required: false
+    error_handler: WF-900
+    replay_handler: WF-021
+    timeout_seconds: 180
+    max_retries: 2
+
+  ScriptIntelligenceDirector:
+    role: "Script generation, debate, refinement authority"
+    authority_scope:
+      - CWF-210
+      - CWF-220
+      - CWF-230
+      - CWF-240
+    reads_namespaces:
+      - discovery
+      - qualification
+      - scoring
+      - research
+      - script_generation
+      - script_debate
+      - script_refinement
+      - script_final
+    writes_namespaces:
+      - script_generation
+      - script_debate
+      - script_refinement
+      - script_final
+    escalation_path:
+      - veto_receiver: ExecutiveDirector
+      - veto_condition: "script_quality < 0.5"
+      - approval_required: true
+    error_handler: WF-900
+    replay_handler: WF-021
+    timeout_seconds: 210
+    max_retries: 2
+
+  ApprovalDirector:
+    role: "Final approval gate and policy compliance"
+    authority_scope:
+      - WF-020
+      - WF-021
+    reads_namespaces:
+      - discovery
+      - qualification
+      - scoring
+      - research
+      - script_generation
+      - script_debate
+      - script_refinement
+      - script_final
+    writes_namespaces:
+      - approval_decisions
+    escalation_path:
+      - veto_receiver: ExecutiveDirector
+      - veto_condition: "policy_compliance < 0.8"
+      - approval_required: true
+    error_handler: WF-900
+    timeout_seconds: 300
+    max_retries: 1
+
+  ErrorDirector:
+    role: "Error handling and retry coordination"
+    authority_scope:
+      - WF-900
+      - WF-901
+    reads_namespaces:
+      - discovery
+      - qualification
+      - scoring
+      - research
+      - script_generation
+      - script_debate
+      - script_refinement
+      - script_final
+      - error_events
+    writes_namespaces:
+      - error_events
+    escalation_path:
+      - veto_receiver: ExecutiveDirector
+      - veto_condition: "retry_count >= max_retries"
+    error_handler: WF-901
+    timeout_seconds: 120
+    max_retries: 0
+
+workflow_pack_mapping:
+  WF-100:
+    governing_director: TopicIntelligenceDirector
+    pack_name: "Topic Intelligence"
+    entry_child: CWF-110
+    exit_child: CWF-140
+
+  WF-200:
+    governing_director: ScriptIntelligenceDirector
+    pack_name: "Script Intelligence"
+    entry_child: CWF-210
+    exit_child: CWF-240
+
+  WF-020:
+    governing_director: ApprovalDirector
+    pack_name: "Final Approval"
+    entry_child: null
+
+  WF-021:
+    governing_director: ApprovalDirector
+    pack_name: "Replay/Remodify"
+    entry_child: null
+
+  WF-900:
+    governing_director: ErrorDirector
+    pack_name: "Error Handler"
+    entry_child: null
+
+  WF-901:
+    governing_director: ErrorDirector
+    pack_name: "Critical Error Escalation"
+    entry_child: null
+
+routing_rules:
+  standard_success_path: "WF-100 → WF-200 → WF-020 (approval)"
+  remodify_path: "WF-020 (reject) → WF-021 → WF-100 (restart) or WF-200 (restart)"
+  error_path: "Any workflow error → WF-900 (attempt recovery)"
+  escalation_path: "WF-900 failed → WF-901 (executive escalation)"
+
+governance_gates:
+  - name: "Pre-Script-Generation Gate"
+    trigger: "CWF-140 success"
+    condition: "research_completeness >= 0.8"
+    authority: TopicIntelligenceDirector
+    action_pass: "Proceed to CWF-210"
+    action_fail: "Escalate to WF-900"
+
+  - name: "Pre-Approval Gate"
+    trigger: "CWF-240 success"
+    condition: "script_quality >= 0.75 AND messaging_alignment >= 0.8"
+    authority: ScriptIntelligenceDirector
+    action_pass: "Route to WF-020"
+    action_fail: "Route to WF-021 (remodify)"
+
+  - name: "Final Policy Compliance"
+    trigger: "WF-020 entrance"
+    condition: "all_mandatory_fields_present AND no_policy_violations"
+    authority: ApprovalDirector
+    action_pass: "Approve script promotion"
+    action_fail: "Reject to WF-021"

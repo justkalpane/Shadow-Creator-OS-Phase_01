@@ -69,7 +69,7 @@ class SkillRegistryResolver {
     let current = null;
 
     for (const line of lines) {
-      const idMatch = line.match(/^\s*-\s*skill_id:\s*(M-\d{3})\s*$/);
+      const idMatch = line.match(/^\s*-\s*skill_id:\s*([MAPDP]-\d{3})\s*$/);
       if (idMatch) {
         if (current && current.skill_id) {
           entries.push(current);
@@ -96,7 +96,7 @@ class SkillRegistryResolver {
 
     // Compatibility fallback: authoritative_for with IDs only.
     const idsOnly = [];
-    const rx = /^\s*-\s*(M-\d{3})\s*$/gm;
+    const rx = /^\s*-\s*([MAPDP]-\d{3})\s*$/gm;
     let match = rx.exec(content);
     while (match) {
       idsOnly.push({ skill_id: match[1], file_path: null });
@@ -146,7 +146,7 @@ class SkillRegistryResolver {
 
   extractSkillIdFromFilename(filePath) {
     const name = path.basename(filePath);
-    const match = name.match(/(M-\d{3})/);
+    const match = name.match(/([MAPDP]-\d{3})/);
     return match ? match[1] : null;
   }
 

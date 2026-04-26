@@ -1,6 +1,6 @@
 {
   "dossier_id": "TEST-E2E-001",
-  "_version": 2,
+  "_version": 9,
   "_created_at": "2026-04-26T17:01:43.875Z",
   "_audit_trail": [
     {
@@ -32,6 +32,132 @@
       "owner_workflow": "discovery_vein",
       "version_before": 1,
       "version_after": 2,
+      "lineage_intact": true,
+      "writer_id": "M-001",
+      "skill_id": "M-001",
+      "instance_id": "M-001-b40f4c12",
+      "schema_version": "1.0.0",
+      "lineage_reference": "M-001-b40f4c12"
+    },
+    {
+      "mutation_id": "MUT-995340c2",
+      "timestamp": "2026-04-26T17:09:03.966Z",
+      "workflow_id": "M-001",
+      "operation": "append_packet",
+      "namespace": "discovery",
+      "mutation_type": "append_to_array",
+      "target_path": "packets",
+      "owner_workflow": "discovery_vein",
+      "version_before": 2,
+      "version_after": 3,
+      "lineage_intact": true,
+      "writer_id": "M-001",
+      "skill_id": "M-001",
+      "instance_id": "M-001-b40f4c12",
+      "schema_version": "1.0.0",
+      "lineage_reference": "M-001-b40f4c12"
+    },
+    {
+      "mutation_id": "MUT-995340c2",
+      "timestamp": "2026-04-26T17:10:20.195Z",
+      "workflow_id": "M-001",
+      "operation": "append_packet",
+      "namespace": "discovery",
+      "mutation_type": "append_to_array",
+      "target_path": "packets",
+      "owner_workflow": "discovery_vein",
+      "version_before": 3,
+      "version_after": 4,
+      "lineage_intact": true,
+      "writer_id": "M-001",
+      "skill_id": "M-001",
+      "instance_id": "M-001-b40f4c12",
+      "schema_version": "1.0.0",
+      "lineage_reference": "M-001-b40f4c12"
+    },
+    {
+      "mutation_id": "MUT-995340c2",
+      "timestamp": "2026-04-26T17:10:49.375Z",
+      "workflow_id": "M-001",
+      "operation": "append_packet",
+      "namespace": "discovery",
+      "mutation_type": "append_to_array",
+      "target_path": "packets",
+      "owner_workflow": "discovery_vein",
+      "version_before": 4,
+      "version_after": 5,
+      "lineage_intact": true,
+      "writer_id": "M-001",
+      "skill_id": "M-001",
+      "instance_id": "M-001-b40f4c12",
+      "schema_version": "1.0.0",
+      "lineage_reference": "M-001-b40f4c12"
+    },
+    {
+      "mutation_id": "MUT-995340c2",
+      "timestamp": "2026-04-26T17:11:23.741Z",
+      "workflow_id": "M-001",
+      "operation": "append_packet",
+      "namespace": "discovery",
+      "mutation_type": "append_to_array",
+      "target_path": "packets",
+      "owner_workflow": "discovery_vein",
+      "version_before": 5,
+      "version_after": 6,
+      "lineage_intact": true,
+      "writer_id": "M-001",
+      "skill_id": "M-001",
+      "instance_id": "M-001-b40f4c12",
+      "schema_version": "1.0.0",
+      "lineage_reference": "M-001-b40f4c12"
+    },
+    {
+      "mutation_id": "MUT-995340c2",
+      "timestamp": "2026-04-26T17:12:09.716Z",
+      "workflow_id": "M-001",
+      "operation": "append_packet",
+      "namespace": "discovery",
+      "mutation_type": "append_to_array",
+      "target_path": "packets",
+      "owner_workflow": "discovery_vein",
+      "version_before": 6,
+      "version_after": 7,
+      "lineage_intact": true,
+      "writer_id": "M-001",
+      "skill_id": "M-001",
+      "instance_id": "M-001-b40f4c12",
+      "schema_version": "1.0.0",
+      "lineage_reference": "M-001-b40f4c12"
+    },
+    {
+      "mutation_id": "MUT-995340c2",
+      "timestamp": "2026-04-26T17:12:34.171Z",
+      "workflow_id": "M-001",
+      "operation": "append_packet",
+      "namespace": "discovery",
+      "mutation_type": "append_to_array",
+      "target_path": "packets",
+      "owner_workflow": "discovery_vein",
+      "version_before": 7,
+      "version_after": 8,
+      "lineage_intact": true,
+      "writer_id": "M-001",
+      "skill_id": "M-001",
+      "instance_id": "M-001-b40f4c12",
+      "schema_version": "1.0.0",
+      "lineage_reference": "M-001-b40f4c12"
+    },
+    {
+      "mutation_id": "MUT-995340c2",
+      "timestamp": "2026-04-26T17:18:44.873Z",
+      "workflow_id": "M-001",
+      "operation": "append_packet",
+      "namespace": "discovery",
+      "mutation_type": "append_to_array",
+      "target_path": "packets",
+      "owner_workflow": "discovery_vein",
+      "version_before": 8,
+      "version_after": 9,
       "lineage_intact": true,
       "writer_id": "M-001",
       "skill_id": "M-001",
@@ -99,6 +225,258 @@
       "created_at": "2026-04-26T17:02:00.491Z",
       "mutation_metadata": {
         "timestamp": "2026-04-26T17:02:00.491Z",
+        "writer_id": "skill_executor",
+        "skill_id": "M-001",
+        "instance_id": "M-001-b40f4c12",
+        "schema_version": "1.0.0",
+        "lineage_reference": "M-001",
+        "audit_entry": "deterministic skill execution output assembly"
+      },
+      "input_snapshot": {
+        "context_keys": [
+          "dossier_id"
+        ],
+        "dossier_state_keys": []
+      }
+    },
+    {
+      "status": "CREATED",
+      "payload": {
+        "runtime": {
+          "deterministic": true,
+          "execution_fingerprint": "b40f4c12",
+          "source": "skill_executor",
+          "context_keys": [
+            "dossier_id"
+          ]
+        }
+      },
+      "skill_id": "M-001",
+      "output_type": "m-001_output",
+      "artifact_family": "m001_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "M-001",
+      "instance_id": "M-001-b40f4c12",
+      "dossier_ref": "TEST-E2E-001",
+      "created_at": "2026-04-26T17:09:03.965Z",
+      "mutation_metadata": {
+        "timestamp": "2026-04-26T17:09:03.965Z",
+        "writer_id": "skill_executor",
+        "skill_id": "M-001",
+        "instance_id": "M-001-b40f4c12",
+        "schema_version": "1.0.0",
+        "lineage_reference": "M-001",
+        "audit_entry": "deterministic skill execution output assembly"
+      },
+      "input_snapshot": {
+        "context_keys": [
+          "dossier_id"
+        ],
+        "dossier_state_keys": []
+      }
+    },
+    {
+      "status": "CREATED",
+      "payload": {
+        "runtime": {
+          "deterministic": true,
+          "execution_fingerprint": "b40f4c12",
+          "source": "skill_executor",
+          "context_keys": [
+            "dossier_id"
+          ]
+        }
+      },
+      "skill_id": "M-001",
+      "output_type": "m-001_output",
+      "artifact_family": "m001_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "M-001",
+      "instance_id": "M-001-b40f4c12",
+      "dossier_ref": "TEST-E2E-001",
+      "created_at": "2026-04-26T17:10:20.195Z",
+      "mutation_metadata": {
+        "timestamp": "2026-04-26T17:10:20.195Z",
+        "writer_id": "skill_executor",
+        "skill_id": "M-001",
+        "instance_id": "M-001-b40f4c12",
+        "schema_version": "1.0.0",
+        "lineage_reference": "M-001",
+        "audit_entry": "deterministic skill execution output assembly"
+      },
+      "input_snapshot": {
+        "context_keys": [
+          "dossier_id"
+        ],
+        "dossier_state_keys": []
+      }
+    },
+    {
+      "status": "CREATED",
+      "payload": {
+        "runtime": {
+          "deterministic": true,
+          "execution_fingerprint": "b40f4c12",
+          "source": "skill_executor",
+          "context_keys": [
+            "dossier_id"
+          ]
+        }
+      },
+      "skill_id": "M-001",
+      "output_type": "m-001_output",
+      "artifact_family": "m001_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "M-001",
+      "instance_id": "M-001-b40f4c12",
+      "dossier_ref": "TEST-E2E-001",
+      "created_at": "2026-04-26T17:10:49.375Z",
+      "mutation_metadata": {
+        "timestamp": "2026-04-26T17:10:49.375Z",
+        "writer_id": "skill_executor",
+        "skill_id": "M-001",
+        "instance_id": "M-001-b40f4c12",
+        "schema_version": "1.0.0",
+        "lineage_reference": "M-001",
+        "audit_entry": "deterministic skill execution output assembly"
+      },
+      "input_snapshot": {
+        "context_keys": [
+          "dossier_id"
+        ],
+        "dossier_state_keys": []
+      }
+    },
+    {
+      "status": "CREATED",
+      "payload": {
+        "runtime": {
+          "deterministic": true,
+          "execution_fingerprint": "b40f4c12",
+          "source": "skill_executor",
+          "context_keys": [
+            "dossier_id"
+          ]
+        }
+      },
+      "skill_id": "M-001",
+      "output_type": "m-001_output",
+      "artifact_family": "m001_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "M-001",
+      "instance_id": "M-001-b40f4c12",
+      "dossier_ref": "TEST-E2E-001",
+      "created_at": "2026-04-26T17:11:23.740Z",
+      "mutation_metadata": {
+        "timestamp": "2026-04-26T17:11:23.740Z",
+        "writer_id": "skill_executor",
+        "skill_id": "M-001",
+        "instance_id": "M-001-b40f4c12",
+        "schema_version": "1.0.0",
+        "lineage_reference": "M-001",
+        "audit_entry": "deterministic skill execution output assembly"
+      },
+      "input_snapshot": {
+        "context_keys": [
+          "dossier_id"
+        ],
+        "dossier_state_keys": []
+      }
+    },
+    {
+      "status": "CREATED",
+      "payload": {
+        "runtime": {
+          "deterministic": true,
+          "execution_fingerprint": "b40f4c12",
+          "source": "skill_executor",
+          "context_keys": [
+            "dossier_id"
+          ]
+        }
+      },
+      "skill_id": "M-001",
+      "output_type": "m-001_output",
+      "artifact_family": "m001_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "M-001",
+      "instance_id": "M-001-b40f4c12",
+      "dossier_ref": "TEST-E2E-001",
+      "created_at": "2026-04-26T17:12:09.716Z",
+      "mutation_metadata": {
+        "timestamp": "2026-04-26T17:12:09.716Z",
+        "writer_id": "skill_executor",
+        "skill_id": "M-001",
+        "instance_id": "M-001-b40f4c12",
+        "schema_version": "1.0.0",
+        "lineage_reference": "M-001",
+        "audit_entry": "deterministic skill execution output assembly"
+      },
+      "input_snapshot": {
+        "context_keys": [
+          "dossier_id"
+        ],
+        "dossier_state_keys": []
+      }
+    },
+    {
+      "status": "CREATED",
+      "payload": {
+        "runtime": {
+          "deterministic": true,
+          "execution_fingerprint": "b40f4c12",
+          "source": "skill_executor",
+          "context_keys": [
+            "dossier_id"
+          ]
+        }
+      },
+      "skill_id": "M-001",
+      "output_type": "m-001_output",
+      "artifact_family": "m001_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "M-001",
+      "instance_id": "M-001-b40f4c12",
+      "dossier_ref": "TEST-E2E-001",
+      "created_at": "2026-04-26T17:12:34.170Z",
+      "mutation_metadata": {
+        "timestamp": "2026-04-26T17:12:34.170Z",
+        "writer_id": "skill_executor",
+        "skill_id": "M-001",
+        "instance_id": "M-001-b40f4c12",
+        "schema_version": "1.0.0",
+        "lineage_reference": "M-001",
+        "audit_entry": "deterministic skill execution output assembly"
+      },
+      "input_snapshot": {
+        "context_keys": [
+          "dossier_id"
+        ],
+        "dossier_state_keys": []
+      }
+    },
+    {
+      "status": "CREATED",
+      "payload": {
+        "runtime": {
+          "deterministic": true,
+          "execution_fingerprint": "b40f4c12",
+          "source": "skill_executor",
+          "context_keys": [
+            "dossier_id"
+          ]
+        }
+      },
+      "skill_id": "M-001",
+      "output_type": "m-001_output",
+      "artifact_family": "m001_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "M-001",
+      "instance_id": "M-001-b40f4c12",
+      "dossier_ref": "TEST-E2E-001",
+      "created_at": "2026-04-26T17:18:44.873Z",
+      "mutation_metadata": {
+        "timestamp": "2026-04-26T17:18:44.873Z",
         "writer_id": "skill_executor",
         "skill_id": "M-001",
         "instance_id": "M-001-b40f4c12",

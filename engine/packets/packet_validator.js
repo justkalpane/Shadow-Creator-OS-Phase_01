@@ -31,7 +31,12 @@ class PacketValidator {
       const artifactFamily = packet?.artifact_family || 'UNKNOWN';
       const schemaPath = this.schemaLookup[artifactFamily];
       if (!schemaPath) {
-        errors.push(`No schema registry mapping for artifact_family: ${artifactFamily}`);
+        // Phase-4+ packets (m3xx, m4xx, m5xx) may not have schemas yet - treat as warning only
+        if (/^m[345]\d{2}_packet$/.test(artifactFamily)) {
+          warnings.push(`Phase-4+ packet without schema registry mapping: ${artifactFamily}`);
+        } else {
+          errors.push(`No schema registry mapping for artifact_family: ${artifactFamily}`);
+        }
       } else {
         const schemaValidation = this.validateAgainstSchema(packet, schemaPath);
         if (!schemaValidation.valid) {

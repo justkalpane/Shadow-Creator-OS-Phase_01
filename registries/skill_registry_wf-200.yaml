@@ -1,0 +1,22 @@
+workflow_pack: WF-200
+pack_name: "Script Intelligence Pipeline"
+phase: "Phase-1"
+stage: "Stage-C"
+
+skills:
+  - M-041
+  - M-042
+  - M-043
+  - M-044
+  - M-051
+  - M-052
+  - M-053
+  - M-054
+  - M-061
+  - M-062
+  - M-063
+  - M-064
+  - M-071
+  - M-072
+  - M-073
+  - M-074

@@ -1,0 +1,20 @@
+# WORKFLOW PACK: WF-300 (EXECUTION CONTEXT / MEDIA PIPELINE)
+# Skill bindings for child workflows CWF-310 through CWF-340
+# Format: parser expects child_workflow_id -> skills array with correct indentation
+
+  CWF-310-execution-context-builder:
+    skills:
+      - P-301
+
+  CWF-320-platform-packager:
+    skills:
+      - P-302
+
+  CWF-330-asset-brief-generator:
+    skills:
+      - P-303
+
+  CWF-340-lineage-validator:
+    skills:
+      - P-304
+      - P-305

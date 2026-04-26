@@ -1,0 +1,11 @@
+workflow_pack: WF-400
+pack_name: "Publishing Pipeline"
+phase: "Phase-2"
+stage: "Stage-E"
+
+skills:
+  - A-401
+  - A-402
+  - A-403
+  - A-404
+  - A-405

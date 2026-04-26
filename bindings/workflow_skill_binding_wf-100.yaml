@@ -1,0 +1,36 @@
+# WORKFLOW PACK: WF-100 (TOPIC INTELLIGENCE)
+# Skill bindings for child workflows CWF-110 through CWF-140
+# Format: parser expects child_workflow_id -> skills array with correct indentation
+
+  CWF-110-topic-discovery:
+    skills:
+      - M-001
+      - M-006
+      - M-007
+      - M-018
+      - M-002
+      - M-003
+      - M-013
+      - M-016
+      - M-004
+      - M-012
+      - M-014
+      - M-019
+
+  CWF-120-topic-qualification:
+    skills:
+      - M-008
+      - M-023
+      - M-015
+
+  CWF-130-topic-scoring:
+    skills:
+      - M-008
+      - M-024
+
+  CWF-140-research-synthesis:
+    skills:
+      - M-025
+      - M-026
+      - M-027
+      - M-028

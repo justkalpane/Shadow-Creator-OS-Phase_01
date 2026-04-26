@@ -1,0 +1,26 @@
+workflow_pack: WF-100
+pack_name: "Topic Intelligence Pipeline"
+phase: "Phase-1"
+stage: "Stage-B"
+
+skills:
+  - M-001
+  - M-002
+  - M-003
+  - M-004
+  - M-006
+  - M-007
+  - M-008
+  - M-012
+  - M-013
+  - M-014
+  - M-015
+  - M-016
+  - M-018
+  - M-019
+  - M-023
+  - M-024
+  - M-025
+  - M-026
+  - M-027
+  - M-028
