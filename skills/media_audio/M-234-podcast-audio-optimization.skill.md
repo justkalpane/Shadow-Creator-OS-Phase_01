@@ -64,8 +64,8 @@ STEP 9: Append packet to dossier.media_vein.podcast_audio_optimization and appen
 STEP 10: Emit deterministic routing decision to M-235 or WF-900/WF-021.
 
 ## 7. Outputs
-- Output Packet Family: podcast_audio_packet
-- JSON Schema Reference: schemas/packets/podcast_audio_packet.schema.json
+- Output Packet Family: m234_packet
+- JSON Schema Reference: schemas/packets/m234_packet.schema.json
 - Dossier Write Target: dossier.media_vein.podcast_audio_optimization
 - se_packet_index Registration: required append row with lineage and audit metadata
 

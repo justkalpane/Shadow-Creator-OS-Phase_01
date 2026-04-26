@@ -64,8 +64,8 @@ STEP 9: Append packet to dossier.media_vein.acoustic_environment_analyzer and ap
 STEP 10: Emit deterministic routing decision to M-236 or WF-900/WF-021.
 
 ## 7. Outputs
-- Output Packet Family: acoustics_packet
-- JSON Schema Reference: schemas/packets/acoustics_packet.schema.json
+- Output Packet Family: m235_packet
+- JSON Schema Reference: schemas/packets/m235_packet.schema.json
 - Dossier Write Target: dossier.media_vein.acoustic_environment_analyzer
 - se_packet_index Registration: required append row with lineage and audit metadata
 

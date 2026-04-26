@@ -64,8 +64,8 @@ STEP 9: Append packet to dossier.media_vein.video_seo_optimizer and append se_pa
 STEP 10: Emit deterministic routing decision to M-227 or WF-900/WF-021.
 
 ## 7. Outputs
-- Output Packet Family: video_seo_packet
-- JSON Schema Reference: schemas/packets/video_seo_packet.schema.json
+- Output Packet Family: m226_packet
+- JSON Schema Reference: schemas/packets/m226_packet.schema.json
 - Dossier Write Target: dossier.media_vein.video_seo_optimizer
 - se_packet_index Registration: required append row with lineage and audit metadata
 

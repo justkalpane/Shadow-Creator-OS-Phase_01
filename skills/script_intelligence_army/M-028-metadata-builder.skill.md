@@ -63,8 +63,8 @@ STEP 9: Append packet to dossier.research_vein.predictive_extrapolation and appe
 STEP 10: Emit deterministic routing decision to M-029 or WF-900/WF-021.
 
 ## 7. Outputs
-- Output Packet Family: prediction_packet
-- JSON Schema Reference: schemas/packets/prediction_packet.schema.json
+- Output Packet Family: m028_packet
+- JSON Schema Reference: schemas/packets/m028_packet.schema.json
 - Dossier Write Target: dossier.research_vein.predictive_extrapolation
 - se_packet_index Registration: required append row with lineage and audit metadata
 

@@ -61,8 +61,8 @@ STEP 9: Append packet to dossier.script_vein.multi_format_coordinate_manager and
 STEP 10: Emit routing decision (success, replay, escalate) with deterministic next-hop references.
 
 ## 7. Outputs
-- Output Packet Family: format_coordination_packet
-- JSON Schema Reference: schemas/packets/format_coordination_packet.schema.json
+- Output Packet Family: m130_packet
+- JSON Schema Reference: schemas/packets/m130_packet.schema.json
 - Dossier Write Target: dossier.script_vein.multi_format_coordinate_manager
 - se_packet_index Registration: required append row with lineage and audit metadata
 

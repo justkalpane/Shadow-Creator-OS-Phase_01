@@ -64,8 +64,8 @@ STEP 9: Append packet to dossier.media_vein.layout_composition_strategist and ap
 STEP 10: Emit deterministic routing decision to M-205 or WF-900/WF-021.
 
 ## 7. Outputs
-- Output Packet Family: layout_packet
-- JSON Schema Reference: schemas/packets/layout_packet.schema.json
+- Output Packet Family: m204_packet
+- JSON Schema Reference: schemas/packets/m204_packet.schema.json
 - Dossier Write Target: dossier.media_vein.layout_composition_strategist
 - se_packet_index Registration: required append row with lineage and audit metadata
 

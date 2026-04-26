@@ -2,7 +2,16 @@
   "permissions": {
     "allow": [
       "Bash(Get-ChildItem -Path \"C:\\\\ShadowEmpire-Git\\\\skills\" -Directory)",
-      "Bash(Select-Object -ExpandProperty Name)"
+      "Bash(Select-Object -ExpandProperty Name)",
+      "Bash(awk '/^registry_scope:/,/^  registered_external_dependencies:/' registries/skill_registry.yaml)",
+      "Read(//tmp/**)",
+      "Bash(cat)",
+      "Bash(chmod +x /tmp/check_drifts.sh)",
+      "Bash(/tmp/check_drifts.sh)",
+      "Bash(/tmp/remediate_drifts.sh)",
+      "Bash(chmod +x /tmp/check_deps_and_directors.sh)",
+      "Bash(/tmp/check_deps_and_directors.sh)",
+      "Bash(python3 -c \"import json; json.load\\(open\\('schemas/packets/m001_packet.schema.json'\\)\\)\")"
     ]
   }
 }

@@ -64,8 +64,8 @@ STEP 9: Append packet to dossier.media_vein.social_media_graphics_optimizer and 
 STEP 10: Emit deterministic routing decision to M-215 or WF-900/WF-021.
 
 ## 7. Outputs
-- Output Packet Family: social_asset_packet
-- JSON Schema Reference: schemas/packets/social_asset_packet.schema.json
+- Output Packet Family: m214_packet
+- JSON Schema Reference: schemas/packets/m214_packet.schema.json
 - Dossier Write Target: dossier.media_vein.social_media_graphics_optimizer
 - se_packet_index Registration: required append row with lineage and audit metadata
 

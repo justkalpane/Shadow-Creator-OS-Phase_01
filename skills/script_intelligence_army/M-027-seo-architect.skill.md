@@ -63,8 +63,8 @@ STEP 9: Append packet to dossier.research_vein.nuance_capture_engine and append 
 STEP 10: Emit deterministic routing decision to M-028 or WF-900/WF-021.
 
 ## 7. Outputs
-- Output Packet Family: nuance_packet
-- JSON Schema Reference: schemas/packets/nuance_packet.schema.json
+- Output Packet Family: m027_packet
+- JSON Schema Reference: schemas/packets/m027_packet.schema.json
 - Dossier Write Target: dossier.research_vein.nuance_capture_engine
 - se_packet_index Registration: required append row with lineage and audit metadata
 

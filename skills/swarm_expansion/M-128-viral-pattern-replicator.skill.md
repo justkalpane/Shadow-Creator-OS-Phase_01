@@ -61,8 +61,8 @@ STEP 9: Append packet to dossier.script_vein.social_media_caption_generator and 
 STEP 10: Emit routing decision (success, replay, escalate) with deterministic next-hop references.
 
 ## 7. Outputs
-- Output Packet Family: social_media_packet
-- JSON Schema Reference: schemas/packets/social_media_packet.schema.json
+- Output Packet Family: m128_packet
+- JSON Schema Reference: schemas/packets/m128_packet.schema.json
 - Dossier Write Target: dossier.script_vein.social_media_caption_generator
 - se_packet_index Registration: required append row with lineage and audit metadata
 

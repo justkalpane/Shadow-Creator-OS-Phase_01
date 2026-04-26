@@ -61,8 +61,8 @@ STEP 9: Append packet to dossier.script_vein.youtube_script_optimizer and append
 STEP 10: Emit routing decision (success, replay, escalate) with deterministic next-hop references.
 
 ## 7. Outputs
-- Output Packet Family: youtube_script_packet
-- JSON Schema Reference: schemas/packets/youtube_script_packet.schema.json
+- Output Packet Family: m122_packet
+- JSON Schema Reference: schemas/packets/m122_packet.schema.json
 - Dossier Write Target: dossier.script_vein.youtube_script_optimizer
 - se_packet_index Registration: required append row with lineage and audit metadata
 

@@ -61,8 +61,8 @@ STEP 9: Append packet to dossier.script_vein.linkedin_article_generator and appe
 STEP 10: Emit routing decision (success, replay, escalate) with deterministic next-hop references.
 
 ## 7. Outputs
-- Output Packet Family: linkedin_packet
-- JSON Schema Reference: schemas/packets/linkedin_packet.schema.json
+- Output Packet Family: m125_packet
+- JSON Schema Reference: schemas/packets/m125_packet.schema.json
 - Dossier Write Target: dossier.script_vein.linkedin_article_generator
 - se_packet_index Registration: required append row with lineage and audit metadata
 

@@ -64,8 +64,8 @@ STEP 9: Append packet to dossier.media_vein.sound_design_specifications and appe
 STEP 10: Emit deterministic routing decision to M-221 or WF-900/WF-021.
 
 ## 7. Outputs
-- Output Packet Family: sound_design_packet
-- JSON Schema Reference: schemas/packets/sound_design_packet.schema.json
+- Output Packet Family: m220_packet
+- JSON Schema Reference: schemas/packets/m220_packet.schema.json
 - Dossier Write Target: dossier.media_vein.sound_design_specifications
 - se_packet_index Registration: required append row with lineage and audit metadata
 

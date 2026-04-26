@@ -63,8 +63,8 @@ STEP 9: Append packet to dossier.research_vein.longitudinal_analysis_engine and 
 STEP 10: Emit deterministic routing decision to M-023 or WF-900/WF-021.
 
 ## 7. Outputs
-- Output Packet Family: longitudinal_packet
-- JSON Schema Reference: schemas/packets/longitudinal_packet.schema.json
+- Output Packet Family: m022_packet
+- JSON Schema Reference: schemas/packets/m022_packet.schema.json
 - Dossier Write Target: dossier.research_vein.longitudinal_analysis_engine
 - se_packet_index Registration: required append row with lineage and audit metadata
 

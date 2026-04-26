@@ -33,3 +33,6 @@ node_modules/
 # Validation outputs
 coverage/
 reports/
+*.backup
+*.backup
+tmp_audit/

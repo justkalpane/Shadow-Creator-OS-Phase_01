@@ -64,8 +64,8 @@ STEP 9: Append packet to dossier.media_vein.title_card_generator and append se_p
 STEP 10: Emit deterministic routing decision to M-225 or WF-900/WF-021.
 
 ## 7. Outputs
-- Output Packet Family: title_text_packet
-- JSON Schema Reference: schemas/packets/title_text_packet.schema.json
+- Output Packet Family: m224_packet
+- JSON Schema Reference: schemas/packets/m224_packet.schema.json
 - Dossier Write Target: dossier.media_vein.title_card_generator
 - se_packet_index Registration: required append row with lineage and audit metadata
 

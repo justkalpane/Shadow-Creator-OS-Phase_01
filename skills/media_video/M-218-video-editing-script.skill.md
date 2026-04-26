@@ -64,8 +64,8 @@ STEP 9: Append packet to dossier.media_vein.video_editing_script and append se_p
 STEP 10: Emit deterministic routing decision to M-219 or WF-900/WF-021.
 
 ## 7. Outputs
-- Output Packet Family: editing_sequence_packet
-- JSON Schema Reference: schemas/packets/editing_sequence_packet.schema.json
+- Output Packet Family: m218_packet
+- JSON Schema Reference: schemas/packets/m218_packet.schema.json
 - Dossier Write Target: dossier.media_vein.video_editing_script
 - se_packet_index Registration: required append row with lineage and audit metadata
 

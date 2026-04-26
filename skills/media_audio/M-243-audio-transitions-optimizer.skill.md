@@ -64,8 +64,8 @@ STEP 9: Append packet to dossier.media_vein.audio_transitions_optimizer and appe
 STEP 10: Emit deterministic routing decision to M-244 or WF-900/WF-021.
 
 ## 7. Outputs
-- Output Packet Family: transcript_packet
-- JSON Schema Reference: schemas/packets/transcript_packet.schema.json
+- Output Packet Family: m243_packet
+- JSON Schema Reference: schemas/packets/m243_packet.schema.json
 - Dossier Write Target: dossier.media_vein.audio_transitions_optimizer
 - se_packet_index Registration: required append row with lineage and audit metadata
 

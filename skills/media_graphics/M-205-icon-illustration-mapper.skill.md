@@ -64,8 +64,8 @@ STEP 9: Append packet to dossier.media_vein.icon_illustration_mapper and append 
 STEP 10: Emit deterministic routing decision to M-206 or WF-900/WF-021.
 
 ## 7. Outputs
-- Output Packet Family: icon_set_packet
-- JSON Schema Reference: schemas/packets/icon_set_packet.schema.json
+- Output Packet Family: m205_packet
+- JSON Schema Reference: schemas/packets/m205_packet.schema.json
 - Dossier Write Target: dossier.media_vein.icon_illustration_mapper
 - se_packet_index Registration: required append row with lineage and audit metadata
 

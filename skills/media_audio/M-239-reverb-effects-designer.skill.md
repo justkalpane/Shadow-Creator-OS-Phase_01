@@ -64,8 +64,8 @@ STEP 9: Append packet to dossier.media_vein.reverb_effects_designer and append s
 STEP 10: Emit deterministic routing decision to M-240 or WF-900/WF-021.
 
 ## 7. Outputs
-- Output Packet Family: reverb_effects_packet
-- JSON Schema Reference: schemas/packets/reverb_effects_packet.schema.json
+- Output Packet Family: m239_packet
+- JSON Schema Reference: schemas/packets/m239_packet.schema.json
 - Dossier Write Target: dossier.media_vein.reverb_effects_designer
 - se_packet_index Registration: required append row with lineage and audit metadata
 

@@ -64,8 +64,8 @@ STEP 9: Append packet to dossier.media_vein.image_asset_sourcing_advisor and app
 STEP 10: Emit deterministic routing decision to M-209 or WF-900/WF-021.
 
 ## 7. Outputs
-- Output Packet Family: asset_library_packet
-- JSON Schema Reference: schemas/packets/asset_library_packet.schema.json
+- Output Packet Family: m208_packet
+- JSON Schema Reference: schemas/packets/m208_packet.schema.json
 - Dossier Write Target: dossier.media_vein.image_asset_sourcing_advisor
 - se_packet_index Registration: required append row with lineage and audit metadata
 

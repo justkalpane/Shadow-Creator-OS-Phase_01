@@ -64,8 +64,8 @@ STEP 9: Append packet to dossier.media_vein.voiceover_direction_script and appen
 STEP 10: Emit deterministic routing decision to M-232 or WF-900/WF-021.
 
 ## 7. Outputs
-- Output Packet Family: voiceover_spec_packet
-- JSON Schema Reference: schemas/packets/voiceover_spec_packet.schema.json
+- Output Packet Family: m231_packet
+- JSON Schema Reference: schemas/packets/m231_packet.schema.json
 - Dossier Write Target: dossier.media_vein.voiceover_direction_script
 - se_packet_index Registration: required append row with lineage and audit metadata
 

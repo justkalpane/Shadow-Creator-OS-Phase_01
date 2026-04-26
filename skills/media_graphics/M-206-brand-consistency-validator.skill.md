@@ -64,8 +64,8 @@ STEP 9: Append packet to dossier.media_vein.brand_consistency_validator and appe
 STEP 10: Emit deterministic routing decision to M-207 or WF-900/WF-021.
 
 ## 7. Outputs
-- Output Packet Family: brand_consistency_packet
-- JSON Schema Reference: schemas/packets/brand_consistency_packet.schema.json
+- Output Packet Family: m206_packet
+- JSON Schema Reference: schemas/packets/m206_packet.schema.json
 - Dossier Write Target: dossier.media_vein.brand_consistency_validator
 - se_packet_index Registration: required append row with lineage and audit metadata
 

@@ -64,8 +64,8 @@ STEP 9: Append packet to dossier.media_vein.motion_graphics_storyboard and appen
 STEP 10: Emit deterministic routing decision to M-222 or WF-900/WF-021.
 
 ## 7. Outputs
-- Output Packet Family: motion_graphics_packet
-- JSON Schema Reference: schemas/packets/motion_graphics_packet.schema.json
+- Output Packet Family: m221_packet
+- JSON Schema Reference: schemas/packets/m221_packet.schema.json
 - Dossier Write Target: dossier.media_vein.motion_graphics_storyboard
 - se_packet_index Registration: required append row with lineage and audit metadata
 

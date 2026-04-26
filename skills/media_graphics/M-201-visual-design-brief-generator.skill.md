@@ -64,8 +64,8 @@ STEP 9: Append packet to dossier.media_vein.visual_design_brief_generator and ap
 STEP 10: Emit deterministic routing decision to M-202 or WF-900/WF-021.
 
 ## 7. Outputs
-- Output Packet Family: design_brief_packet
-- JSON Schema Reference: schemas/packets/design_brief_packet.schema.json
+- Output Packet Family: m201_packet
+- JSON Schema Reference: schemas/packets/m201_packet.schema.json
 - Dossier Write Target: dossier.media_vein.visual_design_brief_generator
 - se_packet_index Registration: required append row with lineage and audit metadata
 

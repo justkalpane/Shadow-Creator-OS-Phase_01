@@ -64,8 +64,8 @@ STEP 9: Append packet to dossier.media_vein.shot_list_generator and append se_pa
 STEP 10: Emit deterministic routing decision to M-217 or WF-900/WF-021.
 
 ## 7. Outputs
-- Output Packet Family: shot_list_packet
-- JSON Schema Reference: schemas/packets/shot_list_packet.schema.json
+- Output Packet Family: m216_packet
+- JSON Schema Reference: schemas/packets/m216_packet.schema.json
 - Dossier Write Target: dossier.media_vein.shot_list_generator
 - se_packet_index Registration: required append row with lineage and audit metadata
 

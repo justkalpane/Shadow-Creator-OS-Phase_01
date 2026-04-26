@@ -64,8 +64,8 @@ STEP 9: Append packet to dossier.media_vein.sound_design_brief and append se_pac
 STEP 10: Emit deterministic routing decision to M-233 or WF-900/WF-021.
 
 ## 7. Outputs
-- Output Packet Family: sound_palette_packet
-- JSON Schema Reference: schemas/packets/sound_palette_packet.schema.json
+- Output Packet Family: m232_packet
+- JSON Schema Reference: schemas/packets/m232_packet.schema.json
 - Dossier Write Target: dossier.media_vein.sound_design_brief
 - se_packet_index Registration: required append row with lineage and audit metadata
 

@@ -64,8 +64,8 @@ STEP 9: Append packet to dossier.media_vein.video_performance_predictor and appe
 STEP 10: Emit deterministic routing decision to M-230 or WF-900/WF-021.
 
 ## 7. Outputs
-- Output Packet Family: performance_prediction_packet
-- JSON Schema Reference: schemas/packets/performance_prediction_packet.schema.json
+- Output Packet Family: m229_packet
+- JSON Schema Reference: schemas/packets/m229_packet.schema.json
 - Dossier Write Target: dossier.media_vein.video_performance_predictor
 - se_packet_index Registration: required append row with lineage and audit metadata
 

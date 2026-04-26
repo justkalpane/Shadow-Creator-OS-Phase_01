@@ -63,8 +63,8 @@ STEP 9: Append packet to dossier.research_vein.assumption_validator and append s
 STEP 10: Emit deterministic routing decision to M-026 or WF-900/WF-021.
 
 ## 7. Outputs
-- Output Packet Family: assumption_validation_packet
-- JSON Schema Reference: schemas/packets/assumption_validation_packet.schema.json
+- Output Packet Family: m025_packet
+- JSON Schema Reference: schemas/packets/m025_packet.schema.json
 - Dossier Write Target: dossier.research_vein.assumption_validator
 - se_packet_index Registration: required append row with lineage and audit metadata
 

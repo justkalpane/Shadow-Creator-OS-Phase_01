@@ -64,8 +64,8 @@ STEP 9: Append packet to dossier.media_vein.print_ready_format_converter and app
 STEP 10: Emit deterministic routing decision to M-214 or WF-900/WF-021.
 
 ## 7. Outputs
-- Output Packet Family: print_adaptation_packet
-- JSON Schema Reference: schemas/packets/print_adaptation_packet.schema.json
+- Output Packet Family: m213_packet
+- JSON Schema Reference: schemas/packets/m213_packet.schema.json
 - Dossier Write Target: dossier.media_vein.print_ready_format_converter
 - se_packet_index Registration: required append row with lineage and audit metadata
 

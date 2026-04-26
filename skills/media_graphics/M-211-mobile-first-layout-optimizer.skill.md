@@ -64,8 +64,8 @@ STEP 9: Append packet to dossier.media_vein.mobile_first_layout_optimizer and ap
 STEP 10: Emit deterministic routing decision to M-212 or WF-900/WF-021.
 
 ## 7. Outputs
-- Output Packet Family: mobile_optimization_packet
-- JSON Schema Reference: schemas/packets/mobile_optimization_packet.schema.json
+- Output Packet Family: m211_packet
+- JSON Schema Reference: schemas/packets/m211_packet.schema.json
 - Dossier Write Target: dossier.media_vein.mobile_first_layout_optimizer
 - se_packet_index Registration: required append row with lineage and audit metadata
 

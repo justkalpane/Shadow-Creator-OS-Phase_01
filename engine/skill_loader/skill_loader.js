@@ -164,6 +164,7 @@ class SkillLoader {
       }
 
       this.validateOutputs(executionResult.output);
+      this.validateOutputPacketParity(skillId, contract, executionResult.output);
 
       const result = {
         execution_id: executionId,
@@ -257,6 +258,36 @@ class SkillLoader {
         }
       }
     }
+  }
+
+  validateOutputPacketParity(skillId, contract, output) {
+    // Extract the numeric part from skill_id (M-021 -> 021)
+    const skillNum = skillId.replace(/[^0-9]/g, '');
+    const expectedPacketFamily = `m${skillNum}_packet`;
+
+    // Check if output has a declared packet family that matches expectation
+    const declaredPacketFamily = contract.output_packet_family || output.artifact_family;
+
+    if (!declaredPacketFamily) {
+      throw new Error(
+        `DRIFT_ERROR: Skill ${skillId} missing output packet family declaration. ` +
+        `Expected: ${expectedPacketFamily}`
+      );
+    }
+
+    if (declaredPacketFamily !== expectedPacketFamily) {
+      throw new Error(
+        `DRIFT_ERROR: Skill ${skillId} output packet family mismatch. ` +
+        `Expected: ${expectedPacketFamily}, Declared: ${declaredPacketFamily}. ` +
+        `Contract parity violation: skill file must declare canonical mXXX_packet family.`
+      );
+    }
+
+    this.log('INFO', 'Output packet parity validated', {
+      skill_id: skillId,
+      expected_family: expectedPacketFamily,
+      declared_family: declaredPacketFamily
+    });
   }
 
   extractScalarField(content, fieldName) {

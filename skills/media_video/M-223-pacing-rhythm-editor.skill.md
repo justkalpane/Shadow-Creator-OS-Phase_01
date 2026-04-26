@@ -64,8 +64,8 @@ STEP 9: Append packet to dossier.media_vein.pacing_rhythm_editor and append se_p
 STEP 10: Emit deterministic routing decision to M-224 or WF-900/WF-021.
 
 ## 7. Outputs
-- Output Packet Family: pacing_optimization_packet
-- JSON Schema Reference: schemas/packets/pacing_optimization_packet.schema.json
+- Output Packet Family: m223_packet
+- JSON Schema Reference: schemas/packets/m223_packet.schema.json
 - Dossier Write Target: dossier.media_vein.pacing_rhythm_editor
 - se_packet_index Registration: required append row with lineage and audit metadata
 

@@ -61,8 +61,8 @@ STEP 9: Append packet to dossier.script_vein.blog_article_generator and append l
 STEP 10: Emit routing decision (success, replay, escalate) with deterministic next-hop references.
 
 ## 7. Outputs
-- Output Packet Family: blog_article_packet
-- JSON Schema Reference: schemas/packets/blog_article_packet.schema.json
+- Output Packet Family: m123_packet
+- JSON Schema Reference: schemas/packets/m123_packet.schema.json
 - Dossier Write Target: dossier.script_vein.blog_article_generator
 - se_packet_index Registration: required append row with lineage and audit metadata
 

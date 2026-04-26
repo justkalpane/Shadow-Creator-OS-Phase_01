@@ -64,8 +64,8 @@ STEP 9: Append packet to dossier.media_vein.compression_eq_specifications and ap
 STEP 10: Emit deterministic routing decision to M-239 or WF-900/WF-021.
 
 ## 7. Outputs
-- Output Packet Family: compression_eq_packet
-- JSON Schema Reference: schemas/packets/compression_eq_packet.schema.json
+- Output Packet Family: m238_packet
+- JSON Schema Reference: schemas/packets/m238_packet.schema.json
 - Dossier Write Target: dossier.media_vein.compression_eq_specifications
 - se_packet_index Registration: required append row with lineage and audit metadata
 

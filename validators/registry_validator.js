@@ -251,6 +251,17 @@ class RegistryValidator {
         }
       }
 
+      // WAVE 1 ADDITION: Validate output packet family parity against canonical mXXX_packet pattern
+      const parity = this.validateOutputPacketParity(skill.skill_id, skillContract);
+      if (!parity.is_valid) {
+        findings.push({
+          code: 'OUTPUT_PACKET_FAMILY_PARITY_DRIFT',
+          severity: 'error',
+          message: `${skill.skill_id} output packet family parity drift: ${parity.error_detail}`,
+          filepath: skillFilePath
+        });
+      }
+
       if (skill.output_packet_family && !schemaFamilies.has(skill.output_packet_family)) {
         findings.push({
           code: 'MISSING_SCHEMA_REGISTRY_ENTRY',
@@ -711,6 +722,53 @@ class RegistryValidator {
   extractWorkflowId(filePath) {
     const match = path.basename(filePath).match(/(CWF-\d{3}|WF-\d{3})/);
     return match ? match[1] : null;
+  }
+
+  validateOutputPacketParity(skillId, skillContract) {
+    // Extract numeric part from skill_id (M-021 -> 021)
+    const skillNum = skillId.replace(/[^0-9]/g, '');
+    const expectedPacketFamily = `m${skillNum}_packet`;
+    const expectedSchema = `schemas/packets/m${skillNum}_packet.schema.json`;
+
+    // Get declared values from skill contract
+    const declaredPacketFamily = skillContract?.output_packet_family || null;
+    const declaredSchema = skillContract?.schema_ref || null;
+
+    // Validate packet family parity
+    if (!declaredPacketFamily) {
+      return {
+        is_valid: false,
+        error_detail: `Missing output_packet_family declaration (expected: ${expectedPacketFamily})`
+      };
+    }
+
+    if (declaredPacketFamily !== expectedPacketFamily) {
+      return {
+        is_valid: false,
+        error_detail: `Declared ${declaredPacketFamily} != Expected ${expectedPacketFamily}`
+      };
+    }
+
+    // Validate schema_ref parity
+    if (!declaredSchema) {
+      return {
+        is_valid: false,
+        error_detail: `Missing schema_ref declaration (expected: ${expectedSchema})`
+      };
+    }
+
+    if (declaredSchema !== expectedSchema) {
+      return {
+        is_valid: false,
+        error_detail: `Declared ${declaredSchema} != Expected ${expectedSchema}`
+      };
+    }
+
+    // All parity checks passed
+    return {
+      is_valid: true,
+      error_detail: null
+    };
   }
 
   buildResult(overallValid, findings, extra = {}) {

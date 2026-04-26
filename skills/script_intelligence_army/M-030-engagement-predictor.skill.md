@@ -63,8 +63,8 @@ STEP 9: Append packet to dossier.research_vein.final_research_dossier_seal and a
 STEP 10: Emit deterministic routing decision to M-105 or WF-900/WF-021.
 
 ## 7. Outputs
-- Output Packet Family: phase_1c_completion_packet
-- JSON Schema Reference: schemas/packets/phase_1c_completion_packet.schema.json
+- Output Packet Family: m030_packet
+- JSON Schema Reference: schemas/packets/m030_packet.schema.json
 - Dossier Write Target: dossier.research_vein.final_research_dossier_seal
 - se_packet_index Registration: required append row with lineage and audit metadata
 

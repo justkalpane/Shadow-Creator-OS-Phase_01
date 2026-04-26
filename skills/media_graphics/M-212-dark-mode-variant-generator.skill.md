@@ -64,8 +64,8 @@ STEP 9: Append packet to dossier.media_vein.dark_mode_variant_generator and appe
 STEP 10: Emit deterministic routing decision to M-213 or WF-900/WF-021.
 
 ## 7. Outputs
-- Output Packet Family: dark_mode_packet
-- JSON Schema Reference: schemas/packets/dark_mode_packet.schema.json
+- Output Packet Family: m212_packet
+- JSON Schema Reference: schemas/packets/m212_packet.schema.json
 - Dossier Write Target: dossier.media_vein.dark_mode_variant_generator
 - se_packet_index Registration: required append row with lineage and audit metadata
 

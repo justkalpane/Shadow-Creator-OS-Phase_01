@@ -64,8 +64,8 @@ STEP 9: Append packet to dossier.media_vein.banner_header_designer and append se
 STEP 10: Emit deterministic routing decision to M-216 or WF-900/WF-021.
 
 ## 7. Outputs
-- Output Packet Family: banner_packet
-- JSON Schema Reference: schemas/packets/banner_packet.schema.json
+- Output Packet Family: m215_packet
+- JSON Schema Reference: schemas/packets/m215_packet.schema.json
 - Dossier Write Target: dossier.media_vein.banner_header_designer
 - se_packet_index Registration: required append row with lineage and audit metadata
 

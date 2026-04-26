@@ -64,8 +64,8 @@ STEP 9: Append packet to dossier.media_vein.thumbnail_designer and append se_pac
 STEP 10: Emit deterministic routing decision to M-226 or WF-900/WF-021.
 
 ## 7. Outputs
-- Output Packet Family: thumbnail_packet
-- JSON Schema Reference: schemas/packets/thumbnail_packet.schema.json
+- Output Packet Family: m225_packet
+- JSON Schema Reference: schemas/packets/m225_packet.schema.json
 - Dossier Write Target: dossier.media_vein.thumbnail_designer
 - se_packet_index Registration: required append row with lineage and audit metadata
 

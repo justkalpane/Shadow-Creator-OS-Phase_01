@@ -64,8 +64,8 @@ STEP 9: Append packet to dossier.media_vein.noise_reduction_strategy and append 
 STEP 10: Emit deterministic routing decision to M-237 or WF-900/WF-021.
 
 ## 7. Outputs
-- Output Packet Family: noise_reduction_packet
-- JSON Schema Reference: schemas/packets/noise_reduction_packet.schema.json
+- Output Packet Family: m236_packet
+- JSON Schema Reference: schemas/packets/m236_packet.schema.json
 - Dossier Write Target: dossier.media_vein.noise_reduction_strategy
 - se_packet_index Registration: required append row with lineage and audit metadata
 

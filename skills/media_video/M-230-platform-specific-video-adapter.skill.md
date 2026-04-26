@@ -64,8 +64,8 @@ STEP 9: Append packet to dossier.media_vein.platform_specific_video_adapter and 
 STEP 10: Emit deterministic routing decision to M-231 or WF-900/WF-021.
 
 ## 7. Outputs
-- Output Packet Family: platform_video_packet
-- JSON Schema Reference: schemas/packets/platform_video_packet.schema.json
+- Output Packet Family: m230_packet
+- JSON Schema Reference: schemas/packets/m230_packet.schema.json
 - Dossier Write Target: dossier.media_vein.platform_specific_video_adapter
 - se_packet_index Registration: required append row with lineage and audit metadata
 

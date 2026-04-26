@@ -63,8 +63,8 @@ STEP 9: Append packet to dossier.research_vein.primary_source_interrogator and a
 STEP 10: Emit deterministic routing decision to M-022 or WF-900/WF-021.
 
 ## 7. Outputs
-- Output Packet Family: primary_source_interrogation_packet
-- JSON Schema Reference: schemas/packets/primary_source_interrogation_packet.schema.json
+- Output Packet Family: m021_packet
+- JSON Schema Reference: schemas/packets/m021_packet.schema.json
 - Dossier Write Target: dossier.research_vein.primary_source_interrogator
 - se_packet_index Registration: required append row with lineage and audit metadata
 

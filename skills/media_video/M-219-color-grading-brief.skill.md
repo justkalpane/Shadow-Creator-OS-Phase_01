@@ -64,8 +64,8 @@ STEP 9: Append packet to dossier.media_vein.color_grading_brief and append se_pa
 STEP 10: Emit deterministic routing decision to M-220 or WF-900/WF-021.
 
 ## 7. Outputs
-- Output Packet Family: color_grading_packet
-- JSON Schema Reference: schemas/packets/color_grading_packet.schema.json
+- Output Packet Family: m219_packet
+- JSON Schema Reference: schemas/packets/m219_packet.schema.json
 - Dossier Write Target: dossier.media_vein.color_grading_brief
 - se_packet_index Registration: required append row with lineage and audit metadata
 

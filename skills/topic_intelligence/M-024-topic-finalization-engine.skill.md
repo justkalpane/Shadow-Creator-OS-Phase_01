@@ -63,8 +63,8 @@ STEP 9: Append packet to dossier.research_vein.meta_analysis_synthesizer and app
 STEP 10: Emit deterministic routing decision to M-025 or WF-900/WF-021.
 
 ## 7. Outputs
-- Output Packet Family: meta_analysis_packet
-- JSON Schema Reference: schemas/packets/meta_analysis_packet.schema.json
+- Output Packet Family: m024_packet
+- JSON Schema Reference: schemas/packets/m024_packet.schema.json
 - Dossier Write Target: dossier.research_vein.meta_analysis_synthesizer
 - se_packet_index Registration: required append row with lineage and audit metadata
 

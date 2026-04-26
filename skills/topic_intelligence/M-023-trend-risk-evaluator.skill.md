@@ -63,8 +63,8 @@ STEP 9: Append packet to dossier.research_vein.causal_inference_builder and appe
 STEP 10: Emit deterministic routing decision to M-024 or WF-900/WF-021.
 
 ## 7. Outputs
-- Output Packet Family: causal_inference_packet
-- JSON Schema Reference: schemas/packets/causal_inference_packet.schema.json
+- Output Packet Family: m023_packet
+- JSON Schema Reference: schemas/packets/m023_packet.schema.json
 - Dossier Write Target: dossier.research_vein.causal_inference_builder
 - se_packet_index Registration: required append row with lineage and audit metadata
 

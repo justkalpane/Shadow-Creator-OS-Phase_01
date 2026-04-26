@@ -64,8 +64,8 @@ STEP 9: Append packet to dossier.media_vein.accessibility_audio_description and 
 STEP 10: Emit deterministic routing decision to M-301 or WF-900/WF-021.
 
 ## 7. Outputs
-- Output Packet Family: audio_performance_packet
-- JSON Schema Reference: schemas/packets/audio_performance_packet.schema.json
+- Output Packet Family: m245_packet
+- JSON Schema Reference: schemas/packets/m245_packet.schema.json
 - Dossier Write Target: dossier.media_vein.accessibility_audio_description
 - se_packet_index Registration: required append row with lineage and audit metadata
 
