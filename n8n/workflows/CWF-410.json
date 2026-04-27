@@ -2,8 +2,58 @@
   "name": "CWF-410 Thumbnail Generator Canonical",
   "description": "Generates 3 thumbnail concept variants representing key themes.",
   "nodes": [
-    {"parameters": {}, "id": "trigger", "name": "Trigger", "type": "n8n-nodes-base.manualTrigger", "typeVersion": 1, "position": [200, 300]},
-    {"parameters": {"jsCode": "const variants = [{variant: 1, theme: 'hook_visual', description: 'Bold, attention-grabbing primary visual'}, {variant: 2, theme: 'narrative_flow', description: 'Sequential story elements'}, {variant: 3, theme: 'emotional_impact', description: 'Emotional resonance visual'}];\nconst thumbnails = {instance_id: 'THUMB-' + Date.now(), artifact_family: 'thumbnail_concept_packet', schema_version: '1.0.0', producer_workflow: 'CWF-410', dossier_ref: $json.dossier_id || 'DOSSIER-UNSPECIFIED', created_at: new Date().toISOString(), status: 'CREATED', payload: {thumbnail_variants_count: 3, variants: variants, generation_complete: true}};\nreturn [{ json: { ...$json, cwf410_result: { status: 'COMPLETED', thumbnail_concept_packet: thumbnails } } }];"}, "id": "builder", "name": "Builder", "type": "n8n-nodes-base.code", "typeVersion": 2, "position": [420, 300]}
+    {
+      "parameters": {},
+      "id": "trigger",
+      "name": "Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        200,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const variants = [{variant: 1, theme: 'hook_visual', description: 'Bold, attention-grabbing primary visual'}, {variant: 2, theme: 'narrative_flow', description: 'Sequential story elements'}, {variant: 3, theme: 'emotional_impact', description: 'Emotional resonance visual'}];\nconst thumbnails = {instance_id: 'THUMB-' + Date.now(), artifact_family: 'thumbnail_concept_packet', schema_version: '1.0.0', producer_workflow: 'CWF-410', dossier_ref: $json.dossier_id || 'DOSSIER-UNSPECIFIED', created_at: new Date().toISOString(), status: 'CREATED', payload: {thumbnail_variants_count: 3, variants: variants, generation_complete: true}};\nreturn [{ json: { ...$json, cwf410_result: { status: 'COMPLETED', thumbnail_concept_packet: thumbnails } } }];"
+      },
+      "id": "builder",
+      "name": "Builder",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        420,
+        300
+      ]
+    }
   ],
-  "connections": {"Trigger": {"main": [[{"node": "Builder", "type": "main", "index": 0}]]}, "Builder": {"main": [[]]}}
+  "connections": {
+    "Trigger": {
+      "main": [
+        [
+          {
+            "node": "Builder",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Builder": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "meta": {
+    "workflow_id": "CWF-410",
+    "phase": "phase4",
+    "vein": "media_vein",
+    "purpose": "Visual asset production (deferred).",
+    "implementation_depth": "phase_deferred_stub",
+    "owner_director": "narada",
+    "next_workflow": "CWF-420",
+    "canonical_file": "n8n/workflows/CWF-410.json",
+    "wf900_error_route": "WF-900"
+  }
 }

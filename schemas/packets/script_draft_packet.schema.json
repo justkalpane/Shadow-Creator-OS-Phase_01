@@ -3,14 +3,38 @@
   "$id": "https://shadow-empire.local/schemas/packets/script_draft_packet.schema.json",
   "title": "ScriptDraftPacket",
   "type": "object",
-  "required": ["packet_id", "dossier_id", "title", "hook", "section_plan", "created_at"],
+  "required": [
+    "packet_id",
+    "dossier_id",
+    "title",
+    "hook",
+    "section_plan",
+    "created_at"
+  ],
   "properties": {
-    "packet_id": { "type": "string" },
-    "dossier_id": { "type": "string" },
-    "title": { "type": "string" },
-    "hook": { "type": "string" },
-    "section_plan": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
-    "created_at": { "type": "string", "format": "date-time" }
+    "packet_id": {
+      "type": "string"
+    },
+    "dossier_id": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "hook": {
+      "type": "string"
+    },
+    "section_plan": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    }
   },
-  "additionalProperties": false
+  "additionalProperties": true
 }

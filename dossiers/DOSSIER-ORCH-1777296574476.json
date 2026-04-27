@@ -1,0 +1,133 @@
+{
+  "dossier_id": "DOSSIER-ORCH-1777296574476",
+  "_version": 4,
+  "_created_at": "2026-04-27T13:29:34.515Z",
+  "_audit_trail": [
+    {
+      "mutation_id": "MUT-a6a71b55",
+      "timestamp": "2026-04-27T13:29:34.515Z",
+      "workflow_id": "CWF-110-topic-discovery",
+      "operation": "DIRECTOR_RUNTIME_EXECUTION",
+      "namespace": "discovery",
+      "mutation_type": "append_to_array",
+      "target_path": "namespaces.discovery.CWF-110-topic-discovery.packets",
+      "owner_workflow": "discovery_vein",
+      "version_before": 0,
+      "version_after": 1,
+      "lineage_intact": true,
+      "writer_id": "CWF-110-topic-discovery",
+      "skill_id": "M-001",
+      "instance_id": "PKT-1777296574513-o6vq4umd",
+      "schema_version": "1.0.0",
+      "lineage_reference": "CHAIN-be08e556"
+    },
+    {
+      "mutation_id": "MUT-1469743d",
+      "timestamp": "2026-04-27T13:29:34.535Z",
+      "workflow_id": "CWF-120-topic-qualification",
+      "operation": "DIRECTOR_RUNTIME_EXECUTION",
+      "namespace": "qualification",
+      "mutation_type": "append_to_array",
+      "target_path": "namespaces.qualification.CWF-120-topic-qualification.packets",
+      "owner_workflow": "qualification_vein",
+      "version_before": 1,
+      "version_after": 2,
+      "lineage_intact": true,
+      "writer_id": "CWF-120-topic-qualification",
+      "skill_id": "M-008",
+      "instance_id": "PKT-1777296574535-1ncgrux6",
+      "schema_version": "1.0.0",
+      "lineage_reference": "CHAIN-f1fd04b6"
+    },
+    {
+      "mutation_id": "MUT-d3a77aac",
+      "timestamp": "2026-04-27T13:29:34.554Z",
+      "workflow_id": "CWF-130-topic-scoring",
+      "operation": "DIRECTOR_RUNTIME_EXECUTION",
+      "namespace": "scoring",
+      "mutation_type": "append_to_array",
+      "target_path": "namespaces.scoring.CWF-130-topic-scoring.packets",
+      "owner_workflow": "scoring_vein",
+      "version_before": 2,
+      "version_after": 3,
+      "lineage_intact": true,
+      "writer_id": "CWF-130-topic-scoring",
+      "skill_id": "M-008",
+      "instance_id": "PKT-1777296574554-new0h5kz",
+      "schema_version": "1.0.0",
+      "lineage_reference": "CHAIN-a2a401d9"
+    },
+    {
+      "mutation_id": "MUT-251780df",
+      "timestamp": "2026-04-27T13:29:34.576Z",
+      "workflow_id": "CWF-140-research-synthesis",
+      "operation": "DIRECTOR_RUNTIME_EXECUTION",
+      "namespace": "research",
+      "mutation_type": "append_to_array",
+      "target_path": "namespaces.research.CWF-140-research-synthesis.packets",
+      "owner_workflow": "research_vein",
+      "version_before": 3,
+      "version_after": 4,
+      "lineage_intact": true,
+      "writer_id": "CWF-140-research-synthesis",
+      "skill_id": "M-009",
+      "instance_id": "PKT-1777296574575-zyrrv9e2",
+      "schema_version": "1.0.0",
+      "lineage_reference": "CHAIN-9ec895a7"
+    }
+  ],
+  "namespaces": {
+    "discovery": {
+      "CWF-110-topic-discovery": {
+        "packets": [
+          {
+            "packet_id": "PKT-1777296574513-o6vq4umd",
+            "artifact_family": "m010_packet",
+            "chain_id": "CHAIN-be08e556",
+            "completed_skills": 12,
+            "created_at": "2026-04-27T13:29:34.513Z"
+          }
+        ]
+      }
+    },
+    "qualification": {
+      "CWF-120-topic-qualification": {
+        "packets": [
+          {
+            "packet_id": "PKT-1777296574535-1ncgrux6",
+            "artifact_family": "m020_packet",
+            "chain_id": "CHAIN-f1fd04b6",
+            "completed_skills": 3,
+            "created_at": "2026-04-27T13:29:34.535Z"
+          }
+        ]
+      }
+    },
+    "scoring": {
+      "CWF-130-topic-scoring": {
+        "packets": [
+          {
+            "packet_id": "PKT-1777296574554-new0h5kz",
+            "artifact_family": "m040_packet",
+            "chain_id": "CHAIN-a2a401d9",
+            "completed_skills": 2,
+            "created_at": "2026-04-27T13:29:34.554Z"
+          }
+        ]
+      }
+    },
+    "research": {
+      "CWF-140-research-synthesis": {
+        "packets": [
+          {
+            "packet_id": "PKT-1777296574575-zyrrv9e2",
+            "artifact_family": "m080_packet",
+            "chain_id": "CHAIN-9ec895a7",
+            "completed_skills": 7,
+            "created_at": "2026-04-27T13:29:34.575Z"
+          }
+        ]
+      }
+    }
+  }
+}

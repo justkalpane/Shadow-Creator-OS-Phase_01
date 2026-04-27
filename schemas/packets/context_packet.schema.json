@@ -18,38 +18,85 @@
     "status"
   ],
   "properties": {
-    "packet_id": {"type": "string"},
-    "dossier_id": {"type": "string"},
+    "packet_id": {
+      "type": "string"
+    },
+    "dossier_id": {
+      "type": "string"
+    },
     "context_type": {
       "type": "string",
-      "enum": ["topic", "research", "script", "approval", "runtime", "resource_prep"]
+      "enum": [
+        "topic",
+        "research",
+        "script",
+        "approval",
+        "runtime",
+        "resource_prep"
+      ]
     },
-    "intent": {"type": "string"},
-    "audience": {"type": "string"},
-    "tone": {"type": "string"},
+    "intent": {
+      "type": "string"
+    },
+    "audience": {
+      "type": "string"
+    },
+    "tone": {
+      "type": "string"
+    },
     "evidence_standard": {
       "type": "string",
-      "enum": ["light", "standard", "strict"]
+      "enum": [
+        "light",
+        "standard",
+        "strict"
+      ]
     },
     "constraints": {
       "type": "array",
-      "items": {"type": "string"}
+      "items": {
+        "type": "string"
+      }
     },
     "source_packet_refs": {
       "type": "array",
-      "items": {"type": "string"},
+      "items": {
+        "type": "string"
+      },
       "minItems": 1
     },
     "target_module": {
       "type": "string",
-      "enum": ["topic_intelligence", "script_intelligence", "context_engineering", "approval_pack", "runtime_governance"]
+      "enum": [
+        "topic_intelligence",
+        "script_intelligence",
+        "context_engineering",
+        "approval_pack",
+        "runtime_governance"
+      ]
     },
-    "context_version": {"type": "integer", "minimum": 1},
-    "payload": {"type": "object"},
+    "context_version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "payload": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": true
+    },
     "status": {
       "type": "string",
-      "enum": ["created", "approved", "rejected", "replayed"]
+      "enum": [
+        "CREATED",
+        "SUCCESS",
+        "FAILURE",
+        "PENDING",
+        "RETRY",
+        "RECOVERED",
+        "ESCALATED",
+        "EMITTED"
+      ]
     }
   },
-  "additionalProperties": false
+  "additionalProperties": true
 }

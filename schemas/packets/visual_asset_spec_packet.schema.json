@@ -16,25 +16,27 @@
   "properties": {
     "instance_id": {
       "type": "string",
-      "pattern": "^VASP-[0-9]+$",
-      "description": "Unique packet instance ID"
+      "pattern": "^[A-Za-z0-9_-]{1,128}$",
+      "minLength": 1
     },
     "artifact_family": {
       "type": "string",
-      "enum": ["visual_asset_spec_packet"],
+      "enum": [
+        "visual_asset_spec_packet"
+      ],
       "description": "Packet type identifier"
     },
     "schema_version": {
       "type": "string",
-      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+      "pattern": "^[0-9]+(.[0-9]+)*$"
     },
     "producer_workflow": {
       "type": "string",
-      "enum": ["SE-N8N-CWF-420-Visual-Asset-Specs"]
+      "pattern": "^(WF|CWF)-[A-Z0-9-]+$"
     },
     "dossier_ref": {
       "type": "string",
-      "pattern": "^[a-zA-Z0-9-]+$"
+      "minLength": 1
     },
     "created_at": {
       "type": "string",
@@ -42,258 +44,21 @@
     },
     "status": {
       "type": "string",
-      "enum": ["CREATED", "VALIDATED", "FAILED"]
+      "enum": [
+        "CREATED",
+        "SUCCESS",
+        "FAILURE",
+        "PENDING",
+        "RETRY",
+        "RECOVERED",
+        "ESCALATED",
+        "EMITTED"
+      ]
     },
     "payload": {
       "type": "object",
-      "required": ["narrative", "context", "evidence", "quality", "status"],
-      "properties": {
-        "narrative": {
-          "type": "object",
-          "required": [
-            "script_source_id",
-            "total_visual_elements",
-            "estimated_total_duration"
-          ],
-          "properties": {
-            "script_source_id": {
-              "type": "string",
-              "pattern": "^FSP-[0-9]+$"
-            },
-            "total_visual_elements": {
-              "type": "integer",
-              "minimum": 5,
-              "maximum": 100
-            },
-            "estimated_total_duration": {
-              "type": "string",
-              "pattern": "^[0-9]+(:[0-5][0-9])?$",
-              "description": "Duration in seconds or MM:SS format"
-            }
-          }
-        },
-        "context": {
-          "type": "object",
-          "required": [
-            "sourced_from_packet_id",
-            "target_platform",
-            "platform_constraints"
-          ],
-          "properties": {
-            "sourced_from_packet_id": {
-              "type": "string",
-              "pattern": "^CEP-[0-9]+$"
-            },
-            "target_platform": {
-              "type": "string",
-              "enum": ["youtube", "tiktok", "instagram"]
-            },
-            "platform_constraints": {
-              "type": "object",
-              "properties": {
-                "recommended_duration": {
-                  "type": "string",
-                  "enum": ["30-180 seconds", "15-60 seconds"]
-                },
-                "aspect_ratio": {
-                  "type": "string",
-                  "enum": ["16:9", "9:16", "1:1"]
-                },
-                "safe_zone_edges": {
-                  "type": "integer",
-                  "minimum": 0,
-                  "maximum": 100
-                }
-              }
-            }
-          }
-        },
-        "evidence": {
-          "type": "object",
-          "required": [
-            "hook_sequence",
-            "body_sequences",
-            "closing_sequence",
-            "transitions",
-            "overlays"
-          ],
-          "properties": {
-            "hook_sequence": {
-              "type": "object",
-              "required": ["duration", "visual_elements"],
-              "properties": {
-                "duration": {
-                  "type": "string",
-                  "pattern": "^[0-9]+-[0-9]+$"
-                },
-                "visual_elements": {
-                  "type": "array",
-                  "minItems": 1,
-                  "items": {
-                    "$ref": "#/definitions/visual_element"
-                  }
-                }
-              }
-            },
-            "body_sequences": {
-              "type": "array",
-              "minItems": 1,
-              "items": {
-                "type": "object",
-                "required": [
-                  "section_index",
-                  "section_title",
-                  "duration",
-                  "visual_elements"
-                ],
-                "properties": {
-                  "section_index": {
-                    "type": "integer",
-                    "minimum": 0
-                  },
-                  "section_title": {
-                    "type": "string",
-                    "minLength": 1
-                  },
-                  "duration": {
-                    "type": "string",
-                    "pattern": "^[0-9]+-[0-9]+$"
-                  },
-                  "visual_elements": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/definitions/visual_element"
-                    }
-                  }
-                }
-              }
-            },
-            "closing_sequence": {
-              "type": "object",
-              "required": ["duration", "visual_elements"],
-              "properties": {
-                "duration": {
-                  "type": "string",
-                  "pattern": "^[0-9]+$"
-                },
-                "visual_elements": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/definitions/visual_element"
-                  }
-                }
-              }
-            },
-            "transitions": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "required": [
-                  "position",
-                  "transition_type",
-                  "duration",
-                  "platform_suitability"
-                ],
-                "properties": {
-                  "position": {
-                    "type": "string",
-                    "enum": [
-                      "hook-to-body",
-                      "section-to-section",
-                      "body-to-closing"
-                    ]
-                  },
-                  "transition_type": {
-                    "type": "string",
-                    "enum": ["cut", "fade", "wipe", "zoom"]
-                  },
-                  "duration": {
-                    "type": "string",
-                    "pattern": "^[0-9]+ms$"
-                  },
-                  "platform_suitability": {
-                    "type": "string",
-                    "enum": ["high", "medium", "low"]
-                  }
-                }
-              }
-            },
-            "overlays": {
-              "type": "object",
-              "properties": {
-                "text_treatment": {
-                  "type": "string",
-                  "enum": ["sans-serif", "serif", "bold"]
-                },
-                "graphic_style": {
-                  "type": "string",
-                  "enum": ["minimal", "detailed", "3d"]
-                },
-                "color_scheme": {
-                  "type": "string",
-                  "enum": ["match_thumbnail", "complement_brand"]
-                }
-              }
-            }
-          }
-        },
-        "quality": {
-          "type": "object",
-          "required": [
-            "visual_consistency",
-            "narrative_alignment",
-            "platform_suitability",
-            "production_feasibility"
-          ],
-          "properties": {
-            "visual_consistency": {
-              "type": "number",
-              "minimum": 0,
-              "maximum": 1
-            },
-            "narrative_alignment": {
-              "type": "number",
-              "minimum": 0,
-              "maximum": 1
-            },
-            "platform_suitability": {
-              "type": "number",
-              "minimum": 0,
-              "maximum": 1
-            },
-            "production_feasibility": {
-              "type": "number",
-              "minimum": 0,
-              "maximum": 1
-            }
-          }
-        },
-        "status": {
-          "type": "object",
-          "required": [
-            "specs_complete",
-            "platform_compliant",
-            "next_stage",
-            "decision"
-          ],
-          "properties": {
-            "specs_complete": {
-              "type": "boolean"
-            },
-            "platform_compliant": {
-              "type": "boolean"
-            },
-            "next_stage": {
-              "type": "string",
-              "enum": ["CWF-430"]
-            },
-            "decision": {
-              "type": "string",
-              "enum": ["PROCEED_TO_AUDIO_BRIEF"]
-            }
-          }
-        }
-      }
+      "minProperties": 1,
+      "additionalProperties": true
     }
   },
   "definitions": {
@@ -312,7 +77,12 @@
         },
         "type": {
           "type": "string",
-          "enum": ["b-roll", "graphic", "text", "transition"]
+          "enum": [
+            "b-roll",
+            "graphic",
+            "text",
+            "transition"
+          ]
         },
         "description": {
           "type": "string",
@@ -337,5 +107,6 @@
         }
       }
     }
-  }
+  },
+  "additionalProperties": true
 }

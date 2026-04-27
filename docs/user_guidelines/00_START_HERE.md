@@ -161,7 +161,9 @@ Read [01 SYSTEM OVERVIEW](01_SYSTEM_OVERVIEW.md) to understand:
 - **Solution:** Make sure Ollama is running: `ollama serve` in another terminal
 
 **Problem:** "n8n port already in use"
-- **Solution:** Kill process on 5678: `lsof -i :5678 | kill -9`
+- **Solution (Windows-first):** `npm run n8n:stop` (cross-platform stopper).
+  - Manual PowerShell: `Get-NetTCPConnection -LocalPort 5678 | Select-Object -ExpandProperty OwningProcess | ForEach-Object { Stop-Process -Id $_ -Force }`
+  - Mac/Linux fallback: `lsof -ti:5678 | xargs kill -9`
 
 **Problem:** "npm install fails"
 - **Solution:** Delete node_modules and package-lock.json, then `npm install` again

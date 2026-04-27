@@ -267,11 +267,14 @@ npm run packet:list --dossier [dossier_id]
 # Terminal 1:
 npm run n8n:start
 
-# Terminal 2:
-tail -f logs/n8n.log
+# Terminal 2 (Windows PowerShell):
+Get-Content -Path logs/n8n.log -Wait -Tail 50
+# Terminal 2 (Mac/Linux):
+# tail -f logs/n8n.log
 
-# Terminal 3:
-watch 'npm run dossier:inspect [dossier_id]'
+# Terminal 3 (cross-platform): re-run inspect every 5 seconds
+# PowerShell: while($true) { npm run dossier:inspect [dossier_id]; Start-Sleep 5 }
+# Mac/Linux: watch -n 5 'npm run dossier:inspect [dossier_id]'
 ```
 
 ---

@@ -8,7 +8,10 @@
       "name": "Trigger Node",
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
-      "position": [200, 300]
+      "position": [
+        200,
+        300
+      ]
     },
     {
       "parameters": {
@@ -18,7 +21,10 @@
       "name": "Dossier Initialization Node",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [420, 300]
+      "position": [
+        420,
+        300
+      ]
     },
     {
       "parameters": {
@@ -28,7 +34,10 @@
       "name": "Dossier Seeding Node",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [640, 300]
+      "position": [
+        640,
+        300
+      ]
     },
     {
       "parameters": {
@@ -38,7 +47,10 @@
       "name": "Dossier Validation Node",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [860, 300]
+      "position": [
+        860,
+        300
+      ]
     },
     {
       "parameters": {
@@ -48,7 +60,10 @@
       "name": "se_dossier_index Write Node",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1080, 220]
+      "position": [
+        1080,
+        220
+      ]
     },
     {
       "parameters": {
@@ -58,7 +73,10 @@
       "name": "se_route_runs Write Node",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1300, 220]
+      "position": [
+        1300,
+        220
+      ]
     },
     {
       "parameters": {
@@ -68,7 +86,10 @@
       "name": "Completion Packet Emission Node",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1520, 220]
+      "position": [
+        1520,
+        220
+      ]
     },
     {
       "parameters": {
@@ -78,36 +99,106 @@
       "name": "Error Routing WF-900 Node",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1080, 420]
+      "position": [
+        1080,
+        420
+      ]
     }
   ],
   "connections": {
     "Trigger Node": {
-      "main": [[{ "node": "Dossier Initialization Node", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Dossier Initialization Node",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Dossier Initialization Node": {
-      "main": [[{ "node": "Dossier Seeding Node", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Dossier Seeding Node",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Dossier Seeding Node": {
-      "main": [[{ "node": "Dossier Validation Node", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Dossier Validation Node",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Dossier Validation Node": {
       "main": [
-        [{ "node": "Dossier Index Write Node", "type": "main", "index": 0 }],
-        [{ "node": "Error Routing WF-900 Node", "type": "main", "index": 0 }]
+        [
+          {
+            "node": "se_dossier_index Write Node",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Error Routing WF-900 Node",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     },
-    "Dossier Index Write Node": {
-      "main": [[{ "node": "se_route_runs Write Node", "type": "main", "index": 0 }]]
+    "se_dossier_index Write Node": {
+      "main": [
+        [
+          {
+            "node": "se_route_runs Write Node",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "se_route_runs Write Node": {
-      "main": [[{ "node": "Completion Packet Emission Node", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Completion Packet Emission Node",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Completion Packet Emission Node": {
-      "main": [[]]
+      "main": [
+        []
+      ]
     },
     "Error Routing WF-900 Node": {
-      "main": [[]]
+      "main": [
+        []
+      ]
     }
+  },
+  "meta": {
+    "workflow_id": "WF-001",
+    "phase": "phase1",
+    "vein": "intake_vein",
+    "purpose": "Dossier creation and validation.",
+    "implementation_depth": "production_grade",
+    "owner_director": "narada",
+    "next_workflow": "WF-010",
+    "canonical_file": "n8n/workflows/WF-001.json",
+    "wf900_error_route": "WF-900"
   }
 }

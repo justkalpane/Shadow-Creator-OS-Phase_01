@@ -17,7 +17,8 @@
   "properties": {
     "instance_id": {
       "type": "string",
-      "pattern": "^PPP-[0-9]+$"
+      "pattern": "^[A-Za-z0-9_-]{1,128}$",
+      "minLength": 1
     },
     "artifact_family": {
       "type": "string",
@@ -25,15 +26,15 @@
     },
     "schema_version": {
       "type": "string",
-      "const": "1.0.0"
+      "pattern": "^[0-9]+(.[0-9]+)*$"
     },
     "producer_workflow": {
       "type": "string",
-      "const": "SE-N8N-CWF-320-Platform-Packager"
+      "pattern": "^(WF|CWF)-[A-Z0-9-]+$"
     },
     "dossier_ref": {
       "type": "string",
-      "pattern": "^[a-zA-Z0-9-]+$"
+      "minLength": 1
     },
     "created_at": {
       "type": "string",
@@ -41,140 +42,22 @@
     },
     "status": {
       "type": "string",
-      "enum": ["CREATED", "VALIDATED", "FAILED"]
+      "enum": [
+        "CREATED",
+        "SUCCESS",
+        "FAILURE",
+        "PENDING",
+        "RETRY",
+        "RECOVERED",
+        "ESCALATED",
+        "EMITTED"
+      ]
     },
     "payload": {
       "type": "object",
-      "required": ["narrative", "context", "evidence", "quality", "status"],
-      "properties": {
-        "narrative": {
-          "type": "object",
-          "required": ["content", "platform_structured_body", "delivery_ready"],
-          "properties": {
-            "content": {
-              "type": "object"
-            },
-            "platform_structured_body": {
-              "type": "object",
-              "required": ["format", "structure", "estimated_delivery_length", "chapter_markers_required"],
-              "properties": {
-                "format": {
-                  "type": "string"
-                },
-                "structure": {
-                  "type": "array",
-                  "items": {"type": "string"},
-                  "minItems": 1
-                },
-                "estimated_delivery_length": {
-                  "type": "string"
-                },
-                "chapter_markers_required": {
-                  "type": "boolean"
-                }
-              },
-              "additionalProperties": false
-            },
-            "delivery_ready": {
-              "type": "boolean"
-            }
-          },
-          "additionalProperties": false
-        },
-        "context": {
-          "type": "object",
-          "required": ["sourced_from_packet_id", "target_platform", "execution_requirements", "platform_metadata", "platform_format_rules"],
-          "properties": {
-            "sourced_from_packet_id": {
-              "type": "string"
-            },
-            "target_platform": {
-              "type": "string",
-              "enum": ["youtube", "blog", "podcast", "email"]
-            },
-            "execution_requirements": {
-              "type": "object"
-            },
-            "platform_metadata": {
-              "type": "object"
-            },
-            "platform_format_rules": {
-              "type": "object"
-            }
-          },
-          "additionalProperties": false
-        },
-        "evidence": {
-          "type": "object",
-          "required": ["lineage_references", "validation_checks"],
-          "properties": {
-            "lineage_references": {
-              "type": "array",
-              "minItems": 1,
-              "items": {
-                "type": "object",
-                "required": ["type", "id"],
-                "properties": {
-                  "type": {"type": "string"},
-                  "id": {"type": "string"}
-                },
-                "additionalProperties": false
-              }
-            },
-            "validation_checks": {
-              "type": "array",
-              "minItems": 1,
-              "items": {
-                "type": "object",
-                "required": ["check", "result"],
-                "properties": {
-                  "check": {"type": "string"},
-                  "result": {"type": "string"}
-                },
-                "additionalProperties": false
-              }
-            }
-          },
-          "additionalProperties": false
-        },
-        "quality": {
-          "type": "object",
-          "required": ["platform_readiness_score", "gate_checks", "packaging_complete"],
-          "properties": {
-            "platform_readiness_score": {
-              "type": "number",
-              "minimum": 0,
-              "maximum": 1
-            },
-            "gate_checks": {
-              "type": "object",
-              "required": ["format_rules_applied", "metadata_complete", "structure_defined"],
-              "properties": {
-                "format_rules_applied": {"type": "boolean"},
-                "metadata_complete": {"type": "boolean"},
-                "structure_defined": {"type": "boolean"}
-              },
-              "additionalProperties": false
-            },
-            "packaging_complete": {
-              "type": "boolean"
-            }
-          },
-          "additionalProperties": false
-        },
-        "status": {
-          "type": "object",
-          "required": ["decision_path", "next_workflow", "escalation_needed"],
-          "properties": {
-            "decision_path": {"type": "string"},
-            "next_workflow": {"type": "string", "enum": ["CWF-330", "WF-900"]},
-            "escalation_needed": {"type": "boolean"}
-          },
-          "additionalProperties": false
-        }
-      },
-      "additionalProperties": false
+      "minProperties": 1,
+      "additionalProperties": true
     }
   },
-  "additionalProperties": false
+  "additionalProperties": true
 }

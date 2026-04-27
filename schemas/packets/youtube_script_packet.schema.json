@@ -1,83 +1,61 @@
-﻿{
-    "$schema":  "https://json-schema.org/draft/2020-12/schema",
-    "title":  "youtube_script_packet",
-    "type":  "object",
-    "additionalProperties":  false,
-    "required":  [
-                     "instance_id",
-                     "artifact_family",
-                     "schema_version",
-                     "producer_workflow",
-                     "dossier_ref",
-                     "created_at",
-                     "status",
-                     "payload"
-                 ],
-    "properties":  {
-                       "instance_id":  {
-                                           "type":  "string"
-                                       },
-                       "artifact_family":  {
-                                               "const":  "youtube_script_packet",
-                                               "type":  "string"
-                                           },
-                       "schema_version":  {
-                                              "type":  "string"
-                                          },
-                       "producer_workflow":  {
-                                                 "type":  "string"
-                                             },
-                       "dossier_ref":  {
-                                           "type":  "string"
-                                       },
-                       "created_at":  {
-                                          "type":  "string"
-                                      },
-                       "status":  {
-                                      "type":  "string",
-                                      "enum":  [
-                                                   "CREATED",
-                                                   "PARTIAL",
-                                                   "FAILED",
-                                                   "EMPTY"
-                                               ]
-                                  },
-                       "payload":  {
-                                       "type":  "object",
-                                       "additionalProperties":  true,
-                                       "required":  [
-                                                        "skill_id",
-                                                        "skill_name",
-                                                        "platform",
-                                                        "primary_output",
-                                                        "variants",
-                                                        "routing"
-                                                    ],
-                                       "properties":  {
-                                                          "skill_id":  {
-                                                                           "const":  "M-122",
-                                                                           "type":  "string"
-                                                                       },
-                                                          "skill_name":  {
-                                                                             "type":  "string"
-                                                                         },
-                                                          "platform":  {
-                                                                           "type":  "string"
-                                                                       },
-                                                          "primary_output":  {
-                                                                                 "type":  "object"
-                                                                             },
-                                                          "variants":  {
-                                                                           "minItems":  1,
-                                                                           "items":  {
-                                                                                         "type":  "object"
-                                                                                     },
-                                                                           "type":  "array"
-                                                                       },
-                                                          "routing":  {
-                                                                          "type":  "object"
-                                                                      }
-                                                      }
-                                   }
-                   }
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "youtube_script_packet",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "instance_id",
+    "artifact_family",
+    "schema_version",
+    "producer_workflow",
+    "dossier_ref",
+    "created_at",
+    "status",
+    "payload"
+  ],
+  "properties": {
+    "instance_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_-]{1,128}$",
+      "minLength": 1
+    },
+    "artifact_family": {
+      "const": "youtube_script_packet",
+      "type": "string"
+    },
+    "schema_version": {
+      "type": "string",
+      "pattern": "^[0-9]+(.[0-9]+)*$"
+    },
+    "producer_workflow": {
+      "type": "string",
+      "pattern": "^(WF|CWF)-[A-Z0-9-]+$"
+    },
+    "dossier_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "CREATED",
+        "SUCCESS",
+        "FAILURE",
+        "PENDING",
+        "RETRY",
+        "RECOVERED",
+        "ESCALATED",
+        "EMITTED"
+      ]
+    },
+    "payload": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": true
+    }
+  }
 }

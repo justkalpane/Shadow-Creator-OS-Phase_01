@@ -17,43 +17,94 @@
     "created_at"
   ],
   "properties": {
-    "packet_id": {"type": "string"},
-    "dossier_id": {"type": "string"},
-    "research_packet_id": {"type": "string"},
-    "title": {"type": "string", "minLength": 3},
-    "hook": {"type": "string", "minLength": 3},
-    "script_body": {"type": "string", "minLength": 20},
+    "packet_id": {
+      "type": "string"
+    },
+    "dossier_id": {
+      "type": "string"
+    },
+    "research_packet_id": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 3
+    },
+    "hook": {
+      "type": "string",
+      "minLength": 3
+    },
+    "script_body": {
+      "type": "string",
+      "minLength": 20
+    },
     "sections": {
       "type": "array",
       "minItems": 1,
       "items": {
         "type": "object",
-        "required": ["section_id", "label", "content"],
+        "required": [
+          "section_id",
+          "label",
+          "content"
+        ],
         "properties": {
-          "section_id": {"type": "string"},
-          "label": {"type": "string"},
-          "content": {"type": "string"},
-          "emotion_tag": {"type": "string"}
+          "section_id": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "content": {
+            "type": "string"
+          },
+          "emotion_tag": {
+            "type": "string"
+          }
         },
         "additionalProperties": false
       }
     },
     "retention_hooks": {
       "type": "array",
-      "items": {"type": "string"}
+      "items": {
+        "type": "string"
+      }
     },
     "evidence_refs": {
       "type": "array",
       "minItems": 1,
-      "items": {"type": "string"}
+      "items": {
+        "type": "string"
+      }
     },
     "critique_targets": {
       "type": "array",
-      "items": {"type": "string"}
+      "items": {
+        "type": "string"
+      }
     },
-    "version": {"type": "integer", "minimum": 1},
-    "status": {"type": "string", "enum": ["drafted", "approved", "rejected", "replayed"]},
-    "created_at": {"type": "string", "format": "date-time"}
+    "version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "CREATED",
+        "SUCCESS",
+        "FAILURE",
+        "PENDING",
+        "RETRY",
+        "RECOVERED",
+        "ESCALATED",
+        "EMITTED"
+      ]
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    }
   },
-  "additionalProperties": false
+  "additionalProperties": true
 }

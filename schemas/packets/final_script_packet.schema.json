@@ -3,14 +3,38 @@
   "$id": "https://shadow-empire.local/schemas/packets/final_script_packet.schema.json",
   "title": "FinalScriptPacket",
   "type": "object",
-  "required": ["packet_id", "dossier_id", "final_title", "final_hook", "final_sections", "created_at"],
+  "required": [
+    "packet_id",
+    "dossier_id",
+    "final_title",
+    "final_hook",
+    "final_sections",
+    "created_at"
+  ],
   "properties": {
-    "packet_id": { "type": "string" },
-    "dossier_id": { "type": "string" },
-    "final_title": { "type": "string" },
-    "final_hook": { "type": "string" },
-    "final_sections": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
-    "created_at": { "type": "string", "format": "date-time" }
+    "packet_id": {
+      "type": "string"
+    },
+    "dossier_id": {
+      "type": "string"
+    },
+    "final_title": {
+      "type": "string"
+    },
+    "final_hook": {
+      "type": "string"
+    },
+    "final_sections": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    }
   },
-  "additionalProperties": false
+  "additionalProperties": true
 }

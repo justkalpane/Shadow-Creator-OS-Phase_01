@@ -22,32 +22,44 @@
     "script_draft_packet": {
       "type": "object",
       "description": "Initial script draft from generation stage",
-      "required": ["packet_id"]
+      "required": [
+        "packet_id"
+      ]
     },
     "script_debate_packet": {
       "type": "object",
       "description": "Script debate results from evaluation stage",
-      "required": ["packet_id"]
+      "required": [
+        "packet_id"
+      ]
     },
     "script_refinement_packet": {
       "type": "object",
       "description": "Refined script after addressing debate points",
-      "required": ["packet_id"]
+      "required": [
+        "packet_id"
+      ]
     },
     "final_script_packet": {
       "type": "object",
       "description": "Final production-ready script",
-      "required": ["packet_id", "script_content"]
+      "required": [
+        "packet_id",
+        "script_content"
+      ]
     },
     "script_intelligence_status": {
       "type": "string",
-      "enum": ["ready_for_production", "needs_approval", "revision_required"],
+      "enum": [
+        "ready_for_production",
+        "needs_approval",
+        "revision_required"
+      ],
       "description": "Overall status of script intelligence output"
     },
     "created_at": {
       "type": "string",
-      "format": "date-time",
-      "description": "Timestamp when this aggregate was created"
+      "format": "date-time"
     },
     "lineage": {
       "type": "object",
@@ -55,14 +67,18 @@
       "properties": {
         "sourced_from_workflows": {
           "type": "array",
-          "items": {"type": "string"}
+          "items": {
+            "type": "string"
+          }
         },
         "stage": {
           "type": "string",
-          "enum": ["WF-200"]
+          "enum": [
+            "WF-200"
+          ]
         }
       }
     }
   },
-  "additionalProperties": false
+  "additionalProperties": true
 }

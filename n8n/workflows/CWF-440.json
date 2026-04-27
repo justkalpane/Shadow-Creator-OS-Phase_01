@@ -2,8 +2,58 @@
   "name": "CWF-440 Media Package Finalizer Canonical",
   "description": "Assembles all media assets into final production package.",
   "nodes": [
-    {"parameters": {}, "id": "trigger", "name": "Trigger", "type": "n8n-nodes-base.manualTrigger", "typeVersion": 1, "position": [200, 300]},
-    {"parameters": {"jsCode": "const mediaPackage = {instance_id: 'MEDIA-' + Date.now(), artifact_family: 'media_production_packet', schema_version: '1.0.0', producer_workflow: 'CWF-440', dossier_ref: $json.dossier_id, created_at: new Date().toISOString(), status: 'CREATED', payload: {media_package_assembled: true, constituent_packets: ['thumbnail_concept_packet', 'visual_asset_plan_packet', 'audio_optimized_script_packet'], asset_integrity_verified: true, all_assets_present: true, quality_gates_passed: true, ready_for_publishing: true}};\nreturn [{ json: { ...$json, cwf440_result: { status: 'COMPLETED', media_production_packet: mediaPackage } } }];"}, "id": "builder", "name": "Builder", "type": "n8n-nodes-base.code", "typeVersion": 2, "position": [420, 300]}
+    {
+      "parameters": {},
+      "id": "trigger",
+      "name": "Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        200,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const mediaPackage = {instance_id: 'MEDIA-' + Date.now(), artifact_family: 'media_production_packet', schema_version: '1.0.0', producer_workflow: 'CWF-440', dossier_ref: $json.dossier_id, created_at: new Date().toISOString(), status: 'CREATED', payload: {media_package_assembled: true, constituent_packets: ['thumbnail_concept_packet', 'visual_asset_plan_packet', 'audio_optimized_script_packet'], asset_integrity_verified: true, all_assets_present: true, quality_gates_passed: true, ready_for_publishing: true}};\nreturn [{ json: { ...$json, cwf440_result: { status: 'COMPLETED', media_production_packet: mediaPackage } } }];"
+      },
+      "id": "builder",
+      "name": "Builder",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        420,
+        300
+      ]
+    }
   ],
-  "connections": {"Trigger": {"main": [[{"node": "Builder", "type": "main", "index": 0}]]}, "Builder": {"main": [[]]}}
+  "connections": {
+    "Trigger": {
+      "main": [
+        [
+          {
+            "node": "Builder",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Builder": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "meta": {
+    "workflow_id": "CWF-440",
+    "phase": "phase4",
+    "vein": "media_vein",
+    "purpose": "Final media QA (deferred).",
+    "implementation_depth": "phase_deferred_stub",
+    "owner_director": "narada",
+    "next_workflow": "WF-500",
+    "canonical_file": "n8n/workflows/CWF-440.json",
+    "wf900_error_route": "WF-900"
+  }
 }

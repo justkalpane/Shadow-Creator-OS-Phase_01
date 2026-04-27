@@ -1,6 +1,6 @@
 {
   "dossier_id": "TEST-E2E-003",
-  "_version": 4,
+  "_version": 6,
   "_created_at": "2026-04-26T17:12:09.796Z",
   "_audit_trail": [
     {
@@ -74,6 +74,42 @@
       "instance_id": "PKT-1777225396502-zvzyk3dv",
       "schema_version": "1.0.0",
       "lineage_reference": "CHAIN-184708e4"
+    },
+    {
+      "mutation_id": "MUT-76b0c0b1",
+      "timestamp": "2026-04-27T16:28:51.008Z",
+      "workflow_id": "CWF-110-topic-discovery",
+      "operation": "DIRECTOR_RUNTIME_EXECUTION",
+      "namespace": "discovery",
+      "mutation_type": "append_to_array",
+      "target_path": "namespaces.discovery.CWF-110-topic-discovery.packets",
+      "owner_workflow": "discovery_vein",
+      "version_before": 4,
+      "version_after": 5,
+      "lineage_intact": true,
+      "writer_id": "CWF-110-topic-discovery",
+      "skill_id": "M-001",
+      "instance_id": "PKT-1777307331006-eagmxxdu",
+      "schema_version": "1.0.0",
+      "lineage_reference": "CHAIN-184708e4"
+    },
+    {
+      "mutation_id": "MUT-1f6ee480",
+      "timestamp": "2026-04-27T16:44:41.230Z",
+      "workflow_id": "CWF-110-topic-discovery",
+      "operation": "DIRECTOR_RUNTIME_EXECUTION",
+      "namespace": "discovery",
+      "mutation_type": "append_to_array",
+      "target_path": "namespaces.discovery.CWF-110-topic-discovery.packets",
+      "owner_workflow": "discovery_vein",
+      "version_before": 5,
+      "version_after": 6,
+      "lineage_intact": true,
+      "writer_id": "CWF-110-topic-discovery",
+      "skill_id": "M-001",
+      "instance_id": "PKT-1777308281229-89985b8c",
+      "schema_version": "1.0.0",
+      "lineage_reference": "CHAIN-184708e4"
     }
   ],
   "namespaces": {
@@ -107,6 +143,20 @@
             "chain_id": "CHAIN-184708e4",
             "completed_skills": 12,
             "created_at": "2026-04-26T17:43:16.502Z"
+          },
+          {
+            "packet_id": "PKT-1777307331006-eagmxxdu",
+            "artifact_family": "m010_packet",
+            "chain_id": "CHAIN-184708e4",
+            "completed_skills": 12,
+            "created_at": "2026-04-27T16:28:51.006Z"
+          },
+          {
+            "packet_id": "PKT-1777308281229-89985b8c",
+            "artifact_family": "m010_packet",
+            "chain_id": "CHAIN-184708e4",
+            "completed_skills": 12,
+            "created_at": "2026-04-27T16:44:41.229Z"
           }
         ]
       }

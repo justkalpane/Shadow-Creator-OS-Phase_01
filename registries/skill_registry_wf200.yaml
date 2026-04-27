@@ -1,12 +1,13 @@
 workflow_pack: WF-200
+description: Script Intelligence pack skill list. Canonical M-xxx skill IDs aligned with master skill_registry.yaml (script_vein assignment).
 skills:
-  - S-201
-  - S-202
-  - S-203
-  - S-204
-  - S-205
-  - S-206
-  - S-207
-  - S-208
-  - S-209
-  - S-210
+  - M-031
+  - M-032
+  - M-033
+  - M-034
+  - M-035
+  - M-036
+  - M-037
+  - M-038
+  - M-039
+  - M-040

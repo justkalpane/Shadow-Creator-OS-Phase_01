@@ -23,22 +23,32 @@
     "topic_finalization_packet": {
       "type": "object",
       "description": "Selected topic after qualification and scoring",
-      "required": ["packet_id", "selected_topic", "approval_state"]
+      "required": [
+        "packet_id",
+        "selected_topic",
+        "approval_state"
+      ]
     },
     "research_synthesis_packet": {
       "type": "object",
       "description": "Complete research synthesis for selected topic",
-      "required": ["packet_id", "dossier_id"]
+      "required": [
+        "packet_id",
+        "dossier_id"
+      ]
     },
     "topic_intelligence_status": {
       "type": "string",
-      "enum": ["ready_for_scripting", "needs_review", "rejected"],
+      "enum": [
+        "ready_for_scripting",
+        "needs_review",
+        "rejected"
+      ],
       "description": "Overall status of topic intelligence output"
     },
     "created_at": {
       "type": "string",
-      "format": "date-time",
-      "description": "Timestamp when this aggregate was created"
+      "format": "date-time"
     },
     "lineage": {
       "type": "object",
@@ -46,14 +56,18 @@
       "properties": {
         "sourced_from_workflows": {
           "type": "array",
-          "items": {"type": "string"}
+          "items": {
+            "type": "string"
+          }
         },
         "stage": {
           "type": "string",
-          "enum": ["WF-100"]
+          "enum": [
+            "WF-100"
+          ]
         }
       }
     }
   },
-  "additionalProperties": false
+  "additionalProperties": true
 }

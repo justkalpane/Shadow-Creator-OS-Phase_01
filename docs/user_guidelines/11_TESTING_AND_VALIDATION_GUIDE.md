@@ -57,7 +57,7 @@ npm run validate:modes
 
 **Runtime State Validator:**
 ```bash
-npm run validate:runtime [dossier_id]
+npm run validate:dossiers
 # Checks:
 # - Dossier state is consistent
 # - Delta log is ordered
@@ -97,7 +97,7 @@ npm run validate:models
 npm run validate:modes
 
 # Runtime checks
-npm run validate:runtime [dossier_id]
+npm run validate:dossiers
 npm run dossier:inspect [dossier_id]
 npm run packet:list --dossier [dossier_id]
 npm run errors:list --dossier [dossier_id]

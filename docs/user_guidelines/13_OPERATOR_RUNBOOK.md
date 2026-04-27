@@ -170,7 +170,12 @@ echo "✓ Replay/remodify cycle complete"
 **Real-Time Monitoring:**
 ```bash
 # In separate terminal:
-tail -f logs/n8n.log   # Watch n8n logs
+# Windows PowerShell:
+#   Get-Content -Path logs/n8n.log -Wait -Tail 50
+# Mac/Linux:
+#   tail -f logs/n8n.log
+# Or cross-platform via npm:
+npm run logs:view -- --lines 50
 npm run dossier:inspect test_first_run  # Check current dossier state
 ```
 
@@ -233,17 +238,23 @@ npm run logs:clean --days 7
 
 **Parallel Testing (3 different topics simultaneously):**
 
+The Phase-1 orchestrator runner accepts a topic seed via env var. Run multiple topics in separate terminals:
+
 ```bash
 # Terminal 1: Topic 1
-npm run test:topic topic="AI in 2026" dossier_id="test_ai_2026"
+SHADOW_TOPIC_SEED="AI in 2026" node engine/directors/parent_orchestrator_runner.js
 
 # Terminal 2: Topic 2
-npm run test:topic topic="Remote work trends" dossier_id="test_remote_work"
+SHADOW_TOPIC_SEED="Remote work trends" node engine/directors/parent_orchestrator_runner.js
 
 # Terminal 3: Topic 3
-npm run test:topic topic="Blockchain adoption" dossier_id="test_blockchain"
+SHADOW_TOPIC_SEED="Blockchain adoption" node engine/directors/parent_orchestrator_runner.js
 
-# Monitor all in n8n dashboard (all 3 workflows visible)
+# On Windows PowerShell:
+#   $env:SHADOW_TOPIC_SEED="AI in 2026"; node engine/directors/parent_orchestrator_runner.js
+
+# Monitor all dossiers afterward:
+npm run dossier:list
 ```
 
 ---
@@ -258,8 +269,14 @@ Ctrl+C
 npm run n8n:stop
 
 # Kill manually (if needed):
-ps aux | grep n8n
-kill -9 <PID>
+# Windows PowerShell:
+#   Get-Process node | Where-Object { $_.CommandLine -like '*n8n*' } | Stop-Process -Force
+# Windows CMD:
+#   wmic process where "name='node.exe'" get processid,commandline /format:csv
+#   taskkill /PID <PID> /F
+# Mac/Linux:
+#   ps aux | grep n8n
+#   kill -9 <PID>
 ```
 
 ---

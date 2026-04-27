@@ -14,8 +14,8 @@
  */
 
 const SkillLoader = require('../engine/skill_loader/skill_loader.js');
-const RegistryValidator = require('../validators/registry_validator.js');
-const SchemaValidator = require('../validators/schema_validator.js');
+const RegistryValidator = require('../validators/registry_validator.cjs');
+const SchemaValidator = require('../validators/schema_validator.cjs');
 const PacketRouter = require('../engine/packets/packet_router.js');
 const DossierWriter = require('../engine/dossier/dossier_writer.js');
 const DirectorRuntimeRouter = require('../engine/directors/director_runtime_router.js');

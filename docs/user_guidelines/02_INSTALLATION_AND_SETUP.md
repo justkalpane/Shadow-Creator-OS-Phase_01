@@ -81,11 +81,14 @@ npm run errors:list        # List errors
 - Restart: `ollama serve`
 
 **n8n port in use:**
-- Windows: `netstat -ano | findstr :5678` then kill process
-- Mac/Linux: `lsof -i :5678 | kill -9`
+- Cross-platform: `npm run n8n:stop`
+- Windows PowerShell: `Get-NetTCPConnection -LocalPort 5678 | Select-Object -ExpandProperty OwningProcess | ForEach-Object { Stop-Process -Id $_ -Force }`
+- Windows CMD: `netstat -ano | findstr :5678` then `taskkill /PID <PID> /F`
+- Mac/Linux: `lsof -ti:5678 | xargs kill -9`
 
 **npm install fails:**
-- Delete node_modules: `rm -rf node_modules package-lock.json`
-- Reinstall: `npm install`
+- Cross-platform Node cleanup: `npm cache clean --force` then `npm install`
+- Windows PowerShell: `Remove-Item -Recurse -Force node_modules,package-lock.json; npm install`
+- Mac/Linux: `rm -rf node_modules package-lock.json; npm install`
 
 ---

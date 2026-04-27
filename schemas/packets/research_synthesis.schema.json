@@ -15,51 +15,113 @@
     "created_at"
   ],
   "properties": {
-    "packet_id": {"type": "string"},
-    "dossier_id": {"type": "string"},
-    "topic_packet_id": {"type": "string"},
-    "summary": {"type": "string", "minLength": 10},
+    "packet_id": {
+      "type": "string"
+    },
+    "dossier_id": {
+      "type": "string"
+    },
+    "topic_packet_id": {
+      "type": "string"
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 10
+    },
     "sources": {
       "type": "array",
       "minItems": 1,
       "items": {
         "type": "object",
-        "required": ["source_id", "title", "url_or_ref", "source_type"],
+        "required": [
+          "source_id",
+          "title",
+          "url_or_ref",
+          "source_type"
+        ],
         "properties": {
-          "source_id": {"type": "string"},
-          "title": {"type": "string"},
-          "url_or_ref": {"type": "string"},
-          "source_type": {"type": "string", "enum": ["web", "video", "note", "document", "internal"]}
+          "source_id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "url_or_ref": {
+            "type": "string"
+          },
+          "source_type": {
+            "type": "string",
+            "enum": [
+              "web",
+              "video",
+              "note",
+              "document",
+              "internal"
+            ]
+          }
         },
         "additionalProperties": false
       }
     },
     "claims": {
       "type": "array",
-      "items": {"type": "string"}
+      "items": {
+        "type": "string"
+      }
     },
     "claim_evidence_pairs": {
       "type": "array",
       "minItems": 1,
       "items": {
         "type": "object",
-        "required": ["claim", "supporting_source_ids", "confidence_note"],
+        "required": [
+          "claim",
+          "supporting_source_ids",
+          "confidence_note"
+        ],
         "properties": {
-          "claim": {"type": "string"},
+          "claim": {
+            "type": "string"
+          },
           "supporting_source_ids": {
             "type": "array",
             "minItems": 1,
-            "items": {"type": "string"}
+            "items": {
+              "type": "string"
+            }
           },
-          "confidence_note": {"type": "string"},
-          "contradiction_flag": {"type": "boolean"}
+          "confidence_note": {
+            "type": "string"
+          },
+          "contradiction_flag": {
+            "type": "boolean"
+          }
         },
         "additionalProperties": false
       }
     },
-    "confidence": {"type": "number", "minimum": 0, "maximum": 1},
-    "status": {"type": "string", "enum": ["created", "validated", "rejected", "replayed"]},
-    "created_at": {"type": "string", "format": "date-time"}
+    "confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "CREATED",
+        "SUCCESS",
+        "FAILURE",
+        "PENDING",
+        "RETRY",
+        "RECOVERED",
+        "ESCALATED",
+        "EMITTED"
+      ]
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    }
   },
-  "additionalProperties": false
+  "additionalProperties": true
 }

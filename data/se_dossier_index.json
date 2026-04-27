@@ -1,0 +1,6 @@
+{
+  "table": "se_dossier_index",
+  "description": "Index of all dossiers; updated by WF-001 and dossier_writer.",
+  "records": [],
+  "created_at": "2026-04-27T16:40:49.584Z"
+}

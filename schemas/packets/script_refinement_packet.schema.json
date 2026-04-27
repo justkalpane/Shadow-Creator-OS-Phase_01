@@ -3,14 +3,42 @@
   "$id": "https://shadow-empire.local/schemas/packets/script_refinement_packet.schema.json",
   "title": "ScriptRefinementPacket",
   "type": "object",
-  "required": ["packet_id", "dossier_id", "critique_log", "refined_hook", "refined_sections", "created_at"],
+  "required": [
+    "packet_id",
+    "dossier_id",
+    "critique_log",
+    "refined_hook",
+    "refined_sections",
+    "created_at"
+  ],
   "properties": {
-    "packet_id": { "type": "string" },
-    "dossier_id": { "type": "string" },
-    "critique_log": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
-    "refined_hook": { "type": "string" },
-    "refined_sections": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
-    "created_at": { "type": "string", "format": "date-time" }
+    "packet_id": {
+      "type": "string"
+    },
+    "dossier_id": {
+      "type": "string"
+    },
+    "critique_log": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "refined_hook": {
+      "type": "string"
+    },
+    "refined_sections": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    }
   },
-  "additionalProperties": false
+  "additionalProperties": true
 }

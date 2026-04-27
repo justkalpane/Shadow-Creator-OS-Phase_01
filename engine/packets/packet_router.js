@@ -115,8 +115,17 @@ class PacketRouter {
         continue;
       }
 
+      // Nested form: on_success:\n  next_workflow: <ID>
       if (/^\s*on_success:\s*$/.test(line)) {
         inOnSuccess = true;
+        continue;
+      }
+
+      // Scalar form: on_success: <ID>  (treated as default_next)
+      const onSuccessScalarMatch = line.match(/^\s*on_success:\s*([A-Z0-9-]+)\s*$/);
+      if (onSuccessScalarMatch) {
+        current.default_next = onSuccessScalarMatch[1];
+        inOnSuccess = false;
         continue;
       }
 

@@ -2,8 +2,58 @@
   "name": "CWF-430 Audio Script Optimizer Canonical",
   "description": "Optimizes script for audio delivery with timing marks and pacing.",
   "nodes": [
-    {"parameters": {}, "id": "trigger", "name": "Trigger", "type": "n8n-nodes-base.manualTrigger", "typeVersion": 1, "position": [200, 300]},
-    {"parameters": {"jsCode": "const audio = {instance_id: 'AUDIO-' + Date.now(), artifact_family: 'audio_optimized_script_packet', schema_version: '1.0.0', producer_workflow: 'CWF-430', dossier_ref: $json.dossier_id, created_at: new Date().toISOString(), status: 'CREATED', payload: {audio_optimization_complete: true, voiceover_style: 'conversational', estimated_duration_seconds: 300, pacing_markers: ['pause_point_1', 'emphasis_section', 'pause_point_2'], music_cues: [{point: 'intro', duration_seconds: 5}, {point: 'transition', duration_seconds: 2}, {point: 'outro', duration_seconds: 8}], sound_design_notes: 'minimal_enhancement_applied', optimization_confidence: 0.92}};\nreturn [{ json: { ...$json, cwf430_result: { status: 'COMPLETED', audio_optimized_script_packet: audio } } }];"}, "id": "builder", "name": "Builder", "type": "n8n-nodes-base.code", "typeVersion": 2, "position": [420, 300]}
+    {
+      "parameters": {},
+      "id": "trigger",
+      "name": "Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        200,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const audio = {instance_id: 'AUDIO-' + Date.now(), artifact_family: 'audio_optimized_script_packet', schema_version: '1.0.0', producer_workflow: 'CWF-430', dossier_ref: $json.dossier_id, created_at: new Date().toISOString(), status: 'CREATED', payload: {audio_optimization_complete: true, voiceover_style: 'conversational', estimated_duration_seconds: 300, pacing_markers: ['pause_point_1', 'emphasis_section', 'pause_point_2'], music_cues: [{point: 'intro', duration_seconds: 5}, {point: 'transition', duration_seconds: 2}, {point: 'outro', duration_seconds: 8}], sound_design_notes: 'minimal_enhancement_applied', optimization_confidence: 0.92}};\nreturn [{ json: { ...$json, cwf430_result: { status: 'COMPLETED', audio_optimized_script_packet: audio } } }];"
+      },
+      "id": "builder",
+      "name": "Builder",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        420,
+        300
+      ]
+    }
   ],
-  "connections": {"Trigger": {"main": [[{"node": "Builder", "type": "main", "index": 0}]]}, "Builder": {"main": [[]]}}
+  "connections": {
+    "Trigger": {
+      "main": [
+        [
+          {
+            "node": "Builder",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Builder": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "meta": {
+    "workflow_id": "CWF-430",
+    "phase": "phase4",
+    "vein": "media_vein",
+    "purpose": "Video composition (deferred).",
+    "implementation_depth": "phase_deferred_stub",
+    "owner_director": "narada",
+    "next_workflow": "CWF-440",
+    "canonical_file": "n8n/workflows/CWF-430.json",
+    "wf900_error_route": "WF-900"
+  }
 }

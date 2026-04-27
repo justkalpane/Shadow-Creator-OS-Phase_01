@@ -16,7 +16,8 @@
   "properties": {
     "instance_id": {
       "type": "string",
-      "description": "Unique packet identifier"
+      "pattern": "^[A-Za-z0-9_-]{1,128}$",
+      "minLength": 1
     },
     "artifact_family": {
       "type": "string",
@@ -25,62 +26,37 @@
     },
     "schema_version": {
       "type": "string",
-      "description": "Schema version"
+      "pattern": "^[0-9]+(.[0-9]+)*$"
     },
     "producer_workflow": {
       "type": "string",
-      "description": "Producing workflow (CWF-310)"
+      "pattern": "^(WF|CWF)-[A-Z0-9-]+$"
     },
     "dossier_ref": {
       "type": "string",
-      "description": "Reference to parent dossier"
+      "minLength": 1
     },
     "created_at": {
       "type": "string",
-      "format": "date-time",
-      "description": "Creation timestamp"
+      "format": "date-time"
     },
     "status": {
       "type": "string",
-      "enum": ["CREATED", "FINALIZED", "VALIDATED", "FAILED"],
-      "description": "Packet status"
+      "enum": [
+        "CREATED",
+        "SUCCESS",
+        "FAILURE",
+        "PENDING",
+        "RETRY",
+        "RECOVERED",
+        "ESCALATED",
+        "EMITTED"
+      ]
     },
     "payload": {
       "type": "object",
-      "properties": {
-        "semantic_artifact_type": {
-          "type": "string",
-          "enum": ["execution_context_packet"]
-        },
-        "narrative": {
-          "type": "object",
-          "properties": {
-            "tool_set": { "type": "array" },
-            "execution_constraints": { "type": "object" },
-            "context_engineering_rules": { "type": "object" }
-          }
-        },
-        "context": {
-          "type": "object"
-        },
-        "evidence": {
-          "type": "object"
-        },
-        "quality": {
-          "type": "object",
-          "properties": {
-            "completeness": { "type": "number" },
-            "constraint_satisfaction": { "type": "number" }
-          }
-        },
-        "status": {
-          "type": "object",
-          "properties": {
-            "next_workflow": { "type": "string" },
-            "escalation_needed": { "type": "boolean" }
-          }
-        }
-      }
+      "minProperties": 1,
+      "additionalProperties": true
     }
   },
   "additionalProperties": true

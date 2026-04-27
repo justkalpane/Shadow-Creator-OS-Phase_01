@@ -13,7 +13,7 @@
 
 ### Code (8 items)
 - [ ] All 31 workflows JSON valid and tested
-- [ ] All 75 skills registered and documented
+- [ ] All 218 canonical skills registered and documented (M-001 through M-245)
 - [ ] All 11 registries complete and cross-validated
 - [ ] All 318+ packet schemas defined and validated
 - [ ] All 5 validators implemented and working
@@ -37,7 +37,7 @@
 ### Governance (4 items)
 - [ ] YAMA (policy) rule system functional
 - [ ] KUBERA (budget) enforcement active
-- [ ] All 7 directors' veto authority verified
+- [ ] Director veto authority verified across 30 director bindings (7 governance + 23 domain)
 - [ ] Escalation paths tested (creator → founder)
 
 ### Safety (5 items)
@@ -147,9 +147,10 @@ npm run metrics:weekly --metric approval_rate
 
 ### Monthly Reports
 ```bash
-npm run report:monthly
-# Shows: total executions, cost trends, quality trends, learnings applied
-# Expected: Improvement month-over-month
+npm run metrics:weekly
+npm run cost:report
+# Aggregates: total executions, cost trends, quality trends, learnings applied
+# Phase-1 default cost: $0.00 (Ollama local)
 ```
 
 ---

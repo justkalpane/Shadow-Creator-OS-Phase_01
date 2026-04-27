@@ -232,10 +232,10 @@
     "workflow_id": "WF-020",
     "phase": "phase1",
     "vein": "approval_vein",
-    "purpose": "Apply final approval checks and route approved or rejected decision path.",
+    "purpose": "Final approval gate; routes approved dossiers to analytics or rejected to replay.",
     "implementation_depth": "production_grade",
-    "owner_director": "Yama",
-    "next_workflow": "WF-300",
+    "owner_director": "narada",
+    "next_workflow": "WF-600",
     "canonical_file": "n8n/workflows/WF-020.json",
     "legacy_file": "n8n/workflows/approval/WF-020-final-approval.json",
     "required_node_contract": [
@@ -250,7 +250,8 @@
       "next_stage_routing_node",
       "completion_packet_emission_node"
     ],
-    "wf900_error_route": "WF-900"
+    "wf900_error_route": "WF-900",
+    "next_workflow_on_reject": "WF-021"
   },
   "active": true,
   "settings": {}

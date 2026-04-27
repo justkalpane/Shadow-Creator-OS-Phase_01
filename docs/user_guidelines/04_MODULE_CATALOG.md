@@ -4,8 +4,8 @@
 
 ```
 Shadow-Creator-OS-Phase_01/
-├── directors/                    # 7 governance authorities
-├── skills/                       # 75 skills (50 main + 25 sub)
+├── directors/                    # 30 governance authorities (7 originals + expansion)
+├── skills/                       # 218 canonical skills (M-001 through M-245)
 ├── registries/                   # 9+ machine-readable registries
 ├── bindings/                     # Workflow-skill-registry mappings
 ├── rules/                        # Governance, policy, escalation
@@ -72,8 +72,8 @@ Shadow-Creator-OS-Phase_01/
 |----------|---------|---------|
 | model_registry.yaml | Available LLMs | 9 models |
 | mode_registry.yaml | Operational modes | 12 modes |
-| skill_registry.yaml | All skills indexed | 75 skills |
-| director_registry.yaml | All directors | 7 directors |
+| skill_registry.yaml | All skills indexed | 218 skills (M-001 through M-245) |
+| director_binding.yaml | All directors | 30 directors |
 | workflow_registry.yaml | All workflows | 31 workflows |
 | provider_registry.yaml | Available providers | Phase-1+ |
 | route_registry.yaml | Routing rules | 3 routes |
@@ -124,9 +124,8 @@ Shadow-Creator-OS-Phase_01/
 
 | Module | Files | Status | Phase | Notes |
 |--------|-------|--------|-------|-------|
-| directors | 7 | ✅ COMPLETE | 1 | All 7 directors fully defined |
-| skills (main) | 50 | ✅ COMPLETE | 1 | DNA-injected, validated |
-| skills (sub) | 25 | ✅ COMPLETE | 1 | Micro-operations |
+| directors | 30 | ✅ COMPLETE | 1-6 | 7 governance originals + 23 expanded coverage |
+| skills (canonical) | 218 | ✅ COMPLETE | 1-6 | M-001 through M-245, registry-bound |
 | registries | 20+ | ✅ COMPLETE | 1 | 223+ entries, cross-validated |
 | schemas | 318+ | ✅ COMPLETE | 1-6 | All packet families |
 | workflows | 31 | ✅ COMPLETE | 1 | Tested, importable JSONs |

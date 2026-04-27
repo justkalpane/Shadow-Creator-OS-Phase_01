@@ -3,75 +3,62 @@
   "title": "Platform Metadata Packet",
   "description": "Schema for platform-specific metadata from CWF-510-platform-metadata-generator",
   "type": "object",
-  "required": ["instance_id", "artifact_family", "schema_version", "producer_workflow", "dossier_ref", "created_at", "status", "payload"],
+  "required": [
+    "instance_id",
+    "artifact_family",
+    "schema_version",
+    "producer_workflow",
+    "dossier_ref",
+    "created_at",
+    "status",
+    "payload"
+  ],
   "properties": {
-    "instance_id": {"type": "string", "pattern": "^PMP-[0-9]+$"},
-    "artifact_family": {"type": "string", "enum": ["platform_metadata_packet"]},
-    "schema_version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
-    "producer_workflow": {"type": "string", "enum": ["SE-N8N-CWF-510-Platform-Metadata-Generator"]},
-    "dossier_ref": {"type": "string", "pattern": "^[a-zA-Z0-9-]+$"},
-    "created_at": {"type": "string", "format": "date-time"},
-    "status": {"type": "string", "enum": ["CREATED", "VALIDATED", "FAILED"]},
+    "instance_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_-]{1,128}$",
+      "minLength": 1
+    },
+    "artifact_family": {
+      "type": "string",
+      "enum": [
+        "platform_metadata_packet"
+      ]
+    },
+    "schema_version": {
+      "type": "string",
+      "pattern": "^[0-9]+(.[0-9]+)*$"
+    },
+    "producer_workflow": {
+      "type": "string",
+      "pattern": "^(WF|CWF)-[A-Z0-9-]+$"
+    },
+    "dossier_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "CREATED",
+        "SUCCESS",
+        "FAILURE",
+        "PENDING",
+        "RETRY",
+        "RECOVERED",
+        "ESCALATED",
+        "EMITTED"
+      ]
+    },
     "payload": {
       "type": "object",
-      "required": ["narrative", "context", "evidence", "quality", "status"],
-      "properties": {
-        "narrative": {
-          "type": "object",
-          "required": ["content_title", "primary_topic", "target_platforms"],
-          "properties": {
-            "content_title": {"type": "string", "minLength": 5, "maxLength": 200},
-            "primary_topic": {"type": "string", "minLength": 3, "maxLength": 100},
-            "target_platforms": {"type": "array", "items": {"type": "string", "enum": ["youtube", "instagram", "twitter", "tiktok"]},"minItems": 1}
-          }
-        },
-        "context": {
-          "type": "object",
-          "required": ["sourced_from_packet_id"],
-          "properties": {
-            "sourced_from_packet_id": {"type": "string", "pattern": "^MDP-[0-9]+$"}
-          }
-        },
-        "evidence": {
-          "type": "object",
-          "required": ["raw_metadata"],
-          "properties": {
-            "raw_metadata": {
-              "type": "object",
-              "patternProperties": {
-                "^(youtube|instagram|twitter|tiktok)$": {
-                  "type": "object",
-                  "properties": {
-                    "title": {"type": "string"},
-                    "description": {"type": "string"},
-                    "tags": {"type": "array", "items": {"type": "string"}},
-                    "hashtags": {"type": "array", "items": {"type": "string"}},
-                    "chapters": {"type": "array", "items": {"type": "object"}}
-                  }
-                }
-              }
-            }
-          }
-        },
-        "quality": {
-          "type": "object",
-          "required": ["metadata_completeness", "platform_compliance"],
-          "properties": {
-            "metadata_completeness": {"type": "number", "minimum": 0, "maximum": 1},
-            "platform_compliance": {"type": "boolean"},
-            "platforms_covered": {"type": "integer", "minimum": 1}
-          }
-        },
-        "status": {
-          "type": "object",
-          "required": ["metadata_generated", "next_stage", "decision"],
-          "properties": {
-            "metadata_generated": {"type": "boolean", "enum": [true]},
-            "next_stage": {"type": "string", "enum": ["CWF-520"]},
-            "decision": {"type": "string", "enum": ["PROCEED_TO_SEO_OPTIMIZATION"]}
-          }
-        }
-      }
+      "minProperties": 1,
+      "additionalProperties": true
     }
-  }
+  },
+  "additionalProperties": true
 }

@@ -17,30 +17,87 @@
     "created_at"
   ],
   "properties": {
-    "packet_id": {"type": "string"},
-    "dossier_id": {"type": "string"},
-    "topic": {"type": "string", "minLength": 3},
-    "source": {"type": "string"},
+    "packet_id": {
+      "type": "string"
+    },
+    "dossier_id": {
+      "type": "string"
+    },
+    "topic": {
+      "type": "string",
+      "minLength": 3
+    },
+    "source": {
+      "type": "string"
+    },
     "source_family": {
       "type": "string",
-      "enum": ["manual", "rss", "web", "video", "notes", "research_cache"]
+      "enum": [
+        "manual",
+        "rss",
+        "web",
+        "video",
+        "notes",
+        "research_cache"
+      ]
     },
     "intake_mode": {
       "type": "string",
-      "enum": ["manual_seed", "discovery_feed", "forensic_extract", "replay"]
+      "enum": [
+        "manual_seed",
+        "discovery_feed",
+        "forensic_extract",
+        "replay"
+      ]
     },
-    "audience": {"type": "string"},
-    "tone_seed": {"type": "string"},
-    "creator_intent": {"type": "string"},
-    "domain_hint": {"type": "string"},
+    "audience": {
+      "type": "string"
+    },
+    "tone_seed": {
+      "type": "string"
+    },
+    "creator_intent": {
+      "type": "string"
+    },
+    "domain_hint": {
+      "type": "string"
+    },
     "route_hint": {
       "type": "string",
-      "enum": ["ROUTE_PHASE1_STANDARD", "ROUTE_PHASE1_FAST", "ROUTE_PHASE1_REPLAY"]
+      "enum": [
+        "ROUTE_PHASE1_STANDARD",
+        "ROUTE_PHASE1_FAST",
+        "ROUTE_PHASE1_REPLAY"
+      ]
     },
-    "priority": {"type": "string", "enum": ["low", "medium", "high"]},
-    "notes": {"type": "string"},
-    "status": {"type": "string", "enum": ["created", "validated", "rejected", "replayed"]},
-    "created_at": {"type": "string", "format": "date-time"}
+    "priority": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ]
+    },
+    "notes": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "CREATED",
+        "SUCCESS",
+        "FAILURE",
+        "PENDING",
+        "RETRY",
+        "RECOVERED",
+        "ESCALATED",
+        "EMITTED"
+      ]
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    }
   },
-  "additionalProperties": false
+  "additionalProperties": true
 }

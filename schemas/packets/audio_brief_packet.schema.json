@@ -16,23 +16,26 @@
   "properties": {
     "instance_id": {
       "type": "string",
-      "pattern": "^ABP-[0-9]+$"
+      "pattern": "^[A-Za-z0-9_-]{1,128}$",
+      "minLength": 1
     },
     "artifact_family": {
       "type": "string",
-      "enum": ["audio_brief_packet"]
+      "enum": [
+        "audio_brief_packet"
+      ]
     },
     "schema_version": {
       "type": "string",
-      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+      "pattern": "^[0-9]+(.[0-9]+)*$"
     },
     "producer_workflow": {
       "type": "string",
-      "enum": ["SE-N8N-CWF-430-Audio-Brief-Builder"]
+      "pattern": "^(WF|CWF)-[A-Z0-9-]+$"
     },
     "dossier_ref": {
       "type": "string",
-      "pattern": "^[a-zA-Z0-9-]+$"
+      "minLength": 1
     },
     "created_at": {
       "type": "string",
@@ -40,292 +43,22 @@
     },
     "status": {
       "type": "string",
-      "enum": ["CREATED", "VALIDATED", "FAILED"]
+      "enum": [
+        "CREATED",
+        "SUCCESS",
+        "FAILURE",
+        "PENDING",
+        "RETRY",
+        "RECOVERED",
+        "ESCALATED",
+        "EMITTED"
+      ]
     },
     "payload": {
       "type": "object",
-      "required": ["narrative", "context", "evidence", "quality", "status"],
-      "properties": {
-        "narrative": {
-          "type": "object",
-          "required": [
-            "annotated_script",
-            "total_word_count",
-            "reading_pace_wpm"
-          ],
-          "properties": {
-            "annotated_script": {
-              "type": "object",
-              "required": ["hook", "body", "closing"],
-              "properties": {
-                "hook": {
-                  "type": "string",
-                  "minLength": 10,
-                  "maxLength": 2000,
-                  "description": "Hook with [breath] and **emphasis** markers"
-                },
-                "body": {
-                  "type": "string",
-                  "minLength": 20,
-                  "maxLength": 10000,
-                  "description": "Body with [breath] and **emphasis** markers"
-                },
-                "closing": {
-                  "type": "string",
-                  "minLength": 10,
-                  "maxLength": 2000,
-                  "description": "Closing with [breath] and **emphasis** markers"
-                }
-              }
-            },
-            "total_word_count": {
-              "type": "integer",
-              "minimum": 50,
-              "maximum": 5000
-            },
-            "reading_pace_wpm": {
-              "type": "integer",
-              "minimum": 140,
-              "maximum": 180,
-              "description": "Words per minute reading pace"
-            }
-          }
-        },
-        "context": {
-          "type": "object",
-          "required": [
-            "sourced_from_script_packet_id",
-            "sourced_from_visual_packet_id",
-            "source_tone"
-          ],
-          "properties": {
-            "sourced_from_script_packet_id": {
-              "type": "string",
-              "pattern": "^FSP-[0-9]+$"
-            },
-            "sourced_from_visual_packet_id": {
-              "type": "string",
-              "pattern": "^VASP-[0-9]+$"
-            },
-            "source_tone": {
-              "type": "string",
-              "enum": [
-                "educational",
-                "entertaining",
-                "urgent",
-                "inspirational"
-              ]
-            }
-          }
-        },
-        "evidence": {
-          "type": "object",
-          "required": [
-            "timing_alignment",
-            "voice_direction",
-            "phonetic_notes"
-          ],
-          "properties": {
-            "timing_alignment": {
-              "type": "array",
-              "minItems": 3,
-              "maxItems": 3,
-              "items": {
-                "type": "object",
-                "required": [
-                  "section",
-                  "visual_duration",
-                  "script_word_count",
-                  "calculated_audio_duration",
-                  "alignment_status"
-                ],
-                "properties": {
-                  "section": {
-                    "type": "string",
-                    "enum": ["hook", "body", "closing"]
-                  },
-                  "visual_duration": {
-                    "type": "string",
-                    "pattern": "^[0-9]+(\\.[0-9]+)?$|^[0-9]+-[0-9]+$"
-                  },
-                  "script_word_count": {
-                    "type": "integer",
-                    "minimum": 1
-                  },
-                  "calculated_audio_duration": {
-                    "type": "number",
-                    "minimum": 1
-                  },
-                  "alignment_status": {
-                    "type": "string",
-                    "enum": ["matched", "tight", "loose"]
-                  }
-                }
-              }
-            },
-            "voice_direction": {
-              "type": "object",
-              "required": [
-                "overall_tone",
-                "pacing",
-                "emphasis_points",
-                "emotional_beats"
-              ],
-              "properties": {
-                "overall_tone": {
-                  "type": "string",
-                  "enum": [
-                    "friendly",
-                    "authoritative",
-                    "urgent",
-                    "inspirational"
-                  ]
-                },
-                "pacing": {
-                  "type": "string",
-                  "enum": ["brisk", "moderate", "measured"]
-                },
-                "emphasis_points": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "required": [
-                      "claim",
-                      "emphasis_type",
-                      "position_in_script"
-                    ],
-                    "properties": {
-                      "claim": {
-                        "type": "string",
-                        "minLength": 5
-                      },
-                      "emphasis_type": {
-                        "type": "string",
-                        "enum": [
-                          "voice_rise",
-                          "dramatic_pause",
-                          "repetition"
-                        ]
-                      },
-                      "position_in_script": {
-                        "type": "number",
-                        "minimum": 0
-                      }
-                    }
-                  }
-                },
-                "emotional_beats": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "required": ["moment", "emotional_shift"],
-                    "properties": {
-                      "moment": {
-                        "type": "string",
-                        "enum": [
-                          "hook",
-                          "transition",
-                          "climax",
-                          "closing"
-                        ]
-                      },
-                      "emotional_shift": {
-                        "type": "string",
-                        "minLength": 10
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "phonetic_notes": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "required": ["term", "pronunciation"],
-                "properties": {
-                  "term": {
-                    "type": "string",
-                    "minLength": 1,
-                    "maxLength": 100
-                  },
-                  "pronunciation": {
-                    "type": "string",
-                    "minLength": 1,
-                    "maxLength": 200
-                  },
-                  "alternate_options": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "quality": {
-          "type": "object",
-          "required": [
-            "timing_accuracy",
-            "pacing_suitability",
-            "voice_direction_clarity",
-            "phonetic_coverage"
-          ],
-          "properties": {
-            "timing_accuracy": {
-              "type": "number",
-              "minimum": 0,
-              "maximum": 1
-            },
-            "pacing_suitability": {
-              "type": "number",
-              "minimum": 0,
-              "maximum": 1
-            },
-            "voice_direction_clarity": {
-              "type": "number",
-              "minimum": 0,
-              "maximum": 1
-            },
-            "phonetic_coverage": {
-              "type": "number",
-              "minimum": 0,
-              "maximum": 1
-            }
-          }
-        },
-        "status": {
-          "type": "object",
-          "required": [
-            "audio_script_optimized",
-            "timing_aligned",
-            "voice_direction_complete",
-            "next_stage",
-            "decision"
-          ],
-          "properties": {
-            "audio_script_optimized": {
-              "type": "boolean"
-            },
-            "timing_aligned": {
-              "type": "boolean"
-            },
-            "voice_direction_complete": {
-              "type": "boolean"
-            },
-            "next_stage": {
-              "type": "string",
-              "enum": ["CWF-440"]
-            },
-            "decision": {
-              "type": "string",
-              "enum": ["PROCEED_TO_MEDIA_FINALIZATION"]
-            }
-          }
-        }
-      }
+      "minProperties": 1,
+      "additionalProperties": true
     }
-  }
+  },
+  "additionalProperties": true
 }

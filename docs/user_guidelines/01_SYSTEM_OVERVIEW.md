@@ -59,14 +59,14 @@ Shadow Creator OS is built in 5 layers:
    - Operational modes: alert_mode, troubleshoot_mode, analysis_dashboard_mode, self_learning_mode, replay_mode, safe_mode, debug_mode, context_engineering_mode
    - Contains: mode_id, governance_level, data_flow, nesting_rules, hard_non_overridables
 
-3. **skill_registry.yaml** — Lists all 75 skills
-   - Categories: topic_intelligence (6), research (4), script_generation (5), script_refinement (3), context_media (4), system_operations (3)
-   - Contains: skill_id, skill_name, purpose, inputs, outputs, escalation_path
+3. **skill_registry.yaml** — Lists all 218 canonical skills (M-001 through M-245)
+   - Architecture note: scope expanded beyond the initial 75-skill plan during build to support full Phase-1 director-coverage with reusable atomic skills.
+   - Veins: discovery_vein, script_vein, context_vein, analytics_vein, etc.
+   - Contains: skill_id, skill_name, file_path, phase_assignment, vein_assignment, status
 
-4. **director_registry.yaml** — Defines 7 directors
-   - YAMA (policy enforcement)
-   - KUBERA (budget governance)
-   - Topic Director, Research Director, Script Director, Context Director, Media Director
+4. **director_binding.yaml** — Defines 30 directors
+   - Original 7 governance authorities (YAMA, KUBERA, plus 5 domain directors) preserved.
+   - Architecture note: expanded to 30 directors covering Phase-1 through Phase-6 governance, observability, learning, and safety.
    - Contains: director_id, role, veto_conditions, escalation_path
 
 5. **workflow_registry.yaml** — Lists all 31 workflows

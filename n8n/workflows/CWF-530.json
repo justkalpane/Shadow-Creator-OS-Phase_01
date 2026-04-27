@@ -2,8 +2,58 @@
   "name": "CWF-530 Publish Readiness Checker Canonical",
   "description": "Final readiness verification before publishing to live channels.",
   "nodes": [
-    {"parameters": {}, "id": "trigger", "name": "Trigger", "type": "n8n-nodes-base.manualTrigger", "typeVersion": 1, "position": [200, 300]},
-    {"parameters": {"jsCode": "const readiness = {instance_id: 'READY-' + Date.now(), artifact_family: 'publish_ready_packet', schema_version: '1.0.0', producer_workflow: 'CWF-530', dossier_ref: $json.dossier_id, created_at: new Date().toISOString(), status: 'CREATED', payload: {publish_readiness_verified: true, all_assets_present: true, metadata_complete: true, schedule_confirmed: true, governance_approved: true, quality_certification: 'PASS', compliance_checklist: {content_review: true, brand_alignment: true, legal_compliance: true, accessibility_verified: true}, final_approval_status: 'APPROVED_FOR_PUBLISHING'}};\nreturn [{ json: { ...$json, cwf530_result: { status: 'COMPLETED', publish_ready_packet: readiness } } }];"}, "id": "builder", "name": "Builder", "type": "n8n-nodes-base.code", "typeVersion": 2, "position": [420, 300]}
+    {
+      "parameters": {},
+      "id": "trigger",
+      "name": "Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        200,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const readiness = {instance_id: 'READY-' + Date.now(), artifact_family: 'publish_ready_packet', schema_version: '1.0.0', producer_workflow: 'CWF-530', dossier_ref: $json.dossier_id, created_at: new Date().toISOString(), status: 'CREATED', payload: {publish_readiness_verified: true, all_assets_present: true, metadata_complete: true, schedule_confirmed: true, governance_approved: true, quality_certification: 'PASS', compliance_checklist: {content_review: true, brand_alignment: true, legal_compliance: true, accessibility_verified: true}, final_approval_status: 'APPROVED_FOR_PUBLISHING'}};\nreturn [{ json: { ...$json, cwf530_result: { status: 'COMPLETED', publish_ready_packet: readiness } } }];"
+      },
+      "id": "builder",
+      "name": "Builder",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        420,
+        300
+      ]
+    }
   ],
-  "connections": {"Trigger": {"main": [[{"node": "Builder", "type": "main", "index": 0}]]}, "Builder": {"main": [[]]}}
+  "connections": {
+    "Trigger": {
+      "main": [
+        [
+          {
+            "node": "Builder",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Builder": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "meta": {
+    "workflow_id": "CWF-530",
+    "phase": "phase5",
+    "vein": "publishing_vein",
+    "purpose": "Post-publish verification (deferred).",
+    "implementation_depth": "phase_deferred_stub",
+    "owner_director": "narada",
+    "next_workflow": "WF-600",
+    "canonical_file": "n8n/workflows/CWF-530.json",
+    "wf900_error_route": "WF-900"
+  }
 }
