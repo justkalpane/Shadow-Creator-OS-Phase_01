@@ -1,6 +1,6 @@
 {
   "dossier_id": "TEST-E2E-003",
-  "_version": 6,
+  "_version": 10,
   "_created_at": "2026-04-26T17:12:09.796Z",
   "_audit_trail": [
     {
@@ -110,6 +110,78 @@
       "instance_id": "PKT-1777308281229-89985b8c",
       "schema_version": "1.0.0",
       "lineage_reference": "CHAIN-184708e4"
+    },
+    {
+      "mutation_id": "MUT-71e545c8",
+      "timestamp": "2026-04-27T17:13:31.623Z",
+      "workflow_id": "CWF-110-topic-discovery",
+      "operation": "DIRECTOR_RUNTIME_EXECUTION",
+      "namespace": "discovery",
+      "mutation_type": "append_to_array",
+      "target_path": "namespaces.discovery.CWF-110-topic-discovery.packets",
+      "owner_workflow": "discovery_vein",
+      "version_before": 6,
+      "version_after": 7,
+      "lineage_intact": true,
+      "writer_id": "CWF-110-topic-discovery",
+      "skill_id": "M-001",
+      "instance_id": "PKT-1777310011622-hcr7j7sw",
+      "schema_version": "1.0.0",
+      "lineage_reference": "CHAIN-184708e4"
+    },
+    {
+      "mutation_id": "MUT-98b549a2",
+      "timestamp": "2026-04-27T17:14:24.509Z",
+      "workflow_id": "CWF-110-topic-discovery",
+      "operation": "DIRECTOR_RUNTIME_EXECUTION",
+      "namespace": "discovery",
+      "mutation_type": "append_to_array",
+      "target_path": "namespaces.discovery.CWF-110-topic-discovery.packets",
+      "owner_workflow": "discovery_vein",
+      "version_before": 7,
+      "version_after": 8,
+      "lineage_intact": true,
+      "writer_id": "CWF-110-topic-discovery",
+      "skill_id": "M-001",
+      "instance_id": "PKT-1777310064509-opoy0xz6",
+      "schema_version": "1.0.0",
+      "lineage_reference": "CHAIN-184708e4"
+    },
+    {
+      "mutation_id": "MUT-344ff99e",
+      "timestamp": "2026-04-27T17:14:29.721Z",
+      "workflow_id": "CWF-110-topic-discovery",
+      "operation": "DIRECTOR_RUNTIME_EXECUTION",
+      "namespace": "discovery",
+      "mutation_type": "append_to_array",
+      "target_path": "namespaces.discovery.CWF-110-topic-discovery.packets",
+      "owner_workflow": "discovery_vein",
+      "version_before": 8,
+      "version_after": 9,
+      "lineage_intact": true,
+      "writer_id": "CWF-110-topic-discovery",
+      "skill_id": "M-001",
+      "instance_id": "PKT-1777310069720-yoo88dz4",
+      "schema_version": "1.0.0",
+      "lineage_reference": "CHAIN-184708e4"
+    },
+    {
+      "mutation_id": "MUT-cbbe83b0",
+      "timestamp": "2026-04-27T18:11:30.911Z",
+      "workflow_id": "CWF-110-topic-discovery",
+      "operation": "DIRECTOR_RUNTIME_EXECUTION",
+      "namespace": "discovery",
+      "mutation_type": "append_to_array",
+      "target_path": "namespaces.discovery.CWF-110-topic-discovery.packets",
+      "owner_workflow": "discovery_vein",
+      "version_before": 9,
+      "version_after": 10,
+      "lineage_intact": true,
+      "writer_id": "CWF-110-topic-discovery",
+      "skill_id": "M-001",
+      "instance_id": "PKT-1777313490909-1pv7p7eu",
+      "schema_version": "1.0.0",
+      "lineage_reference": "CHAIN-184708e4"
     }
   ],
   "namespaces": {
@@ -157,6 +229,34 @@
             "chain_id": "CHAIN-184708e4",
             "completed_skills": 12,
             "created_at": "2026-04-27T16:44:41.229Z"
+          },
+          {
+            "packet_id": "PKT-1777310011622-hcr7j7sw",
+            "artifact_family": "m010_packet",
+            "chain_id": "CHAIN-184708e4",
+            "completed_skills": 12,
+            "created_at": "2026-04-27T17:13:31.622Z"
+          },
+          {
+            "packet_id": "PKT-1777310064509-opoy0xz6",
+            "artifact_family": "m010_packet",
+            "chain_id": "CHAIN-184708e4",
+            "completed_skills": 12,
+            "created_at": "2026-04-27T17:14:24.509Z"
+          },
+          {
+            "packet_id": "PKT-1777310069720-yoo88dz4",
+            "artifact_family": "m010_packet",
+            "chain_id": "CHAIN-184708e4",
+            "completed_skills": 12,
+            "created_at": "2026-04-27T17:14:29.720Z"
+          },
+          {
+            "packet_id": "PKT-1777313490909-1pv7p7eu",
+            "artifact_family": "m010_packet",
+            "chain_id": "CHAIN-184708e4",
+            "completed_skills": 12,
+            "created_at": "2026-04-27T18:11:30.909Z"
           }
         ]
       }

@@ -1,6 +1,6 @@
 {
   "dossier_id": "PHASE4-TEST-003",
-  "_version": 1,
+  "_version": 2,
   "_created_at": "2026-04-26T17:18:27.749Z",
   "_audit_trail": [
     {
@@ -20,6 +20,24 @@
       "instance_id": "PKT-1777223907749-rpvbt2k8",
       "schema_version": "1.0.0",
       "lineage_reference": "CHAIN-386e00e2"
+    },
+    {
+      "mutation_id": "MUT-91236f5f",
+      "timestamp": "2026-04-27T18:14:10.124Z",
+      "workflow_id": "CWF-510-platform-metadata-generator",
+      "operation": "DIRECTOR_RUNTIME_EXECUTION",
+      "namespace": "publishing",
+      "mutation_type": "append_to_array",
+      "target_path": "namespaces.publishing.CWF-510-platform-metadata-generator.packets",
+      "owner_workflow": "publishing_vein",
+      "version_before": 1,
+      "version_after": 2,
+      "lineage_intact": true,
+      "writer_id": "CWF-510-platform-metadata-generator",
+      "skill_id": "D-501",
+      "instance_id": "PKT-1777313650124-c9uilgpa",
+      "schema_version": "1.0.0",
+      "lineage_reference": "CHAIN-386e00e2"
     }
   ],
   "namespaces": {
@@ -32,6 +50,13 @@
             "chain_id": "CHAIN-386e00e2",
             "completed_skills": 1,
             "created_at": "2026-04-26T17:18:27.749Z"
+          },
+          {
+            "packet_id": "PKT-1777313650124-c9uilgpa",
+            "artifact_family": "m510_packet",
+            "chain_id": "CHAIN-386e00e2",
+            "completed_skills": 1,
+            "created_at": "2026-04-27T18:14:10.124Z"
           }
         ]
       }

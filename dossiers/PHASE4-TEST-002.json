@@ -1,6 +1,6 @@
 {
   "dossier_id": "PHASE4-TEST-002",
-  "_version": 1,
+  "_version": 2,
   "_created_at": "2026-04-26T17:18:27.731Z",
   "_audit_trail": [
     {
@@ -20,6 +20,24 @@
       "instance_id": "PKT-1777223907731-gtt8kak9",
       "schema_version": "1.0.0",
       "lineage_reference": "CHAIN-d8de540e"
+    },
+    {
+      "mutation_id": "MUT-590b66c0",
+      "timestamp": "2026-04-27T18:14:10.099Z",
+      "workflow_id": "CWF-410-thumbnail-generator",
+      "operation": "DIRECTOR_RUNTIME_EXECUTION",
+      "namespace": "media",
+      "mutation_type": "append_to_array",
+      "target_path": "namespaces.media.CWF-410-thumbnail-generator.packets",
+      "owner_workflow": "media_vein",
+      "version_before": 1,
+      "version_after": 2,
+      "lineage_intact": true,
+      "writer_id": "CWF-410-thumbnail-generator",
+      "skill_id": "A-401",
+      "instance_id": "PKT-1777313650099-kodv2o92",
+      "schema_version": "1.0.0",
+      "lineage_reference": "CHAIN-d8de540e"
     }
   ],
   "namespaces": {
@@ -32,6 +50,13 @@
             "chain_id": "CHAIN-d8de540e",
             "completed_skills": 1,
             "created_at": "2026-04-26T17:18:27.731Z"
+          },
+          {
+            "packet_id": "PKT-1777313650099-kodv2o92",
+            "artifact_family": "m410_packet",
+            "chain_id": "CHAIN-d8de540e",
+            "completed_skills": 1,
+            "created_at": "2026-04-27T18:14:10.099Z"
           }
         ]
       }

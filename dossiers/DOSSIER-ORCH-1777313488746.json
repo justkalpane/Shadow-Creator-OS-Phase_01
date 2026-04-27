@@ -1,0 +1,251 @@
+{
+  "dossier_id": "DOSSIER-ORCH-1777313488746",
+  "_version": 8,
+  "_created_at": "2026-04-27T18:11:28.898Z",
+  "_audit_trail": [
+    {
+      "mutation_id": "MUT-9e06fd09",
+      "timestamp": "2026-04-27T18:11:28.897Z",
+      "workflow_id": "CWF-110-topic-discovery",
+      "operation": "DIRECTOR_RUNTIME_EXECUTION",
+      "namespace": "discovery",
+      "mutation_type": "append_to_array",
+      "target_path": "namespaces.discovery.CWF-110-topic-discovery.packets",
+      "owner_workflow": "discovery_vein",
+      "version_before": 0,
+      "version_after": 1,
+      "lineage_intact": true,
+      "writer_id": "CWF-110-topic-discovery",
+      "skill_id": "M-001",
+      "instance_id": "PKT-1777313488891-xwm1u1pr",
+      "schema_version": "1.0.0",
+      "lineage_reference": "CHAIN-b8a0c570"
+    },
+    {
+      "mutation_id": "MUT-1c79eeee",
+      "timestamp": "2026-04-27T18:11:28.944Z",
+      "workflow_id": "CWF-120-topic-qualification",
+      "operation": "DIRECTOR_RUNTIME_EXECUTION",
+      "namespace": "qualification",
+      "mutation_type": "append_to_array",
+      "target_path": "namespaces.qualification.CWF-120-topic-qualification.packets",
+      "owner_workflow": "qualification_vein",
+      "version_before": 1,
+      "version_after": 2,
+      "lineage_intact": true,
+      "writer_id": "CWF-120-topic-qualification",
+      "skill_id": "M-008",
+      "instance_id": "PKT-1777313488943-o4a0asaq",
+      "schema_version": "1.0.0",
+      "lineage_reference": "CHAIN-4e88c0de"
+    },
+    {
+      "mutation_id": "MUT-ef013106",
+      "timestamp": "2026-04-27T18:11:28.982Z",
+      "workflow_id": "CWF-130-topic-scoring",
+      "operation": "DIRECTOR_RUNTIME_EXECUTION",
+      "namespace": "scoring",
+      "mutation_type": "append_to_array",
+      "target_path": "namespaces.scoring.CWF-130-topic-scoring.packets",
+      "owner_workflow": "scoring_vein",
+      "version_before": 2,
+      "version_after": 3,
+      "lineage_intact": true,
+      "writer_id": "CWF-130-topic-scoring",
+      "skill_id": "M-008",
+      "instance_id": "PKT-1777313488981-iqbk8ywi",
+      "schema_version": "1.0.0",
+      "lineage_reference": "CHAIN-e22d0ccc"
+    },
+    {
+      "mutation_id": "MUT-29f2dedb",
+      "timestamp": "2026-04-27T18:11:29.027Z",
+      "workflow_id": "CWF-140-research-synthesis",
+      "operation": "DIRECTOR_RUNTIME_EXECUTION",
+      "namespace": "research",
+      "mutation_type": "append_to_array",
+      "target_path": "namespaces.research.CWF-140-research-synthesis.packets",
+      "owner_workflow": "research_vein",
+      "version_before": 3,
+      "version_after": 4,
+      "lineage_intact": true,
+      "writer_id": "CWF-140-research-synthesis",
+      "skill_id": "M-009",
+      "instance_id": "PKT-1777313489026-dy6fwr2m",
+      "schema_version": "1.0.0",
+      "lineage_reference": "CHAIN-da0ae1d6"
+    },
+    {
+      "mutation_id": "MUT-4d847cce",
+      "timestamp": "2026-04-27T18:11:29.057Z",
+      "workflow_id": "CWF-210-script-generation",
+      "operation": "DIRECTOR_RUNTIME_EXECUTION",
+      "namespace": "script",
+      "mutation_type": "append_to_array",
+      "target_path": "namespaces.script.CWF-210-script-generation.packets",
+      "owner_workflow": "narrative_vein",
+      "version_before": 4,
+      "version_after": 5,
+      "lineage_intact": true,
+      "writer_id": "CWF-210-script-generation",
+      "skill_id": "M-031",
+      "instance_id": "PKT-1777313489056-733x9kqp",
+      "schema_version": "1.0.0",
+      "lineage_reference": "CHAIN-61dc75f2"
+    },
+    {
+      "mutation_id": "MUT-6ee317b5",
+      "timestamp": "2026-04-27T18:11:29.085Z",
+      "workflow_id": "CWF-220-script-debate",
+      "operation": "DIRECTOR_RUNTIME_EXECUTION",
+      "namespace": "script",
+      "mutation_type": "append_to_array",
+      "target_path": "namespaces.script.CWF-220-script-debate.packets",
+      "owner_workflow": "narrative_vein",
+      "version_before": 5,
+      "version_after": 6,
+      "lineage_intact": true,
+      "writer_id": "CWF-220-script-debate",
+      "skill_id": "M-033",
+      "instance_id": "PKT-1777313489084-crix3zbh",
+      "schema_version": "1.0.0",
+      "lineage_reference": "CHAIN-160f54fd"
+    },
+    {
+      "mutation_id": "MUT-322a9c92",
+      "timestamp": "2026-04-27T18:11:29.113Z",
+      "workflow_id": "CWF-230-script-refinement",
+      "operation": "DIRECTOR_RUNTIME_EXECUTION",
+      "namespace": "script",
+      "mutation_type": "append_to_array",
+      "target_path": "namespaces.script.CWF-230-script-refinement.packets",
+      "owner_workflow": "narrative_vein",
+      "version_before": 6,
+      "version_after": 7,
+      "lineage_intact": true,
+      "writer_id": "CWF-230-script-refinement",
+      "skill_id": "M-035",
+      "instance_id": "PKT-1777313489112-947qlc6r",
+      "schema_version": "1.0.0",
+      "lineage_reference": "CHAIN-c56287a4"
+    },
+    {
+      "mutation_id": "MUT-e212f6e3",
+      "timestamp": "2026-04-27T18:11:29.146Z",
+      "workflow_id": "CWF-240-final-script-shaping",
+      "operation": "DIRECTOR_RUNTIME_EXECUTION",
+      "namespace": "script",
+      "mutation_type": "append_to_array",
+      "target_path": "namespaces.script.CWF-240-final-script-shaping.packets",
+      "owner_workflow": "narrative_vein",
+      "version_before": 7,
+      "version_after": 8,
+      "lineage_intact": true,
+      "writer_id": "CWF-240-final-script-shaping",
+      "skill_id": "M-039",
+      "instance_id": "PKT-1777313489145-3x3ogd1l",
+      "schema_version": "1.0.0",
+      "lineage_reference": "CHAIN-c19f9572"
+    }
+  ],
+  "namespaces": {
+    "discovery": {
+      "CWF-110-topic-discovery": {
+        "packets": [
+          {
+            "packet_id": "PKT-1777313488891-xwm1u1pr",
+            "artifact_family": "m010_packet",
+            "chain_id": "CHAIN-b8a0c570",
+            "completed_skills": 12,
+            "created_at": "2026-04-27T18:11:28.891Z"
+          }
+        ]
+      }
+    },
+    "qualification": {
+      "CWF-120-topic-qualification": {
+        "packets": [
+          {
+            "packet_id": "PKT-1777313488943-o4a0asaq",
+            "artifact_family": "m020_packet",
+            "chain_id": "CHAIN-4e88c0de",
+            "completed_skills": 3,
+            "created_at": "2026-04-27T18:11:28.943Z"
+          }
+        ]
+      }
+    },
+    "scoring": {
+      "CWF-130-topic-scoring": {
+        "packets": [
+          {
+            "packet_id": "PKT-1777313488981-iqbk8ywi",
+            "artifact_family": "m040_packet",
+            "chain_id": "CHAIN-e22d0ccc",
+            "completed_skills": 2,
+            "created_at": "2026-04-27T18:11:28.981Z"
+          }
+        ]
+      }
+    },
+    "research": {
+      "CWF-140-research-synthesis": {
+        "packets": [
+          {
+            "packet_id": "PKT-1777313489026-dy6fwr2m",
+            "artifact_family": "m080_packet",
+            "chain_id": "CHAIN-da0ae1d6",
+            "completed_skills": 7,
+            "created_at": "2026-04-27T18:11:29.026Z"
+          }
+        ]
+      }
+    },
+    "script": {
+      "CWF-210-script-generation": {
+        "packets": [
+          {
+            "packet_id": "PKT-1777313489056-733x9kqp",
+            "artifact_family": "m120_packet",
+            "chain_id": "CHAIN-61dc75f2",
+            "completed_skills": 2,
+            "created_at": "2026-04-27T18:11:29.056Z"
+          }
+        ]
+      },
+      "CWF-220-script-debate": {
+        "packets": [
+          {
+            "packet_id": "PKT-1777313489084-crix3zbh",
+            "artifact_family": "m150_packet",
+            "chain_id": "CHAIN-160f54fd",
+            "completed_skills": 2,
+            "created_at": "2026-04-27T18:11:29.084Z"
+          }
+        ]
+      },
+      "CWF-230-script-refinement": {
+        "packets": [
+          {
+            "packet_id": "PKT-1777313489112-947qlc6r",
+            "artifact_family": "m180_packet",
+            "chain_id": "CHAIN-c56287a4",
+            "completed_skills": 4,
+            "created_at": "2026-04-27T18:11:29.112Z"
+          }
+        ]
+      },
+      "CWF-240-final-script-shaping": {
+        "packets": [
+          {
+            "packet_id": "PKT-1777313489145-3x3ogd1l",
+            "artifact_family": "m218_packet",
+            "chain_id": "CHAIN-c19f9572",
+            "completed_skills": 2,
+            "created_at": "2026-04-27T18:11:29.145Z"
+          }
+        ]
+      }
+    }
+  }
+}
