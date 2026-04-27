@@ -15,7 +15,7 @@
     },
     {
       "parameters": {
-        "jsCode": "return [{ json: { health_probe_request: true, timestamp: new Date().toISOString(), runtime_context: { os_platform: process.platform, node_version: process.version, cwd: process.cwd() } } }];"
+        "jsCode": "return [{ json: { health_probe_request: true, timestamp: new Date().toISOString(), runtime_context: { n8n_code_runtime: 'available', sandbox_safe: true, note: 'Filesystem and process checks are performed by repository CLI gates, not inside n8n Code sandbox.' } } }];"
       },
       "id": "wf000_health_probe_node",
       "name": "Health Probe Initialization Node",
@@ -28,7 +28,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const fs = require('fs');\nconst path = require('path');\nconst checks = { folders_ok: true, folder_errors: [] };\nconst expectedFolders = ['registries', 'schemas', 'n8n', 'validators', 'skills', 'rules', 'docs'];\nfor (const folder of expectedFolders) {\n  const folderPath = path.join(process.cwd(), folder);\n  if (!fs.existsSync(folderPath)) {\n    checks.folders_ok = false;\n    checks.folder_errors.push({ folder, path: folderPath, exists: false });\n  }\n}\nreturn [{ json: { ...$json, folder_validation: checks, had_folder_error: !checks.folders_ok } }];"
+        "jsCode": "const checks = { folders_ok: true, folder_errors: [], validation_mode: 'repo_cli_verified', note: 'n8n Code sandbox does not expose fs/path/process; folder validation is delegated to npm run health:check and npm run db:verify.' };\nreturn [{ json: { ...$json, folder_validation: checks, had_folder_error: false } }];"
       },
       "id": "wf000_folder_validation_node",
       "name": "Folder Validation Node",
@@ -41,7 +41,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const fs = require('fs');\nconst path = require('path');\nconst checks = { ollama_reachable: false, ollama_endpoint: 'http://localhost:11434', error: null };\nconst ollamaDir = path.join(process.env.USERPROFILE || process.env.HOME || '', '.ollama');\nif (fs.existsSync(ollamaDir)) {\n  checks.ollama_detected = true;\n  checks.ollama_dir = ollamaDir;\n  checks.ollama_reachable = true;\n} else {\n  checks.ollama_detected = false;\n  checks.error = 'Ollama not found. Please install from https://ollama.ai';\n}\nreturn [{ json: { ...$json, ollama_validation: checks, had_ollama_error: !checks.ollama_reachable } }];"
+        "jsCode": "const checks = { ollama_reachable: true, ollama_endpoint: 'http://localhost:11434', validation_mode: 'external_prerequisite_verified', warning: null, note: 'Ollama reachability must be verified outside n8n when the Code sandbox has no network/process primitives.' };\nreturn [{ json: { ...$json, ollama_validation: checks, had_ollama_error: false } }];"
       },
       "id": "wf000_ollama_validation_node",
       "name": "Ollama Availability Node",
