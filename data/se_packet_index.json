@@ -573,8 +573,36 @@
         "operation": "create_new_index_row",
         "notes": "append packet row to se_packet_index"
       }
+    },
+    {
+      "index_entry_id": "IDX-f6a72bba",
+      "instance_id": "PKT-1777225396502-zvzyk3dv",
+      "artifact_family": "m010_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-110",
+      "dossier_ref": "TEST-E2E-003",
+      "packet_created_at": "2026-04-26T17:43:16.502Z",
+      "indexed_at": "2026-04-26T17:43:16.502Z",
+      "packet_status": "CREATED",
+      "next_workflow": null,
+      "escalation_needed": false,
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "timestamp": "2026-04-26T17:43:16.502Z",
+      "writer_id": "CWF-110",
+      "skill_id": "UNKNOWN_SKILL",
+      "schema_write_version": "1.0.0",
+      "lineage_reference": "PKT-1777225396502-zvzyk3dv",
+      "audit_entry": {
+        "workflow_id": "CWF-110",
+        "operation": "create_new_index_row",
+        "notes": "append packet row to se_packet_index"
+      }
     }
   ],
-  "total_entries": 28,
-  "last_updated": "2026-04-26T17:18:44.962Z"
+  "total_entries": 29,
+  "last_updated": "2026-04-26T17:43:16.502Z"
 }

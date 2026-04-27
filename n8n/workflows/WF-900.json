@@ -1,0 +1,155 @@
+{
+  "name": "WF-900 Error Handler Canonical",
+  "description": "Normalizes runtime failures, writes error events, and directs replay or remediation.",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "wf900_trigger_node",
+      "name": "Trigger Node",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [200, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ json: { ...$json, error_context: { error_received_at: new Date().toISOString(), dossier_id: $json.dossier_id || 'DOSSIER-UNSPECIFIED', source_workflow: $json.source_workflow || 'UNKNOWN' } } }];"
+      },
+      "id": "wf900_error_load_node",
+      "name": "Error Load Node",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [420, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ json: { ...$json, registry_lookup: { error_registry: 'registries/error_registry.yaml', workflow_registry: 'registries/workflow_registry.yaml', route_registry: 'registries/route_registry.yaml' } } }];"
+      },
+      "id": "wf900_registry_lookup_node",
+      "name": "Registry Lookup Node",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [640, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const sourceWorkflow = $json.source_workflow || 'UNKNOWN';\nconst errorMessage = $json.error_message || 'Unspecified error';\nconst errorFamily = $json.error_family || 'SE-P1-001';\nconst errorMapping = {\n  'SE-P1-001': { category: 'intake_error', replayable: false, manualReviewRequired: true, retryAllowed: false, suggestedTarget: 'WF-010' },\n  'SE-P1-002': { category: 'health_check_error', replayable: false, manualReviewRequired: true, retryAllowed: false, suggestedTarget: 'WF-000' },\n  'SE-P1-003': { category: 'orchestration_error', replayable: true, manualReviewRequired: false, retryAllowed: true, suggestedTarget: 'WF-010' },\n  'DEFAULT': { category: 'unknown_error', replayable: false, manualReviewRequired: true, retryAllowed: false, suggestedTarget: 'WF-010' }\n};\nconst mappedError = errorMapping[errorFamily] || errorMapping['DEFAULT'];\nconst remediationTarget = $json.replay_target_workflow || mappedError.suggestedTarget;\nreturn [{\n  json: {\n    ...$json,\n    error_resolution: {\n      error_family: errorFamily,\n      category: mappedError.category,\n      is_replayable: mappedError.replayable,\n      manual_review_required: mappedError.manualReviewRequired,\n      retry_allowed: mappedError.retryAllowed,\n      suggested_remediation_target: remediationTarget,\n      remediation_timestamp: new Date().toISOString()\n    }\n  }\n}];"
+      },
+      "id": "wf900_error_classification_node",
+      "name": "Error Classification Node",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [860, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "try {\n  const resolution = $json.error_resolution;\n  if (!resolution || !resolution.error_family) {\n    throw new Error('missing error resolution fields');\n  }\n  return [{ json: { ...$json, validation_status: 'SUCCESS', route_to_error: false } }];\n} catch (error) {\n  return [{ json: { ...$json, validation_status: 'FAILED', route_to_error: true, validation_error: String(error.message || error) } }];\n}"
+      },
+      "id": "wf900_resolution_validation_node",
+      "name": "Resolution Validation Node",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1080, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "if ($json.route_to_error) return [];\nreturn [{\n  json: {\n    ...$json,\n    se_error_events_write: {\n      operation: 'create_error_event',\n      error_id: 'ERR-' + Date.now(),\n      dossier_id: $json.dossier_id,\n      source_workflow: $json.source_workflow,\n      error_family: $json.error_resolution.error_family,\n      error_message: $json.error_message,\n      error_category: $json.error_resolution.category,\n      is_replayable: $json.error_resolution.is_replayable,\n      manual_review_required: $json.error_resolution.manual_review_required,\n      timestamp: new Date().toISOString(),\n      writeback_target: 'se_error_events'\n    }\n  }\n}];"
+      },
+      "id": "wf900_error_events_write_node",
+      "name": "se_error_events Write Node",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1300, 200]
+    },
+    {
+      "parameters": {
+        "jsCode": "if ($json.route_to_error) return [];\nif (!$json.error_resolution.is_replayable || $json.error_resolution.manual_review_required) return [];\nreturn [{\n  json: {\n    ...$json,\n    replay_instruction: {\n      operation: 'auto_replay',\n      target_workflow: $json.error_resolution.suggested_remediation_target,\n      replay_type: 'FROM_CHECKPOINT',\n      dossier_id: $json.dossier_id,\n      original_error_id: 'ERR-' + Date.now(),\n      replay_timestamp: new Date().toISOString()\n    }\n  }\n}];"
+      },
+      "id": "wf900_auto_replay_node",
+      "name": "Auto-Replay Decision Node",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1520, 100]
+    },
+    {
+      "parameters": {
+        "jsCode": "if ($json.route_to_error) return [];\nif ($json.error_resolution.is_replayable && !$json.error_resolution.manual_review_required) return [];\nreturn [{\n  json: {\n    ...$json,\n    se_approval_queue_write: {\n      operation: 'queue_for_approval',\n      dossier_id: $json.dossier_id,\n      approval_type: 'manual_error_review',\n      error_family: $json.error_resolution.error_family,\n      error_message: $json.error_message,\n      suggested_target: $json.error_resolution.suggested_remediation_target,\n      requires_founder_approval: $json.error_resolution.category === 'unknown_error',\n      queued_at: new Date().toISOString(),\n      writeback_target: 'se_approval_queue'\n    }\n  }\n}];"
+      },
+      "id": "wf900_approval_queue_write_node",
+      "name": "se_approval_queue Write Node",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1520, 320]
+    },
+    {
+      "parameters": {
+        "jsCode": "if ($json.route_to_error) return [];\nconst replayInstruction = $json.replay_instruction || null;\nconst requiresApproval = $json.se_approval_queue_write || null;\nlet nextWorkflow = 'WF-010';\nlet decision = 'MANUAL_REVIEW_REQUIRED';\nif (replayInstruction && replayInstruction.operation === 'auto_replay') {\n  nextWorkflow = replayInstruction.target_workflow;\n  decision = 'AUTO_REPLAY_SCHEDULED';\n}\nif (requiresApproval) {\n  nextWorkflow = 'WF-021';\n  decision = 'AWAITING_APPROVAL';\n}\nreturn [{\n  json: {\n    ...$json,\n    routing_decision: {\n      next_workflow: nextWorkflow,\n      decision: decision,\n      wf900_bound: true\n    }\n  }\n}];"
+      },
+      "id": "wf900_routing_decision_node",
+      "name": "Routing Decision Node",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1740, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "if (!$json.route_to_error) return [];\nreturn [{\n  json: {\n    workflow_id: 'WF-900',\n    routing_decision: 'FATAL_ERROR',\n    next_workflow: 'NONE',\n    error_message: $json.validation_error || 'WF-900 internal error',\n    manual_operator_review_required: true\n  }\n}];"
+      },
+      "id": "wf900_fatal_error_node",
+      "name": "Fatal Error Handler Node",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1080, 500]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{\n  json: {\n    workflow_id: 'WF-900',\n    execution_status: 'COMPLETE',\n    completion_packet: {\n      instance_id: 'WF-900-COMP-' + Date.now(),\n      artifact_family: 'error_resolution_packet',\n      schema_version: '1.0.0',\n      producer_workflow: 'WF-900',\n      dossier_ref: $json.dossier_id,\n      created_at: new Date().toISOString(),\n      status: 'CREATED',\n      payload: {\n        error_family: $json.error_resolution?.error_family || 'UNKNOWN',\n        resolution_type: $json.routing_decision?.decision || 'MANUAL_REVIEW_REQUIRED',\n        next_workflow: $json.routing_decision?.next_workflow || 'WF-010',\n        approval_required: $json.se_approval_queue_write ? true : false\n      }\n    }\n  }\n}];"
+      },
+      "id": "wf900_completion_packet_emission_node",
+      "name": "Completion Packet Emission Node",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1960, 300]
+    }
+  ],
+  "connections": {
+    "Trigger Node": {
+      "main": [[{ "node": "Error Load Node", "type": "main", "index": 0 }]]
+    },
+    "Error Load Node": {
+      "main": [[{ "node": "Registry Lookup Node", "type": "main", "index": 0 }]]
+    },
+    "Registry Lookup Node": {
+      "main": [[{ "node": "Error Classification Node", "type": "main", "index": 0 }]]
+    },
+    "Error Classification Node": {
+      "main": [[{ "node": "Resolution Validation Node", "type": "main", "index": 0 }]]
+    },
+    "Resolution Validation Node": {
+      "main": [
+        [{ "node": "se_error_events Write Node", "type": "main", "index": 0 }],
+        [{ "node": "Fatal Error Handler Node", "type": "main", "index": 0 }]
+      ]
+    },
+    "se_error_events Write Node": {
+      "main": [
+        [{ "node": "Auto-Replay Decision Node", "type": "main", "index": 0 }],
+        [{ "node": "se_approval_queue Write Node", "type": "main", "index": 0 }]
+      ]
+    },
+    "Auto-Replay Decision Node": {
+      "main": [[{ "node": "Routing Decision Node", "type": "main", "index": 0 }]]
+    },
+    "se_approval_queue Write Node": {
+      "main": [[{ "node": "Routing Decision Node", "type": "main", "index": 0 }]]
+    },
+    "Routing Decision Node": {
+      "main": [[{ "node": "Completion Packet Emission Node", "type": "main", "index": 0 }]]
+    },
+    "Fatal Error Handler Node": {
+      "main": [[]]
+    },
+    "Completion Packet Emission Node": {
+      "main": [[]]
+    }
+  }
+}

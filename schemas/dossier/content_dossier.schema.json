@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://shadow-empire.local/schemas/dossier/content_dossier.schema.json",
   "title": "Phase1ContentDossier",
-  "description": "Schema for content dossier management across workflow stages",
+  "description": "Schema for content dossier management across workflow stages with runtime state and trace tracking",
   "type": "object",
   "required": ["dossier_id", "route_id", "status", "namespaces"],
   "properties": {
@@ -14,7 +14,7 @@
     "route_id": {
       "type": "string",
       "pattern": "^[a-zA-Z0-9_-]{1,255}$",
-      "description": "Route identifier for workflow routing"
+      "description": "Route identifier for workflow routing (ROUTE_PHASE1_STANDARD, ROUTE_PHASE1_FAST, ROUTE_PHASE1_REPLAY)"
     },
     "status": {
       "type": "string",
@@ -23,7 +23,240 @@
     },
     "current_workflow": {
       "type": "string",
-      "description": "Current workflow stage identifier"
+      "description": "Current workflow stage identifier (WF-000, WF-001, CWF-110, etc.)"
+    },
+    "selected_model": {
+      "type": "string",
+      "description": "Currently active LLM model ID (ollama_local_llama3.2, openrouter_claude_opus, etc.)",
+      "default": "ollama_local_llama3.2"
+    },
+    "selected_mode": {
+      "type": "string",
+      "enum": ["creator", "builder", "operator", "founder", "alert_mode", "troubleshoot_mode", "analysis_dashboard_mode", "self_learning_mode", "replay_mode", "safe_mode", "debug_mode", "context_engineering_mode"],
+      "description": "Currently active user or operational mode",
+      "default": "creator"
+    },
+    "workflow_run_id": {
+      "type": "string",
+      "description": "Unique execution ID for current workflow run"
+    },
+    "n8n_workflow_id": {
+      "type": "string",
+      "description": "n8n workflow identifier for integration"
+    },
+    "gui_action_id": {
+      "type": "string",
+      "description": "UI action ID that triggered the most recent dossier update"
+    },
+    "alert_state": {
+      "type": "object",
+      "description": "State for alert_mode operations",
+      "properties": {
+        "alerts_active": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "alert_id": {"type": "string"},
+              "alert_type": {"type": "string", "enum": ["system_error", "cost_overrun", "policy_violation", "resource_constraint", "workflow_failure"]},
+              "severity": {"type": "string", "enum": ["info", "warning", "critical"]},
+              "message": {"type": "string"},
+              "created_at": {"type": "string", "format": "date-time"},
+              "acknowledged": {"type": "boolean"}
+            }
+          }
+        },
+        "acknowledged_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "last_escalation_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "replay_state": {
+      "type": "object",
+      "description": "State for replay_mode operations",
+      "properties": {
+        "checkpoint_stage": {
+          "type": "string",
+          "enum": ["discovery", "research", "script", "context", "approval"],
+          "description": "Workflow stage to replay from"
+        },
+        "checkpoint_dossier_version": {
+          "type": "integer",
+          "description": "Dossier version at checkpoint"
+        },
+        "replay_start_time": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "replay_target_workflow": {
+          "type": "string",
+          "description": "Workflow to resume execution at"
+        },
+        "rollback_enabled": {
+          "type": "boolean",
+          "default": true
+        }
+      }
+    },
+    "troubleshoot_state": {
+      "type": "object",
+      "description": "State for troubleshoot_mode operations",
+      "properties": {
+        "diagnostic_mode_active": {
+          "type": "boolean"
+        },
+        "last_error": {
+          "type": "object",
+          "properties": {
+            "error_code": {"type": "string"},
+            "error_message": {"type": "string"},
+            "workflow_context": {"type": "string"},
+            "timestamp": {"type": "string", "format": "date-time"}
+          }
+        },
+        "repair_attempts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "attempt_number": {"type": "integer"},
+              "action_taken": {"type": "string"},
+              "result": {"type": "string", "enum": ["success", "failure", "partial"]},
+              "timestamp": {"type": "string", "format": "date-time"}
+            }
+          }
+        },
+        "manual_state_edits_allowed": {
+          "type": "boolean"
+        }
+      }
+    },
+    "self_learning_state": {
+      "type": "object",
+      "description": "State for self_learning_mode operations",
+      "properties": {
+        "feedback_collected": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "feedback_id": {"type": "string"},
+              "category": {"type": "string", "enum": ["quality_feedback", "cost_optimization", "latency_reduction", "error_pattern_detection"]},
+              "signal_strength": {"type": "number", "minimum": 0, "maximum": 1},
+              "timestamp": {"type": "string", "format": "date-time"}
+            }
+          }
+        },
+        "model_tuning_applied": {
+          "type": "boolean"
+        },
+        "learning_cycle_count": {
+          "type": "integer"
+        },
+        "auto_tuning_confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
+      }
+    },
+    "model_routing_trace": {
+      "type": "array",
+      "description": "Audit trail of all model selection and fallback events",
+      "items": {
+        "type": "object",
+        "properties": {
+          "timestamp": {"type": "string", "format": "date-time"},
+          "workflow_id": {"type": "string"},
+          "model_selected": {"type": "string"},
+          "fallback_triggered": {"type": "boolean"},
+          "fallback_reason": {"type": "string"},
+          "cost_incurred_usd": {"type": "number", "minimum": 0},
+          "inference_tokens": {"type": "integer"},
+          "execution_time_ms": {"type": "integer"}
+        },
+        "required": ["timestamp", "model_selected"]
+      }
+    },
+    "mode_transition_trace": {
+      "type": "array",
+      "description": "Audit trail of mode transitions",
+      "items": {
+        "type": "object",
+        "properties": {
+          "from_mode": {"type": "string"},
+          "to_mode": {"type": "string"},
+          "timestamp": {"type": "string", "format": "date-time"},
+          "triggered_by": {"type": "string", "enum": ["user_action", "workflow_transition", "governance_gate", "error_handling", "automatic"]},
+          "trigger_workflow": {"type": "string"},
+          "nesting_allowed": {"type": "boolean"}
+        },
+        "required": ["from_mode", "to_mode", "timestamp", "triggered_by"]
+      }
+    },
+    "workflow_transition_trace": {
+      "type": "array",
+      "description": "Audit trail of workflow transitions through pipeline",
+      "items": {
+        "type": "object",
+        "properties": {
+          "from_workflow": {"type": "string"},
+          "to_workflow": {"type": "string"},
+          "timestamp": {"type": "string", "format": "date-time"},
+          "transition_reason": {"type": "string", "enum": ["completion", "approval", "replay", "error_recovery", "governance_gate", "manual_routing"]},
+          "packet_emitted": {"type": "string"},
+          "packet_id": {"type": "string"},
+          "route_used": {"type": "string"}
+        },
+        "required": ["from_workflow", "to_workflow", "timestamp"]
+      }
+    },
+    "dossier_delta_log": {
+      "type": "array",
+      "description": "Immutable audit trail of all dossier mutations following append-only pattern",
+      "items": {
+        "type": "object",
+        "properties": {
+          "delta_id": {"type": "string"},
+          "timestamp": {"type": "string", "format": "date-time"},
+          "namespace_owner": {"type": "string", "description": "Workflow that owns the namespace being mutated"},
+          "namespace_target": {"type": "string"},
+          "field_changed": {"type": "string"},
+          "old_value": {"description": "Previous value (can be any type)"},
+          "new_value": {"description": "New value (can be any type)"},
+          "mutation_type": {"type": "string", "enum": ["create", "append", "update", "delete"]},
+          "audit_id": {"type": "string"},
+          "writer_workflow": {"type": "string"},
+          "version_number": {"type": "integer"}
+        },
+        "required": ["delta_id", "timestamp", "namespace_owner", "mutation_type"]
+      }
+    },
+    "error_trace": {
+      "type": "array",
+      "description": "Chronological record of all errors encountered",
+      "items": {
+        "type": "object",
+        "properties": {
+          "error_id": {"type": "string"},
+          "timestamp": {"type": "string", "format": "date-time"},
+          "error_code": {"type": "string"},
+          "error_category": {"type": "string", "enum": ["validation_error", "runtime_error", "governance_error", "resource_error", "network_error", "unknown_error"]},
+          "error_message": {"type": "string"},
+          "workflow_context": {"type": "string"},
+          "affected_namespace": {"type": "string"},
+          "recovery_attempted": {"type": "boolean"},
+          "recovery_method": {"type": "string"},
+          "recovery_successful": {"type": "boolean"},
+          "routed_to_wf900": {"type": "boolean"}
+        },
+        "required": ["error_id", "timestamp", "error_code", "error_message"]
+      }
     },
     "namespaces": {
       "type": "object",
@@ -33,19 +266,81 @@
           "type": "object",
           "properties": {
             "created_at": {"type": "string", "format": "date-time"},
-            "updated_at": {"type": "string", "format": "date-time"}
+            "updated_at": {"type": "string", "format": "date-time"},
+            "dossier_version": {"type": "integer", "description": "Version number of dossier (incremented with each mutation)"},
+            "owner_workflow": {"type": "string", "description": "Workflow that initialized the dossier"}
           }
         },
-        "intake": {"type": "object"},
-        "discovery": {"type": "object"},
-        "research": {"type": "object"},
-        "script": {"type": "object"},
-        "context": {"type": "object"},
-        "approval": {"type": "object"},
-        "runtime": {"type": "object"},
-        "media": {"type": "object"},
-        "publishing": {"type": "object"},
-        "analytics": {"type": "object"}
+        "intake": {
+          "type": "object",
+          "description": "User intake information"
+        },
+        "discovery": {
+          "type": "object",
+          "description": "Topic discovery outputs"
+        },
+        "research": {
+          "type": "object",
+          "description": "Research synthesis outputs"
+        },
+        "script": {
+          "type": "object",
+          "description": "Script generation and refinement outputs"
+        },
+        "context": {
+          "type": "object",
+          "description": "Context engineering outputs"
+        },
+        "approval": {
+          "type": "object",
+          "description": "Approval workflow state"
+        },
+        "runtime": {
+          "type": "object",
+          "description": "Runtime execution state and metrics",
+          "properties": {
+            "metrics": {
+              "type": "object",
+              "properties": {
+                "workflow_latency_ms": {"type": "integer"},
+                "cost_per_dossier_usd": {"type": "number"},
+                "quality_scores": {"type": "object"},
+                "error_rates": {"type": "object"}
+              }
+            },
+            "cost_tracker": {
+              "type": "object",
+              "properties": {
+                "total_cost_usd": {"type": "number"},
+                "cost_by_model": {"type": "object"},
+                "kubera_budget_remaining_usd": {"type": "number"}
+              }
+            },
+            "policy_state": {
+              "type": "object",
+              "properties": {
+                "yama_violations": {"type": "array"},
+                "policy_gates_passed": {"type": "array"}
+              }
+            }
+          }
+        },
+        "media": {
+          "type": "object",
+          "description": "Media production outputs"
+        },
+        "publishing": {
+          "type": "object",
+          "description": "Publishing and distribution data"
+        },
+        "analytics": {
+          "type": "object",
+          "description": "Analytics and evolution signals"
+        },
+        "evolution": {
+          "type": "object",
+          "description": "Evolution signal storage for feedback loops"
+        }
       },
       "additionalProperties": false
     }

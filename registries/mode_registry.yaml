@@ -91,6 +91,219 @@ mode_definitions:
       - no_release_approval
       - no_policy_override
 
+  alert_mode:
+    class: operational_mode
+    human_facing_label: Alert Mode
+    description: >
+      Real-time alerts for system state changes, errors, cost overruns, policy violations.
+    purpose: "Operational awareness and incident response"
+    enabled_by_default: false
+    enable_requirements:
+      min_user_role: "operator"
+      requires_explicit_consent: true
+    governance:
+      alert_categories: ["system_error", "cost_overrun", "policy_violation", "resource_constraint", "workflow_failure"]
+      alert_routing: "alert_mode_handler_queue"
+      escalation_path: "yama_policy_authority"
+    data_flow:
+      reads: ["dossier.runtime.alerts", "dossier.runtime.cost_tracker", "dossier.runtime.policy_state"]
+      writes: ["dossier.runtime.alert_history", "dossier.runtime.alert_acknowledgment"]
+    nesting_rules:
+      can_nest_with: ["creator", "builder", "operator", "troubleshoot_mode", "analysis_dashboard_mode"]
+      cannot_nest_with: ["safe_mode"]
+    next_workflow: "WF-900-alert-handler"
+    validation_status: "READY_PHASE_2"
+    hard_non_overridables:
+      - alert_immutability
+      - escalation_path_enforcement
+
+  troubleshoot_mode:
+    class: operational_mode
+    human_facing_label: Troubleshoot Mode
+    description: >
+      Deep diagnostic mode for workflow failures, state corruption, n8n issues.
+    purpose: "Debugging and system repair"
+    enabled_by_default: false
+    enable_requirements:
+      min_user_role: "builder"
+      requires_explicit_consent: true
+    governance:
+      allowed_diagnostics: ["workflow_trace", "dossier_state_dump", "packet_history", "registry_consistency", "validator_output"]
+      repair_actions: ["rollback_dossier_version", "retry_workflow", "manual_packet_emit", "skip_workflow_node"]
+      max_repair_attempts: 3
+    data_flow:
+      reads: ["dossier.*", "dossier_delta_log", "packet_index", "workflow_trace"]
+      writes: ["dossier.troubleshoot_state", "troubleshoot_action_log"]
+    nesting_rules:
+      can_nest_with: ["operator", "alert_mode", "analysis_dashboard_mode"]
+      cannot_nest_with: ["safe_mode"]
+    next_workflow: "WF-910-troubleshoot-engine"
+    validation_status: "READY_PHASE_2"
+    hard_non_overridables:
+      - repair_audit_trail
+      - no_silent_mutations
+
+  analysis_dashboard_mode:
+    class: operational_mode
+    human_facing_label: Analysis Dashboard Mode
+    description: >
+      Real-time analytics, metrics, performance monitoring, trend analysis.
+    purpose: "System observability and performance optimization"
+    enabled_by_default: false
+    enable_requirements:
+      min_user_role: "operator"
+      requires_explicit_consent: false
+    governance:
+      metrics_tracked: ["workflow_latency", "cost_per_dossier", "quality_scores", "error_rates", "model_performance"]
+      dashboard_refresh_interval_ms: 5000
+      retention_days: 30
+    data_flow:
+      reads: ["dossier.runtime.metrics", "packet_index", "approval_queue"]
+      writes: ["dossier.runtime.analytics_state"]
+    nesting_rules:
+      can_nest_with: ["creator", "builder", "operator", "alert_mode", "troubleshoot_mode"]
+      cannot_nest_with: []
+    next_workflow: "WF-920-analytics-aggregator"
+    validation_status: "READY_PHASE_2"
+    hard_non_overridables:
+      - metric_accuracy
+      - retention_enforcement
+
+  self_learning_mode:
+    class: operational_mode
+    human_facing_label: Self-Learning Mode
+    description: >
+      Autonomous system learning: evaluation feedback, quality score adjustment, model fallback tuning.
+    purpose: "Continuous system improvement"
+    enabled_by_default: false
+    enable_requirements:
+      min_user_role: "founder"
+      requires_explicit_consent: true
+    governance:
+      learning_categories: ["quality_feedback", "cost_optimization", "latency_reduction", "error_pattern_detection"]
+      auto_apply_threshold: 0.95
+      manual_review_required_below: 0.85
+    data_flow:
+      reads: ["dossier.runtime.quality_evaluations", "packet_index"]
+      writes: ["dossier.runtime.learning_state", "model_performance_tuning"]
+    nesting_rules:
+      can_nest_with: ["analysis_dashboard_mode"]
+      cannot_nest_with: ["safe_mode", "troubleshoot_mode"]
+    next_workflow: "WF-930-learning-engine"
+    validation_status: "READY_PHASE_3"
+    hard_non_overridables:
+      - learning_audit_trail
+      - confidence_threshold_enforcement
+
+  replay_mode:
+    class: operational_mode
+    human_facing_label: Replay Mode
+    description: >
+      Rerun workflow stages from saved checkpoints (discovery, research, script, approval).
+    purpose: "Safe workflow re-execution and state recovery"
+    enabled_by_default: false
+    enable_requirements:
+      min_user_role: "operator"
+      requires_explicit_consent: true
+      requires_dossier_id: true
+    governance:
+      replayable_stages: ["discovery", "research", "script", "context", "approval"]
+      non_replayable: ["intake", "media_factory", "publishing"]
+      rollback_allowed: true
+      forward_resume_allowed: true
+    data_flow:
+      reads: ["dossier.runtime.checkpoint_state", "dossier_delta_log"]
+      writes: ["dossier.runtime.replay_state", "replay_action_log"]
+    nesting_rules:
+      can_nest_with: ["troubleshoot_mode"]
+      cannot_nest_with: ["self_learning_mode", "safe_mode"]
+    next_workflow: "WF-021-replay-remodify"
+    validation_status: "READY_PHASE_2"
+    hard_non_overridables:
+      - replay_stage_legality
+      - checkpoint_integrity
+
+  safe_mode:
+    class: operational_mode
+    human_facing_label: Safe Mode
+    description: >
+      Minimal runtime: local Ollama only, no cloud calls, no cost incurrence, no async operations.
+    purpose: "Guaranteed safe offline execution"
+    enabled_by_default: true
+    enable_requirements:
+      min_user_role: "creator"
+      requires_explicit_consent: false
+    governance:
+      allowed_models: ["ollama_local_llama3.2", "ollama_local_mistral"]
+      forbidden_models: ["all_cloud_models"]
+      forbidden_operations: ["api_calls", "async_tasks", "cost_incurrence"]
+      guaranteed_offline: true
+    data_flow:
+      reads: ["dossier.intake", "dossier.discovery"]
+      writes: ["dossier.script"]
+    nesting_rules:
+      can_nest_with: []
+      cannot_nest_with: ["alert_mode", "troubleshoot_mode", "self_learning_mode", "replay_mode"]
+    next_workflow: "WF-001-parent-orchestrator"
+    validation_status: "ACTIVE_PHASE_1"
+    hard_non_overridables:
+      - no_external_calls
+      - no_cost_incurrence
+      - local_only_enforcement
+
+  debug_mode:
+    class: operational_mode
+    human_facing_label: Debug Mode
+    description: >
+      Verbose logging, step-by-step execution with pause/resume, state inspection.
+    purpose: "Development and workflow debugging"
+    enabled_by_default: false
+    enable_requirements:
+      min_user_role: "builder"
+      requires_explicit_consent: false
+    governance:
+      log_level: "DEBUG"
+      trace_all_reads_writes: true
+      pause_on_error: true
+      allow_manual_state_edit: true
+    data_flow:
+      reads: ["dossier.*", "packet_index"]
+      writes: ["dossier.debug_state", "debug_log"]
+    nesting_rules:
+      can_nest_with: ["troubleshoot_mode", "analysis_dashboard_mode"]
+      cannot_nest_with: ["safe_mode"]
+    next_workflow: "WF-001-parent-orchestrator"
+    validation_status: "READY_PHASE_2"
+    hard_non_overridables:
+      - debug_log_immutability
+      - trace_completeness
+
+  context_engineering_mode:
+    class: operational_mode
+    human_facing_label: Context Engineering Mode
+    description: >
+      Advanced mode for tuning system prompts, director behaviors, skill injection parameters.
+    purpose: "Fine-grained system behavior customization"
+    enabled_by_default: false
+    enable_requirements:
+      min_user_role: "founder"
+      requires_explicit_consent: true
+    governance:
+      editable_contracts: ["director_bindings", "skill_injection_rules", "system_prompts", "governance_gates"]
+      requires_validation: true
+      rollback_available: true
+    data_flow:
+      reads: ["registries.director_binding", "registries.skill_registry"]
+      writes: ["dossier.context_engineering_state", "context_tuning_log"]
+    nesting_rules:
+      can_nest_with: ["debug_mode"]
+      cannot_nest_with: ["safe_mode"]
+    next_workflow: "WF-001-parent-orchestrator"
+    validation_status: "READY_PHASE_3"
+    hard_non_overridables:
+      - context_validation_enforcement
+      - rollback_availability
+
 runtime_modes:
   local:
     class: runtime_mode

@@ -1,0 +1,468 @@
+{
+  "registry_id": "ui_registry",
+  "schema_version": "1.0.0",
+  "created_at": "2026-04-27T00:00:00Z",
+  "status": "WAVE_5_CONTROL_PLANE_SCAFFOLD",
+  "canonical_authority": "Shadow Tribunal UI/UX Authority",
+  "description": "Canonical registry of all control-plane screens, components, and UI/UX contracts for Shadow Creator OS",
+
+  "scope": {
+    "phases_covered": ["Phase-1", "Phase-2+"],
+    "deployment_targets": ["local_web_dashboard", "cloud_dashboard", "cli_interface"],
+    "framework_recommendations": ["React", "Vue", "plain_HTML5_with_JS"],
+    "primary_mode": "web_dashboard_local_first"
+  },
+
+  "core_screens": {
+    "dashboard": {
+      "screen_id": "dashboard_main",
+      "title": "System Dashboard",
+      "description": "Primary control center: dossier overview, route selection, mode switching, workflow status",
+      "url_route": "/dashboard",
+      "role_access": ["creator", "builder", "operator", "founder"],
+      "key_components": [
+        "dossier_list_panel",
+        "recent_runs_timeline",
+        "mode_selector_widget",
+        "model_selector_widget",
+        "system_health_card",
+        "quick_actions_bar"
+      ],
+      "data_sources": ["se_dossier_index", "se_route_runs", "model_registry", "mode_registry"],
+      "refresh_interval_ms": 5000,
+      "responsive_breakpoints": ["mobile_320px", "tablet_768px", "desktop_1920px"],
+      "key_actions": ["create_new_dossier", "view_dossier_details", "switch_mode", "switch_model", "start_workflow"]
+    },
+
+    "mission_control": {
+      "screen_id": "mission_control_orchestrator",
+      "title": "Mission Control",
+      "description": "Real-time workflow orchestration: monitor running stages, view packet flow, control execution",
+      "url_route": "/mission-control",
+      "role_access": ["builder", "founder"],
+      "key_components": [
+        "workflow_orchestration_canvas",
+        "packet_flow_visualizer",
+        "stage_status_matrix",
+        "execution_timeline",
+        "interrupt_control_panel"
+      ],
+      "data_sources": ["se_route_runs", "se_packet_index", "dossier.runtime"],
+      "refresh_interval_ms": 1000,
+      "visualization_type": "dag_flowchart_with_realtime_status",
+      "key_actions": ["pause_workflow", "resume_workflow", "skip_stage", "trigger_emergency_stop"]
+    },
+
+    "workflow_monitor": {
+      "screen_id": "workflow_monitor_details",
+      "title": "Workflow Monitor",
+      "description": "Detailed execution trace: logs, performance metrics, error details, timing information",
+      "url_route": "/workflows/:workflow_id/monitor",
+      "role_access": ["operator", "builder", "founder"],
+      "key_components": [
+        "workflow_execution_log",
+        "node_timing_breakdown",
+        "error_stack_trace_viewer",
+        "performance_metrics_panel",
+        "variable_inspector"
+      ],
+      "data_sources": ["se_route_runs", "dossier_delta_log", "error_trace"],
+      "refresh_interval_ms": 2000,
+      "log_levels": ["DEBUG", "INFO", "WARN", "ERROR"],
+      "exportable": true
+    },
+
+    "dossier_viewer": {
+      "screen_id": "dossier_viewer_inspector",
+      "title": "Dossier Inspector",
+      "description": "Browse dossier state: read-only view of all namespaces, trace trails, delta log",
+      "url_route": "/dossiers/:dossier_id/inspector",
+      "role_access": ["creator", "builder", "operator", "founder"],
+      "key_components": [
+        "namespace_tree_browser",
+        "namespace_content_viewer",
+        "delta_log_timeline",
+        "trace_trail_viewer",
+        "export_dossier_button"
+      ],
+      "data_sources": ["dossier_registry", "dossier_delta_log", "model_routing_trace", "mode_transition_trace", "workflow_transition_trace", "error_trace"],
+      "view_modes": ["tree_view", "timeline_view", "json_view", "diff_view"],
+      "search_enabled": true
+    },
+
+    "mode_selector": {
+      "screen_id": "mode_selector_modal",
+      "title": "Mode Selector",
+      "description": "Interactive mode switcher with descriptions, warnings, and confirmation",
+      "url_route": "/modes/selector",
+      "role_access": ["creator", "builder", "operator", "founder"],
+      "type": "modal_dialog",
+      "key_components": [
+        "available_modes_list",
+        "mode_description_panel",
+        "nesting_compatibility_checker",
+        "requirements_alert",
+        "confirmation_button"
+      ],
+      "data_sources": ["mode_registry", "selected_mode", "selected_model"],
+      "actions": ["switch_mode", "view_mode_docs", "check_compatibility"]
+    },
+
+    "model_selector": {
+      "screen_id": "model_selector_modal",
+      "title": "Model Selector",
+      "description": "Interactive model switcher with cost preview, capability matching, fallback chains",
+      "url_route": "/models/selector",
+      "role_access": ["creator", "builder", "operator", "founder"],
+      "type": "modal_dialog",
+      "key_components": [
+        "available_models_list",
+        "model_capabilities_matrix",
+        "cost_estimate_panel",
+        "latency_estimate_panel",
+        "fallback_chain_visualizer",
+        "requirements_checker"
+      ],
+      "data_sources": ["model_registry", "selected_model", "kubera_budget_gate"],
+      "sorting_options": ["by_cost", "by_capability", "by_speed", "by_privacy"],
+      "actions": ["select_model", "view_fallback_chain", "check_budget_impact"]
+    },
+
+    "n8n_panel": {
+      "screen_id": "n8n_workflow_editor",
+      "title": "n8n Workflow Panel",
+      "description": "Embedded n8n workflow editor and importer for workflow management",
+      "url_route": "/n8n/editor",
+      "role_access": ["builder", "founder"],
+      "type": "embedded_panel",
+      "key_components": [
+        "n8n_editor_iframe",
+        "workflow_import_button",
+        "workflow_export_button",
+        "validation_status_display",
+        "import_log_viewer"
+      ],
+      "data_sources": ["n8n_workflows", "workflow_manifest"],
+      "actions": ["import_workflow", "export_workflow", "validate_json", "test_nodes"]
+    },
+
+    "topic_pipeline": {
+      "screen_id": "topic_pipeline_ui",
+      "title": "Topic Pipeline",
+      "description": "Visual stage flow for topic intelligence: discovery → qualification → scoring → research",
+      "url_route": "/pipelines/topic-intelligence",
+      "role_access": ["creator", "builder", "operator", "founder"],
+      "key_components": [
+        "stage_flow_diagram",
+        "candidate_board_panel",
+        "qualification_criteria_display",
+        "topic_scorecard",
+        "research_synthesis_viewer"
+      ],
+      "data_sources": ["dossier.discovery", "dossier.research", "se_packet_index"],
+      "stages": ["CWF-110", "CWF-120", "CWF-130", "CWF-140"]
+    },
+
+    "research_panel": {
+      "screen_id": "research_synthesis_panel",
+      "title": "Research Panel",
+      "description": "Display research synthesis outputs: evidence sources, summaries, confidence scores",
+      "url_route": "/research/:dossier_id",
+      "role_access": ["creator", "operator", "founder"],
+      "key_components": [
+        "evidence_sources_list",
+        "summary_display",
+        "confidence_score_widget",
+        "source_credibility_ratings",
+        "fact_verification_status"
+      ],
+      "data_sources": ["dossier.research", "research_synthesis_packet"],
+      "interactive_features": ["expand_source_details", "view_fact_checks", "copy_summary"]
+    },
+
+    "script_debate_panel": {
+      "screen_id": "script_debate_refinement",
+      "title": "Script & Debate Panel",
+      "description": "Script generation, debate output viewer, and refinement controls",
+      "url_route": "/script/:dossier_id",
+      "role_access": ["creator", "builder", "founder"],
+      "key_components": [
+        "script_draft_editor",
+        "debate_output_viewer",
+        "critique_feedback_panel",
+        "refinement_controls",
+        "quality_score_display"
+      ],
+      "data_sources": ["dossier.script", "final_script_packet"],
+      "stages": ["script_generation", "debate", "refinement", "final_shaping"],
+      "collaboration_features": ["comment_threads", "revision_history", "version_comparison"]
+    },
+
+    "context_packet_panel": {
+      "screen_id": "context_engineering_viewer",
+      "title": "Context Packet Panel",
+      "description": "View generated context packets: execution context, platform packaging, asset briefs, lineage",
+      "url_route": "/context/:dossier_id",
+      "role_access": ["builder", "operator", "founder"],
+      "key_components": [
+        "execution_context_display",
+        "platform_format_viewer",
+        "asset_brief_inspector",
+        "lineage_validation_status",
+        "quality_gates_summary"
+      ],
+      "data_sources": ["dossier.context", "context_engineering_packet"],
+      "tabs": ["execution_context", "platform_packaging", "asset_briefs", "lineage_trace"]
+    },
+
+    "resource_planner": {
+      "screen_id": "resource_planning_estimator",
+      "title": "Resource Planning",
+      "description": "Cost estimates, latency predictions, budget impact analysis",
+      "url_route": "/planning/resources",
+      "role_access": ["operator", "founder"],
+      "key_components": [
+        "cost_estimate_calculator",
+        "latency_timeline_estimator",
+        "model_cost_breakdown",
+        "budget_impact_warning",
+        "resource_optimization_suggestions"
+      ],
+      "data_sources": ["model_registry", "provider_registry", "kubera_budget_gate", "dossier.runtime.cost_tracker"],
+      "interactive_features": ["toggle_models", "adjust_route", "preview_cost_impact"]
+    },
+
+    "alert_center": {
+      "screen_id": "alert_center_dashboard",
+      "title": "Alert Center",
+      "description": "Real-time alerts: errors, cost overruns, policy violations, resource constraints",
+      "url_route": "/alerts",
+      "role_access": ["operator", "builder", "founder"],
+      "key_components": [
+        "active_alerts_list",
+        "alert_severity_filter",
+        "alert_timeline",
+        "escalation_history",
+        "acknowledge_button",
+        "dismiss_button"
+      ],
+      "data_sources": ["dossier.alert_state", "se_error_events", "dossier.runtime.cost_tracker"],
+      "alert_types": ["system_error", "cost_overrun", "policy_violation", "resource_constraint", "workflow_failure"],
+      "sorting_options": ["by_severity", "by_time", "by_type"]
+    },
+
+    "troubleshoot_console": {
+      "screen_id": "troubleshoot_diagnostic_console",
+      "title": "Troubleshoot Console",
+      "description": "Deep diagnostics: workflow traces, dossier state dumps, packet histories, validator outputs",
+      "url_route": "/troubleshoot",
+      "role_access": ["builder", "founder"],
+      "type": "developer_console",
+      "key_components": [
+        "diagnostic_mode_toggle",
+        "workflow_trace_viewer",
+        "dossier_state_dump_display",
+        "packet_history_inspector",
+        "validator_output_display",
+        "manual_state_editor",
+        "repair_action_launcher"
+      ],
+      "data_sources": ["se_error_events", "dossier_delta_log", "error_trace", "troubleshoot_state"],
+      "dangerous_operations": ["manual_dossier_edit", "packet_emission", "workflow_node_skip"]
+    },
+
+    "replay_console": {
+      "screen_id": "replay_recovery_console",
+      "title": "Replay Console",
+      "description": "Checkpoint-based replay: select stage, confirm recovery, execute replay",
+      "url_route": "/replay/:dossier_id",
+      "role_access": ["operator", "builder", "founder"],
+      "key_components": [
+        "checkpoint_selector",
+        "dossier_version_timeline",
+        "stage_rollback_options",
+        "forward_resume_options",
+        "replay_confirmation_dialog",
+        "replay_execution_monitor"
+      ],
+      "data_sources": ["replay_state", "dossier_delta_log", "se_route_runs"],
+      "replayable_stages": ["discovery", "research", "script", "context", "approval"],
+      "non_replayable_stages": ["intake", "media_factory", "publishing"]
+    },
+
+    "analytics_dashboard": {
+      "screen_id": "analytics_evolution_dashboard",
+      "title": "Analytics Dashboard",
+      "description": "Metrics, trends, performance analytics, audience feedback, evolution signals",
+      "url_route": "/analytics/:dossier_id",
+      "role_access": ["operator", "founder"],
+      "key_components": [
+        "metrics_summary_cards",
+        "performance_timeline_chart",
+        "audience_feedback_aggregation",
+        "evolution_signals_panel",
+        "trend_analysis_graph",
+        "export_report_button"
+      ],
+      "data_sources": ["dossier.analytics", "dossier.evolution", "se_packet_index"],
+      "metrics_tracked": ["workflow_latency", "cost_per_dossier", "quality_scores", "error_rates", "model_performance"],
+      "time_ranges": ["last_7_days", "last_30_days", "last_quarter", "all_time"]
+    },
+
+    "self_learning_dashboard": {
+      "screen_id": "self_learning_feedback_dashboard",
+      "title": "Self-Learning Dashboard",
+      "description": "Feedback collection, auto-tuning status, confidence scores, learning cycles",
+      "url_route": "/learning",
+      "role_access": ["founder"],
+      "key_components": [
+        "feedback_submission_form",
+        "learning_cycle_tracker",
+        "auto_tuning_status_display",
+        "confidence_threshold_adjuster",
+        "model_performance_tuning_viewer",
+        "learning_history_timeline"
+      ],
+      "data_sources": ["self_learning_state", "model_performance_tuning"],
+      "feedback_categories": ["quality_feedback", "cost_optimization", "latency_reduction", "error_pattern_detection"]
+    },
+
+    "settings_registry_viewer": {
+      "screen_id": "settings_and_registry_inspector",
+      "title": "Settings & Registries",
+      "description": "View and edit system settings, inspect all registries, manage director contracts",
+      "url_route": "/settings",
+      "role_access": ["founder"],
+      "type": "admin_panel",
+      "key_components": [
+        "registry_selector_tabs",
+        "registry_content_viewer",
+        "registry_search_bar",
+        "director_binding_editor",
+        "skill_injection_rules_editor",
+        "system_prompt_editor",
+        "governance_gate_configuration",
+        "save_and_validate_button"
+      ],
+      "data_sources": ["all_registries", "director_binding", "skill_registry", "governance_rules"],
+      "registries_editable": ["director_binding", "skill_injection_rules", "system_prompts", "governance_gates"],
+      "validation_required": true
+    }
+  },
+
+  "shared_components": {
+    "mode_selector_widget": {
+      "component_id": "mode_selector_compact",
+      "type": "dropdown_selector",
+      "displays": "currently_selected_mode",
+      "on_click": "open_mode_selector_modal",
+      "available_everywhere": true
+    },
+
+    "model_selector_widget": {
+      "component_id": "model_selector_compact",
+      "type": "dropdown_selector",
+      "displays": "currently_selected_model",
+      "shows_fallback_chain": "on_hover",
+      "on_click": "open_model_selector_modal",
+      "available_everywhere": true
+    },
+
+    "dossier_picker": {
+      "component_id": "dossier_quick_picker",
+      "type": "search_autocomplete",
+      "data_source": "se_dossier_index",
+      "displays": "recent_dossiers",
+      "search_fields": ["dossier_id", "topic", "created_date"],
+      "available_on": ["dashboard", "mission_control"]
+    },
+
+    "workflow_status_badge": {
+      "component_id": "workflow_status_indicator",
+      "type": "status_badge",
+      "states": ["pending", "in_progress", "success", "failed", "approval_required"],
+      "icon_colors": {"pending": "gray", "in_progress": "blue", "success": "green", "failed": "red", "approval_required": "orange"}
+    },
+
+    "cost_indicator_widget": {
+      "component_id": "cost_impact_indicator",
+      "type": "metric_display",
+      "displays": "estimated_cost_usd",
+      "threshold_warning_at_usd": 10.0,
+      "budget_remaining_indicator": true,
+      "tooltip_shows": "cost_breakdown_by_model"
+    },
+
+    "latency_estimator": {
+      "component_id": "latency_time_estimate",
+      "type": "metric_display",
+      "displays": "estimated_duration_seconds",
+      "range_display": "min_to_max",
+      "icon_slow_threshold_seconds": 300
+    },
+
+    "quality_score_display": {
+      "component_id": "quality_confidence_badge",
+      "type": "numerical_badge",
+      "range": [0, 1],
+      "color_scale": "green_yellow_red",
+      "threshold_warning_below": 0.85
+    }
+  },
+
+  "navigation": {
+    "primary_nav_menu": {
+      "menu_items": [
+        {"label": "Dashboard", "url": "/dashboard", "icon": "home"},
+        {"label": "Mission Control", "url": "/mission-control", "icon": "control-center", "role_required": "builder"},
+        {"label": "Workflow Monitor", "url": "/workflows", "icon": "activity"},
+        {"label": "Dossiers", "url": "/dossiers", "icon": "folder"},
+        {"label": "Topics", "url": "/pipelines/topic-intelligence", "icon": "search"},
+        {"label": "Research", "url": "/research", "icon": "book"},
+        {"label": "Scripts", "url": "/script", "icon": "document"},
+        {"label": "Context", "url": "/context", "icon": "puzzle"},
+        {"label": "Media", "url": "/media", "icon": "image"},
+        {"label": "Publishing", "url": "/publishing", "icon": "send"},
+        {"label": "Analytics", "url": "/analytics", "icon": "chart"},
+        {"label": "Alerts", "url": "/alerts", "icon": "bell"},
+        {"label": "Troubleshoot", "url": "/troubleshoot", "icon": "wrench", "role_required": "builder"},
+        {"label": "Replay", "url": "/replay", "icon": "refresh", "role_required": "operator"},
+        {"label": "Learning", "url": "/learning", "icon": "brain", "role_required": "founder"},
+        {"label": "Settings", "url": "/settings", "icon": "gear", "role_required": "founder"}
+      ]
+    }
+  },
+
+  "layout_templates": {
+    "dashboard_layout": {
+      "template_id": "standard_dashboard_2col",
+      "grid_columns": 2,
+      "sidebar": true,
+      "topbar_height_px": 60,
+      "components": ["dossier_list_panel", "recent_runs_timeline", "mode_selector_widget", "model_selector_widget", "system_health_card", "quick_actions_bar"]
+    },
+
+    "workflow_layout": {
+      "template_id": "workflow_editor_3panel",
+      "grid_columns": 3,
+      "sidebar": true,
+      "left_panel": "workflow_tree_navigation",
+      "center_panel": "editor_or_monitor",
+      "right_panel": "properties_inspector"
+    },
+
+    "full_width_layout": {
+      "template_id": "fullwidth_single_panel",
+      "grid_columns": 1,
+      "sidebar": true,
+      "topbar_height_px": 60
+    }
+  },
+
+  "validation_status": "WAVE_5_CONTROL_PLANE_SCAFFOLD_COMPLETE",
+  "total_screens": 18,
+  "total_shared_components": 8,
+  "screens_implemented": 0,
+  "screens_planned": 18,
+  "next_phase": "WAVE_6_SUB_SKILLS_EXPANSION"
+}

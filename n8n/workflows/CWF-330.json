@@ -1,0 +1,58 @@
+{
+  "name": "CWF-330 Asset Brief Generator Canonical",
+  "description": "Generates downstream asset briefs: thumbnails, visuals, B-roll, captions, audio direction.",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "cwf330_trigger_node",
+      "name": "Trigger Node",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [200, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const platformPackage = $json.platform_package_packet || { payload: { metadata: {} } };\nconst scriptSections = $json.final_script_packet?.payload?.sections || [{ title: 'main', content: 'content summary' }];\nconst assetBrief = {\n  thumbnail_brief: { variants: 3, direction: 'Create 3 visual concepts representing key themes from the content', elements: ['hook_visual', 'text_overlay', 'color_palette'] },\n  broll_cues: scriptSections.map((s, i) => ({ section: s.title, timestamp: i * 30, visual_direction: 'supporting_visuals_for_' + s.title, estimated_duration: '10-20_seconds' })),\n  caption_brief: { language: 'en', requirements: ['speaker_identification', 'sound_effects_noted', 'emphasis_markers'], style: 'professional' },\n  audio_brief: { voiceover_style: 'clear_and_engaging', pacing: 'conversational', music_cues: ['intro_upbeat', 'transitions_smooth', 'outro_resolution'], sound_design: 'minimal_enhancement' }\n};\nreturn [{ json: { ...$json, asset_brief: assetBrief, asset_brief_ready: true } }];"
+      },
+      "id": "cwf330_asset_brief_generator_node",
+      "name": "Asset Brief Generator Node",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [420, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const packet = {\n  instance_id: 'BRIEF-' + Date.now(),\n  artifact_family: 'asset_brief_packet',\n  schema_version: '1.0.0',\n  producer_workflow: 'CWF-330',\n  dossier_ref: $json.dossier_id || 'DOSSIER-UNSPECIFIED',\n  created_at: new Date().toISOString(),\n  status: 'CREATED',\n  payload: {\n    asset_brief_ready: true,\n    thumbnail_brief: $json.asset_brief.thumbnail_brief,\n    broll_cues: $json.asset_brief.broll_cues,\n    caption_brief: $json.asset_brief.caption_brief,\n    audio_brief: $json.asset_brief.audio_brief,\n    total_sections: $json.asset_brief.broll_cues.length\n  }\n};\nreturn [{ json: { ...$json, asset_brief_packet: packet, packet_emitted: true } }];"
+      },
+      "id": "cwf330_packet_emission_node",
+      "name": "Packet Emission Node",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [640, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ json: { ...$json, cwf330_result: { status: 'COMPLETED', asset_brief_packet: $json.asset_brief_packet } } }];"
+      },
+      "id": "cwf330_completion_node",
+      "name": "Completion Node",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [860, 300]
+    }
+  ],
+  "connections": {
+    "Trigger Node": {
+      "main": [[{ "node": "Asset Brief Generator Node", "type": "main", "index": 0 }]]
+    },
+    "Asset Brief Generator Node": {
+      "main": [[{ "node": "Packet Emission Node", "type": "main", "index": 0 }]]
+    },
+    "Packet Emission Node": {
+      "main": [[{ "node": "Completion Node", "type": "main", "index": 0 }]]
+    },
+    "Completion Node": {
+      "main": [[]]
+    }
+  }
+}

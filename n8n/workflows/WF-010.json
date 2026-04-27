@@ -1,0 +1,126 @@
+{
+  "name": "WF-010 Parent Orchestrator Canonical",
+  "description": "Selects the route and orchestrates downstream Phase-1 workflow packs.",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "wf010_trigger_node",
+      "name": "Trigger Node",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [200, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ json: { ...$json, dossier_context: { dossier_id: $json.dossier_id || 'DOSSIER-UNSPECIFIED', route_id: $json.route_id || 'ROUTE_PHASE1_STANDARD', loaded_at: new Date().toISOString() } } }];"
+      },
+      "id": "wf010_dossier_load_node",
+      "name": "Dossier Load Node",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [420, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ json: { ...$json, registry_lookup: { workflow_registry: 'registries/workflow_registry.yaml', route_registry: 'registries/route_registry.yaml', skill_registry: 'registries/skill_registry.yaml', provider_registry: 'registries/provider_registry.yaml' } } }];"
+      },
+      "id": "wf010_registry_lookup_node",
+      "name": "Registry Lookup Node",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [640, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const routeId = $json.route_id || 'ROUTE_PHASE1_STANDARD';\nlet nextWorkflow = 'WF-100';\nlet orchestration_decision = 'STANDARD_PATH';\nconst routeMap = {\n  'ROUTE_PHASE1_STANDARD': { next: 'CWF-110', pack: 'WF-100', decision: 'STANDARD_TOPIC_INTELLIGENCE' },\n  'ROUTE_PHASE1_FAST': { next: 'CWF-110', pack: 'WF-100', decision: 'FAST_PATH_TOPIC_INTELLIGENCE' },\n  'ROUTE_PHASE1_REPLAY': { next: $json.replay_target_workflow || 'CWF-110', pack: 'WF-100', decision: 'REPLAY_ROUTE_SELECTED' }\n};\nconst routeConfig = routeMap[routeId] || routeMap['ROUTE_PHASE1_STANDARD'];\nnextWorkflow = routeConfig.next;\norchestration_decision = routeConfig.decision;\nreturn [{\n  json: {\n    ...$json,\n    orchestration_decision: {\n      route_selected: routeId,\n      next_workflow: nextWorkflow,\n      next_pack: routeConfig.pack,\n      decision: orchestration_decision,\n      repo_present: true,\n      approval_gates_pending: ['topic_research_gate', 'script_approval_gate']\n    }\n  }\n}];"
+      },
+      "id": "wf010_route_selection_node",
+      "name": "Route Selection Node",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [860, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "try {\n  const decision = $json.orchestration_decision;\n  if (!decision || !decision.route_selected || !decision.next_workflow) {\n    throw new Error('missing orchestration decision fields');\n  }\n  return [{ json: { ...$json, validation_status: 'SUCCESS', route_to_error: false } }];\n} catch (error) {\n  return [{ json: { ...$json, validation_status: 'FAILED', route_to_error: true, validation_error: String(error.message || error) } }];\n}"
+      },
+      "id": "wf010_orchestration_validation_node",
+      "name": "Orchestration Validation Node",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1080, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "if ($json.route_to_error) return [];\nreturn [{\n  json: {\n    ...$json,\n    dossier_write: {\n      mutation_type: 'update_status',\n      target: 'dossier.runtime',\n      timestamp: new Date().toISOString(),\n      writer_id: 'WF-010',\n      instance_id: $json.dossier_id,\n      new_status: 'ORCHESTRATION_COMPLETE',\n      audit_entry: 'route-selection and orchestration from WF-010'\n    }\n  }\n}];"
+      },
+      "id": "wf010_dossier_write_node",
+      "name": "Dossier Update Node",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1300, 220]
+    },
+    {
+      "parameters": {
+        "jsCode": "if ($json.route_to_error) return [];\nreturn [{\n  json: {\n    ...$json,\n    se_route_runs_write: {\n      operation: 'record_workflow_execution',\n      workflow_id: 'WF-010',\n      dossier_id: $json.dossier_id,\n      route_id: $json.orchestration_decision.route_selected,\n      orchestration_decision: $json.orchestration_decision.decision,\n      execution_timestamp: new Date().toISOString(),\n      status: 'COMPLETED'\n    }\n  }\n}];"
+      },
+      "id": "wf010_route_runs_write_node",
+      "name": "se_route_runs Write Node",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1520, 220]
+    },
+    {
+      "parameters": {
+        "jsCode": "if ($json.route_to_error) return [];\nreturn [{\n  json: {\n    workflow_id: 'WF-010',\n    execution_status: 'SUCCESS',\n    completion_packet: {\n      instance_id: 'WF-010-COMP-' + Date.now(),\n      artifact_family: 'orchestration_decision',\n      schema_version: '1.0.0',\n      producer_workflow: 'WF-010',\n      dossier_ref: $json.dossier_id,\n      created_at: new Date().toISOString(),\n      status: 'CREATED',\n      payload: {\n        route_selected: $json.orchestration_decision.route_selected,\n        next_workflow: $json.orchestration_decision.next_workflow,\n        orchestration_decision: $json.orchestration_decision.decision,\n        approval_gates_pending: $json.orchestration_decision.approval_gates_pending,\n        route_to_wf900: 'WF-900'\n      }\n    }\n  }\n}];"
+      },
+      "id": "wf010_completion_packet_emission_node",
+      "name": "Completion Packet Emission Node",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1740, 220]
+    },
+    {
+      "parameters": {
+        "jsCode": "if (!$json.route_to_error) return [];\nreturn [{\n  json: {\n    workflow_id: 'WF-010',\n    routing_decision: 'ERROR',\n    route_to_workflow: 'WF-900',\n    error_message: $json.validation_error || 'Orchestration validation failed',\n    failure_packet: $json.orchestration_decision || null\n  }\n}];"
+      },
+      "id": "wf010_error_routing_node",
+      "name": "Error Routing WF-900 Node",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1300, 420]
+    }
+  ],
+  "connections": {
+    "Trigger Node": {
+      "main": [[{ "node": "Dossier Load Node", "type": "main", "index": 0 }]]
+    },
+    "Dossier Load Node": {
+      "main": [[{ "node": "Registry Lookup Node", "type": "main", "index": 0 }]]
+    },
+    "Registry Lookup Node": {
+      "main": [[{ "node": "Route Selection Node", "type": "main", "index": 0 }]]
+    },
+    "Route Selection Node": {
+      "main": [[{ "node": "Orchestration Validation Node", "type": "main", "index": 0 }]]
+    },
+    "Orchestration Validation Node": {
+      "main": [
+        [{ "node": "Dossier Update Node", "type": "main", "index": 0 }],
+        [{ "node": "Error Routing WF-900 Node", "type": "main", "index": 0 }]
+      ]
+    },
+    "Dossier Update Node": {
+      "main": [[{ "node": "se_route_runs Write Node", "type": "main", "index": 0 }]]
+    },
+    "se_route_runs Write Node": {
+      "main": [[{ "node": "Completion Packet Emission Node", "type": "main", "index": 0 }]]
+    },
+    "Completion Packet Emission Node": {
+      "main": [[]]
+    },
+    "Error Routing WF-900 Node": {
+      "main": [[]]
+    }
+  }
+}

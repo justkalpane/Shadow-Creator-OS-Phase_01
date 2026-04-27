@@ -1,0 +1,323 @@
+# Shadow Creator OS Model Registry
+# Version: 1.0.0
+# Status: CANONICAL_REGISTRY_CLOSURE_WAVE_10
+# Authority: Phase-0 through Phase-6+ Model Routing Governance
+
+registry_id: model_registry
+schema_version: "1.0.0"
+created_at: "2026-04-26T00:00:00Z"
+last_updated: "2026-04-26T00:00:00Z"
+
+registry_type: model_family_registry
+scope: "All LLM, text, multimodal, image, voice, video model definitions and routing rules for Shadow Creator OS"
+canonical_authority: "Shadow Tribunal Model Routing Authority"
+
+# Constitutional Requirements
+required_child_registries:
+  - provider_registry
+  - mode_registry
+  - dossier_registry
+
+defaults:
+  primary_text_model: "ollama_local_llama3.2"
+  fallback_text_model: "ollama_local_mistral"
+  model_routing_strategy: "cost_then_capability"
+  trace_all_model_calls: true
+  dossier_namespace: "runtime"
+
+governance_gates:
+  cloud_model_approval: "founder_only"
+  api_key_rotation: "quarterly_minimum"
+  cost_limit_enforcement: "kubera_budget_gate"
+  privacy_enforcement: "yama_policy_illegality"
+
+# Model Families Definition
+model_families:
+
+  local_text_models:
+    family_id: "local_text_models"
+    description: "Local-execute LLM models via Ollama. Phase-1 PRIMARY for all text generation."
+    execution_location: "local_machine"
+    requires_internet: false
+    requires_api_key: false
+
+    models:
+      - model_id: "ollama_local_llama3.2"
+        display_name: "Ollama Llama 3.2 (Local)"
+        provider: "ollama"
+        execution_type: "local_cpu"
+        supported_tasks: ["text_generation", "reasoning", "code", "analysis", "conversation"]
+        unsupported_tasks: ["image_generation", "video_generation", "audio_generation"]
+        hardware_requirements:
+          min_cpu_cores: 4
+          min_ram_gb: 8
+          gpu_optional: true
+          recommended_for_laptop: true
+        current_laptop_safe: true
+        requires_api_key: false
+        requires_paid_plan: false
+        estimated_cost_profile: "free_local"
+        latency_profile: "2-8_seconds_per_500tokens"
+        privacy_profile: "full_local_no_external_calls"
+        default_modes: ["creator", "builder", "operator", "founder"]
+        blocked_modes: []
+        fallback_chain: ["ollama_local_mistral"]
+        n8n_compatible: true
+        gui_visible: true
+        dossier_trace_fields: ["selected_model", "model_routing_trace", "model_inference_tokens", "model_execution_time_ms"]
+        validation_status: "ACTIVE_PHASE_1"
+        notes: "PRIMARY production model for Phase-1. Stays on local machine. No external calls."
+
+      - model_id: "ollama_local_mistral"
+        display_name: "Ollama Mistral (Local)"
+        provider: "ollama"
+        execution_type: "local_cpu"
+        supported_tasks: ["text_generation", "conversation", "summarization"]
+        unsupported_tasks: ["code", "reasoning", "image_generation", "video_generation", "audio_generation"]
+        hardware_requirements:
+          min_cpu_cores: 2
+          min_ram_gb: 4
+          gpu_optional: true
+          recommended_for_laptop: true
+        current_laptop_safe: true
+        requires_api_key: false
+        requires_paid_plan: false
+        estimated_cost_profile: "free_local"
+        latency_profile: "1-4_seconds_per_500tokens"
+        privacy_profile: "full_local_no_external_calls"
+        default_modes: ["creator", "builder", "operator"]
+        blocked_modes: []
+        fallback_chain: []
+        n8n_compatible: true
+        gui_visible: true
+        dossier_trace_fields: ["selected_model", "model_routing_trace"]
+        validation_status: "ACTIVE_PHASE_1_FALLBACK"
+        notes: "FALLBACK for Llama if resource-constrained. Lighter weight, lower quality."
+
+  cloud_reasoning_models:
+    family_id: "cloud_reasoning_models"
+    description: "Cloud-based reasoning and specialized models. DEFERRED Phase-2+. Founder-only."
+    execution_location: "cloud_provider"
+    requires_internet: true
+    requires_api_key: true
+
+    models:
+      - model_id: "openrouter_claude_opus"
+        display_name: "Claude 3 Opus (via OpenRouter)"
+        provider: "openrouter"
+        execution_type: "cloud_api"
+        supported_tasks: ["reasoning", "complex_analysis", "code", "research_synthesis", "debate"]
+        unsupported_tasks: ["image_generation", "video_generation"]
+        hardware_requirements: "cloud_only"
+        current_laptop_safe: false
+        requires_api_key: true
+        requires_paid_plan: true
+        estimated_cost_profile: "$0.015_per_1k_input_tokens"
+        latency_profile: "3-10_seconds"
+        privacy_profile: "third_party_processing_via_openrouter"
+        default_modes: ["founder"]
+        blocked_modes: ["creator", "builder", "operator"]
+        fallback_chain: ["ollama_local_llama3.2"]
+        n8n_compatible: true
+        gui_visible: true
+        dossier_trace_fields: ["selected_model", "model_routing_trace", "cost_incurred_usd", "api_provider"]
+        validation_status: "DEFERRED_PHASE_2"
+        release_blocker: "openrouter_api_key_vault_integration_required"
+        notes: "DEFERRED Phase-2+. Founder approval required. Premium reasoning tier."
+
+      - model_id: "openrouter_llama_70b"
+        display_name: "Llama 2 70B (via OpenRouter)"
+        provider: "openrouter"
+        execution_type: "cloud_api"
+        supported_tasks: ["text_generation", "reasoning", "code", "analysis"]
+        unsupported_tasks: ["image_generation", "video_generation"]
+        hardware_requirements: "cloud_only"
+        current_laptop_safe: false
+        requires_api_key: true
+        requires_paid_plan: true
+        estimated_cost_profile: "$0.005_per_1k_input_tokens"
+        latency_profile: "2-6_seconds"
+        privacy_profile: "third_party_processing_via_openrouter"
+        default_modes: ["founder"]
+        blocked_modes: ["creator", "builder", "operator"]
+        fallback_chain: ["ollama_local_llama3.2"]
+        n8n_compatible: true
+        gui_visible: true
+        dossier_trace_fields: ["selected_model", "model_routing_trace", "cost_incurred_usd"]
+        validation_status: "DEFERRED_PHASE_2"
+        release_blocker: "openrouter_api_key_vault_integration_required"
+        notes: "DEFERRED Phase-2+. Lower cost fallback for reasoning tasks."
+
+  multimodal_models:
+    family_id: "multimodal_models"
+    description: "Vision + text models for analysis. DEFERRED Phase-4+."
+    execution_location: "cloud_provider"
+    requires_internet: true
+    requires_api_key: true
+
+    models:
+      - model_id: "gemini_2.0_pro_vision"
+        display_name: "Google Gemini 2.0 Pro (Vision)"
+        provider: "google_cloud"
+        execution_type: "cloud_api"
+        supported_tasks: ["image_analysis", "document_understanding", "multimodal_reasoning"]
+        unsupported_tasks: ["video_generation"]
+        hardware_requirements: "cloud_only"
+        current_laptop_safe: false
+        requires_api_key: true
+        requires_paid_plan: true
+        estimated_cost_profile: "$0.01_per_image"
+        latency_profile: "2-5_seconds"
+        privacy_profile: "third_party_processing_via_google_cloud"
+        default_modes: ["founder"]
+        blocked_modes: ["creator", "builder", "operator"]
+        fallback_chain: []
+        n8n_compatible: true
+        gui_visible: false
+        dossier_trace_fields: ["selected_model", "model_routing_trace", "vision_task_type"]
+        validation_status: "DEFERRED_PHASE_4"
+        release_blocker: "google_cloud_vision_api_setup_and_key_vault_required"
+        notes: "DEFERRED Phase-4+ for media analysis pipeline."
+
+  image_generation_models:
+    family_id: "image_generation_models"
+    description: "Image generation for thumbnails, visual assets. DEFERRED Phase-4+."
+    execution_location: "cloud_provider"
+    requires_internet: true
+    requires_api_key: true
+
+    models:
+      - model_id: "nanobanana_image_gen"
+        display_name: "Nano Banana (Image Generation)"
+        provider: "nanobanana"
+        execution_type: "cloud_api"
+        supported_tasks: ["thumbnail_generation", "visual_asset_creation"]
+        unsupported_tasks: ["video_generation"]
+        hardware_requirements: "cloud_only"
+        current_laptop_safe: false
+        requires_api_key: true
+        requires_paid_plan: true
+        estimated_cost_profile: "$0.20_per_image"
+        latency_profile: "30-60_seconds"
+        privacy_profile: "third_party_processing_via_nanobanana"
+        default_modes: ["founder"]
+        blocked_modes: ["creator", "builder", "operator"]
+        fallback_chain: []
+        n8n_compatible: true
+        gui_visible: false
+        dossier_trace_fields: ["selected_model", "model_routing_trace", "image_generation_prompt"]
+        validation_status: "DEFERRED_PHASE_4"
+        release_blocker: "nanobanana_api_integration_and_cost_gate_required"
+        notes: "DEFERRED Phase-4+ for media factory thumbnail generation."
+
+  voice_generation_models:
+    family_id: "voice_generation_models"
+    description: "Voice synthesis for audio content. DEFERRED Phase-4+."
+    execution_location: "cloud_provider"
+    requires_internet: true
+    requires_api_key: true
+
+    models:
+      - model_id: "elevenlabs_voice_gen"
+        display_name: "ElevenLabs Voice Generation"
+        provider: "elevenlabs"
+        execution_type: "cloud_api"
+        supported_tasks: ["voice_synthesis", "audio_narration", "voice_cloning"]
+        unsupported_tasks: ["image_generation", "video_generation"]
+        hardware_requirements: "cloud_only"
+        current_laptop_safe: false
+        requires_api_key: true
+        requires_paid_plan: true
+        estimated_cost_profile: "$5_per_10k_characters"
+        latency_profile: "5-15_seconds"
+        privacy_profile: "third_party_processing_via_elevenlabs"
+        default_modes: ["founder"]
+        blocked_modes: ["creator", "builder", "operator"]
+        fallback_chain: []
+        n8n_compatible: true
+        gui_visible: false
+        dossier_trace_fields: ["selected_model", "model_routing_trace", "voice_id", "audio_duration_seconds"]
+        validation_status: "DEFERRED_PHASE_4"
+        release_blocker: "elevenlabs_api_key_and_cost_gate_required"
+        notes: "DEFERRED Phase-4+ for media factory audio production."
+
+  video_generation_models:
+    family_id: "video_generation_models"
+    description: "Video synthesis. DEFERRED Phase-6+. Extreme cost/compute."
+    execution_location: "cloud_provider"
+    requires_internet: true
+    requires_api_key: true
+
+    models:
+      - model_id: "sora_video_gen"
+        display_name: "OpenAI Sora (Video Generation)"
+        provider: "openai"
+        execution_type: "cloud_api"
+        supported_tasks: ["video_generation", "scene_synthesis"]
+        unsupported_tasks: ["text_generation", "image_analysis"]
+        hardware_requirements: "cloud_only"
+        current_laptop_safe: false
+        requires_api_key: true
+        requires_paid_plan: true
+        estimated_cost_profile: "$10_per_video_minute"
+        latency_profile: "60-300_seconds"
+        privacy_profile: "third_party_processing_via_openai"
+        default_modes: ["founder"]
+        blocked_modes: ["creator", "builder", "operator"]
+        fallback_chain: []
+        n8n_compatible: false
+        gui_visible: false
+        dossier_trace_fields: ["selected_model", "model_routing_trace", "video_duration_seconds", "video_generation_cost"]
+        validation_status: "DEFERRED_PHASE_6"
+        release_blocker: "openai_sora_api_availability_and_extreme_cost_gate_required"
+        notes: "DEFERRED Phase-6+ for final video synthesis. Extreme cost, long latency."
+
+# Model Routing Rules
+routing_rules:
+  - rule_id: "route_text_generation_phase1"
+    condition: "workflow_phase == 'PHASE_1' AND task == 'text_generation'"
+    model_priority: ["ollama_local_llama3.2", "ollama_local_mistral"]
+    fallback_action: "error_if_all_fail"
+    allow_cloud_override: false
+
+  - rule_id: "route_reasoning_founder"
+    condition: "workflow_phase >= 'PHASE_2' AND user_mode == 'founder' AND task == 'reasoning'"
+    model_priority: ["openrouter_claude_opus", "ollama_local_llama3.2"]
+    fallback_action: "degrade_to_local"
+    allow_cloud_override: true
+    cost_approval_required: true
+
+  - rule_id: "route_image_phase4"
+    condition: "workflow_phase >= 'PHASE_4' AND task == 'image_generation'"
+    model_priority: ["nanobanana_image_gen"]
+    fallback_action: "skip_image_generation"
+    allow_cloud_override: false
+
+  - rule_id: "route_voice_phase4"
+    condition: "workflow_phase >= 'PHASE_4' AND task == 'voice_synthesis'"
+    model_priority: ["elevenlabs_voice_gen"]
+    fallback_action: "skip_voice_synthesis"
+    allow_cloud_override: false
+
+  - rule_id: "route_video_phase6"
+    condition: "workflow_phase >= 'PHASE_6' AND task == 'video_generation'"
+    model_priority: ["sora_video_gen"]
+    fallback_action: "skip_video_generation"
+    allow_cloud_override: false
+
+# Dossier Integration
+dossier_integration:
+  namespace: "runtime"
+  mutable_by_workflows: true
+  read_only: false
+  required_trace_fields:
+    - selected_model
+    - model_routing_trace
+    - model_inference_tokens
+    - model_execution_time_ms
+    - cost_incurred_usd
+    - api_provider
+  audit_trail: "all_model_selections_and_fallbacks"
+  versioning: "immutable_append_only"
+
+validation_status: "CANONICAL_REGISTRY_CLOSURE_WAVE_10_HARDENED"

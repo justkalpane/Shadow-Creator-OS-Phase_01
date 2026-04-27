@@ -1,0 +1,100 @@
+{
+  "name": "WF-000 Health Check Canonical",
+  "description": "System health check workflow. Validates local runtime prerequisites before Phase-1 execution.",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "wf000_trigger_node",
+      "name": "Trigger Node",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [200, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ json: { health_probe_request: true, timestamp: new Date().toISOString(), runtime_context: { os_platform: process.platform, node_version: process.version, cwd: process.cwd() } } }];"
+      },
+      "id": "wf000_health_probe_node",
+      "name": "Health Probe Initialization Node",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [420, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const fs = require('fs');\nconst path = require('path');\nconst checks = { folders_ok: true, folder_errors: [] };\nconst expectedFolders = ['registries', 'schemas', 'n8n', 'validators', 'skills', 'rules', 'docs'];\nfor (const folder of expectedFolders) {\n  const folderPath = path.join(process.cwd(), folder);\n  if (!fs.existsSync(folderPath)) {\n    checks.folders_ok = false;\n    checks.folder_errors.push({ folder, path: folderPath, exists: false });\n  }\n}\nreturn [{ json: { ...$json, folder_validation: checks, had_folder_error: !checks.folders_ok } }];"
+      },
+      "id": "wf000_folder_validation_node",
+      "name": "Folder Validation Node",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [640, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const fs = require('fs');\nconst path = require('path');\nconst checks = { ollama_reachable: false, ollama_endpoint: 'http://localhost:11434', error: null };\nconst ollamaDir = path.join(process.env.USERPROFILE || process.env.HOME || '', '.ollama');\nif (fs.existsSync(ollamaDir)) {\n  checks.ollama_detected = true;\n  checks.ollama_dir = ollamaDir;\n  checks.ollama_reachable = true;\n} else {\n  checks.ollama_detected = false;\n  checks.error = 'Ollama not found. Please install from https://ollama.ai';\n}\nreturn [{ json: { ...$json, ollama_validation: checks, had_ollama_error: !checks.ollama_reachable } }];"
+      },
+      "id": "wf000_ollama_validation_node",
+      "name": "Ollama Availability Node",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [860, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const folderCheck = $json.folder_validation?.folders_ok || false;\nconst ollamaCheck = $json.ollama_validation?.ollama_reachable || false;\nconst runtimeHealthy = folderCheck && ollamaCheck;\nconst packet = {\n  instance_id: 'WF-000-' + Date.now(),\n  artifact_family: 'runtime_health_report',\n  schema_version: '1.0.0',\n  producer_workflow: 'WF-000',\n  dossier_ref: 'SYSTEM',\n  created_at: new Date().toISOString(),\n  status: 'CREATED',\n  payload: {\n    health_status: runtimeHealthy ? 'HEALTHY' : 'UNHEALTHY',\n    folder_validation_ok: folderCheck,\n    ollama_available: ollamaCheck,\n    folder_errors: $json.folder_validation?.folder_errors || [],\n    ollama_error: $json.ollama_validation?.error || null,\n    recommendations: []\n  }\n};\nif (!folderCheck) packet.payload.recommendations.push('Please ensure all required folders exist: registries, schemas, n8n, validators, skills, rules, docs');\nif (!ollamaCheck) packet.payload.recommendations.push('Please install Ollama from https://ollama.ai and ensure it is running on localhost:11434');\nreturn [{ json: { ...$json, runtime_health_report: packet, health_check_passed: runtimeHealthy, route_to_error: !runtimeHealthy } }];"
+      },
+      "id": "wf000_health_report_emission_node",
+      "name": "Health Report Emission Node",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1080, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "if (!$json.health_check_passed) return [];\nreturn [{ json: { ...$json, next_workflow: 'WF-001', routing_decision: { on_success: 'WF-001', status: 'PASS_TO_DOSSIER_CREATE' } } }];"
+      },
+      "id": "wf000_success_routing_node",
+      "name": "Success Routing Node",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1300, 200]
+    },
+    {
+      "parameters": {
+        "jsCode": "if ($json.health_check_passed) return [];\nreturn [{ json: { workflow_id: 'WF-000', routing_decision: 'ERROR', route_to_workflow: 'WF-900', error_message: 'Health check failed: ' + JSON.stringify($json.runtime_health_report?.payload?.recommendations), failure_packet: $json.runtime_health_report || null } }];"
+      },
+      "id": "wf000_error_routing_node",
+      "name": "Error Routing WF-900 Node",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1300, 420]
+    }
+  ],
+  "connections": {
+    "Trigger Node": {
+      "main": [[{ "node": "Health Probe Initialization Node", "type": "main", "index": 0 }]]
+    },
+    "Health Probe Initialization Node": {
+      "main": [[{ "node": "Folder Validation Node", "type": "main", "index": 0 }]]
+    },
+    "Folder Validation Node": {
+      "main": [[{ "node": "Ollama Availability Node", "type": "main", "index": 0 }]]
+    },
+    "Ollama Availability Node": {
+      "main": [[{ "node": "Health Report Emission Node", "type": "main", "index": 0 }]]
+    },
+    "Health Report Emission Node": {
+      "main": [
+        [{ "node": "Success Routing Node", "type": "main", "index": 0 }],
+        [{ "node": "Error Routing WF-900 Node", "type": "main", "index": 0 }]
+      ]
+    },
+    "Success Routing Node": {
+      "main": [[]]
+    },
+    "Error Routing WF-900 Node": {
+      "main": [[]]
+    }
+  }
+}

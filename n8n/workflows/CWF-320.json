@@ -1,0 +1,58 @@
+{
+  "name": "CWF-320 Platform Packager Canonical",
+  "description": "Packages script into platform-specific format: YouTube, blog, podcast, email.",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "cwf320_trigger_node",
+      "name": "Trigger Node",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [200, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const contextPacket = $json.execution_context_packet || { payload: { target_platform: 'generic' } };\nconst platform = contextPacket.payload?.target_platform || 'generic';\nconst platformFormats = {\n  youtube: { metadata_fields: ['title', 'description', 'tags', 'chapters', 'thumbnail_description'], required_length: '5-3600_seconds' },\n  blog: { metadata_fields: ['title', 'excerpt', 'tags', 'category', 'featured_image_description'], required_format: 'markdown' },\n  podcast: { metadata_fields: ['episode_title', 'episode_description', 'show_notes', 'guest_names', 'duration'], required_format: 'audio_metadata' },\n  email: { metadata_fields: ['subject_line', 'preview_text', 'call_to_action', 'unsubscribe_link'], required_format: 'html_friendly' }\n};\nconst platformConfig = platformFormats[platform] || platformFormats['generic'];\nconst packagedOutput = {\n  platform: platform,\n  metadata: { title: $json.final_script_packet?.payload?.title || 'Untitled', description: $json.final_script_packet?.payload?.summary || 'Content summary' },\n  format_applied: platformConfig.required_format || 'generic',\n  metadata_fields: platformConfig.metadata_fields\n};\nreturn [{ json: { ...$json, platform_package: packagedOutput, platform_packaging_complete: true } }];"
+      },
+      "id": "cwf320_platform_packager_node",
+      "name": "Platform Packager Node",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [420, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const packet = {\n  instance_id: 'PKG-' + Date.now(),\n  artifact_family: 'platform_package_packet',\n  schema_version: '1.0.0',\n  producer_workflow: 'CWF-320',\n  dossier_ref: $json.dossier_id || 'DOSSIER-UNSPECIFIED',\n  created_at: new Date().toISOString(),\n  status: 'CREATED',\n  payload: {\n    platform_packaging_complete: true,\n    platform: $json.platform_package.platform,\n    metadata: $json.platform_package.metadata,\n    format_applied: $json.platform_package.format_applied,\n    metadata_fields_populated: $json.platform_package.metadata_fields.length\n  }\n};\nreturn [{ json: { ...$json, platform_package_packet: packet, packet_emitted: true } }];"
+      },
+      "id": "cwf320_packet_emission_node",
+      "name": "Packet Emission Node",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [640, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ json: { ...$json, cwf320_result: { status: 'COMPLETED', platform_package_packet: $json.platform_package_packet } } }];"
+      },
+      "id": "cwf320_completion_node",
+      "name": "Completion Node",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [860, 300]
+    }
+  ],
+  "connections": {
+    "Trigger Node": {
+      "main": [[{ "node": "Platform Packager Node", "type": "main", "index": 0 }]]
+    },
+    "Platform Packager Node": {
+      "main": [[{ "node": "Packet Emission Node", "type": "main", "index": 0 }]]
+    },
+    "Packet Emission Node": {
+      "main": [[{ "node": "Completion Node", "type": "main", "index": 0 }]]
+    },
+    "Completion Node": {
+      "main": [[]]
+    }
+  }
+}

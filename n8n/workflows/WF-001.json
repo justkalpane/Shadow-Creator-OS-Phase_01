@@ -1,0 +1,113 @@
+{
+  "name": "WF-001 Dossier Create Canonical",
+  "description": "Creates initial dossier record and seeds system and intake namespaces.",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "wf001_trigger_node",
+      "name": "Trigger Node",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [200, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const now = new Date().toISOString();\nconst dossier_id = 'DOSSIER-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9).toUpperCase();\nconst route_id = $json.route_id || 'ROUTE_PHASE1_STANDARD';\nconst intake_topic = $json.topic || 'UNSPECIFIED_TOPIC';\nconst intake_packet = {\n  instance_id: 'INTAKE-' + Date.now(),\n  artifact_family: 'intake_packet',\n  schema_version: '1.0.0',\n  producer_workflow: 'WF-001',\n  dossier_ref: dossier_id,\n  created_at: now,\n  status: 'CREATED',\n  payload: {\n    topic: intake_topic,\n    route_selected: route_id\n  }\n};\nreturn [{ json: { dossier_id, route_id, intake_topic, intake_packet, created_at: now } }];"
+      },
+      "id": "wf001_dossier_initialization_node",
+      "name": "Dossier Initialization Node",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [420, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const dossier_id = $json.dossier_id;\nconst route_id = $json.route_id;\nconst now = new Date().toISOString();\nconst dossier = {\n  dossier_id: dossier_id,\n  route_id: route_id,\n  current_workflow: 'WF-001',\n  created_at: now,\n  last_updated: now,\n  status: 'INTAKE_INITIALIZED',\n  namespaces: {\n    system: {\n      dossier_id: dossier_id,\n      route_id: route_id,\n      owner_workflow: 'WF-001',\n      created_at: now,\n      version: 1\n    },\n    intake: {\n      topic: $json.intake_topic,\n      intake_timestamp: now,\n      intake_source: 'manual_user_input',\n      intake_metadata: { user_mode: 'creator', selected_route: route_id },\n      version: 1\n    }\n  }\n};\nreturn [{ json: { ...$json, dossier_record: dossier, intake_validation_ok: true } }];"
+      },
+      "id": "wf001_dossier_seeding_node",
+      "name": "Dossier Seeding Node",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [640, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "try {\n  const dossier = $json.dossier_record;\n  if (!dossier || !dossier.dossier_id || !dossier.route_id || !dossier.namespaces?.system || !dossier.namespaces?.intake) {\n    throw new Error('Dossier missing required fields: dossier_id, route_id, system namespace, or intake namespace');\n  }\n  const intakeTopic = dossier.namespaces.intake.topic;\n  if (!intakeTopic || intakeTopic === 'UNSPECIFIED_TOPIC') {\n    throw new Error('Intake topic not specified');\n  }\n  return [{ json: { ...$json, validation_status: 'SUCCESS', route_to_error: false } }];\n} catch (error) {\n  return [{ json: { ...$json, validation_status: 'FAILED', route_to_error: true, validation_error: String(error.message || error) } }];\n}"
+      },
+      "id": "wf001_dossier_validation_node",
+      "name": "Dossier Validation Node",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [860, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "if ($json.route_to_error) return [];\nreturn [{\n  json: {\n    ...$json,\n    se_dossier_index_write: {\n      operation: 'create_new_dossier_record',\n      dossier_id: $json.dossier_record.dossier_id,\n      route_id: $json.dossier_record.route_id,\n      status: $json.dossier_record.status,\n      created_at: $json.dossier_record.created_at,\n      last_updated: $json.dossier_record.last_updated,\n      writeback_target: 'se_dossier_index'\n    },\n    dossier_write: {\n      mutation_type: 'create',\n      target: 'dossier',\n      timestamp: new Date().toISOString(),\n      writer_id: 'WF-001',\n      instance_id: $json.dossier_record.dossier_id,\n      audit_entry: 'dossier-create from WF-001'\n    }\n  }\n}];"
+      },
+      "id": "wf001_dossier_index_write_node",
+      "name": "se_dossier_index Write Node",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1080, 220]
+    },
+    {
+      "parameters": {
+        "jsCode": "if ($json.route_to_error) return [];\nreturn [{\n  json: {\n    ...$json,\n    se_route_runs_write: {\n      operation: 'record_workflow_execution',\n      workflow_id: 'WF-001',\n      dossier_id: $json.dossier_record.dossier_id,\n      route_id: $json.dossier_record.route_id,\n      execution_timestamp: new Date().toISOString(),\n      status: 'COMPLETED'\n    }\n  }\n}];"
+      },
+      "id": "wf001_route_runs_write_node",
+      "name": "se_route_runs Write Node",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1300, 220]
+    },
+    {
+      "parameters": {
+        "jsCode": "if ($json.route_to_error) return [];\nreturn [{\n  json: {\n    workflow_id: 'WF-001',\n    execution_status: 'SUCCESS',\n    completion_packet: {\n      instance_id: 'WF-001-COMP-' + Date.now(),\n      artifact_family: 'dossier_creation_packet',\n      schema_version: '1.0.0',\n      producer_workflow: 'WF-001',\n      dossier_ref: $json.dossier_record.dossier_id,\n      created_at: new Date().toISOString(),\n      status: 'CREATED',\n      payload: {\n        dossier_id: $json.dossier_record.dossier_id,\n        route_id: $json.dossier_record.route_id,\n        next_workflow: 'WF-010',\n        route_to_wf900: 'WF-900'\n      }\n    }\n  }\n}];"
+      },
+      "id": "wf001_completion_packet_emission_node",
+      "name": "Completion Packet Emission Node",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1520, 220]
+    },
+    {
+      "parameters": {
+        "jsCode": "if (!$json.route_to_error) return [];\nreturn [{\n  json: {\n    workflow_id: 'WF-001',\n    routing_decision: 'ERROR',\n    route_to_workflow: 'WF-900',\n    error_message: $json.validation_error || 'Dossier creation failed',\n    failure_packet: { instance_id: 'WF-001-ERR-' + Date.now(), artifact_family: 'intake_error', error: $json.validation_error }\n  }\n}];"
+      },
+      "id": "wf001_error_routing_node",
+      "name": "Error Routing WF-900 Node",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1080, 420]
+    }
+  ],
+  "connections": {
+    "Trigger Node": {
+      "main": [[{ "node": "Dossier Initialization Node", "type": "main", "index": 0 }]]
+    },
+    "Dossier Initialization Node": {
+      "main": [[{ "node": "Dossier Seeding Node", "type": "main", "index": 0 }]]
+    },
+    "Dossier Seeding Node": {
+      "main": [[{ "node": "Dossier Validation Node", "type": "main", "index": 0 }]]
+    },
+    "Dossier Validation Node": {
+      "main": [
+        [{ "node": "Dossier Index Write Node", "type": "main", "index": 0 }],
+        [{ "node": "Error Routing WF-900 Node", "type": "main", "index": 0 }]
+      ]
+    },
+    "Dossier Index Write Node": {
+      "main": [[{ "node": "se_route_runs Write Node", "type": "main", "index": 0 }]]
+    },
+    "se_route_runs Write Node": {
+      "main": [[{ "node": "Completion Packet Emission Node", "type": "main", "index": 0 }]]
+    },
+    "Completion Packet Emission Node": {
+      "main": [[]]
+    },
+    "Error Routing WF-900 Node": {
+      "main": [[]]
+    }
+  }
+}

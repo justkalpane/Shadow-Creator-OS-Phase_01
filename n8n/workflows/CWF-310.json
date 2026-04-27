@@ -1,0 +1,58 @@
+{
+  "name": "CWF-310 Execution Context Builder Canonical",
+  "description": "Engineers runtime context envelope: allowed tools, execution constraints, platform-specific rules.",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "cwf310_trigger_node",
+      "name": "Trigger Node",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [200, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const scriptPacket = $json.final_script_packet || { payload: { target_platform: 'generic', metadata: {} } };\nconst platforms = { youtube: { tools: ['video_editor', 'subtitle_generator'], constraints: ['max_length_4h', 'quality_1080p_min'] }, blog: { tools: ['markdown_renderer', 'image_optimizer'], constraints: ['plain_text_only', 'no_video'] }, podcast: { tools: ['audio_optimizer', 'transcript_generator'], constraints: ['audio_only', 'max_bitrate_192kbps'] }, email: { tools: ['html_renderer', 'link_tracker'], constraints: ['plain_text_fallback', 'max_width_600px'] } };\nconst platform = scriptPacket.payload?.target_platform || 'generic';\nconst allowedTools = platforms[platform]?.tools || ['generic_renderer'];\nconst constraints = platforms[platform]?.constraints || ['generic_constraints'];\nconst contextEnvelope = { instance_id: 'CTX-' + Date.now(), platform: platform, allowed_tools: allowedTools, forbidden_tools: ['shell_execution', 'external_api_call_untracked'], execution_constraints: constraints, quality_gates: { min_coherence: 0.85, min_accuracy: 0.90 } };\nreturn [{ json: { ...$json, context_envelope: contextEnvelope, execution_context_built: true } }];"
+      },
+      "id": "cwf310_context_builder_node",
+      "name": "Context Builder Node",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [420, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const packet = {\n  instance_id: $json.context_envelope.instance_id,\n  artifact_family: 'execution_context_packet',\n  schema_version: '1.0.0',\n  producer_workflow: 'CWF-310',\n  dossier_ref: $json.dossier_id || 'DOSSIER-UNSPECIFIED',\n  created_at: new Date().toISOString(),\n  status: 'CREATED',\n  payload: {\n    execution_context_built: true,\n    target_platform: $json.context_envelope.platform,\n    allowed_tools: $json.context_envelope.allowed_tools,\n    forbidden_tools: $json.context_envelope.forbidden_tools,\n    execution_constraints: $json.context_envelope.execution_constraints,\n    quality_gates: $json.context_envelope.quality_gates\n  }\n};\nreturn [{ json: { ...$json, execution_context_packet: packet, packet_emitted: true } }];"
+      },
+      "id": "cwf310_packet_emission_node",
+      "name": "Packet Emission Node",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [640, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ json: { ...$json, cwf310_result: { status: 'COMPLETED', execution_context_packet: $json.execution_context_packet } } }];"
+      },
+      "id": "cwf310_completion_node",
+      "name": "Completion Node",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [860, 300]
+    }
+  ],
+  "connections": {
+    "Trigger Node": {
+      "main": [[{ "node": "Context Builder Node", "type": "main", "index": 0 }]]
+    },
+    "Context Builder Node": {
+      "main": [[{ "node": "Packet Emission Node", "type": "main", "index": 0 }]]
+    },
+    "Packet Emission Node": {
+      "main": [[{ "node": "Completion Node", "type": "main", "index": 0 }]]
+    },
+    "Completion Node": {
+      "main": [[]]
+    }
+  }
+}

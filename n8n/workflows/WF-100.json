@@ -1,0 +1,126 @@
+{
+  "name": "WF-100 Topic Intelligence Pack Canonical",
+  "description": "Runs Phase-1 topic intelligence lane: discovery → qualification → scoring → research synthesis.",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "wf100_trigger_node",
+      "name": "Trigger Node",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [200, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ json: { ...$json, dossier_context: { dossier_id: $json.dossier_id || 'DOSSIER-UNSPECIFIED', pack: 'WF-100', loaded_at: new Date().toISOString(), route: $json.route_id || 'ROUTE_PHASE1_STANDARD' } } }];"
+      },
+      "id": "wf100_dossier_load_node",
+      "name": "Dossier Load Node",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [420, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ json: { ...$json, pack_context: { child_workflows: ['CWF-110-topic-discovery', 'CWF-120-topic-qualification', 'CWF-130-topic-scoring', 'CWF-140-research-synthesis'], primary_director: 'Narada', strategic_authority: 'Krishna', governance_authority: ['Yama', 'Kubera'] } } }];"
+      },
+      "id": "wf100_pack_initialization_node",
+      "name": "Pack Initialization Node",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [640, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const childWorkflows = ['CWF-110', 'CWF-120', 'CWF-130', 'CWF-140'];\nlet executionPlan = { workflows_to_execute: childWorkflows, current_index: 0, status: 'PLANNING', decisions: {} };\nreturn [{ json: { ...$json, execution_plan: executionPlan, pack_orchestration: { started_at: new Date().toISOString(), expected_duration_seconds: 120 } } }];"
+      },
+      "id": "wf100_execution_planner_node",
+      "name": "Execution Planner Node",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [860, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const childResults = { CWF_110: $json.cwf110_result, CWF_120: $json.cwf120_result, CWF_130: $json.cwf130_result, CWF_140: $json.cwf140_result };\nconst allHealthy = Object.values(childResults).every(r => r?.status === 'SUCCESS' || r?.status === 'COMPLETED');\nconst topicFinalized = $json.cwf140_result?.payload?.research_synthesis_finalized === true;\nconst validationOk = allHealthy && topicFinalized;\nreturn [{ json: { ...$json, pack_validation: { child_results_aggregated: childResults, all_children_healthy: allHealthy, topic_finalized: topicFinalized, validation_ok: validationOk, route_to_error: !validationOk } } }];"
+      },
+      "id": "wf100_pack_validation_node",
+      "name": "Pack Validation Node",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1080, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "if ($json.pack_validation.route_to_error) return [];\nreturn [{\n  json: {\n    ...$json,\n    dossier_write: {\n      mutation_type: 'namespace_update',\n      target: 'dossier.discovery',\n      timestamp: new Date().toISOString(),\n      writer_id: 'WF-100',\n      pack_context: $json.pack_context,\n      child_results: $json.pack_validation.child_results_aggregated,\n      audit_entry: 'topic-intelligence-pack-completion from WF-100'\n    }\n  }\n}];"
+      },
+      "id": "wf100_dossier_write_node",
+      "name": "Dossier Discovery Write Node",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1300, 200]
+    },
+    {
+      "parameters": {
+        "jsCode": "if ($json.pack_validation.route_to_error) return [];\nreturn [{\n  json: {\n    ...$json,\n    se_route_runs_write: {\n      operation: 'record_pack_execution',\n      pack_id: 'WF-100',\n      dossier_id: $json.dossier_id,\n      child_workflows_executed: ['CWF-110', 'CWF-120', 'CWF-130', 'CWF-140'],\n      execution_status: 'COMPLETED',\n      topic_finalized: $json.pack_validation.topic_finalized,\n      timestamp: new Date().toISOString()\n    }\n  }\n}];"
+      },
+      "id": "wf100_route_runs_write_node",
+      "name": "se_route_runs Write Node",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1520, 200]
+    },
+    {
+      "parameters": {
+        "jsCode": "if ($json.pack_validation.route_to_error) return [];\nreturn [{\n  json: {\n    workflow_id: 'WF-100',\n    execution_status: 'SUCCESS',\n    completion_packet: {\n      instance_id: 'WF-100-COMP-' + Date.now(),\n      artifact_family: 'topic_intelligence_result',\n      schema_version: '1.0.0',\n      producer_workflow: 'WF-100',\n      dossier_ref: $json.dossier_id,\n      created_at: new Date().toISOString(),\n      status: 'CREATED',\n      payload: {\n        pack_executed: 'WF-100',\n        topic_finalized: $json.pack_validation.topic_finalized,\n        next_workflow: 'WF-200',\n        child_packets: ['CWF-110_output', 'CWF-120_output', 'CWF-130_output', 'CWF-140_output']\n      }\n    }\n  }\n}];"
+      },
+      "id": "wf100_completion_packet_emission_node",
+      "name": "Completion Packet Emission Node",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1740, 200]
+    },
+    {
+      "parameters": {
+        "jsCode": "if (!$json.pack_validation.route_to_error) return [];\nreturn [{\n  json: {\n    workflow_id: 'WF-100',\n    routing_decision: 'ERROR',\n    route_to_workflow: 'WF-900',\n    error_message: 'Pack validation failed or child workflow failed',\n    failure_context: $json.pack_validation,\n    child_results: $json.pack_validation.child_results_aggregated\n  }\n}];"
+      },
+      "id": "wf100_error_routing_node",
+      "name": "Error Routing WF-900 Node",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1300, 420]
+    }
+  ],
+  "connections": {
+    "Trigger Node": {
+      "main": [[{ "node": "Dossier Load Node", "type": "main", "index": 0 }]]
+    },
+    "Dossier Load Node": {
+      "main": [[{ "node": "Pack Initialization Node", "type": "main", "index": 0 }]]
+    },
+    "Pack Initialization Node": {
+      "main": [[{ "node": "Execution Planner Node", "type": "main", "index": 0 }]]
+    },
+    "Execution Planner Node": {
+      "main": [[{ "node": "Pack Validation Node", "type": "main", "index": 0 }]]
+    },
+    "Pack Validation Node": {
+      "main": [
+        [{ "node": "Dossier Discovery Write Node", "type": "main", "index": 0 }],
+        [{ "node": "Error Routing WF-900 Node", "type": "main", "index": 0 }]
+      ]
+    },
+    "Dossier Discovery Write Node": {
+      "main": [[{ "node": "se_route_runs Write Node", "type": "main", "index": 0 }]]
+    },
+    "se_route_runs Write Node": {
+      "main": [[{ "node": "Completion Packet Emission Node", "type": "main", "index": 0 }]]
+    },
+    "Completion Packet Emission Node": {
+      "main": [[]]
+    },
+    "Error Routing WF-900 Node": {
+      "main": [[]]
+    }
+  }
+}

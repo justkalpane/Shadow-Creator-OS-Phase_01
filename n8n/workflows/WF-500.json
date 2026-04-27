@@ -1,0 +1,126 @@
+{
+  "name": "WF-500 Publishing Distribution Pack Canonical",
+  "description": "Runs publishing lane: metadata generation → distribution planning → publish-readiness gating.",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "wf500_trigger_node",
+      "name": "Trigger Node",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [200, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ json: { ...$json, dossier_context: { dossier_id: $json.dossier_id || 'DOSSIER-UNSPECIFIED', pack: 'WF-500', loaded_at: new Date().toISOString(), route: $json.route_id || 'ROUTE_PHASE1_STANDARD', media_ready: !!$json.media_production_packet } } }];"
+      },
+      "id": "wf500_dossier_load_node",
+      "name": "Dossier Load Node",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [420, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ json: { ...$json, pack_context: { child_workflows: ['CWF-510-platform-metadata-generator', 'CWF-520-distribution-planner', 'CWF-530-publish-readiness-checker'], primary_director: 'Krishna', strategic_authority: 'Chanakya', governance_authority: ['Yama', 'Krishna'] } } }];"
+      },
+      "id": "wf500_pack_initialization_node",
+      "name": "Pack Initialization Node",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [640, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const childWorkflows = ['CWF-510', 'CWF-520', 'CWF-530'];\nlet executionPlan = { workflows_to_execute: childWorkflows, current_index: 0, status: 'PLANNING', governance_approval_required: true };\nreturn [{ json: { ...$json, execution_plan: executionPlan, pack_orchestration: { started_at: new Date().toISOString(), expected_duration_seconds: 120 } } }];"
+      },
+      "id": "wf500_execution_planner_node",
+      "name": "Execution Planner Node",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [860, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const childResults = { CWF_510: $json.cwf510_result, CWF_520: $json.cwf520_result, CWF_530: $json.cwf530_result };\nconst allHealthy = Object.values(childResults).every(r => r?.status === 'SUCCESS' || r?.status === 'COMPLETED');\nconst metadataGenerated = $json.cwf510_result?.payload?.metadata_complete === true;\nconst distributionPlanned = $json.cwf520_result?.payload?.distribution_plan_ready === true;\nconst publishReadinessChecked = $json.cwf530_result?.payload?.publish_readiness_verified === true;\nconst governanceApproved = $json.cwf530_result?.payload?.governance_approved === true;\nconst validationOk = allHealthy && metadataGenerated && distributionPlanned && publishReadinessChecked && governanceApproved;\nreturn [{ json: { ...$json, pack_validation: { child_results_aggregated: childResults, all_children_healthy: allHealthy, metadata_generated: metadataGenerated, distribution_planned: distributionPlanned, publish_readiness_checked: publishReadinessChecked, governance_approved: governanceApproved, validation_ok: validationOk, route_to_error: !validationOk } } }];"
+      },
+      "id": "wf500_pack_validation_node",
+      "name": "Pack Validation Node",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1080, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "if ($json.pack_validation.route_to_error) return [];\nreturn [{\n  json: {\n    ...$json,\n    dossier_write: {\n      mutation_type: 'namespace_update',\n      target: 'dossier.publishing',\n      timestamp: new Date().toISOString(),\n      writer_id: 'WF-500',\n      pack_context: $json.pack_context,\n      child_results: $json.pack_validation.child_results_aggregated,\n      audit_entry: 'publishing-distribution-pack-completion from WF-500'\n    }\n  }\n}];"
+      },
+      "id": "wf500_dossier_write_node",
+      "name": "Dossier Publishing Write Node",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1300, 200]
+    },
+    {
+      "parameters": {
+        "jsCode": "if ($json.pack_validation.route_to_error) return [];\nreturn [{\n  json: {\n    ...$json,\n    se_route_runs_write: {\n      operation: 'record_pack_execution',\n      pack_id: 'WF-500',\n      dossier_id: $json.dossier_id,\n      child_workflows_executed: ['CWF-510', 'CWF-520', 'CWF-530'],\n      execution_status: 'COMPLETED',\n      governance_approved: $json.pack_validation.governance_approved,\n      publish_ready: $json.pack_validation.validation_ok,\n      timestamp: new Date().toISOString()\n    }\n  }\n}];"
+      },
+      "id": "wf500_route_runs_write_node",
+      "name": "se_route_runs Write Node",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1520, 200]
+    },
+    {
+      "parameters": {
+        "jsCode": "if ($json.pack_validation.route_to_error) return [];\nreturn [{\n  json: {\n    workflow_id: 'WF-500',\n    execution_status: 'SUCCESS',\n    completion_packet: {\n      instance_id: 'WF-500-COMP-' + Date.now(),\n      artifact_family: 'publishing_distribution_result',\n      schema_version: '1.0.0',\n      producer_workflow: 'WF-500',\n      dossier_ref: $json.dossier_id,\n      created_at: new Date().toISOString(),\n      status: 'CREATED',\n      payload: {\n        pack_executed: 'WF-500',\n        governance_approved: $json.pack_validation.governance_approved,\n        publish_ready: $json.pack_validation.validation_ok,\n        next_workflow: 'WF-600',\n        child_packets: ['CWF-510_output', 'CWF-520_output', 'CWF-530_output']\n      }\n    }\n  }\n}];"
+      },
+      "id": "wf500_completion_packet_emission_node",
+      "name": "Completion Packet Emission Node",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1740, 200]
+    },
+    {
+      "parameters": {
+        "jsCode": "if (!$json.pack_validation.route_to_error) return [];\nreturn [{\n  json: {\n    workflow_id: 'WF-500',\n    routing_decision: 'ERROR',\n    route_to_workflow: 'WF-900',\n    error_message: 'Pack validation failed or governance approval failed',\n    failure_context: $json.pack_validation,\n    child_results: $json.pack_validation.child_results_aggregated\n  }\n}];"
+      },
+      "id": "wf500_error_routing_node",
+      "name": "Error Routing WF-900 Node",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1300, 420]
+    }
+  ],
+  "connections": {
+    "Trigger Node": {
+      "main": [[{ "node": "Dossier Load Node", "type": "main", "index": 0 }]]
+    },
+    "Dossier Load Node": {
+      "main": [[{ "node": "Pack Initialization Node", "type": "main", "index": 0 }]]
+    },
+    "Pack Initialization Node": {
+      "main": [[{ "node": "Execution Planner Node", "type": "main", "index": 0 }]]
+    },
+    "Execution Planner Node": {
+      "main": [[{ "node": "Pack Validation Node", "type": "main", "index": 0 }]]
+    },
+    "Pack Validation Node": {
+      "main": [
+        [{ "node": "Dossier Publishing Write Node", "type": "main", "index": 0 }],
+        [{ "node": "Error Routing WF-900 Node", "type": "main", "index": 0 }]
+      ]
+    },
+    "Dossier Publishing Write Node": {
+      "main": [[{ "node": "se_route_runs Write Node", "type": "main", "index": 0 }]]
+    },
+    "se_route_runs Write Node": {
+      "main": [[{ "node": "Completion Packet Emission Node", "type": "main", "index": 0 }]]
+    },
+    "Completion Packet Emission Node": {
+      "main": [[]]
+    },
+    "Error Routing WF-900 Node": {
+      "main": [[]]
+    }
+  }
+}

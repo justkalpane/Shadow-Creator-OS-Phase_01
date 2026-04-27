@@ -1,0 +1,126 @@
+{
+  "name": "WF-300 Context Engineering Pack Canonical",
+  "description": "Runs context engineering lane: execution context → platform packaging → asset briefs → lineage validation.",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "wf300_trigger_node",
+      "name": "Trigger Node",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [200, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ json: { ...$json, dossier_context: { dossier_id: $json.dossier_id || 'DOSSIER-UNSPECIFIED', pack: 'WF-300', loaded_at: new Date().toISOString(), route: $json.route_id || 'ROUTE_PHASE1_STANDARD', script_finalized: !!$json.final_script_packet } } }];"
+      },
+      "id": "wf300_dossier_load_node",
+      "name": "Dossier Load Node",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [420, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ json: { ...$json, pack_context: { child_workflows: ['CWF-310-execution-context-builder', 'CWF-320-platform-packager', 'CWF-330-asset-brief-generator', 'CWF-340-lineage-validator'], primary_director: 'Krishna', strategic_authority: 'Krishna', governance_authority: ['Yama', 'Kubera'] } } }];"
+      },
+      "id": "wf300_pack_initialization_node",
+      "name": "Pack Initialization Node",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [640, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const childWorkflows = ['CWF-310', 'CWF-320', 'CWF-330', 'CWF-340'];\nlet executionPlan = { workflows_to_execute: childWorkflows, current_index: 0, status: 'PLANNING', lineage_validation_required: true };\nreturn [{ json: { ...$json, execution_plan: executionPlan, pack_orchestration: { started_at: new Date().toISOString(), expected_duration_seconds: 150 } } }];"
+      },
+      "id": "wf300_execution_planner_node",
+      "name": "Execution Planner Node",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [860, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const childResults = { CWF_310: $json.cwf310_result, CWF_320: $json.cwf320_result, CWF_330: $json.cwf330_result, CWF_340: $json.cwf340_result };\nconst allHealthy = Object.values(childResults).every(r => r?.status === 'SUCCESS' || r?.status === 'COMPLETED');\nconst contextBuilt = $json.cwf310_result?.payload?.execution_context_built === true;\nconst platformPackaged = $json.cwf320_result?.payload?.platform_packaging_complete === true;\nconst assetBriefReady = $json.cwf330_result?.payload?.asset_brief_ready === true;\nconst lineageValidated = $json.cwf340_result?.payload?.lineage_validated === true;\nconst validationOk = allHealthy && contextBuilt && platformPackaged && assetBriefReady && lineageValidated;\nreturn [{ json: { ...$json, pack_validation: { child_results_aggregated: childResults, all_children_healthy: allHealthy, context_built: contextBuilt, platform_packaged: platformPackaged, asset_brief_ready: assetBriefReady, lineage_validated: lineageValidated, validation_ok: validationOk, route_to_error: !validationOk } } }];"
+      },
+      "id": "wf300_pack_validation_node",
+      "name": "Pack Validation Node",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1080, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "if ($json.pack_validation.route_to_error) return [];\nreturn [{\n  json: {\n    ...$json,\n    dossier_write: {\n      mutation_type: 'namespace_update',\n      target: 'dossier.context',\n      timestamp: new Date().toISOString(),\n      writer_id: 'WF-300',\n      pack_context: $json.pack_context,\n      child_results: $json.pack_validation.child_results_aggregated,\n      audit_entry: 'context-engineering-pack-completion from WF-300'\n    }\n  }\n}];"
+      },
+      "id": "wf300_dossier_write_node",
+      "name": "Dossier Context Write Node",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1300, 200]
+    },
+    {
+      "parameters": {
+        "jsCode": "if ($json.pack_validation.route_to_error) return [];\nreturn [{\n  json: {\n    ...$json,\n    se_route_runs_write: {\n      operation: 'record_pack_execution',\n      pack_id: 'WF-300',\n      dossier_id: $json.dossier_id,\n      child_workflows_executed: ['CWF-310', 'CWF-320', 'CWF-330', 'CWF-340'],\n      execution_status: 'COMPLETED',\n      context_built: $json.pack_validation.context_built,\n      lineage_validated: $json.pack_validation.lineage_validated,\n      timestamp: new Date().toISOString()\n    }\n  }\n}];"
+      },
+      "id": "wf300_route_runs_write_node",
+      "name": "se_route_runs Write Node",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1520, 200]
+    },
+    {
+      "parameters": {
+        "jsCode": "if ($json.pack_validation.route_to_error) return [];\nreturn [{\n  json: {\n    workflow_id: 'WF-300',\n    execution_status: 'SUCCESS',\n    completion_packet: {\n      instance_id: 'WF-300-COMP-' + Date.now(),\n      artifact_family: 'context_engineering_result',\n      schema_version: '1.0.0',\n      producer_workflow: 'WF-300',\n      dossier_ref: $json.dossier_id,\n      created_at: new Date().toISOString(),\n      status: 'CREATED',\n      payload: {\n        pack_executed: 'WF-300',\n        context_built: $json.pack_validation.context_built,\n        lineage_validated: $json.pack_validation.lineage_validated,\n        next_workflow: 'WF-400',\n        child_packets: ['CWF-310_output', 'CWF-320_output', 'CWF-330_output', 'CWF-340_output']\n      }\n    }\n  }\n}];"
+      },
+      "id": "wf300_completion_packet_emission_node",
+      "name": "Completion Packet Emission Node",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1740, 200]
+    },
+    {
+      "parameters": {
+        "jsCode": "if (!$json.pack_validation.route_to_error) return [];\nreturn [{\n  json: {\n    workflow_id: 'WF-300',\n    routing_decision: 'ERROR',\n    route_to_workflow: 'WF-900',\n    error_message: 'Pack validation failed or lineage validation failed',\n    failure_context: $json.pack_validation,\n    child_results: $json.pack_validation.child_results_aggregated\n  }\n}];"
+      },
+      "id": "wf300_error_routing_node",
+      "name": "Error Routing WF-900 Node",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1300, 420]
+    }
+  ],
+  "connections": {
+    "Trigger Node": {
+      "main": [[{ "node": "Dossier Load Node", "type": "main", "index": 0 }]]
+    },
+    "Dossier Load Node": {
+      "main": [[{ "node": "Pack Initialization Node", "type": "main", "index": 0 }]]
+    },
+    "Pack Initialization Node": {
+      "main": [[{ "node": "Execution Planner Node", "type": "main", "index": 0 }]]
+    },
+    "Execution Planner Node": {
+      "main": [[{ "node": "Pack Validation Node", "type": "main", "index": 0 }]]
+    },
+    "Pack Validation Node": {
+      "main": [
+        [{ "node": "Dossier Context Write Node", "type": "main", "index": 0 }],
+        [{ "node": "Error Routing WF-900 Node", "type": "main", "index": 0 }]
+      ]
+    },
+    "Dossier Context Write Node": {
+      "main": [[{ "node": "se_route_runs Write Node", "type": "main", "index": 0 }]]
+    },
+    "se_route_runs Write Node": {
+      "main": [[{ "node": "Completion Packet Emission Node", "type": "main", "index": 0 }]]
+    },
+    "Completion Packet Emission Node": {
+      "main": [[]]
+    },
+    "Error Routing WF-900 Node": {
+      "main": [[]]
+    }
+  }
+}

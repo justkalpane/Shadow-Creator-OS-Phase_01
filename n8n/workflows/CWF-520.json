@@ -1,0 +1,9 @@
+{
+  "name": "CWF-520 Distribution Planner Canonical",
+  "description": "Plans content distribution strategy and schedule across channels.",
+  "nodes": [
+    {"parameters": {}, "id": "trigger", "name": "Trigger", "type": "n8n-nodes-base.manualTrigger", "typeVersion": 1, "position": [200, 300]},
+    {"parameters": {"jsCode": "const distribution = {instance_id: 'DIST-' + Date.now(), artifact_family: 'distribution_plan_packet', schema_version: '1.0.0', producer_workflow: 'CWF-520', dossier_ref: $json.dossier_id, created_at: new Date().toISOString(), status: 'CREATED', payload: {distribution_plan_ready: true, channels_planned: ['youtube', 'blog', 'email', 'social'], publish_schedule: [{channel: 'youtube', publish_date: 'tomorrow_9am', priority: 1}, {channel: 'blog', publish_date: 'tomorrow_10am', priority: 2}, {channel: 'email', publish_date: 'tomorrow_11am', priority: 3}, {channel: 'social', publish_date: 'tomorrow_2pm', priority: 4}], cross_channel_strategy: 'synchronized_phased_rollout', resource_allocation: 'balanced'}};\nreturn [{ json: { ...$json, cwf520_result: { status: 'COMPLETED', distribution_plan_packet: distribution } } }];"}, "id": "builder", "name": "Builder", "type": "n8n-nodes-base.code", "typeVersion": 2, "position": [420, 300]}
+  ],
+  "connections": {"Trigger": {"main": [[{"node": "Builder", "type": "main", "index": 0}]]}, "Builder": {"main": [[]]}}
+}

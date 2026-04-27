@@ -1,0 +1,126 @@
+{
+  "name": "WF-600 Analytics Evolution Pack Canonical",
+  "description": "Runs analytics lane: performance metrics → audience feedback → evolution signal synthesis.",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "wf600_trigger_node",
+      "name": "Trigger Node",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [200, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ json: { ...$json, dossier_context: { dossier_id: $json.dossier_id || 'DOSSIER-UNSPECIFIED', pack: 'WF-600', loaded_at: new Date().toISOString(), route: $json.route_id || 'ROUTE_PHASE1_ANALYTICS', publish_ready: !!$json.publish_ready_packet } } }];"
+      },
+      "id": "wf600_dossier_load_node",
+      "name": "Dossier Load Node",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [420, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ json: { ...$json, pack_context: { child_workflows: ['CWF-610-performance-metrics-collector', 'CWF-620-audience-feedback-aggregator', 'CWF-630-evolution-signal-synthesizer'], primary_director: 'Chandra', strategic_authority: 'Chandra', governance_authority: ['Chitragupta', 'Yama'] } } }];"
+      },
+      "id": "wf600_pack_initialization_node",
+      "name": "Pack Initialization Node",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [640, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const childWorkflows = ['CWF-610', 'CWF-620', 'CWF-630'];\nlet executionPlan = { workflows_to_execute: childWorkflows, current_index: 0, status: 'PLANNING', async_collection_allowed: true, loop_closure_required: true };\nreturn [{ json: { ...$json, execution_plan: executionPlan, pack_orchestration: { started_at: new Date().toISOString(), expected_duration_seconds: 180 } } }];"
+      },
+      "id": "wf600_execution_planner_node",
+      "name": "Execution Planner Node",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [860, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const childResults = { CWF_610: $json.cwf610_result, CWF_620: $json.cwf620_result, CWF_630: $json.cwf630_result };\nconst allHealthy = Object.values(childResults).filter(r => r).every(r => r?.status === 'SUCCESS' || r?.status === 'COMPLETED' || r?.status === 'PARTIAL');\nconst metricsCollected = $json.cwf610_result?.payload?.metrics_collected === true || $json.cwf610_result?.payload?.partial_metrics === true;\nconst feedbackAggregated = $json.cwf620_result?.payload?.feedback_aggregated === true;\nconst signalsSynthesized = $json.cwf630_result?.payload?.signals_synthesized === true;\nconst loopClosed = $json.cwf630_result?.payload?.loop_closure_defined === true;\nconst validationOk = allHealthy && metricsCollected && feedbackAggregated && signalsSynthesized && loopClosed;\nreturn [{ json: { ...$json, pack_validation: { child_results_aggregated: childResults, all_children_healthy: allHealthy, metrics_collected: metricsCollected, feedback_aggregated: feedbackAggregated, signals_synthesized: signalsSynthesized, loop_closed: loopClosed, validation_ok: validationOk, route_to_error: !validationOk } } }];"
+      },
+      "id": "wf600_pack_validation_node",
+      "name": "Pack Validation Node",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1080, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "if ($json.pack_validation.route_to_error) return [];\nreturn [{\n  json: {\n    ...$json,\n    dossier_write: {\n      mutation_type: 'namespace_update',\n      target: 'dossier.analytics',\n      timestamp: new Date().toISOString(),\n      writer_id: 'WF-600',\n      pack_context: $json.pack_context,\n      child_results: $json.pack_validation.child_results_aggregated,\n      audit_entry: 'analytics-evolution-pack-completion from WF-600'\n    }\n  }\n}];"
+      },
+      "id": "wf600_dossier_write_node",
+      "name": "Dossier Analytics Write Node",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1300, 200]
+    },
+    {
+      "parameters": {
+        "jsCode": "if ($json.pack_validation.route_to_error) return [];\nreturn [{\n  json: {\n    ...$json,\n    se_route_runs_write: {\n      operation: 'record_pack_execution',\n      pack_id: 'WF-600',\n      dossier_id: $json.dossier_id,\n      child_workflows_executed: ['CWF-610', 'CWF-620', 'CWF-630'],\n      execution_status: 'COMPLETED',\n      metrics_collected: $json.pack_validation.metrics_collected,\n      loop_closed: $json.pack_validation.loop_closed,\n      timestamp: new Date().toISOString()\n    }\n  }\n}];"
+      },
+      "id": "wf600_route_runs_write_node",
+      "name": "se_route_runs Write Node",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1520, 200]
+    },
+    {
+      "parameters": {
+        "jsCode": "if ($json.pack_validation.route_to_error) return [];\nreturn [{\n  json: {\n    workflow_id: 'WF-600',\n    execution_status: 'SUCCESS',\n    completion_packet: {\n      instance_id: 'WF-600-COMP-' + Date.now(),\n      artifact_family: 'analytics_evolution_result',\n      schema_version: '1.0.0',\n      producer_workflow: 'WF-600',\n      dossier_ref: $json.dossier_id,\n      created_at: new Date().toISOString(),\n      status: 'CREATED',\n      payload: {\n        pack_executed: 'WF-600',\n        metrics_collected: $json.pack_validation.metrics_collected,\n        feedback_aggregated: $json.pack_validation.feedback_aggregated,\n        signals_synthesized: $json.pack_validation.signals_synthesized,\n        loop_closed: $json.pack_validation.loop_closed,\n        child_packets: ['CWF-610_output', 'CWF-620_output', 'CWF-630_output']\n      }\n    }\n  }\n}];"
+      },
+      "id": "wf600_completion_packet_emission_node",
+      "name": "Completion Packet Emission Node",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1740, 200]
+    },
+    {
+      "parameters": {
+        "jsCode": "if (!$json.pack_validation.route_to_error) return [];\nreturn [{\n  json: {\n    workflow_id: 'WF-600',\n    routing_decision: 'ERROR',\n    route_to_workflow: 'WF-900',\n    error_message: 'Pack validation failed or analytics synthesis failed',\n    failure_context: $json.pack_validation,\n    child_results: $json.pack_validation.child_results_aggregated\n  }\n}];"
+      },
+      "id": "wf600_error_routing_node",
+      "name": "Error Routing WF-900 Node",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1300, 420]
+    }
+  ],
+  "connections": {
+    "Trigger Node": {
+      "main": [[{ "node": "Dossier Load Node", "type": "main", "index": 0 }]]
+    },
+    "Dossier Load Node": {
+      "main": [[{ "node": "Pack Initialization Node", "type": "main", "index": 0 }]]
+    },
+    "Pack Initialization Node": {
+      "main": [[{ "node": "Execution Planner Node", "type": "main", "index": 0 }]]
+    },
+    "Execution Planner Node": {
+      "main": [[{ "node": "Pack Validation Node", "type": "main", "index": 0 }]]
+    },
+    "Pack Validation Node": {
+      "main": [
+        [{ "node": "Dossier Analytics Write Node", "type": "main", "index": 0 }],
+        [{ "node": "Error Routing WF-900 Node", "type": "main", "index": 0 }]
+      ]
+    },
+    "Dossier Analytics Write Node": {
+      "main": [[{ "node": "se_route_runs Write Node", "type": "main", "index": 0 }]]
+    },
+    "se_route_runs Write Node": {
+      "main": [[{ "node": "Completion Packet Emission Node", "type": "main", "index": 0 }]]
+    },
+    "Completion Packet Emission Node": {
+      "main": [[]]
+    },
+    "Error Routing WF-900 Node": {
+      "main": [[]]
+    }
+  }
+}
