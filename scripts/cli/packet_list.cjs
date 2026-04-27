@@ -30,10 +30,17 @@ try {
   process.exit(1);
 }
 
-let packets = Array.isArray(index) ? index : (index.packets || []);
+const getPackets = (packetIndex) =>
+  Array.isArray(packetIndex) ? packetIndex : (packetIndex.entries || packetIndex.packets || []);
+const getPacketId = (packet) => packet.packet_id || packet.instance_id || packet.id;
+const getPacketFamily = (packet) =>
+  packet.packet_family || packet.packet_type || packet.artifact_family || packet.family;
+const getDossierRef = (packet) => packet.dossier_id || packet.dossier_ref;
+
+let packets = getPackets(index);
 if (dossierFilter) {
   packets = packets.filter((p) =>
-    p.dossier_id === dossierFilter || p.dossier_ref === dossierFilter
+    getDossierRef(p) === dossierFilter
   );
 }
 
@@ -41,10 +48,10 @@ console.log(`Packets${dossierFilter ? ` for dossier ${dossierFilter}` : ''}: ${p
 console.log('='.repeat(80));
 
 packets.forEach((p) => {
-  const id = p.packet_id || p.id || '<no-id>';
-  const family = p.packet_family || p.packet_type || p.family || '<no-family>';
+  const id = getPacketId(p) || '<no-id>';
+  const family = getPacketFamily(p) || '<no-family>';
   const producer = p.producer_workflow || p.producer || '<no-producer>';
-  const dossier = p.dossier_id || p.dossier_ref || '<no-dossier>';
+  const dossier = getDossierRef(p) || '<no-dossier>';
   console.log(`${id} | ${family} | producer=${producer} | dossier=${dossier}`);
 });
 

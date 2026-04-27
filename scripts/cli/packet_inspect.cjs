@@ -30,8 +30,12 @@ try {
   process.exit(1);
 }
 
-const packets = Array.isArray(index) ? index : (index.packets || []);
-const found = packets.find((p) => p.packet_id === target || p.id === target);
+const getPackets = (packetIndex) =>
+  Array.isArray(packetIndex) ? packetIndex : (packetIndex.entries || packetIndex.packets || []);
+const getPacketId = (packet) => packet.packet_id || packet.instance_id || packet.id;
+
+const packets = getPackets(index);
+const found = packets.find((p) => getPacketId(p) === target);
 
 if (!found) {
   console.error(`Packet not found: ${target}`);

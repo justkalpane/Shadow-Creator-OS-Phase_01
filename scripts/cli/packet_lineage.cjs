@@ -23,12 +23,24 @@ if (!fs.existsSync(indexPath)) {
 }
 
 const index = JSON.parse(fs.readFileSync(indexPath, 'utf8'));
-const packets = Array.isArray(index) ? index : (index.packets || []);
+const getPackets = (packetIndex) =>
+  Array.isArray(packetIndex) ? packetIndex : (packetIndex.entries || packetIndex.packets || []);
+const getPacketId = (packet) => packet.packet_id || packet.instance_id || packet.id;
+const getPacketFamily = (packet) =>
+  packet.packet_family || packet.packet_type || packet.artifact_family || packet.family;
+const getParentPacketId = (packet) =>
+  packet.parent_packet_id ||
+  packet.upstream_packet_id ||
+  (packet.lineage && packet.lineage.sourced_from_packet_id) ||
+  packet.lineage_reference ||
+  null;
+
+const packets = getPackets(index);
 
 // Build lineage map
 const byId = new Map();
 packets.forEach((p) => {
-  const id = p.packet_id || p.id;
+  const id = getPacketId(p);
   if (id) byId.set(id, p);
 });
 
@@ -38,7 +50,7 @@ let current = byId.get(target);
 let guard = 0;
 while (current && guard < 100) {
   chain.push(current);
-  const parentId = current.parent_packet_id || current.upstream_packet_id || null;
+  const parentId = getParentPacketId(current);
   if (!parentId) break;
   current = byId.get(parentId);
   guard += 1;
@@ -52,8 +64,8 @@ if (chain.length === 0) {
 console.log(`Lineage for packet ${target} (depth=${chain.length}):`);
 console.log('='.repeat(80));
 chain.reverse().forEach((p, i) => {
-  const id = p.packet_id || p.id;
-  const family = p.packet_family || p.packet_type || '?';
+  const id = getPacketId(p);
+  const family = getPacketFamily(p) || '?';
   const producer = p.producer_workflow || p.producer || '?';
   console.log(`${'  '.repeat(i)}${id} (${family}) <- ${producer}`);
 });
