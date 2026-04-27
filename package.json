@@ -1,0 +1,70 @@
+{
+  "name": "shadow-creator-os-phase-1",
+  "version": "1.0.0",
+  "description": "Shadow Creator OS Phase-1: n8n-based agentic orchestration for automated AI YouTube content creation",
+  "main": "index.js",
+  "scripts": {
+    "validate:all": "node validators/run_all_validators.cjs",
+    "validate:workflows": "node validators/workflow_validator.js",
+    "validate:schemas": "node validators/schema_validator.js",
+    "validate:registries": "node validators/registry_validator.js",
+    "validate:models": "node validators/model_validator.js",
+    "validate:modes": "node validators/mode_validator.js",
+    "test:e2e": "jest --runInBand --verbose",
+    "test:e2e:fast": "jest --runInBand --verbose --testNamePattern='fast'",
+    "test:e2e:replay": "jest --runInBand --verbose --testNamePattern='replay'",
+    "health:check": "node scripts/health_check.js",
+    "db:verify": "node scripts/db_verify.js",
+    "dossier:list": "node scripts/dossier_list.js",
+    "dossier:inspect": "node scripts/dossier_inspect.js",
+    "dossier:archive": "node scripts/dossier_archive.js",
+    "dossier:delete": "node scripts/dossier_delete.js",
+    "packet:list": "node scripts/packet_list.js",
+    "packet:inspect": "node scripts/packet_inspect.js",
+    "packet:lineage": "node scripts/packet_lineage.js",
+    "errors:list": "node scripts/errors_list.js",
+    "errors:clear": "node scripts/errors_clear.js",
+    "cost:report": "node scripts/cost_report.js",
+    "metrics:daily": "node scripts/metrics_daily.js",
+    "metrics:weekly": "node scripts/metrics_weekly.js",
+    "logs:view": "node scripts/logs_view.js",
+    "logs:clean": "node scripts/logs_clean.js",
+    "n8n:start": "n8n start",
+    "n8n:start:bg": "n8n start --background",
+    "n8n:stop": "pkill -f 'n8n start'",
+    "n8n:status": "node scripts/n8n_status.js"
+  },
+  "keywords": [
+    "n8n",
+    "workflow-orchestration",
+    "ai-content-creation",
+    "automation",
+    "youtube",
+    "agentic-system",
+    "dossier-state-management",
+    "governance",
+    "director-skill-model"
+  ],
+  "author": "Shadow Creator OS Team",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
+  "dependencies": {
+    "axios": "^1.6.0",
+    "yaml": "^2.3.0",
+    "ajv": "^8.12.0",
+    "sqlite3": "^5.1.6",
+    "pg": "^8.11.0",
+    "dotenv": "^16.3.0",
+    "winston": "^3.10.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "node-mocks-http": "^1.13.0",
+    "@babel/core": "^7.23.0",
+    "@babel/preset-env": "^7.23.0",
+    "babel-jest": "^29.7.0"
+  }
+}

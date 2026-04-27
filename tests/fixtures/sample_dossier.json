@@ -1,0 +1,60 @@
+{
+  "dossier_id": "test_sample_dossier",
+  "route_id": "ROUTE_PHASE1_STANDARD",
+  "status": "completed",
+  "selected_model": "ollama_local_llama3.2",
+  "selected_mode": "creator",
+  "dossier_version": 45,
+  "created_at": "2026-04-27T10:00:00Z",
+  "completed_at": "2026-04-27T10:15:00Z",
+  "system": {
+    "project_id": "shadow_creator_phase_1",
+    "environment": "local",
+    "execution_context": "n8n_workflow"
+  },
+  "intake": {
+    "original_topic": "The future of artificial intelligence",
+    "user_context": "YouTube content creator",
+    "content_tone": "educational",
+    "target_audience": "tech enthusiasts"
+  },
+  "discovery": {
+    "entities": ["AI", "machine learning", "neural networks"],
+    "themes": ["automation", "future of work"],
+    "scope": "broad overview",
+    "entity_count": 15
+  },
+  "research": {
+    "sources": ["arxiv papers", "academic journals", "industry reports"],
+    "claims": ["AI will transform industries", "automation is accelerating"],
+    "evidence_map": {"claim_1": ["source_1", "source_2"]},
+    "source_count": 12
+  },
+  "script": {
+    "outline": "Intro → History → Current State → Future Outlook → Conclusion",
+    "draft": "Artificial intelligence has revolutionized...",
+    "quality_score": 0.87,
+    "word_count": 2400,
+    "citations_count": 8
+  },
+  "approval": {
+    "approval_status": "approved",
+    "approving_director": "script_director",
+    "approval_timestamp": "2026-04-27T10:14:00Z"
+  },
+  "analytics": {
+    "execution_latency_ms": 900000,
+    "total_tokens_used": 4500,
+    "cost_usd": 0.00,
+    "quality_scores": [0.85, 0.87, 0.88]
+  },
+  "evolution": {
+    "feedback_signals": ["high engagement", "good clarity"],
+    "learning_cycle_count": 1,
+    "improvements_applied": 1
+  },
+  "dossier_delta_log": [
+    {"version": 1, "timestamp": "2026-04-27T10:00:00Z", "mutation": "created"},
+    {"version": 2, "timestamp": "2026-04-27T10:02:00Z", "mutation": "discovery_completed"}
+  ]
+}
