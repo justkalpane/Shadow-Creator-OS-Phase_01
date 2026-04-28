@@ -26,12 +26,20 @@
   },
   "nodes": [
     {
-      "parameters": {},
+      "parameters": {
+        "path": "wf-901-error-recovery",
+        "httpMethod": "POST",
+        "responseMode": "onReceived",
+        "options": {}
+      },
       "id": "wf-901_trigger_node",
       "name": "Trigger Node",
-      "type": "n8n-nodes-base.manualTrigger",
-      "typeVersion": 1,
-      "position": [200, 300]
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        200,
+        300
+      ]
     },
     {
       "parameters": {
@@ -41,7 +49,10 @@
       "name": "Error Load Node",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [420, 300]
+      "position": [
+        420,
+        300
+      ]
     },
     {
       "parameters": {
@@ -51,7 +62,10 @@
       "name": "Classification Node",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [640, 300]
+      "position": [
+        640,
+        300
+      ]
     },
     {
       "parameters": {
@@ -61,7 +75,10 @@
       "name": "Recovery Strategy Node",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [860, 300]
+      "position": [
+        860,
+        300
+      ]
     },
     {
       "parameters": {
@@ -71,7 +88,10 @@
       "name": "Retry Execution Node",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1080, 220]
+      "position": [
+        1080,
+        220
+      ]
     },
     {
       "parameters": {
@@ -81,7 +101,10 @@
       "name": "Fallback Execution Node",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1080, 380]
+      "position": [
+        1080,
+        380
+      ]
     },
     {
       "parameters": {
@@ -91,7 +114,10 @@
       "name": "Audit Write Node",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1300, 300]
+      "position": [
+        1300,
+        300
+      ]
     },
     {
       "parameters": {
@@ -101,7 +127,10 @@
       "name": "Reroute Decision Node",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1520, 300]
+      "position": [
+        1520,
+        300
+      ]
     },
     {
       "parameters": {
@@ -111,7 +140,10 @@
       "name": "Escalation Node",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1740, 380]
+      "position": [
+        1740,
+        380
+      ]
     },
     {
       "parameters": {
@@ -121,7 +153,10 @@
       "name": "Completion Packet Emission Node",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1740, 220]
+      "position": [
+        1740,
+        220
+      ]
     },
     {
       "parameters": {
@@ -131,48 +166,129 @@
       "name": "Error Routing WF-900 Node",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1960, 460]
+      "position": [
+        1960,
+        460
+      ]
     }
   ],
   "connections": {
     "Trigger Node": {
-      "main": [[{ "node": "Error Load Node", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Error Load Node",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Error Load Node": {
-      "main": [[{ "node": "Classification Node", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Classification Node",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Classification Node": {
-      "main": [[{ "node": "Recovery Strategy Node", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Recovery Strategy Node",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Recovery Strategy Node": {
       "main": [
-        [{ "node": "Retry Execution Node", "type": "main", "index": 0 }],
-        [{ "node": "Fallback Execution Node", "type": "main", "index": 0 }]
+        [
+          {
+            "node": "Retry Execution Node",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Fallback Execution Node",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     },
     "Retry Execution Node": {
-      "main": [[{ "node": "Audit Write Node", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Audit Write Node",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Fallback Execution Node": {
-      "main": [[{ "node": "Audit Write Node", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Audit Write Node",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Audit Write Node": {
-      "main": [[{ "node": "Reroute Decision Node", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Reroute Decision Node",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Reroute Decision Node": {
       "main": [
-        [{ "node": "Completion Packet Emission Node", "type": "main", "index": 0 }],
-        [{ "node": "Escalation Node", "type": "main", "index": 0 }]
+        [
+          {
+            "node": "Completion Packet Emission Node",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Escalation Node",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     },
     "Completion Packet Emission Node": {
-      "main": [[]]
+      "main": [
+        []
+      ]
     },
     "Escalation Node": {
-      "main": [[]]
+      "main": [
+        []
+      ]
     },
     "Error Routing WF-900 Node": {
-      "main": [[]]
+      "main": [
+        []
+      ]
     }
   },
   "settings": {

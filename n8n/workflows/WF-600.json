@@ -3,11 +3,16 @@
   "description": "Runs analytics lane: performance metrics → audience feedback → evolution signal synthesis.",
   "nodes": [
     {
-      "parameters": {},
+      "parameters": {
+        "path": "wf-600-analytics-evolution-pack",
+        "httpMethod": "POST",
+        "responseMode": "onReceived",
+        "options": {}
+      },
       "id": "wf600_trigger_node",
       "name": "Trigger Node",
-      "type": "n8n-nodes-base.manualTrigger",
-      "typeVersion": 1,
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
       "position": [
         200,
         300
