@@ -24,4 +24,19 @@ Write-Output ""
 Write-Output "Once running, in another shell:  npm run n8n:status"
 Write-Output ""
 
-n8n start
+$n8nCmd = $null
+$cmd = Get-Command n8n -ErrorAction SilentlyContinue
+if ($cmd) {
+  $n8nCmd = $cmd.Source
+} else {
+  $fallback = Join-Path $env:APPDATA "npm\n8n.cmd"
+  if (Test-Path $fallback) {
+    $n8nCmd = $fallback
+  }
+}
+
+if (-not $n8nCmd) {
+  throw "n8n executable not found. Install n8n globally or ensure it is on PATH."
+}
+
+& $n8nCmd start
