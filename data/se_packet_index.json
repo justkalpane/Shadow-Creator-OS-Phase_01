@@ -2309,8 +2309,232 @@
         "operation": "create_new_index_row",
         "notes": "append packet row to se_packet_index"
       }
+    },
+    {
+      "index_entry_id": "IDX-cdf509c8",
+      "instance_id": "PKT-1777402001416-1cn0r563",
+      "artifact_family": "m010_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-110",
+      "dossier_ref": "DOSSIER-ORCH-1777402001361",
+      "packet_created_at": "2026-04-28T18:46:41.416Z",
+      "indexed_at": "2026-04-28T18:46:41.416Z",
+      "packet_status": "CREATED",
+      "next_workflow": null,
+      "escalation_needed": false,
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "timestamp": "2026-04-28T18:46:41.416Z",
+      "writer_id": "CWF-110",
+      "skill_id": "UNKNOWN_SKILL",
+      "schema_write_version": "1.0.0",
+      "lineage_reference": "PKT-1777402001416-1cn0r563",
+      "audit_entry": {
+        "workflow_id": "CWF-110",
+        "operation": "create_new_index_row",
+        "notes": "append packet row to se_packet_index"
+      }
+    },
+    {
+      "index_entry_id": "IDX-5983adef",
+      "instance_id": "PKT-1777402001450-fnrca2a8",
+      "artifact_family": "m020_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-120",
+      "dossier_ref": "DOSSIER-ORCH-1777402001361",
+      "packet_created_at": "2026-04-28T18:46:41.450Z",
+      "indexed_at": "2026-04-28T18:46:41.450Z",
+      "packet_status": "CREATED",
+      "next_workflow": null,
+      "escalation_needed": false,
+      "lineage": {
+        "sourced_from_packet_id": "PKT-1777402001416-1cn0r563",
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "timestamp": "2026-04-28T18:46:41.450Z",
+      "writer_id": "CWF-120",
+      "skill_id": "UNKNOWN_SKILL",
+      "schema_write_version": "1.0.0",
+      "lineage_reference": "PKT-1777402001416-1cn0r563",
+      "audit_entry": {
+        "workflow_id": "CWF-120",
+        "operation": "create_new_index_row",
+        "notes": "append packet row to se_packet_index"
+      }
+    },
+    {
+      "index_entry_id": "IDX-dc1eebee",
+      "instance_id": "PKT-1777402001480-tgih4j2d",
+      "artifact_family": "m040_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-130",
+      "dossier_ref": "DOSSIER-ORCH-1777402001361",
+      "packet_created_at": "2026-04-28T18:46:41.480Z",
+      "indexed_at": "2026-04-28T18:46:41.480Z",
+      "packet_status": "CREATED",
+      "next_workflow": null,
+      "escalation_needed": false,
+      "lineage": {
+        "sourced_from_packet_id": "PKT-1777402001416-1cn0r563",
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "timestamp": "2026-04-28T18:46:41.480Z",
+      "writer_id": "CWF-130",
+      "skill_id": "UNKNOWN_SKILL",
+      "schema_write_version": "1.0.0",
+      "lineage_reference": "PKT-1777402001416-1cn0r563",
+      "audit_entry": {
+        "workflow_id": "CWF-130",
+        "operation": "create_new_index_row",
+        "notes": "append packet row to se_packet_index"
+      }
+    },
+    {
+      "index_entry_id": "IDX-5a9f648e",
+      "instance_id": "PKT-1777402001513-8iu57qnm",
+      "artifact_family": "m080_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-140",
+      "dossier_ref": "DOSSIER-ORCH-1777402001361",
+      "packet_created_at": "2026-04-28T18:46:41.513Z",
+      "indexed_at": "2026-04-28T18:46:41.513Z",
+      "packet_status": "CREATED",
+      "next_workflow": null,
+      "escalation_needed": false,
+      "lineage": {
+        "sourced_from_packet_id": "PKT-1777402001416-1cn0r563",
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "timestamp": "2026-04-28T18:46:41.513Z",
+      "writer_id": "CWF-140",
+      "skill_id": "UNKNOWN_SKILL",
+      "schema_write_version": "1.0.0",
+      "lineage_reference": "PKT-1777402001416-1cn0r563",
+      "audit_entry": {
+        "workflow_id": "CWF-140",
+        "operation": "create_new_index_row",
+        "notes": "append packet row to se_packet_index"
+      }
+    },
+    {
+      "index_entry_id": "IDX-a48e4ded",
+      "instance_id": "PKT-1777402001539-flc8mn54",
+      "artifact_family": "m120_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-210",
+      "dossier_ref": "DOSSIER-ORCH-1777402001361",
+      "packet_created_at": "2026-04-28T18:46:41.539Z",
+      "indexed_at": "2026-04-28T18:46:41.539Z",
+      "packet_status": "CREATED",
+      "next_workflow": null,
+      "escalation_needed": false,
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "timestamp": "2026-04-28T18:46:41.539Z",
+      "writer_id": "CWF-210",
+      "skill_id": "UNKNOWN_SKILL",
+      "schema_write_version": "1.0.0",
+      "lineage_reference": "PKT-1777402001539-flc8mn54",
+      "audit_entry": {
+        "workflow_id": "CWF-210",
+        "operation": "create_new_index_row",
+        "notes": "append packet row to se_packet_index"
+      }
+    },
+    {
+      "index_entry_id": "IDX-9346cb2e",
+      "instance_id": "PKT-1777402001566-xbhpvpd0",
+      "artifact_family": "m150_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-220",
+      "dossier_ref": "DOSSIER-ORCH-1777402001361",
+      "packet_created_at": "2026-04-28T18:46:41.566Z",
+      "indexed_at": "2026-04-28T18:46:41.566Z",
+      "packet_status": "CREATED",
+      "next_workflow": null,
+      "escalation_needed": false,
+      "lineage": {
+        "sourced_from_packet_id": "PKT-1777402001539-flc8mn54",
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "timestamp": "2026-04-28T18:46:41.566Z",
+      "writer_id": "CWF-220",
+      "skill_id": "UNKNOWN_SKILL",
+      "schema_write_version": "1.0.0",
+      "lineage_reference": "PKT-1777402001539-flc8mn54",
+      "audit_entry": {
+        "workflow_id": "CWF-220",
+        "operation": "create_new_index_row",
+        "notes": "append packet row to se_packet_index"
+      }
+    },
+    {
+      "index_entry_id": "IDX-9cec1ba4",
+      "instance_id": "PKT-1777402001595-yj4e77fv",
+      "artifact_family": "m180_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-230",
+      "dossier_ref": "DOSSIER-ORCH-1777402001361",
+      "packet_created_at": "2026-04-28T18:46:41.595Z",
+      "indexed_at": "2026-04-28T18:46:41.595Z",
+      "packet_status": "CREATED",
+      "next_workflow": null,
+      "escalation_needed": false,
+      "lineage": {
+        "sourced_from_packet_id": "PKT-1777402001539-flc8mn54",
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "timestamp": "2026-04-28T18:46:41.595Z",
+      "writer_id": "CWF-230",
+      "skill_id": "UNKNOWN_SKILL",
+      "schema_write_version": "1.0.0",
+      "lineage_reference": "PKT-1777402001539-flc8mn54",
+      "audit_entry": {
+        "workflow_id": "CWF-230",
+        "operation": "create_new_index_row",
+        "notes": "append packet row to se_packet_index"
+      }
+    },
+    {
+      "index_entry_id": "IDX-d5807f2c",
+      "instance_id": "PKT-1777402001622-pbg9fhq9",
+      "artifact_family": "m218_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-240",
+      "dossier_ref": "DOSSIER-ORCH-1777402001361",
+      "packet_created_at": "2026-04-28T18:46:41.623Z",
+      "indexed_at": "2026-04-28T18:46:41.623Z",
+      "packet_status": "CREATED",
+      "next_workflow": null,
+      "escalation_needed": false,
+      "lineage": {
+        "sourced_from_packet_id": "PKT-1777402001539-flc8mn54",
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "timestamp": "2026-04-28T18:46:41.623Z",
+      "writer_id": "CWF-240",
+      "skill_id": "UNKNOWN_SKILL",
+      "schema_write_version": "1.0.0",
+      "lineage_reference": "PKT-1777402001539-flc8mn54",
+      "audit_entry": {
+        "workflow_id": "CWF-240",
+        "operation": "create_new_index_row",
+        "notes": "append packet row to se_packet_index"
+      }
     }
   ],
-  "total_entries": 90,
-  "last_updated": "2026-04-27T18:14:10.124Z"
+  "total_entries": 98,
+  "last_updated": "2026-04-28T18:46:41.623Z"
 }
