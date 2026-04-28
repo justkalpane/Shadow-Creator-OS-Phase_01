@@ -3,16 +3,11 @@
   "description": "Normalizes runtime failures, writes error events, and directs replay or remediation.",
   "nodes": [
     {
-      "parameters": {
-        "path": "wf-900-error-handler",
-        "httpMethod": "POST",
-        "responseMode": "onReceived",
-        "options": {}
-      },
+      "parameters": {},
       "id": "wf900_trigger_node",
       "name": "Trigger Node",
-      "type": "n8n-nodes-base.webhook",
-      "typeVersion": 2,
+      "type": "n8n-nodes-base.errorTrigger",
+      "typeVersion": 1,
       "position": [
         200,
         300

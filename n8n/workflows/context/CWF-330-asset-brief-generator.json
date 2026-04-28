@@ -6,7 +6,7 @@
       "parameters": {},
       "id": "cwf330_trigger",
       "name": "Workflow Input",
-      "type": "n8n-nodes-base.manualTrigger",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
       "typeVersion": 1,
       "position": [
         250,

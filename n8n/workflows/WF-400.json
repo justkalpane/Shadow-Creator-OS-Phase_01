@@ -3,16 +3,11 @@
   "description": "Runs media production lane: thumbnails → visual assets → audio optimization → media packaging.",
   "nodes": [
     {
-      "parameters": {
-        "path": "wf-400-media-production-pack",
-        "httpMethod": "POST",
-        "responseMode": "onReceived",
-        "options": {}
-      },
+      "parameters": {},
       "id": "wf400_trigger_node",
       "name": "Trigger Node",
-      "type": "n8n-nodes-base.webhook",
-      "typeVersion": 2,
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1,
       "position": [
         200,
         300

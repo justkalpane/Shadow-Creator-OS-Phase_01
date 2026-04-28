@@ -3,16 +3,11 @@
   "description": "Runs Phase-1 script intelligence lane: generation → debate → refinement → final shaping.",
   "nodes": [
     {
-      "parameters": {
-        "path": "wf-200-script-intelligence-pack",
-        "httpMethod": "POST",
-        "responseMode": "onReceived",
-        "options": {}
-      },
+      "parameters": {},
       "id": "wf200_trigger_node",
       "name": "Trigger Node",
-      "type": "n8n-nodes-base.webhook",
-      "typeVersion": 2,
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1,
       "position": [
         200,
         300

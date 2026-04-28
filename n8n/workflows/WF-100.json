@@ -3,16 +3,11 @@
   "description": "Runs Phase-1 topic intelligence lane: discovery → qualification → scoring → research synthesis.",
   "nodes": [
     {
-      "parameters": {
-        "path": "wf-100-topic-intelligence-pack",
-        "httpMethod": "POST",
-        "responseMode": "onReceived",
-        "options": {}
-      },
+      "parameters": {},
       "id": "wf100_trigger_node",
       "name": "Trigger Node",
-      "type": "n8n-nodes-base.webhook",
-      "typeVersion": 2,
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1,
       "position": [
         200,
         300
