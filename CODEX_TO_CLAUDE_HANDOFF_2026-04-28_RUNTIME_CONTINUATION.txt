@@ -1,0 +1,340 @@
+CODEX -> CLAUDE CODE HANDOFF
+Shadow Creator OS Phase-1 Continuation (Local Runtime + n8n Safety + Validation Integrity)
+Handoff Date: 2026-04-28
+Local Repo Path: C:\ShadowEmpire-Git
+GitHub Repo: https://github.com/justkalpane/Shadow-Creator-OS-Phase_01
+
+=====================================================================
+READ THIS FIRST
+=====================================================================
+This is a live continuation handoff, not a greenfield build.
+Do not summarize this handoff.
+Do not assume prior claims are true without local verification.
+Do not claim completion without command evidence.
+Do not leave SE-N8N-WF-901-Error-Test active.
+
+Execution model:
+1) Verify
+2) Patch only confirmed gaps
+3) Re-validate
+4) Commit only intentional changes
+5) Push only if clean
+6) Report with exact evidence
+
+=====================================================================
+1) VERIFIED BASELINE (RE-CHECKED BY CODEX JUST NOW)
+=====================================================================
+Git:
+- Branch: main
+- HEAD: 15bbf5524a948385592703ed4abc8322f424f344
+- origin/main: 15bbf5524a948385592703ed4abc8322f424f344
+- Sync: aligned (HEAD == origin/main)
+- git status -sb: clean (main...origin/main)
+
+Recent commits:
+- 15bbf55 fix: make WF-000 n8n code sandbox safe
+- 310ef5a fix: support entries-based packet index in packet CLI
+- ab89390 build: complete latest production readiness updates
+- b2ee9eb build: close all 14 production gaps from Codex audit
+- c3caa33 Remove obsolete audit artifacts from repository
+
+Repo validation:
+- npm run health:check -> PASS (STATUS: HEALTHY)
+- npm run validate:all -> PASS (errors=0 warnings=1)
+- npm run test:e2e -> PASS (3 suites / 9 tests)
+- npm run db:verify -> PASS (0 hard failures)
+- npm run packet:list -> PASS (Packets: 90)
+- npm run errors:list -> PASS (Errors: 0)
+- npm run cost:report -> PASS (Dossiers: 14, Total Cost: $0.0000)
+
+Current runtime state observed at handoff time:
+- npm run n8n:status -> FAIL (NOT REACHABLE at localhost:5678 in Codex shell session)
+
+Interpretation:
+- Repo is healthy and synced.
+- n8n runtime process was not reachable at the exact moment of this handoff check.
+- First operational task is n8n runtime bring-up + workflow safety verification.
+
+=====================================================================
+2) WHAT WAS ALREADY PATCHED
+=====================================================================
+A) Packet CLI compatibility fix (already committed/pushed):
+- scripts/cli/packet_list.cjs
+- scripts/cli/packet_inspect.cjs
+- scripts/cli/packet_lineage.cjs
+
+Behavior now supports:
+- packet index root as:
+  - array
+  - { packets: [...] }
+  - { entries: [...] }
+- packet identifiers:
+  - packet_id
+  - instance_id
+  - id
+- packet family keys:
+  - packet_family
+  - packet_type
+  - artifact_family
+  - family
+- parent lineage keys:
+  - parent_packet_id
+  - upstream_packet_id
+  - lineage.sourced_from_packet_id
+  - lineage_reference
+
+B) WF-000 sandbox-safe patch (already committed/pushed):
+- n8n/workflows/WF-000.json
+- commit: 15bbf55
+- purpose: remove n8n code-node dependency on process/fs/path APIs unavailable in sandbox
+
+=====================================================================
+3) CURRENT CRITICAL GAP TO CLOSE
+=====================================================================
+Gap ID: N8N-GAP-001
+Title: Controlled proof of WF-900 error capture remains unverified in current session
+
+Known facts:
+- SE-N8N-WF-900-Error-Handler exists and was previously active.
+- SE-N8N-WF-901-Error-Test intentionally fails HTTP to dead port (127.0.0.1:9999) for forced error testing.
+- WF-901 must never be left active.
+- Prior confusion came from mixing:
+  - n8n runtime health (5678 OK/Not OK)
+  - WF-901 forced-failure behavior (9999 expected fail)
+
+Required closure:
+- Bring n8n runtime up.
+- Verify WF-901 inactive baseline.
+- Do one controlled WF-901 scheduled tick test.
+- Verify WF-900 capture evidence.
+- Deactivate WF-901 immediately.
+- Re-run full validation gate.
+
+=====================================================================
+4) NON-NEGOTIABLE EXECUTION RULES
+=====================================================================
+1. Verify first, patch second.
+2. No broad rewrites, no architecture changes.
+3. No deletion of workflows without explicit user approval.
+4. No blind import/activation of all workflows.
+5. No npm audit fix --force without explicit user approval.
+6. No fake green reports.
+7. If a check cannot be run, mark NOT RUN and explain why.
+8. If n8n is down, restore runtime first.
+9. Always leave WF-901 inactive after testing.
+10. Commit only intentional file changes after gate pass.
+
+=====================================================================
+5) PHASED EXECUTION PLAN FOR CLAUDE
+=====================================================================
+PHASE 0 - Baseline Lock
+Run exactly:
+Set-Location C:\ShadowEmpire-Git
+git status -sb
+git log --oneline -5
+git rev-parse HEAD
+git rev-parse origin/main
+node -v
+npm -v
+python --version
+py --version
+
+Expected:
+- main aligned to origin/main
+- HEAD = 15bbf5524a948385592703ed4abc8322f424f344
+
+PHASE 1 - n8n Runtime Recovery (if down)
+Run:
+npm.cmd run n8n:status
+
+If NOT REACHABLE:
+Open separate PowerShell and run:
+New-Item -ItemType Directory -Force "C:\ShadowEmpire\n8n_user"
+New-Item -ItemType Directory -Force "C:\ShadowEmpire\n8n_user\binaryData"
+Remove-Item Env:N8N_BINARY_DATA_STORAGE_PATH -ErrorAction SilentlyContinue
+$env:N8N_USER_FOLDER="C:\ShadowEmpire\n8n_user"
+$env:N8N_DEFAULT_BINARY_DATA_MODE="filesystem"
+$env:N8N_STORAGE_PATH="C:\ShadowEmpire\n8n_user\binaryData"
+$env:N8N_HOST="127.0.0.1"
+$env:N8N_PORT="5678"
+n8n start
+
+Then in repo shell:
+Set-Location C:\ShadowEmpire-Git
+npm.cmd run n8n:status
+
+Expected:
+n8n status: 200
+{"status":"ok"}
+
+PHASE 2 - Workflow Safety Check (No Patch Yet)
+In n8n UI:
+- Open SE-N8N-WF-901-Error-Test
+- Confirm ACTIVE/INACTIVE
+- If ACTIVE -> deactivate immediately
+- Confirm no running/pending WF-901 execution remains
+- Confirm SE-N8N-WF-900-Error-Handler status
+
+Record evidence:
+- workflow active flags
+- execution timestamps/status
+- any new error events
+
+PHASE 3 - Controlled Single-Tick Error Capture Test
+Purpose: verify WF-900 actually captures WF-901 failure.
+
+Steps:
+1) Capture baseline:
+   - npm run errors:list
+   - error event file/table snapshot
+   - current n8n executions for WF-900 and WF-901
+2) Activate WF-901 temporarily.
+3) Wait ~70 seconds (one schedule interval).
+4) Confirm WF-901 failed once (expected).
+5) Confirm WF-900 handler execution/capture evidence.
+6) Deactivate WF-901 immediately.
+7) Confirm WF-901 inactive at end.
+
+Pass criteria:
+- WF-901 failure occurred once in controlled window.
+- WF-900 captured/processed error with fresh evidence.
+- WF-901 left inactive.
+
+PHASE 4 - Minimal Patch Only If Needed
+Patch ONLY if an actual defect is confirmed in Phase 1-3:
+
+Candidate A: Add Windows n8n startup script if missing:
+- scripts/windows/start_n8n_shadow_phase1.ps1
+
+Candidate B: Add WF-901 controlled test runbook if missing:
+- docs/n8n/WF-901_CONTROLLED_ERROR_TEST.md
+
+Candidate C: Improve scripts/cli/n8n_status.cjs only if diagnostics are misleading.
+
+No speculative edits.
+
+PHASE 5 - Full Validation Gate (post-test / post-patch)
+Run:
+Set-Location C:\ShadowEmpire-Git
+git status --short
+npm.cmd run health:check
+npm.cmd run validate:all
+npm.cmd run test:e2e
+npm.cmd run db:verify
+npm.cmd run packet:list
+npm.cmd run errors:list
+npm.cmd run cost:report
+npm.cmd run n8n:status
+git status --short
+
+Expected:
+- same pass profile as baseline
+- no unexpected file diffs
+- n8n status reachable (if runtime intended up)
+- WF-901 inactive
+
+PHASE 6 - Commit and Push Discipline
+Only if files were intentionally changed:
+git status --short
+git diff --stat
+git diff -- <changed files>
+git add <intentional files only>
+git commit -m "<precise message>"
+git pull --rebase origin main
+git push origin main
+git rev-parse HEAD
+git rev-parse origin/main
+git status -sb
+
+No commit if no file changes.
+
+=====================================================================
+6) KNOWN WARNINGS (NON-BLOCKING UNLESS CHANGED)
+=====================================================================
+1) validate:all warning:
+ALLOWED_REPLAY_CYCLE
+WF-020 -> WF-600 -> WF-021 -> CWF-210 -> CWF-220 -> CWF-230 -> CWF-240 -> WF-020
+
+2) npm audit vulnerabilities may still exist.
+Do not run npm audit fix --force unless user explicitly approves.
+
+3) n8n Python task runner warning may appear.
+Treat as non-blocking unless a workflow actually depends on n8n Python runner.
+
+=====================================================================
+7) CLAUDE FINAL REPORT FORMAT (MANDATORY)
+=====================================================================
+Use this exact structure:
+
+MISSION RESULT
+- completed / partial / blocked
+- one-line evidence summary
+
+REPO STATE
+- path
+- branch
+- HEAD
+- origin/main
+- working tree
+
+N8N STATE
+- URL checked
+- n8n:status result
+- runtime running yes/no
+
+WORKFLOW SAFETY STATE
+- SE-N8N-WF-900-Error-Handler state
+- SE-N8N-WF-901-Error-Test state
+- running executions count
+- WF-901 inactive at end: yes/no
+
+WF-900 CAPTURE PROOF
+- test window start/end
+- WF-901 execution IDs/status
+- WF-900 execution IDs/status
+- error artifact evidence path/table
+- verdict: VERIFIED / UNVERIFIED
+
+FILES CHANGED
+- list or none
+
+PATCHES APPLIED
+- exact summary
+
+VALIDATION RESULTS
+- health:check
+- validate:all
+- test:e2e
+- db:verify
+- packet:list
+- errors:list
+- cost:report
+- n8n:status
+
+GIT RESULT
+- commit created: yes/no
+- commit hash
+- pushed: yes/no
+- final git status
+
+NOT DONE
+- explicit items and reason
+
+NEXT SINGLE ACTION
+- one precise next step only
+
+=====================================================================
+8) DO NOT CLAIM THIS YET
+=====================================================================
+Do NOT claim "production ready" unless ALL are true with evidence:
+1) Repo validation gate green
+2) n8n runtime reachable
+3) WF-901 safety confirmed inactive
+4) WF-900 capture proof verified with fresh execution evidence
+5) No unexpected git diffs
+
+If any item missing, report PARTIAL with exact blocker.
+
+=====================================================================
+END OF HANDOFF
+=====================================================================
