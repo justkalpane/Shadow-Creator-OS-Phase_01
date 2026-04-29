@@ -1,0 +1,105 @@
+{
+  "name": "WF-023 Downstream Resource Preparation Canonical",
+  "description": "Prepare downstream media and publishing resource plan packets from approved script/context outputs.",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "wf023_trigger",
+      "name": "Workflow Input",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1,
+      "position": [
+        220,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ json: { workflow_id: 'WF-023', final_script_packet: $json.final_script_packet || {}, context_engineering_packet: $json.context_engineering_packet || {}, dossier_id: $json.dossier_id || null, timestamp: new Date().toISOString() } }];"
+      },
+      "id": "wf023_normalize",
+      "name": "Normalize Planning Input",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        470,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const plan = {\n  packet_family: 'downstream_resource_prep_plan',\n  replay_reference: { workflow: 'WF-023', dossier_id: $json.dossier_id, timestamp: new Date().toISOString() },\n  asset_classes: [\n    { id: 'thumbnail', owner: 'CWF-410', priority: 'high' },\n    { id: 'visual_assets', owner: 'CWF-420', priority: 'high' },\n    { id: 'audio_optimization', owner: 'CWF-430', priority: 'medium' },\n    { id: 'metadata_distribution', owner: 'CWF-510', priority: 'medium' }\n  ],\n  sequencing: ['CWF-410', 'CWF-420', 'CWF-430', 'CWF-440', 'CWF-510', 'CWF-520', 'CWF-530']\n};\nreturn [{ json: { ...$json, prep_plan: plan } }];"
+      },
+      "id": "wf023_build",
+      "name": "Build Prep Plan",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        730,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const plan = $json.prep_plan || {};\nconst errs = [];\nif (!Array.isArray(plan.asset_classes) || plan.asset_classes.length === 0) errs.push('asset_classes missing');\nif (!Array.isArray(plan.sequencing) || plan.sequencing.length === 0) errs.push('sequencing missing');\nif (!plan.replay_reference) errs.push('replay_reference missing');\nif (errs.length) throw new Error('WF-023 validation failed: ' + errs.join('; '));\nreturn [{ json: { workflow_id: 'WF-023', status: 'SUCCESS', output_packet_family: 'downstream_resource_prep_plan', downstream_resource_prep_plan: plan } }];"
+      },
+      "id": "wf023_validate",
+      "name": "Validate Prep Plan",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        990,
+        320
+      ]
+    }
+  ],
+  "connections": {
+    "Workflow Input": {
+      "main": [
+        [
+          {
+            "node": "Normalize Planning Input",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalize Planning Input": {
+      "main": [
+        [
+          {
+            "node": "Build Prep Plan",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Prep Plan": {
+      "main": [
+        [
+          {
+            "node": "Validate Prep Plan",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "meta": {
+    "workflow_id": "WF-023",
+    "phase": "phase1",
+    "vein": "planning_vein",
+    "implementation_depth": "production_grade",
+    "purpose": "Execute deterministic workflow WF-023 with governance-bound routing.",
+    "owner_director": "Aruna",
+    "next_workflow": "WF-020",
+    "wf900_error_route": "WF-900",
+    "canonical_file": "n8n/workflows/WF-023.json"
+  },
+  "active": false,
+  "settings": {},
+  "id": "rN4bQ1Y6mJ8tC3vP"
+}
