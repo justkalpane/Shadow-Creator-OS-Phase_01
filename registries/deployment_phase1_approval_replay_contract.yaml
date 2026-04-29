@@ -1,0 +1,35 @@
+version: 1
+registry_id: deployment_phase1_approval_replay_contract
+phase: phase1
+status: active
+owner: shadow_empire_phase1
+purpose: >
+  Verify WF-020 deterministic branch routing (approved -> WF-500, rejected -> WF-021)
+  and enforce bounded replay evidence for WF-021.
+
+targets:
+  workflow_approval: WF-020
+  workflow_publish: WF-500
+  workflow_replay: WF-021
+  workflow_error: WF-900
+
+timing:
+  wait_after_approved_ms: 12000
+  wait_after_rejected_ms: 12000
+  poll_interval_ms: 2000
+  poll_timeout_ms: 30000
+
+contract:
+  approved_branch:
+    require_workflow_execution:
+      WF-020: 1
+      WF-500: 1
+    forbid_workflow_execution:
+      WF-021: 0
+  rejected_branch:
+    require_workflow_execution:
+      WF-020: 1
+      WF-021: 1
+    forbid_workflow_execution:
+      WF-500: 0
+    max_replay_executions_per_window: 2

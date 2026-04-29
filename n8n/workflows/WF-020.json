@@ -31,7 +31,7 @@
     },
     {
       "parameters": {
-        "jsCode": "return [{ json: { ...$json, dossier_context: { dossier_id: $json.dossier_id || 'DOSSIER-UNSPECIFIED', loaded_at: new Date().toISOString() } } }];"
+        "jsCode": "const body = $json.body || {};\nconst dossierId = $json.dossier_id || body.dossier_id || 'DOSSIER-UNSPECIFIED';\nconst routeId = $json.route_id || body.route_id || 'ROUTE_PHASE1_STANDARD';\nconst decision = $json.approval_decision || body.approval_decision || $json.approval_status || body.approval_status || 'APPROVED';\nconst replayTarget = $json.replay_target_workflow || body.replay_target_workflow || 'CWF-210';\nreturn [{ json: { ...$json, dossier_id: dossierId, route_id: routeId, approval_decision: decision, replay_target_workflow: replayTarget, dossier_context: { dossier_id: dossierId, loaded_at: new Date().toISOString() } } }];"
       },
       "id": "wf-020_dossier_load_node",
       "name": "Dossier Load Node",
@@ -135,7 +135,7 @@
     },
     {
       "parameters": {
-        "jsCode": "if ($json.route_to_error) return [];\nreturn [{\n  json: {\n    workflow_id: 'WF-020',\n    execution_status: 'SUCCESS',\n    completion_packet: {\n      instance_id: 'WF-020-COMP-' + Date.now(),\n      artifact_family: 'workflow_completion_packet',\n      schema_version: '1.0.0',\n      producer_workflow: 'WF-020',\n      dossier_ref: $json.runtime_packet?.dossier_ref || 'DOSSIER-UNSPECIFIED',\n      created_at: new Date().toISOString(),\n      status: 'CREATED',\n      payload: {\n        source_packet_id: $json.runtime_packet?.instance_id || null,\n        next_workflow: $json.routing_decision?.on_success_next_workflow || 'WF-300',\n        route_to_wf900: 'WF-900'\n      }\n    }\n  }\n}];"
+        "jsCode": "if ($json.route_to_error) return [];\nconst approvalDecision = $json.runtime_packet?.payload?.approval_decision || $json.approval_decision || 'APPROVED';\nreturn [{\n  json: {\n    workflow_id: 'WF-020',\n    execution_status: 'SUCCESS',\n    approval_decision: approvalDecision,\n    replay_target_workflow: $json.replay_target_workflow || 'CWF-210',\n    runtime_packet: $json.runtime_packet,\n    routing_decision: $json.routing_decision,\n    completion_packet: {\n      instance_id: 'WF-020-COMP-' + Date.now(),\n      artifact_family: 'workflow_completion_packet',\n      schema_version: '1.0.0',\n      producer_workflow: 'WF-020',\n      dossier_ref: $json.runtime_packet?.dossier_ref || 'DOSSIER-UNSPECIFIED',\n      created_at: new Date().toISOString(),\n      status: 'CREATED',\n      payload: {\n        source_packet_id: $json.runtime_packet?.instance_id || null,\n        next_workflow: $json.routing_decision?.on_success_next_workflow || 'WF-300',\n        route_to_wf900: 'WF-900',\n        approval_decision: approvalDecision\n      }\n    }\n  }\n}];"
       },
       "id": "wf-020_completion_packet_emission_node",
       "name": "Completion Packet Emission Node",
@@ -148,7 +148,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Normalize approval route to single-output data for deterministic branching\nconst raw = ($json.approval_status || ($json.payload && $json.payload.approval_status) || $json.approval_decision || ($json.runtime_packet && $json.runtime_packet.payload && $json.runtime_packet.payload.approval_decision) || 'approved');\nconst status = String(raw).toLowerCase();\nconst approved = ['approved','approve','pass','default_approved'].includes(status);\nreturn [{ json: { ...$json, approval_status_normalized: approved ? 'approved' : 'rejected', branch: approved ? 'approved' : 'rejected' } }];"
+        "jsCode": "// Normalize approval route to single-output data for deterministic branching\nconst raw = (\n  $json.approval_status ||\n  $json.approval_decision ||\n  ($json.payload && $json.payload.approval_status) ||\n  ($json.completion_packet && $json.completion_packet.payload && $json.completion_packet.payload.approval_decision) ||\n  ($json.runtime_packet && $json.runtime_packet.payload && $json.runtime_packet.payload.approval_decision) ||\n  'approved'\n);\nconst status = String(raw).toLowerCase();\nconst approved = ['approved','approve','pass','default_approved'].includes(status);\nreturn [{ json: { ...$json, approval_status_normalized: approved ? 'approved' : 'rejected', branch: approved ? 'approved' : 'rejected' } }];"
       },
       "id": "wf020_approval_branch_node",
       "name": "Approval Branch Switch",
@@ -348,9 +348,7 @@
             "node": "Approved Route Filter",
             "type": "main",
             "index": 0
-          }
-        ],
-        [
+          },
           {
             "node": "Rejected Route Filter",
             "type": "main",
