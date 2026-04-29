@@ -55,7 +55,8 @@
     "deploy:persistence-contract": "node scripts/cli/deploy_persistence_contract.cjs",
     "deploy:persistence-cutover": "npm run deploy:regression-sweep && npm run deploy:persistence-contract",
     "deploy:approval-replay-contract": "npm run deploy:live-sync-enforcer && node scripts/cli/deploy_approval_replay_contract.cjs",
-    "deploy:approval-replay-gate": "npm run deploy:approval-replay-contract"
+    "deploy:approval-replay-gate": "npm run deploy:approval-replay-contract",
+    "deploy:promotion-gate": "node scripts/cli/deploy_release_promotion_gate.cjs"
   },
   "keywords": [
     "n8n",

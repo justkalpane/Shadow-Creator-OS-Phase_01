@@ -1,0 +1,17 @@
+version: 1
+phase: phase1
+name: release_promotion_gate
+required_steps:
+  - npm_script: deploy:rc-lock
+  - npm_script: deploy:regression-sweep
+  - npm_script: deploy:approval-replay-contract
+required_reports:
+  - path: tests/reports/deploy_release_candidate_lock_latest.json
+    expected_status: PASS
+  - path: tests/reports/deploy_regression_sweep_latest.json
+    expected_status: PASS
+  - path: tests/reports/deploy_approval_replay_contract_latest.json
+    expected_status: PASS
+signature:
+  algorithm: sha256
+  signer: shadow-phase1-release-promotion-gate
