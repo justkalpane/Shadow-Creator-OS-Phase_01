@@ -25,9 +25,9 @@ export default function Dashboard() {
       setLoading(true);
       setError(null);
 
-      // Load dossier index from local storage/file
-      const response = await fetch('/api/data/se_dossier_index.json');
-      if (!response.ok) throw new Error('Failed to load dossier index');
+      // Load dossier index from public directory
+      const response = await fetch('/data/se_dossier_index.json');
+      if (!response.ok) throw new Error(`Failed to load dossier index (${response.status})`);
 
       const data = await response.json();
       const dossierList = data.dossiers || [];
