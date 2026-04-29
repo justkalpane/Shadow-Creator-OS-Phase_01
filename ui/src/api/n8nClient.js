@@ -1,94 +1,107 @@
-import axios from 'axios';
+const N8N_BASE_URL = process.env.REACT_APP_N8N_URL || 'http://localhost:5678';
 
-const API_BASE_URL = process.env.REACT_APP_N8N_URL || 'http://localhost:5678';
+const workflowWebhooks = {
+  'WF-001': '/webhook/dossier-create',
+  'WF-010': '/webhook/parent-orchestrator',
+  'WF-100': '/webhook/topic-intelligence',
+  'WF-200': '/webhook/script-intelligence',
+  'WF-300': '/webhook/context-engineering',
+  'WF-400': '/webhook/media-production',
+  'WF-500': '/webhook/publishing-distribution',
+  'WF-600': '/webhook/analytics-evolution',
+  'WF-900': '/webhook/recovery-escalation',
+};
 
-const n8nClient = axios.create({
-  baseURL: `${API_BASE_URL}/api/v1`,
-  headers: {
-    'Content-Type': 'application/json',
-  },
-});
-
-// Workflow operations
-export const workflowApi = {
-  // List all workflows
-  listWorkflows: async () => {
-    try {
-      const response = await n8nClient.get('/workflows');
-      return response.data;
-    } catch (error) {
-      console.error('Error fetching workflows:', error);
-      throw error;
+export const n8nClient = {
+  async executeWorkflow(workflowId, payload = {}) {
+    const webhookPath = workflowWebhooks[workflowId];
+    if (!webhookPath) {
+      console.error(`Unknown workflow: ${workflowId}`);
+      throw new Error(`Workflow ${workflowId} not configured`);
     }
-  },
 
-  // Get workflow by ID
-  getWorkflow: async (workflowId) => {
     try {
-      const response = await n8nClient.get(`/workflows/${workflowId}`);
-      return response.data;
-    } catch (error) {
-      console.error(`Error fetching workflow ${workflowId}:`, error);
-      throw error;
-    }
-  },
-
-  // Execute workflow via webhook
-  executeWorkflow: async (webhookUrl, payload) => {
-    try {
-      const response = await axios.post(webhookUrl, payload, {
-        headers: { 'Content-Type': 'application/json' },
+      const response = await fetch(`${N8N_BASE_URL}${webhookPath}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          timestamp: new Date().toISOString(),
+          ...payload,
+        }),
       });
-      return response.data;
-    } catch (error) {
-      console.error('Error executing workflow:', error);
-      throw error;
+
+      if (!response.ok) {
+        throw new Error(`Workflow execution failed: ${response.status} ${response.statusText}`);
+      }
+
+      const result = await response.json();
+      console.log(`✅ Workflow ${workflowId} triggered:`, result);
+      return result;
+    } catch (err) {
+      console.error(`❌ Failed to execute ${workflowId}:`, err);
+      throw err;
     }
   },
 
-  // Get execution history
-  getExecutions: async (workflowId, limit = 50) => {
-    try {
-      const response = await n8nClient.get(`/workflows/${workflowId}/executions`, {
-        params: { limit },
-      });
-      return response.data;
-    } catch (error) {
-      console.error('Error fetching executions:', error);
-      throw error;
-    }
+  async createDossier(dossierData) {
+    return this.executeWorkflow('WF-001', {
+      operation: 'create_dossier',
+      ...dossierData,
+    });
+  },
+
+  async executePhase(phaseWorkflowId, dossierData) {
+    return this.executeWorkflow(phaseWorkflowId, {
+      operation: 'execute_phase',
+      ...dossierData,
+    });
+  },
+
+  getWebhookUrl(workflowId) {
+    return `${N8N_BASE_URL}${workflowWebhooks[workflowId]}`;
+  },
+
+  getN8nUrl() {
+    return N8N_BASE_URL;
   },
 };
 
-// Local file operations (via backend)
+export const workflowApi = {
+  executeWorkflow: (workflowId, payload) => n8nClient.executeWorkflow(workflowId, payload),
+  createDossier: (payload) => n8nClient.createDossier(payload),
+  executePhase: (workflowId, payload) => n8nClient.executePhase(workflowId, payload),
+};
+
 export const dataApi = {
-  // Get dossier index
-  getDossierIndex: async () => {
+  async getDossierIndex() {
     try {
-      const response = await axios.get('/api/data/se_dossier_index.json');
-      return response.data;
+      const response = await fetch('/data/se_dossier_index.json');
+      if (!response.ok) throw new Error('Failed to fetch dossier index');
+      return await response.json();
     } catch (error) {
       console.error('Error fetching dossier index:', error);
       throw error;
     }
   },
 
-  // Get packet index
-  getPacketIndex: async () => {
+  async getPacketIndex() {
     try {
-      const response = await axios.get('/api/data/se_packet_index.json');
-      return response.data;
+      const response = await fetch('/data/se_packet_index.json');
+      if (!response.ok) throw new Error('Failed to fetch packet index');
+      return await response.json();
     } catch (error) {
       console.error('Error fetching packet index:', error);
       throw error;
     }
   },
 
-  // Get dossier by ID
-  getDossier: async (dossierId) => {
+  async getDossier(dossierId) {
     try {
-      const response = await axios.get(`/api/dossiers/${dossierId}.json`);
-      return response.data;
+      const response = await fetch(`/data/${dossierId}.json`);
+      if (!response.ok) throw new Error(`Failed to fetch dossier ${dossierId}`);
+      return await response.json();
     } catch (error) {
       console.error(`Error fetching dossier ${dossierId}:`, error);
       throw error;

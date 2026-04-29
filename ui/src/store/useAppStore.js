@@ -3,6 +3,9 @@ import { create } from 'zustand';
 const loadFromLocalStorage = () => ({
   selectedMode: localStorage.getItem('selectedMode') || 'creator',
   selectedModel: localStorage.getItem('selectedModel') || 'ollama_local_llama3.2',
+  selectedModule: localStorage.getItem('selectedModule') || 'local',
+  selectedContentMode: localStorage.getItem('selectedContentMode') || 'script_gen',
+  enabledOperationalModes: JSON.parse(localStorage.getItem('enabledOperationalModes') || '[]'),
 });
 
 export const useAppStore = create((set) => ({
@@ -25,6 +28,8 @@ export const useAppStore = create((set) => ({
   // Actions
   setSelectedMode: (mode) => set({ selectedMode: mode }),
   setSelectedModel: (model) => set({ selectedModel: model }),
+  setSelectedModule: (module) => set({ selectedModule: module }),
+  setSelectedContentMode: (contentMode) => set({ selectedContentMode: contentMode }),
   setSelectedDossier: (dossier) => set({ selectedDossier: dossier }),
 
   setSidebarOpen: (open) => set({ sidebarOpen: open }),
@@ -39,7 +44,18 @@ export const useAppStore = create((set) => ({
   setExecutions: (executions) => set({ executions }),
   setAlerts: (alerts) => set({ alertsList: alerts }),
 
+  toggleOperationalMode: (modeId) => set((state) => {
+    const enabled = state.enabledOperationalModes || [];
+    const updated = enabled.includes(modeId)
+      ? enabled.filter((m) => m !== modeId)
+      : [...enabled, modeId];
+    localStorage.setItem('enabledOperationalModes', JSON.stringify(updated));
+    return { enabledOperationalModes: updated };
+  }),
+
   // Derived state
   getMode: (state) => state.selectedMode,
   getModel: (state) => state.selectedModel,
+  getModule: (state) => state.selectedModule,
+  getContentMode: (state) => state.selectedContentMode,
 }));

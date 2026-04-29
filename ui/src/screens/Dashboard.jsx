@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppStore } from '../store/useAppStore';
+import { workflowApi } from '../api/n8nClient';
 
 export default function Dashboard() {
   const navigate = useNavigate();
-  const { setCurrentScreen, selectedMode, selectedModel } = useAppStore();
+  const { setCurrentScreen, selectedMode, selectedModel, selectedModule, selectedContentMode } = useAppStore();
   const [dossiers, setDossiers] = useState([]);
   const [stats, setStats] = useState({
     totalExecutions: 0,
@@ -14,6 +15,7 @@ export default function Dashboard() {
   });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [executing, setExecuting] = useState(false);
 
   useEffect(() => {
     setCurrentScreen('dashboard');
@@ -57,12 +59,51 @@ export default function Dashboard() {
     }
   };
 
+  const handleCreateDossier = async () => {
+    try {
+      setExecuting(true);
+      setError(null);
+
+      const payload = {
+        mode: selectedMode,
+        module: selectedModule,
+        content_mode: selectedContentMode,
+        model: selectedModel,
+        timestamp: new Date().toISOString(),
+        ui_version: 'Phase2A',
+      };
+
+      console.log('🚀 Triggering WF-001 with payload:', payload);
+      const result = await workflowApi.createDossier(payload);
+      console.log('✅ Dossier creation workflow started:', result);
+
+      // Reload dossiers after a short delay
+      setTimeout(() => {
+        loadDossiers();
+      }, 2000);
+    } catch (err) {
+      console.error('Error creating dossier:', err);
+      setError(`Failed to create dossier: ${err.message}`);
+    } finally {
+      setExecuting(false);
+    }
+  };
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold">Dashboard</h1>
-        <div className="text-sm text-gray-400">
-          Mode: <span className="text-blue-400 font-medium">{selectedMode}</span> | Model: <span className="text-blue-400 font-medium">{selectedModel.split('_').pop()}</span>
+        <div className="text-sm text-gray-400 space-y-1">
+          <div>
+            Mode: <span className="text-blue-400 font-medium">{selectedMode}</span>
+            {' | '}
+            Module: <span className="text-green-400 font-medium">{selectedModule}</span>
+            {' | '}
+            Model: <span className="text-yellow-400 font-medium">{selectedModel.split('_').pop()}</span>
+          </div>
+          <div>
+            Content: <span className="text-purple-400 font-medium">{selectedContentMode.replace(/_/g, ' ')}</span>
+          </div>
         </div>
       </div>
 
@@ -101,10 +142,13 @@ export default function Dashboard() {
         <h2 className="text-xl font-semibold mb-4">Quick Actions</h2>
         <div className="flex gap-4">
           <button
-            onClick={() => alert('Phase 2B: Workflow execution coming soon!')}
-            className="px-6 py-2 bg-shadow-accent rounded hover:bg-blue-600 transition-colors"
+            onClick={handleCreateDossier}
+            disabled={executing}
+            className={`px-6 py-2 rounded transition-colors ${
+              executing ? 'bg-gray-600 cursor-not-allowed' : 'bg-shadow-accent hover:bg-blue-600'
+            }`}
           >
-            ▶️ Create New Dossier
+            {executing ? '⏳ Creating...' : '▶️ Create New Dossier'}
           </button>
           <button
             onClick={() => navigate('/dossiers')}

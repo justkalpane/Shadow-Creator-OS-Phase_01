@@ -1,0 +1,33 @@
+{
+  "dossier_id": "DOSSIER-smoke_1777493531522-2",
+  "created_at": "2026-04-29T20:12:18.687Z",
+  "status": "APPROVED",
+  "namespaces": {
+    "approval": {
+      "decisions": [
+        {
+          "timestamp": "2026-04-29T20:12:18.687Z",
+          "workflow_id": "WF-020",
+          "packet_id": "WF-020-1777493538671",
+          "decision": "APPROVED",
+          "route_next": null
+        }
+      ],
+      "latest_decision": "APPROVED",
+      "last_decision_at": "2026-04-29T20:12:18.687Z"
+    }
+  },
+  "_version": 1,
+  "_created_at": "2026-04-29T20:12:18.687Z",
+  "_audit_trail": [
+    {
+      "timestamp": "2026-04-29T20:12:18.687Z",
+      "workflow_id": "WF-020",
+      "operation": "APPROVAL_DECISION_APPEND",
+      "decision": "APPROVED",
+      "notes": "append approval decision into dossier namespace"
+    }
+  ],
+  "last_updated": "2026-04-29T20:12:18.687Z",
+  "_last_updated_at": "2026-04-29T20:12:18.687Z"
+}

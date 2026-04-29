@@ -1,0 +1,47 @@
+{
+  "dossier_id": "DOSSIER-PHASE73-R4-20260429T193601Z",
+  "created_at": "2026-04-29T19:36:01.423Z",
+  "status": "APPROVED",
+  "namespaces": {
+    "approval": {
+      "decisions": [
+        {
+          "timestamp": "2026-04-29T19:36:01.423Z",
+          "workflow_id": "WF-020",
+          "packet_id": "WF-020-1777491361409",
+          "decision": "approved",
+          "route_next": null
+        },
+        {
+          "timestamp": "2026-04-29T19:36:02.040Z",
+          "workflow_id": "WF-020",
+          "packet_id": "WF-020-1777491362019",
+          "decision": "APPROVED",
+          "route_next": null
+        }
+      ],
+      "latest_decision": "APPROVED",
+      "last_decision_at": "2026-04-29T19:36:02.040Z"
+    }
+  },
+  "_version": 2,
+  "_created_at": "2026-04-29T19:36:01.423Z",
+  "_audit_trail": [
+    {
+      "timestamp": "2026-04-29T19:36:01.423Z",
+      "workflow_id": "WF-020",
+      "operation": "APPROVAL_DECISION_APPEND",
+      "decision": "approved",
+      "notes": "append approval decision into dossier namespace"
+    },
+    {
+      "timestamp": "2026-04-29T19:36:02.040Z",
+      "workflow_id": "WF-020",
+      "operation": "APPROVAL_DECISION_APPEND",
+      "decision": "APPROVED",
+      "notes": "append approval decision into dossier namespace"
+    }
+  ],
+  "last_updated": "2026-04-29T19:36:02.040Z",
+  "_last_updated_at": "2026-04-29T19:36:02.040Z"
+}

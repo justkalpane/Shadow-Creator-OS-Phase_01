@@ -1,0 +1,48 @@
+{
+  "table": "se_dossier_index",
+  "description": "Index of all dossiers; updated by WF-001 and dossier_writer.",
+  "records": [
+    {
+      "dossier_id": "DOSSIER-UNSPECIFIED",
+      "status": "active",
+      "created_at": "2026-04-29T14:31:26.929Z",
+      "updated_at": "2026-04-29T14:31:26.929Z",
+      "source_execution_id": 664,
+      "source_workflow": "WF-010 Parent Orchestrator Canonical"
+    },
+    {
+      "dossier_id": "DOSSIER-smoke_1777476666514-1",
+      "status": "active",
+      "created_at": "2026-04-29T15:31:45.779Z",
+      "updated_at": "2026-04-29T15:31:45.779Z",
+      "source_execution_id": 743,
+      "source_workflow": "WF-020 Final Approval Canonical"
+    },
+    {
+      "dossier_id": "DOSSIER-smoke_1777476666514-2",
+      "status": "active",
+      "created_at": "2026-04-29T15:31:45.781Z",
+      "updated_at": "2026-04-29T15:31:45.781Z",
+      "source_execution_id": 748,
+      "source_workflow": "WF-020 Final Approval Canonical"
+    },
+    {
+      "dossier_id": "DOSSIER-smoke_1777477489439-1",
+      "status": "active",
+      "created_at": "2026-04-29T15:45:28.687Z",
+      "updated_at": "2026-04-29T15:45:28.687Z",
+      "source_execution_id": 780,
+      "source_workflow": "WF-020 Final Approval Canonical"
+    },
+    {
+      "dossier_id": "DOSSIER-smoke_1777477489439-2",
+      "status": "active",
+      "created_at": "2026-04-29T15:45:28.689Z",
+      "updated_at": "2026-04-29T15:45:28.689Z",
+      "source_execution_id": 785,
+      "source_workflow": "WF-020 Final Approval Canonical"
+    }
+  ],
+  "created_at": "2026-04-27T16:40:49.584Z",
+  "last_updated": "2026-04-29T15:45:28.692Z"
+}

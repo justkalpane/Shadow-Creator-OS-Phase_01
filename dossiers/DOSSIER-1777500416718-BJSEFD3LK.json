@@ -1,0 +1,38 @@
+{
+  "dossier_id": "DOSSIER-1777500416718-BJSEFD3LK",
+  "route_id": "ROUTE_PHASE1_STANDARD",
+  "current_workflow": "WF-001",
+  "created_at": "2026-04-29T22:06:56.736Z",
+  "last_updated": "2026-04-29T22:06:56.736Z",
+  "status": "INTAKE_INITIALIZED",
+  "namespaces": {
+    "system": {
+      "dossier_id": "DOSSIER-1777500416718-BJSEFD3LK",
+      "route_id": "ROUTE_PHASE1_STANDARD",
+      "owner_workflow": "WF-001",
+      "created_at": "2026-04-29T22:06:56.736Z",
+      "version": 1
+    },
+    "intake": {
+      "topic": "Phase10 live cutover phase10_1777500416594",
+      "intake_timestamp": "2026-04-29T22:06:56.736Z",
+      "intake_source": "manual_user_input",
+      "intake_metadata": {
+        "user_mode": "creator",
+        "selected_route": "ROUTE_PHASE1_STANDARD"
+      },
+      "version": 1
+    }
+  },
+  "_version": 1,
+  "_created_at": "2026-04-29T22:06:56.736Z",
+  "_last_updated_at": "2026-04-29T22:06:56.782Z",
+  "_audit_trail": [
+    {
+      "timestamp": "2026-04-29T22:06:56.782Z",
+      "workflow_id": "WF-001",
+      "operation": "DOSSIER_CREATE",
+      "notes": "Initial dossier created by WF-001"
+    }
+  ]
+}
