@@ -1,0 +1,25 @@
+version: 1
+registry_id: deployment_phase1_live_sync_enforcer
+phase: phase1
+status: active
+owner: shadow_empire_phase1
+purpose: >
+  Force source-to-live synchronization for high-risk canonical workflows
+  before deployment gates are executed.
+
+db:
+  user_folder_env: N8N_USER_FOLDER
+  user_folder_fallback: C:/ShadowEmpire/n8n_user
+  sqlite_path_suffix: .n8n/database.sqlite
+
+high_risk_workflows:
+  - workflow_id: WF-010
+    reason: parent_orchestrator_ingress_and_pack_chaining
+  - workflow_id: WF-020
+    reason: approval_branching_and_replay_gate
+  - workflow_id: WF-021
+    reason: replay_remodify_control_path
+  - workflow_id: WF-500
+    reason: publishing_distribution_pack_parent
+  - workflow_id: WF-900
+    reason: global_error_handler_path
