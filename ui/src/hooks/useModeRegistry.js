@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import yaml from 'js-yaml';
 
 export const useModeRegistry = () => {
   const [modes, setModes] = useState(null);
