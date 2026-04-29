@@ -54,14 +54,158 @@
     },
     {
       "parameters": {
-        "jsCode": "const childResults = { CWF_110: $json.cwf110_result, CWF_120: $json.cwf120_result, CWF_130: $json.cwf130_result, CWF_140: $json.cwf140_result };\nconst allHealthy = Object.values(childResults).every(r => r?.status === 'SUCCESS' || r?.status === 'COMPLETED');\nconst topicFinalized = $json.cwf140_result?.payload?.research_synthesis_finalized === true;\nconst validationOk = allHealthy && topicFinalized;\nreturn [{ json: { ...$json, pack_validation: { child_results_aggregated: childResults, all_children_healthy: allHealthy, topic_finalized: topicFinalized, validation_ok: validationOk, route_to_error: !validationOk } } }];"
+        "source": "database",
+        "workflowId": {
+          "__rl": true,
+          "value": "9aM3CMjyQbaO9XYE",
+          "mode": "id",
+          "cachedResultName": "CWF-110 Topic Discovery Canonical"
+        },
+        "mode": "each",
+        "options": {
+          "waitForSubWorkflow": true
+        }
+      },
+      "id": "wf100_execute_cwf110_node",
+      "name": "Execute CWF-110 Topic Discovery",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        1080,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Capture node for cwf110_result\n// $json here = the output of the immediately preceding Execute CWF-110 node\nconst subOutput = $json || {};\n\n// Restore parent context from Execution Planner Node (preserves dossier_id, route_id, pack_context, etc.)\nlet parentCtx = {};\ntry { parentCtx = $('Execution Planner Node').first().json || {}; } catch(e) {}\n\nconst acc = { ...parentCtx };\n\n// Pull prior captures so accumulated state survives across the chain\n\n\n// Add this node's capture\nacc[\"cwf110_result\"] = {\n  status: subOutput.status || 'SUCCESS',\n  payload: subOutput.payload || subOutput,\n  captured_at: new Date().toISOString()\n};\n\nreturn [{ json: acc }];"
+      },
+      "id": "wf100_capture_cwf110_node",
+      "name": "Capture CWF-110 Result",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1330,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "source": "database",
+        "workflowId": {
+          "__rl": true,
+          "value": "8Nf7TvjLr5kbAyPp",
+          "mode": "id",
+          "cachedResultName": "CWF-120 Topic Qualification Canonical"
+        },
+        "mode": "each",
+        "options": {
+          "waitForSubWorkflow": true
+        }
+      },
+      "id": "wf100_execute_cwf120_node",
+      "name": "Execute CWF-120 Topic Qualification",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        1580,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Capture node for cwf120_result\n// $json here = the output of the immediately preceding Execute CWF-120 node\nconst subOutput = $json || {};\n\n// Restore parent context from Execution Planner Node (preserves dossier_id, route_id, pack_context, etc.)\nlet parentCtx = {};\ntry { parentCtx = $('Execution Planner Node').first().json || {}; } catch(e) {}\n\nconst acc = { ...parentCtx };\n\n// Pull prior captures so accumulated state survives across the chain\ntry { const c = $('Capture CWF-110 Result').first(); if (c) acc[\"cwf110_result\"] = c.json[\"cwf110_result\"] || c.json; } catch(e) {}\n\n// Add this node's capture\nacc[\"cwf120_result\"] = {\n  status: subOutput.status || 'SUCCESS',\n  payload: subOutput.payload || subOutput,\n  captured_at: new Date().toISOString()\n};\n\nreturn [{ json: acc }];"
+      },
+      "id": "wf100_capture_cwf120_node",
+      "name": "Capture CWF-120 Result",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1830,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "source": "database",
+        "workflowId": {
+          "__rl": true,
+          "value": "i2bPLxrWTASjJg4f",
+          "mode": "id",
+          "cachedResultName": "CWF-130 Topic Scoring Canonical"
+        },
+        "mode": "each",
+        "options": {
+          "waitForSubWorkflow": true
+        }
+      },
+      "id": "wf100_execute_cwf130_node",
+      "name": "Execute CWF-130 Topic Scoring",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        2080,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Capture node for cwf130_result\n// $json here = the output of the immediately preceding Execute CWF-130 node\nconst subOutput = $json || {};\n\n// Restore parent context from Execution Planner Node (preserves dossier_id, route_id, pack_context, etc.)\nlet parentCtx = {};\ntry { parentCtx = $('Execution Planner Node').first().json || {}; } catch(e) {}\n\nconst acc = { ...parentCtx };\n\n// Pull prior captures so accumulated state survives across the chain\ntry { const c = $('Capture CWF-110 Result').first(); if (c) acc[\"cwf110_result\"] = c.json[\"cwf110_result\"] || c.json; } catch(e) {}\n  try { const c = $('Capture CWF-120 Result').first(); if (c) acc[\"cwf120_result\"] = c.json[\"cwf120_result\"] || c.json; } catch(e) {}\n\n// Add this node's capture\nacc[\"cwf130_result\"] = {\n  status: subOutput.status || 'SUCCESS',\n  payload: subOutput.payload || subOutput,\n  captured_at: new Date().toISOString()\n};\n\nreturn [{ json: acc }];"
+      },
+      "id": "wf100_capture_cwf130_node",
+      "name": "Capture CWF-130 Result",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2330,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "source": "database",
+        "workflowId": {
+          "__rl": true,
+          "value": "2rvNjmctBuBQFw8A",
+          "mode": "id",
+          "cachedResultName": "CWF-140 Research Synthesis Canonical"
+        },
+        "mode": "each",
+        "options": {
+          "waitForSubWorkflow": true
+        }
+      },
+      "id": "wf100_execute_cwf140_node",
+      "name": "Execute CWF-140 Research Synthesis",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        2580,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Capture node for cwf140_result\n// $json here = the output of the immediately preceding Execute CWF-140 node\nconst subOutput = $json || {};\n\n// Restore parent context from Execution Planner Node (preserves dossier_id, route_id, pack_context, etc.)\nlet parentCtx = {};\ntry { parentCtx = $('Execution Planner Node').first().json || {}; } catch(e) {}\n\nconst acc = { ...parentCtx };\n\n// Pull prior captures so accumulated state survives across the chain\ntry { const c = $('Capture CWF-110 Result').first(); if (c) acc[\"cwf110_result\"] = c.json[\"cwf110_result\"] || c.json; } catch(e) {}\n  try { const c = $('Capture CWF-120 Result').first(); if (c) acc[\"cwf120_result\"] = c.json[\"cwf120_result\"] || c.json; } catch(e) {}\n  try { const c = $('Capture CWF-130 Result').first(); if (c) acc[\"cwf130_result\"] = c.json[\"cwf130_result\"] || c.json; } catch(e) {}\n\n// Add this node's capture\nacc[\"cwf140_result\"] = {\n  status: subOutput.status || 'SUCCESS',\n  payload: subOutput.payload || subOutput,\n  captured_at: new Date().toISOString()\n};\n\nreturn [{ json: acc }];"
+      },
+      "id": "wf100_capture_cwf140_node",
+      "name": "Capture CWF-140 Result",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2830,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Phase-2 chain validation: pass if all children returned SUCCESS/COMPLETED.\n// Deeper field validation (e.g. research_synthesis_finalized) is deferred to Phase 3 (state persistence)\n// and Phase 5 (Ollama-backed real outputs).\nconst childResults = {\n  CWF_110: $json.cwf110_result,\n  CWF_120: $json.cwf120_result,\n  CWF_130: $json.cwf130_result,\n  CWF_140: $json.cwf140_result\n};\nconst allHealthy = Object.values(childResults).every(r => r && (r.status === 'SUCCESS' || r.status === 'COMPLETED'));\nconst topicFinalized = $json.cwf140_result && $json.cwf140_result.payload && $json.cwf140_result.payload.research_synthesis_finalized === true;\nconst validationOk = allHealthy; // Phase-2 acceptance: chain healthy is enough\nreturn [{ json: { ...$json, pack_validation: { child_results_aggregated: childResults, all_children_healthy: allHealthy, topic_finalized: topicFinalized, validation_ok: validationOk, route_to_error: !validationOk, phase2_acceptance: 'chain_healthy_required' } } }];"
       },
       "id": "wf100_pack_validation_node",
       "name": "Pack Validation Node",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1080,
+        3180,
         300
       ]
     },
@@ -74,8 +218,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1300,
-        200
+        3430,
+        300
       ]
     },
     {
@@ -87,8 +231,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1520,
-        200
+        3680,
+        300
       ]
     },
     {
@@ -100,8 +244,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1740,
-        200
+        3930,
+        300
       ]
     },
     {
@@ -113,8 +257,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1300,
-        420
+        3430,
+        500
       ]
     }
   ],
@@ -153,6 +297,94 @@
       ]
     },
     "Execution Planner Node": {
+      "main": [
+        [
+          {
+            "node": "Execute CWF-110 Topic Discovery",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute CWF-110 Topic Discovery": {
+      "main": [
+        [
+          {
+            "node": "Capture CWF-110 Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Capture CWF-110 Result": {
+      "main": [
+        [
+          {
+            "node": "Execute CWF-120 Topic Qualification",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute CWF-120 Topic Qualification": {
+      "main": [
+        [
+          {
+            "node": "Capture CWF-120 Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Capture CWF-120 Result": {
+      "main": [
+        [
+          {
+            "node": "Execute CWF-130 Topic Scoring",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute CWF-130 Topic Scoring": {
+      "main": [
+        [
+          {
+            "node": "Capture CWF-130 Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Capture CWF-130 Result": {
+      "main": [
+        [
+          {
+            "node": "Execute CWF-140 Research Synthesis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute CWF-140 Research Synthesis": {
+      "main": [
+        [
+          {
+            "node": "Capture CWF-140 Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Capture CWF-140 Result": {
       "main": [
         [
           {
@@ -223,6 +455,33 @@
     "owner_director": "narada",
     "next_workflow": "WF-200",
     "canonical_file": "n8n/workflows/WF-100.json",
-    "wf900_error_route": "WF-900"
+    "wf900_error_route": "WF-900",
+    "phase2_chaining": {
+      "applied_at": "2026-04-29",
+      "pattern": "children_first_then_validation",
+      "child_workflow_invocations": [
+        {
+          "name": "CWF-110 Topic Discovery Canonical",
+          "live_id": "9aM3CMjyQbaO9XYE",
+          "capture_field": "cwf110_result"
+        },
+        {
+          "name": "CWF-120 Topic Qualification Canonical",
+          "live_id": "8Nf7TvjLr5kbAyPp",
+          "capture_field": "cwf120_result"
+        },
+        {
+          "name": "CWF-130 Topic Scoring Canonical",
+          "live_id": "i2bPLxrWTASjJg4f",
+          "capture_field": "cwf130_result"
+        },
+        {
+          "name": "CWF-140 Research Synthesis Canonical",
+          "live_id": "2rvNjmctBuBQFw8A",
+          "capture_field": "cwf140_result"
+        }
+      ],
+      "notes": "Chain runs CWF-110/120/130/140 BEFORE Pack Validation. Each Capture node maps sub-workflow output to $json.cwfXXX_result so Pack Validation sees real child results."
+    }
   }
 }

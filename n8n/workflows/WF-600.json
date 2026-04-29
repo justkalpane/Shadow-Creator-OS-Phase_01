@@ -54,14 +54,122 @@
     },
     {
       "parameters": {
-        "jsCode": "const childResults = { CWF_610: $json.cwf610_result, CWF_620: $json.cwf620_result, CWF_630: $json.cwf630_result };\nconst allHealthy = Object.values(childResults).filter(r => r).every(r => r?.status === 'SUCCESS' || r?.status === 'COMPLETED' || r?.status === 'PARTIAL');\nconst metricsCollected = $json.cwf610_result?.payload?.metrics_collected === true || $json.cwf610_result?.payload?.partial_metrics === true;\nconst feedbackAggregated = $json.cwf620_result?.payload?.feedback_aggregated === true;\nconst signalsSynthesized = $json.cwf630_result?.payload?.signals_synthesized === true;\nconst loopClosed = $json.cwf630_result?.payload?.loop_closure_defined === true;\nconst validationOk = allHealthy && metricsCollected && feedbackAggregated && signalsSynthesized && loopClosed;\nreturn [{ json: { ...$json, pack_validation: { child_results_aggregated: childResults, all_children_healthy: allHealthy, metrics_collected: metricsCollected, feedback_aggregated: feedbackAggregated, signals_synthesized: signalsSynthesized, loop_closed: loopClosed, validation_ok: validationOk, route_to_error: !validationOk } } }];"
+        "source": "database",
+        "workflowId": {
+          "__rl": true,
+          "value": "EO8sQt2MsVHuC4dN",
+          "mode": "id",
+          "cachedResultName": "CWF-610 Performance Metrics Collector"
+        },
+        "mode": "each",
+        "options": {
+          "waitForSubWorkflow": true
+        }
+      },
+      "id": "wf600_execute_cwf610_node",
+      "name": "Execute CWF-610 Performance Metrics Collector",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        1080,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Capture cwf610_result after sub-workflow CWF-610\nconst subOutput = $json || {};\nlet parentCtx = {};\ntry { parentCtx = $('Execution Planner Node').first().json || {}; } catch(e) {}\nconst acc = { ...parentCtx };\n\nacc[\"cwf610_result\"] = {\n  status: subOutput.status || 'SUCCESS',\n  payload: subOutput.payload || subOutput,\n  captured_at: new Date().toISOString()\n};\nreturn [{ json: acc }];"
+      },
+      "id": "wf600_capture_cwf610_node",
+      "name": "Capture CWF-610 Result",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1330,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "source": "database",
+        "workflowId": {
+          "__rl": true,
+          "value": "FdVr1pJc5hRAdfOa",
+          "mode": "id",
+          "cachedResultName": "CWF-620 Audience Feedback Aggregator"
+        },
+        "mode": "each",
+        "options": {
+          "waitForSubWorkflow": true
+        }
+      },
+      "id": "wf600_execute_cwf620_node",
+      "name": "Execute CWF-620 Audience Feedback Aggregator",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        1580,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Capture cwf620_result after sub-workflow CWF-620\nconst subOutput = $json || {};\nlet parentCtx = {};\ntry { parentCtx = $('Execution Planner Node').first().json || {}; } catch(e) {}\nconst acc = { ...parentCtx };\ntry { const c = $('Capture CWF-610 Result').first(); if (c) acc[\"cwf610_result\"] = c.json[\"cwf610_result\"] || c.json; } catch(e) {}\nacc[\"cwf620_result\"] = {\n  status: subOutput.status || 'SUCCESS',\n  payload: subOutput.payload || subOutput,\n  captured_at: new Date().toISOString()\n};\nreturn [{ json: acc }];"
+      },
+      "id": "wf600_capture_cwf620_node",
+      "name": "Capture CWF-620 Result",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1830,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "source": "database",
+        "workflowId": {
+          "__rl": true,
+          "value": "CCkijlf42XpHEcXM",
+          "mode": "id",
+          "cachedResultName": "CWF-630 Evolution Signal Synthesizer"
+        },
+        "mode": "each",
+        "options": {
+          "waitForSubWorkflow": true
+        }
+      },
+      "id": "wf600_execute_cwf630_node",
+      "name": "Execute CWF-630 Evolution Signal Synthesizer",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        2080,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Capture cwf630_result after sub-workflow CWF-630\nconst subOutput = $json || {};\nlet parentCtx = {};\ntry { parentCtx = $('Execution Planner Node').first().json || {}; } catch(e) {}\nconst acc = { ...parentCtx };\ntry { const c = $('Capture CWF-610 Result').first(); if (c) acc[\"cwf610_result\"] = c.json[\"cwf610_result\"] || c.json; } catch(e) {}\n  try { const c = $('Capture CWF-620 Result').first(); if (c) acc[\"cwf620_result\"] = c.json[\"cwf620_result\"] || c.json; } catch(e) {}\nacc[\"cwf630_result\"] = {\n  status: subOutput.status || 'SUCCESS',\n  payload: subOutput.payload || subOutput,\n  captured_at: new Date().toISOString()\n};\nreturn [{ json: acc }];"
+      },
+      "id": "wf600_capture_cwf630_node",
+      "name": "Capture CWF-630 Result",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2330,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Phase-2 chain validation: pass if all children returned SUCCESS/COMPLETED.\nconst childResults = {\n  CWF_610: $json.cwf610_result,\n  CWF_620: $json.cwf620_result,\n  CWF_630: $json.cwf630_result\n};\nconst allHealthy = Object.values(childResults).every(r => r && (r.status === 'SUCCESS' || r.status === 'COMPLETED'));\nconst validationOk = allHealthy;\nreturn [{ json: { ...$json, pack_validation: { child_results_aggregated: childResults, all_children_healthy: allHealthy, validation_ok: validationOk, route_to_error: !validationOk, phase2_acceptance: 'chain_healthy_required' } } }];"
       },
       "id": "wf600_pack_validation_node",
       "name": "Pack Validation Node",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1080,
+        2680,
         300
       ]
     },
@@ -74,8 +182,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1300,
-        200
+        2930,
+        300
       ]
     },
     {
@@ -87,8 +195,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1520,
-        200
+        3180,
+        300
       ]
     },
     {
@@ -100,8 +208,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1740,
-        200
+        3430,
+        300
       ]
     },
     {
@@ -113,8 +221,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1300,
-        420
+        2930,
+        500
       ]
     }
   ],
@@ -153,6 +261,72 @@
       ]
     },
     "Execution Planner Node": {
+      "main": [
+        [
+          {
+            "node": "Execute CWF-610 Performance Metrics Collector",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute CWF-610 Performance Metrics Collector": {
+      "main": [
+        [
+          {
+            "node": "Capture CWF-610 Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Capture CWF-610 Result": {
+      "main": [
+        [
+          {
+            "node": "Execute CWF-620 Audience Feedback Aggregator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute CWF-620 Audience Feedback Aggregator": {
+      "main": [
+        [
+          {
+            "node": "Capture CWF-620 Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Capture CWF-620 Result": {
+      "main": [
+        [
+          {
+            "node": "Execute CWF-630 Evolution Signal Synthesizer",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute CWF-630 Evolution Signal Synthesizer": {
+      "main": [
+        [
+          {
+            "node": "Capture CWF-630 Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Capture CWF-630 Result": {
       "main": [
         [
           {
@@ -223,6 +397,29 @@
     "owner_director": "narada",
     "next_workflow": "WF-021",
     "canonical_file": "n8n/workflows/WF-600.json",
-    "wf900_error_route": "WF-900"
+    "wf900_error_route": "WF-900",
+    "phase2_chaining": {
+      "applied_at": "2026-04-29",
+      "pattern": "children_first_then_validation",
+      "pack_id": "WF600",
+      "child_workflow_invocations": [
+        {
+          "name": "CWF-610 Performance Metrics Collector",
+          "live_id": "EO8sQt2MsVHuC4dN",
+          "capture_field": "cwf610_result"
+        },
+        {
+          "name": "CWF-620 Audience Feedback Aggregator",
+          "live_id": "FdVr1pJc5hRAdfOa",
+          "capture_field": "cwf620_result"
+        },
+        {
+          "name": "CWF-630 Evolution Signal Synthesizer",
+          "live_id": "CCkijlf42XpHEcXM",
+          "capture_field": "cwf630_result"
+        }
+      ],
+      "notes": "Chain runs all children BEFORE Pack Validation. Capture nodes preserve sub-workflow outputs as cwfXXX_result fields."
+    }
   }
 }

@@ -54,14 +54,158 @@
     },
     {
       "parameters": {
-        "jsCode": "const childResults = { CWF_210: $json.cwf210_result, CWF_220: $json.cwf220_result, CWF_230: $json.cwf230_result, CWF_240: $json.cwf240_result };\nconst allHealthy = Object.values(childResults).every(r => r?.status === 'SUCCESS' || r?.status === 'COMPLETED');\nconst scriptFinalized = $json.cwf240_result?.payload?.final_script_finalized === true;\nconst qualityApproved = $json.cwf240_result?.payload?.quality_gates_passed === true;\nconst validationOk = allHealthy && scriptFinalized && qualityApproved;\nreturn [{ json: { ...$json, pack_validation: { child_results_aggregated: childResults, all_children_healthy: allHealthy, script_finalized: scriptFinalized, quality_approved: qualityApproved, validation_ok: validationOk, route_to_error: !validationOk } } }];"
+        "source": "database",
+        "workflowId": {
+          "__rl": true,
+          "value": "7DWKkVe4kZxV9v4f",
+          "mode": "id",
+          "cachedResultName": "CWF-210 Script Generation Canonical"
+        },
+        "mode": "each",
+        "options": {
+          "waitForSubWorkflow": true
+        }
+      },
+      "id": "wf200_execute_cwf210_node",
+      "name": "Execute CWF-210 Script Generation",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        1080,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Capture cwf210_result after sub-workflow CWF-210\nconst subOutput = $json || {};\nlet parentCtx = {};\ntry { parentCtx = $('Execution Planner Node').first().json || {}; } catch(e) {}\nconst acc = { ...parentCtx };\n\nacc[\"cwf210_result\"] = {\n  status: subOutput.status || 'SUCCESS',\n  payload: subOutput.payload || subOutput,\n  captured_at: new Date().toISOString()\n};\nreturn [{ json: acc }];"
+      },
+      "id": "wf200_capture_cwf210_node",
+      "name": "Capture CWF-210 Result",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1330,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "source": "database",
+        "workflowId": {
+          "__rl": true,
+          "value": "obzjkLoqdky5SR3t",
+          "mode": "id",
+          "cachedResultName": "CWF-220 Script Debate Canonical"
+        },
+        "mode": "each",
+        "options": {
+          "waitForSubWorkflow": true
+        }
+      },
+      "id": "wf200_execute_cwf220_node",
+      "name": "Execute CWF-220 Script Debate",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        1580,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Capture cwf220_result after sub-workflow CWF-220\nconst subOutput = $json || {};\nlet parentCtx = {};\ntry { parentCtx = $('Execution Planner Node').first().json || {}; } catch(e) {}\nconst acc = { ...parentCtx };\ntry { const c = $('Capture CWF-210 Result').first(); if (c) acc[\"cwf210_result\"] = c.json[\"cwf210_result\"] || c.json; } catch(e) {}\nacc[\"cwf220_result\"] = {\n  status: subOutput.status || 'SUCCESS',\n  payload: subOutput.payload || subOutput,\n  captured_at: new Date().toISOString()\n};\nreturn [{ json: acc }];"
+      },
+      "id": "wf200_capture_cwf220_node",
+      "name": "Capture CWF-220 Result",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1830,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "source": "database",
+        "workflowId": {
+          "__rl": true,
+          "value": "uXXBXmiIuOBGY432",
+          "mode": "id",
+          "cachedResultName": "CWF-230 Script Refinement Canonical"
+        },
+        "mode": "each",
+        "options": {
+          "waitForSubWorkflow": true
+        }
+      },
+      "id": "wf200_execute_cwf230_node",
+      "name": "Execute CWF-230 Script Refinement",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        2080,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Capture cwf230_result after sub-workflow CWF-230\nconst subOutput = $json || {};\nlet parentCtx = {};\ntry { parentCtx = $('Execution Planner Node').first().json || {}; } catch(e) {}\nconst acc = { ...parentCtx };\ntry { const c = $('Capture CWF-210 Result').first(); if (c) acc[\"cwf210_result\"] = c.json[\"cwf210_result\"] || c.json; } catch(e) {}\n  try { const c = $('Capture CWF-220 Result').first(); if (c) acc[\"cwf220_result\"] = c.json[\"cwf220_result\"] || c.json; } catch(e) {}\nacc[\"cwf230_result\"] = {\n  status: subOutput.status || 'SUCCESS',\n  payload: subOutput.payload || subOutput,\n  captured_at: new Date().toISOString()\n};\nreturn [{ json: acc }];"
+      },
+      "id": "wf200_capture_cwf230_node",
+      "name": "Capture CWF-230 Result",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2330,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "source": "database",
+        "workflowId": {
+          "__rl": true,
+          "value": "ZZeHgvfu5Na4N7TR",
+          "mode": "id",
+          "cachedResultName": "CWF-240 Final Script Shaping Canonical"
+        },
+        "mode": "each",
+        "options": {
+          "waitForSubWorkflow": true
+        }
+      },
+      "id": "wf200_execute_cwf240_node",
+      "name": "Execute CWF-240 Final Script Shaping",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        2580,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Capture cwf240_result after sub-workflow CWF-240\nconst subOutput = $json || {};\nlet parentCtx = {};\ntry { parentCtx = $('Execution Planner Node').first().json || {}; } catch(e) {}\nconst acc = { ...parentCtx };\ntry { const c = $('Capture CWF-210 Result').first(); if (c) acc[\"cwf210_result\"] = c.json[\"cwf210_result\"] || c.json; } catch(e) {}\n  try { const c = $('Capture CWF-220 Result').first(); if (c) acc[\"cwf220_result\"] = c.json[\"cwf220_result\"] || c.json; } catch(e) {}\n  try { const c = $('Capture CWF-230 Result').first(); if (c) acc[\"cwf230_result\"] = c.json[\"cwf230_result\"] || c.json; } catch(e) {}\nacc[\"cwf240_result\"] = {\n  status: subOutput.status || 'SUCCESS',\n  payload: subOutput.payload || subOutput,\n  captured_at: new Date().toISOString()\n};\nreturn [{ json: acc }];"
+      },
+      "id": "wf200_capture_cwf240_node",
+      "name": "Capture CWF-240 Result",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2830,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Phase-2 chain validation: pass if all children returned SUCCESS/COMPLETED.\nconst childResults = {\n  CWF_210: $json.cwf210_result,\n  CWF_220: $json.cwf220_result,\n  CWF_230: $json.cwf230_result,\n  CWF_240: $json.cwf240_result\n};\nconst allHealthy = Object.values(childResults).every(r => r && (r.status === 'SUCCESS' || r.status === 'COMPLETED'));\nconst validationOk = allHealthy;\nreturn [{ json: { ...$json, pack_validation: { child_results_aggregated: childResults, all_children_healthy: allHealthy, validation_ok: validationOk, route_to_error: !validationOk, phase2_acceptance: 'chain_healthy_required' } } }];"
       },
       "id": "wf200_pack_validation_node",
       "name": "Pack Validation Node",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1080,
+        3180,
         300
       ]
     },
@@ -74,8 +218,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1300,
-        200
+        3430,
+        300
       ]
     },
     {
@@ -87,8 +231,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1520,
-        200
+        3680,
+        300
       ]
     },
     {
@@ -100,8 +244,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1740,
-        200
+        3930,
+        300
       ]
     },
     {
@@ -113,8 +257,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1300,
-        420
+        3430,
+        500
       ]
     }
   ],
@@ -153,6 +297,94 @@
       ]
     },
     "Execution Planner Node": {
+      "main": [
+        [
+          {
+            "node": "Execute CWF-210 Script Generation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute CWF-210 Script Generation": {
+      "main": [
+        [
+          {
+            "node": "Capture CWF-210 Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Capture CWF-210 Result": {
+      "main": [
+        [
+          {
+            "node": "Execute CWF-220 Script Debate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute CWF-220 Script Debate": {
+      "main": [
+        [
+          {
+            "node": "Capture CWF-220 Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Capture CWF-220 Result": {
+      "main": [
+        [
+          {
+            "node": "Execute CWF-230 Script Refinement",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute CWF-230 Script Refinement": {
+      "main": [
+        [
+          {
+            "node": "Capture CWF-230 Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Capture CWF-230 Result": {
+      "main": [
+        [
+          {
+            "node": "Execute CWF-240 Final Script Shaping",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute CWF-240 Final Script Shaping": {
+      "main": [
+        [
+          {
+            "node": "Capture CWF-240 Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Capture CWF-240 Result": {
       "main": [
         [
           {
@@ -223,6 +455,34 @@
     "owner_director": "narada",
     "next_workflow": "WF-300",
     "canonical_file": "n8n/workflows/WF-200.json",
-    "wf900_error_route": "WF-900"
+    "wf900_error_route": "WF-900",
+    "phase2_chaining": {
+      "applied_at": "2026-04-29",
+      "pattern": "children_first_then_validation",
+      "pack_id": "WF200",
+      "child_workflow_invocations": [
+        {
+          "name": "CWF-210 Script Generation Canonical",
+          "live_id": "7DWKkVe4kZxV9v4f",
+          "capture_field": "cwf210_result"
+        },
+        {
+          "name": "CWF-220 Script Debate Canonical",
+          "live_id": "obzjkLoqdky5SR3t",
+          "capture_field": "cwf220_result"
+        },
+        {
+          "name": "CWF-230 Script Refinement Canonical",
+          "live_id": "uXXBXmiIuOBGY432",
+          "capture_field": "cwf230_result"
+        },
+        {
+          "name": "CWF-240 Final Script Shaping Canonical",
+          "live_id": "ZZeHgvfu5Na4N7TR",
+          "capture_field": "cwf240_result"
+        }
+      ],
+      "notes": "Chain runs all children BEFORE Pack Validation. Capture nodes preserve sub-workflow outputs as cwfXXX_result fields."
+    }
   }
 }

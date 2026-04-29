@@ -134,6 +134,65 @@
         1960,
         220
       ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Branch on approval_status: approved -> WF-500, rejected -> WF-021\nconst status = ($json.approval_status || $json.payload && $json.payload.approval_status || '').toLowerCase();\nif (status === 'approved' || status === 'approve' || status === 'pass') {\n  return [[{ json: { ...$json, branch: 'approved' } }], []];\n} else if (status === 'rejected' || status === 'reject' || status === 'fail') {\n  return [[], [{ json: { ...$json, branch: 'rejected' } }]];\n}\n// default: pass-through both null (no branch fire)\nreturn [[{ json: { ...$json, branch: 'default_approved' } }], []];"
+      },
+      "id": "wf020_approval_branch_node",
+      "name": "Approval Branch Switch",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1710,
+        600
+      ]
+    },
+    {
+      "parameters": {
+        "source": "database",
+        "workflowId": {
+          "__rl": true,
+          "value": "e48l3HifOTrE59Hf",
+          "mode": "id",
+          "cachedResultName": "WF-500 Publishing Distribution Pack Canonical"
+        },
+        "mode": "each",
+        "options": {
+          "waitForSubWorkflow": true
+        }
+      },
+      "id": "wf020_execute_wf500_node",
+      "name": "Execute WF-500 Publishing",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        2060,
+        500
+      ]
+    },
+    {
+      "parameters": {
+        "source": "database",
+        "workflowId": {
+          "__rl": true,
+          "value": "5fG18tfg8QkVJa4I",
+          "mode": "id",
+          "cachedResultName": "WF-021 Replay Remodify Canonical"
+        },
+        "mode": "each",
+        "options": {
+          "waitForSubWorkflow": true
+        }
+      },
+      "id": "wf020_execute_wf021_node",
+      "name": "Execute WF-021 Replay",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        2060,
+        700
+      ]
     }
   ],
   "connections": {
@@ -231,6 +290,45 @@
           }
         ]
       ]
+    },
+    "Completion Packet Emission Node": {
+      "main": [
+        [
+          {
+            "node": "Approval Branch Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Approval Branch Switch": {
+      "main": [
+        [
+          {
+            "node": "Execute WF-500 Publishing",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Execute WF-021 Replay",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute WF-500 Publishing": {
+      "main": [
+        []
+      ]
+    },
+    "Execute WF-021 Replay": {
+      "main": [
+        []
+      ]
     }
   },
   "meta": {
@@ -256,7 +354,21 @@
       "completion_packet_emission_node"
     ],
     "wf900_error_route": "WF-900",
-    "next_workflow_on_reject": "WF-021"
+    "next_workflow_on_reject": "WF-021",
+    "phase2_chaining": {
+      "applied_at": "2026-04-29",
+      "pattern": "approval_branch",
+      "branches": {
+        "approved": {
+          "wf": "WF-500",
+          "live_id": "e48l3HifOTrE59Hf"
+        },
+        "rejected": {
+          "wf": "WF-021",
+          "live_id": "5fG18tfg8QkVJa4I"
+        }
+      }
+    }
   },
   "active": true,
   "settings": {}

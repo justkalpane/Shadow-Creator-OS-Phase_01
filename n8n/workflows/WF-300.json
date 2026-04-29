@@ -54,14 +54,158 @@
     },
     {
       "parameters": {
-        "jsCode": "const childResults = { CWF_310: $json.cwf310_result, CWF_320: $json.cwf320_result, CWF_330: $json.cwf330_result, CWF_340: $json.cwf340_result };\nconst allHealthy = Object.values(childResults).every(r => r?.status === 'SUCCESS' || r?.status === 'COMPLETED');\nconst contextBuilt = $json.cwf310_result?.payload?.execution_context_built === true;\nconst platformPackaged = $json.cwf320_result?.payload?.platform_packaging_complete === true;\nconst assetBriefReady = $json.cwf330_result?.payload?.asset_brief_ready === true;\nconst lineageValidated = $json.cwf340_result?.payload?.lineage_validated === true;\nconst validationOk = allHealthy && contextBuilt && platformPackaged && assetBriefReady && lineageValidated;\nreturn [{ json: { ...$json, pack_validation: { child_results_aggregated: childResults, all_children_healthy: allHealthy, context_built: contextBuilt, platform_packaged: platformPackaged, asset_brief_ready: assetBriefReady, lineage_validated: lineageValidated, validation_ok: validationOk, route_to_error: !validationOk } } }];"
+        "source": "database",
+        "workflowId": {
+          "__rl": true,
+          "value": "zCoztycz5rNiHhkq",
+          "mode": "id",
+          "cachedResultName": "CWF-310 Execution Context Builder Canonical"
+        },
+        "mode": "each",
+        "options": {
+          "waitForSubWorkflow": true
+        }
+      },
+      "id": "wf300_execute_cwf310_node",
+      "name": "Execute CWF-310 Execution Context Builder",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        1080,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Capture cwf310_result after sub-workflow CWF-310\nconst subOutput = $json || {};\nlet parentCtx = {};\ntry { parentCtx = $('Execution Planner Node').first().json || {}; } catch(e) {}\nconst acc = { ...parentCtx };\n\nacc[\"cwf310_result\"] = {\n  status: subOutput.status || 'SUCCESS',\n  payload: subOutput.payload || subOutput,\n  captured_at: new Date().toISOString()\n};\nreturn [{ json: acc }];"
+      },
+      "id": "wf300_capture_cwf310_node",
+      "name": "Capture CWF-310 Result",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1330,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "source": "database",
+        "workflowId": {
+          "__rl": true,
+          "value": "v1Pla3fDXsirQQlz",
+          "mode": "id",
+          "cachedResultName": "CWF-320 Platform Packager Canonical"
+        },
+        "mode": "each",
+        "options": {
+          "waitForSubWorkflow": true
+        }
+      },
+      "id": "wf300_execute_cwf320_node",
+      "name": "Execute CWF-320 Platform Packager",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        1580,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Capture cwf320_result after sub-workflow CWF-320\nconst subOutput = $json || {};\nlet parentCtx = {};\ntry { parentCtx = $('Execution Planner Node').first().json || {}; } catch(e) {}\nconst acc = { ...parentCtx };\ntry { const c = $('Capture CWF-310 Result').first(); if (c) acc[\"cwf310_result\"] = c.json[\"cwf310_result\"] || c.json; } catch(e) {}\nacc[\"cwf320_result\"] = {\n  status: subOutput.status || 'SUCCESS',\n  payload: subOutput.payload || subOutput,\n  captured_at: new Date().toISOString()\n};\nreturn [{ json: acc }];"
+      },
+      "id": "wf300_capture_cwf320_node",
+      "name": "Capture CWF-320 Result",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1830,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "source": "database",
+        "workflowId": {
+          "__rl": true,
+          "value": "8PfhvzgGMA9SJkxf",
+          "mode": "id",
+          "cachedResultName": "CWF-330 Asset Brief Generator Canonical"
+        },
+        "mode": "each",
+        "options": {
+          "waitForSubWorkflow": true
+        }
+      },
+      "id": "wf300_execute_cwf330_node",
+      "name": "Execute CWF-330 Asset Brief Generator",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        2080,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Capture cwf330_result after sub-workflow CWF-330\nconst subOutput = $json || {};\nlet parentCtx = {};\ntry { parentCtx = $('Execution Planner Node').first().json || {}; } catch(e) {}\nconst acc = { ...parentCtx };\ntry { const c = $('Capture CWF-310 Result').first(); if (c) acc[\"cwf310_result\"] = c.json[\"cwf310_result\"] || c.json; } catch(e) {}\n  try { const c = $('Capture CWF-320 Result').first(); if (c) acc[\"cwf320_result\"] = c.json[\"cwf320_result\"] || c.json; } catch(e) {}\nacc[\"cwf330_result\"] = {\n  status: subOutput.status || 'SUCCESS',\n  payload: subOutput.payload || subOutput,\n  captured_at: new Date().toISOString()\n};\nreturn [{ json: acc }];"
+      },
+      "id": "wf300_capture_cwf330_node",
+      "name": "Capture CWF-330 Result",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2330,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "source": "database",
+        "workflowId": {
+          "__rl": true,
+          "value": "12i773gCwdlprMSF",
+          "mode": "id",
+          "cachedResultName": "CWF-340 Lineage Validator Canonical"
+        },
+        "mode": "each",
+        "options": {
+          "waitForSubWorkflow": true
+        }
+      },
+      "id": "wf300_execute_cwf340_node",
+      "name": "Execute CWF-340 Lineage Validator",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        2580,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Capture cwf340_result after sub-workflow CWF-340\nconst subOutput = $json || {};\nlet parentCtx = {};\ntry { parentCtx = $('Execution Planner Node').first().json || {}; } catch(e) {}\nconst acc = { ...parentCtx };\ntry { const c = $('Capture CWF-310 Result').first(); if (c) acc[\"cwf310_result\"] = c.json[\"cwf310_result\"] || c.json; } catch(e) {}\n  try { const c = $('Capture CWF-320 Result').first(); if (c) acc[\"cwf320_result\"] = c.json[\"cwf320_result\"] || c.json; } catch(e) {}\n  try { const c = $('Capture CWF-330 Result').first(); if (c) acc[\"cwf330_result\"] = c.json[\"cwf330_result\"] || c.json; } catch(e) {}\nacc[\"cwf340_result\"] = {\n  status: subOutput.status || 'SUCCESS',\n  payload: subOutput.payload || subOutput,\n  captured_at: new Date().toISOString()\n};\nreturn [{ json: acc }];"
+      },
+      "id": "wf300_capture_cwf340_node",
+      "name": "Capture CWF-340 Result",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2830,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Phase-2 chain validation: pass if all children returned SUCCESS/COMPLETED.\nconst childResults = {\n  CWF_310: $json.cwf310_result,\n  CWF_320: $json.cwf320_result,\n  CWF_330: $json.cwf330_result,\n  CWF_340: $json.cwf340_result\n};\nconst allHealthy = Object.values(childResults).every(r => r && (r.status === 'SUCCESS' || r.status === 'COMPLETED'));\nconst validationOk = allHealthy;\nreturn [{ json: { ...$json, pack_validation: { child_results_aggregated: childResults, all_children_healthy: allHealthy, validation_ok: validationOk, route_to_error: !validationOk, phase2_acceptance: 'chain_healthy_required' } } }];"
       },
       "id": "wf300_pack_validation_node",
       "name": "Pack Validation Node",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1080,
+        3180,
         300
       ]
     },
@@ -74,8 +218,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1300,
-        200
+        3430,
+        300
       ]
     },
     {
@@ -87,8 +231,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1520,
-        200
+        3680,
+        300
       ]
     },
     {
@@ -100,8 +244,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1740,
-        200
+        3930,
+        300
       ]
     },
     {
@@ -113,8 +257,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1300,
-        420
+        3430,
+        500
       ]
     }
   ],
@@ -153,6 +297,94 @@
       ]
     },
     "Execution Planner Node": {
+      "main": [
+        [
+          {
+            "node": "Execute CWF-310 Execution Context Builder",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute CWF-310 Execution Context Builder": {
+      "main": [
+        [
+          {
+            "node": "Capture CWF-310 Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Capture CWF-310 Result": {
+      "main": [
+        [
+          {
+            "node": "Execute CWF-320 Platform Packager",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute CWF-320 Platform Packager": {
+      "main": [
+        [
+          {
+            "node": "Capture CWF-320 Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Capture CWF-320 Result": {
+      "main": [
+        [
+          {
+            "node": "Execute CWF-330 Asset Brief Generator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute CWF-330 Asset Brief Generator": {
+      "main": [
+        [
+          {
+            "node": "Capture CWF-330 Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Capture CWF-330 Result": {
+      "main": [
+        [
+          {
+            "node": "Execute CWF-340 Lineage Validator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute CWF-340 Lineage Validator": {
+      "main": [
+        [
+          {
+            "node": "Capture CWF-340 Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Capture CWF-340 Result": {
       "main": [
         [
           {
@@ -223,6 +455,34 @@
     "owner_director": "narada",
     "next_workflow": "WF-020",
     "canonical_file": "n8n/workflows/WF-300.json",
-    "wf900_error_route": "WF-900"
+    "wf900_error_route": "WF-900",
+    "phase2_chaining": {
+      "applied_at": "2026-04-29",
+      "pattern": "children_first_then_validation",
+      "pack_id": "WF300",
+      "child_workflow_invocations": [
+        {
+          "name": "CWF-310 Execution Context Builder Canonical",
+          "live_id": "zCoztycz5rNiHhkq",
+          "capture_field": "cwf310_result"
+        },
+        {
+          "name": "CWF-320 Platform Packager Canonical",
+          "live_id": "v1Pla3fDXsirQQlz",
+          "capture_field": "cwf320_result"
+        },
+        {
+          "name": "CWF-330 Asset Brief Generator Canonical",
+          "live_id": "8PfhvzgGMA9SJkxf",
+          "capture_field": "cwf330_result"
+        },
+        {
+          "name": "CWF-340 Lineage Validator Canonical",
+          "live_id": "12i773gCwdlprMSF",
+          "capture_field": "cwf340_result"
+        }
+      ],
+      "notes": "Chain runs all children BEFORE Pack Validation. Capture nodes preserve sub-workflow outputs as cwfXXX_result fields."
+    }
   }
 }

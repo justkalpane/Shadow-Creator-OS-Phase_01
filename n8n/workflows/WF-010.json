@@ -6,7 +6,7 @@
       "parameters": {
         "path": "wf-010-parent-orchestrator",
         "httpMethod": "POST",
-        "responseMode": "lastNode",
+        "responseMode": "onReceived",
         "options": {}
       },
       "id": "wf010_trigger_node",
@@ -80,7 +80,7 @@
       "typeVersion": 2,
       "position": [
         1300,
-        220
+        300
       ]
     },
     {
@@ -93,20 +93,200 @@
       "typeVersion": 2,
       "position": [
         1520,
-        220
+        300
       ]
     },
     {
       "parameters": {
-        "jsCode": "if ($json.route_to_error) return [];\nreturn [{\n  json: {\n    workflow_id: 'WF-010',\n    execution_status: 'SUCCESS',\n    completion_packet: {\n      instance_id: 'WF-010-COMP-' + Date.now(),\n      artifact_family: 'orchestration_decision',\n      schema_version: '1.0.0',\n      producer_workflow: 'WF-010',\n      dossier_ref: $json.dossier_id,\n      created_at: new Date().toISOString(),\n      status: 'CREATED',\n      payload: {\n        route_selected: $json.orchestration_decision.route_selected,\n        next_workflow: $json.orchestration_decision.next_workflow,\n        orchestration_decision: $json.orchestration_decision.decision,\n        approval_gates_pending: $json.orchestration_decision.approval_gates_pending,\n        route_to_wf900: 'WF-900'\n      }\n    }\n  }\n}];"
+        "source": "database",
+        "workflowId": {
+          "__rl": true,
+          "value": "dew5Cgkwi8MUtAH7",
+          "mode": "id",
+          "cachedResultName": "WF-100 Topic Intelligence Pack Canonical"
+        },
+        "mode": "each",
+        "options": {
+          "waitForSubWorkflow": true
+        }
+      },
+      "id": "wf010_execute_wf100_node",
+      "name": "Execute WF-100 Topic Intelligence",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        1740,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Capture wf100_result\nconst subOutput = $json || {};\nlet parentCtx = {};\ntry { parentCtx = $('Route Selection Node').first().json || {}; } catch(e) {}\nlet dossierCtx = {};\ntry { dossierCtx = $('Dossier Load Node').first().json || {}; } catch(e) {}\nconst acc = { ...parentCtx, dossier_id: dossierCtx.dossier_id || parentCtx.dossier_id };\n\nacc[\"wf100_result\"] = {\n  status: subOutput.execution_status || subOutput.status || 'SUCCESS',\n  payload: subOutput.completion_packet || subOutput.payload || subOutput,\n  captured_at: new Date().toISOString()\n};\nreturn [{ json: acc }];"
+      },
+      "id": "wf010_capture_wf100_node",
+      "name": "Capture WF-100 Result",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1990,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "source": "database",
+        "workflowId": {
+          "__rl": true,
+          "value": "2lhY0gkl83tII3CI",
+          "mode": "id",
+          "cachedResultName": "WF-200 Script Intelligence Pack Canonical"
+        },
+        "mode": "each",
+        "options": {
+          "waitForSubWorkflow": true
+        }
+      },
+      "id": "wf010_execute_wf200_node",
+      "name": "Execute WF-200 Script Intelligence",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        2240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Capture wf200_result\nconst subOutput = $json || {};\nlet parentCtx = {};\ntry { parentCtx = $('Route Selection Node').first().json || {}; } catch(e) {}\nlet dossierCtx = {};\ntry { dossierCtx = $('Dossier Load Node').first().json || {}; } catch(e) {}\nconst acc = { ...parentCtx, dossier_id: dossierCtx.dossier_id || parentCtx.dossier_id };\ntry { const c = $('Capture WF-100 Result').first(); if (c) acc[\"wf100_result\"] = c.json[\"wf100_result\"] || c.json; } catch(e) {}\nacc[\"wf200_result\"] = {\n  status: subOutput.execution_status || subOutput.status || 'SUCCESS',\n  payload: subOutput.completion_packet || subOutput.payload || subOutput,\n  captured_at: new Date().toISOString()\n};\nreturn [{ json: acc }];"
+      },
+      "id": "wf010_capture_wf200_node",
+      "name": "Capture WF-200 Result",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2490,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "source": "database",
+        "workflowId": {
+          "__rl": true,
+          "value": "xriY2ZiZST6jybeX",
+          "mode": "id",
+          "cachedResultName": "WF-300 Context Engineering Pack Canonical"
+        },
+        "mode": "each",
+        "options": {
+          "waitForSubWorkflow": true
+        }
+      },
+      "id": "wf010_execute_wf300_node",
+      "name": "Execute WF-300 Context Engineering",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        2740,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Capture wf300_result\nconst subOutput = $json || {};\nlet parentCtx = {};\ntry { parentCtx = $('Route Selection Node').first().json || {}; } catch(e) {}\nlet dossierCtx = {};\ntry { dossierCtx = $('Dossier Load Node').first().json || {}; } catch(e) {}\nconst acc = { ...parentCtx, dossier_id: dossierCtx.dossier_id || parentCtx.dossier_id };\ntry { const c = $('Capture WF-100 Result').first(); if (c) acc[\"wf100_result\"] = c.json[\"wf100_result\"] || c.json; } catch(e) {}\ntry { const c = $('Capture WF-200 Result').first(); if (c) acc[\"wf200_result\"] = c.json[\"wf200_result\"] || c.json; } catch(e) {}\nacc[\"wf300_result\"] = {\n  status: subOutput.execution_status || subOutput.status || 'SUCCESS',\n  payload: subOutput.completion_packet || subOutput.payload || subOutput,\n  captured_at: new Date().toISOString()\n};\nreturn [{ json: acc }];"
+      },
+      "id": "wf010_capture_wf300_node",
+      "name": "Capture WF-300 Result",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2990,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "source": "database",
+        "workflowId": {
+          "__rl": true,
+          "value": "xOeKLfjudlc8OFiB",
+          "mode": "id",
+          "cachedResultName": "WF-020 Final Approval Canonical"
+        },
+        "mode": "each",
+        "options": {
+          "waitForSubWorkflow": true
+        }
+      },
+      "id": "wf010_execute_wf020_node",
+      "name": "Execute WF-020 Final Approval",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        3240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Capture wf020_result\nconst subOutput = $json || {};\nlet parentCtx = {};\ntry { parentCtx = $('Route Selection Node').first().json || {}; } catch(e) {}\nlet dossierCtx = {};\ntry { dossierCtx = $('Dossier Load Node').first().json || {}; } catch(e) {}\nconst acc = { ...parentCtx, dossier_id: dossierCtx.dossier_id || parentCtx.dossier_id };\ntry { const c = $('Capture WF-100 Result').first(); if (c) acc[\"wf100_result\"] = c.json[\"wf100_result\"] || c.json; } catch(e) {}\ntry { const c = $('Capture WF-200 Result').first(); if (c) acc[\"wf200_result\"] = c.json[\"wf200_result\"] || c.json; } catch(e) {}\ntry { const c = $('Capture WF-300 Result').first(); if (c) acc[\"wf300_result\"] = c.json[\"wf300_result\"] || c.json; } catch(e) {}\nacc[\"wf020_result\"] = {\n  status: subOutput.execution_status || subOutput.status || 'SUCCESS',\n  payload: subOutput.completion_packet || subOutput.payload || subOutput,\n  captured_at: new Date().toISOString()\n};\nreturn [{ json: acc }];"
+      },
+      "id": "wf010_capture_wf020_node",
+      "name": "Capture WF-020 Result",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3490,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "source": "database",
+        "workflowId": {
+          "__rl": true,
+          "value": "fXNkWYfVX214QC87",
+          "mode": "id",
+          "cachedResultName": "WF-600 Analytics Evolution Pack Canonical"
+        },
+        "mode": "each",
+        "options": {
+          "waitForSubWorkflow": true
+        }
+      },
+      "id": "wf010_execute_wf600_node",
+      "name": "Execute WF-600 Analytics Evolution",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        3740,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Capture wf600_result\nconst subOutput = $json || {};\nlet parentCtx = {};\ntry { parentCtx = $('Route Selection Node').first().json || {}; } catch(e) {}\nlet dossierCtx = {};\ntry { dossierCtx = $('Dossier Load Node').first().json || {}; } catch(e) {}\nconst acc = { ...parentCtx, dossier_id: dossierCtx.dossier_id || parentCtx.dossier_id };\ntry { const c = $('Capture WF-100 Result').first(); if (c) acc[\"wf100_result\"] = c.json[\"wf100_result\"] || c.json; } catch(e) {}\ntry { const c = $('Capture WF-200 Result').first(); if (c) acc[\"wf200_result\"] = c.json[\"wf200_result\"] || c.json; } catch(e) {}\ntry { const c = $('Capture WF-300 Result').first(); if (c) acc[\"wf300_result\"] = c.json[\"wf300_result\"] || c.json; } catch(e) {}\ntry { const c = $('Capture WF-020 Result').first(); if (c) acc[\"wf020_result\"] = c.json[\"wf020_result\"] || c.json; } catch(e) {}\nacc[\"wf600_result\"] = {\n  status: subOutput.execution_status || subOutput.status || 'SUCCESS',\n  payload: subOutput.completion_packet || subOutput.payload || subOutput,\n  captured_at: new Date().toISOString()\n};\nreturn [{ json: acc }];"
+      },
+      "id": "wf010_capture_wf600_node",
+      "name": "Capture WF-600 Result",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3990,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// After full chain, build orchestration completion packet aggregating all pack results.\nlet plannerCtx = {};\ntry { plannerCtx = $('Route Selection Node').first().json || {}; } catch(e) {}\nlet dossierCtx = {};\ntry { dossierCtx = $('Dossier Load Node').first().json || {}; } catch(e) {}\nconst orchDecision = plannerCtx.orchestration_decision || {};\nconst dossierId = dossierCtx.dossier_id || plannerCtx.dossier_id || $json.dossier_id || 'DOSSIER-UNSPECIFIED';\nconst aggregated = $json || {};\nreturn [{\n  json: {\n    workflow_id: 'WF-010',\n    execution_status: 'SUCCESS',\n    completion_packet: {\n      instance_id: 'WF-010-COMP-' + Date.now(),\n      artifact_family: 'orchestration_decision',\n      schema_version: '1.0.0',\n      producer_workflow: 'WF-010',\n      dossier_ref: dossierId,\n      created_at: new Date().toISOString(),\n      status: 'CREATED',\n      payload: {\n        route_selected: orchDecision.route_selected || 'ROUTE_PHASE1_STANDARD',\n        next_workflow: orchDecision.next_workflow || 'WF-100',\n        orchestration_decision: orchDecision.decision || 'STANDARD_PATH',\n        approval_gates_pending: orchDecision.approval_gates_pending || [],\n        route_to_wf900: 'WF-900',\n        chain_results: {\n          wf100: aggregated.wf100_result || null,\n          wf200: aggregated.wf200_result || null,\n          wf300: aggregated.wf300_result || null,\n          wf020: aggregated.wf020_result || null,\n          wf600: aggregated.wf600_result || null\n        }\n      }\n    }\n  }\n}];"
       },
       "id": "wf010_completion_packet_emission_node",
       "name": "Completion Packet Emission Node",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1740,
-        220
+        4590,
+        300
       ]
     },
     {
@@ -118,8 +298,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1300,
-        420
+        1080,
+        500
       ]
     }
   ],
@@ -201,6 +381,116 @@
       "main": [
         [
           {
+            "node": "Execute WF-100 Topic Intelligence",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute WF-100 Topic Intelligence": {
+      "main": [
+        [
+          {
+            "node": "Capture WF-100 Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Capture WF-100 Result": {
+      "main": [
+        [
+          {
+            "node": "Execute WF-200 Script Intelligence",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute WF-200 Script Intelligence": {
+      "main": [
+        [
+          {
+            "node": "Capture WF-200 Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Capture WF-200 Result": {
+      "main": [
+        [
+          {
+            "node": "Execute WF-300 Context Engineering",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute WF-300 Context Engineering": {
+      "main": [
+        [
+          {
+            "node": "Capture WF-300 Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Capture WF-300 Result": {
+      "main": [
+        [
+          {
+            "node": "Execute WF-020 Final Approval",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute WF-020 Final Approval": {
+      "main": [
+        [
+          {
+            "node": "Capture WF-020 Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Capture WF-020 Result": {
+      "main": [
+        [
+          {
+            "node": "Execute WF-600 Analytics Evolution",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute WF-600 Analytics Evolution": {
+      "main": [
+        [
+          {
+            "node": "Capture WF-600 Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Capture WF-600 Result": {
+      "main": [
+        [
+          {
             "node": "Completion Packet Emission Node",
             "type": "main",
             "index": 0
@@ -228,6 +518,38 @@
     "owner_director": "narada",
     "next_workflow": "WF-100",
     "canonical_file": "n8n/workflows/WF-010.json",
-    "wf900_error_route": "WF-900"
+    "wf900_error_route": "WF-900",
+    "phase2_chaining": {
+      "applied_at": "2026-04-29",
+      "pattern": "orchestrator_full_chain",
+      "chain": [
+        {
+          "name": "WF-100 Topic Intelligence Pack Canonical",
+          "live_id": "dew5Cgkwi8MUtAH7",
+          "capture_field": "wf100_result"
+        },
+        {
+          "name": "WF-200 Script Intelligence Pack Canonical",
+          "live_id": "2lhY0gkl83tII3CI",
+          "capture_field": "wf200_result"
+        },
+        {
+          "name": "WF-300 Context Engineering Pack Canonical",
+          "live_id": "xriY2ZiZST6jybeX",
+          "capture_field": "wf300_result"
+        },
+        {
+          "name": "WF-020 Final Approval Canonical",
+          "live_id": "xOeKLfjudlc8OFiB",
+          "capture_field": "wf020_result"
+        },
+        {
+          "name": "WF-600 Analytics Evolution Pack Canonical",
+          "live_id": "fXNkWYfVX214QC87",
+          "capture_field": "wf600_result"
+        }
+      ],
+      "notes": "WF-010 ingress webhook now fires the full Phase-1 chain through n8n executeWorkflow nodes."
+    }
   }
 }
