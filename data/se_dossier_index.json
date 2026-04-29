@@ -1,6 +1,338 @@
 {
   "table": "se_dossier_index",
   "description": "Index of all dossiers; updated by WF-001 and dossier_writer.",
-  "records": [],
-  "created_at": "2026-04-27T16:40:49.584Z"
+  "records": [
+    {
+      "dossier_id": "DOSSIER-UNSPECIFIED",
+      "status": "active",
+      "created_at": "2026-04-29T14:31:26.929Z",
+      "updated_at": "2026-04-29T22:07:04.831Z",
+      "source_execution_id": 664,
+      "source_workflow": "WF-010 Parent Orchestrator Canonical",
+      "route_id": "ROUTE_PHASE1_STANDARD"
+    },
+    {
+      "dossier_id": "DOSSIER-smoke_1777476666514-1",
+      "status": "active",
+      "created_at": "2026-04-29T15:31:45.779Z",
+      "updated_at": "2026-04-29T15:31:45.779Z",
+      "source_execution_id": 743,
+      "source_workflow": "WF-020 Final Approval Canonical"
+    },
+    {
+      "dossier_id": "DOSSIER-smoke_1777476666514-2",
+      "status": "active",
+      "created_at": "2026-04-29T15:31:45.781Z",
+      "updated_at": "2026-04-29T15:31:45.781Z",
+      "source_execution_id": 748,
+      "source_workflow": "WF-020 Final Approval Canonical"
+    },
+    {
+      "dossier_id": "DOSSIER-smoke_1777477489439-1",
+      "status": "active",
+      "created_at": "2026-04-29T15:45:28.687Z",
+      "updated_at": "2026-04-29T15:45:28.687Z",
+      "source_execution_id": 780,
+      "source_workflow": "WF-020 Final Approval Canonical"
+    },
+    {
+      "dossier_id": "DOSSIER-smoke_1777477489439-2",
+      "status": "active",
+      "created_at": "2026-04-29T15:45:28.689Z",
+      "updated_at": "2026-04-29T15:45:28.689Z",
+      "source_execution_id": 785,
+      "source_workflow": "WF-020 Final Approval Canonical"
+    },
+    {
+      "dossier_id": "DOSSIER-smoke_1777478172264-1",
+      "status": "active",
+      "created_at": "2026-04-29T15:56:51.558Z",
+      "updated_at": "2026-04-29T15:56:51.558Z",
+      "source_execution_id": 822,
+      "source_workflow": "WF-020 Final Approval Canonical"
+    },
+    {
+      "dossier_id": "DOSSIER-smoke_1777478172264-2",
+      "status": "active",
+      "created_at": "2026-04-29T15:56:51.559Z",
+      "updated_at": "2026-04-29T15:56:51.559Z",
+      "source_execution_id": 827,
+      "source_workflow": "WF-020 Final Approval Canonical"
+    },
+    {
+      "dossier_id": "DOSSIER-smoke_1777478258955-1",
+      "status": "active",
+      "created_at": "2026-04-29T15:58:18.315Z",
+      "updated_at": "2026-04-29T15:58:18.315Z",
+      "source_execution_id": 859,
+      "source_workflow": "WF-020 Final Approval Canonical"
+    },
+    {
+      "dossier_id": "DOSSIER-smoke_1777478258955-2",
+      "status": "active",
+      "created_at": "2026-04-29T15:58:18.317Z",
+      "updated_at": "2026-04-29T15:58:18.317Z",
+      "source_execution_id": 864,
+      "source_workflow": "WF-020 Final Approval Canonical"
+    },
+    {
+      "dossier_id": "DOSSIER-1777490037260-4OS7TAKHW",
+      "status": "INTAKE_INITIALIZED",
+      "created_at": "2026-04-29T19:13:57.264Z",
+      "updated_at": "2026-04-29T19:13:57.275Z",
+      "route_id": "ROUTE_PHASE1_STANDARD",
+      "source_workflow": "WF-001 Dossier Create Canonical"
+    },
+    {
+      "dossier_id": "DOSSIER-PHASE71-FINAL-20260429T191357Z",
+      "status": "rejected",
+      "created_at": "2026-04-29T19:13:57.406Z",
+      "updated_at": "2026-04-29T19:13:57.406Z",
+      "source_workflow": "WF-020 Final Approval Canonical"
+    },
+    {
+      "dossier_id": "DOSSIER-1777490346690-Q84IDUO2P",
+      "status": "INTAKE_INITIALIZED",
+      "created_at": "2026-04-29T19:19:06.694Z",
+      "updated_at": "2026-04-29T19:19:06.704Z",
+      "route_id": "ROUTE_PHASE1_STANDARD",
+      "source_workflow": "WF-001 Dossier Create Canonical"
+    },
+    {
+      "dossier_id": "DOSSIER-1777490543522-MAH8B3RUK",
+      "status": "INTAKE_INITIALIZED",
+      "created_at": "2026-04-29T19:22:23.527Z",
+      "updated_at": "2026-04-29T19:22:23.537Z",
+      "route_id": "ROUTE_PHASE1_STANDARD",
+      "source_workflow": "WF-001 Dossier Create Canonical"
+    },
+    {
+      "dossier_id": "DOSSIER-1777490708618-9OKU2ZFEG",
+      "status": "INTAKE_INITIALIZED",
+      "created_at": "2026-04-29T19:25:08.623Z",
+      "updated_at": "2026-04-29T19:25:08.633Z",
+      "route_id": "ROUTE_PHASE1_STANDARD",
+      "source_workflow": "WF-001 Dossier Create Canonical"
+    },
+    {
+      "dossier_id": "DOSSIER-1777491053693-X46M28CC4",
+      "status": "INTAKE_INITIALIZED",
+      "created_at": "2026-04-29T19:30:53.697Z",
+      "updated_at": "2026-04-29T19:30:53.706Z",
+      "route_id": "ROUTE_PHASE1_STANDARD",
+      "source_workflow": "WF-001 Dossier Create Canonical"
+    },
+    {
+      "dossier_id": "DOSSIER-PHASE73-20260429T193053Z",
+      "status": "rejected",
+      "created_at": "2026-04-29T19:30:53.839Z",
+      "updated_at": "2026-04-29T19:30:53.839Z",
+      "source_workflow": "WF-020 Final Approval Canonical"
+    },
+    {
+      "dossier_id": "DOSSIER-1777491179350-6W08GYWCU",
+      "status": "INTAKE_INITIALIZED",
+      "created_at": "2026-04-29T19:32:59.354Z",
+      "updated_at": "2026-04-29T19:32:59.364Z",
+      "route_id": "ROUTE_PHASE1_STANDARD",
+      "source_workflow": "WF-001 Dossier Create Canonical"
+    },
+    {
+      "dossier_id": "DOSSIER-PHASE73-R2-20260429T193259Z",
+      "status": "rejected",
+      "created_at": "2026-04-29T19:32:59.486Z",
+      "updated_at": "2026-04-29T19:32:59.486Z",
+      "source_workflow": "WF-020 Final Approval Canonical"
+    },
+    {
+      "dossier_id": "DOSSIER-1777491272524-TQ7G3J8KS",
+      "status": "INTAKE_INITIALIZED",
+      "created_at": "2026-04-29T19:34:32.529Z",
+      "updated_at": "2026-04-29T19:34:32.539Z",
+      "route_id": "ROUTE_PHASE1_STANDARD",
+      "source_workflow": "WF-001 Dossier Create Canonical"
+    },
+    {
+      "dossier_id": "DOSSIER-PHASE73-R3-20260429T193432Z",
+      "status": "approved",
+      "created_at": "2026-04-29T19:34:32.683Z",
+      "updated_at": "2026-04-29T19:34:33.221Z",
+      "source_workflow": "WF-020 Final Approval Canonical"
+    },
+    {
+      "dossier_id": "DOSSIER-1777491361281-H5QM6S0UP",
+      "status": "INTAKE_INITIALIZED",
+      "created_at": "2026-04-29T19:36:01.287Z",
+      "updated_at": "2026-04-29T19:36:01.300Z",
+      "route_id": "ROUTE_PHASE1_STANDARD",
+      "source_workflow": "WF-001 Dossier Create Canonical"
+    },
+    {
+      "dossier_id": "DOSSIER-PHASE73-R4-20260429T193601Z",
+      "status": "approved",
+      "created_at": "2026-04-29T19:36:01.423Z",
+      "updated_at": "2026-04-29T19:36:02.040Z",
+      "source_workflow": "WF-020 Final Approval Canonical"
+    },
+    {
+      "dossier_id": "DOSSIER-smoke_1777492860014-1",
+      "status": "approved",
+      "created_at": "2026-04-29T20:01:01.701Z",
+      "updated_at": "2026-04-29T20:01:01.701Z",
+      "source_workflow": "WF-020 Final Approval Canonical"
+    },
+    {
+      "dossier_id": "DOSSIER-smoke_1777492860014-2",
+      "status": "approved",
+      "created_at": "2026-04-29T20:01:07.386Z",
+      "updated_at": "2026-04-29T20:01:07.386Z",
+      "source_workflow": "WF-020 Final Approval Canonical"
+    },
+    {
+      "dossier_id": "DOSSIER-smoke_1777493409867-1",
+      "status": "approved",
+      "created_at": "2026-04-29T20:10:10.986Z",
+      "updated_at": "2026-04-29T20:10:10.986Z",
+      "source_workflow": "WF-020 Final Approval Canonical"
+    },
+    {
+      "dossier_id": "DOSSIER-smoke_1777493409867-2",
+      "status": "approved",
+      "created_at": "2026-04-29T20:10:17.019Z",
+      "updated_at": "2026-04-29T20:10:17.019Z",
+      "source_workflow": "WF-020 Final Approval Canonical"
+    },
+    {
+      "dossier_id": "DOSSIER-smoke_1777493464632-1",
+      "status": "approved",
+      "created_at": "2026-04-29T20:11:05.722Z",
+      "updated_at": "2026-04-29T20:11:05.722Z",
+      "source_workflow": "WF-020 Final Approval Canonical"
+    },
+    {
+      "dossier_id": "DOSSIER-smoke_1777493464632-2",
+      "status": "approved",
+      "created_at": "2026-04-29T20:11:11.786Z",
+      "updated_at": "2026-04-29T20:11:11.786Z",
+      "source_workflow": "WF-020 Final Approval Canonical"
+    },
+    {
+      "dossier_id": "DOSSIER-smoke_1777493531522-1",
+      "status": "approved",
+      "created_at": "2026-04-29T20:12:12.706Z",
+      "updated_at": "2026-04-29T20:12:12.706Z",
+      "source_workflow": "WF-020 Final Approval Canonical"
+    },
+    {
+      "dossier_id": "DOSSIER-smoke_1777493531522-2",
+      "status": "approved",
+      "created_at": "2026-04-29T20:12:18.687Z",
+      "updated_at": "2026-04-29T20:12:18.687Z",
+      "source_workflow": "WF-020 Final Approval Canonical"
+    },
+    {
+      "dossier_id": "DOSSIER-approval_replay_1777493572040-APPROVED",
+      "status": "approved",
+      "created_at": "2026-04-29T20:12:52.138Z",
+      "updated_at": "2026-04-29T20:12:52.138Z",
+      "source_workflow": "WF-020 Final Approval Canonical"
+    },
+    {
+      "dossier_id": "DOSSIER-approval_replay_1777493572040-REJECTED",
+      "status": "rejected",
+      "created_at": "2026-04-29T20:13:04.204Z",
+      "updated_at": "2026-04-29T20:13:04.204Z",
+      "source_workflow": "WF-020 Final Approval Canonical"
+    },
+    {
+      "dossier_id": "DOSSIER-smoke_1777493711244-1",
+      "status": "approved",
+      "created_at": "2026-04-29T20:15:12.411Z",
+      "updated_at": "2026-04-29T20:15:12.411Z",
+      "source_workflow": "WF-020 Final Approval Canonical"
+    },
+    {
+      "dossier_id": "DOSSIER-smoke_1777493711244-2",
+      "status": "approved",
+      "created_at": "2026-04-29T20:15:18.409Z",
+      "updated_at": "2026-04-29T20:15:18.409Z",
+      "source_workflow": "WF-020 Final Approval Canonical"
+    },
+    {
+      "dossier_id": "DOSSIER-approval_replay_1777493751658-APPROVED",
+      "status": "approved",
+      "created_at": "2026-04-29T20:15:51.766Z",
+      "updated_at": "2026-04-29T20:15:51.766Z",
+      "source_workflow": "WF-020 Final Approval Canonical"
+    },
+    {
+      "dossier_id": "DOSSIER-approval_replay_1777493751658-REJECTED",
+      "status": "rejected",
+      "created_at": "2026-04-29T20:16:03.813Z",
+      "updated_at": "2026-04-29T20:16:03.813Z",
+      "source_workflow": "WF-020 Final Approval Canonical"
+    },
+    {
+      "dossier_id": "DOSSIER-1777494253939-ANH46FQLH",
+      "status": "INTAKE_INITIALIZED",
+      "created_at": "2026-04-29T20:24:13.948Z",
+      "updated_at": "2026-04-29T20:24:13.967Z",
+      "route_id": "ROUTE_PHASE1_STANDARD",
+      "source_workflow": "WF-001 Dossier Create Canonical"
+    },
+    {
+      "dossier_id": "DOSSIER-phase10_1777494253860",
+      "status": "approved",
+      "created_at": "2026-04-29T20:24:23.329Z",
+      "updated_at": "2026-04-29T20:24:30.048Z",
+      "source_workflow": "WF-020 Final Approval Canonical"
+    },
+    {
+      "dossier_id": "DOSSIER-1777496202938-GEB70EXMR",
+      "status": "INTAKE_INITIALIZED",
+      "created_at": "2026-04-29T20:56:42.955Z",
+      "updated_at": "2026-04-29T20:56:42.989Z",
+      "route_id": "ROUTE_PHASE1_STANDARD",
+      "source_workflow": "WF-001 Dossier Create Canonical"
+    },
+    {
+      "dossier_id": "DOSSIER-phase10_1777496202832",
+      "status": "approved",
+      "created_at": "2026-04-29T20:56:53.164Z",
+      "updated_at": "2026-04-29T20:56:59.162Z",
+      "source_workflow": "WF-020 Final Approval Canonical"
+    },
+    {
+      "dossier_id": "DOSSIER-1777499135360-MS8B7Z8IX",
+      "status": "INTAKE_INITIALIZED",
+      "created_at": "2026-04-29T21:45:35.378Z",
+      "updated_at": "2026-04-29T21:45:35.412Z",
+      "route_id": "ROUTE_PHASE1_STANDARD",
+      "source_workflow": "WF-001 Dossier Create Canonical"
+    },
+    {
+      "dossier_id": "DOSSIER-phase10_1777499135207",
+      "status": "approved",
+      "created_at": "2026-04-29T21:45:46.636Z",
+      "updated_at": "2026-04-29T21:45:51.518Z",
+      "source_workflow": "WF-020 Final Approval Canonical"
+    },
+    {
+      "dossier_id": "DOSSIER-1777500416718-BJSEFD3LK",
+      "status": "INTAKE_INITIALIZED",
+      "created_at": "2026-04-29T22:06:56.736Z",
+      "updated_at": "2026-04-29T22:06:56.782Z",
+      "route_id": "ROUTE_PHASE1_STANDARD",
+      "source_workflow": "WF-001 Dossier Create Canonical"
+    },
+    {
+      "dossier_id": "DOSSIER-phase10_1777500416594",
+      "status": "approved",
+      "created_at": "2026-04-29T22:07:07.272Z",
+      "updated_at": "2026-04-29T22:07:13.072Z",
+      "source_workflow": "WF-020 Final Approval Canonical"
+    }
+  ],
+  "created_at": "2026-04-27T16:40:49.584Z",
+  "last_updated": "2026-04-29T22:07:13.072Z"
 }

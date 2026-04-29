@@ -2533,8 +2533,4475 @@
         "operation": "create_new_index_row",
         "notes": "append packet row to se_packet_index"
       }
+    },
+    {
+      "index_entry_id": "IDX-1777473086929-f7brebn1",
+      "instance_id": "WF-100-COMP-1777473048207",
+      "artifact_family": "topic_intelligence_result",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-100",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T14:30:48.207Z",
+      "indexed_at": "2026-04-29T14:31:26.929Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "WF-200",
+      "escalation_needed": false,
+      "source_execution_id": 664,
+      "run_token": "smoke_1777473047772"
+    },
+    {
+      "index_entry_id": "IDX-1777473086929-nzengrob",
+      "instance_id": "WF-200-COMP-1777473048504",
+      "artifact_family": "script_intelligence_result",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-200",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T14:30:48.504Z",
+      "indexed_at": "2026-04-29T14:31:26.929Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "WF-300",
+      "escalation_needed": false,
+      "source_execution_id": 664,
+      "run_token": "smoke_1777473047772"
+    },
+    {
+      "index_entry_id": "IDX-1777473086929-yt6m93kv",
+      "instance_id": "WF-300-COMP-1777473048834",
+      "artifact_family": "context_engineering_result",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-300",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T14:30:48.834Z",
+      "indexed_at": "2026-04-29T14:31:26.929Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "WF-400",
+      "escalation_needed": false,
+      "source_execution_id": 664,
+      "run_token": "smoke_1777473047772"
+    },
+    {
+      "index_entry_id": "IDX-1777473086933-ykkbjp1u",
+      "instance_id": "CWF-110-COMP-1777473047956",
+      "artifact_family": "workflow_completion_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-110",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T14:30:47.956Z",
+      "indexed_at": "2026-04-29T14:31:26.933Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "CWF-120",
+      "escalation_needed": false,
+      "source_execution_id": 665,
+      "run_token": "smoke_1777473047772"
+    },
+    {
+      "index_entry_id": "IDX-1777473086933-nabrjc5y",
+      "instance_id": "CWF-120-COMP-1777473048038",
+      "artifact_family": "workflow_completion_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-120",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T14:30:48.038Z",
+      "indexed_at": "2026-04-29T14:31:26.933Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "CWF-130",
+      "escalation_needed": false,
+      "source_execution_id": 665,
+      "run_token": "smoke_1777473047772"
+    },
+    {
+      "index_entry_id": "IDX-1777473086933-4docxxgi",
+      "instance_id": "CWF-130-COMP-1777473048113",
+      "artifact_family": "workflow_completion_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-130",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T14:30:48.113Z",
+      "indexed_at": "2026-04-29T14:31:26.933Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "CWF-140",
+      "escalation_needed": false,
+      "source_execution_id": 665,
+      "run_token": "smoke_1777473047772"
+    },
+    {
+      "index_entry_id": "IDX-1777473086933-01q39m7e",
+      "instance_id": "CWF-140-COMP-1777473048175",
+      "artifact_family": "workflow_completion_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-140",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T14:30:48.175Z",
+      "indexed_at": "2026-04-29T14:31:26.933Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "CWF-210",
+      "escalation_needed": false,
+      "source_execution_id": 665,
+      "run_token": "smoke_1777473047772"
+    },
+    {
+      "index_entry_id": "IDX-1777473086935-qzt6g56y",
+      "instance_id": "M-001-1777473047929",
+      "artifact_family": "m001_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-110",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T14:30:47.929Z",
+      "indexed_at": "2026-04-29T14:31:26.935Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false,
+      "source_execution_id": 666,
+      "run_token": "smoke_1777473047772"
+    },
+    {
+      "index_entry_id": "IDX-1777473086935-xc9k4kde",
+      "instance_id": "M-001-1777473048012",
+      "artifact_family": "m001_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-110",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T14:30:48.012Z",
+      "indexed_at": "2026-04-29T14:31:26.935Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false,
+      "source_execution_id": 667,
+      "run_token": "smoke_1777473047772"
+    },
+    {
+      "index_entry_id": "IDX-1777473086936-ddfqjhha",
+      "instance_id": "M-001-1777473048090",
+      "artifact_family": "m001_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-110",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T14:30:48.090Z",
+      "indexed_at": "2026-04-29T14:31:26.936Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false,
+      "source_execution_id": 668,
+      "run_token": "smoke_1777473047772"
+    },
+    {
+      "index_entry_id": "IDX-1777473086937-470uoy49",
+      "instance_id": "M-001-1777473048150",
+      "artifact_family": "m001_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-110",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T14:30:48.150Z",
+      "indexed_at": "2026-04-29T14:31:26.937Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false,
+      "source_execution_id": 669,
+      "run_token": "smoke_1777473047772"
+    },
+    {
+      "index_entry_id": "IDX-1777473086938-yxzmzh76",
+      "instance_id": "CWF-210-COMP-1777473048296",
+      "artifact_family": "workflow_completion_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-210",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T14:30:48.296Z",
+      "indexed_at": "2026-04-29T14:31:26.938Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "CWF-220",
+      "escalation_needed": false,
+      "source_execution_id": 670,
+      "run_token": "smoke_1777473047772"
+    },
+    {
+      "index_entry_id": "IDX-1777473086938-sxhx7uwr",
+      "instance_id": "CWF-220-COMP-1777473048353",
+      "artifact_family": "workflow_completion_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-220",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T14:30:48.353Z",
+      "indexed_at": "2026-04-29T14:31:26.938Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "CWF-230",
+      "escalation_needed": false,
+      "source_execution_id": 670,
+      "run_token": "smoke_1777473047772"
+    },
+    {
+      "index_entry_id": "IDX-1777473086938-c1krnag3",
+      "instance_id": "CWF-230-COMP-1777473048412",
+      "artifact_family": "workflow_completion_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-230",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T14:30:48.412Z",
+      "indexed_at": "2026-04-29T14:31:26.938Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "CWF-240",
+      "escalation_needed": false,
+      "source_execution_id": 670,
+      "run_token": "smoke_1777473047772"
+    },
+    {
+      "index_entry_id": "IDX-1777473086938-dw02gnzo",
+      "instance_id": "CWF-240-COMP-1777473048474",
+      "artifact_family": "workflow_completion_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-240",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T14:30:48.474Z",
+      "indexed_at": "2026-04-29T14:31:26.938Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "WF-020",
+      "escalation_needed": false,
+      "source_execution_id": 670,
+      "run_token": "smoke_1777473047772"
+    },
+    {
+      "index_entry_id": "IDX-1777473086939-anezqxsi",
+      "instance_id": "M-001-1777473048274",
+      "artifact_family": "m001_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-110",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T14:30:48.274Z",
+      "indexed_at": "2026-04-29T14:31:26.939Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false,
+      "source_execution_id": 671,
+      "run_token": "smoke_1777473047772"
+    },
+    {
+      "index_entry_id": "IDX-1777473086940-6k9d5jya",
+      "instance_id": "M-001-1777473048331",
+      "artifact_family": "m001_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-110",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T14:30:48.331Z",
+      "indexed_at": "2026-04-29T14:31:26.940Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false,
+      "source_execution_id": 672,
+      "run_token": "smoke_1777473047772"
+    },
+    {
+      "index_entry_id": "IDX-1777473086941-kueb9kkk",
+      "instance_id": "M-001-1777473048390",
+      "artifact_family": "m001_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-110",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T14:30:48.390Z",
+      "indexed_at": "2026-04-29T14:31:26.941Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false,
+      "source_execution_id": 673,
+      "run_token": "smoke_1777473047772"
+    },
+    {
+      "index_entry_id": "IDX-1777473086941-keifw3ax",
+      "instance_id": "M-001-1777473048451",
+      "artifact_family": "m001_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-110",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T14:30:48.451Z",
+      "indexed_at": "2026-04-29T14:31:26.941Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false,
+      "source_execution_id": 674,
+      "run_token": "smoke_1777473047772"
+    },
+    {
+      "index_entry_id": "IDX-1777473086970-65zpq8j3",
+      "instance_id": "WF-020-1777473048889",
+      "artifact_family": "approval_decision_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-020",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T14:30:48.889Z",
+      "indexed_at": "2026-04-29T14:31:26.970Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false,
+      "source_execution_id": 680,
+      "run_token": "smoke_1777473047772"
+    },
+    {
+      "index_entry_id": "IDX-1777473086970-zjdmrbwn",
+      "instance_id": "WF-020-COMP-1777473048914",
+      "artifact_family": "workflow_completion_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-020",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T14:30:48.914Z",
+      "indexed_at": "2026-04-29T14:31:26.970Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "WF-300",
+      "escalation_needed": false,
+      "source_execution_id": 680,
+      "run_token": "smoke_1777473047772"
+    },
+    {
+      "index_entry_id": "IDX-1777473086971-weyieymc",
+      "instance_id": "WF-020-1777473054899",
+      "artifact_family": "approval_decision_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-020",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T14:30:54.899Z",
+      "indexed_at": "2026-04-29T14:31:26.971Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false,
+      "source_execution_id": 685,
+      "run_token": "smoke_1777473047772"
+    },
+    {
+      "index_entry_id": "IDX-1777473086971-hsf272ie",
+      "instance_id": "WF-020-COMP-1777473054923",
+      "artifact_family": "workflow_completion_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-020",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T14:30:54.923Z",
+      "indexed_at": "2026-04-29T14:31:26.971Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "WF-300",
+      "escalation_needed": false,
+      "source_execution_id": 685,
+      "run_token": "smoke_1777473047772"
+    },
+    {
+      "index_entry_id": "IDX-1777476705728-dtn5dtbv",
+      "instance_id": "WF-100-COMP-1777476667160",
+      "artifact_family": "topic_intelligence_result",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-100",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T15:31:07.160Z",
+      "indexed_at": "2026-04-29T15:31:45.728Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "WF-200",
+      "escalation_needed": false,
+      "source_execution_id": 727,
+      "run_token": "smoke_1777476666514"
+    },
+    {
+      "index_entry_id": "IDX-1777476705729-uqlr39e0",
+      "instance_id": "WF-200-COMP-1777476667710",
+      "artifact_family": "script_intelligence_result",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-200",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T15:31:07.710Z",
+      "indexed_at": "2026-04-29T15:31:45.729Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "WF-300",
+      "escalation_needed": false,
+      "source_execution_id": 727,
+      "run_token": "smoke_1777476666514"
+    },
+    {
+      "index_entry_id": "IDX-1777476705729-0fa5a8ys",
+      "instance_id": "WF-300-COMP-1777476668211",
+      "artifact_family": "context_engineering_result",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-300",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T15:31:08.211Z",
+      "indexed_at": "2026-04-29T15:31:45.729Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "WF-400",
+      "escalation_needed": false,
+      "source_execution_id": 727,
+      "run_token": "smoke_1777476666514"
+    },
+    {
+      "index_entry_id": "IDX-1777476705733-yk679yfu",
+      "instance_id": "CWF-110-COMP-1777476666815",
+      "artifact_family": "workflow_completion_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-110",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T15:31:06.815Z",
+      "indexed_at": "2026-04-29T15:31:45.733Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "CWF-120",
+      "escalation_needed": false,
+      "source_execution_id": 728,
+      "run_token": "smoke_1777476666514"
+    },
+    {
+      "index_entry_id": "IDX-1777476705733-nr96mh2u",
+      "instance_id": "CWF-120-COMP-1777476666906",
+      "artifact_family": "workflow_completion_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-120",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T15:31:06.906Z",
+      "indexed_at": "2026-04-29T15:31:45.733Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "CWF-130",
+      "escalation_needed": false,
+      "source_execution_id": 728,
+      "run_token": "smoke_1777476666514"
+    },
+    {
+      "index_entry_id": "IDX-1777476705733-x8ybk4tu",
+      "instance_id": "CWF-130-COMP-1777476667002",
+      "artifact_family": "workflow_completion_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-130",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T15:31:07.002Z",
+      "indexed_at": "2026-04-29T15:31:45.733Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "CWF-140",
+      "escalation_needed": false,
+      "source_execution_id": 728,
+      "run_token": "smoke_1777476666514"
+    },
+    {
+      "index_entry_id": "IDX-1777476705733-kih6tiv4",
+      "instance_id": "CWF-140-COMP-1777476667112",
+      "artifact_family": "workflow_completion_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-140",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T15:31:07.112Z",
+      "indexed_at": "2026-04-29T15:31:45.733Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "CWF-210",
+      "escalation_needed": false,
+      "source_execution_id": 728,
+      "run_token": "smoke_1777476666514"
+    },
+    {
+      "index_entry_id": "IDX-1777476705735-fm65yfeo",
+      "instance_id": "M-001-1777476666783",
+      "artifact_family": "m001_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-110",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T15:31:06.783Z",
+      "indexed_at": "2026-04-29T15:31:45.735Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false,
+      "source_execution_id": 729,
+      "run_token": "smoke_1777476666514"
+    },
+    {
+      "index_entry_id": "IDX-1777476705736-dy3dg4o7",
+      "instance_id": "M-001-1777476666871",
+      "artifact_family": "m001_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-110",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T15:31:06.871Z",
+      "indexed_at": "2026-04-29T15:31:45.736Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false,
+      "source_execution_id": 730,
+      "run_token": "smoke_1777476666514"
+    },
+    {
+      "index_entry_id": "IDX-1777476705737-ypsm98v8",
+      "instance_id": "M-001-1777476666972",
+      "artifact_family": "m001_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-110",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T15:31:06.972Z",
+      "indexed_at": "2026-04-29T15:31:45.737Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false,
+      "source_execution_id": 731,
+      "run_token": "smoke_1777476666514"
+    },
+    {
+      "index_entry_id": "IDX-1777476705739-afd2njen",
+      "instance_id": "M-001-1777476667077",
+      "artifact_family": "m001_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-110",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T15:31:07.077Z",
+      "indexed_at": "2026-04-29T15:31:45.739Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false,
+      "source_execution_id": 732,
+      "run_token": "smoke_1777476666514"
+    },
+    {
+      "index_entry_id": "IDX-1777476705740-jv88wqrf",
+      "instance_id": "CWF-210-COMP-1777476667299",
+      "artifact_family": "workflow_completion_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-210",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T15:31:07.299Z",
+      "indexed_at": "2026-04-29T15:31:45.740Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "CWF-220",
+      "escalation_needed": false,
+      "source_execution_id": 733,
+      "run_token": "smoke_1777476666514"
+    },
+    {
+      "index_entry_id": "IDX-1777476705740-wdww9wor",
+      "instance_id": "CWF-220-COMP-1777476667393",
+      "artifact_family": "workflow_completion_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-220",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T15:31:07.393Z",
+      "indexed_at": "2026-04-29T15:31:45.740Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "CWF-230",
+      "escalation_needed": false,
+      "source_execution_id": 733,
+      "run_token": "smoke_1777476666514"
+    },
+    {
+      "index_entry_id": "IDX-1777476705740-7n1zj1hq",
+      "instance_id": "CWF-230-COMP-1777476667534",
+      "artifact_family": "workflow_completion_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-230",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T15:31:07.534Z",
+      "indexed_at": "2026-04-29T15:31:45.740Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "CWF-240",
+      "escalation_needed": false,
+      "source_execution_id": 733,
+      "run_token": "smoke_1777476666514"
+    },
+    {
+      "index_entry_id": "IDX-1777476705740-eq1oxg18",
+      "instance_id": "CWF-240-COMP-1777476667657",
+      "artifact_family": "workflow_completion_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-240",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T15:31:07.657Z",
+      "indexed_at": "2026-04-29T15:31:45.740Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "WF-020",
+      "escalation_needed": false,
+      "source_execution_id": 733,
+      "run_token": "smoke_1777476666514"
+    },
+    {
+      "index_entry_id": "IDX-1777476705741-t8clyp0a",
+      "instance_id": "M-001-1777476667267",
+      "artifact_family": "m001_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-110",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T15:31:07.266Z",
+      "indexed_at": "2026-04-29T15:31:45.741Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false,
+      "source_execution_id": 734,
+      "run_token": "smoke_1777476666514"
+    },
+    {
+      "index_entry_id": "IDX-1777476705742-rdsrg71z",
+      "instance_id": "M-001-1777476667358",
+      "artifact_family": "m001_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-110",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T15:31:07.358Z",
+      "indexed_at": "2026-04-29T15:31:45.742Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false,
+      "source_execution_id": 735,
+      "run_token": "smoke_1777476666514"
+    },
+    {
+      "index_entry_id": "IDX-1777476705744-8810yffj",
+      "instance_id": "M-001-1777476667488",
+      "artifact_family": "m001_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-110",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T15:31:07.488Z",
+      "indexed_at": "2026-04-29T15:31:45.744Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false,
+      "source_execution_id": 736,
+      "run_token": "smoke_1777476666514"
+    },
+    {
+      "index_entry_id": "IDX-1777476705745-c0ujubvx",
+      "instance_id": "M-001-1777476667622",
+      "artifact_family": "m001_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-110",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T15:31:07.622Z",
+      "indexed_at": "2026-04-29T15:31:45.745Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false,
+      "source_execution_id": 737,
+      "run_token": "smoke_1777476666514"
+    },
+    {
+      "index_entry_id": "IDX-1777476705779-47v72rhc",
+      "instance_id": "WF-020-1777476668288",
+      "artifact_family": "approval_decision_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-020",
+      "dossier_ref": "DOSSIER-smoke_1777476666514-1",
+      "created_at": "2026-04-29T15:31:08.288Z",
+      "indexed_at": "2026-04-29T15:31:45.779Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false,
+      "source_execution_id": 743,
+      "run_token": "smoke_1777476666514"
+    },
+    {
+      "index_entry_id": "IDX-1777476705779-pt48x1w5",
+      "instance_id": "WF-020-COMP-1777476668320",
+      "artifact_family": "workflow_completion_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-020",
+      "dossier_ref": "DOSSIER-smoke_1777476666514-1",
+      "created_at": "2026-04-29T15:31:08.320Z",
+      "indexed_at": "2026-04-29T15:31:45.779Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "WF-300",
+      "escalation_needed": false,
+      "source_execution_id": 743,
+      "run_token": "smoke_1777476666514"
+    },
+    {
+      "index_entry_id": "IDX-1777476705781-gt51x9u7",
+      "instance_id": "WF-020-1777476673678",
+      "artifact_family": "approval_decision_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-020",
+      "dossier_ref": "DOSSIER-smoke_1777476666514-2",
+      "created_at": "2026-04-29T15:31:13.678Z",
+      "indexed_at": "2026-04-29T15:31:45.781Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false,
+      "source_execution_id": 748,
+      "run_token": "smoke_1777476666514"
+    },
+    {
+      "index_entry_id": "IDX-1777476705781-3qgy4p2u",
+      "instance_id": "WF-020-COMP-1777476673712",
+      "artifact_family": "workflow_completion_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-020",
+      "dossier_ref": "DOSSIER-smoke_1777476666514-2",
+      "created_at": "2026-04-29T15:31:13.712Z",
+      "indexed_at": "2026-04-29T15:31:45.781Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "WF-300",
+      "escalation_needed": false,
+      "source_execution_id": 748,
+      "run_token": "smoke_1777476666514"
+    },
+    {
+      "index_entry_id": "IDX-1777477528648-xev6jae3",
+      "instance_id": "WF-100-COMP-1777477490075",
+      "artifact_family": "topic_intelligence_result",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-100",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T15:44:50.075Z",
+      "indexed_at": "2026-04-29T15:45:28.648Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "WF-200",
+      "escalation_needed": false,
+      "source_execution_id": 764,
+      "run_token": "smoke_1777477489439"
+    },
+    {
+      "index_entry_id": "IDX-1777477528648-at29ffhy",
+      "instance_id": "WF-200-COMP-1777477490445",
+      "artifact_family": "script_intelligence_result",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-200",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T15:44:50.445Z",
+      "indexed_at": "2026-04-29T15:45:28.648Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "WF-300",
+      "escalation_needed": false,
+      "source_execution_id": 764,
+      "run_token": "smoke_1777477489439"
+    },
+    {
+      "index_entry_id": "IDX-1777477528648-8d320w6d",
+      "instance_id": "WF-300-COMP-1777477490811",
+      "artifact_family": "context_engineering_result",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-300",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T15:44:50.811Z",
+      "indexed_at": "2026-04-29T15:45:28.648Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "WF-400",
+      "escalation_needed": false,
+      "source_execution_id": 764,
+      "run_token": "smoke_1777477489439"
+    },
+    {
+      "index_entry_id": "IDX-1777477528652-p3jivyya",
+      "instance_id": "CWF-110-COMP-1777477489668",
+      "artifact_family": "workflow_completion_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-110",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T15:44:49.668Z",
+      "indexed_at": "2026-04-29T15:45:28.651Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "CWF-120",
+      "escalation_needed": false,
+      "source_execution_id": 765,
+      "run_token": "smoke_1777477489439"
+    },
+    {
+      "index_entry_id": "IDX-1777477528652-5qabntfb",
+      "instance_id": "CWF-120-COMP-1777477489754",
+      "artifact_family": "workflow_completion_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-120",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T15:44:49.754Z",
+      "indexed_at": "2026-04-29T15:45:28.652Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "CWF-130",
+      "escalation_needed": false,
+      "source_execution_id": 765,
+      "run_token": "smoke_1777477489439"
+    },
+    {
+      "index_entry_id": "IDX-1777477528652-30e9k3cn",
+      "instance_id": "CWF-130-COMP-1777477489938",
+      "artifact_family": "workflow_completion_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-130",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T15:44:49.938Z",
+      "indexed_at": "2026-04-29T15:45:28.652Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "CWF-140",
+      "escalation_needed": false,
+      "source_execution_id": 765,
+      "run_token": "smoke_1777477489439"
+    },
+    {
+      "index_entry_id": "IDX-1777477528652-6l3dkxrq",
+      "instance_id": "CWF-140-COMP-1777477490031",
+      "artifact_family": "workflow_completion_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-140",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T15:44:50.031Z",
+      "indexed_at": "2026-04-29T15:45:28.652Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "CWF-210",
+      "escalation_needed": false,
+      "source_execution_id": 765,
+      "run_token": "smoke_1777477489439"
+    },
+    {
+      "index_entry_id": "IDX-1777477528652-nd7qy8wp",
+      "instance_id": "M-001-1777477489641",
+      "artifact_family": "m001_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-110",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T15:44:49.641Z",
+      "indexed_at": "2026-04-29T15:45:28.652Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false,
+      "source_execution_id": 766,
+      "run_token": "smoke_1777477489439"
+    },
+    {
+      "index_entry_id": "IDX-1777477528653-8pop2cgx",
+      "instance_id": "M-001-1777477489711",
+      "artifact_family": "m001_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-110",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T15:44:49.710Z",
+      "indexed_at": "2026-04-29T15:45:28.653Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false,
+      "source_execution_id": 767,
+      "run_token": "smoke_1777477489439"
+    },
+    {
+      "index_entry_id": "IDX-1777477528654-mtz4clk8",
+      "instance_id": "M-001-1777477489899",
+      "artifact_family": "m001_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-110",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T15:44:49.899Z",
+      "indexed_at": "2026-04-29T15:45:28.654Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false,
+      "source_execution_id": 768,
+      "run_token": "smoke_1777477489439"
+    },
+    {
+      "index_entry_id": "IDX-1777477528655-titrfb2g",
+      "instance_id": "M-001-1777477489993",
+      "artifact_family": "m001_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-110",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T15:44:49.993Z",
+      "indexed_at": "2026-04-29T15:45:28.655Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false,
+      "source_execution_id": 769,
+      "run_token": "smoke_1777477489439"
+    },
+    {
+      "index_entry_id": "IDX-1777477528656-682qevds",
+      "instance_id": "CWF-210-COMP-1777477490191",
+      "artifact_family": "workflow_completion_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-210",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T15:44:50.191Z",
+      "indexed_at": "2026-04-29T15:45:28.656Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "CWF-220",
+      "escalation_needed": false,
+      "source_execution_id": 770,
+      "run_token": "smoke_1777477489439"
+    },
+    {
+      "index_entry_id": "IDX-1777477528656-m4w1ig6p",
+      "instance_id": "CWF-220-COMP-1777477490268",
+      "artifact_family": "workflow_completion_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-220",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T15:44:50.268Z",
+      "indexed_at": "2026-04-29T15:45:28.656Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "CWF-230",
+      "escalation_needed": false,
+      "source_execution_id": 770,
+      "run_token": "smoke_1777477489439"
+    },
+    {
+      "index_entry_id": "IDX-1777477528656-h46rnmha",
+      "instance_id": "CWF-230-COMP-1777477490338",
+      "artifact_family": "workflow_completion_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-230",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T15:44:50.338Z",
+      "indexed_at": "2026-04-29T15:45:28.656Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "CWF-240",
+      "escalation_needed": false,
+      "source_execution_id": 770,
+      "run_token": "smoke_1777477489439"
+    },
+    {
+      "index_entry_id": "IDX-1777477528656-n9g0d90x",
+      "instance_id": "CWF-240-COMP-1777477490407",
+      "artifact_family": "workflow_completion_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-240",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T15:44:50.407Z",
+      "indexed_at": "2026-04-29T15:45:28.656Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "WF-020",
+      "escalation_needed": false,
+      "source_execution_id": 770,
+      "run_token": "smoke_1777477489439"
+    },
+    {
+      "index_entry_id": "IDX-1777477528657-k1el5vbd",
+      "instance_id": "M-001-1777477490148",
+      "artifact_family": "m001_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-110",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T15:44:50.148Z",
+      "indexed_at": "2026-04-29T15:45:28.657Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false,
+      "source_execution_id": 771,
+      "run_token": "smoke_1777477489439"
+    },
+    {
+      "index_entry_id": "IDX-1777477528657-3rx6pws4",
+      "instance_id": "M-001-1777477490241",
+      "artifact_family": "m001_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-110",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T15:44:50.241Z",
+      "indexed_at": "2026-04-29T15:45:28.657Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false,
+      "source_execution_id": 772,
+      "run_token": "smoke_1777477489439"
+    },
+    {
+      "index_entry_id": "IDX-1777477528658-7rvsn352",
+      "instance_id": "M-001-1777477490310",
+      "artifact_family": "m001_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-110",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T15:44:50.310Z",
+      "indexed_at": "2026-04-29T15:45:28.658Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false,
+      "source_execution_id": 773,
+      "run_token": "smoke_1777477489439"
+    },
+    {
+      "index_entry_id": "IDX-1777477528659-9k5tk247",
+      "instance_id": "M-001-1777477490378",
+      "artifact_family": "m001_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-110",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T15:44:50.378Z",
+      "indexed_at": "2026-04-29T15:45:28.659Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false,
+      "source_execution_id": 774,
+      "run_token": "smoke_1777477489439"
+    },
+    {
+      "index_entry_id": "IDX-1777477528687-6uie6nzw",
+      "instance_id": "WF-020-1777477490868",
+      "artifact_family": "approval_decision_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-020",
+      "dossier_ref": "DOSSIER-smoke_1777477489439-1",
+      "created_at": "2026-04-29T15:44:50.868Z",
+      "indexed_at": "2026-04-29T15:45:28.687Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false,
+      "source_execution_id": 780,
+      "run_token": "smoke_1777477489439"
+    },
+    {
+      "index_entry_id": "IDX-1777477528687-o0rjmdt4",
+      "instance_id": "WF-020-COMP-1777477490897",
+      "artifact_family": "workflow_completion_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-020",
+      "dossier_ref": "DOSSIER-smoke_1777477489439-1",
+      "created_at": "2026-04-29T15:44:50.897Z",
+      "indexed_at": "2026-04-29T15:45:28.687Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "WF-300",
+      "escalation_needed": false,
+      "source_execution_id": 780,
+      "run_token": "smoke_1777477489439"
+    },
+    {
+      "index_entry_id": "IDX-1777477528689-iee9gnkg",
+      "instance_id": "WF-020-1777477496594",
+      "artifact_family": "approval_decision_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-020",
+      "dossier_ref": "DOSSIER-smoke_1777477489439-2",
+      "created_at": "2026-04-29T15:44:56.594Z",
+      "indexed_at": "2026-04-29T15:45:28.689Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false,
+      "source_execution_id": 785,
+      "run_token": "smoke_1777477489439"
+    },
+    {
+      "index_entry_id": "IDX-1777477528689-4uh51m4d",
+      "instance_id": "WF-020-COMP-1777477496633",
+      "artifact_family": "workflow_completion_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-020",
+      "dossier_ref": "DOSSIER-smoke_1777477489439-2",
+      "created_at": "2026-04-29T15:44:56.633Z",
+      "indexed_at": "2026-04-29T15:45:28.689Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "WF-300",
+      "escalation_needed": false,
+      "source_execution_id": 785,
+      "run_token": "smoke_1777477489439"
+    },
+    {
+      "index_entry_id": "IDX-1777478211514-zwd4iq54",
+      "instance_id": "WF-100-COMP-1777478172760",
+      "artifact_family": "topic_intelligence_result",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-100",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T15:56:12.760Z",
+      "indexed_at": "2026-04-29T15:56:51.514Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "WF-200",
+      "escalation_needed": false,
+      "source_execution_id": 806,
+      "run_token": "smoke_1777478172264"
+    },
+    {
+      "index_entry_id": "IDX-1777478211514-u3ruop9m",
+      "instance_id": "WF-200-COMP-1777478173392",
+      "artifact_family": "script_intelligence_result",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-200",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T15:56:13.392Z",
+      "indexed_at": "2026-04-29T15:56:51.514Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "WF-300",
+      "escalation_needed": false,
+      "source_execution_id": 806,
+      "run_token": "smoke_1777478172264"
+    },
+    {
+      "index_entry_id": "IDX-1777478211514-xdm7l9nv",
+      "instance_id": "WF-300-COMP-1777478174063",
+      "artifact_family": "context_engineering_result",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-300",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T15:56:14.063Z",
+      "indexed_at": "2026-04-29T15:56:51.514Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "WF-400",
+      "escalation_needed": false,
+      "source_execution_id": 806,
+      "run_token": "smoke_1777478172264"
+    },
+    {
+      "index_entry_id": "IDX-1777478211517-8bsstr8a",
+      "instance_id": "CWF-110-COMP-1777478172474",
+      "artifact_family": "workflow_completion_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-110",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T15:56:12.474Z",
+      "indexed_at": "2026-04-29T15:56:51.517Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "CWF-120",
+      "escalation_needed": false,
+      "source_execution_id": 807,
+      "run_token": "smoke_1777478172264"
+    },
+    {
+      "index_entry_id": "IDX-1777478211518-xy1ujcrz",
+      "instance_id": "CWF-120-COMP-1777478172554",
+      "artifact_family": "workflow_completion_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-120",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T15:56:12.554Z",
+      "indexed_at": "2026-04-29T15:56:51.518Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "CWF-130",
+      "escalation_needed": false,
+      "source_execution_id": 807,
+      "run_token": "smoke_1777478172264"
+    },
+    {
+      "index_entry_id": "IDX-1777478211518-6hcra1nu",
+      "instance_id": "CWF-130-COMP-1777478172627",
+      "artifact_family": "workflow_completion_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-130",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T15:56:12.627Z",
+      "indexed_at": "2026-04-29T15:56:51.518Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "CWF-140",
+      "escalation_needed": false,
+      "source_execution_id": 807,
+      "run_token": "smoke_1777478172264"
+    },
+    {
+      "index_entry_id": "IDX-1777478211518-939nwhl4",
+      "instance_id": "CWF-140-COMP-1777478172697",
+      "artifact_family": "workflow_completion_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-140",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T15:56:12.697Z",
+      "indexed_at": "2026-04-29T15:56:51.518Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "CWF-210",
+      "escalation_needed": false,
+      "source_execution_id": 807,
+      "run_token": "smoke_1777478172264"
+    },
+    {
+      "index_entry_id": "IDX-1777478211519-8cygdudz",
+      "instance_id": "M-001-1777478172447",
+      "artifact_family": "m001_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-110",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T15:56:12.447Z",
+      "indexed_at": "2026-04-29T15:56:51.519Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false,
+      "source_execution_id": 808,
+      "run_token": "smoke_1777478172264"
+    },
+    {
+      "index_entry_id": "IDX-1777478211520-4zk5c4dn",
+      "instance_id": "M-001-1777478172517",
+      "artifact_family": "m001_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-110",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T15:56:12.517Z",
+      "indexed_at": "2026-04-29T15:56:51.520Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false,
+      "source_execution_id": 809,
+      "run_token": "smoke_1777478172264"
+    },
+    {
+      "index_entry_id": "IDX-1777478211521-mrvm6n7d",
+      "instance_id": "M-001-1777478172600",
+      "artifact_family": "m001_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-110",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T15:56:12.600Z",
+      "indexed_at": "2026-04-29T15:56:51.521Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false,
+      "source_execution_id": 810,
+      "run_token": "smoke_1777478172264"
+    },
+    {
+      "index_entry_id": "IDX-1777478211523-abzvx1dn",
+      "instance_id": "M-001-1777478172670",
+      "artifact_family": "m001_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-110",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T15:56:12.670Z",
+      "indexed_at": "2026-04-29T15:56:51.523Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false,
+      "source_execution_id": 811,
+      "run_token": "smoke_1777478172264"
+    },
+    {
+      "index_entry_id": "IDX-1777478211525-9a3xwr0q",
+      "instance_id": "CWF-210-COMP-1777478172943",
+      "artifact_family": "workflow_completion_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-210",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T15:56:12.943Z",
+      "indexed_at": "2026-04-29T15:56:51.525Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "CWF-220",
+      "escalation_needed": false,
+      "source_execution_id": 812,
+      "run_token": "smoke_1777478172264"
+    },
+    {
+      "index_entry_id": "IDX-1777478211525-po46r773",
+      "instance_id": "CWF-220-COMP-1777478173074",
+      "artifact_family": "workflow_completion_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-220",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T15:56:13.074Z",
+      "indexed_at": "2026-04-29T15:56:51.525Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "CWF-230",
+      "escalation_needed": false,
+      "source_execution_id": 812,
+      "run_token": "smoke_1777478172264"
+    },
+    {
+      "index_entry_id": "IDX-1777478211525-xji72clb",
+      "instance_id": "CWF-230-COMP-1777478173198",
+      "artifact_family": "workflow_completion_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-230",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T15:56:13.198Z",
+      "indexed_at": "2026-04-29T15:56:51.525Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "CWF-240",
+      "escalation_needed": false,
+      "source_execution_id": 812,
+      "run_token": "smoke_1777478172264"
+    },
+    {
+      "index_entry_id": "IDX-1777478211525-vvhn2bo6",
+      "instance_id": "CWF-240-COMP-1777478173323",
+      "artifact_family": "workflow_completion_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-240",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T15:56:13.323Z",
+      "indexed_at": "2026-04-29T15:56:51.525Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "WF-020",
+      "escalation_needed": false,
+      "source_execution_id": 812,
+      "run_token": "smoke_1777478172264"
+    },
+    {
+      "index_entry_id": "IDX-1777478211526-uu8mmxqm",
+      "instance_id": "M-001-1777478172886",
+      "artifact_family": "m001_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-110",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T15:56:12.886Z",
+      "indexed_at": "2026-04-29T15:56:51.526Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false,
+      "source_execution_id": 813,
+      "run_token": "smoke_1777478172264"
+    },
+    {
+      "index_entry_id": "IDX-1777478211527-e0vd96ym",
+      "instance_id": "M-001-1777478173025",
+      "artifact_family": "m001_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-110",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T15:56:13.025Z",
+      "indexed_at": "2026-04-29T15:56:51.527Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false,
+      "source_execution_id": 814,
+      "run_token": "smoke_1777478172264"
+    },
+    {
+      "index_entry_id": "IDX-1777478211528-ocwim0cm",
+      "instance_id": "M-001-1777478173149",
+      "artifact_family": "m001_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-110",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T15:56:13.149Z",
+      "indexed_at": "2026-04-29T15:56:51.528Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false,
+      "source_execution_id": 815,
+      "run_token": "smoke_1777478172264"
+    },
+    {
+      "index_entry_id": "IDX-1777478211529-3bs5gi20",
+      "instance_id": "M-001-1777478173272",
+      "artifact_family": "m001_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-110",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T15:56:13.272Z",
+      "indexed_at": "2026-04-29T15:56:51.529Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false,
+      "source_execution_id": 816,
+      "run_token": "smoke_1777478172264"
+    },
+    {
+      "index_entry_id": "IDX-1777478211558-rja1h40c",
+      "instance_id": "WF-020-1777478174162",
+      "artifact_family": "approval_decision_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-020",
+      "dossier_ref": "DOSSIER-smoke_1777478172264-1",
+      "created_at": "2026-04-29T15:56:14.162Z",
+      "indexed_at": "2026-04-29T15:56:51.558Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false,
+      "source_execution_id": 822,
+      "run_token": "smoke_1777478172264"
+    },
+    {
+      "index_entry_id": "IDX-1777478211558-fsz80pyq",
+      "instance_id": "WF-020-COMP-1777478174192",
+      "artifact_family": "workflow_completion_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-020",
+      "dossier_ref": "DOSSIER-smoke_1777478172264-1",
+      "created_at": "2026-04-29T15:56:14.192Z",
+      "indexed_at": "2026-04-29T15:56:51.558Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "WF-300",
+      "escalation_needed": false,
+      "source_execution_id": 822,
+      "run_token": "smoke_1777478172264"
+    },
+    {
+      "index_entry_id": "IDX-1777478211559-cai576f4",
+      "instance_id": "WF-020-1777478179421",
+      "artifact_family": "approval_decision_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-020",
+      "dossier_ref": "DOSSIER-smoke_1777478172264-2",
+      "created_at": "2026-04-29T15:56:19.421Z",
+      "indexed_at": "2026-04-29T15:56:51.559Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false,
+      "source_execution_id": 827,
+      "run_token": "smoke_1777478172264"
+    },
+    {
+      "index_entry_id": "IDX-1777478211559-s013ubia",
+      "instance_id": "WF-020-COMP-1777478179454",
+      "artifact_family": "workflow_completion_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-020",
+      "dossier_ref": "DOSSIER-smoke_1777478172264-2",
+      "created_at": "2026-04-29T15:56:19.454Z",
+      "indexed_at": "2026-04-29T15:56:51.559Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "WF-300",
+      "escalation_needed": false,
+      "source_execution_id": 827,
+      "run_token": "smoke_1777478172264"
+    },
+    {
+      "index_entry_id": "IDX-1777478298244-0df4rn30",
+      "instance_id": "WF-100-COMP-1777478259462",
+      "artifact_family": "topic_intelligence_result",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-100",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T15:57:39.462Z",
+      "indexed_at": "2026-04-29T15:58:18.244Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "WF-200",
+      "escalation_needed": false,
+      "source_execution_id": 843,
+      "run_token": "smoke_1777478258955"
+    },
+    {
+      "index_entry_id": "IDX-1777478298244-z3kn2g9f",
+      "instance_id": "WF-200-COMP-1777478259810",
+      "artifact_family": "script_intelligence_result",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-200",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T15:57:39.810Z",
+      "indexed_at": "2026-04-29T15:58:18.244Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "WF-300",
+      "escalation_needed": false,
+      "source_execution_id": 843,
+      "run_token": "smoke_1777478258955"
+    },
+    {
+      "index_entry_id": "IDX-1777478298244-jnohbo8h",
+      "instance_id": "WF-300-COMP-1777478260144",
+      "artifact_family": "context_engineering_result",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-300",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T15:57:40.144Z",
+      "indexed_at": "2026-04-29T15:58:18.244Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "WF-400",
+      "escalation_needed": false,
+      "source_execution_id": 843,
+      "run_token": "smoke_1777478258955"
+    },
+    {
+      "index_entry_id": "IDX-1777478298255-j902z66j",
+      "instance_id": "CWF-110-COMP-1777478259190",
+      "artifact_family": "workflow_completion_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-110",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T15:57:39.190Z",
+      "indexed_at": "2026-04-29T15:58:18.255Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "CWF-120",
+      "escalation_needed": false,
+      "source_execution_id": 844,
+      "run_token": "smoke_1777478258955"
+    },
+    {
+      "index_entry_id": "IDX-1777478298255-xw2p09e4",
+      "instance_id": "CWF-120-COMP-1777478259278",
+      "artifact_family": "workflow_completion_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-120",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T15:57:39.278Z",
+      "indexed_at": "2026-04-29T15:58:18.255Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "CWF-130",
+      "escalation_needed": false,
+      "source_execution_id": 844,
+      "run_token": "smoke_1777478258955"
+    },
+    {
+      "index_entry_id": "IDX-1777478298255-jyyk48ri",
+      "instance_id": "CWF-130-COMP-1777478259358",
+      "artifact_family": "workflow_completion_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-130",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T15:57:39.358Z",
+      "indexed_at": "2026-04-29T15:58:18.255Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "CWF-140",
+      "escalation_needed": false,
+      "source_execution_id": 844,
+      "run_token": "smoke_1777478258955"
+    },
+    {
+      "index_entry_id": "IDX-1777478298255-dyqj34q1",
+      "instance_id": "CWF-140-COMP-1777478259425",
+      "artifact_family": "workflow_completion_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-140",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T15:57:39.425Z",
+      "indexed_at": "2026-04-29T15:58:18.255Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "CWF-210",
+      "escalation_needed": false,
+      "source_execution_id": 844,
+      "run_token": "smoke_1777478258955"
+    },
+    {
+      "index_entry_id": "IDX-1777478298257-zfvteq6x",
+      "instance_id": "M-001-1777478259160",
+      "artifact_family": "m001_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-110",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T15:57:39.160Z",
+      "indexed_at": "2026-04-29T15:58:18.257Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false,
+      "source_execution_id": 845,
+      "run_token": "smoke_1777478258955"
+    },
+    {
+      "index_entry_id": "IDX-1777478298259-cy6aknea",
+      "instance_id": "M-001-1777478259241",
+      "artifact_family": "m001_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-110",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T15:57:39.241Z",
+      "indexed_at": "2026-04-29T15:58:18.259Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false,
+      "source_execution_id": 846,
+      "run_token": "smoke_1777478258955"
+    },
+    {
+      "index_entry_id": "IDX-1777478298261-80hotcwc",
+      "instance_id": "M-001-1777478259328",
+      "artifact_family": "m001_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-110",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T15:57:39.328Z",
+      "indexed_at": "2026-04-29T15:58:18.261Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false,
+      "source_execution_id": 847,
+      "run_token": "smoke_1777478258955"
+    },
+    {
+      "index_entry_id": "IDX-1777478298263-k3vxpj61",
+      "instance_id": "M-001-1777478259400",
+      "artifact_family": "m001_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-110",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T15:57:39.400Z",
+      "indexed_at": "2026-04-29T15:58:18.263Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false,
+      "source_execution_id": 848,
+      "run_token": "smoke_1777478258955"
+    },
+    {
+      "index_entry_id": "IDX-1777478298266-hiz8h7c3",
+      "instance_id": "CWF-210-COMP-1777478259571",
+      "artifact_family": "workflow_completion_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-210",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T15:57:39.571Z",
+      "indexed_at": "2026-04-29T15:58:18.266Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "CWF-220",
+      "escalation_needed": false,
+      "source_execution_id": 849,
+      "run_token": "smoke_1777478258955"
+    },
+    {
+      "index_entry_id": "IDX-1777478298266-ls5h3kjk",
+      "instance_id": "CWF-220-COMP-1777478259633",
+      "artifact_family": "workflow_completion_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-220",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T15:57:39.633Z",
+      "indexed_at": "2026-04-29T15:58:18.266Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "CWF-230",
+      "escalation_needed": false,
+      "source_execution_id": 849,
+      "run_token": "smoke_1777478258955"
+    },
+    {
+      "index_entry_id": "IDX-1777478298266-vaua6hh8",
+      "instance_id": "CWF-230-COMP-1777478259699",
+      "artifact_family": "workflow_completion_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-230",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T15:57:39.699Z",
+      "indexed_at": "2026-04-29T15:58:18.266Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "CWF-240",
+      "escalation_needed": false,
+      "source_execution_id": 849,
+      "run_token": "smoke_1777478258955"
+    },
+    {
+      "index_entry_id": "IDX-1777478298266-r7bolz3d",
+      "instance_id": "CWF-240-COMP-1777478259768",
+      "artifact_family": "workflow_completion_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-240",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T15:57:39.768Z",
+      "indexed_at": "2026-04-29T15:58:18.266Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "WF-020",
+      "escalation_needed": false,
+      "source_execution_id": 849,
+      "run_token": "smoke_1777478258955"
+    },
+    {
+      "index_entry_id": "IDX-1777478298267-qvtmmbig",
+      "instance_id": "M-001-1777478259547",
+      "artifact_family": "m001_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-110",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T15:57:39.547Z",
+      "indexed_at": "2026-04-29T15:58:18.267Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false,
+      "source_execution_id": 850,
+      "run_token": "smoke_1777478258955"
+    },
+    {
+      "index_entry_id": "IDX-1777478298269-vyc3svl1",
+      "instance_id": "M-001-1777478259609",
+      "artifact_family": "m001_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-110",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T15:57:39.609Z",
+      "indexed_at": "2026-04-29T15:58:18.269Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false,
+      "source_execution_id": 851,
+      "run_token": "smoke_1777478258955"
+    },
+    {
+      "index_entry_id": "IDX-1777478298271-tk2tpde5",
+      "instance_id": "M-001-1777478259671",
+      "artifact_family": "m001_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-110",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T15:57:39.671Z",
+      "indexed_at": "2026-04-29T15:58:18.271Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false,
+      "source_execution_id": 852,
+      "run_token": "smoke_1777478258955"
+    },
+    {
+      "index_entry_id": "IDX-1777478298272-hcnbbn04",
+      "instance_id": "M-001-1777478259740",
+      "artifact_family": "m001_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "CWF-110",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T15:57:39.740Z",
+      "indexed_at": "2026-04-29T15:58:18.272Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false,
+      "source_execution_id": 853,
+      "run_token": "smoke_1777478258955"
+    },
+    {
+      "index_entry_id": "IDX-1777478298315-jllstw8k",
+      "instance_id": "WF-020-1777478260195",
+      "artifact_family": "approval_decision_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-020",
+      "dossier_ref": "DOSSIER-smoke_1777478258955-1",
+      "created_at": "2026-04-29T15:57:40.195Z",
+      "indexed_at": "2026-04-29T15:58:18.315Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false,
+      "source_execution_id": 859,
+      "run_token": "smoke_1777478258955"
+    },
+    {
+      "index_entry_id": "IDX-1777478298315-nac2vvym",
+      "instance_id": "WF-020-COMP-1777478260219",
+      "artifact_family": "workflow_completion_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-020",
+      "dossier_ref": "DOSSIER-smoke_1777478258955-1",
+      "created_at": "2026-04-29T15:57:40.219Z",
+      "indexed_at": "2026-04-29T15:58:18.315Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "WF-300",
+      "escalation_needed": false,
+      "source_execution_id": 859,
+      "run_token": "smoke_1777478258955"
+    },
+    {
+      "index_entry_id": "IDX-1777478298317-svibggvf",
+      "instance_id": "WF-020-1777478266126",
+      "artifact_family": "approval_decision_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-020",
+      "dossier_ref": "DOSSIER-smoke_1777478258955-2",
+      "created_at": "2026-04-29T15:57:46.126Z",
+      "indexed_at": "2026-04-29T15:58:18.317Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false,
+      "source_execution_id": 864,
+      "run_token": "smoke_1777478258955"
+    },
+    {
+      "index_entry_id": "IDX-1777478298317-oningsb0",
+      "instance_id": "WF-020-COMP-1777478266155",
+      "artifact_family": "workflow_completion_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-020",
+      "dossier_ref": "DOSSIER-smoke_1777478258955-2",
+      "created_at": "2026-04-29T15:57:46.155Z",
+      "indexed_at": "2026-04-29T15:58:18.317Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "WF-300",
+      "escalation_needed": false,
+      "source_execution_id": 864,
+      "run_token": "smoke_1777478258955"
+    },
+    {
+      "packet_id": "WF-500-COMP-1777490708879",
+      "instance_id": "WF-500-COMP-1777490708879",
+      "artifact_family": "publishing_distribution_result",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-500",
+      "created_at": "2026-04-29T19:25:08.879Z",
+      "status": "CREATED",
+      "payload": {
+        "pack_executed": "WF-500",
+        "governance_approved": false,
+        "publish_ready": true,
+        "next_workflow": "WF-600",
+        "child_packets": [
+          "CWF-510_output",
+          "CWF-520_output",
+          "CWF-530_output"
+        ]
+      }
+    },
+    {
+      "packet_id": "WF-500-COMP-1777491054015",
+      "instance_id": "WF-500-COMP-1777491054015",
+      "artifact_family": "publishing_distribution_result",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-500",
+      "created_at": "2026-04-29T19:30:54.015Z",
+      "status": "CREATED",
+      "payload": {
+        "pack_executed": "WF-500",
+        "governance_approved": false,
+        "publish_ready": true,
+        "next_workflow": "WF-600",
+        "child_packets": [
+          "CWF-510_output",
+          "CWF-520_output",
+          "CWF-530_output"
+        ]
+      }
+    },
+    {
+      "packet_id": "WF-500-COMP-1777491179784",
+      "instance_id": "WF-500-COMP-1777491179784",
+      "artifact_family": "publishing_distribution_result",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-500",
+      "created_at": "2026-04-29T19:32:59.784Z",
+      "status": "CREATED",
+      "payload": {
+        "pack_executed": "WF-500",
+        "governance_approved": false,
+        "publish_ready": true,
+        "next_workflow": "WF-600",
+        "child_packets": [
+          "CWF-510_output",
+          "CWF-520_output",
+          "CWF-530_output"
+        ]
+      }
+    },
+    {
+      "packet_id": "WF-500-COMP-1777491272912",
+      "instance_id": "WF-500-COMP-1777491272912",
+      "artifact_family": "publishing_distribution_result",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-500",
+      "created_at": "2026-04-29T19:34:32.912Z",
+      "status": "CREATED",
+      "payload": {
+        "pack_executed": "WF-500",
+        "governance_approved": false,
+        "publish_ready": true,
+        "next_workflow": "WF-600",
+        "child_packets": [
+          "CWF-510_output",
+          "CWF-520_output",
+          "CWF-530_output"
+        ]
+      }
+    },
+    {
+      "packet_id": "WF-300-COMP-1777491273151",
+      "instance_id": "WF-300-COMP-1777491273151",
+      "artifact_family": "context_engineering_result",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-300",
+      "created_at": "2026-04-29T19:34:33.151Z",
+      "status": "CREATED",
+      "payload": {
+        "pack_executed": "WF-300",
+        "next_workflow": "WF-400",
+        "child_packets": [
+          "CWF-310_output",
+          "CWF-320_output",
+          "CWF-330_output",
+          "CWF-340_output"
+        ]
+      }
+    },
+    {
+      "packet_id": "WF-500-COMP-1777491273424",
+      "instance_id": "WF-500-COMP-1777491273424",
+      "artifact_family": "publishing_distribution_result",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-500",
+      "created_at": "2026-04-29T19:34:33.424Z",
+      "status": "CREATED",
+      "payload": {
+        "pack_executed": "WF-500",
+        "governance_approved": false,
+        "publish_ready": true,
+        "next_workflow": "WF-600",
+        "child_packets": [
+          "CWF-510_output",
+          "CWF-520_output",
+          "CWF-530_output"
+        ]
+      }
+    },
+    {
+      "packet_id": "WF-500-COMP-1777491361662",
+      "instance_id": "WF-500-COMP-1777491361662",
+      "artifact_family": "publishing_distribution_result",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-500",
+      "created_at": "2026-04-29T19:36:01.662Z",
+      "status": "CREATED",
+      "payload": {
+        "pack_executed": "WF-500",
+        "governance_approved": false,
+        "publish_ready": true,
+        "next_workflow": "WF-600",
+        "child_packets": [
+          "CWF-510_output",
+          "CWF-520_output",
+          "CWF-530_output"
+        ]
+      }
+    },
+    {
+      "packet_id": "WF-300-COMP-1777491361952",
+      "instance_id": "WF-300-COMP-1777491361952",
+      "artifact_family": "context_engineering_result",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-300",
+      "created_at": "2026-04-29T19:36:01.952Z",
+      "status": "CREATED",
+      "payload": {
+        "pack_executed": "WF-300",
+        "next_workflow": "WF-400",
+        "child_packets": [
+          "CWF-310_output",
+          "CWF-320_output",
+          "CWF-330_output",
+          "CWF-340_output"
+        ]
+      }
+    },
+    {
+      "packet_id": "WF-500-COMP-1777491362228",
+      "instance_id": "WF-500-COMP-1777491362228",
+      "artifact_family": "publishing_distribution_result",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-500",
+      "created_at": "2026-04-29T19:36:02.228Z",
+      "status": "CREATED",
+      "payload": {
+        "pack_executed": "WF-500",
+        "governance_approved": false,
+        "publish_ready": true,
+        "next_workflow": "WF-600",
+        "child_packets": [
+          "CWF-510_output",
+          "CWF-520_output",
+          "CWF-530_output"
+        ]
+      }
+    },
+    {
+      "packet_id": "WF-010-COMP-1777491362438",
+      "instance_id": "WF-010-COMP-1777491362438",
+      "artifact_family": "orchestration_decision",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-010",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T19:36:02.438Z",
+      "status": "CREATED",
+      "payload": {
+        "route_selected": "ROUTE_PHASE1_STANDARD",
+        "next_workflow": "CWF-110",
+        "orchestration_decision": "STANDARD_TOPIC_INTELLIGENCE",
+        "approval_gates_pending": [
+          "topic_research_gate",
+          "script_approval_gate"
+        ],
+        "route_to_wf900": "WF-900",
+        "chain_results": {
+          "wf100": {
+            "status": "SUCCESS",
+            "payload": {},
+            "captured_at": "2026-04-29T19:36:01.486Z"
+          },
+          "wf200": {
+            "status": "SUCCESS",
+            "payload": {},
+            "captured_at": "2026-04-29T19:36:01.608Z"
+          },
+          "wf300": {
+            "status": "SUCCESS",
+            "payload": {
+              "instance_id": "WF-300-COMP-1777491361952",
+              "artifact_family": "context_engineering_result",
+              "schema_version": "1.0.0",
+              "producer_workflow": "WF-300",
+              "created_at": "2026-04-29T19:36:01.952Z",
+              "status": "CREATED",
+              "payload": {
+                "pack_executed": "WF-300",
+                "next_workflow": "WF-400",
+                "child_packets": [
+                  "CWF-310_output",
+                  "CWF-320_output",
+                  "CWF-330_output",
+                  "CWF-340_output"
+                ]
+              }
+            },
+            "captured_at": "2026-04-29T19:36:01.980Z"
+          },
+          "wf020": {
+            "status": "SUCCESS",
+            "payload": {
+              "instance_id": "WF-500-COMP-1777491362228",
+              "artifact_family": "publishing_distribution_result",
+              "schema_version": "1.0.0",
+              "producer_workflow": "WF-500",
+              "created_at": "2026-04-29T19:36:02.228Z",
+              "status": "CREATED",
+              "payload": {
+                "pack_executed": "WF-500",
+                "governance_approved": false,
+                "publish_ready": true,
+                "next_workflow": "WF-600",
+                "child_packets": [
+                  "CWF-510_output",
+                  "CWF-520_output",
+                  "CWF-530_output"
+                ]
+              }
+            },
+            "captured_at": "2026-04-29T19:36:02.245Z"
+          },
+          "wf600": null
+        }
+      }
+    },
+    {
+      "packet_id": "WF-300-COMP-1777492861556",
+      "instance_id": "WF-300-COMP-1777492861556",
+      "artifact_family": "context_engineering_result",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-300",
+      "created_at": "2026-04-29T20:01:01.556Z",
+      "status": "CREATED",
+      "payload": {
+        "pack_executed": "WF-300",
+        "next_workflow": "WF-400",
+        "child_packets": [
+          "CWF-310_output",
+          "CWF-320_output",
+          "CWF-330_output",
+          "CWF-340_output"
+        ]
+      }
+    },
+    {
+      "packet_id": "WF-500-COMP-1777492862045",
+      "instance_id": "WF-500-COMP-1777492862045",
+      "artifact_family": "publishing_distribution_result",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-500",
+      "created_at": "2026-04-29T20:01:02.045Z",
+      "status": "CREATED",
+      "payload": {
+        "pack_executed": "WF-500",
+        "governance_approved": false,
+        "publish_ready": true,
+        "next_workflow": "WF-600",
+        "child_packets": [
+          "CWF-510_output",
+          "CWF-520_output",
+          "CWF-530_output"
+        ]
+      }
+    },
+    {
+      "packet_id": "WF-010-COMP-1777492862603",
+      "instance_id": "WF-010-COMP-1777492862603",
+      "artifact_family": "orchestration_decision",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-010",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T20:01:02.603Z",
+      "status": "CREATED",
+      "payload": {
+        "route_selected": "ROUTE_PHASE1_STANDARD",
+        "next_workflow": "CWF-110",
+        "orchestration_decision": "STANDARD_TOPIC_INTELLIGENCE",
+        "approval_gates_pending": [
+          "topic_research_gate",
+          "script_approval_gate"
+        ],
+        "route_to_wf900": "WF-900",
+        "chain_results": {
+          "wf100": {
+            "status": "SUCCESS",
+            "payload": {},
+            "captured_at": "2026-04-29T20:01:00.655Z"
+          },
+          "wf200": {
+            "status": "SUCCESS",
+            "payload": {},
+            "captured_at": "2026-04-29T20:01:00.836Z"
+          },
+          "wf300": {
+            "status": "SUCCESS",
+            "payload": {
+              "instance_id": "WF-300-COMP-1777492861556",
+              "artifact_family": "context_engineering_result",
+              "schema_version": "1.0.0",
+              "producer_workflow": "WF-300",
+              "created_at": "2026-04-29T20:01:01.556Z",
+              "status": "CREATED",
+              "payload": {
+                "pack_executed": "WF-300",
+                "next_workflow": "WF-400",
+                "child_packets": [
+                  "CWF-310_output",
+                  "CWF-320_output",
+                  "CWF-330_output",
+                  "CWF-340_output"
+                ]
+              }
+            },
+            "captured_at": "2026-04-29T20:01:01.629Z"
+          },
+          "wf020": {
+            "status": "SUCCESS",
+            "payload": {
+              "instance_id": "WF-500-COMP-1777492862045",
+              "artifact_family": "publishing_distribution_result",
+              "schema_version": "1.0.0",
+              "producer_workflow": "WF-500",
+              "created_at": "2026-04-29T20:01:02.045Z",
+              "status": "CREATED",
+              "payload": {
+                "pack_executed": "WF-500",
+                "governance_approved": false,
+                "publish_ready": true,
+                "next_workflow": "WF-600",
+                "child_packets": [
+                  "CWF-510_output",
+                  "CWF-520_output",
+                  "CWF-530_output"
+                ]
+              }
+            },
+            "captured_at": "2026-04-29T20:01:02.095Z"
+          },
+          "wf600": null
+        }
+      }
+    },
+    {
+      "packet_id": "WF-500-COMP-1777492867687",
+      "instance_id": "WF-500-COMP-1777492867687",
+      "artifact_family": "publishing_distribution_result",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-500",
+      "created_at": "2026-04-29T20:01:07.687Z",
+      "status": "CREATED",
+      "payload": {
+        "pack_executed": "WF-500",
+        "governance_approved": false,
+        "publish_ready": true,
+        "next_workflow": "WF-600",
+        "child_packets": [
+          "CWF-510_output",
+          "CWF-520_output",
+          "CWF-530_output"
+        ]
+      }
+    },
+    {
+      "packet_id": "WF-500-COMP-1777492874615",
+      "instance_id": "WF-500-COMP-1777492874615",
+      "artifact_family": "publishing_distribution_result",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-500",
+      "created_at": "2026-04-29T20:01:14.615Z",
+      "status": "CREATED",
+      "payload": {
+        "pack_executed": "WF-500",
+        "governance_approved": false,
+        "publish_ready": true,
+        "next_workflow": "WF-600",
+        "child_packets": [
+          "CWF-510_output",
+          "CWF-520_output",
+          "CWF-530_output"
+        ]
+      }
+    },
+    {
+      "index_entry_id": "IDX-1777492899383-65ieqaou",
+      "instance_id": "WF-600-COMP-1777492862539",
+      "artifact_family": "analytics_evolution_result",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-600",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T20:01:02.539Z",
+      "indexed_at": "2026-04-29T20:01:39.383Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false,
+      "source_execution_id": 1038,
+      "run_token": "smoke_1777492860014"
+    },
+    {
+      "index_entry_id": "IDX-1777492899420-o6qybpj3",
+      "instance_id": "WF-020-1777492861680",
+      "artifact_family": "approval_decision_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-020",
+      "dossier_ref": "DOSSIER-smoke_1777492860014-1",
+      "created_at": "2026-04-29T20:01:01.680Z",
+      "indexed_at": "2026-04-29T20:01:39.420Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false,
+      "source_execution_id": 1048,
+      "run_token": "smoke_1777492860014"
+    },
+    {
+      "index_entry_id": "IDX-1777492899420-xa74iw3a",
+      "instance_id": "WF-020-COMP-1777492861744",
+      "artifact_family": "workflow_completion_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-020",
+      "dossier_ref": "DOSSIER-smoke_1777492860014-1",
+      "created_at": "2026-04-29T20:01:01.744Z",
+      "indexed_at": "2026-04-29T20:01:39.420Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "WF-300",
+      "escalation_needed": false,
+      "source_execution_id": 1048,
+      "run_token": "smoke_1777492860014"
+    },
+    {
+      "index_entry_id": "IDX-1777492899426-znsni8w9",
+      "instance_id": "WF-020-1777492867362",
+      "artifact_family": "approval_decision_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-020",
+      "dossier_ref": "DOSSIER-smoke_1777492860014-2",
+      "created_at": "2026-04-29T20:01:07.362Z",
+      "indexed_at": "2026-04-29T20:01:39.426Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false,
+      "source_execution_id": 1057,
+      "run_token": "smoke_1777492860014"
+    },
+    {
+      "index_entry_id": "IDX-1777492899426-fdygmrcq",
+      "instance_id": "WF-020-COMP-1777492867425",
+      "artifact_family": "workflow_completion_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-020",
+      "dossier_ref": "DOSSIER-smoke_1777492860014-2",
+      "created_at": "2026-04-29T20:01:07.425Z",
+      "indexed_at": "2026-04-29T20:01:39.426Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "WF-300",
+      "escalation_needed": false,
+      "source_execution_id": 1057,
+      "run_token": "smoke_1777492860014"
+    },
+    {
+      "packet_id": "WF-300-COMP-1777493410877",
+      "instance_id": "WF-300-COMP-1777493410877",
+      "artifact_family": "context_engineering_result",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-300",
+      "created_at": "2026-04-29T20:10:10.877Z",
+      "status": "CREATED",
+      "payload": {
+        "pack_executed": "WF-300",
+        "next_workflow": "WF-400",
+        "child_packets": [
+          "CWF-310_output",
+          "CWF-320_output",
+          "CWF-330_output",
+          "CWF-340_output"
+        ]
+      }
+    },
+    {
+      "packet_id": "WF-500-COMP-1777493411320",
+      "instance_id": "WF-500-COMP-1777493411320",
+      "artifact_family": "publishing_distribution_result",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-500",
+      "created_at": "2026-04-29T20:10:11.320Z",
+      "status": "CREATED",
+      "payload": {
+        "pack_executed": "WF-500",
+        "governance_approved": false,
+        "publish_ready": true,
+        "next_workflow": "WF-600",
+        "child_packets": [
+          "CWF-510_output",
+          "CWF-520_output",
+          "CWF-530_output"
+        ]
+      }
+    },
+    {
+      "packet_id": "WF-010-COMP-1777493411742",
+      "instance_id": "WF-010-COMP-1777493411742",
+      "artifact_family": "orchestration_decision",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-010",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T20:10:11.742Z",
+      "status": "CREATED",
+      "payload": {
+        "route_selected": "ROUTE_PHASE1_STANDARD",
+        "next_workflow": "CWF-110",
+        "orchestration_decision": "STANDARD_TOPIC_INTELLIGENCE",
+        "approval_gates_pending": [
+          "topic_research_gate",
+          "script_approval_gate"
+        ],
+        "route_to_wf900": "WF-900",
+        "chain_results": {
+          "wf100": {
+            "status": "SUCCESS",
+            "payload": {},
+            "captured_at": "2026-04-29T20:10:10.172Z"
+          },
+          "wf200": {
+            "status": "SUCCESS",
+            "payload": {},
+            "captured_at": "2026-04-29T20:10:10.295Z"
+          },
+          "wf300": {
+            "status": "SUCCESS",
+            "payload": {
+              "instance_id": "WF-300-COMP-1777493410877",
+              "artifact_family": "context_engineering_result",
+              "schema_version": "1.0.0",
+              "producer_workflow": "WF-300",
+              "created_at": "2026-04-29T20:10:10.877Z",
+              "status": "CREATED",
+              "payload": {
+                "pack_executed": "WF-300",
+                "next_workflow": "WF-400",
+                "child_packets": [
+                  "CWF-310_output",
+                  "CWF-320_output",
+                  "CWF-330_output",
+                  "CWF-340_output"
+                ]
+              }
+            },
+            "captured_at": "2026-04-29T20:10:10.929Z"
+          },
+          "wf020": {
+            "status": "SUCCESS",
+            "payload": {
+              "instance_id": "WF-500-COMP-1777493411320",
+              "artifact_family": "publishing_distribution_result",
+              "schema_version": "1.0.0",
+              "producer_workflow": "WF-500",
+              "created_at": "2026-04-29T20:10:11.320Z",
+              "status": "CREATED",
+              "payload": {
+                "pack_executed": "WF-500",
+                "governance_approved": false,
+                "publish_ready": true,
+                "next_workflow": "WF-600",
+                "child_packets": [
+                  "CWF-510_output",
+                  "CWF-520_output",
+                  "CWF-530_output"
+                ]
+              }
+            },
+            "captured_at": "2026-04-29T20:10:11.351Z"
+          },
+          "wf600": null
+        }
+      }
+    },
+    {
+      "packet_id": "WF-500-COMP-1777493417341",
+      "instance_id": "WF-500-COMP-1777493417341",
+      "artifact_family": "publishing_distribution_result",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-500",
+      "created_at": "2026-04-29T20:10:17.341Z",
+      "status": "CREATED",
+      "payload": {
+        "pack_executed": "WF-500",
+        "governance_approved": false,
+        "publish_ready": true,
+        "next_workflow": "WF-600",
+        "child_packets": [
+          "CWF-510_output",
+          "CWF-520_output",
+          "CWF-530_output"
+        ]
+      }
+    },
+    {
+      "packet_id": "WF-500-COMP-1777493424238",
+      "instance_id": "WF-500-COMP-1777493424238",
+      "artifact_family": "publishing_distribution_result",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-500",
+      "created_at": "2026-04-29T20:10:24.238Z",
+      "status": "CREATED",
+      "payload": {
+        "pack_executed": "WF-500",
+        "governance_approved": false,
+        "publish_ready": true,
+        "next_workflow": "WF-600",
+        "child_packets": [
+          "CWF-510_output",
+          "CWF-520_output",
+          "CWF-530_output"
+        ]
+      }
+    },
+    {
+      "index_entry_id": "IDX-1777493449046-ixns6vc0",
+      "instance_id": "WF-600-COMP-1777493411703",
+      "artifact_family": "analytics_evolution_result",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-600",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T20:10:11.703Z",
+      "indexed_at": "2026-04-29T20:10:49.046Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false,
+      "source_execution_id": 1066,
+      "run_token": "smoke_1777493409867"
+    },
+    {
+      "index_entry_id": "IDX-1777493449072-xzbajgo3",
+      "instance_id": "WF-020-1777493410971",
+      "artifact_family": "approval_decision_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-020",
+      "dossier_ref": "DOSSIER-smoke_1777493409867-1",
+      "created_at": "2026-04-29T20:10:10.971Z",
+      "indexed_at": "2026-04-29T20:10:49.072Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false,
+      "source_execution_id": 1076,
+      "run_token": "smoke_1777493409867"
+    },
+    {
+      "index_entry_id": "IDX-1777493449072-mtp99rh6",
+      "instance_id": "WF-020-COMP-1777493411032",
+      "artifact_family": "workflow_completion_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-020",
+      "dossier_ref": "DOSSIER-smoke_1777493409867-1",
+      "created_at": "2026-04-29T20:10:11.032Z",
+      "indexed_at": "2026-04-29T20:10:49.072Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "WF-300",
+      "escalation_needed": false,
+      "source_execution_id": 1076,
+      "run_token": "smoke_1777493409867"
+    },
+    {
+      "index_entry_id": "IDX-1777493449077-xgj6ujtu",
+      "instance_id": "WF-020-1777493417002",
+      "artifact_family": "approval_decision_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-020",
+      "dossier_ref": "DOSSIER-smoke_1777493409867-2",
+      "created_at": "2026-04-29T20:10:17.002Z",
+      "indexed_at": "2026-04-29T20:10:49.077Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false,
+      "source_execution_id": 1085,
+      "run_token": "smoke_1777493409867"
+    },
+    {
+      "index_entry_id": "IDX-1777493449077-cd4sa615",
+      "instance_id": "WF-020-COMP-1777493417060",
+      "artifact_family": "workflow_completion_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-020",
+      "dossier_ref": "DOSSIER-smoke_1777493409867-2",
+      "created_at": "2026-04-29T20:10:17.060Z",
+      "indexed_at": "2026-04-29T20:10:49.077Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "WF-300",
+      "escalation_needed": false,
+      "source_execution_id": 1085,
+      "run_token": "smoke_1777493409867"
+    },
+    {
+      "packet_id": "WF-300-COMP-1777493465609",
+      "instance_id": "WF-300-COMP-1777493465609",
+      "artifact_family": "context_engineering_result",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-300",
+      "created_at": "2026-04-29T20:11:05.609Z",
+      "status": "CREATED",
+      "payload": {
+        "pack_executed": "WF-300",
+        "next_workflow": "WF-400",
+        "child_packets": [
+          "CWF-310_output",
+          "CWF-320_output",
+          "CWF-330_output",
+          "CWF-340_output"
+        ]
+      }
+    },
+    {
+      "packet_id": "WF-500-COMP-1777493466003",
+      "instance_id": "WF-500-COMP-1777493466003",
+      "artifact_family": "publishing_distribution_result",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-500",
+      "created_at": "2026-04-29T20:11:06.003Z",
+      "status": "CREATED",
+      "payload": {
+        "pack_executed": "WF-500",
+        "governance_approved": false,
+        "publish_ready": true,
+        "next_workflow": "WF-600",
+        "child_packets": [
+          "CWF-510_output",
+          "CWF-520_output",
+          "CWF-530_output"
+        ]
+      }
+    },
+    {
+      "packet_id": "WF-010-COMP-1777493466405",
+      "instance_id": "WF-010-COMP-1777493466405",
+      "artifact_family": "orchestration_decision",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-010",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T20:11:06.405Z",
+      "status": "CREATED",
+      "payload": {
+        "route_selected": "ROUTE_PHASE1_STANDARD",
+        "next_workflow": "CWF-110",
+        "orchestration_decision": "STANDARD_TOPIC_INTELLIGENCE",
+        "approval_gates_pending": [
+          "topic_research_gate",
+          "script_approval_gate"
+        ],
+        "route_to_wf900": "WF-900",
+        "chain_results": {
+          "wf100": {
+            "status": "SUCCESS",
+            "payload": {},
+            "captured_at": "2026-04-29T20:11:04.883Z"
+          },
+          "wf200": {
+            "status": "SUCCESS",
+            "payload": {},
+            "captured_at": "2026-04-29T20:11:05.001Z"
+          },
+          "wf300": {
+            "status": "SUCCESS",
+            "payload": {
+              "instance_id": "WF-300-COMP-1777493465609",
+              "artifact_family": "context_engineering_result",
+              "schema_version": "1.0.0",
+              "producer_workflow": "WF-300",
+              "created_at": "2026-04-29T20:11:05.609Z",
+              "status": "CREATED",
+              "payload": {
+                "pack_executed": "WF-300",
+                "next_workflow": "WF-400",
+                "child_packets": [
+                  "CWF-310_output",
+                  "CWF-320_output",
+                  "CWF-330_output",
+                  "CWF-340_output"
+                ]
+              }
+            },
+            "captured_at": "2026-04-29T20:11:05.652Z"
+          },
+          "wf020": {
+            "status": "SUCCESS",
+            "payload": {
+              "instance_id": "WF-500-COMP-1777493466003",
+              "artifact_family": "publishing_distribution_result",
+              "schema_version": "1.0.0",
+              "producer_workflow": "WF-500",
+              "created_at": "2026-04-29T20:11:06.003Z",
+              "status": "CREATED",
+              "payload": {
+                "pack_executed": "WF-500",
+                "governance_approved": false,
+                "publish_ready": true,
+                "next_workflow": "WF-600",
+                "child_packets": [
+                  "CWF-510_output",
+                  "CWF-520_output",
+                  "CWF-530_output"
+                ]
+              }
+            },
+            "captured_at": "2026-04-29T20:11:06.034Z"
+          },
+          "wf600": null
+        }
+      }
+    },
+    {
+      "packet_id": "WF-500-COMP-1777493472050",
+      "instance_id": "WF-500-COMP-1777493472050",
+      "artifact_family": "publishing_distribution_result",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-500",
+      "created_at": "2026-04-29T20:11:12.050Z",
+      "status": "CREATED",
+      "payload": {
+        "pack_executed": "WF-500",
+        "governance_approved": false,
+        "publish_ready": true,
+        "next_workflow": "WF-600",
+        "child_packets": [
+          "CWF-510_output",
+          "CWF-520_output",
+          "CWF-530_output"
+        ]
+      }
+    },
+    {
+      "packet_id": "WF-500-COMP-1777493479057",
+      "instance_id": "WF-500-COMP-1777493479057",
+      "artifact_family": "publishing_distribution_result",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-500",
+      "created_at": "2026-04-29T20:11:19.057Z",
+      "status": "CREATED",
+      "payload": {
+        "pack_executed": "WF-500",
+        "governance_approved": false,
+        "publish_ready": true,
+        "next_workflow": "WF-600",
+        "child_packets": [
+          "CWF-510_output",
+          "CWF-520_output",
+          "CWF-530_output"
+        ]
+      }
+    },
+    {
+      "index_entry_id": "IDX-1777493503804-qx7l1q61",
+      "instance_id": "WF-600-COMP-1777493466365",
+      "artifact_family": "analytics_evolution_result",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-600",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T20:11:06.365Z",
+      "indexed_at": "2026-04-29T20:11:43.804Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false,
+      "source_execution_id": 1094,
+      "run_token": "smoke_1777493464632"
+    },
+    {
+      "index_entry_id": "IDX-1777493503833-taf0jynm",
+      "instance_id": "WF-020-1777493465699",
+      "artifact_family": "approval_decision_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-020",
+      "dossier_ref": "DOSSIER-smoke_1777493464632-1",
+      "created_at": "2026-04-29T20:11:05.699Z",
+      "indexed_at": "2026-04-29T20:11:43.833Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false,
+      "source_execution_id": 1104,
+      "run_token": "smoke_1777493464632"
+    },
+    {
+      "index_entry_id": "IDX-1777493503833-uainsa8e",
+      "instance_id": "WF-020-COMP-1777493465768",
+      "artifact_family": "workflow_completion_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-020",
+      "dossier_ref": "DOSSIER-smoke_1777493464632-1",
+      "created_at": "2026-04-29T20:11:05.768Z",
+      "indexed_at": "2026-04-29T20:11:43.833Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "WF-300",
+      "escalation_needed": false,
+      "source_execution_id": 1104,
+      "run_token": "smoke_1777493464632"
+    },
+    {
+      "index_entry_id": "IDX-1777493503839-frczmc9f",
+      "instance_id": "WF-020-1777493471770",
+      "artifact_family": "approval_decision_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-020",
+      "dossier_ref": "DOSSIER-smoke_1777493464632-2",
+      "created_at": "2026-04-29T20:11:11.770Z",
+      "indexed_at": "2026-04-29T20:11:43.839Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false,
+      "source_execution_id": 1113,
+      "run_token": "smoke_1777493464632"
+    },
+    {
+      "index_entry_id": "IDX-1777493503839-f11w8dju",
+      "instance_id": "WF-020-COMP-1777493471820",
+      "artifact_family": "workflow_completion_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-020",
+      "dossier_ref": "DOSSIER-smoke_1777493464632-2",
+      "created_at": "2026-04-29T20:11:11.820Z",
+      "indexed_at": "2026-04-29T20:11:43.839Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "WF-300",
+      "escalation_needed": false,
+      "source_execution_id": 1113,
+      "run_token": "smoke_1777493464632"
+    },
+    {
+      "packet_id": "WF-300-COMP-1777493532589",
+      "instance_id": "WF-300-COMP-1777493532589",
+      "artifact_family": "context_engineering_result",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-300",
+      "created_at": "2026-04-29T20:12:12.589Z",
+      "status": "CREATED",
+      "payload": {
+        "pack_executed": "WF-300",
+        "next_workflow": "WF-400",
+        "child_packets": [
+          "CWF-310_output",
+          "CWF-320_output",
+          "CWF-330_output",
+          "CWF-340_output"
+        ]
+      }
+    },
+    {
+      "packet_id": "WF-500-COMP-1777493532992",
+      "instance_id": "WF-500-COMP-1777493532992",
+      "artifact_family": "publishing_distribution_result",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-500",
+      "created_at": "2026-04-29T20:12:12.992Z",
+      "status": "CREATED",
+      "payload": {
+        "pack_executed": "WF-500",
+        "governance_approved": false,
+        "publish_ready": true,
+        "next_workflow": "WF-600",
+        "child_packets": [
+          "CWF-510_output",
+          "CWF-520_output",
+          "CWF-530_output"
+        ]
+      }
+    },
+    {
+      "packet_id": "WF-010-COMP-1777493533424",
+      "instance_id": "WF-010-COMP-1777493533424",
+      "artifact_family": "orchestration_decision",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-010",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T20:12:13.424Z",
+      "status": "CREATED",
+      "payload": {
+        "route_selected": "ROUTE_PHASE1_STANDARD",
+        "next_workflow": "CWF-110",
+        "orchestration_decision": "STANDARD_TOPIC_INTELLIGENCE",
+        "approval_gates_pending": [
+          "topic_research_gate",
+          "script_approval_gate"
+        ],
+        "route_to_wf900": "WF-900",
+        "chain_results": {
+          "wf100": {
+            "status": "SUCCESS",
+            "payload": {},
+            "captured_at": "2026-04-29T20:12:11.806Z"
+          },
+          "wf200": {
+            "status": "SUCCESS",
+            "payload": {},
+            "captured_at": "2026-04-29T20:12:11.934Z"
+          },
+          "wf300": {
+            "status": "SUCCESS",
+            "payload": {
+              "instance_id": "WF-300-COMP-1777493532589",
+              "artifact_family": "context_engineering_result",
+              "schema_version": "1.0.0",
+              "producer_workflow": "WF-300",
+              "created_at": "2026-04-29T20:12:12.589Z",
+              "status": "CREATED",
+              "payload": {
+                "pack_executed": "WF-300",
+                "next_workflow": "WF-400",
+                "child_packets": [
+                  "CWF-310_output",
+                  "CWF-320_output",
+                  "CWF-330_output",
+                  "CWF-340_output"
+                ]
+              }
+            },
+            "captured_at": "2026-04-29T20:12:12.647Z"
+          },
+          "wf020": {
+            "status": "SUCCESS",
+            "payload": {
+              "instance_id": "WF-500-COMP-1777493532992",
+              "artifact_family": "publishing_distribution_result",
+              "schema_version": "1.0.0",
+              "producer_workflow": "WF-500",
+              "created_at": "2026-04-29T20:12:12.992Z",
+              "status": "CREATED",
+              "payload": {
+                "pack_executed": "WF-500",
+                "governance_approved": false,
+                "publish_ready": true,
+                "next_workflow": "WF-600",
+                "child_packets": [
+                  "CWF-510_output",
+                  "CWF-520_output",
+                  "CWF-530_output"
+                ]
+              }
+            },
+            "captured_at": "2026-04-29T20:12:13.029Z"
+          },
+          "wf600": null
+        }
+      }
+    },
+    {
+      "packet_id": "WF-500-COMP-1777493538963",
+      "instance_id": "WF-500-COMP-1777493538963",
+      "artifact_family": "publishing_distribution_result",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-500",
+      "created_at": "2026-04-29T20:12:18.963Z",
+      "status": "CREATED",
+      "payload": {
+        "pack_executed": "WF-500",
+        "governance_approved": false,
+        "publish_ready": true,
+        "next_workflow": "WF-600",
+        "child_packets": [
+          "CWF-510_output",
+          "CWF-520_output",
+          "CWF-530_output"
+        ]
+      }
+    },
+    {
+      "packet_id": "WF-500-COMP-1777493545958",
+      "instance_id": "WF-500-COMP-1777493545958",
+      "artifact_family": "publishing_distribution_result",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-500",
+      "created_at": "2026-04-29T20:12:25.958Z",
+      "status": "CREATED",
+      "payload": {
+        "pack_executed": "WF-500",
+        "governance_approved": false,
+        "publish_ready": true,
+        "next_workflow": "WF-600",
+        "child_packets": [
+          "CWF-510_output",
+          "CWF-520_output",
+          "CWF-530_output"
+        ]
+      }
+    },
+    {
+      "index_entry_id": "IDX-1777493570711-es5sin88",
+      "instance_id": "WF-600-COMP-1777493533371",
+      "artifact_family": "analytics_evolution_result",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-600",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T20:12:13.372Z",
+      "indexed_at": "2026-04-29T20:12:50.711Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false,
+      "source_execution_id": 1122,
+      "run_token": "smoke_1777493531522"
+    },
+    {
+      "index_entry_id": "IDX-1777493570741-47uz5ema",
+      "instance_id": "WF-020-1777493532688",
+      "artifact_family": "approval_decision_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-020",
+      "dossier_ref": "DOSSIER-smoke_1777493531522-1",
+      "created_at": "2026-04-29T20:12:12.688Z",
+      "indexed_at": "2026-04-29T20:12:50.741Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false,
+      "source_execution_id": 1132,
+      "run_token": "smoke_1777493531522"
+    },
+    {
+      "index_entry_id": "IDX-1777493570741-v9ant6m1",
+      "instance_id": "WF-020-COMP-1777493532742",
+      "artifact_family": "workflow_completion_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-020",
+      "dossier_ref": "DOSSIER-smoke_1777493531522-1",
+      "created_at": "2026-04-29T20:12:12.742Z",
+      "indexed_at": "2026-04-29T20:12:50.741Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "WF-300",
+      "escalation_needed": false,
+      "source_execution_id": 1132,
+      "run_token": "smoke_1777493531522"
+    },
+    {
+      "index_entry_id": "IDX-1777493570747-f0hms52v",
+      "instance_id": "WF-020-1777493538671",
+      "artifact_family": "approval_decision_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-020",
+      "dossier_ref": "DOSSIER-smoke_1777493531522-2",
+      "created_at": "2026-04-29T20:12:18.671Z",
+      "indexed_at": "2026-04-29T20:12:50.747Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false,
+      "source_execution_id": 1141,
+      "run_token": "smoke_1777493531522"
+    },
+    {
+      "index_entry_id": "IDX-1777493570747-tj2gsojh",
+      "instance_id": "WF-020-COMP-1777493538719",
+      "artifact_family": "workflow_completion_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-020",
+      "dossier_ref": "DOSSIER-smoke_1777493531522-2",
+      "created_at": "2026-04-29T20:12:18.719Z",
+      "indexed_at": "2026-04-29T20:12:50.747Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "WF-300",
+      "escalation_needed": false,
+      "source_execution_id": 1141,
+      "run_token": "smoke_1777493531522"
+    },
+    {
+      "packet_id": "WF-500-COMP-1777493572404",
+      "instance_id": "WF-500-COMP-1777493572404",
+      "artifact_family": "publishing_distribution_result",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-500",
+      "created_at": "2026-04-29T20:12:52.404Z",
+      "status": "CREATED",
+      "payload": {
+        "pack_executed": "WF-500",
+        "governance_approved": false,
+        "publish_ready": true,
+        "next_workflow": "WF-600",
+        "child_packets": [
+          "CWF-510_output",
+          "CWF-520_output",
+          "CWF-530_output"
+        ]
+      }
+    },
+    {
+      "packet_id": "WF-300-COMP-1777493712299",
+      "instance_id": "WF-300-COMP-1777493712299",
+      "artifact_family": "context_engineering_result",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-300",
+      "created_at": "2026-04-29T20:15:12.299Z",
+      "status": "CREATED",
+      "payload": {
+        "pack_executed": "WF-300",
+        "next_workflow": "WF-400",
+        "child_packets": [
+          "CWF-310_output",
+          "CWF-320_output",
+          "CWF-330_output",
+          "CWF-340_output"
+        ]
+      }
+    },
+    {
+      "packet_id": "WF-500-COMP-1777493712700",
+      "instance_id": "WF-500-COMP-1777493712700",
+      "artifact_family": "publishing_distribution_result",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-500",
+      "created_at": "2026-04-29T20:15:12.700Z",
+      "status": "CREATED",
+      "payload": {
+        "pack_executed": "WF-500",
+        "governance_approved": false,
+        "publish_ready": true,
+        "next_workflow": "WF-600",
+        "child_packets": [
+          "CWF-510_output",
+          "CWF-520_output",
+          "CWF-530_output"
+        ]
+      }
+    },
+    {
+      "packet_id": "WF-010-COMP-1777493713097",
+      "instance_id": "WF-010-COMP-1777493713097",
+      "artifact_family": "orchestration_decision",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-010",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T20:15:13.097Z",
+      "status": "CREATED",
+      "payload": {
+        "route_selected": "ROUTE_PHASE1_STANDARD",
+        "next_workflow": "CWF-110",
+        "orchestration_decision": "STANDARD_TOPIC_INTELLIGENCE",
+        "approval_gates_pending": [
+          "topic_research_gate",
+          "script_approval_gate"
+        ],
+        "route_to_wf900": "WF-900",
+        "chain_results": {
+          "wf100": {
+            "status": "SUCCESS",
+            "payload": {},
+            "captured_at": "2026-04-29T20:15:11.530Z"
+          },
+          "wf200": {
+            "status": "SUCCESS",
+            "payload": {},
+            "captured_at": "2026-04-29T20:15:11.717Z"
+          },
+          "wf300": {
+            "status": "SUCCESS",
+            "payload": {
+              "instance_id": "WF-300-COMP-1777493712299",
+              "artifact_family": "context_engineering_result",
+              "schema_version": "1.0.0",
+              "producer_workflow": "WF-300",
+              "created_at": "2026-04-29T20:15:12.299Z",
+              "status": "CREATED",
+              "payload": {
+                "pack_executed": "WF-300",
+                "next_workflow": "WF-400",
+                "child_packets": [
+                  "CWF-310_output",
+                  "CWF-320_output",
+                  "CWF-330_output",
+                  "CWF-340_output"
+                ]
+              }
+            },
+            "captured_at": "2026-04-29T20:15:12.351Z"
+          },
+          "wf020": {
+            "status": "SUCCESS",
+            "payload": {
+              "instance_id": "WF-500-COMP-1777493712700",
+              "artifact_family": "publishing_distribution_result",
+              "schema_version": "1.0.0",
+              "producer_workflow": "WF-500",
+              "created_at": "2026-04-29T20:15:12.700Z",
+              "status": "CREATED",
+              "payload": {
+                "pack_executed": "WF-500",
+                "governance_approved": false,
+                "publish_ready": true,
+                "next_workflow": "WF-600",
+                "child_packets": [
+                  "CWF-510_output",
+                  "CWF-520_output",
+                  "CWF-530_output"
+                ]
+              }
+            },
+            "captured_at": "2026-04-29T20:15:12.732Z"
+          },
+          "wf600": null
+        }
+      }
+    },
+    {
+      "packet_id": "WF-500-COMP-1777493718702",
+      "instance_id": "WF-500-COMP-1777493718702",
+      "artifact_family": "publishing_distribution_result",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-500",
+      "created_at": "2026-04-29T20:15:18.702Z",
+      "status": "CREATED",
+      "payload": {
+        "pack_executed": "WF-500",
+        "governance_approved": false,
+        "publish_ready": true,
+        "next_workflow": "WF-600",
+        "child_packets": [
+          "CWF-510_output",
+          "CWF-520_output",
+          "CWF-530_output"
+        ]
+      }
+    },
+    {
+      "packet_id": "WF-500-COMP-1777493725627",
+      "instance_id": "WF-500-COMP-1777493725627",
+      "artifact_family": "publishing_distribution_result",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-500",
+      "created_at": "2026-04-29T20:15:25.627Z",
+      "status": "CREATED",
+      "payload": {
+        "pack_executed": "WF-500",
+        "governance_approved": false,
+        "publish_ready": true,
+        "next_workflow": "WF-600",
+        "child_packets": [
+          "CWF-510_output",
+          "CWF-520_output",
+          "CWF-530_output"
+        ]
+      }
+    },
+    {
+      "index_entry_id": "IDX-1777493750415-e8z78gbf",
+      "instance_id": "WF-600-COMP-1777493713055",
+      "artifact_family": "analytics_evolution_result",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-600",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T20:15:13.055Z",
+      "indexed_at": "2026-04-29T20:15:50.415Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false,
+      "source_execution_id": 1157,
+      "run_token": "smoke_1777493711244"
+    },
+    {
+      "index_entry_id": "IDX-1777493750440-jsw4rd53",
+      "instance_id": "WF-020-1777493712394",
+      "artifact_family": "approval_decision_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-020",
+      "dossier_ref": "DOSSIER-smoke_1777493711244-1",
+      "created_at": "2026-04-29T20:15:12.394Z",
+      "indexed_at": "2026-04-29T20:15:50.440Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false,
+      "source_execution_id": 1167,
+      "run_token": "smoke_1777493711244"
+    },
+    {
+      "index_entry_id": "IDX-1777493750440-dceeyhum",
+      "instance_id": "WF-020-COMP-1777493712445",
+      "artifact_family": "workflow_completion_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-020",
+      "dossier_ref": "DOSSIER-smoke_1777493711244-1",
+      "created_at": "2026-04-29T20:15:12.445Z",
+      "indexed_at": "2026-04-29T20:15:50.440Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "WF-300",
+      "escalation_needed": false,
+      "source_execution_id": 1167,
+      "run_token": "smoke_1777493711244"
+    },
+    {
+      "index_entry_id": "IDX-1777493750445-tjcz5730",
+      "instance_id": "WF-020-1777493718389",
+      "artifact_family": "approval_decision_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-020",
+      "dossier_ref": "DOSSIER-smoke_1777493711244-2",
+      "created_at": "2026-04-29T20:15:18.389Z",
+      "indexed_at": "2026-04-29T20:15:50.445Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": null,
+      "escalation_needed": false,
+      "source_execution_id": 1176,
+      "run_token": "smoke_1777493711244"
+    },
+    {
+      "index_entry_id": "IDX-1777493750445-v0o1j09e",
+      "instance_id": "WF-020-COMP-1777493718460",
+      "artifact_family": "workflow_completion_packet",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-020",
+      "dossier_ref": "DOSSIER-smoke_1777493711244-2",
+      "created_at": "2026-04-29T20:15:18.460Z",
+      "indexed_at": "2026-04-29T20:15:50.445Z",
+      "status": "CREATED",
+      "lineage": {
+        "sourced_from_packet_id": null,
+        "sourced_from_topic_id": null,
+        "sourced_from_research_id": null
+      },
+      "next_workflow": "WF-300",
+      "escalation_needed": false,
+      "source_execution_id": 1176,
+      "run_token": "smoke_1777493711244"
+    },
+    {
+      "packet_id": "WF-500-COMP-1777493752065",
+      "instance_id": "WF-500-COMP-1777493752065",
+      "artifact_family": "publishing_distribution_result",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-500",
+      "created_at": "2026-04-29T20:15:52.065Z",
+      "status": "CREATED",
+      "payload": {
+        "pack_executed": "WF-500",
+        "governance_approved": false,
+        "publish_ready": true,
+        "next_workflow": "WF-600",
+        "child_packets": [
+          "CWF-510_output",
+          "CWF-520_output",
+          "CWF-530_output"
+        ]
+      }
+    },
+    {
+      "packet_id": "WF-300-COMP-1777494263193",
+      "instance_id": "WF-300-COMP-1777494263193",
+      "artifact_family": "context_engineering_result",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-300",
+      "created_at": "2026-04-29T20:24:23.193Z",
+      "status": "CREATED",
+      "payload": {
+        "pack_executed": "WF-300",
+        "next_workflow": "WF-400",
+        "child_packets": [
+          "CWF-310_output",
+          "CWF-320_output",
+          "CWF-330_output",
+          "CWF-340_output"
+        ]
+      }
+    },
+    {
+      "packet_id": "WF-500-COMP-1777494263706",
+      "instance_id": "WF-500-COMP-1777494263706",
+      "artifact_family": "publishing_distribution_result",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-500",
+      "created_at": "2026-04-29T20:24:23.706Z",
+      "status": "CREATED",
+      "payload": {
+        "pack_executed": "WF-500",
+        "governance_approved": false,
+        "publish_ready": true,
+        "next_workflow": "WF-600",
+        "child_packets": [
+          "CWF-510_output",
+          "CWF-520_output",
+          "CWF-530_output"
+        ]
+      }
+    },
+    {
+      "packet_id": "WF-010-COMP-1777494264185",
+      "instance_id": "WF-010-COMP-1777494264185",
+      "artifact_family": "orchestration_decision",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-010",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T20:24:24.185Z",
+      "status": "CREATED",
+      "payload": {
+        "route_selected": "ROUTE_PHASE1_STANDARD",
+        "next_workflow": "CWF-110",
+        "orchestration_decision": "STANDARD_TOPIC_INTELLIGENCE",
+        "approval_gates_pending": [
+          "topic_research_gate",
+          "script_approval_gate"
+        ],
+        "route_to_wf900": "WF-900",
+        "chain_results": {
+          "wf100": {
+            "status": "SUCCESS",
+            "payload": {},
+            "captured_at": "2026-04-29T20:24:22.167Z"
+          },
+          "wf200": {
+            "status": "SUCCESS",
+            "payload": {},
+            "captured_at": "2026-04-29T20:24:22.311Z"
+          },
+          "wf300": {
+            "status": "SUCCESS",
+            "payload": {
+              "instance_id": "WF-300-COMP-1777494263193",
+              "artifact_family": "context_engineering_result",
+              "schema_version": "1.0.0",
+              "producer_workflow": "WF-300",
+              "created_at": "2026-04-29T20:24:23.193Z",
+              "status": "CREATED",
+              "payload": {
+                "pack_executed": "WF-300",
+                "next_workflow": "WF-400",
+                "child_packets": [
+                  "CWF-310_output",
+                  "CWF-320_output",
+                  "CWF-330_output",
+                  "CWF-340_output"
+                ]
+              }
+            },
+            "captured_at": "2026-04-29T20:24:23.245Z"
+          },
+          "wf020": {
+            "status": "SUCCESS",
+            "payload": {
+              "instance_id": "WF-500-COMP-1777494263706",
+              "artifact_family": "publishing_distribution_result",
+              "schema_version": "1.0.0",
+              "producer_workflow": "WF-500",
+              "created_at": "2026-04-29T20:24:23.706Z",
+              "status": "CREATED",
+              "payload": {
+                "pack_executed": "WF-500",
+                "governance_approved": false,
+                "publish_ready": true,
+                "next_workflow": "WF-600",
+                "child_packets": [
+                  "CWF-510_output",
+                  "CWF-520_output",
+                  "CWF-530_output"
+                ]
+              }
+            },
+            "captured_at": "2026-04-29T20:24:23.749Z"
+          },
+          "wf600": null
+        }
+      }
+    },
+    {
+      "packet_id": "WF-500-COMP-1777494270382",
+      "instance_id": "WF-500-COMP-1777494270382",
+      "artifact_family": "publishing_distribution_result",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-500",
+      "created_at": "2026-04-29T20:24:30.382Z",
+      "status": "CREATED",
+      "payload": {
+        "pack_executed": "WF-500",
+        "governance_approved": false,
+        "publish_ready": true,
+        "next_workflow": "WF-600",
+        "child_packets": [
+          "CWF-510_output",
+          "CWF-520_output",
+          "CWF-530_output"
+        ]
+      }
+    },
+    {
+      "packet_id": "WF-300-COMP-1777496212903",
+      "instance_id": "WF-300-COMP-1777496212903",
+      "artifact_family": "context_engineering_result",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-300",
+      "created_at": "2026-04-29T20:56:52.903Z",
+      "status": "CREATED",
+      "payload": {
+        "pack_executed": "WF-300",
+        "next_workflow": "WF-400",
+        "child_packets": [
+          "CWF-310_output",
+          "CWF-320_output",
+          "CWF-330_output",
+          "CWF-340_output"
+        ]
+      }
+    },
+    {
+      "packet_id": "WF-500-COMP-1777496213768",
+      "instance_id": "WF-500-COMP-1777496213768",
+      "artifact_family": "publishing_distribution_result",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-500",
+      "created_at": "2026-04-29T20:56:53.768Z",
+      "status": "CREATED",
+      "payload": {
+        "pack_executed": "WF-500",
+        "governance_approved": false,
+        "publish_ready": true,
+        "next_workflow": "WF-600",
+        "child_packets": [
+          "CWF-510_output",
+          "CWF-520_output",
+          "CWF-530_output"
+        ]
+      }
+    },
+    {
+      "packet_id": "WF-010-COMP-1777496214583",
+      "instance_id": "WF-010-COMP-1777496214583",
+      "artifact_family": "orchestration_decision",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-010",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T20:56:54.583Z",
+      "status": "CREATED",
+      "payload": {
+        "route_selected": "ROUTE_PHASE1_STANDARD",
+        "next_workflow": "CWF-110",
+        "orchestration_decision": "STANDARD_TOPIC_INTELLIGENCE",
+        "approval_gates_pending": [
+          "topic_research_gate",
+          "script_approval_gate"
+        ],
+        "route_to_wf900": "WF-900",
+        "chain_results": {
+          "wf100": {
+            "status": "SUCCESS",
+            "payload": {},
+            "captured_at": "2026-04-29T20:56:51.437Z"
+          },
+          "wf200": {
+            "status": "SUCCESS",
+            "payload": {},
+            "captured_at": "2026-04-29T20:56:51.718Z"
+          },
+          "wf300": {
+            "status": "SUCCESS",
+            "payload": {
+              "instance_id": "WF-300-COMP-1777496212903",
+              "artifact_family": "context_engineering_result",
+              "schema_version": "1.0.0",
+              "producer_workflow": "WF-300",
+              "created_at": "2026-04-29T20:56:52.903Z",
+              "status": "CREATED",
+              "payload": {
+                "pack_executed": "WF-300",
+                "next_workflow": "WF-400",
+                "child_packets": [
+                  "CWF-310_output",
+                  "CWF-320_output",
+                  "CWF-330_output",
+                  "CWF-340_output"
+                ]
+              }
+            },
+            "captured_at": "2026-04-29T20:56:53.035Z"
+          },
+          "wf020": {
+            "status": "SUCCESS",
+            "payload": {
+              "instance_id": "WF-500-COMP-1777496213768",
+              "artifact_family": "publishing_distribution_result",
+              "schema_version": "1.0.0",
+              "producer_workflow": "WF-500",
+              "created_at": "2026-04-29T20:56:53.768Z",
+              "status": "CREATED",
+              "payload": {
+                "pack_executed": "WF-500",
+                "governance_approved": false,
+                "publish_ready": true,
+                "next_workflow": "WF-600",
+                "child_packets": [
+                  "CWF-510_output",
+                  "CWF-520_output",
+                  "CWF-530_output"
+                ]
+              }
+            },
+            "captured_at": "2026-04-29T20:56:53.833Z"
+          },
+          "wf600": null
+        }
+      }
+    },
+    {
+      "packet_id": "WF-500-COMP-1777496219685",
+      "instance_id": "WF-500-COMP-1777496219685",
+      "artifact_family": "publishing_distribution_result",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-500",
+      "created_at": "2026-04-29T20:56:59.685Z",
+      "status": "CREATED",
+      "payload": {
+        "pack_executed": "WF-500",
+        "governance_approved": false,
+        "publish_ready": true,
+        "next_workflow": "WF-600",
+        "child_packets": [
+          "CWF-510_output",
+          "CWF-520_output",
+          "CWF-530_output"
+        ]
+      }
+    },
+    {
+      "packet_id": "WF-300-COMP-1777499145476",
+      "instance_id": "WF-300-COMP-1777499145476",
+      "artifact_family": "context_engineering_result",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-300",
+      "created_at": "2026-04-29T21:45:45.476Z",
+      "status": "CREATED",
+      "payload": {
+        "pack_executed": "WF-300",
+        "next_workflow": "WF-400",
+        "child_packets": [
+          "CWF-310_output",
+          "CWF-320_output",
+          "CWF-330_output",
+          "CWF-340_output"
+        ]
+      }
+    },
+    {
+      "packet_id": "WF-500-COMP-1777499147347",
+      "instance_id": "WF-500-COMP-1777499147347",
+      "artifact_family": "publishing_distribution_result",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-500",
+      "created_at": "2026-04-29T21:45:47.347Z",
+      "status": "CREATED",
+      "payload": {
+        "pack_executed": "WF-500",
+        "governance_approved": false,
+        "publish_ready": true,
+        "next_workflow": "WF-600",
+        "child_packets": [
+          "CWF-510_output",
+          "CWF-520_output",
+          "CWF-530_output"
+        ]
+      }
+    },
+    {
+      "packet_id": "WF-010-COMP-1777499147484",
+      "instance_id": "WF-010-COMP-1777499147484",
+      "artifact_family": "orchestration_decision",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-010",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T21:45:47.484Z",
+      "status": "CREATED",
+      "payload": {
+        "route_selected": "ROUTE_PHASE1_STANDARD",
+        "next_workflow": "CWF-110",
+        "orchestration_decision": "STANDARD_TOPIC_INTELLIGENCE",
+        "approval_gates_pending": [
+          "topic_research_gate",
+          "script_approval_gate"
+        ],
+        "route_to_wf900": "WF-900",
+        "chain_results": {
+          "wf100": {
+            "status": "SUCCESS",
+            "payload": {},
+            "captured_at": "2026-04-29T21:45:43.864Z"
+          },
+          "wf200": {
+            "status": "SUCCESS",
+            "payload": {},
+            "captured_at": "2026-04-29T21:45:44.159Z"
+          },
+          "wf300": {
+            "status": "SUCCESS",
+            "payload": {
+              "instance_id": "WF-300-COMP-1777499145476",
+              "artifact_family": "context_engineering_result",
+              "schema_version": "1.0.0",
+              "producer_workflow": "WF-300",
+              "created_at": "2026-04-29T21:45:45.476Z",
+              "status": "CREATED",
+              "payload": {
+                "pack_executed": "WF-300",
+                "next_workflow": "WF-400",
+                "child_packets": [
+                  "CWF-310_output",
+                  "CWF-320_output",
+                  "CWF-330_output",
+                  "CWF-340_output"
+                ]
+              }
+            },
+            "captured_at": "2026-04-29T21:45:45.638Z"
+          },
+          "wf020": {
+            "status": "SUCCESS",
+            "payload": {
+              "instance_id": "WF-500-COMP-1777499147347",
+              "artifact_family": "publishing_distribution_result",
+              "schema_version": "1.0.0",
+              "producer_workflow": "WF-500",
+              "created_at": "2026-04-29T21:45:47.347Z",
+              "status": "CREATED",
+              "payload": {
+                "pack_executed": "WF-500",
+                "governance_approved": false,
+                "publish_ready": true,
+                "next_workflow": "WF-600",
+                "child_packets": [
+                  "CWF-510_output",
+                  "CWF-520_output",
+                  "CWF-530_output"
+                ]
+              }
+            },
+            "captured_at": "2026-04-29T21:45:47.434Z"
+          },
+          "wf600": {
+            "status": "SUCCESS",
+            "payload": {
+              "instance_id": "WF-600-COMP-1777499146447",
+              "artifact_family": "analytics_evolution_result",
+              "schema_version": "1.0.0",
+              "producer_workflow": "WF-600",
+              "created_at": "2026-04-29T21:45:46.447Z",
+              "status": "CREATED",
+              "payload": {
+                "pack_executed": "WF-600",
+                "child_packets": [
+                  "CWF-610_output",
+                  "CWF-620_output",
+                  "CWF-630_output"
+                ]
+              }
+            },
+            "captured_at": "2026-04-29T21:45:46.510Z"
+          }
+        }
+      }
+    },
+    {
+      "packet_id": "WF-500-COMP-1777499151949",
+      "instance_id": "WF-500-COMP-1777499151949",
+      "artifact_family": "publishing_distribution_result",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-500",
+      "created_at": "2026-04-29T21:45:51.949Z",
+      "status": "CREATED",
+      "payload": {
+        "pack_executed": "WF-500",
+        "governance_approved": false,
+        "publish_ready": true,
+        "next_workflow": "WF-600",
+        "child_packets": [
+          "CWF-510_output",
+          "CWF-520_output",
+          "CWF-530_output"
+        ]
+      }
+    },
+    {
+      "packet_id": "WF-300-COMP-1777500426296",
+      "instance_id": "WF-300-COMP-1777500426296",
+      "artifact_family": "context_engineering_result",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-300",
+      "created_at": "2026-04-29T22:07:06.296Z",
+      "status": "CREATED",
+      "payload": {
+        "pack_executed": "WF-300",
+        "next_workflow": "WF-400",
+        "child_packets": [
+          "CWF-310_output",
+          "CWF-320_output",
+          "CWF-330_output",
+          "CWF-340_output"
+        ]
+      }
+    },
+    {
+      "packet_id": "WF-500-COMP-1777500427910",
+      "instance_id": "WF-500-COMP-1777500427910",
+      "artifact_family": "publishing_distribution_result",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-500",
+      "created_at": "2026-04-29T22:07:07.910Z",
+      "status": "CREATED",
+      "payload": {
+        "pack_executed": "WF-500",
+        "governance_approved": false,
+        "publish_ready": true,
+        "next_workflow": "WF-600",
+        "child_packets": [
+          "CWF-510_output",
+          "CWF-520_output",
+          "CWF-530_output"
+        ]
+      }
+    },
+    {
+      "packet_id": "WF-010-COMP-1777500428031",
+      "instance_id": "WF-010-COMP-1777500428031",
+      "artifact_family": "orchestration_decision",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-010",
+      "dossier_ref": "DOSSIER-UNSPECIFIED",
+      "created_at": "2026-04-29T22:07:08.031Z",
+      "status": "CREATED",
+      "payload": {
+        "route_selected": "ROUTE_PHASE1_STANDARD",
+        "next_workflow": "CWF-110",
+        "orchestration_decision": "STANDARD_TOPIC_INTELLIGENCE",
+        "approval_gates_pending": [
+          "topic_research_gate",
+          "script_approval_gate"
+        ],
+        "route_to_wf900": "WF-900",
+        "chain_results": {
+          "wf100": {
+            "status": "SUCCESS",
+            "payload": {},
+            "captured_at": "2026-04-29T22:07:05.039Z"
+          },
+          "wf200": {
+            "status": "SUCCESS",
+            "payload": {},
+            "captured_at": "2026-04-29T22:07:05.374Z"
+          },
+          "wf300": {
+            "status": "SUCCESS",
+            "payload": {
+              "instance_id": "WF-300-COMP-1777500426296",
+              "artifact_family": "context_engineering_result",
+              "schema_version": "1.0.0",
+              "producer_workflow": "WF-300",
+              "created_at": "2026-04-29T22:07:06.296Z",
+              "status": "CREATED",
+              "payload": {
+                "pack_executed": "WF-300",
+                "next_workflow": "WF-400",
+                "child_packets": [
+                  "CWF-310_output",
+                  "CWF-320_output",
+                  "CWF-330_output",
+                  "CWF-340_output"
+                ]
+              }
+            },
+            "captured_at": "2026-04-29T22:07:06.383Z"
+          },
+          "wf020": {
+            "status": "SUCCESS",
+            "payload": {
+              "instance_id": "WF-500-COMP-1777500427910",
+              "artifact_family": "publishing_distribution_result",
+              "schema_version": "1.0.0",
+              "producer_workflow": "WF-500",
+              "created_at": "2026-04-29T22:07:07.910Z",
+              "status": "CREATED",
+              "payload": {
+                "pack_executed": "WF-500",
+                "governance_approved": false,
+                "publish_ready": true,
+                "next_workflow": "WF-600",
+                "child_packets": [
+                  "CWF-510_output",
+                  "CWF-520_output",
+                  "CWF-530_output"
+                ]
+              }
+            },
+            "captured_at": "2026-04-29T22:07:07.987Z"
+          },
+          "wf600": {
+            "status": "SUCCESS",
+            "payload": {
+              "instance_id": "WF-600-COMP-1777500427081",
+              "artifact_family": "analytics_evolution_result",
+              "schema_version": "1.0.0",
+              "producer_workflow": "WF-600",
+              "created_at": "2026-04-29T22:07:07.081Z",
+              "status": "CREATED",
+              "payload": {
+                "pack_executed": "WF-600",
+                "child_packets": [
+                  "CWF-610_output",
+                  "CWF-620_output",
+                  "CWF-630_output"
+                ]
+              }
+            },
+            "captured_at": "2026-04-29T22:07:07.132Z"
+          }
+        }
+      }
+    },
+    {
+      "packet_id": "WF-500-COMP-1777500433840",
+      "instance_id": "WF-500-COMP-1777500433840",
+      "artifact_family": "publishing_distribution_result",
+      "schema_version": "1.0.0",
+      "producer_workflow": "WF-500",
+      "created_at": "2026-04-29T22:07:13.840Z",
+      "status": "CREATED",
+      "payload": {
+        "pack_executed": "WF-500",
+        "governance_approved": false,
+        "publish_ready": true,
+        "next_workflow": "WF-600",
+        "child_packets": [
+          "CWF-510_output",
+          "CWF-520_output",
+          "CWF-530_output"
+        ]
+      }
     }
   ],
-  "total_entries": 98,
-  "last_updated": "2026-04-28T18:46:41.623Z"
+  "total_entries": 291,
+  "last_updated": "2026-04-29T22:07:13.840Z"
 }
