@@ -47,7 +47,8 @@
     "deploy:report": "node scripts/cli/deploy_gate_report.cjs",
     "deploy:gate:full": "npm run deploy:gate && npm run deploy:report",
     "deploy:release-manifest": "node scripts/cli/deploy_release_manifest.cjs",
-    "deploy:release": "npm run deploy:gate:full && npm run deploy:release-manifest"
+    "deploy:release": "npm run deploy:gate:full && npm run deploy:release-manifest",
+    "deploy:regression-sweep": "node scripts/cli/deploy_regression_sweep.cjs"
   },
   "keywords": [
     "n8n",
