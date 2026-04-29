@@ -35,10 +35,11 @@
     "n8n:stop": "node scripts/cli/n8n_stop.cjs",
     "n8n:status": "node scripts/cli/n8n_status.cjs",
     "deploy:reconcile": "node scripts/cli/workflow_deploy_reconcile.cjs",
+    "deploy:chain-contract": "node scripts/cli/deploy_chain_contract.cjs",
     "deploy:ingress-contract": "node scripts/cli/deploy_ingress_contract.cjs",
     "deploy:credential-lock": "node scripts/cli/deploy_credential_provider_lock.cjs",
     "deploy:preflight": "node scripts/cli/deploy_preflight.cjs",
-    "deploy:gate": "npm run deploy:reconcile && npm run deploy:ingress-contract && npm run deploy:credential-lock && npm run deploy:preflight"
+    "deploy:gate": "npm run deploy:reconcile && npm run deploy:chain-contract && npm run deploy:ingress-contract && npm run deploy:credential-lock && npm run deploy:preflight"
   },
   "keywords": [
     "n8n",

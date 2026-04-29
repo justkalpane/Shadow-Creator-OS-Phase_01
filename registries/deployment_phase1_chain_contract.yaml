@@ -1,0 +1,72 @@
+version: 1
+registry_id: deployment_phase1_chain_contract
+phase: phase1
+status: active
+owner: shadow_empire_phase1
+purpose: >
+  Canonical parent-child workflow chaining contract for deployment enforcement.
+  Ensures executeWorkflow links in repo JSON and live n8n resolve to expected
+  workflow names and live IDs.
+
+chain_contracts:
+  - workflow_id: WF-010
+    workflow_name: WF-010 Parent Orchestrator Canonical
+    expected_children:
+      - WF-100 Topic Intelligence Pack Canonical
+      - WF-200 Script Intelligence Pack Canonical
+      - WF-300 Context Engineering Pack Canonical
+      - WF-020 Final Approval Canonical
+      - WF-600 Analytics Evolution Pack Canonical
+
+  - workflow_id: WF-100
+    workflow_name: WF-100 Topic Intelligence Pack Canonical
+    expected_children:
+      - CWF-110 Topic Discovery Canonical
+      - CWF-120 Topic Qualification Canonical
+      - CWF-130 Topic Scoring Canonical
+      - CWF-140 Research Synthesis Canonical
+
+  - workflow_id: WF-200
+    workflow_name: WF-200 Script Intelligence Pack Canonical
+    expected_children:
+      - CWF-210 Script Generation Canonical
+      - CWF-220 Script Debate Canonical
+      - CWF-230 Script Refinement Canonical
+      - CWF-240 Final Script Shaping Canonical
+
+  - workflow_id: WF-300
+    workflow_name: WF-300 Context Engineering Pack Canonical
+    expected_children:
+      - CWF-310 Execution Context Builder Canonical
+      - CWF-320 Platform Packager Canonical
+      - CWF-330 Asset Brief Generator Canonical
+      - CWF-340 Lineage Validator Canonical
+
+  - workflow_id: WF-400
+    workflow_name: WF-400 Media Production Pack Canonical
+    expected_children:
+      - CWF-410 Thumbnail Generator Canonical
+      - CWF-420 Visual Asset Planner Canonical
+      - CWF-430 Audio Script Optimizer Canonical
+      - CWF-440 Media Package Finalizer Canonical
+
+  - workflow_id: WF-500
+    workflow_name: WF-500 Publishing Distribution Pack Canonical
+    expected_children:
+      - CWF-510 Platform Metadata Generator Canonical
+      - CWF-520 Distribution Planner Canonical
+      - CWF-530 Publish Readiness Checker Canonical
+
+  - workflow_id: WF-600
+    workflow_name: WF-600 Analytics Evolution Pack Canonical
+    expected_children:
+      - CWF-610 Performance Metrics Collector
+      - CWF-620 Audience Feedback Aggregator
+      - CWF-630 Evolution Signal Synthesizer
+
+  - workflow_id: WF-020
+    workflow_name: WF-020 Final Approval Canonical
+    expected_children:
+      - WF-500 Publishing Distribution Pack Canonical
+      - WF-021 Replay Remodify Canonical
+
