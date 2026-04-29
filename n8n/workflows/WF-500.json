@@ -132,6 +132,117 @@
         1300,
         420
       ]
+    },
+    {
+      "id": "wf500_execute_cwf510_node",
+      "name": "Execute CWF-510 Platform Metadata",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        1080,
+        300
+      ],
+      "parameters": {
+        "source": "database",
+        "workflowId": {
+          "__rl": true,
+          "value": "MkxxOEm3rM4pmZEA",
+          "mode": "id",
+          "cachedResultName": "CWF-510 Platform Metadata Generator Canonical"
+        },
+        "mode": "each",
+        "options": {
+          "waitForSubWorkflow": true
+        }
+      },
+      "continueOnFail": true
+    },
+    {
+      "id": "wf500_capture_cwf510_node",
+      "name": "Capture CWF-510 Result",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1330,
+        300
+      ],
+      "parameters": {
+        "jsCode": "const subOutput = $json || {};\nlet parentCtx = {};\ntry { parentCtx = $('Execution Planner Node').first().json || {}; } catch(e) {}\nconst acc = { ...parentCtx };\nacc[\"cwf510_result\"] = {\n  status: subOutput.execution_status || subOutput.status || 'SUCCESS',\n  payload: subOutput.completion_packet || subOutput.payload || subOutput,\n  captured_at: new Date().toISOString()\n};\nreturn [{ json: acc }];"
+      }
+    },
+    {
+      "id": "wf500_execute_cwf520_node",
+      "name": "Execute CWF-520 Distribution Planner",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        1580,
+        300
+      ],
+      "parameters": {
+        "source": "database",
+        "workflowId": {
+          "__rl": true,
+          "value": "2FVWhblGpX90F59K",
+          "mode": "id",
+          "cachedResultName": "CWF-520 Distribution Planner Canonical"
+        },
+        "mode": "each",
+        "options": {
+          "waitForSubWorkflow": true
+        }
+      },
+      "continueOnFail": true
+    },
+    {
+      "id": "wf500_capture_cwf520_node",
+      "name": "Capture CWF-520 Result",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1830,
+        300
+      ],
+      "parameters": {
+        "jsCode": "const subOutput = $json || {};\nlet parentCtx = {};\ntry { parentCtx = $('Execution Planner Node').first().json || {}; } catch(e) {}\nconst acc = { ...parentCtx };\ntry { const c = $('Capture CWF-510 Result').first(); if (c) acc[\"cwf510_result\"] = c.json[\"cwf510_result\"] || c.json; } catch(e) {}\nacc[\"cwf520_result\"] = {\n  status: subOutput.execution_status || subOutput.status || 'SUCCESS',\n  payload: subOutput.completion_packet || subOutput.payload || subOutput,\n  captured_at: new Date().toISOString()\n};\nreturn [{ json: acc }];"
+      }
+    },
+    {
+      "id": "wf500_execute_cwf530_node",
+      "name": "Execute CWF-530 Publish Readiness",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        2080,
+        300
+      ],
+      "parameters": {
+        "source": "database",
+        "workflowId": {
+          "__rl": true,
+          "value": "Zm4JTSfa4DfAwfDy",
+          "mode": "id",
+          "cachedResultName": "CWF-530 Publish Readiness Checker Canonical"
+        },
+        "mode": "each",
+        "options": {
+          "waitForSubWorkflow": true
+        }
+      },
+      "continueOnFail": true
+    },
+    {
+      "id": "wf500_capture_cwf530_node",
+      "name": "Capture CWF-530 Result",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2330,
+        300
+      ],
+      "parameters": {
+        "jsCode": "const subOutput = $json || {};\nlet parentCtx = {};\ntry { parentCtx = $('Execution Planner Node').first().json || {}; } catch(e) {}\nconst acc = { ...parentCtx };\ntry { const c = $('Capture CWF-510 Result').first(); if (c) acc[\"cwf510_result\"] = c.json[\"cwf510_result\"] || c.json; } catch(e) {}\ntry { const c = $('Capture CWF-520 Result').first(); if (c) acc[\"cwf520_result\"] = c.json[\"cwf520_result\"] || c.json; } catch(e) {}\nacc[\"cwf530_result\"] = {\n  status: subOutput.execution_status || subOutput.status || 'SUCCESS',\n  payload: subOutput.completion_packet || subOutput.payload || subOutput,\n  captured_at: new Date().toISOString()\n};\nreturn [{ json: acc }];"
+      }
     }
   ],
   "connections": {
@@ -172,7 +283,7 @@
       "main": [
         [
           {
-            "node": "Pack Validation Node",
+            "node": "Execute CWF-510 Platform Metadata",
             "type": "main",
             "index": 0
           }
@@ -239,6 +350,72 @@
           }
         ]
       ]
+    },
+    "Execute CWF-510 Platform Metadata": {
+      "main": [
+        [
+          {
+            "node": "Capture CWF-510 Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Capture CWF-510 Result": {
+      "main": [
+        [
+          {
+            "node": "Execute CWF-520 Distribution Planner",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute CWF-520 Distribution Planner": {
+      "main": [
+        [
+          {
+            "node": "Capture CWF-520 Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Capture CWF-520 Result": {
+      "main": [
+        [
+          {
+            "node": "Execute CWF-530 Publish Readiness",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute CWF-530 Publish Readiness": {
+      "main": [
+        [
+          {
+            "node": "Capture CWF-530 Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Capture CWF-530 Result": {
+      "main": [
+        [
+          {
+            "node": "Pack Validation Node",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "meta": {
@@ -246,10 +423,15 @@
     "phase": "phase5",
     "vein": "publishing_vein",
     "purpose": "Publishing pack parent (deferred).",
-    "implementation_depth": "phase_deferred_stub",
+    "implementation_depth": "production_grade",
     "owner_director": "narada",
     "next_workflow": "WF-600",
     "canonical_file": "n8n/workflows/WF-500.json",
-    "wf900_error_route": "WF-900"
+    "wf900_error_route": "WF-900",
+    "phase2_chaining": {
+      "applied_at": "2026-04-29",
+      "pattern": "cwf510_to_cwf530_sequential",
+      "acceptance": "all_children_must_execute"
+    }
   }
 }

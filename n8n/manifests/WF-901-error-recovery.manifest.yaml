@@ -1,0 +1,54 @@
+workflow_id: WF-901
+name: wf901_error_recovery
+class: system
+entry_mode: execute_workflow_trigger
+purpose: consume WF-900 error events, apply retry/fallback policy, and emit replay or escalation directives
+owner: shadow_empire_phase1
+producer_expectations:
+  triggered_by:
+    - WF-900
+    - controlled error validation runs
+consumer_expectations:
+  consumed_by:
+    - WF-021
+    - WF-010
+    - operator remediation review
+route_bindings:
+  - ROUTE_PHASE1_REPLAY
+inputs:
+  - error_event
+output_packet_family:
+  - recovery_decision_packet
+  - replay_instruction
+outputs:
+  - recovery_decision
+  - replay_target
+reads:
+  - error_registry
+  - workflow_registry
+writes:
+  - namespaces.runtime
+  - namespaces.approval
+write_targets:
+  data_tables:
+    - se_error_events
+    - se_approval_queue
+  dossier_namespaces:
+    - runtime
+    - approval
+fallback_behavior:
+  on_non_recoverable:
+    - escalate_to_founder
+    - mark_manual_review_required
+replay_behavior: allowed for replay-eligible error families
+approval_insertion_points:
+  - replay_ready state
+  - escalation_required state
+done_criteria:
+  - retry or fallback strategy selected
+  - replay or escalation directive emitted
+  - writeback target prepared
+validation:
+  - error envelope present
+  - recovery strategy resolved
+dependencies: []
