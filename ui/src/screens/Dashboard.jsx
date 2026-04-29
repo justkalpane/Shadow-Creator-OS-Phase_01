@@ -5,7 +5,7 @@ import { workflowApi } from '../api/n8nClient';
 
 export default function Dashboard() {
   const navigate = useNavigate();
-  const { setCurrentScreen, selectedMode, selectedModel, selectedModule, selectedContentMode } = useAppStore();
+  const { setCurrentScreen, selectedMode, selectedModel } = useAppStore();
   const [dossiers, setDossiers] = useState([]);
   const [stats, setStats] = useState({
     totalExecutions: 0,
@@ -66,8 +66,6 @@ export default function Dashboard() {
 
       const payload = {
         mode: selectedMode,
-        module: selectedModule,
-        content_mode: selectedContentMode,
         model: selectedModel,
         timestamp: new Date().toISOString(),
         ui_version: 'Phase2A',
@@ -93,17 +91,8 @@ export default function Dashboard() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold">Dashboard</h1>
-        <div className="text-sm text-gray-400 space-y-1">
-          <div>
-            Mode: <span className="text-blue-400 font-medium">{selectedMode}</span>
-            {' | '}
-            Module: <span className="text-green-400 font-medium">{selectedModule}</span>
-            {' | '}
-            Model: <span className="text-yellow-400 font-medium">{selectedModel.split('_').pop()}</span>
-          </div>
-          <div>
-            Content: <span className="text-purple-400 font-medium">{selectedContentMode.replace(/_/g, ' ')}</span>
-          </div>
+        <div className="text-sm text-gray-400">
+          Mode: <span className="text-blue-400 font-medium">{selectedMode}</span> | Model: <span className="text-blue-400 font-medium">{selectedModel.split('_').pop()}</span>
         </div>
       </div>
 
