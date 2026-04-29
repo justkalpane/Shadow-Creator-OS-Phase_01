@@ -45,7 +45,9 @@
     "deploy:preflight": "node scripts/cli/deploy_preflight.cjs",
     "deploy:gate": "npm run deploy:reconcile && npm run deploy:manifest-contract && npm run deploy:live-isolation && npm run deploy:state-contract && npm run deploy:error-route-contract && npm run deploy:chain-contract && npm run deploy:ingress-contract && npm run deploy:credential-lock && npm run deploy:preflight",
     "deploy:report": "node scripts/cli/deploy_gate_report.cjs",
-    "deploy:gate:full": "npm run deploy:gate && npm run deploy:report"
+    "deploy:gate:full": "npm run deploy:gate && npm run deploy:report",
+    "deploy:release-manifest": "node scripts/cli/deploy_release_manifest.cjs",
+    "deploy:release": "npm run deploy:gate:full && npm run deploy:release-manifest"
   },
   "keywords": [
     "n8n",
