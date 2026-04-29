@@ -49,35 +49,14 @@ const skillExecutionCode = `try {
     throw new Error(\`Skill execution failed: \${result.error}\`);
   }
 } catch (error) {
-  // If skill_loader is not available, fall back to synthetic generation
-  console.warn('Real skill_loader not available, using synthetic packet:', error.message);
-  const now = new Date().toISOString();
-  const dossierId = $json.dossier_id || 'DOSSIER-UNSPECIFIED';
-  const skillId = $json.skill_id || 'M-001';
-  const skillNum = skillId.replace(/[^0-9]/g, '');
-  const workflowId = $json.workflow_id || 'CWF-110';
-
-  const syntheticPacket = {
-    instance_id: \`\${skillId}-\${Date.now()}\`,
-    artifact_family: \`m\${skillNum}_packet\`,
-    schema_version: '1.0.0',
-    producer_workflow: workflowId,
-    dossier_ref: dossierId,
-    created_at: now,
-    status: 'CREATED',
-    payload: {
-      workflow_id: workflowId,
-      skill_id: skillId,
-      ...(typeof $json.payload === 'object' ? $json.payload : {})
-    }
-  };
-
+  // Strict mode: never synthesize runtime packets in production path
+  const message = String(error && error.message ? error.message : error);
   return [{
     json: {
       ...$json,
-      runtime_packet: syntheticPacket,
+      runtime_packet: null,
       skill_execution_result: null,
-      runtime: { had_error: false, error_message: 'using synthetic fallback' }
+      runtime: { had_error: true, error_message: message }
     }
   }];
 }`;
