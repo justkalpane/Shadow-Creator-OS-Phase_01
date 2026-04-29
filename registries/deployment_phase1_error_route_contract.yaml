@@ -1,0 +1,36 @@
+version: 1
+registry_id: deployment_phase1_error_route_contract
+phase: phase1
+status: active
+owner: shadow_empire_phase1
+purpose: >
+  Enforce WF-900 as canonical error escalation route across Phase-1 parent/system
+  workflows through repo metadata, manifest references, and live n8n compatibility.
+
+canonical_error_workflow:
+  workflow_id: WF-900
+  workflow_name: WF-900 Error Handler Canonical
+
+enforced_workflows:
+  - WF-000
+  - WF-001
+  - WF-010
+  - WF-020
+  - WF-021
+  - WF-022
+  - WF-023
+  - WF-100
+  - WF-200
+  - WF-300
+  - WF-400
+  - WF-500
+  - WF-600
+  - WF-901
+
+rules:
+  require_repo_meta_wf900_error_route: true
+  require_manifest_reference_to_wf900: true
+  allow_live_settings_errorworkflow_null: true
+  allow_live_settings_errorworkflow_wf900_id: true
+  fail_on_other_live_errorworkflow_ids: true
+
