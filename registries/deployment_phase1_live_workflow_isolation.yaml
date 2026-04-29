@@ -1,0 +1,25 @@
+version: 1
+registry_id: deployment_phase1_live_workflow_isolation
+phase: phase1
+status: active
+owner: shadow_empire_phase1
+purpose: >
+  Enforce live isolation between canonical Phase-1 workflows and legacy SE-N8N
+  workflows. Prevents accidental dual-run or legacy trigger activation during
+  production deployment.
+
+policy:
+  legacy_prefixes:
+    - SE-N8N-
+  canonical_prefixes:
+    - WF-
+    - CWF-
+  legacy_active_allowed: false
+  canonical_presence_required: true
+  canonical_min_total: 32
+  canonical_min_active: 30
+  required_canonical_active_names:
+    - WF-900 Error Handler Canonical
+  required_canonical_inactive_names:
+    - WF-901 Error Recovery Canonical
+
