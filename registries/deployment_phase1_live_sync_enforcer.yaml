@@ -4,8 +4,11 @@ phase: phase1
 status: active
 owner: shadow_empire_phase1
 purpose: >
-  Force source-to-live synchronization for high-risk canonical workflows
+  Force source-to-live synchronization for canonical workflows
   before deployment gates are executed.
+
+target_scope: full_registry
+source_prefix_required: n8n/workflows/
 
 db:
   user_folder_env: N8N_USER_FOLDER

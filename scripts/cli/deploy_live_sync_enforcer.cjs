@@ -171,8 +171,18 @@ async function syncWorkflow(db, wfId, sourcePath) {
 async function main() {
   const workflowRegistry = readRegistry();
   const policy = readPolicy();
-  const highRisk = Array.isArray(policy.high_risk_workflows) ? policy.high_risk_workflows : [];
-  if (!highRisk.length) fail("No high_risk_workflows configured in sync policy.");
+  const configured = Array.isArray(policy.high_risk_workflows) ? policy.high_risk_workflows : [];
+  const targetScope = String(policy.target_scope || "high_risk_only").toLowerCase();
+  const sourcePrefixRequired = String(policy.source_prefix_required || "");
+
+  let targets = configured;
+  if (targetScope === "full_registry") {
+    targets = workflowRegistry
+      .filter((w) => w?.workflow_id && w?.source_file)
+      .filter((w) => !sourcePrefixRequired || String(w.source_file).startsWith(sourcePrefixRequired))
+      .map((w) => ({ workflow_id: w.workflow_id, reason: "full_registry_scope" }));
+  }
+  if (!targets.length) fail("No workflows selected for live sync enforcement.");
 
   const byId = new Map(workflowRegistry.map((w) => [w.workflow_id, w]));
   const dbPath = resolveDbPath(policy);
@@ -180,7 +190,7 @@ async function main() {
 
   const db = new sqlite3.Database(dbPath);
   const rows = [];
-  for (const item of highRisk) {
+  for (const item of targets) {
     const wfId = item.workflow_id;
     const reg = byId.get(wfId);
     if (!reg || !reg.source_file) {
@@ -205,6 +215,8 @@ async function main() {
   const summary = {
     status: "PASS",
     generated_at: new Date().toISOString(),
+    target_scope: targetScope,
+    source_prefix_required: sourcePrefixRequired || null,
     total: rows.length,
     already_synced: rows.filter((r) => r.status === "ALREADY_SYNCED").length,
     synced_now: rows.filter((r) => r.status === "SYNCED_NOW").length,
@@ -224,6 +236,7 @@ async function main() {
     "",
     `- status: ${summary.status}`,
     `- generated_at: ${summary.generated_at}`,
+    `- target_scope: ${summary.target_scope}`,
     `- total: ${summary.total}`,
     `- already_synced: ${summary.already_synced}`,
     `- synced_now: ${summary.synced_now}`,
