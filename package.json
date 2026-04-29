@@ -33,7 +33,8 @@
     "n8n:start": "n8n start",
     "n8n:start:bg": "n8n start --tunnel &",
     "n8n:stop": "node scripts/cli/n8n_stop.cjs",
-    "n8n:status": "node scripts/cli/n8n_status.cjs"
+    "n8n:status": "node scripts/cli/n8n_status.cjs",
+    "deploy:reconcile": "node scripts/cli/workflow_deploy_reconcile.cjs"
   },
   "keywords": [
     "n8n",
