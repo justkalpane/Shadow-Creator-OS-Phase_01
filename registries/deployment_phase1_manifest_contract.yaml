@@ -1,0 +1,35 @@
+version: 1
+registry_id: deployment_phase1_manifest_contract
+phase: phase1
+status: active
+owner: shadow_empire_phase1
+purpose: >
+  Enforce manifest integrity across all workflow registry entries.
+  Every registry workflow must have a manifest file, and each manifest must map
+  back to the correct workflow ID and reference WF-900 where required.
+
+rules:
+  require_manifest_file_exists: true
+  require_manifest_parsable_yaml: true
+  require_manifest_workflow_id_match: true
+  require_manifest_name_field: true
+  require_manifest_dependencies_array_or_list: false
+
+wf900_reference_policy:
+  required_for_workflow_ids:
+    - WF-000
+    - WF-001
+    - WF-010
+    - WF-020
+    - WF-021
+    - WF-022
+    - WF-023
+    - WF-100
+    - WF-200
+    - WF-300
+    - WF-400
+    - WF-500
+    - WF-600
+    - WF-901
+  require_wf900_string_presence: true
+
