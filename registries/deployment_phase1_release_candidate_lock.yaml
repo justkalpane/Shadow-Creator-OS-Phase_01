@@ -1,0 +1,15 @@
+version: 1
+phase: phase1
+name: release_candidate_lock
+target_scope: full_registry
+source_prefix_required: n8n/workflows/
+require_head_equals_origin_main: true
+workflow_registry: registries/workflow_registry.yaml
+required_reports:
+  - path: tests/reports/deploy_live_sync_enforcer_latest.json
+    expected_status: PASS
+  - path: tests/reports/deploy_gate_report_latest.json
+    expected_status: PASS
+signature:
+  algorithm: sha256
+  signer: shadow-phase1-rc-lock
