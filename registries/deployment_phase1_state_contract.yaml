@@ -1,0 +1,48 @@
+version: 1
+registry_id: deployment_phase1_state_contract
+phase: phase1
+status: active
+owner: shadow_empire_phase1
+purpose: >
+  Enforce minimum runtime state-store structure for Phase-1 deployment gates.
+  Prevents deployment when core JSON state files or dossier roots drift or break.
+
+required_state_files:
+  - path: data/se_packet_index.json
+    accepted_shapes:
+      - entries_object
+      - packets_object
+      - root_array
+  - path: data/se_dossier_index.json
+    accepted_shapes:
+      - records_object
+      - entries_object
+      - root_array
+  - path: data/se_route_runs.json
+    accepted_shapes:
+      - records_object
+      - entries_object
+      - root_array
+  - path: data/se_approval_queue.json
+    accepted_shapes:
+      - entries_object
+      - records_object
+      - root_array
+  - path: data/se_error_events.json
+    accepted_shapes:
+      - records_object
+      - entries_object
+      - root_array
+
+dossier_contract:
+  directory: dossiers
+  extension: .json
+  min_files: 1
+  required_root_keys:
+    - dossier_id
+  required_any_of_root_keys:
+    - namespaces
+    - packets
+  accepted_audit_keys:
+    - _audit_trail
+    - delta_log
