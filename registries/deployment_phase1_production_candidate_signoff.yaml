@@ -1,0 +1,14 @@
+version: 1
+phase: phase1
+name: production_candidate_signoff
+require_head_equals_origin_main: true
+promotion_gate_report: tests/reports/deploy_release_promotion_gate_latest.json
+manifest_output_json: tests/reports/phase1_production_candidate_manifest_latest.json
+manifest_output_md: tests/reports/phase1_production_candidate_manifest_latest.md
+default_decision:
+  decision: APPROVED_FOR_PRODUCTION_CANDIDATE
+  decided_by: phase1-release-gate
+  environment: local-phase1
+signature:
+  algorithm: sha256
+  signer: shadow-phase1-production-candidate-signoff

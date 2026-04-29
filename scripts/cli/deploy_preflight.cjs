@@ -3,11 +3,13 @@
 
 const fs = require("fs");
 const path = require("path");
+const crypto = require("crypto");
 const sqlite3 = require("sqlite3").verbose();
 
 const CWD = process.cwd();
 const DB_PATH = path.join(process.env.N8N_USER_FOLDER || "C:/ShadowEmpire/n8n_user", ".n8n", "database.sqlite");
 const RECONCILE_REPORT = path.join(CWD, "tests", "reports", "workflow_deploy_reconcile_latest.json");
+const PRODUCTION_CANDIDATE_POLICY = path.join(CWD, "registries", "deployment_phase1_production_candidate_signoff.yaml");
 const INGRESS_EXPECTED = [
   "WF-000 Health Check Canonical",
   "WF-001 Dossier Create Canonical",
@@ -100,15 +102,86 @@ async function checkLivePolicyAndIngress() {
   }
 }
 
+function stable(value) {
+  if (Array.isArray(value)) return `[${value.map(stable).join(",")}]`;
+  if (value && typeof value === "object") {
+    const keys = Object.keys(value).sort();
+    return `{${keys.map((k) => `${JSON.stringify(k)}:${stable(value[k])}`).join(",")}}`;
+  }
+  return JSON.stringify(value);
+}
+
+function sha256Text(text) {
+  return crypto.createHash("sha256").update(text, "utf8").digest("hex");
+}
+
+function loadSignoffPolicyAndManifest() {
+  if (!fs.existsSync(PRODUCTION_CANDIDATE_POLICY)) {
+    fail(
+      `production candidate signoff policy missing: ${path.relative(
+        CWD,
+        PRODUCTION_CANDIDATE_POLICY
+      )}.`
+    );
+  }
+  const raw = fs.readFileSync(PRODUCTION_CANDIDATE_POLICY, "utf8");
+  const promotionReportMatch = raw.match(/^\s*promotion_gate_report:\s*(.+)\s*$/m);
+  const manifestPathMatch = raw.match(/^\s*manifest_output_json:\s*(.+)\s*$/m);
+  if (!promotionReportMatch || !manifestPathMatch) {
+    fail("production candidate signoff policy missing promotion/manifest paths.");
+  }
+  const promotionReportRel = String(promotionReportMatch[1]).trim();
+  const manifestRel = String(manifestPathMatch[1]).trim();
+  const promotionReportPath = path.join(CWD, promotionReportRel);
+  const manifestPath = path.join(CWD, manifestRel);
+  return { promotionReportRel, manifestRel, promotionReportPath, manifestPath };
+}
+
+function checkProductionCandidateManifest() {
+  const { promotionReportRel, manifestRel, promotionReportPath, manifestPath } =
+    loadSignoffPolicyAndManifest();
+  if (!fs.existsSync(promotionReportPath)) {
+    fail(`promotion-gate report missing: ${promotionReportRel}`);
+  }
+  if (!fs.existsSync(manifestPath)) {
+    fail(
+      `production candidate manifest missing: ${manifestRel} (run npm run deploy:production-candidate-manifest first)`
+    );
+  }
+
+  const promotionReport = JSON.parse(fs.readFileSync(promotionReportPath, "utf8"));
+  const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8"));
+  const promotionStatus = String(promotionReport?.summary?.status || "").toUpperCase();
+  const manifestStatus = String(manifest?.summary?.status || "").toUpperCase();
+
+  if (promotionStatus !== "PASS") fail(`promotion-gate report status is ${promotionStatus || "UNKNOWN"}`);
+  if (manifestStatus !== "PASS") fail(`production candidate manifest status is ${manifestStatus || "UNKNOWN"}`);
+
+  if (!manifest?.decision?.decision || !manifest?.decision?.decided_by) {
+    fail("production candidate manifest missing decision metadata.");
+  }
+
+  const currentPromotionStableHash = sha256Text(stable(promotionReport));
+  const frozenHash = String(manifest?.promotion_gate?.report_stable_sha256 || "");
+  if (!frozenHash) fail("production candidate manifest missing frozen promotion report hash.");
+  if (frozenHash !== currentPromotionStableHash) {
+    fail(
+      `promotion report hash mismatch: frozen=${frozenHash}, current=${currentPromotionStableHash}`
+    );
+  }
+
+  ok("production candidate manifest present with frozen promotion-gate hash + decision metadata");
+}
+
 (async () => {
   console.log("Deployment Preflight");
   console.log("============================================================");
   await checkN8nHealth();
   checkReconcileReport();
   await checkLivePolicyAndIngress();
+  checkProductionCandidateManifest();
   ok("deployment preflight passed");
   process.exit(0);
 })().catch((err) => {
   fail(err.message);
 });
-
