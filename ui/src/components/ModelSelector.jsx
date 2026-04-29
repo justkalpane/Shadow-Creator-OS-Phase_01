@@ -14,6 +14,15 @@ export default function ModelSelector({ currentModel }) {
 
   const current = models.find((m) => m.id === currentModel);
 
+  const handleModelChange = (modelId) => {
+    if (!models.find(m => m.id === modelId)?.disabled) {
+      setSelectedModel(modelId);
+      localStorage.setItem('selectedModel', modelId);
+      console.log(`✅ Model changed to: ${modelId}`);
+      setOpen(false);
+    }
+  };
+
   return (
     <div className="relative">
       <button
@@ -30,12 +39,7 @@ export default function ModelSelector({ currentModel }) {
           {models.map((model) => (
             <button
               key={model.id}
-              onClick={() => {
-                if (!model.disabled) {
-                  setSelectedModel(model.id);
-                  setOpen(false);
-                }
-              }}
+              onClick={() => handleModelChange(model.id)}
               disabled={model.disabled}
               className={`w-full text-left px-4 py-3 flex items-center gap-2 transition-colors ${
                 model.disabled
@@ -44,6 +48,7 @@ export default function ModelSelector({ currentModel }) {
                   ? 'bg-shadow-accent'
                   : 'hover:bg-gray-700'
               }`}
+              title={model.disabled ? 'Available in Phase 2+' : `Switch to ${model.label}`}
             >
               <span>{model.icon}</span>
               <span className="text-sm">{model.label}</span>

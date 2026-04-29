@@ -1,9 +1,13 @@
 import { create } from 'zustand';
 
+const loadFromLocalStorage = () => ({
+  selectedMode: localStorage.getItem('selectedMode') || 'creator',
+  selectedModel: localStorage.getItem('selectedModel') || 'ollama_local_llama3.2',
+});
+
 export const useAppStore = create((set) => ({
-  // Current selections
-  selectedMode: 'creator',
-  selectedModel: 'ollama_local_llama3.2',
+  // Current selections (loaded from localStorage)
+  ...loadFromLocalStorage(),
   selectedDossier: null,
 
   // UI state

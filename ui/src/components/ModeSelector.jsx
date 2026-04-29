@@ -14,6 +14,13 @@ export default function ModeSelector({ currentMode }) {
 
   const current = modes.find((m) => m.id === currentMode);
 
+  const handleModeChange = (modeId) => {
+    setSelectedMode(modeId);
+    localStorage.setItem('selectedMode', modeId);
+    console.log(`✅ Mode changed to: ${modeId}`);
+    setOpen(false);
+  };
+
   return (
     <div className="relative">
       <button
@@ -30,15 +37,13 @@ export default function ModeSelector({ currentMode }) {
           {modes.map((mode) => (
             <button
               key={mode.id}
-              onClick={() => {
-                setSelectedMode(mode.id);
-                setOpen(false);
-              }}
+              onClick={() => handleModeChange(mode.id)}
               className={`w-full text-left px-4 py-3 flex items-center gap-2 transition-colors ${
                 currentMode === mode.id
                   ? 'bg-shadow-accent'
                   : 'hover:bg-gray-700'
               }`}
+              title={`Switch to ${mode.label}`}
             >
               <span>{mode.icon}</span>
               <span className="text-sm">{mode.label}</span>
