@@ -1,0 +1,36 @@
+version: 1
+registry_id: deployment_phase1_ingress_endpoints
+phase: phase1
+status: active
+owner: shadow_empire_phase1
+purpose: >
+  Canonical ingress contract for Phase-1 externally-invoked workflows.
+  Defines expected webhook method/path and validates live n8n registration.
+
+defaults:
+  method: POST
+  host_env: N8N_HOST
+  port_env: N8N_PORT
+  host_fallback: 127.0.0.1
+  port_fallback: 5678
+
+ingress_workflows:
+  - workflow_id: WF-000
+    expected_method: POST
+    expected_path: wf-000-health-check
+  - workflow_id: WF-001
+    expected_method: POST
+    expected_path: wf-001-dossier-create
+  - workflow_id: WF-010
+    expected_method: POST
+    expected_path: wf-010-parent-orchestrator
+  - workflow_id: WF-020
+    expected_method: POST
+    expected_path: wf-020-final-approval
+  - workflow_id: WF-021
+    expected_method: POST
+    expected_path: wf-021-replay-remodify
+  - workflow_id: WF-500
+    expected_method: POST
+    expected_path: wf-500-publishing-distribution
+
