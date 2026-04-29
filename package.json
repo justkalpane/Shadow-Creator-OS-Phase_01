@@ -56,6 +56,7 @@
     "deploy:persistence-cutover": "npm run deploy:regression-sweep && npm run deploy:persistence-contract",
     "deploy:approval-replay-contract": "npm run deploy:live-sync-enforcer && node scripts/cli/deploy_approval_replay_contract.cjs",
     "deploy:approval-replay-gate": "npm run deploy:approval-replay-contract",
+    "deploy:phase8-proof": "node scripts/cli/deploy_phase8_wiring_proof.cjs",
     "deploy:promotion-gate": "node scripts/cli/deploy_release_promotion_gate.cjs",
     "deploy:production-candidate-manifest": "node scripts/cli/deploy_production_candidate_manifest.cjs",
     "deploy:signoff-gate": "npm run deploy:promotion-gate && npm run deploy:production-candidate-manifest && npm run deploy:preflight"

@@ -25,6 +25,19 @@
         420,
         300
       ]
+    },
+    {
+      "parameters": {
+        "jsCode": "try {\n  const SkillLoader = require('../../../engine/skill_loader/skill_loader.js');\n  const loader = new SkillLoader();\n\n  if (!loader.skills_registry || Object.keys(loader.skills_registry).length === 0) {\n    const initResult = await loader.initialize();\n    if (initResult.status !== 'initialized') {\n      throw new Error('Failed to initialize SkillLoader');\n    }\n  }\n\n  const workflowId = 'CWF-430';\n  const defaultSkillMap = {\"CWF-310\":\"M-001\",\"CWF-320\":\"M-001\",\"CWF-330\":\"M-001\",\"CWF-340\":\"M-001\",\"CWF-410\":\"M-001\",\"CWF-420\":\"M-001\",\"CWF-430\":\"M-001\",\"CWF-440\":\"M-001\",\"CWF-510\":\"M-001\",\"CWF-520\":\"M-001\",\"CWF-530\":\"M-001\"};\n  const skillId = $json.skill_id || defaultSkillMap[workflowId] || 'M-001';\n  const dossierId = $json.dossier_context?.dossier_id || $json.dossier_id || 'DOSSIER-UNSPECIFIED';\n\n  const contextPacket = {\n    dossier_id: dossierId,\n    workflow_id: workflowId,\n    ...(typeof $json.user_context === 'object' ? $json.user_context : {}),\n    ...(typeof $json.route_context === 'object' ? $json.route_context : {})\n  };\n\n  const dossierState = typeof $json.dossier === 'object' ? $json.dossier : {};\n  const result = await loader.executeSkill(skillId, contextPacket, dossierState);\n\n  return [{\n    json: {\n      ...$json,\n      phase8_runtime_probe: {\n        workflow_id: workflowId,\n        skill_id: skillId,\n        status: result.status,\n        had_error: result.status !== 'SUCCESS',\n        error_message: result.status === 'SUCCESS' ? '' : String(result.error || ''),\n        timestamp: new Date().toISOString()\n      },\n      runtime_packet: result.status === 'SUCCESS' ? (result.output || null) : null,\n      skill_execution_result: result.status === 'SUCCESS' ? result : null,\n      runtime: {\n        had_error: result.status !== 'SUCCESS',\n        error_message: result.status === 'SUCCESS' ? '' : String(result.error || '')\n      }\n    }\n  }];\n} catch (error) {\n  const message = String(error && error.message ? error.message : error);\n  return [{\n    json: {\n      ...$json,\n      phase8_runtime_probe: {\n        workflow_id: 'CWF-430',\n        skill_id: null,\n        status: 'ERROR',\n        had_error: true,\n        error_message: message,\n        timestamp: new Date().toISOString()\n      },\n      runtime_packet: null,\n      skill_execution_result: null,\n      runtime: { had_error: true, error_message: message }\n    }\n  }];\n}"
+      },
+      "id": "cwf_430_skill_runtime_probe_node",
+      "name": "Skill Runtime Probe Node",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        420,
+        300
+      ]
     }
   ],
   "connections": {
@@ -32,7 +45,7 @@
       "main": [
         [
           {
-            "node": "Builder",
+            "node": "Skill Runtime Probe Node",
             "type": "main",
             "index": 0
           }
@@ -42,6 +55,17 @@
     "Builder": {
       "main": [
         []
+      ]
+    },
+    "Skill Runtime Probe Node": {
+      "main": [
+        [
+          {
+            "node": "Builder",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     }
   },
