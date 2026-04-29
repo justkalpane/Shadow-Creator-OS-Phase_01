@@ -131,8 +131,12 @@ async function syncWorkflow(db, wfId, sourcePath) {
     ]
   );
 
-  const versionToSync = liveRow.activeVersionId || liveRow.versionId;
-  if (versionToSync) {
+  const versionIdsToSync = Array.from(
+    new Set([liveRow.activeVersionId, liveRow.versionId].filter(Boolean))
+  );
+  for (const versionId of versionIdsToSync) {
+    // Keep both draft and active history versions aligned to source so
+    // runtime behavior is deterministic regardless of n8n version mode.
     await dbRun(
       db,
       "UPDATE workflow_history SET nodes=?, connections=?, name=?, description=?, updatedAt=? WHERE versionId=?",
@@ -142,7 +146,7 @@ async function syncWorkflow(db, wfId, sourcePath) {
         source.name || null,
         source.description || null,
         now,
-        versionToSync,
+        versionId,
       ]
     );
   }
@@ -164,7 +168,7 @@ async function syncWorkflow(db, wfId, sourcePath) {
     pre_synced: preSynced,
     post_synced: postSynced,
     active_version_id: liveRow.activeVersionId || null,
-    synced_version_id: versionToSync || null,
+    synced_version_id: versionIdsToSync[0] || null,
   };
 }
 

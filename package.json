@@ -59,7 +59,8 @@
     "deploy:phase8-proof": "node scripts/cli/deploy_phase8_wiring_proof.cjs",
     "deploy:promotion-gate": "node scripts/cli/deploy_release_promotion_gate.cjs",
     "deploy:production-candidate-manifest": "node scripts/cli/deploy_production_candidate_manifest.cjs",
-    "deploy:signoff-gate": "npm run deploy:promotion-gate && npm run deploy:production-candidate-manifest && npm run deploy:preflight"
+    "deploy:signoff-gate": "npm run deploy:promotion-gate && npm run deploy:production-candidate-manifest && npm run deploy:preflight",
+    "deploy:phase10-go-live-cutover": "node scripts/cli/deploy_phase10_go_live_cutover.cjs"
   },
   "keywords": [
     "n8n",

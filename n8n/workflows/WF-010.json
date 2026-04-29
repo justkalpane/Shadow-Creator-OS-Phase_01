@@ -72,7 +72,7 @@
     },
     {
       "parameters": {
-        "jsCode": "if ($json.route_to_error) return [];\nconst fs = require('fs');\nconst path = require('path');\n\nconst now = new Date().toISOString();\nconst dossierId = $json.dossier_id || ($json.dossier_context && $json.dossier_context.dossier_id) || 'DOSSIER-UNSPECIFIED';\nconst routeSelected = ($json.orchestration_decision && $json.orchestration_decision.route_selected) || $json.route_id || 'ROUTE_PHASE1_STANDARD';\n\nconst roots = [process.env.SHADOW_REPO_ROOT, process.env.N8N_REPO_ROOT, 'C:/ShadowEmpire-Git', process.cwd()].filter(Boolean);\nconst repoRoot = roots.find((r) => fs.existsSync(path.join(r, 'data', 'se_dossier_index.json')) && fs.existsSync(path.join(r, 'dossiers'))) || 'C:/ShadowEmpire-Git';\nconst dossiersDir = path.join(repoRoot, 'dossiers');\nconst dataDir = path.join(repoRoot, 'data');\nconst dossierPath = path.join(dossiersDir, dossierId + '.json');\nconst indexPath = path.join(dataDir, 'se_dossier_index.json');\n\nif (!fs.existsSync(dossiersDir)) fs.mkdirSync(dossiersDir, { recursive: true });\nif (!fs.existsSync(dataDir)) fs.mkdirSync(dataDir, { recursive: true });\n\nlet dossier = {\n  dossier_id: dossierId,\n  route_id: routeSelected,\n  created_at: now,\n  status: 'active',\n  namespaces: {},\n  _version: 0,\n  _created_at: now,\n  _audit_trail: []\n};\nif (fs.existsSync(dossierPath)) {\n  try {\n    const parsed = JSON.parse(fs.readFileSync(dossierPath, 'utf8'));\n    dossier = {\n      ...dossier,\n      ...parsed,\n      namespaces: typeof parsed.namespaces === 'object' && parsed.namespaces ? parsed.namespaces : {},\n      _audit_trail: Array.isArray(parsed._audit_trail) ? parsed._audit_trail : []\n    };\n  } catch (e) {\n    throw new Error('WF-010 persistence failed: dossier parse error: ' + e.message);\n  }\n}\n\nconst runtimeNs = (dossier.namespaces.runtime && typeof dossier.namespaces.runtime === 'object') ? dossier.namespaces.runtime : {};\nconst runs = Array.isArray(runtimeNs.orchestration_runs) ? runtimeNs.orchestration_runs : [];\nruns.push({\n  timestamp: now,\n  workflow_id: 'WF-010',\n  route_selected: routeSelected,\n  decision: ($json.orchestration_decision && $json.orchestration_decision.decision) || 'STANDARD_PATH'\n});\nruntimeNs.orchestration_runs = runs;\nruntimeNs.last_orchestration_status = 'ORCHESTRATION_COMPLETE';\nruntimeNs.last_orchestration_at = now;\ndossier.namespaces.runtime = runtimeNs;\ndossier.current_workflow = 'WF-010';\ndossier.last_updated = now;\ndossier.status = 'ORCHESTRATION_COMPLETE';\ndossier._version = Number(dossier._version || 0) + 1;\ndossier._last_updated_at = now;\ndossier._audit_trail.push({\n  timestamp: now,\n  workflow_id: 'WF-010',\n  operation: 'ORCHESTRATION_UPDATE',\n  route_selected: routeSelected,\n  notes: 'append orchestration runtime state'\n});\n\nfs.writeFileSync(dossierPath, JSON.stringify(dossier, null, 2), 'utf8');\n\nlet index = {\n  table: 'se_dossier_index',\n  description: 'Index of all dossiers; updated by WF-001 and dossier_writer.',\n  records: [],\n  created_at: now,\n  last_updated: now\n};\nif (fs.existsSync(indexPath)) {\n  index = JSON.parse(fs.readFileSync(indexPath, 'utf8'));\n  index.records = Array.isArray(index.records) ? index.records : [];\n} else {\n  index.records = [];\n}\nconst existing = index.records.find((r) => r && r.dossier_id === dossierId);\nif (existing) {\n  existing.updated_at = now;\n  existing.status = 'active';\n  existing.route_id = routeSelected;\n  existing.source_workflow = 'WF-010 Parent Orchestrator Canonical';\n} else {\n  index.records.push({\n    dossier_id: dossierId,\n    status: 'active',\n    created_at: now,\n    updated_at: now,\n    route_id: routeSelected,\n    source_workflow: 'WF-010 Parent Orchestrator Canonical'\n  });\n}\nindex.last_updated = now;\nfs.writeFileSync(indexPath, JSON.stringify(index, null, 2), 'utf8');\n\nreturn [{\n  json: {\n    ...$json,\n    persistence: {\n      wf: 'WF-010',\n      dossier_path: dossierPath,\n      dossier_index_path: indexPath,\n      dossier_version: dossier._version,\n      persisted_at: now\n    },\n    dossier_write: {\n      mutation_type: 'update_status',\n      target: 'dossier.runtime',\n      timestamp: now,\n      writer_id: 'WF-010',\n      instance_id: dossierId,\n      new_status: 'ORCHESTRATION_COMPLETE',\n      audit_entry: 'route-selection and orchestration from WF-010'\n    }\n  }\n}];"
+        "jsCode": "if ($json.route_to_error) return [];\nconst fs = require('fs');\nconst path = require('path');\n\nconst now = new Date().toISOString();\nconst dossierId = $json.dossier_id || ($json.dossier_context && $json.dossier_context.dossier_id) || 'DOSSIER-UNSPECIFIED';\nconst routeSelected = ($json.orchestration_decision && $json.orchestration_decision.route_selected) || $json.route_id || 'ROUTE_PHASE1_STANDARD';\n\nconst repoRoot = 'C:/ShadowEmpire-Git';\nconst dossiersDir = path.join(repoRoot, 'dossiers');\nconst dataDir = path.join(repoRoot, 'data');\nconst dossierPath = path.join(dossiersDir, dossierId + '.json');\nconst indexPath = path.join(dataDir, 'se_dossier_index.json');\n\nif (!fs.existsSync(dossiersDir)) fs.mkdirSync(dossiersDir, { recursive: true });\nif (!fs.existsSync(dataDir)) fs.mkdirSync(dataDir, { recursive: true });\n\nlet dossier = {\n  dossier_id: dossierId,\n  route_id: routeSelected,\n  created_at: now,\n  status: 'active',\n  namespaces: {},\n  _version: 0,\n  _created_at: now,\n  _audit_trail: []\n};\nif (fs.existsSync(dossierPath)) {\n  try {\n    const parsed = JSON.parse(fs.readFileSync(dossierPath, 'utf8'));\n    dossier = {\n      ...dossier,\n      ...parsed,\n      namespaces: typeof parsed.namespaces === 'object' && parsed.namespaces ? parsed.namespaces : {},\n      _audit_trail: Array.isArray(parsed._audit_trail) ? parsed._audit_trail : []\n    };\n  } catch (e) {\n    throw new Error('WF-010 persistence failed: dossier parse error: ' + e.message);\n  }\n}\n\nconst runtimeNs = (dossier.namespaces.runtime && typeof dossier.namespaces.runtime === 'object') ? dossier.namespaces.runtime : {};\nconst runs = Array.isArray(runtimeNs.orchestration_runs) ? runtimeNs.orchestration_runs : [];\nruns.push({\n  timestamp: now,\n  workflow_id: 'WF-010',\n  route_selected: routeSelected,\n  decision: ($json.orchestration_decision && $json.orchestration_decision.decision) || 'STANDARD_PATH'\n});\nruntimeNs.orchestration_runs = runs;\nruntimeNs.last_orchestration_status = 'ORCHESTRATION_COMPLETE';\nruntimeNs.last_orchestration_at = now;\ndossier.namespaces.runtime = runtimeNs;\ndossier.current_workflow = 'WF-010';\ndossier.last_updated = now;\ndossier.status = 'ORCHESTRATION_COMPLETE';\ndossier._version = Number(dossier._version || 0) + 1;\ndossier._last_updated_at = now;\ndossier._audit_trail.push({\n  timestamp: now,\n  workflow_id: 'WF-010',\n  operation: 'ORCHESTRATION_UPDATE',\n  route_selected: routeSelected,\n  notes: 'append orchestration runtime state'\n});\n\nfs.writeFileSync(dossierPath, JSON.stringify(dossier, null, 2), 'utf8');\n\nlet index = {\n  table: 'se_dossier_index',\n  description: 'Index of all dossiers; updated by WF-001 and dossier_writer.',\n  records: [],\n  created_at: now,\n  last_updated: now\n};\nif (fs.existsSync(indexPath)) {\n  index = JSON.parse(fs.readFileSync(indexPath, 'utf8'));\n  index.records = Array.isArray(index.records) ? index.records : [];\n} else {\n  index.records = [];\n}\nconst existing = index.records.find((r) => r && r.dossier_id === dossierId);\nif (existing) {\n  existing.updated_at = now;\n  existing.status = 'active';\n  existing.route_id = routeSelected;\n  existing.source_workflow = 'WF-010 Parent Orchestrator Canonical';\n} else {\n  index.records.push({\n    dossier_id: dossierId,\n    status: 'active',\n    created_at: now,\n    updated_at: now,\n    route_id: routeSelected,\n    source_workflow: 'WF-010 Parent Orchestrator Canonical'\n  });\n}\nindex.last_updated = now;\nfs.writeFileSync(indexPath, JSON.stringify(index, null, 2), 'utf8');\n\nreturn [{\n  json: {\n    ...$json,\n    persistence: {\n      wf: 'WF-010',\n      dossier_path: dossierPath,\n      dossier_index_path: indexPath,\n      dossier_version: dossier._version,\n      persisted_at: now\n    },\n    dossier_write: {\n      mutation_type: 'update_status',\n      target: 'dossier.runtime',\n      timestamp: now,\n      writer_id: 'WF-010',\n      instance_id: dossierId,\n      new_status: 'ORCHESTRATION_COMPLETE',\n      audit_entry: 'route-selection and orchestration from WF-010'\n    }\n  }\n}];"
       },
       "id": "wf010_dossier_write_node",
       "name": "Dossier Update Node",
@@ -117,11 +117,13 @@
       "position": [
         1740,
         300
-      ]
+      ],
+      "alwaysOutputData": true,
+      "continueOnFail": true
     },
     {
       "parameters": {
-        "jsCode": "// Capture wf100_result\nconst subOutput = $json || {};\nlet parentCtx = {};\ntry { parentCtx = $('Route Selection Node').first().json || {}; } catch(e) {}\nlet dossierCtx = {};\ntry { dossierCtx = $('Dossier Load Node').first().json || {}; } catch(e) {}\nconst acc = { ...parentCtx, dossier_id: dossierCtx.dossier_id || parentCtx.dossier_id };\n\nacc[\"wf100_result\"] = {\n  status: subOutput.execution_status || subOutput.status || 'SUCCESS',\n  payload: subOutput.completion_packet || subOutput.payload || subOutput,\n  captured_at: new Date().toISOString()\n};\nreturn [{ json: acc }];"
+        "jsCode": "// Capture wf100_result\nconst subOutput = $json || {};\nlet parentCtx = {};\ntry { parentCtx = $('Route Selection Node').first().json || {}; } catch(e) {}\nlet dossierCtx = {};\ntry { dossierCtx = $('Dossier Load Node').first().json || {}; } catch(e) {}\nconst acc = { ...parentCtx, dossier_id: dossierCtx.dossier_id || parentCtx.dossier_id };\n\nacc[\"wf100_result\"] = {\n  status: (() => { const s = (subOutput.execution_status || subOutput.status || (subOutput.error ? 'ERROR' : '') || '').toString().toUpperCase(); return s || 'SUCCESS'; })(),\n  payload: subOutput.completion_packet || subOutput.payload || subOutput,\n  captured_at: new Date().toISOString()\n};\nreturn [{ json: acc }];"
       },
       "id": "wf010_capture_wf100_node",
       "name": "Capture WF-100 Result",
@@ -153,11 +155,13 @@
       "position": [
         2240,
         300
-      ]
+      ],
+      "alwaysOutputData": true,
+      "continueOnFail": true
     },
     {
       "parameters": {
-        "jsCode": "// Capture wf200_result\nconst subOutput = $json || {};\nlet parentCtx = {};\ntry { parentCtx = $('Route Selection Node').first().json || {}; } catch(e) {}\nlet dossierCtx = {};\ntry { dossierCtx = $('Dossier Load Node').first().json || {}; } catch(e) {}\nconst acc = { ...parentCtx, dossier_id: dossierCtx.dossier_id || parentCtx.dossier_id };\ntry { const c = $('Capture WF-100 Result').first(); if (c) acc[\"wf100_result\"] = c.json[\"wf100_result\"] || c.json; } catch(e) {}\nacc[\"wf200_result\"] = {\n  status: subOutput.execution_status || subOutput.status || 'SUCCESS',\n  payload: subOutput.completion_packet || subOutput.payload || subOutput,\n  captured_at: new Date().toISOString()\n};\nreturn [{ json: acc }];"
+        "jsCode": "// Capture wf200_result\nconst subOutput = $json || {};\nlet parentCtx = {};\ntry { parentCtx = $('Route Selection Node').first().json || {}; } catch(e) {}\nlet dossierCtx = {};\ntry { dossierCtx = $('Dossier Load Node').first().json || {}; } catch(e) {}\nconst acc = { ...parentCtx, dossier_id: dossierCtx.dossier_id || parentCtx.dossier_id };\ntry { const c = $('Capture WF-100 Result').first(); if (c) acc[\"wf100_result\"] = c.json[\"wf100_result\"] || c.json; } catch(e) {}\nacc[\"wf200_result\"] = {\n  status: (() => { const s = (subOutput.execution_status || subOutput.status || (subOutput.error ? 'ERROR' : '') || '').toString().toUpperCase(); return s || 'SUCCESS'; })(),\n  payload: subOutput.completion_packet || subOutput.payload || subOutput,\n  captured_at: new Date().toISOString()\n};\nreturn [{ json: acc }];"
       },
       "id": "wf010_capture_wf200_node",
       "name": "Capture WF-200 Result",
@@ -189,11 +193,13 @@
       "position": [
         2740,
         300
-      ]
+      ],
+      "alwaysOutputData": true,
+      "continueOnFail": true
     },
     {
       "parameters": {
-        "jsCode": "// Capture wf300_result\nconst subOutput = $json || {};\nlet parentCtx = {};\ntry { parentCtx = $('Route Selection Node').first().json || {}; } catch(e) {}\nlet dossierCtx = {};\ntry { dossierCtx = $('Dossier Load Node').first().json || {}; } catch(e) {}\nconst acc = { ...parentCtx, dossier_id: dossierCtx.dossier_id || parentCtx.dossier_id };\ntry { const c = $('Capture WF-100 Result').first(); if (c) acc[\"wf100_result\"] = c.json[\"wf100_result\"] || c.json; } catch(e) {}\ntry { const c = $('Capture WF-200 Result').first(); if (c) acc[\"wf200_result\"] = c.json[\"wf200_result\"] || c.json; } catch(e) {}\nacc[\"wf300_result\"] = {\n  status: subOutput.execution_status || subOutput.status || 'SUCCESS',\n  payload: subOutput.completion_packet || subOutput.payload || subOutput,\n  captured_at: new Date().toISOString()\n};\nreturn [{ json: acc }];"
+        "jsCode": "// Capture wf300_result\nconst subOutput = $json || {};\nlet parentCtx = {};\ntry { parentCtx = $('Route Selection Node').first().json || {}; } catch(e) {}\nlet dossierCtx = {};\ntry { dossierCtx = $('Dossier Load Node').first().json || {}; } catch(e) {}\nconst acc = { ...parentCtx, dossier_id: dossierCtx.dossier_id || parentCtx.dossier_id };\ntry { const c = $('Capture WF-100 Result').first(); if (c) acc[\"wf100_result\"] = c.json[\"wf100_result\"] || c.json; } catch(e) {}\ntry { const c = $('Capture WF-200 Result').first(); if (c) acc[\"wf200_result\"] = c.json[\"wf200_result\"] || c.json; } catch(e) {}\nacc[\"wf300_result\"] = {\n  status: (() => { const s = (subOutput.execution_status || subOutput.status || (subOutput.error ? 'ERROR' : '') || '').toString().toUpperCase(); return s || 'SUCCESS'; })(),\n  payload: subOutput.completion_packet || subOutput.payload || subOutput,\n  captured_at: new Date().toISOString()\n};\nreturn [{ json: acc }];"
       },
       "id": "wf010_capture_wf300_node",
       "name": "Capture WF-300 Result",
@@ -225,11 +231,13 @@
       "position": [
         3240,
         300
-      ]
+      ],
+      "alwaysOutputData": true,
+      "continueOnFail": true
     },
     {
       "parameters": {
-        "jsCode": "// Capture wf020_result\nconst subOutput = $json || {};\nlet parentCtx = {};\ntry { parentCtx = $('Route Selection Node').first().json || {}; } catch(e) {}\nlet dossierCtx = {};\ntry { dossierCtx = $('Dossier Load Node').first().json || {}; } catch(e) {}\nconst acc = { ...parentCtx, dossier_id: dossierCtx.dossier_id || parentCtx.dossier_id };\ntry { const c = $('Capture WF-100 Result').first(); if (c) acc[\"wf100_result\"] = c.json[\"wf100_result\"] || c.json; } catch(e) {}\ntry { const c = $('Capture WF-200 Result').first(); if (c) acc[\"wf200_result\"] = c.json[\"wf200_result\"] || c.json; } catch(e) {}\ntry { const c = $('Capture WF-300 Result').first(); if (c) acc[\"wf300_result\"] = c.json[\"wf300_result\"] || c.json; } catch(e) {}\nacc[\"wf020_result\"] = {\n  status: subOutput.execution_status || subOutput.status || 'SUCCESS',\n  payload: subOutput.completion_packet || subOutput.payload || subOutput,\n  captured_at: new Date().toISOString()\n};\nreturn [{ json: acc }];"
+        "jsCode": "// Capture wf020_result\nconst subOutput = $json || {};\nlet parentCtx = {};\ntry { parentCtx = $('Route Selection Node').first().json || {}; } catch(e) {}\nlet dossierCtx = {};\ntry { dossierCtx = $('Dossier Load Node').first().json || {}; } catch(e) {}\nconst acc = { ...parentCtx, dossier_id: dossierCtx.dossier_id || parentCtx.dossier_id };\ntry { const c = $('Capture WF-100 Result').first(); if (c) acc[\"wf100_result\"] = c.json[\"wf100_result\"] || c.json; } catch(e) {}\ntry { const c = $('Capture WF-200 Result').first(); if (c) acc[\"wf200_result\"] = c.json[\"wf200_result\"] || c.json; } catch(e) {}\ntry { const c = $('Capture WF-300 Result').first(); if (c) acc[\"wf300_result\"] = c.json[\"wf300_result\"] || c.json; } catch(e) {}\nacc[\"wf020_result\"] = {\n  status: (() => { const s = (subOutput.execution_status || subOutput.status || (subOutput.error ? 'ERROR' : '') || '').toString().toUpperCase(); return s || 'SUCCESS'; })(),\n  payload: subOutput.completion_packet || subOutput.payload || subOutput,\n  captured_at: new Date().toISOString()\n};\nreturn [{ json: acc }];"
       },
       "id": "wf010_capture_wf020_node",
       "name": "Capture WF-020 Result",
@@ -261,11 +269,13 @@
       "position": [
         3740,
         300
-      ]
+      ],
+      "alwaysOutputData": true,
+      "continueOnFail": true
     },
     {
       "parameters": {
-        "jsCode": "// Capture wf600_result\nconst subOutput = $json || {};\nlet parentCtx = {};\ntry { parentCtx = $('Route Selection Node').first().json || {}; } catch(e) {}\nlet dossierCtx = {};\ntry { dossierCtx = $('Dossier Load Node').first().json || {}; } catch(e) {}\nconst acc = { ...parentCtx, dossier_id: dossierCtx.dossier_id || parentCtx.dossier_id };\ntry { const c = $('Capture WF-100 Result').first(); if (c) acc[\"wf100_result\"] = c.json[\"wf100_result\"] || c.json; } catch(e) {}\ntry { const c = $('Capture WF-200 Result').first(); if (c) acc[\"wf200_result\"] = c.json[\"wf200_result\"] || c.json; } catch(e) {}\ntry { const c = $('Capture WF-300 Result').first(); if (c) acc[\"wf300_result\"] = c.json[\"wf300_result\"] || c.json; } catch(e) {}\ntry { const c = $('Capture WF-020 Result').first(); if (c) acc[\"wf020_result\"] = c.json[\"wf020_result\"] || c.json; } catch(e) {}\nacc[\"wf600_result\"] = {\n  status: subOutput.execution_status || subOutput.status || 'SUCCESS',\n  payload: subOutput.completion_packet || subOutput.payload || subOutput,\n  captured_at: new Date().toISOString()\n};\nreturn [{ json: acc }];"
+        "jsCode": "// Capture wf600_result\nconst subOutput = $json || {};\nlet parentCtx = {};\ntry { parentCtx = $('Route Selection Node').first().json || {}; } catch(e) {}\nlet dossierCtx = {};\ntry { dossierCtx = $('Dossier Load Node').first().json || {}; } catch(e) {}\nconst acc = { ...parentCtx, dossier_id: dossierCtx.dossier_id || parentCtx.dossier_id };\ntry { const c = $('Capture WF-100 Result').first(); if (c) acc[\"wf100_result\"] = c.json[\"wf100_result\"] || c.json; } catch(e) {}\ntry { const c = $('Capture WF-200 Result').first(); if (c) acc[\"wf200_result\"] = c.json[\"wf200_result\"] || c.json; } catch(e) {}\ntry { const c = $('Capture WF-300 Result').first(); if (c) acc[\"wf300_result\"] = c.json[\"wf300_result\"] || c.json; } catch(e) {}\ntry { const c = $('Capture WF-020 Result').first(); if (c) acc[\"wf020_result\"] = c.json[\"wf020_result\"] || c.json; } catch(e) {}\nacc[\"wf600_result\"] = {\n  status: (() => { const s = (subOutput.execution_status || subOutput.status || (subOutput.error ? 'ERROR' : '') || '').toString().toUpperCase(); return s || 'SUCCESS'; })(),\n  payload: subOutput.completion_packet || subOutput.payload || subOutput,\n  captured_at: new Date().toISOString()\n};\nreturn [{ json: acc }];"
       },
       "id": "wf010_capture_wf600_node",
       "name": "Capture WF-600 Result",
@@ -278,7 +288,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// After full chain, build orchestration completion packet aggregating all pack results.\nlet plannerCtx = {};\ntry { plannerCtx = $('Route Selection Node').first().json || {}; } catch(e) {}\nlet dossierCtx = {};\ntry { dossierCtx = $('Dossier Load Node').first().json || {}; } catch(e) {}\nconst orchDecision = plannerCtx.orchestration_decision || {};\nconst dossierId = dossierCtx.dossier_id || plannerCtx.dossier_id || $json.dossier_id || 'DOSSIER-UNSPECIFIED';\nconst aggregated = $json || {};\nreturn [{\n  json: {\n    workflow_id: 'WF-010',\n    execution_status: 'SUCCESS',\n    completion_packet: {\n      instance_id: 'WF-010-COMP-' + Date.now(),\n      artifact_family: 'orchestration_decision',\n      schema_version: '1.0.0',\n      producer_workflow: 'WF-010',\n      dossier_ref: dossierId,\n      created_at: new Date().toISOString(),\n      status: 'CREATED',\n      payload: {\n        route_selected: orchDecision.route_selected || 'ROUTE_PHASE1_STANDARD',\n        next_workflow: orchDecision.next_workflow || 'WF-100',\n        orchestration_decision: orchDecision.decision || 'STANDARD_PATH',\n        approval_gates_pending: orchDecision.approval_gates_pending || [],\n        route_to_wf900: 'WF-900',\n        chain_results: {\n          wf100: aggregated.wf100_result || null,\n          wf200: aggregated.wf200_result || null,\n          wf300: aggregated.wf300_result || null,\n          wf020: aggregated.wf020_result || null,\n          wf600: aggregated.wf600_result || null\n        }\n      }\n    }\n  }\n}];"
+        "jsCode": "if ($json.route_to_error) return [];\n// After full chain, build orchestration completion packet aggregating all pack results.\nlet plannerCtx = {};\ntry { plannerCtx = $('Route Selection Node').first().json || {}; } catch(e) {}\nlet dossierCtx = {};\ntry { dossierCtx = $('Dossier Load Node').first().json || {}; } catch(e) {}\nconst orchDecision = plannerCtx.orchestration_decision || {};\nconst dossierId = dossierCtx.dossier_id || plannerCtx.dossier_id || $json.dossier_id || 'DOSSIER-UNSPECIFIED';\nconst aggregated = $json || {};\nconst now = new Date().toISOString();\n\nconst completion_packet = {\n  instance_id: 'WF-010-COMP-' + Date.now(),\n  artifact_family: 'orchestration_decision',\n  schema_version: '1.0.0',\n  producer_workflow: 'WF-010',\n  dossier_ref: dossierId,\n  created_at: now,\n  status: 'CREATED',\n  payload: {\n    route_selected: orchDecision.route_selected || 'ROUTE_PHASE1_STANDARD',\n    next_workflow: orchDecision.next_workflow || 'WF-100',\n    orchestration_decision: orchDecision.decision || 'STANDARD_PATH',\n    approval_gates_pending: orchDecision.approval_gates_pending || [],\n    route_to_wf900: 'WF-900',\n    chain_results: {\n      wf100: aggregated.wf100_result || null,\n      wf200: aggregated.wf200_result || null,\n      wf300: aggregated.wf300_result || null,\n      wf020: aggregated.wf020_result || null,\n      wf600: aggregated.wf600_result || null\n    }\n  }\n};\n\nconst fs = require('fs');\nconst path = require('path');\nconst repoRoot = 'C:/ShadowEmpire-Git';\nconst dataDir = path.join(repoRoot, 'data');\nconst packetIndexPath = path.join(dataDir, 'se_packet_index.json');\nif (!fs.existsSync(dataDir)) fs.mkdirSync(dataDir, { recursive: true });\n\nlet index = { entries: [], total_entries: 0, last_updated: now };\nif (fs.existsSync(packetIndexPath)) {\n  const parsed = JSON.parse(fs.readFileSync(packetIndexPath, 'utf8'));\n  index = {\n    ...index,\n    ...parsed,\n    entries: Array.isArray(parsed.entries)\n      ? parsed.entries\n      : (Array.isArray(parsed.packets) ? parsed.packets : [])\n  };\n}\n\nindex.entries.push({\n  packet_id: completion_packet.instance_id,\n  instance_id: completion_packet.instance_id,\n  artifact_family: completion_packet.artifact_family,\n  schema_version: completion_packet.schema_version,\n  producer_workflow: completion_packet.producer_workflow,\n  dossier_ref: completion_packet.dossier_ref,\n  created_at: completion_packet.created_at,\n  status: completion_packet.status,\n  payload: completion_packet.payload\n});\nindex.total_entries = index.entries.length;\nindex.last_updated = now;\nfs.writeFileSync(packetIndexPath, JSON.stringify(index, null, 2), 'utf8');\n\nreturn [{\n  json: {\n    workflow_id: 'WF-010',\n    execution_status: 'SUCCESS',\n    completion_packet,\n    packet_persistence: {\n      packet_index_path: packetIndexPath,\n      packet_entries: index.entries.length,\n      persisted_at: now\n    }\n  }\n}];"
       },
       "id": "wf010_completion_packet_emission_node",
       "name": "Completion Packet Emission Node",
@@ -291,7 +301,7 @@
     },
     {
       "parameters": {
-        "jsCode": "if (!$json.route_to_error) return [];\nreturn [{\n  json: {\n    workflow_id: 'WF-010',\n    routing_decision: 'ERROR',\n    route_to_workflow: 'WF-900',\n    error_message: $json.validation_error || 'Orchestration validation failed',\n    failure_packet: $json.orchestration_decision || null\n  }\n}];"
+        "jsCode": "if (!$json.route_to_error) return [];\nreturn [{\n  json: {\n    workflow_id: 'WF-010',\n    routing_decision: 'ERROR',\n    route_to_workflow: 'WF-900',\n    error_message: $json.validation_error || 'Orchestration validation failed',\n    closure: $json.parent_status_closure || null,\n    failure_packet: $json.orchestration_decision || null\n  }\n}];"
       },
       "id": "wf010_error_routing_node",
       "name": "Error Routing WF-900 Node",
@@ -300,6 +310,19 @@
       "position": [
         1080,
         500
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const statusOf = (v) => String(v || '').toUpperCase();\nconst normalize = (r) => statusOf(r?.status || r?.execution_status || (r?.error ? 'ERROR' : ''));\nconst required = {\n  wf100: $json.wf100_result || null,\n  wf200: $json.wf200_result || null,\n  wf300: $json.wf300_result || null,\n  wf020: $json.wf020_result || null,\n};\nconst optional = {\n  wf600: $json.wf600_result || null,\n};\nconst failedRequired = Object.entries(required)\n  .map(([k,v]) => ({ pack:k, status: normalize(v) || 'MISSING' }))\n  .filter((x) => !['SUCCESS','COMPLETED'].includes(x.status));\nconst failedOptional = Object.entries(optional)\n  .map(([k,v]) => ({ pack:k, status: normalize(v) || 'MISSING' }))\n  .filter((x) => x.status !== 'MISSING' && !['SUCCESS','COMPLETED'].includes(x.status));\nconst failed = [...failedRequired, ...failedOptional];\nconst routeToError = failed.length > 0;\nreturn [{\n  json: {\n    ...$json,\n    parent_status_closure: {\n      workflow_id: 'WF-010',\n      closure_status: routeToError ? 'FAILED' : 'SUCCESS',\n      checked_at: new Date().toISOString(),\n      required_checks: Object.keys(required),\n      optional_checks: Object.keys(optional),\n      failed_packs: failed\n    },\n    route_to_error: routeToError,\n    validation_error: routeToError ? ('Downstream pack status mismatch: ' + failed.map(f => f.pack + ':' + f.status).join(',')) : null\n  }\n}];"
+      },
+      "id": "wf010_parent_status_closure_node",
+      "name": "Parent Status Closure Node",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        4320,
+        300
       ]
     }
   ],
@@ -472,6 +495,11 @@
             "node": "Execute WF-600 Analytics Evolution",
             "type": "main",
             "index": 0
+          },
+          {
+            "node": "Parent Status Closure Node",
+            "type": "main",
+            "index": 0
           }
         ]
       ]
@@ -489,13 +517,7 @@
     },
     "Capture WF-600 Result": {
       "main": [
-        [
-          {
-            "node": "Completion Packet Emission Node",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "Completion Packet Emission Node": {
@@ -506,6 +528,22 @@
     "Error Routing WF-900 Node": {
       "main": [
         []
+      ]
+    },
+    "Parent Status Closure Node": {
+      "main": [
+        [
+          {
+            "node": "Completion Packet Emission Node",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Error Routing WF-900 Node",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     }
   },
