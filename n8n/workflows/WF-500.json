@@ -3,6 +3,17 @@
   "description": "Runs publishing lane: metadata generation → distribution planning → publish-readiness gating.",
   "nodes": [
     {
+      "parameters": {},
+      "id": "wf500_internal_trigger_node",
+      "name": "Internal Trigger Node",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1,
+      "position": [
+        200,
+        460
+      ]
+    },
+    {
       "parameters": {
         "path": "wf-500-publishing-distribution",
         "httpMethod": "POST",
@@ -216,6 +227,17 @@
     "Error Routing WF-900 Node": {
       "main": [
         []
+      ]
+    },
+    "Internal Trigger Node": {
+      "main": [
+        [
+          {
+            "node": "Dossier Load Node",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     }
   },

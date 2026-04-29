@@ -3,6 +3,17 @@
   "description": "Canonical executable final approval workflow.",
   "nodes": [
     {
+      "parameters": {},
+      "id": "wf-020_internal_trigger_node",
+      "name": "Internal Trigger Node",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1,
+      "position": [
+        200,
+        460
+      ]
+    },
+    {
       "parameters": {
         "path": "wf-020-final-approval",
         "httpMethod": "POST",
@@ -137,7 +148,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Branch on approval_status: approved -> WF-500, rejected -> WF-021\nconst status = ($json.approval_status || $json.payload && $json.payload.approval_status || '').toLowerCase();\nif (status === 'approved' || status === 'approve' || status === 'pass') {\n  return [[{ json: { ...$json, branch: 'approved' } }], []];\n} else if (status === 'rejected' || status === 'reject' || status === 'fail') {\n  return [[], [{ json: { ...$json, branch: 'rejected' } }]];\n}\n// default: pass-through both null (no branch fire)\nreturn [[{ json: { ...$json, branch: 'default_approved' } }], []];"
+        "jsCode": "// Normalize approval route to single-output data for deterministic branching\nconst raw = ($json.approval_status || ($json.payload && $json.payload.approval_status) || $json.approval_decision || ($json.runtime_packet && $json.runtime_packet.payload && $json.runtime_packet.payload.approval_decision) || 'approved');\nconst status = String(raw).toLowerCase();\nconst approved = ['approved','approve','pass','default_approved'].includes(status);\nreturn [{ json: { ...$json, approval_status_normalized: approved ? 'approved' : 'rejected', branch: approved ? 'approved' : 'rejected' } }];"
       },
       "id": "wf020_approval_branch_node",
       "name": "Approval Branch Switch",
@@ -169,7 +180,8 @@
       "position": [
         2060,
         500
-      ]
+      ],
+      "continueOnFail": true
     },
     {
       "parameters": {
@@ -191,6 +203,33 @@
       "typeVersion": 1.2,
       "position": [
         2060,
+        700
+      ],
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "jsCode": "if (($json.approval_status_normalized || '').toLowerCase() !== 'approved') return [];\nreturn [{ json: { ...$json, branch: 'approved' } }];"
+      },
+      "id": "wf020_approved_filter_node",
+      "name": "Approved Route Filter",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1880,
+        520
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "if (($json.approval_status_normalized || '').toLowerCase() === 'approved') return [];\nreturn [{ json: { ...$json, branch: 'rejected' } }];"
+      },
+      "id": "wf020_rejected_filter_node",
+      "name": "Rejected Route Filter",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1880,
         700
       ]
     }
@@ -306,14 +345,14 @@
       "main": [
         [
           {
-            "node": "Execute WF-500 Publishing",
+            "node": "Approved Route Filter",
             "type": "main",
             "index": 0
           }
         ],
         [
           {
-            "node": "Execute WF-021 Replay",
+            "node": "Rejected Route Filter",
             "type": "main",
             "index": 0
           }
@@ -328,6 +367,39 @@
     "Execute WF-021 Replay": {
       "main": [
         []
+      ]
+    },
+    "Internal Trigger Node": {
+      "main": [
+        [
+          {
+            "node": "Dossier Load Node",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Approved Route Filter": {
+      "main": [
+        [
+          {
+            "node": "Execute WF-500 Publishing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Rejected Route Filter": {
+      "main": [
+        [
+          {
+            "node": "Execute WF-021 Replay",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     }
   },
