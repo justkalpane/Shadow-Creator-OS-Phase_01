@@ -99,7 +99,7 @@
     "wf900_error_route": "WF-900",
     "canonical_file": "n8n/workflows/WF-023.json"
   },
-  "active": false,
+  "active": true,
   "settings": {},
   "id": "rN4bQ1Y6mJ8tC3vP"
 }

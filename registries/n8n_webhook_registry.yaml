@@ -1,7 +1,6 @@
 version: 1
 registry_id: n8n_webhook_registry
 description: Exact webhook contracts used by GUI/chat runtime.
-
 webhooks:
   WF-000:
     name: health_check
@@ -12,11 +11,10 @@ webhooks:
     required_payload_fields: []
     expected_response_fields: []
     notes: Direct ingress webhook.
-
   WF-001:
     name: dossier_create
     method: POST
-    webhook_path: /webhook/msf8SHcqYEdSdi7S/trigger%2520node/wf-001-dossier-create
+    webhook_path: /webhook/fDmhKPc2tDnbhInx/trigger%2520node/wf-001-dossier-create
     production_enabled: true
     trigger_mode: ingress
     required_payload_fields:
@@ -26,7 +24,6 @@ webhooks:
     expected_response_fields:
       - dossier_id
     notes: Live n8n uses workflow-id scoped production webhook path.
-
   WF-010:
     name: parent_orchestrator
     method: POST
@@ -40,7 +37,6 @@ webhooks:
       - intent_id
     expected_response_fields:
       - execution_status
-
   WF-020:
     name: final_approval
     method: POST
@@ -53,7 +49,6 @@ webhooks:
     expected_response_fields:
       - approval_decision
       - execution_status
-
   WF-021:
     name: replay_remodify
     method: POST
@@ -66,7 +61,6 @@ webhooks:
       - checkpoint
     expected_response_fields:
       - execution_status
-
   WF-100:
     name: topic_intelligence_pack
     method: INTERNAL
@@ -75,7 +69,6 @@ webhooks:
     required_payload_fields: []
     expected_response_fields: []
     notes: Called via WF-010 executeWorkflow.
-
   WF-200:
     name: script_intelligence_pack
     method: INTERNAL
@@ -83,7 +76,6 @@ webhooks:
     production_enabled: true
     required_payload_fields: []
     expected_response_fields: []
-
   WF-300:
     name: context_engineering_pack
     method: INTERNAL
@@ -91,7 +83,6 @@ webhooks:
     production_enabled: true
     required_payload_fields: []
     expected_response_fields: []
-
   WF-400:
     name: media_production_pack
     method: INTERNAL
@@ -99,7 +90,6 @@ webhooks:
     production_enabled: true
     required_payload_fields: []
     expected_response_fields: []
-
   WF-500:
     name: publishing_distribution_pack
     method: POST
@@ -110,7 +100,6 @@ webhooks:
       - dossier_id
     expected_response_fields:
       - execution_status
-
   WF-600:
     name: analytics_pack
     method: INTERNAL
@@ -118,7 +107,6 @@ webhooks:
     production_enabled: true
     required_payload_fields: []
     expected_response_fields: []
-
   WF-900:
     name: error_handler
     method: INTERNAL

@@ -3,336 +3,749 @@
   "description": "Index of all dossiers; updated by WF-001 and dossier_writer.",
   "records": [
     {
+      "dossier_id": "DOSSIER-1777562199484-IGW9Z95Q6",
+      "status": "INTAKE_INITIALIZED",
+      "created_at": "2026-04-30T15:16:39.497Z",
+      "updated_at": "2026-04-30T15:16:39.522Z",
+      "route_id": "ROUTE_PHASE1_STANDARD",
+      "source_workflow": "WF-001 Dossier Create Canonical"
+    },
+    {
       "dossier_id": "DOSSIER-UNSPECIFIED",
       "status": "active",
-      "created_at": "2026-04-29T14:31:26.929Z",
-      "updated_at": "2026-04-29T22:07:04.831Z",
-      "source_execution_id": 664,
-      "source_workflow": "WF-010 Parent Orchestrator Canonical",
-      "route_id": "ROUTE_PHASE1_STANDARD"
+      "created_at": "2026-04-30T15:17:02.350Z",
+      "updated_at": "2026-04-30T17:44:57.785Z",
+      "route_id": "ROUTE_PHASE1_STANDARD",
+      "source_workflow": "WF-010 Parent Orchestrator Canonical"
     },
     {
-      "dossier_id": "DOSSIER-smoke_1777476666514-1",
-      "status": "active",
-      "created_at": "2026-04-29T15:31:45.779Z",
-      "updated_at": "2026-04-29T15:31:45.779Z",
-      "source_execution_id": 743,
+      "dossier_id": "dossier-test",
+      "status": "approved",
+      "created_at": "2026-04-30T15:17:04.016Z",
+      "updated_at": "2026-04-30T15:17:04.016Z",
       "source_workflow": "WF-020 Final Approval Canonical"
     },
     {
-      "dossier_id": "DOSSIER-smoke_1777476666514-2",
-      "status": "active",
-      "created_at": "2026-04-29T15:31:45.781Z",
-      "updated_at": "2026-04-29T15:31:45.781Z",
-      "source_execution_id": 748,
-      "source_workflow": "WF-020 Final Approval Canonical"
-    },
-    {
-      "dossier_id": "DOSSIER-smoke_1777477489439-1",
-      "status": "active",
-      "created_at": "2026-04-29T15:45:28.687Z",
-      "updated_at": "2026-04-29T15:45:28.687Z",
-      "source_execution_id": 780,
-      "source_workflow": "WF-020 Final Approval Canonical"
-    },
-    {
-      "dossier_id": "DOSSIER-smoke_1777477489439-2",
-      "status": "active",
-      "created_at": "2026-04-29T15:45:28.689Z",
-      "updated_at": "2026-04-29T15:45:28.689Z",
-      "source_execution_id": 785,
-      "source_workflow": "WF-020 Final Approval Canonical"
-    },
-    {
-      "dossier_id": "DOSSIER-smoke_1777478172264-1",
-      "status": "active",
-      "created_at": "2026-04-29T15:56:51.558Z",
-      "updated_at": "2026-04-29T15:56:51.558Z",
-      "source_execution_id": 822,
-      "source_workflow": "WF-020 Final Approval Canonical"
-    },
-    {
-      "dossier_id": "DOSSIER-smoke_1777478172264-2",
-      "status": "active",
-      "created_at": "2026-04-29T15:56:51.559Z",
-      "updated_at": "2026-04-29T15:56:51.559Z",
-      "source_execution_id": 827,
-      "source_workflow": "WF-020 Final Approval Canonical"
-    },
-    {
-      "dossier_id": "DOSSIER-smoke_1777478258955-1",
-      "status": "active",
-      "created_at": "2026-04-29T15:58:18.315Z",
-      "updated_at": "2026-04-29T15:58:18.315Z",
-      "source_execution_id": 859,
-      "source_workflow": "WF-020 Final Approval Canonical"
-    },
-    {
-      "dossier_id": "DOSSIER-smoke_1777478258955-2",
-      "status": "active",
-      "created_at": "2026-04-29T15:58:18.317Z",
-      "updated_at": "2026-04-29T15:58:18.317Z",
-      "source_execution_id": 864,
-      "source_workflow": "WF-020 Final Approval Canonical"
-    },
-    {
-      "dossier_id": "DOSSIER-1777490037260-4OS7TAKHW",
+      "dossier_id": "DOSSIER-1777562239552-QOEHUB88I",
       "status": "INTAKE_INITIALIZED",
-      "created_at": "2026-04-29T19:13:57.264Z",
-      "updated_at": "2026-04-29T19:13:57.275Z",
+      "created_at": "2026-04-30T15:17:19.561Z",
+      "updated_at": "2026-04-30T15:17:19.580Z",
       "route_id": "ROUTE_PHASE1_STANDARD",
       "source_workflow": "WF-001 Dossier Create Canonical"
     },
     {
-      "dossier_id": "DOSSIER-PHASE71-FINAL-20260429T191357Z",
-      "status": "rejected",
-      "created_at": "2026-04-29T19:13:57.406Z",
-      "updated_at": "2026-04-29T19:13:57.406Z",
-      "source_workflow": "WF-020 Final Approval Canonical"
-    },
-    {
-      "dossier_id": "DOSSIER-1777490346690-Q84IDUO2P",
+      "dossier_id": "DOSSIER-1777562330081-YXYL7LUOZ",
       "status": "INTAKE_INITIALIZED",
-      "created_at": "2026-04-29T19:19:06.694Z",
-      "updated_at": "2026-04-29T19:19:06.704Z",
+      "created_at": "2026-04-30T15:18:50.089Z",
+      "updated_at": "2026-04-30T15:18:50.108Z",
       "route_id": "ROUTE_PHASE1_STANDARD",
       "source_workflow": "WF-001 Dossier Create Canonical"
     },
     {
-      "dossier_id": "DOSSIER-1777490543522-MAH8B3RUK",
+      "dossier_id": "DOSSIER-1777562518873-EHIPT67ZF",
       "status": "INTAKE_INITIALIZED",
-      "created_at": "2026-04-29T19:22:23.527Z",
-      "updated_at": "2026-04-29T19:22:23.537Z",
+      "created_at": "2026-04-30T15:21:58.884Z",
+      "updated_at": "2026-04-30T15:21:58.905Z",
       "route_id": "ROUTE_PHASE1_STANDARD",
       "source_workflow": "WF-001 Dossier Create Canonical"
     },
     {
-      "dossier_id": "DOSSIER-1777490708618-9OKU2ZFEG",
+      "dossier_id": "DOSSIER-1777562589295-SHZJ98EV5",
       "status": "INTAKE_INITIALIZED",
-      "created_at": "2026-04-29T19:25:08.623Z",
-      "updated_at": "2026-04-29T19:25:08.633Z",
+      "created_at": "2026-04-30T15:23:09.303Z",
+      "updated_at": "2026-04-30T15:23:09.322Z",
       "route_id": "ROUTE_PHASE1_STANDARD",
       "source_workflow": "WF-001 Dossier Create Canonical"
     },
     {
-      "dossier_id": "DOSSIER-1777491053693-X46M28CC4",
+      "dossier_id": "DOSSIER-1777562644410-XYQ0N2JH6",
       "status": "INTAKE_INITIALIZED",
-      "created_at": "2026-04-29T19:30:53.697Z",
-      "updated_at": "2026-04-29T19:30:53.706Z",
+      "created_at": "2026-04-30T15:24:04.420Z",
+      "updated_at": "2026-04-30T15:24:04.440Z",
       "route_id": "ROUTE_PHASE1_STANDARD",
       "source_workflow": "WF-001 Dossier Create Canonical"
     },
     {
-      "dossier_id": "DOSSIER-PHASE73-20260429T193053Z",
-      "status": "rejected",
-      "created_at": "2026-04-29T19:30:53.839Z",
-      "updated_at": "2026-04-29T19:30:53.839Z",
+      "dossier_id": "dossier-1777562652526-yvp1cca0f",
+      "status": "approved",
+      "created_at": "2026-04-30T15:24:14.136Z",
+      "updated_at": "2026-04-30T15:24:14.136Z",
       "source_workflow": "WF-020 Final Approval Canonical"
     },
     {
-      "dossier_id": "DOSSIER-1777491179350-6W08GYWCU",
+      "dossier_id": "DOSSIER-1777563337737-ORLJJ57W3",
       "status": "INTAKE_INITIALIZED",
-      "created_at": "2026-04-29T19:32:59.354Z",
-      "updated_at": "2026-04-29T19:32:59.364Z",
+      "created_at": "2026-04-30T15:35:37.746Z",
+      "updated_at": "2026-04-30T15:35:37.765Z",
       "route_id": "ROUTE_PHASE1_STANDARD",
       "source_workflow": "WF-001 Dossier Create Canonical"
     },
     {
-      "dossier_id": "DOSSIER-PHASE73-R2-20260429T193259Z",
-      "status": "rejected",
-      "created_at": "2026-04-29T19:32:59.486Z",
-      "updated_at": "2026-04-29T19:32:59.486Z",
-      "source_workflow": "WF-020 Final Approval Canonical"
-    },
-    {
-      "dossier_id": "DOSSIER-1777491272524-TQ7G3J8KS",
+      "dossier_id": "DOSSIER-1777563452412-7FH3ZKCMW",
       "status": "INTAKE_INITIALIZED",
-      "created_at": "2026-04-29T19:34:32.529Z",
-      "updated_at": "2026-04-29T19:34:32.539Z",
+      "created_at": "2026-04-30T15:37:32.425Z",
+      "updated_at": "2026-04-30T15:37:32.442Z",
       "route_id": "ROUTE_PHASE1_STANDARD",
       "source_workflow": "WF-001 Dossier Create Canonical"
     },
     {
-      "dossier_id": "DOSSIER-PHASE73-R3-20260429T193432Z",
+      "dossier_id": "dossier-1777563460568-hjq0xgqas",
       "status": "approved",
-      "created_at": "2026-04-29T19:34:32.683Z",
-      "updated_at": "2026-04-29T19:34:33.221Z",
+      "created_at": "2026-04-30T15:37:42.120Z",
+      "updated_at": "2026-04-30T15:37:42.120Z",
       "source_workflow": "WF-020 Final Approval Canonical"
     },
     {
-      "dossier_id": "DOSSIER-1777491361281-H5QM6S0UP",
+      "dossier_id": "DOSSIER-1777563596007-RQ5OEPLO6",
       "status": "INTAKE_INITIALIZED",
-      "created_at": "2026-04-29T19:36:01.287Z",
-      "updated_at": "2026-04-29T19:36:01.300Z",
+      "created_at": "2026-04-30T15:39:56.015Z",
+      "updated_at": "2026-04-30T15:39:56.033Z",
       "route_id": "ROUTE_PHASE1_STANDARD",
       "source_workflow": "WF-001 Dossier Create Canonical"
     },
     {
-      "dossier_id": "DOSSIER-PHASE73-R4-20260429T193601Z",
+      "dossier_id": "dossier-1777563604152-s72k7h61u",
       "status": "approved",
-      "created_at": "2026-04-29T19:36:01.423Z",
-      "updated_at": "2026-04-29T19:36:02.040Z",
+      "created_at": "2026-04-30T15:40:05.677Z",
+      "updated_at": "2026-04-30T15:40:05.677Z",
       "source_workflow": "WF-020 Final Approval Canonical"
     },
     {
-      "dossier_id": "DOSSIER-smoke_1777492860014-1",
-      "status": "approved",
-      "created_at": "2026-04-29T20:01:01.701Z",
-      "updated_at": "2026-04-29T20:01:01.701Z",
-      "source_workflow": "WF-020 Final Approval Canonical"
-    },
-    {
-      "dossier_id": "DOSSIER-smoke_1777492860014-2",
-      "status": "approved",
-      "created_at": "2026-04-29T20:01:07.386Z",
-      "updated_at": "2026-04-29T20:01:07.386Z",
-      "source_workflow": "WF-020 Final Approval Canonical"
-    },
-    {
-      "dossier_id": "DOSSIER-smoke_1777493409867-1",
-      "status": "approved",
-      "created_at": "2026-04-29T20:10:10.986Z",
-      "updated_at": "2026-04-29T20:10:10.986Z",
-      "source_workflow": "WF-020 Final Approval Canonical"
-    },
-    {
-      "dossier_id": "DOSSIER-smoke_1777493409867-2",
-      "status": "approved",
-      "created_at": "2026-04-29T20:10:17.019Z",
-      "updated_at": "2026-04-29T20:10:17.019Z",
-      "source_workflow": "WF-020 Final Approval Canonical"
-    },
-    {
-      "dossier_id": "DOSSIER-smoke_1777493464632-1",
-      "status": "approved",
-      "created_at": "2026-04-29T20:11:05.722Z",
-      "updated_at": "2026-04-29T20:11:05.722Z",
-      "source_workflow": "WF-020 Final Approval Canonical"
-    },
-    {
-      "dossier_id": "DOSSIER-smoke_1777493464632-2",
-      "status": "approved",
-      "created_at": "2026-04-29T20:11:11.786Z",
-      "updated_at": "2026-04-29T20:11:11.786Z",
-      "source_workflow": "WF-020 Final Approval Canonical"
-    },
-    {
-      "dossier_id": "DOSSIER-smoke_1777493531522-1",
-      "status": "approved",
-      "created_at": "2026-04-29T20:12:12.706Z",
-      "updated_at": "2026-04-29T20:12:12.706Z",
-      "source_workflow": "WF-020 Final Approval Canonical"
-    },
-    {
-      "dossier_id": "DOSSIER-smoke_1777493531522-2",
-      "status": "approved",
-      "created_at": "2026-04-29T20:12:18.687Z",
-      "updated_at": "2026-04-29T20:12:18.687Z",
-      "source_workflow": "WF-020 Final Approval Canonical"
-    },
-    {
-      "dossier_id": "DOSSIER-approval_replay_1777493572040-APPROVED",
-      "status": "approved",
-      "created_at": "2026-04-29T20:12:52.138Z",
-      "updated_at": "2026-04-29T20:12:52.138Z",
-      "source_workflow": "WF-020 Final Approval Canonical"
-    },
-    {
-      "dossier_id": "DOSSIER-approval_replay_1777493572040-REJECTED",
-      "status": "rejected",
-      "created_at": "2026-04-29T20:13:04.204Z",
-      "updated_at": "2026-04-29T20:13:04.204Z",
-      "source_workflow": "WF-020 Final Approval Canonical"
-    },
-    {
-      "dossier_id": "DOSSIER-smoke_1777493711244-1",
-      "status": "approved",
-      "created_at": "2026-04-29T20:15:12.411Z",
-      "updated_at": "2026-04-29T20:15:12.411Z",
-      "source_workflow": "WF-020 Final Approval Canonical"
-    },
-    {
-      "dossier_id": "DOSSIER-smoke_1777493711244-2",
-      "status": "approved",
-      "created_at": "2026-04-29T20:15:18.409Z",
-      "updated_at": "2026-04-29T20:15:18.409Z",
-      "source_workflow": "WF-020 Final Approval Canonical"
-    },
-    {
-      "dossier_id": "DOSSIER-approval_replay_1777493751658-APPROVED",
-      "status": "approved",
-      "created_at": "2026-04-29T20:15:51.766Z",
-      "updated_at": "2026-04-29T20:15:51.766Z",
-      "source_workflow": "WF-020 Final Approval Canonical"
-    },
-    {
-      "dossier_id": "DOSSIER-approval_replay_1777493751658-REJECTED",
-      "status": "rejected",
-      "created_at": "2026-04-29T20:16:03.813Z",
-      "updated_at": "2026-04-29T20:16:03.813Z",
-      "source_workflow": "WF-020 Final Approval Canonical"
-    },
-    {
-      "dossier_id": "DOSSIER-1777494253939-ANH46FQLH",
+      "dossier_id": "DOSSIER-1777563870887-UP5J5XBXA",
       "status": "INTAKE_INITIALIZED",
-      "created_at": "2026-04-29T20:24:13.948Z",
-      "updated_at": "2026-04-29T20:24:13.967Z",
+      "created_at": "2026-04-30T15:44:30.896Z",
+      "updated_at": "2026-04-30T15:44:30.913Z",
       "route_id": "ROUTE_PHASE1_STANDARD",
       "source_workflow": "WF-001 Dossier Create Canonical"
     },
     {
-      "dossier_id": "DOSSIER-phase10_1777494253860",
+      "dossier_id": "dossier-1777563879014-o94lqkoqs",
       "status": "approved",
-      "created_at": "2026-04-29T20:24:23.329Z",
-      "updated_at": "2026-04-29T20:24:30.048Z",
+      "created_at": "2026-04-30T15:44:40.467Z",
+      "updated_at": "2026-04-30T15:44:40.467Z",
       "source_workflow": "WF-020 Final Approval Canonical"
     },
     {
-      "dossier_id": "DOSSIER-1777496202938-GEB70EXMR",
+      "dossier_id": "DOSSIER-1777563969141-6MIY6K9C8",
       "status": "INTAKE_INITIALIZED",
-      "created_at": "2026-04-29T20:56:42.955Z",
-      "updated_at": "2026-04-29T20:56:42.989Z",
+      "created_at": "2026-04-30T15:46:09.150Z",
+      "updated_at": "2026-04-30T15:46:09.169Z",
       "route_id": "ROUTE_PHASE1_STANDARD",
       "source_workflow": "WF-001 Dossier Create Canonical"
     },
     {
-      "dossier_id": "DOSSIER-phase10_1777496202832",
+      "dossier_id": "dossier-1777563977279-1egjrpeyq",
       "status": "approved",
-      "created_at": "2026-04-29T20:56:53.164Z",
-      "updated_at": "2026-04-29T20:56:59.162Z",
+      "created_at": "2026-04-30T15:46:18.750Z",
+      "updated_at": "2026-04-30T15:46:18.750Z",
       "source_workflow": "WF-020 Final Approval Canonical"
     },
     {
-      "dossier_id": "DOSSIER-1777499135360-MS8B7Z8IX",
+      "dossier_id": "DOSSIER-1777565933738-P7HLCQ9W2",
       "status": "INTAKE_INITIALIZED",
-      "created_at": "2026-04-29T21:45:35.378Z",
-      "updated_at": "2026-04-29T21:45:35.412Z",
+      "created_at": "2026-04-30T16:18:53.747Z",
+      "updated_at": "2026-04-30T16:18:53.765Z",
       "route_id": "ROUTE_PHASE1_STANDARD",
       "source_workflow": "WF-001 Dossier Create Canonical"
     },
     {
-      "dossier_id": "DOSSIER-phase10_1777499135207",
-      "status": "approved",
-      "created_at": "2026-04-29T21:45:46.636Z",
-      "updated_at": "2026-04-29T21:45:51.518Z",
-      "source_workflow": "WF-020 Final Approval Canonical"
-    },
-    {
-      "dossier_id": "DOSSIER-1777500416718-BJSEFD3LK",
+      "dossier_id": "DOSSIER-1777565993858-HW0VMHURE",
       "status": "INTAKE_INITIALIZED",
-      "created_at": "2026-04-29T22:06:56.736Z",
-      "updated_at": "2026-04-29T22:06:56.782Z",
+      "created_at": "2026-04-30T16:19:53.876Z",
+      "updated_at": "2026-04-30T16:19:53.895Z",
       "route_id": "ROUTE_PHASE1_STANDARD",
       "source_workflow": "WF-001 Dossier Create Canonical"
     },
     {
-      "dossier_id": "DOSSIER-phase10_1777500416594",
+      "dossier_id": "DOSSIER-1777569569269-E43QO7HCU",
+      "status": "INTAKE_INITIALIZED",
+      "created_at": "2026-04-30T17:19:29.280Z",
+      "updated_at": "2026-04-30T17:19:29.301Z",
+      "route_id": "ROUTE_PHASE1_STANDARD",
+      "source_workflow": "WF-001 Dossier Create Canonical"
+    },
+    {
+      "dossier_id": "dossier-1777569577428-1t7wueb51",
       "status": "approved",
-      "created_at": "2026-04-29T22:07:07.272Z",
-      "updated_at": "2026-04-29T22:07:13.072Z",
+      "created_at": "2026-04-30T17:19:38.972Z",
+      "updated_at": "2026-04-30T17:19:38.972Z",
       "source_workflow": "WF-020 Final Approval Canonical"
+    },
+    {
+      "dossier_id": "DOSSIER-1777569601942-A7VZTYEEO",
+      "status": "INTAKE_INITIALIZED",
+      "created_at": "2026-04-30T17:20:01.955Z",
+      "updated_at": "2026-04-30T17:20:01.973Z",
+      "route_id": "ROUTE_PHASE1_STANDARD",
+      "source_workflow": "WF-001 Dossier Create Canonical"
+    },
+    {
+      "dossier_id": "dossier-1777569610064-yocjktotj",
+      "status": "approved",
+      "created_at": "2026-04-30T17:20:11.445Z",
+      "updated_at": "2026-04-30T17:20:11.445Z",
+      "source_workflow": "WF-020 Final Approval Canonical"
+    },
+    {
+      "dossier_id": "DOSSIER-HARNESS-HAPPY-1776786598174",
+      "status": "approved",
+      "created_at": "2026-04-30T17:20:19.905Z",
+      "updated_at": "2026-04-30T17:20:26.743Z",
+      "source_workflow": "WF-020 Final Approval Canonical"
+    },
+    {
+      "dossier_id": "DOSSIER-HARNESS-REJECT-1776786598260",
+      "status": "approved",
+      "created_at": "2026-04-30T17:20:25.172Z",
+      "updated_at": "2026-04-30T17:20:25.172Z",
+      "source_workflow": "WF-020 Final Approval Canonical"
+    },
+    {
+      "dossier_id": "DOSSIER-1777571089582-7DK7CRH1W",
+      "status": "INTAKE_INITIALIZED",
+      "created_at": "2026-04-30T17:44:49.590Z",
+      "updated_at": "2026-04-30T17:44:49.607Z",
+      "route_id": "ROUTE_PHASE1_STANDARD",
+      "source_workflow": "WF-001 Dossier Create Canonical"
+    },
+    {
+      "dossier_id": "dossier-1777571097719-jqd3l9ew4",
+      "status": "approved",
+      "created_at": "2026-04-30T17:44:59.170Z",
+      "updated_at": "2026-04-30T17:44:59.170Z",
+      "source_workflow": "WF-020 Final Approval Canonical"
+    },
+    {
+      "dossier_id": "DOSSIER-1777571536463-N13EAJDM7",
+      "status": "INTAKE_INITIALIZED",
+      "created_at": "2026-04-30T17:52:16.474Z",
+      "updated_at": "2026-04-30T17:52:16.503Z",
+      "route_id": "ROUTE_PHASE1_STANDARD",
+      "source_workflow": "WF-001 Dossier Create Canonical"
+    },
+    {
+      "dossier_id": "DOSSIER-1777571680310-H8MGXDIUO",
+      "status": "INTAKE_INITIALIZED",
+      "created_at": "2026-04-30T17:54:40.325Z",
+      "updated_at": "2026-04-30T17:54:40.367Z",
+      "route_id": "ROUTE_PHASE1_STANDARD",
+      "source_workflow": "WF-001 Dossier Create Canonical"
+    },
+    {
+      "dossier_id": "DOSSIER-1777571742871-SH0YF2UDU",
+      "status": "INTAKE_INITIALIZED",
+      "created_at": "2026-04-30T17:55:42.899Z",
+      "updated_at": "2026-04-30T17:55:42.928Z",
+      "route_id": "ROUTE_PHASE1_STANDARD",
+      "source_workflow": "WF-001 Dossier Create Canonical"
+    },
+    {
+      "dossier_id": "DOSSIER-1777571751755-N6J1TT11D",
+      "status": "INTAKE_INITIALIZED",
+      "created_at": "2026-04-30T17:55:51.768Z",
+      "updated_at": "2026-04-30T17:55:51.795Z",
+      "route_id": "ROUTE_PHASE1_STANDARD",
+      "source_workflow": "WF-001 Dossier Create Canonical"
+    },
+    {
+      "dossier_id": "DOSSIER-1777571758187-JPHAG99P7",
+      "status": "INTAKE_INITIALIZED",
+      "created_at": "2026-04-30T17:55:58.202Z",
+      "updated_at": "2026-04-30T17:55:58.236Z",
+      "route_id": "ROUTE_PHASE1_STANDARD",
+      "source_workflow": "WF-001 Dossier Create Canonical"
+    },
+    {
+      "dossier_id": "DOSSIER-1777571794151-L3TU1K65Q",
+      "status": "INTAKE_INITIALIZED",
+      "created_at": "2026-04-30T17:56:34.168Z",
+      "updated_at": "2026-04-30T17:56:34.198Z",
+      "route_id": "ROUTE_PHASE1_STANDARD",
+      "source_workflow": "WF-001 Dossier Create Canonical"
+    },
+    {
+      "dossier_id": "DOSSIER-1777571823824-TCEMKI7AB",
+      "status": "INTAKE_INITIALIZED",
+      "created_at": "2026-04-30T17:57:03.845Z",
+      "updated_at": "2026-04-30T17:57:03.880Z",
+      "route_id": "ROUTE_PHASE1_STANDARD",
+      "source_workflow": "WF-001 Dossier Create Canonical"
+    },
+    {
+      "dossier_id": "DOSSIER-1777571855559-VQMF8M09F",
+      "status": "INTAKE_INITIALIZED",
+      "created_at": "2026-04-30T17:57:35.575Z",
+      "updated_at": "2026-04-30T17:57:35.614Z",
+      "route_id": "ROUTE_PHASE1_STANDARD",
+      "source_workflow": "WF-001 Dossier Create Canonical"
+    },
+    {
+      "dossier_id": "DOSSIER-1777571874959-CWWBGGA3A",
+      "status": "INTAKE_INITIALIZED",
+      "created_at": "2026-04-30T17:57:54.972Z",
+      "updated_at": "2026-04-30T17:57:55.000Z",
+      "route_id": "ROUTE_PHASE1_STANDARD",
+      "source_workflow": "WF-001 Dossier Create Canonical"
+    },
+    {
+      "dossier_id": "DOSSIER-1777571919912-9YNXINS14",
+      "status": "INTAKE_INITIALIZED",
+      "created_at": "2026-04-30T17:58:39.934Z",
+      "updated_at": "2026-04-30T17:58:39.968Z",
+      "route_id": "ROUTE_PHASE1_STANDARD",
+      "source_workflow": "WF-001 Dossier Create Canonical"
+    },
+    {
+      "dossier_id": "DOSSIER-1777571932000-SZAWE66Q2",
+      "status": "INTAKE_INITIALIZED",
+      "created_at": "2026-04-30T17:58:52.024Z",
+      "updated_at": "2026-04-30T17:58:52.072Z",
+      "route_id": "ROUTE_PHASE1_STANDARD",
+      "source_workflow": "WF-001 Dossier Create Canonical"
+    },
+    {
+      "dossier_id": "DOSSIER-1777571960730-1RXLSSJ2E",
+      "status": "INTAKE_INITIALIZED",
+      "created_at": "2026-04-30T17:59:20.746Z",
+      "updated_at": "2026-04-30T17:59:20.778Z",
+      "route_id": "ROUTE_PHASE1_STANDARD",
+      "source_workflow": "WF-001 Dossier Create Canonical"
+    },
+    {
+      "dossier_id": "DOSSIER-1777571990812-80TOHPD51",
+      "status": "INTAKE_INITIALIZED",
+      "created_at": "2026-04-30T17:59:50.834Z",
+      "updated_at": "2026-04-30T17:59:50.878Z",
+      "route_id": "ROUTE_PHASE1_STANDARD",
+      "source_workflow": "WF-001 Dossier Create Canonical"
     }
   ],
-  "created_at": "2026-04-27T16:40:49.584Z",
-  "last_updated": "2026-04-29T22:07:13.072Z"
+  "created_at": "2026-04-30T15:16:39.522Z",
+  "last_updated": "2026-04-30T17:59:50.878Z",
+  "dossiers": [
+    {
+      "dossier_id": "dossier-1777542957609-im97u1rsc",
+      "topic": "Create a YouTube script about why people procrastinate and give me thumbnail ideas.",
+      "status": "created",
+      "created_at": "2026-04-30T09:55:57.609Z",
+      "current_stage": "WF-001",
+      "user_mode": "creator",
+      "intent_id": "new_content_job",
+      "operational_mode": null
+    },
+    {
+      "dossier_id": "dossier-1777543008293-6q3lgc2wy",
+      "topic": "Create a YouTube script about why people procrastinate and give me thumbnail ideas.",
+      "status": "created",
+      "created_at": "2026-04-30T09:56:48.293Z",
+      "current_stage": "WF-001",
+      "user_mode": "creator",
+      "intent_id": "new_content_job",
+      "operational_mode": null
+    },
+    {
+      "dossier_id": "dossier-1777543073665-3jt19fsq8",
+      "topic": "Create a YouTube script about why people procrastinate and give me thumbnail ideas.",
+      "status": "created",
+      "created_at": "2026-04-30T09:57:53.665Z",
+      "current_stage": "WF-001",
+      "user_mode": "creator",
+      "intent_id": "new_content_job",
+      "operational_mode": null
+    },
+    {
+      "dossier_id": "dossier-1777543146580-0rzsulycg",
+      "topic": "Create a YouTube script about why people procrastinate and give me thumbnail ideas.",
+      "status": "created",
+      "created_at": "2026-04-30T09:59:06.580Z",
+      "current_stage": "WF-001",
+      "user_mode": "creator",
+      "intent_id": "new_content_job",
+      "operational_mode": null
+    },
+    {
+      "dossier_id": "dossier-1777543260535-1dqzjduro",
+      "topic": "Create a YouTube script about why people procrastinate and give me thumbnail ideas.",
+      "status": "in_progress",
+      "created_at": "2026-04-30T10:01:00.535Z",
+      "current_stage": "WF-100",
+      "user_mode": "creator",
+      "intent_id": "new_content_job",
+      "operational_mode": null,
+      "updated_at": "2026-04-30T10:01:00.543Z",
+      "workflow_id": "WF-010"
+    },
+    {
+      "dossier_id": "dossier-1777543371929-tjk69haej",
+      "topic": "Create a YouTube script about why people procrastinate and give me thumbnail ideas.",
+      "status": "created",
+      "created_at": "2026-04-30T10:02:51.929Z",
+      "current_stage": "WF-001",
+      "user_mode": "creator",
+      "intent_id": "new_content_job",
+      "operational_mode": null
+    },
+    {
+      "dossier_id": "dossier-1777545505319-c8b9xts56",
+      "topic": "Create a YouTube script about why people procrastinate and give me thumbnail ideas.",
+      "status": "created",
+      "created_at": "2026-04-30T10:38:25.319Z",
+      "current_stage": "WF-001",
+      "user_mode": "creator",
+      "intent_id": "new_content_job",
+      "operational_mode": null
+    },
+    {
+      "dossier_id": "dossier-1777546159342-hsg27u9z3",
+      "topic": "Create a YouTube script about why people procrastinate and give me thumbnail ideas",
+      "status": "created",
+      "created_at": "2026-04-30T10:49:19.342Z",
+      "current_stage": "WF-001",
+      "user_mode": "creator",
+      "intent_id": "new_content_job",
+      "operational_mode": null
+    },
+    {
+      "dossier_id": "dossier-1777546182030-gkcn1qyt5",
+      "topic": "Create a YouTube script about procrastination with thumbnail ideas",
+      "status": "created",
+      "created_at": "2026-04-30T10:49:42.030Z",
+      "current_stage": "WF-001",
+      "user_mode": "creator",
+      "intent_id": "new_content_job",
+      "operational_mode": null
+    },
+    {
+      "dossier_id": "dossier-1777546211538-xc06xd337",
+      "topic": "Create a YouTube script about procrastination and thumbnail ideas",
+      "status": "created",
+      "created_at": "2026-04-30T10:50:11.538Z",
+      "current_stage": "WF-001",
+      "user_mode": "creator",
+      "intent_id": "new_content_job",
+      "operational_mode": null
+    },
+    {
+      "dossier_id": "dossier-1777547649201-qmlwc72bm",
+      "topic": "Create a YouTube script about AI automation",
+      "status": "created",
+      "created_at": "2026-04-30T11:14:09.201Z",
+      "current_stage": "WF-001",
+      "user_mode": "creator",
+      "intent_id": "new_content_job",
+      "operational_mode": null
+    },
+    {
+      "dossier_id": "dossier-1777547655494-uz4b074tu",
+      "topic": "Create a YouTube script about AI automation",
+      "status": "created",
+      "created_at": "2026-04-30T11:14:15.494Z",
+      "current_stage": "WF-001",
+      "user_mode": "creator",
+      "intent_id": "new_content_job",
+      "operational_mode": null
+    },
+    {
+      "dossier_id": "dossier-1777547837983-wh5jvqqmp",
+      "topic": "create the content",
+      "status": "created",
+      "created_at": "2026-04-30T11:17:17.983Z",
+      "current_stage": "WF-001",
+      "user_mode": "founder",
+      "intent_id": "new_content_job",
+      "operational_mode": null
+    },
+    {
+      "dossier_id": "dossier-1777549278906-2plmi329x",
+      "topic": "Create a YouTube script about procrastination",
+      "status": "created",
+      "created_at": "2026-04-30T11:41:18.906Z",
+      "current_stage": "WF-001",
+      "user_mode": "founder",
+      "intent_id": "new_content_job",
+      "operational_mode": null
+    },
+    {
+      "dossier_id": "dossier-1777549334814-bm28ocn4h",
+      "topic": "Create a YouTube script about procrastination",
+      "status": "created",
+      "created_at": "2026-04-30T11:42:14.814Z",
+      "current_stage": "WF-001",
+      "user_mode": "founder",
+      "intent_id": "new_content_job",
+      "operational_mode": null
+    },
+    {
+      "dossier_id": "dossier-1777549471800-u4vgo7dkm",
+      "topic": "Create a YouTube script about AI trends",
+      "status": "created",
+      "created_at": "2026-04-30T11:44:31.800Z",
+      "current_stage": "WF-001",
+      "user_mode": "founder",
+      "intent_id": "new_content_job",
+      "operational_mode": null
+    },
+    {
+      "dossier_id": "dossier-1777549481616-j87nh1sb7",
+      "topic": "Create a YouTube script about time management",
+      "status": "created",
+      "created_at": "2026-04-30T11:44:41.616Z",
+      "current_stage": "WF-001",
+      "user_mode": "founder",
+      "intent_id": "new_content_job",
+      "operational_mode": null
+    },
+    {
+      "dossier_id": "dossier-1777550729964-lhlvsdgvk",
+      "topic": "Create a YouTube script about a trending topic",
+      "status": "created",
+      "created_at": "2026-04-30T12:05:29.964Z",
+      "current_stage": "WF-001",
+      "user_mode": "creator",
+      "intent_id": "new_content_job",
+      "operational_mode": null
+    },
+    {
+      "dossier_id": "dossier-1777550810829-gddv89tvm",
+      "topic": "write script",
+      "status": "created",
+      "created_at": "2026-04-30T12:06:50.829Z",
+      "current_stage": "WF-001",
+      "user_mode": "creator",
+      "intent_id": "generate_script",
+      "operational_mode": null
+    },
+    {
+      "dossier_id": "dossier-1777551191848-89sy88tlg",
+      "topic": "Suggest 5 trending topic ideas",
+      "status": "created",
+      "created_at": "2026-04-30T12:13:11.848Z",
+      "current_stage": "WF-001",
+      "user_mode": "founder",
+      "intent_id": "generate_topic_ideas",
+      "operational_mode": null
+    },
+    {
+      "dossier_id": "dossier-1777551645029-o6h4qq8u6",
+      "topic": "Create a YouTube script about a trending topic",
+      "status": "created",
+      "created_at": "2026-04-30T12:20:45.029Z",
+      "current_stage": "WF-001",
+      "user_mode": "creator",
+      "intent_id": "new_content_job",
+      "operational_mode": null
+    },
+    {
+      "dossier_id": "dossier-1777553366781-tniz85adw",
+      "topic": "Create a YouTube script about a trending topic",
+      "status": "created",
+      "created_at": "2026-04-30T12:49:26.781Z",
+      "current_stage": "WF-001",
+      "user_mode": "creator",
+      "intent_id": "new_content_job",
+      "operational_mode": null
+    },
+    {
+      "dossier_id": "dossier-1777553420357-9zdb3lyrh",
+      "topic": "Create a YouTube script about a trending topic",
+      "status": "created",
+      "created_at": "2026-04-30T12:50:20.357Z",
+      "current_stage": "WF-001",
+      "user_mode": "creator",
+      "intent_id": "new_content_job",
+      "operational_mode": null
+    },
+    {
+      "dossier_id": "dossier-1777553748105-mz29p7xog",
+      "topic": "Create a YouTube script about AI",
+      "status": "created",
+      "created_at": "2026-04-30T12:55:48.105Z",
+      "current_stage": "WF-001",
+      "user_mode": "founder",
+      "intent_id": "new_content_job",
+      "operational_mode": null
+    },
+    {
+      "dossier_id": "dossier-1777553761235-cnann1pkv",
+      "topic": "Create YouTube script about AI",
+      "status": "approval_pending",
+      "created_at": "2026-04-30T12:56:01.235Z",
+      "current_stage": "WF-500",
+      "user_mode": "creator",
+      "intent_id": "new_content_job",
+      "operational_mode": null,
+      "updated_at": "2026-04-30T12:56:01.238Z",
+      "workflow_id": "WF-010"
+    },
+    {
+      "dossier_id": "dossier-1777554334747-w2ahkxke8",
+      "topic": "Create YouTube script about trending topic and give thumbnail ideas",
+      "status": "created",
+      "created_at": "2026-04-30T13:05:34.747Z",
+      "current_stage": "WF-001",
+      "user_mode": "creator",
+      "intent_id": "new_content_job",
+      "operational_mode": null
+    },
+    {
+      "dossier_id": "dossier-1777555787019-w8e12klfz",
+      "topic": "Create a YouTube script about a trending topic",
+      "status": "created",
+      "created_at": "2026-04-30T13:29:47.019Z",
+      "current_stage": "WF-001",
+      "user_mode": "creator",
+      "intent_id": "new_content_job",
+      "operational_mode": null
+    },
+    {
+      "dossier_id": "dossier-1777556469607-tpr6342za",
+      "topic": "Create a YouTube script",
+      "status": "created",
+      "created_at": "2026-04-30T13:41:09.607Z",
+      "current_stage": "WF-001",
+      "user_mode": "creator",
+      "intent_id": "new_content_job",
+      "operational_mode": null
+    },
+    {
+      "dossier_id": "dossier-1777556478063-0jnuazufd",
+      "topic": "Create a YouTube script",
+      "status": "created",
+      "created_at": "2026-04-30T13:41:18.063Z",
+      "current_stage": "WF-001",
+      "user_mode": "creator",
+      "intent_id": "new_content_job",
+      "operational_mode": null
+    },
+    {
+      "dossier_id": "dossier-1777556599510-fx45jvyr1",
+      "topic": "Create a YouTube script",
+      "status": "created",
+      "created_at": "2026-04-30T13:43:19.510Z",
+      "current_stage": "WF-001",
+      "user_mode": "creator",
+      "intent_id": "new_content_job",
+      "operational_mode": null
+    },
+    {
+      "dossier_id": "dossier-1777556599759-8msjqnm94",
+      "topic": "Create a YouTube script",
+      "status": "created",
+      "created_at": "2026-04-30T13:43:19.759Z",
+      "current_stage": "WF-001",
+      "user_mode": "creator",
+      "intent_id": "new_content_job",
+      "operational_mode": null
+    },
+    {
+      "dossier_id": "dossier-1777562597412-b7ufs5dfk",
+      "topic": "Create a YouTube script about why people procrastinate and give me thumbnail ideas",
+      "status": "created",
+      "created_at": "2026-04-30T15:23:17.412Z",
+      "current_stage": "WF-001",
+      "user_mode": "creator",
+      "intent_id": "generate_thumbnail_concept",
+      "operational_mode": null,
+      "source": "wf001_async_fallback"
+    },
+    {
+      "dossier_id": "dossier-1777562652526-yvp1cca0f",
+      "topic": "Create a YouTube script about why people procrastinate and give me thumbnail ideas",
+      "status": "created",
+      "created_at": "2026-04-30T15:24:12.526Z",
+      "current_stage": "WF-001",
+      "user_mode": "creator",
+      "intent_id": "generate_thumbnail_concept",
+      "operational_mode": null,
+      "source": "wf001_async_fallback"
+    },
+    {
+      "dossier_id": "dossier-1777563345864-dw8lwx1k2",
+      "topic": "Create a YouTube script about why people procrastinate and give me thumbnail ideas",
+      "status": "created",
+      "created_at": "2026-04-30T15:35:45.864Z",
+      "current_stage": "WF-001",
+      "user_mode": "creator",
+      "intent_id": "new_content_job",
+      "operational_mode": null,
+      "source": "wf001_async_fallback"
+    },
+    {
+      "dossier_id": "dossier-1777563460568-hjq0xgqas",
+      "topic": "Create a YouTube script about why people procrastinate and give me thumbnail ideas",
+      "status": "created",
+      "created_at": "2026-04-30T15:37:40.568Z",
+      "current_stage": "WF-001",
+      "user_mode": "creator",
+      "intent_id": "new_content_job",
+      "operational_mode": null,
+      "source": "wf001_async_fallback"
+    },
+    {
+      "dossier_id": "dossier-1777563604152-s72k7h61u",
+      "topic": "Create a YouTube script about why people procrastinate and give me thumbnail ideas",
+      "status": "created",
+      "created_at": "2026-04-30T15:40:04.152Z",
+      "current_stage": "WF-001",
+      "user_mode": "creator",
+      "intent_id": "new_content_job",
+      "operational_mode": null,
+      "source": "wf001_async_fallback"
+    },
+    {
+      "dossier_id": "dossier-1777563879014-o94lqkoqs",
+      "topic": "Create a YouTube script about why people procrastinate and give me thumbnail ideas",
+      "status": "created",
+      "created_at": "2026-04-30T15:44:39.014Z",
+      "current_stage": "WF-001",
+      "user_mode": "creator",
+      "intent_id": "new_content_job",
+      "operational_mode": null,
+      "source": "wf001_async_fallback"
+    },
+    {
+      "dossier_id": "dossier-1777563977279-1egjrpeyq",
+      "topic": "Create a YouTube script about why people procrastinate and give me thumbnail ideas",
+      "status": "created",
+      "created_at": "2026-04-30T15:46:17.279Z",
+      "current_stage": "WF-001",
+      "user_mode": "creator",
+      "intent_id": "new_content_job",
+      "operational_mode": null,
+      "source": "wf001_async_fallback"
+    },
+    {
+      "dossier_id": "dossier-1777569577428-1t7wueb51",
+      "topic": "Create a YouTube script about a trending topic",
+      "status": "created",
+      "created_at": "2026-04-30T17:19:37.428Z",
+      "current_stage": "WF-001",
+      "user_mode": "creator",
+      "intent_id": "generate_topic_ideas",
+      "operational_mode": null,
+      "source": "wf001_async_fallback"
+    },
+    {
+      "dossier_id": "dossier-1777569610064-yocjktotj",
+      "topic": "Create a YouTube script about a trending topic",
+      "status": "created",
+      "created_at": "2026-04-30T17:20:10.064Z",
+      "current_stage": "WF-001",
+      "user_mode": "founder",
+      "intent_id": "generate_topic_ideas",
+      "operational_mode": null,
+      "source": "wf001_async_fallback"
+    },
+    {
+      "dossier_id": "dossier-1777571097719-jqd3l9ew4",
+      "topic": "Suggest 5 trending topic ideas",
+      "status": "created",
+      "created_at": "2026-04-30T17:44:57.719Z",
+      "current_stage": "WF-001",
+      "user_mode": "founder",
+      "intent_id": "generate_topic_ideas",
+      "operational_mode": null,
+      "source": "wf001_async_fallback"
+    }
+  ]
 }

@@ -1,0 +1,13 @@
+
+> shadow-creator-os-phase-1@1.0.0 operator:start
+> node operator/server.js
+
+[N8N Client] Using n8n at: http://localhost:5678 (PRODUCTION)
+[N8N Client] Webhook registry loaded successfully
+[2026-04-30T18:01:49.889Z] [operator-server] Listening on http://localhost:5002
+[N8N Client] Triggering WF-001 at /webhook/msf8SHcqYEdSdi7S/trigger%2520node/wf-001-dossier-create
+[N8N Client] POST http://localhost:5678/webhook/msf8SHcqYEdSdi7S/trigger%2520node/wf-001-dossier-create
+[N8N Client] Failed to trigger workflow WF-001: 
+[N8N Client] Triggering WF-001 at /webhook/msf8SHcqYEdSdi7S/trigger%2520node/wf-001-dossier-create
+[N8N Client] POST http://localhost:5678/webhook/msf8SHcqYEdSdi7S/trigger%2520node/wf-001-dossier-create
+[N8N Client] Failed to trigger workflow WF-001: Request failed with status code 404

@@ -465,5 +465,6 @@
       "pattern": "cwf410_to_cwf440_sequential",
       "acceptance": "all_children_must_execute"
     }
-  }
+  },
+  "active": true
 }

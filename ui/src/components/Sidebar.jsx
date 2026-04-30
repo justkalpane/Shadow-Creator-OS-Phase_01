@@ -1,34 +1,25 @@
-import { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAppStore } from '../store/useAppStore';
 import { useModeRouter } from '../hooks/useModeRouter';
-
-const operationalModes = [
-  { id: 'alert', label: 'Alert Mode', icon: '🚨', minRole: 'operator', requiresConsent: true },
-  { id: 'troubleshoot', label: 'Troubleshoot', icon: '🔧', minRole: 'builder', requiresConsent: true },
-  { id: 'analysis', label: 'Analysis', icon: '📊', minRole: 'operator', requiresConsent: false },
-  { id: 'self_learning', label: 'Self-Learning', icon: '🧠', minRole: 'founder', requiresConsent: true },
-  { id: 'replay', label: 'Replay Mode', icon: '🔄', minRole: 'operator', requiresConsent: true },
-  { id: 'safe', label: 'Safe Mode', icon: '✓', minRole: 'creator', requiresConsent: false },
-  { id: 'debug', label: 'Debug Mode', icon: '🐛', minRole: 'builder', requiresConsent: false },
-  { id: 'context_engineering', label: 'Context Eng.', icon: '🧩', minRole: 'founder', requiresConsent: false },
-];
+import OperationalModes from './OperationalModes';
 
 export default function Sidebar({ isOpen, onToggle }) {
   const navigate = useNavigate();
   const location = useLocation();
-  const { selectedMode, enabledOperationalModes, toggleOperationalMode } = useAppStore();
-  const { getVisibleSidebarItems } = useModeRouter();
-  const [showOperationalModes, setShowOperationalModes] = useState(false);
+  const { selectedMode } = useAppStore();
+  const { getVisibleSidebarItems, getScreenDetails } = useModeRouter();
 
   const sidebarItems = getVisibleSidebarItems(selectedMode);
-  const isActive = (url) => location.pathname.startsWith(url.split('/')[1]);
 
-  const canEnableOperationalMode = (minRole) => {
-    const modeHierarchy = { creator: 0, operator: 1, builder: 2, founder: 3 };
-    const minRequired = modeHierarchy[minRole] || 0;
-    const currentLevel = modeHierarchy[selectedMode] || 0;
-    return currentLevel >= minRequired;
+  const isActive = (screenId) => {
+    const screen = getScreenDetails(screenId);
+    if (!screen) return false;
+    return location.pathname === screen.route;
+  };
+
+  const getRouteForScreen = (screenId) => {
+    const screen = getScreenDetails(screenId);
+    return screen ? screen.route : '/' + screenId.toLowerCase();
   };
 
   return (
@@ -68,31 +59,31 @@ export default function Sidebar({ isOpen, onToggle }) {
           {isOpen && <span className="text-sm">Dashboard</span>}
         </button>
 
+        {/* Chat link */}
+        <button
+          onClick={() => navigate('/chat')}
+          className={`w-full flex items-center gap-3 px-4 py-2 rounded transition-colors ${
+            location.pathname === '/chat'
+              ? 'bg-shadow-accent text-white'
+              : 'text-gray-300 hover:bg-gray-700'
+          }`}
+          title="Chat"
+        >
+          <span className="text-lg">💬</span>
+          {isOpen && <span className="text-sm">Chat</span>}
+        </button>
+
         {/* Mode-specific screens */}
         {sidebarItems.map((item) => {
-          const screenRoutes = {
-            'SCR-001': '/overview',
-            'SCR-002': '/routes',
-            'SCR-003': '/dossiers',
-            'SCR-004': '/approvals',
-            'SCR-005': '/errors',
-            'SCR-006': '/mission-control',
-            'SCR-007': '/founder-governance',
-            'SCR-008': '/workflows',
-            'SCR-014': '/alerts',
-            'SCR-015': '/troubleshoot',
-            'SCR-016': '/replay',
-            'SCR-017': '/analytics',
-            'SCR-018': '/learning',
-          };
-          const route = screenRoutes[item.screenId] || '/' + item.screenId.toLowerCase();
+          const route = getRouteForScreen(item.screenId);
+          const active = isActive(item.screenId);
 
           return (
             <button
               key={item.screenId}
               onClick={() => navigate(route)}
               className={`w-full flex items-center gap-3 px-4 py-2 rounded transition-colors ${
-                location.pathname === route
+                active
                   ? 'bg-shadow-accent text-white'
                   : 'text-gray-300 hover:bg-gray-700'
               }`}
@@ -105,46 +96,9 @@ export default function Sidebar({ isOpen, onToggle }) {
         })}
       </nav>
 
-      {/* Operational Modes Toggle */}
+      {/* Operational Modes Panel */}
       <div className="border-t border-gray-700 p-4">
-        <button
-          onClick={() => setShowOperationalModes(!showOperationalModes)}
-          className="w-full flex items-center gap-2 px-2 py-2 text-xs text-gray-400 hover:text-gray-200 transition-colors"
-        >
-          <span>⚡ Operational Modes</span>
-          <span className="ml-auto text-xs">{showOperationalModes ? '▲' : '▼'}</span>
-        </button>
-
-        {showOperationalModes && isOpen && (
-          <div className="mt-3 space-y-2 text-xs">
-            {operationalModes.map((mode) => {
-              const isEnabled = enabledOperationalModes.includes(mode.id);
-              const canEnable = canEnableOperationalMode(mode.minRole);
-
-              return (
-                <label
-                  key={mode.id}
-                  className={`flex items-center gap-2 p-2 rounded cursor-pointer transition-colors ${
-                    canEnable
-                      ? 'hover:bg-gray-700 text-gray-300'
-                      : 'text-gray-600 cursor-not-allowed'
-                  }`}
-                  title={!canEnable ? `Requires ${mode.minRole} mode` : ''}
-                >
-                  <input
-                    type="checkbox"
-                    checked={isEnabled}
-                    onChange={() => canEnable && toggleOperationalMode(mode.id)}
-                    disabled={!canEnable}
-                    className="rounded"
-                  />
-                  <span>{mode.icon}</span>
-                  <span className="flex-1">{mode.label}</span>
-                </label>
-              );
-            })}
-          </div>
-        )}
+        <OperationalModes />
       </div>
 
       {/* Footer */}

@@ -1,0 +1,473 @@
+{
+  "sessions": [
+    {
+      "chat_session_id": "chat-1777560415737-58qtu8d",
+      "title": "New Session",
+      "created_at": "2026-04-30T14:46:55.736Z",
+      "updated_at": "2026-04-30T14:46:55.774Z",
+      "selected_mode": "creator",
+      "runtime_mode": "local",
+      "selected_model": "ollama_local_llama3.2",
+      "dossier_id": null,
+      "messages": [
+        {
+          "role": "user",
+          "content": "Create a YouTube script about why people procrastinate and give me thumbnail ideas",
+          "timestamp": "2026-04-30T14:46:55.738Z",
+          "run_id": null,
+          "workflow_id": null,
+          "status": null
+        },
+        {
+          "role": "assistant",
+          "content": "{\"run_id\":\"run-1777560415738-hdxf3cwou\",\"status\":\"workflow_trigger_failed\",\"workflow_id\":\"WF-001\",\"requested_url\":\"http://localhost:5678/webhook/wf-001-dossier-create\",\"method\":\"POST\",\"http_status\":null,\"response_body\":null,\"error_message\":\"WF-001 trigger failed\",\"likely_fix\":\"Check n8n availability at http://localhost:5678 and verify firewall/port.\"}",
+          "timestamp": "2026-04-30T14:46:55.774Z",
+          "run_id": "run-1777560415738-hdxf3cwou",
+          "workflow_id": "WF-001",
+          "status": "workflow_trigger_failed"
+        }
+      ],
+      "linked_packets": [],
+      "linked_dossiers": [],
+      "error_refs": [],
+      "approval_refs": []
+    },
+    {
+      "chat_session_id": "chat-1777561923736-uc3f82f",
+      "title": "New Session",
+      "created_at": "2026-04-30T15:12:03.736Z",
+      "updated_at": "2026-04-30T15:12:03.800Z",
+      "selected_mode": "creator",
+      "runtime_mode": "local",
+      "selected_model": "ollama_local_llama3.2",
+      "dossier_id": null,
+      "messages": [
+        {
+          "role": "user",
+          "content": "Create a YouTube script about why people procrastinate and give me thumbnail ideas",
+          "timestamp": "2026-04-30T15:12:03.737Z",
+          "run_id": null,
+          "workflow_id": null,
+          "status": null
+        },
+        {
+          "role": "assistant",
+          "content": "{\"run_id\":\"run-1777561923737-7rox7qt0p\",\"status\":\"workflow_trigger_failed\",\"workflow_id\":\"WF-001\",\"requested_url\":\"http://localhost:5678/webhook/wf-001-dossier-create\",\"method\":\"POST\",\"http_status\":404,\"response_body\":{\"code\":404,\"message\":\"The requested webhook \\\"POST wf-001-dossier-create\\\" is not registered.\",\"hint\":\"The workflow must be active for a production URL to run successfully. You can activate the workflow using the toggle in the top-right of the editor. Note that unlike test URL calls, production URL calls aren't shown on the canvas (only in the executions list)\",\"stacktrace\":\"ResponseError: The requested webhook \\\"POST wf-001-dossier-create\\\" is not registered.\\n    at LiveWebhooks.findWebhook (C:\\\\Users\\\\Chethan\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\n8n\\\\src\\\\webhooks\\\\live-webhooks.ts:193:10)\\n    at LiveWebhooks.executeWebhook (C:\\\\Users\\\\Chethan\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\n8n\\\\src\\\\webhooks\\\\live-webhooks.ts:83:19)\\n    at WebhookRequestHandler.handleRequest (C:\\\\Users\\\\Chethan\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\n8n\\\\src\\\\webhooks\\\\webhook-request-handler.ts:61:21)\\n    at C:\\\\Users\\\\Chethan\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\n8n\\\\src\\\\webhooks\\\\webhook-request-handler.ts:242:3\"},\"error_message\":\"Request failed with status code 404\",\"likely_fix\":\"Check workflow activation and webhook path in n8n for WF-001.\"}",
+          "timestamp": "2026-04-30T15:12:03.800Z",
+          "run_id": "run-1777561923737-7rox7qt0p",
+          "workflow_id": "WF-001",
+          "status": "workflow_trigger_failed"
+        }
+      ],
+      "linked_packets": [],
+      "linked_dossiers": [],
+      "error_refs": [],
+      "approval_refs": []
+    },
+    {
+      "chat_session_id": "chat-1777562330020-6mmrj11",
+      "title": "New Session",
+      "created_at": "2026-04-30T15:18:50.020Z",
+      "updated_at": "2026-04-30T15:18:50.074Z",
+      "selected_mode": "creator",
+      "runtime_mode": "local",
+      "selected_model": "ollama_local_llama3.2",
+      "dossier_id": null,
+      "messages": [
+        {
+          "role": "user",
+          "content": "Create a YouTube script about why people procrastinate and give me thumbnail ideas",
+          "timestamp": "2026-04-30T15:18:50.021Z",
+          "run_id": null,
+          "workflow_id": null,
+          "status": null
+        },
+        {
+          "role": "assistant",
+          "content": "{\"run_id\":\"run-1777562330021-i1gh6xocd\",\"status\":\"workflow_trigger_failed\",\"workflow_id\":\"WF-001\",\"requested_url\":\"http://localhost:5678/webhook/msf8SHcqYEdSdi7S/trigger%2520node/wf-001-dossier-create\",\"method\":\"POST\",\"http_status\":200,\"response_body\":{\"message\":\"Workflow was started\"},\"error_message\":\"WF-001 returned no dossier_id\",\"likely_fix\":\"Ensure WF-001 returns dossier_id in webhook response.\"}",
+          "timestamp": "2026-04-30T15:18:50.074Z",
+          "run_id": "run-1777562330021-i1gh6xocd",
+          "workflow_id": "WF-001",
+          "status": "workflow_trigger_failed"
+        }
+      ],
+      "linked_packets": [],
+      "linked_dossiers": [],
+      "error_refs": [],
+      "approval_refs": []
+    },
+    {
+      "chat_session_id": "chat-1777562518806-k8i7q5x",
+      "title": "New Session",
+      "created_at": "2026-04-30T15:21:58.806Z",
+      "updated_at": "2026-04-30T15:22:06.975Z",
+      "selected_mode": "creator",
+      "runtime_mode": "local",
+      "selected_model": "ollama_local_llama3.2",
+      "dossier_id": null,
+      "messages": [
+        {
+          "role": "user",
+          "content": "Create a YouTube script about why people procrastinate and give me thumbnail ideas",
+          "timestamp": "2026-04-30T15:21:58.807Z",
+          "run_id": null,
+          "workflow_id": null,
+          "status": null
+        },
+        {
+          "role": "assistant",
+          "content": "{\"run_id\":\"run-1777562518807-lvqgil8oq\",\"status\":\"workflow_trigger_failed\",\"workflow_id\":\"WF-001\",\"requested_url\":\"http://localhost:5678/webhook/msf8SHcqYEdSdi7S/trigger%2520node/wf-001-dossier-create\",\"method\":\"POST\",\"http_status\":200,\"response_body\":{\"message\":\"Workflow was started\"},\"error_message\":\"WF-001 returned no dossier_id\",\"likely_fix\":\"Ensure WF-001 returns dossier_id in webhook response.\"}",
+          "timestamp": "2026-04-30T15:22:06.975Z",
+          "run_id": "run-1777562518807-lvqgil8oq",
+          "workflow_id": "WF-001",
+          "status": "workflow_trigger_failed"
+        }
+      ],
+      "linked_packets": [],
+      "linked_dossiers": [],
+      "error_refs": [],
+      "approval_refs": []
+    },
+    {
+      "chat_session_id": "chat-1777562589230-3twgg65",
+      "title": "New Session",
+      "created_at": "2026-04-30T15:23:09.230Z",
+      "updated_at": "2026-04-30T15:23:17.418Z",
+      "selected_mode": "creator",
+      "runtime_mode": "local",
+      "selected_model": "ollama_local_llama3.2",
+      "dossier_id": "dossier-1777562597412-b7ufs5dfk",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Create a YouTube script about why people procrastinate and give me thumbnail ideas",
+          "timestamp": "2026-04-30T15:23:09.231Z",
+          "run_id": null,
+          "workflow_id": null,
+          "status": null
+        },
+        {
+          "role": "assistant",
+          "content": "{\"run_id\":\"run-1777562589232-c85i57a4k\",\"status\":\"workflow_trigger_failed\",\"dossier_id\":\"dossier-1777562597412-b7ufs5dfk\",\"workflow_id\":\"WF-400\",\"requested_url\":\"http://localhost:5678undefined\",\"method\":\"INTERNAL\",\"http_status\":400,\"response_body\":null,\"error_message\":\"Request failed with status code 400\",\"likely_fix\":\"Check workflow activation and webhook path in n8n for WF-400.\"}",
+          "timestamp": "2026-04-30T15:23:17.418Z",
+          "run_id": "run-1777562589232-c85i57a4k",
+          "workflow_id": "WF-400",
+          "status": "workflow_trigger_failed"
+        }
+      ],
+      "linked_packets": [],
+      "linked_dossiers": [
+        "dossier-1777562597412-b7ufs5dfk"
+      ],
+      "error_refs": [],
+      "approval_refs": []
+    },
+    {
+      "chat_session_id": "chat-1777562644336-0yu99ab",
+      "title": "New Session",
+      "created_at": "2026-04-30T15:24:04.335Z",
+      "updated_at": "2026-04-30T15:24:12.558Z",
+      "selected_mode": "creator",
+      "runtime_mode": "local",
+      "selected_model": "ollama_local_llama3.2",
+      "dossier_id": "dossier-1777562652526-yvp1cca0f",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Create a YouTube script about why people procrastinate and give me thumbnail ideas",
+          "timestamp": "2026-04-30T15:24:04.337Z",
+          "run_id": null,
+          "workflow_id": null,
+          "status": null
+        },
+        {
+          "role": "assistant",
+          "content": "{\"run_id\":\"run-1777562644338-pean3hhfq\",\"status\":\"accepted\",\"orchestration_truth\":\"accepted_awaiting_execution\",\"intent_id\":\"generate_thumbnail_concept\",\"intent_label\":\"Generate Thumbnail Concept\",\"dossier_id\":\"dossier-1777562652526-yvp1cca0f\",\"execution_id\":\"exec-1777562652553-2akma926g\",\"workflow_triggered\":\"WF-010\",\"current_stage\":\"WF-001\",\"execution_status\":\"queued\",\"selected_model\":\"ollama_local_llama3.2\",\"model_endpoint\":\"http://localhost:11434\",\"packets_generated\":0,\"dossier_fallback_used\":true,\"artifact_families\":[],\"approval_required\":false,\"approval_ready\":false,\"replay_eligible\":false,\"next_actions\":[{\"action\":\"monitor\",\"label\":\"Monitor Execution\",\"enabled\":true},{\"action\":\"refresh_output\",\"label\":\"Refresh Output\",\"enabled\":true}]}",
+          "timestamp": "2026-04-30T15:24:12.558Z",
+          "run_id": "run-1777562644338-pean3hhfq",
+          "workflow_id": "WF-010",
+          "status": "accepted"
+        }
+      ],
+      "linked_packets": [],
+      "linked_dossiers": [
+        "dossier-1777562652526-yvp1cca0f"
+      ],
+      "error_refs": [],
+      "approval_refs": []
+    },
+    {
+      "chat_session_id": "chat-1777563337669-vbhdppc",
+      "title": "New Session",
+      "created_at": "2026-04-30T15:35:37.668Z",
+      "updated_at": "2026-04-30T15:35:45.866Z",
+      "selected_mode": "creator",
+      "runtime_mode": "local",
+      "selected_model": "ollama_local_llama3.2",
+      "dossier_id": "dossier-1777563345864-dw8lwx1k2",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Create a YouTube script about why people procrastinate and give me thumbnail ideas",
+          "timestamp": "2026-04-30T15:35:37.670Z",
+          "run_id": null,
+          "workflow_id": null,
+          "status": null
+        },
+        {
+          "role": "assistant",
+          "content": "{\"run_id\":\"run-1777563337671-bfu5otucm\",\"status\":\"workflow_trigger_failed\",\"dossier_id\":\"dossier-1777563345864-dw8lwx1k2\",\"workflow_id\":\"WF-001\",\"requested_url\":null,\"method\":\"POST\",\"http_status\":null,\"response_body\":null,\"error_message\":\"Missing required fields for WF-001\",\"likely_fix\":\"Verify WF-001 webhook path/activation.\"}",
+          "timestamp": "2026-04-30T15:35:45.866Z",
+          "run_id": "run-1777563337671-bfu5otucm",
+          "workflow_id": "WF-001",
+          "status": "workflow_trigger_failed"
+        }
+      ],
+      "linked_packets": [],
+      "linked_dossiers": [
+        "dossier-1777563345864-dw8lwx1k2"
+      ],
+      "error_refs": [],
+      "approval_refs": []
+    },
+    {
+      "chat_session_id": "chat-1777563452350-sq3kyt4",
+      "title": "New Session",
+      "created_at": "2026-04-30T15:37:32.349Z",
+      "updated_at": "2026-04-30T15:37:52.687Z",
+      "selected_mode": "creator",
+      "runtime_mode": "local",
+      "selected_model": "ollama_local_llama3.2",
+      "dossier_id": "dossier-1777563460568-hjq0xgqas",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Create a YouTube script about why people procrastinate and give me thumbnail ideas",
+          "timestamp": "2026-04-30T15:37:32.351Z",
+          "run_id": null,
+          "workflow_id": null,
+          "status": null
+        },
+        {
+          "role": "assistant",
+          "content": "{\"run_id\":\"run-1777563452351-wvxcmzjqk\",\"status\":\"accepted\",\"orchestration_truth\":\"accepted_awaiting_execution\",\"intent_id\":\"new_content_job\",\"intent_label\":\"Create New Content\",\"dossier_id\":\"dossier-1777563460568-hjq0xgqas\",\"execution_id\":\"exec-1777563460603-xg0guxf5y\",\"workflow_triggered\":\"WF-010\",\"current_stage\":\"WF-001\",\"execution_status\":\"queued\",\"selected_model\":\"ollama_local_llama3.2\",\"model_endpoint\":\"http://localhost:11434\",\"packets_generated\":0,\"packet_delta_from_run\":0,\"dossier_fallback_used\":true,\"artifact_families\":[],\"approval_required\":true,\"approval_ready\":false,\"replay_eligible\":true,\"next_actions\":[{\"action\":\"monitor\",\"label\":\"Monitor Execution\",\"enabled\":true},{\"action\":\"refresh_output\",\"label\":\"Refresh Output\",\"enabled\":true}]}",
+          "timestamp": "2026-04-30T15:37:52.687Z",
+          "run_id": "run-1777563452351-wvxcmzjqk",
+          "workflow_id": "WF-010",
+          "status": "accepted"
+        }
+      ],
+      "linked_packets": [],
+      "linked_dossiers": [
+        "dossier-1777563460568-hjq0xgqas"
+      ],
+      "error_refs": [],
+      "approval_refs": []
+    },
+    {
+      "chat_session_id": "chat-1777563595947-b5kr59j",
+      "title": "New Session",
+      "created_at": "2026-04-30T15:39:55.946Z",
+      "updated_at": "2026-04-30T15:40:28.258Z",
+      "selected_mode": "creator",
+      "runtime_mode": "local",
+      "selected_model": "ollama_local_llama3.2",
+      "dossier_id": "dossier-1777563604152-s72k7h61u",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Create a YouTube script about why people procrastinate and give me thumbnail ideas",
+          "timestamp": "2026-04-30T15:39:55.948Z",
+          "run_id": null,
+          "workflow_id": null,
+          "status": null
+        },
+        {
+          "role": "assistant",
+          "content": "{\"run_id\":\"run-1777563595949-usvlm8qyz\",\"status\":\"accepted\",\"orchestration_truth\":\"accepted_awaiting_execution\",\"intent_id\":\"new_content_job\",\"intent_label\":\"Create New Content\",\"dossier_id\":\"dossier-1777563604152-s72k7h61u\",\"execution_id\":\"exec-1777563604176-4rdzvmhji\",\"workflow_triggered\":\"WF-010\",\"current_stage\":\"WF-001\",\"execution_status\":\"queued\",\"selected_model\":\"ollama_local_llama3.2\",\"model_endpoint\":\"http://localhost:11434\",\"packets_generated\":0,\"packet_delta_from_run\":0,\"recent_packets_in_window\":0,\"dossier_fallback_used\":true,\"artifact_families\":[],\"approval_required\":true,\"approval_ready\":false,\"replay_eligible\":true,\"next_actions\":[{\"action\":\"monitor\",\"label\":\"Monitor Execution\",\"enabled\":true},{\"action\":\"refresh_output\",\"label\":\"Refresh Output\",\"enabled\":true}]}",
+          "timestamp": "2026-04-30T15:40:28.258Z",
+          "run_id": "run-1777563595949-usvlm8qyz",
+          "workflow_id": "WF-010",
+          "status": "accepted"
+        }
+      ],
+      "linked_packets": [],
+      "linked_dossiers": [
+        "dossier-1777563604152-s72k7h61u"
+      ],
+      "error_refs": [],
+      "approval_refs": []
+    },
+    {
+      "chat_session_id": "chat-1777563870822-anx0ahk",
+      "title": "New Session",
+      "created_at": "2026-04-30T15:44:30.821Z",
+      "updated_at": "2026-04-30T15:44:40.467Z",
+      "selected_mode": "creator",
+      "runtime_mode": "local",
+      "selected_model": "ollama_local_llama3.2",
+      "dossier_id": "dossier-1777563879014-o94lqkoqs",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Create a YouTube script about why people procrastinate and give me thumbnail ideas",
+          "timestamp": "2026-04-30T15:44:30.823Z",
+          "run_id": null,
+          "workflow_id": null,
+          "status": null
+        },
+        {
+          "role": "assistant",
+          "content": "{\"run_id\":\"run-1777563870824-5actfgbl6\",\"status\":\"accepted\",\"orchestration_truth\":\"running_with_partial_output\",\"intent_id\":\"new_content_job\",\"intent_label\":\"Create New Content\",\"dossier_id\":\"dossier-1777563879014-o94lqkoqs\",\"execution_id\":\"exec-1777563879040-e2tyv1xbc\",\"workflow_triggered\":\"WF-010\",\"current_stage\":\"WF-001\",\"execution_status\":\"queued\",\"selected_model\":\"ollama_local_llama3.2\",\"model_endpoint\":\"http://localhost:11434\",\"packets_generated\":1,\"packet_delta_from_run\":1,\"recent_packets_in_window\":1,\"dossier_fallback_used\":true,\"artifact_families\":[],\"approval_required\":true,\"approval_ready\":false,\"replay_eligible\":true,\"next_actions\":[{\"action\":\"approve\",\"label\":\"Approve Output\",\"enabled\":true},{\"action\":\"reject\",\"label\":\"Request Changes\",\"enabled\":true},{\"action\":\"monitor\",\"label\":\"Monitor Execution\",\"enabled\":true},{\"action\":\"refresh_output\",\"label\":\"Refresh Output\",\"enabled\":true}]}",
+          "timestamp": "2026-04-30T15:44:40.467Z",
+          "run_id": "run-1777563870824-5actfgbl6",
+          "workflow_id": "WF-010",
+          "status": "accepted"
+        }
+      ],
+      "linked_packets": [],
+      "linked_dossiers": [
+        "dossier-1777563879014-o94lqkoqs"
+      ],
+      "error_refs": [],
+      "approval_refs": []
+    },
+    {
+      "chat_session_id": "chat-1777563969073-c1ib3z7",
+      "title": "New Session",
+      "created_at": "2026-04-30T15:46:09.072Z",
+      "updated_at": "2026-04-30T15:46:18.748Z",
+      "selected_mode": "creator",
+      "runtime_mode": "local",
+      "selected_model": "ollama_local_llama3.2",
+      "dossier_id": "dossier-1777563977279-1egjrpeyq",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Create a YouTube script about why people procrastinate and give me thumbnail ideas",
+          "timestamp": "2026-04-30T15:46:09.074Z",
+          "run_id": null,
+          "workflow_id": null,
+          "status": null
+        },
+        {
+          "role": "assistant",
+          "content": "{\"run_id\":\"run-1777563969075-2guzsoya1\",\"status\":\"accepted\",\"orchestration_truth\":\"running_with_partial_output\",\"intent_id\":\"new_content_job\",\"intent_label\":\"Create New Content\",\"dossier_id\":\"dossier-1777563977279-1egjrpeyq\",\"execution_id\":\"exec-1777563977314-pl9nz6gpf\",\"workflow_triggered\":\"WF-010\",\"current_stage\":\"WF-001\",\"execution_status\":\"queued\",\"selected_model\":\"ollama_local_llama3.2\",\"model_endpoint\":\"http://localhost:11434\",\"packets_generated\":1,\"packet_delta_from_run\":1,\"recent_packets_in_window\":1,\"dossier_fallback_used\":true,\"artifact_families\":[],\"approval_required\":true,\"approval_ready\":true,\"replay_eligible\":true,\"next_actions\":[{\"action\":\"approve\",\"label\":\"Approve Output\",\"enabled\":true},{\"action\":\"reject\",\"label\":\"Request Changes\",\"enabled\":true},{\"action\":\"monitor\",\"label\":\"Monitor Execution\",\"enabled\":true},{\"action\":\"refresh_output\",\"label\":\"Refresh Output\",\"enabled\":true}]}",
+          "timestamp": "2026-04-30T15:46:18.748Z",
+          "run_id": "run-1777563969075-2guzsoya1",
+          "workflow_id": "WF-010",
+          "status": "accepted"
+        }
+      ],
+      "linked_packets": [],
+      "linked_dossiers": [
+        "dossier-1777563977279-1egjrpeyq"
+      ],
+      "error_refs": [],
+      "approval_refs": []
+    },
+    {
+      "chat_session_id": "chat-1777569569197-ulgu5v3",
+      "title": "New Session",
+      "created_at": "2026-04-30T17:19:29.197Z",
+      "updated_at": "2026-04-30T17:19:38.886Z",
+      "selected_mode": "creator",
+      "runtime_mode": "local",
+      "selected_model": "ollama_local_llama3.2",
+      "dossier_id": "dossier-1777569577428-1t7wueb51",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Create a YouTube script about a trending topic",
+          "timestamp": "2026-04-30T17:19:29.198Z",
+          "run_id": null,
+          "workflow_id": null,
+          "status": null
+        },
+        {
+          "role": "assistant",
+          "content": "{\"run_id\":\"run-1777569569199-io2ph1i12\",\"status\":\"accepted\",\"orchestration_truth\":\"running_with_partial_output\",\"intent_id\":\"generate_topic_ideas\",\"intent_label\":\"Generate Topic Ideas\",\"dossier_id\":\"dossier-1777569577428-1t7wueb51\",\"execution_id\":\"exec-1777569577463-jf643k324\",\"workflow_triggered\":\"WF-010\",\"current_stage\":\"WF-001\",\"execution_status\":\"queued\",\"selected_model\":\"ollama_local_llama3.2\",\"model_endpoint\":\"http://localhost:11434\",\"packets_generated\":1,\"packet_delta_from_run\":1,\"recent_packets_in_window\":1,\"dossier_fallback_used\":true,\"artifact_families\":[],\"approval_required\":false,\"approval_ready\":false,\"replay_eligible\":false,\"next_actions\":[{\"action\":\"monitor\",\"label\":\"Monitor Execution\",\"enabled\":true},{\"action\":\"refresh_output\",\"label\":\"Refresh Output\",\"enabled\":true}]}",
+          "timestamp": "2026-04-30T17:19:38.886Z",
+          "run_id": "run-1777569569199-io2ph1i12",
+          "workflow_id": "WF-010",
+          "status": "accepted"
+        }
+      ],
+      "linked_packets": [],
+      "linked_dossiers": [
+        "dossier-1777569577428-1t7wueb51"
+      ],
+      "error_refs": [],
+      "approval_refs": []
+    },
+    {
+      "chat_session_id": "chat-1777569601911-v43vc57",
+      "title": "New Session",
+      "created_at": "2026-04-30T17:20:01.911Z",
+      "updated_at": "2026-04-30T17:20:11.511Z",
+      "selected_mode": "founder",
+      "runtime_mode": "local",
+      "selected_model": "ollama_local_llama3.2",
+      "dossier_id": "dossier-1777569610064-yocjktotj",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Create a YouTube script about a trending topic",
+          "timestamp": "2026-04-30T17:20:01.912Z",
+          "run_id": null,
+          "workflow_id": null,
+          "status": null
+        },
+        {
+          "role": "assistant",
+          "content": "{\"run_id\":\"run-1777569601912-6kzjj6ove\",\"status\":\"accepted\",\"orchestration_truth\":\"running_with_partial_output\",\"intent_id\":\"generate_topic_ideas\",\"intent_label\":\"Generate Topic Ideas\",\"dossier_id\":\"dossier-1777569610064-yocjktotj\",\"execution_id\":\"exec-1777569610090-rgjij7l0j\",\"workflow_triggered\":\"WF-010\",\"current_stage\":\"WF-001\",\"execution_status\":\"queued\",\"selected_model\":\"ollama_local_llama3.2\",\"model_endpoint\":\"http://localhost:11434\",\"packets_generated\":1,\"packet_delta_from_run\":1,\"recent_packets_in_window\":1,\"dossier_fallback_used\":true,\"artifact_families\":[],\"approval_required\":false,\"approval_ready\":false,\"replay_eligible\":false,\"next_actions\":[{\"action\":\"monitor\",\"label\":\"Monitor Execution\",\"enabled\":true},{\"action\":\"refresh_output\",\"label\":\"Refresh Output\",\"enabled\":true}]}",
+          "timestamp": "2026-04-30T17:20:11.511Z",
+          "run_id": "run-1777569601912-6kzjj6ove",
+          "workflow_id": "WF-010",
+          "status": "accepted"
+        }
+      ],
+      "linked_packets": [],
+      "linked_dossiers": [
+        "dossier-1777569610064-yocjktotj"
+      ],
+      "error_refs": [],
+      "approval_refs": []
+    },
+    {
+      "chat_session_id": "chat-1777571089547-u3pmvae",
+      "title": "New Session",
+      "created_at": "2026-04-30T17:44:49.547Z",
+      "updated_at": "2026-04-30T17:44:59.166Z",
+      "selected_mode": "founder",
+      "runtime_mode": "local",
+      "selected_model": "ollama_local_llama3.2",
+      "dossier_id": "dossier-1777571097719-jqd3l9ew4",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Suggest 5 trending topic ideas",
+          "timestamp": "2026-04-30T17:44:49.549Z",
+          "run_id": null,
+          "workflow_id": null,
+          "status": null
+        },
+        {
+          "role": "assistant",
+          "content": "{\"run_id\":\"run-1777571089549-wlm0ul8fo\",\"status\":\"accepted\",\"orchestration_truth\":\"running_with_partial_output\",\"intent_id\":\"generate_topic_ideas\",\"intent_label\":\"Generate Topic Ideas\",\"dossier_id\":\"dossier-1777571097719-jqd3l9ew4\",\"execution_id\":\"exec-1777571097744-8t187f3vr\",\"workflow_triggered\":\"WF-010\",\"current_stage\":\"WF-001\",\"execution_status\":\"queued\",\"selected_model\":\"ollama_local_llama3.2\",\"model_endpoint\":\"http://localhost:11434\",\"packets_generated\":1,\"packet_delta_from_run\":1,\"recent_packets_in_window\":1,\"dossier_fallback_used\":true,\"artifact_families\":[],\"approval_required\":false,\"approval_ready\":false,\"replay_eligible\":false,\"next_actions\":[{\"action\":\"monitor\",\"label\":\"Monitor Execution\",\"enabled\":true},{\"action\":\"refresh_output\",\"label\":\"Refresh Output\",\"enabled\":true}]}",
+          "timestamp": "2026-04-30T17:44:59.166Z",
+          "run_id": "run-1777571089549-wlm0ul8fo",
+          "workflow_id": "WF-010",
+          "status": "accepted"
+        }
+      ],
+      "linked_packets": [],
+      "linked_dossiers": [
+        "dossier-1777571097719-jqd3l9ew4"
+      ],
+      "error_refs": [],
+      "approval_refs": []
+    }
+  ],
+  "last_updated": "2026-04-30T17:44:59.166Z"
+}

@@ -433,5 +433,6 @@
       "pattern": "cwf510_to_cwf530_sequential",
       "acceptance": "all_children_must_execute"
     }
-  }
+  },
+  "active": true
 }

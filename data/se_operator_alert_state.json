@@ -1,0 +1,9 @@
+{
+  "acknowledged_alert_ids": [
+    "ALERT-TEST"
+  ],
+  "escalated_alert_ids": [
+    "ALERT-TEST"
+  ],
+  "last_updated": "2026-04-30T17:10:44.265Z"
+}

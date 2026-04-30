@@ -1,0 +1,214 @@
+{
+  "tools": [
+    {
+      "id": "create_content_job",
+      "name": "Create Content Job",
+      "description": "Create a new content job - triggers WF-001 dossier creation and WF-010 orchestration chain",
+      "type": "function",
+      "category": "orchestration",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "topic": {
+            "type": "string",
+            "description": "Content topic (e.g., 'Create a YouTube script about procrastination')",
+            "required": true
+          },
+          "context": {
+            "type": "string",
+            "description": "Content context (e.g., 'YouTube video', 'Twitter thread', 'Blog post')",
+            "default": "YouTube video",
+            "enum": ["YouTube video", "Twitter thread", "Blog post", "Email newsletter", "Podcast script"]
+          },
+          "mode": {
+            "type": "string",
+            "description": "User mode/role for access control",
+            "default": "creator",
+            "enum": ["founder", "creator", "builder", "operator"]
+          }
+        },
+        "required": ["topic"]
+      },
+      "endpoint": "http://localhost:5050/operator/new-content-job",
+      "method": "POST",
+      "content_type": "application/json",
+      "response_format": "json"
+    },
+    {
+      "id": "inspect_dossier",
+      "name": "Inspect Dossier",
+      "description": "Inspect a dossier and view its outputs, status, and audit trail",
+      "type": "function",
+      "category": "inspection",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "dossier_id": {
+            "type": "string",
+            "description": "The dossier ID (e.g., DOSSIER-1777580373244-Z5VQMUHKE)",
+            "required": true
+          }
+        },
+        "required": ["dossier_id"]
+      },
+      "endpoint": "http://localhost:5050/operator/dossier/{dossier_id}",
+      "method": "GET",
+      "response_format": "json"
+    },
+    {
+      "id": "list_outputs",
+      "name": "List Outputs",
+      "description": "List all generated outputs for a dossier (scripts, research, images, etc.)",
+      "type": "function",
+      "category": "inspection",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "dossier_id": {
+            "type": "string",
+            "description": "The dossier ID",
+            "required": true
+          }
+        },
+        "required": ["dossier_id"]
+      },
+      "endpoint": "http://localhost:5050/operator/outputs/{dossier_id}",
+      "method": "GET",
+      "response_format": "json"
+    },
+    {
+      "id": "approve_output",
+      "name": "Approve Output",
+      "description": "Approve a dossier's output - calls WF-020 approval workflow",
+      "type": "function",
+      "category": "governance",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "dossier_id": {
+            "type": "string",
+            "description": "The dossier ID to approve",
+            "required": true
+          },
+          "reviewer": {
+            "type": "string",
+            "description": "Your name/role as reviewer",
+            "default": "operator"
+          },
+          "reason": {
+            "type": "string",
+            "description": "Approval reason",
+            "default": "Approved by operator"
+          }
+        },
+        "required": ["dossier_id"]
+      },
+      "endpoint": "http://localhost:5050/operator/approve/{dossier_id}",
+      "method": "POST",
+      "content_type": "application/json",
+      "response_format": "json"
+    },
+    {
+      "id": "request_changes",
+      "name": "Request Changes",
+      "description": "Request changes to a dossier - triggers WF-021 replay/remodify workflow",
+      "type": "function",
+      "category": "modification",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "dossier_id": {
+            "type": "string",
+            "description": "The dossier ID",
+            "required": true
+          },
+          "instructions": {
+            "type": "string",
+            "description": "What changes to make (e.g., 'Make it shorter and more dramatic')",
+            "required": true
+          },
+          "target_workflow": {
+            "type": "string",
+            "description": "Which workflow stage to replay",
+            "default": "WF-200",
+            "enum": ["WF-200", "WF-300", "WF-400", "WF-500"]
+          }
+        },
+        "required": ["dossier_id", "instructions"]
+      },
+      "endpoint": "http://localhost:5050/operator/remodify/{dossier_id}",
+      "method": "POST",
+      "content_type": "application/json",
+      "response_format": "json"
+    },
+    {
+      "id": "replay_stage",
+      "name": "Replay Workflow Stage",
+      "description": "Replay a specific workflow stage for a dossier",
+      "type": "function",
+      "category": "modification",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "dossier_id": {
+            "type": "string",
+            "description": "The dossier ID",
+            "required": true
+          },
+          "target_workflow": {
+            "type": "string",
+            "description": "Which workflow to replay",
+            "required": true,
+            "enum": ["WF-100", "WF-200", "WF-300", "WF-400", "WF-500", "WF-600"]
+          }
+        },
+        "required": ["dossier_id", "target_workflow"]
+      },
+      "endpoint": "http://localhost:5050/operator/replay/{dossier_id}",
+      "method": "POST",
+      "content_type": "application/json",
+      "response_format": "json"
+    },
+    {
+      "id": "check_errors",
+      "name": "Check Errors",
+      "description": "View all error events in the system",
+      "type": "function",
+      "category": "troubleshooting",
+      "parameters": {
+        "type": "object",
+        "properties": {}
+      },
+      "endpoint": "http://localhost:5050/operator/errors",
+      "method": "GET",
+      "response_format": "json"
+    },
+    {
+      "id": "health_check",
+      "name": "Health Check",
+      "description": "Check the health status of Shadow Operator Core, n8n, Ollama, and all dependencies",
+      "type": "function",
+      "category": "monitoring",
+      "parameters": {
+        "type": "object",
+        "properties": {}
+      },
+      "endpoint": "http://localhost:5050/operator/health",
+      "method": "GET",
+      "response_format": "json"
+    }
+  ],
+  "metadata": {
+    "version": "1.0.0",
+    "description": "Shadow Operator Core tool definitions for Open WebUI integration",
+    "created": "2026-05-01",
+    "base_url": "http://localhost:5050",
+    "safety_notes": [
+      "All tools respect mode-based access control",
+      "Approve and replay tools trigger real n8n workflows",
+      "Cost gates (Kubera) prevent expensive operations",
+      "Policy gates (Yama) enforce safe operations",
+      "All operations are fully audited"
+    ]
+  }
+}

@@ -1,0 +1,7 @@
+At C:\ShadowEmpire-Git\scripts\operator\start-operator.ps1:59 char:33
++ Write-Host "Operator API stopped" -ForegroundColor Yellow
++                                 ~~~~~~~~~~~~~~~~~~~~~~~~~
+The string is missing the terminator: ".
+    + CategoryInfo          : ParserError: (:) [], ParseException
+    + FullyQualifiedErrorId : TerminatorExpectedAtEndOfString
+ 

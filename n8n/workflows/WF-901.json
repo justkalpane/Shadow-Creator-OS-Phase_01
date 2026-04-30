@@ -290,5 +290,6 @@
     "executionOrder": "v1"
   },
   "staticData": null,
-  "pinData": {}
+  "pinData": {},
+  "active": true
 }

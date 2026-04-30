@@ -7,6 +7,13 @@ export default defineConfig({
     port: 3003,
     host: '0.0.0.0',
     strictPort: true,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:5002',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, '/api'),
+      },
+    },
   },
   build: {
     outDir: 'dist',

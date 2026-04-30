@@ -175,5 +175,6 @@
     "next_workflow": "WF-020",
     "canonical_file": "n8n/workflows/CWF-340.json",
     "wf900_error_route": "WF-900"
-  }
+  },
+  "active": true
 }

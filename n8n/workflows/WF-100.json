@@ -483,5 +483,6 @@
       ],
       "notes": "Chain runs CWF-110/120/130/140 BEFORE Pack Validation. Each Capture node maps sub-workflow output to $json.cwfXXX_result so Pack Validation sees real child results."
     }
-  }
+  },
+  "active": true
 }

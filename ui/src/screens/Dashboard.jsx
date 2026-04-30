@@ -1,211 +1,116 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useAppStore } from '../store/useAppStore';
-import { workflowApi } from '../api/n8nClient';
 
 export default function Dashboard() {
-  const navigate = useNavigate();
-  const { setCurrentScreen, selectedMode, selectedModel } = useAppStore();
-  const [dossiers, setDossiers] = useState([]);
-  const [stats, setStats] = useState({
-    totalExecutions: 0,
-    successRate: 0,
-    errorCount: 0,
-    totalCost: '$0.00',
+  const { selectedMode, setCurrentScreen } = useAppStore();
+  const [data, setData] = useState({
+    dossiers: { count: 0, source: 'data/se_dossier_index.json', loaded: null, error: null },
+    packets: { count: 0, source: 'data/se_packet_index.json', loaded: null, error: null },
+    routes: { count: 0, source: 'data/se_route_runs.json', loaded: null, error: null },
+    errors: { count: 0, source: 'data/se_error_events.json', loaded: null, error: null },
+    approvals: { count: 0, source: 'data/se_approval_queue.json', loaded: null, error: null },
   });
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [executing, setExecuting] = useState(false);
 
   useEffect(() => {
     setCurrentScreen('dashboard');
-    loadDossiers();
+    loadData();
   }, [setCurrentScreen]);
 
-  const loadDossiers = async () => {
-    try {
-      setLoading(true);
-      setError(null);
+  const loadData = async () => {
+    const sources = [
+      { key: 'dossiers', url: '/data/se_dossier_index.json', getCount: (d) => d.records?.length || d.dossiers?.length || 0 },
+      { key: 'packets', url: '/data/se_packet_index.json', getCount: (d) => d.packets?.length || d.records?.length || 0 },
+      { key: 'routes', url: '/data/se_route_runs.json', getCount: (d) => d.records?.length || 0 },
+      { key: 'errors', url: '/data/se_error_events.json', getCount: (d) => d.records?.length || 0 },
+      { key: 'approvals', url: '/data/se_approval_queue.json', getCount: (d) => d.entries?.length || d.queue?.length || 0 },
+    ];
 
-      // Load dossier index from public directory
-      const response = await fetch('/data/se_dossier_index.json');
-      if (!response.ok) throw new Error(`Failed to load dossier index (${response.status})`);
+    const updated = { ...data };
 
-      const data = await response.json();
-      const dossierList = data.dossiers || [];
-
-      // Sort by creation date, newest first
-      dossierList.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
-
-      setDossiers(dossierList.slice(0, 10)); // Show 10 most recent
-
-      // Calculate stats from dossiers
-      const totalDossiers = dossierList.length;
-      const approvedDossiers = dossierList.filter(d => d.status === 'APPROVED').length;
-
-      setStats({
-        totalExecutions: totalDossiers,
-        successRate: totalDossiers > 0 ? Math.round((approvedDossiers / totalDossiers) * 100) : 0,
-        errorCount: dossierList.filter(d => d.status === 'FAILED').length,
-        totalCost: `$${(totalDossiers * 0.10).toFixed(2)}`, // Estimate
-      });
-
-      console.log(`✅ Loaded ${totalDossiers} dossiers from index`);
-    } catch (err) {
-      console.error('Error loading dossiers:', err);
-      setError(err.message);
-    } finally {
-      setLoading(false);
+    for (const { key, url, getCount } of sources) {
+      try {
+        const res = await fetch(url);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const json = await res.json();
+        updated[key] = {
+          ...updated[key],
+          count: getCount(json),
+          loaded: new Date().toLocaleTimeString(),
+          error: null,
+        };
+      } catch (err) {
+        updated[key] = {
+          ...updated[key],
+          error: err.message,
+          loaded: new Date().toLocaleTimeString(),
+        };
+      }
     }
+
+    setData(updated);
   };
 
-  const handleCreateDossier = async () => {
-    try {
-      setExecuting(true);
-      setError(null);
-
-      const payload = {
-        mode: selectedMode,
-        model: selectedModel,
-        timestamp: new Date().toISOString(),
-        ui_version: 'Phase2A',
-      };
-
-      console.log('🚀 Triggering WF-001 with payload:', payload);
-      const result = await workflowApi.createDossier(payload);
-      console.log('✅ Dossier creation workflow started:', result);
-
-      // Reload dossiers after a short delay
-      setTimeout(() => {
-        loadDossiers();
-      }, 2000);
-    } catch (err) {
-      console.error('Error creating dossier:', err);
-      setError(`Failed to create dossier: ${err.message}`);
-    } finally {
-      setExecuting(false);
-    }
-  };
+  const DataCard = ({ title, count, source, loaded, error, icon, color }) => (
+    <div className={`bg-shadow-card border rounded-lg p-6 ${color}`}>
+      <div className="flex items-start justify-between">
+        <div>
+          <p className="text-sm text-gray-400">{title}</p>
+          <p className="text-3xl font-bold mt-2">{error ? '—' : count}</p>
+          <p className="text-xs text-gray-500 mt-3">Source: {source}</p>
+          <p className="text-xs text-gray-600">{error ? `Error: ${error}` : `Loaded: ${loaded || 'pending'}`}</p>
+        </div>
+        <div className="text-4xl opacity-50">{icon}</div>
+      </div>
+    </div>
+  );
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 p-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold">Dashboard</h1>
-        <div className="text-sm text-gray-400">
-          Mode: <span className="text-blue-400 font-medium">{selectedMode}</span> | Model: <span className="text-blue-400 font-medium">{selectedModel.split('_').pop()}</span>
+        <div>
+          <h1 className="text-4xl font-bold">📊 Dashboard</h1>
+          <p className="text-sm text-gray-400 mt-2">Real data binding from canonical registries</p>
+        </div>
+        <button onClick={loadData} className="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded text-sm font-semibold">
+          🔄 Refresh
+        </button>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+        <DataCard title="Dossiers" count={data.dossiers.count} source={data.dossiers.source} loaded={data.dossiers.loaded} error={data.dossiers.error} icon="📂" color="bg-blue-900/20 border-blue-700" />
+        <DataCard title="Packets" count={data.packets.count} source={data.packets.source} loaded={data.packets.loaded} error={data.packets.error} icon="📦" color="bg-green-900/20 border-green-700" />
+        <DataCard title="Route Runs" count={data.routes.count} source={data.routes.source} loaded={data.routes.loaded} error={data.routes.error} icon="🛣️" color="bg-yellow-900/20 border-yellow-700" />
+        <DataCard title="Error Events" count={data.errors.count} source={data.errors.source} loaded={data.errors.loaded} error={data.errors.error} icon="⚠️" color="bg-red-900/20 border-red-700" />
+        <DataCard title="Approvals" count={data.approvals.count} source={data.approvals.source} loaded={data.approvals.loaded} error={data.approvals.error} icon="✅" color="bg-purple-900/20 border-purple-700" />
+      </div>
+
+      <div className="bg-shadow-card border border-gray-700 rounded-lg p-6">
+        <h2 className="text-lg font-semibold mb-4">System Information</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+          <div>
+            <p className="text-gray-400">Current Mode</p>
+            <p className="text-lg font-bold mt-1 capitalize">{selectedMode}</p>
+          </div>
+          <div>
+            <p className="text-gray-400">UI Port</p>
+            <p className="text-lg font-bold mt-1">localhost:5002</p>
+          </div>
+          <div>
+            <p className="text-gray-400">n8n Backend</p>
+            <p className="text-lg font-bold mt-1">localhost:5680</p>
+          </div>
         </div>
       </div>
 
-      {error && (
-        <div className="bg-red-900 border border-red-500 text-red-200 px-4 py-3 rounded">
-          ⚠️ Error: {error}
-        </div>
-      )}
-
-      {/* Stats Cards */}
-      <div className="grid grid-cols-4 gap-4">
-        <div className="bg-shadow-card p-6 rounded border border-gray-700 hover:border-shadow-accent transition-colors cursor-pointer">
-          <div className="text-sm text-gray-400">Total Executions</div>
-          <div className="text-3xl font-bold mt-2">{stats.totalExecutions}</div>
-          <div className="text-xs text-gray-500 mt-2">All time</div>
-        </div>
-        <div className="bg-shadow-card p-6 rounded border border-gray-700 hover:border-green-400 transition-colors cursor-pointer">
-          <div className="text-sm text-gray-400">Success Rate</div>
-          <div className="text-3xl font-bold mt-2 text-green-400">{stats.successRate}%</div>
-          <div className="text-xs text-gray-500 mt-2">{dossiers.filter(d => d.status === 'APPROVED').length} approved</div>
-        </div>
-        <div className="bg-shadow-card p-6 rounded border border-gray-700 hover:border-red-400 transition-colors cursor-pointer">
-          <div className="text-sm text-gray-400">Failed</div>
-          <div className="text-3xl font-bold mt-2 text-red-400">{stats.errorCount}</div>
-          <div className="text-xs text-gray-500 mt-2">Failed dossiers</div>
-        </div>
-        <div className="bg-shadow-card p-6 rounded border border-gray-700 hover:border-yellow-400 transition-colors cursor-pointer">
-          <div className="text-sm text-gray-400">Est. Cost</div>
-          <div className="text-3xl font-bold mt-2 text-yellow-400">{stats.totalCost}</div>
-          <div className="text-xs text-gray-500 mt-2">Phase 1 estimate</div>
-        </div>
-      </div>
-
-      {/* Quick Actions */}
-      <div className="bg-shadow-card p-6 rounded border border-gray-700">
-        <h2 className="text-xl font-semibold mb-4">Quick Actions</h2>
-        <div className="flex gap-4">
-          <button
-            onClick={handleCreateDossier}
-            disabled={executing}
-            className={`px-6 py-2 rounded transition-colors ${
-              executing ? 'bg-gray-600 cursor-not-allowed' : 'bg-shadow-accent hover:bg-blue-600'
-            }`}
-          >
-            {executing ? '⏳ Creating...' : '▶️ Create New Dossier'}
-          </button>
-          <button
-            onClick={() => navigate('/dossiers')}
-            className="px-6 py-2 bg-gray-700 rounded hover:bg-gray-600 transition-colors"
-          >
-            📋 View History
-          </button>
-          <button
-            onClick={() => navigate('/settings')}
-            className="px-6 py-2 bg-gray-700 rounded hover:bg-gray-600 transition-colors"
-          >
-            ⚙️ Settings
-          </button>
-        </div>
-      </div>
-
-      {/* Recent Dossiers */}
-      <div className="bg-shadow-card p-6 rounded border border-gray-700">
-        <h2 className="text-xl font-semibold mb-4">Recent Dossiers ({dossiers.length})</h2>
-        {loading ? (
-          <p className="text-gray-400">Loading dossiers...</p>
-        ) : dossiers.length > 0 ? (
-          <div className="space-y-2 max-h-64 overflow-y-auto">
-            {dossiers.map((dossier, idx) => (
-              <div
-                key={dossier.dossier_id || idx}
-                onClick={() => navigate(`/dossiers/${dossier.dossier_id}/inspector`)}
-                className="p-3 bg-gray-800 rounded border border-gray-600 hover:border-shadow-accent hover:bg-gray-700 transition-colors cursor-pointer"
-              >
-                <div className="flex items-center justify-between">
-                  <div>
-                    <div className="font-medium text-sm">{dossier.dossier_id}</div>
-                    <div className="text-xs text-gray-500">
-                      {new Date(dossier.created_at).toLocaleString()}
-                    </div>
-                  </div>
-                  <div className={`text-xs px-2 py-1 rounded ${
-                    dossier.status === 'APPROVED' ? 'bg-green-900 text-green-300' :
-                    dossier.status === 'FAILED' ? 'bg-red-900 text-red-300' :
-                    'bg-yellow-900 text-yellow-300'
-                  }`}>
-                    {dossier.status}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        ) : (
-          <p className="text-gray-400">No dossiers found. Create your first one!</p>
-        )}
-      </div>
-
-      {/* System Health */}
-      <div className="bg-shadow-card p-6 rounded border border-gray-700">
-        <h2 className="text-xl font-semibold mb-4">System Health</h2>
-        <div className="space-y-2">
-          <div className="flex items-center justify-between">
-            <span>n8n Connection</span>
-            <span className="text-green-400">✓ Connected (localhost:5678)</span>
-          </div>
-          <div className="flex items-center justify-between">
-            <span>Ollama Models</span>
-            <span className="text-green-400">✓ Available</span>
-          </div>
-          <div className="flex items-center justify-between">
-            <span>Local Dossiers</span>
-            <span className="text-blue-400">✓ {dossiers.length} loaded</span>
-          </div>
+      <div className="bg-shadow-card border border-gray-700 rounded-lg p-6">
+        <h3 className="font-semibold mb-2">Data Sources</h3>
+        <div className="text-xs text-gray-400 space-y-1 font-mono">
+          <p>📄 /data/se_dossier_index.json — Dossier registry</p>
+          <p>📄 /data/se_packet_index.json — Generated artifacts</p>
+          <p>📄 /data/se_route_runs.json — Workflow executions</p>
+          <p>📄 /data/se_error_events.json — Error tracking</p>
+          <p>📄 /data/se_approval_queue.json — Content approvals</p>
+          <p>🔗 /api/chat/message — Real orchestration pipeline</p>
         </div>
       </div>
     </div>

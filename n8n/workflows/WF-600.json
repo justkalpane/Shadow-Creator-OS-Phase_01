@@ -421,5 +421,6 @@
       ],
       "notes": "Chain runs all children BEFORE Pack Validation. Capture nodes preserve sub-workflow outputs as cwfXXX_result fields."
     }
-  }
+  },
+  "active": true
 }

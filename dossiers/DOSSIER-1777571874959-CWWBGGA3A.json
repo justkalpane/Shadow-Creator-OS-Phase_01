@@ -1,0 +1,38 @@
+{
+  "dossier_id": "DOSSIER-1777571874959-CWWBGGA3A",
+  "route_id": "ROUTE_PHASE1_STANDARD",
+  "current_workflow": "WF-001",
+  "created_at": "2026-04-30T17:57:54.972Z",
+  "last_updated": "2026-04-30T17:57:54.972Z",
+  "status": "INTAKE_INITIALIZED",
+  "namespaces": {
+    "system": {
+      "dossier_id": "DOSSIER-1777571874959-CWWBGGA3A",
+      "route_id": "ROUTE_PHASE1_STANDARD",
+      "owner_workflow": "WF-001",
+      "created_at": "2026-04-30T17:57:54.972Z",
+      "version": 1
+    },
+    "intake": {
+      "topic": "Test Job V3",
+      "intake_timestamp": "2026-04-30T17:57:54.972Z",
+      "intake_source": "manual_user_input",
+      "intake_metadata": {
+        "user_mode": "creator",
+        "selected_route": "ROUTE_PHASE1_STANDARD"
+      },
+      "version": 1
+    }
+  },
+  "_version": 1,
+  "_created_at": "2026-04-30T17:57:54.972Z",
+  "_last_updated_at": "2026-04-30T17:57:55.000Z",
+  "_audit_trail": [
+    {
+      "timestamp": "2026-04-30T17:57:55.000Z",
+      "workflow_id": "WF-001",
+      "operation": "DOSSIER_CREATE",
+      "notes": "Initial dossier created by WF-001"
+    }
+  ]
+}

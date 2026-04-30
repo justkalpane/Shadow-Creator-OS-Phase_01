@@ -1,7 +1,7 @@
 {
   "dossier_id": "DOSSIER-HARNESS-REJECT-1776786598260",
-  "_version": 9,
-  "_created_at": "2026-04-21T15:49:58.265Z",
+  "created_at": "2026-04-30T17:20:25.172Z",
+  "status": "APPROVED",
   "namespaces": {
     "discovery": {
       "CWF-110-topic-discovery": {
@@ -107,8 +107,23 @@
           }
         ]
       }
+    },
+    "approval": {
+      "decisions": [
+        {
+          "timestamp": "2026-04-30T17:20:25.172Z",
+          "workflow_id": "WF-020",
+          "packet_id": "WF-020-1777569625156",
+          "decision": "APPROVED",
+          "route_next": null
+        }
+      ],
+      "latest_decision": "APPROVED",
+      "last_decision_at": "2026-04-30T17:20:25.172Z"
     }
   },
+  "_version": 10,
+  "_created_at": "2026-04-21T15:49:58.265Z",
   "_audit_trail": [
     {
       "mutation_id": "MUT-1776786598265-3ao0kxacq",
@@ -226,6 +241,15 @@
       "version_before": 8,
       "version_after": 9,
       "lineage_intact": true
+    },
+    {
+      "timestamp": "2026-04-30T17:20:25.172Z",
+      "workflow_id": "WF-020",
+      "operation": "APPROVAL_DECISION_APPEND",
+      "decision": "APPROVED",
+      "notes": "append approval decision into dossier namespace"
     }
-  ]
+  ],
+  "last_updated": "2026-04-30T17:20:25.172Z",
+  "_last_updated_at": "2026-04-30T17:20:25.172Z"
 }

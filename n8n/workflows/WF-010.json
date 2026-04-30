@@ -720,5 +720,6 @@
       ],
       "notes": "WF-010 ingress webhook now fires the full Phase-1 chain through n8n executeWorkflow nodes."
     }
-  }
+  },
+  "active": true
 }

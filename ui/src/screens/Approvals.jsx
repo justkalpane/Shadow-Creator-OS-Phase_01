@@ -1,51 +1,60 @@
-import { useAppStore } from '../store/useAppStore';
+import { useNavigate } from 'react-router-dom';
 import ScreenGate from '../components/ScreenGate';
 import DataTable from '../components/widgets/DataTable';
-import StatCard from '../components/widgets/StatCard';
 import StatusBadge from '../components/widgets/StatusBadge';
+import { useAppStore } from '../store/useAppStore';
 import { useApprovalQueue } from '../hooks/useApprovalQueue';
 
 export default function Approvals() {
-  const { selectedMode } = useAppStore();
+  const navigate = useNavigate();
   const approvals = useApprovalQueue(false);
-
+  const { selectedMode } = useAppStore();
   const isFounder = selectedMode === 'founder';
 
   const columns = [
-    { key: 'dossier_ref', label: 'Dossier', sortable: true },
-    { key: 'artifact_family', label: 'Artifact Type', sortable: true },
-    { key: 'approval_type', label: 'Approval Type', sortable: true },
+    { key: 'queue_entry_id', label: 'Entry ID', sortable: true, render: (val) => val?.substring(0, 20) || '—' },
+    { key: 'dossier_ref', label: 'Dossier', sortable: true, render: (val) => val?.substring(0, 20) || '—' },
+    { key: 'approval_type', label: 'Type', sortable: true },
     { key: 'status', label: 'Status', sortable: true, render: (val) => <StatusBadge status={val} /> },
-    {
-      key: 'created_at',
-      label: 'Created',
-      sortable: true,
-      render: (val) => val ? new Date(val).toLocaleString() : '—'
-    },
+    { key: 'created_at', label: 'Created', sortable: true, render: (val) => new Date(val).toLocaleString() },
+    { key: 'owner_director', label: 'Owner', sortable: true },
   ];
 
-  const pendingApprovals = approvals.getByStatus('PENDING');
-  const resolvedApprovals = approvals.getByStatus('RESOLVED');
-
-  const approvalTypeCounts = approvals.countByApprovalType();
-
-  const handleApprove = (queueEntry) => {
-    if (!isFounder) return;
-    console.log('Approving:', queueEntry.queue_entry_id);
-    alert(`Approved: ${queueEntry.queue_entry_id}\n(In a real system, this would trigger WF-010)`);
+  const handleApprove = async (row) => {
+    try {
+      const response = await fetch(`/api/chat/dossiers/${row.dossier_ref}/approve`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ user_mode: selectedMode }),
+      });
+      if (response.ok) {
+        approvals.refresh();
+      }
+    } catch (err) {
+      console.error('Approval error:', err);
+    }
   };
 
-  const handleReject = (queueEntry) => {
-    if (!isFounder) return;
-    console.log('Rejecting:', queueEntry.queue_entry_id);
-    alert(`Rejected: ${queueEntry.queue_entry_id}`);
+  const handleReject = async (row) => {
+    const feedback = prompt('Enter rejection feedback:');
+    if (feedback) {
+      try {
+        const response = await fetch(`/api/chat/dossiers/${row.dossier_ref}/reject`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ user_mode: selectedMode, feedback }),
+        });
+        if (response.ok) {
+          approvals.refresh();
+        }
+      } catch (err) {
+        console.error('Rejection error:', err);
+      }
+    }
   };
 
-  const handleRemodify = (queueEntry) => {
-    if (!isFounder) return;
-    console.log('Requesting remodify:', queueEntry.queue_entry_id);
-    alert(`Remodify requested: ${queueEntry.queue_entry_id}\n(Would trigger workflow)`);
-  };
+  const pendingCount = approvals.data.filter(a => a.status === 'PENDING').length;
+  const resolvedCount = approvals.data.filter(a => a.status === 'RESOLVED').length;
 
   return (
     <ScreenGate screenId="SCR-004">
@@ -60,148 +69,42 @@ export default function Approvals() {
           </button>
         </div>
 
-        {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <StatCard
-            title="Pending"
-            value={approvals.getPendingCount()}
-            subtext="Awaiting decision"
-            color="yellow"
-            icon="⏳"
-            loading={approvals.loading}
-          />
-          <StatCard
-            title="Resolved"
-            value={approvals.getResolvedCount()}
-            subtext="Completed"
-            color="green"
-            icon="✓"
-            loading={approvals.loading}
-          />
-          <StatCard
-            title="Total"
-            value={approvals.getTotalCount()}
-            subtext="All-time queue entries"
-            color="blue"
-            icon="📋"
-            loading={approvals.loading}
-          />
+          <div className="bg-shadow-card border border-gray-700 rounded p-4">
+            <p className="text-sm text-gray-400">Total Entries</p>
+            <p className="text-2xl font-bold mt-2">{approvals.getTotalCount()}</p>
+          </div>
+          <div className="bg-shadow-card border border-gray-700 rounded p-4">
+            <p className="text-sm text-gray-400">Pending Review</p>
+            <p className="text-2xl font-bold mt-2 text-yellow-400">{pendingCount}</p>
+          </div>
+          <div className="bg-shadow-card border border-gray-700 rounded p-4">
+            <p className="text-sm text-gray-400">Resolved</p>
+            <p className="text-2xl font-bold mt-2 text-green-400">{resolvedCount}</p>
+          </div>
         </div>
 
-        {/* Pending Approvals Table */}
         <div>
-          <h2 className="text-xl font-semibold mb-4">
-            Pending Approvals ({pendingApprovals.length})
-          </h2>
+          <h2 className="text-xl font-semibold mb-4">Queue Items</h2>
           <DataTable
             columns={columns}
-            data={pendingApprovals}
+            data={approvals.data}
             loading={approvals.loading}
             error={approvals.error}
             actions={isFounder ? [
               {
                 label: '✓ Approve',
-                className: 'bg-green-700 hover:bg-green-600',
-                onClick: handleApprove
+                className: 'bg-green-700 hover:bg-green-600 text-white',
+                onClick: (row) => handleApprove(row)
               },
               {
-                label: '✗ Reject',
-                className: 'bg-red-700 hover:bg-red-600',
-                onClick: handleReject
-              },
-              {
-                label: '↻ Remodify',
-                className: 'bg-yellow-700 hover:bg-yellow-600',
-                onClick: handleRemodify
+                label: '✕ Reject',
+                className: 'bg-red-700 hover:bg-red-600 text-white',
+                onClick: (row) => handleReject(row)
               }
-            ] : undefined}
+            ] : []}
           />
         </div>
-
-        {/* Approval Type Breakdown */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* By Type */}
-          <div className="bg-shadow-card p-6 rounded border border-gray-700">
-            <h3 className="text-lg font-semibold mb-4">Breakdown by Type</h3>
-            <div className="space-y-3 text-sm">
-              {Object.entries(approvalTypeCounts)
-                .sort(([, a], [, b]) => b - a)
-                .map(([type, count]) => (
-                  <div key={type} className="flex justify-between items-center">
-                    <span className="text-gray-300">{type}</span>
-                    <span className="font-semibold text-shadow-accent">{count}</span>
-                  </div>
-                ))}
-            </div>
-          </div>
-
-          {/* Status Timeline */}
-          <div className="bg-shadow-card p-6 rounded border border-gray-700">
-            <h3 className="text-lg font-semibold mb-4">Approval Status</h3>
-            <div className="space-y-4 text-sm">
-              <div className="flex justify-between">
-                <span className="text-gray-300">In Review</span>
-                <span className="font-semibold text-yellow-400">
-                  {pendingApprovals.filter(a => a.status === 'PENDING').length}
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-300">Approved</span>
-                <span className="font-semibold text-green-400">
-                  {resolvedApprovals.filter(a => a.resolution === 'approved').length}
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-300">Rejected</span>
-                <span className="font-semibold text-red-400">
-                  {resolvedApprovals.filter(a => a.resolution === 'rejected').length}
-                </span>
-              </div>
-              <div className="border-t border-gray-600 pt-3 flex justify-between">
-                <span className="text-gray-300">Approval Rate</span>
-                <span className="font-semibold text-green-400">
-                  {resolvedApprovals.length > 0
-                    ? Math.round((resolvedApprovals.filter(a => a.resolution === 'approved').length / resolvedApprovals.length) * 100)
-                    : 0}%
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Recent Resolved Approvals */}
-        <div className="bg-shadow-card p-6 rounded border border-gray-700">
-          <h3 className="text-lg font-semibold mb-4">Recent Resolutions</h3>
-          <div className="space-y-2 max-h-64 overflow-y-auto">
-            {resolvedApprovals.slice(0, 10).map((approval) => (
-              <div
-                key={approval.queue_entry_id}
-                className="p-3 bg-gray-800 rounded border border-gray-600 hover:border-gray-500"
-              >
-                <div className="flex items-start justify-between mb-1">
-                  <span className="text-sm font-medium text-gray-200">{approval.dossier_ref}</span>
-                  <StatusBadge
-                    status={approval.resolution === 'approved' ? 'APPROVED' : 'FAILED'}
-                    size="sm"
-                  />
-                </div>
-                <div className="flex items-center justify-between text-xs text-gray-500">
-                  <span>{approval.artifact_family}</span>
-                  <span>{approval.created_at ? new Date(approval.created_at).toLocaleString() : '—'}</span>
-                </div>
-              </div>
-            ))}
-            {resolvedApprovals.length === 0 && (
-              <p className="text-gray-400 text-sm">No resolved approvals yet</p>
-            )}
-          </div>
-        </div>
-
-        {!isFounder && (
-          <div className="bg-blue-900 border border-blue-500 text-blue-200 px-4 py-3 rounded">
-            ℹ️ You need Founder mode to approve, reject, or request modifications.
-          </div>
-        )}
       </div>
     </ScreenGate>
   );

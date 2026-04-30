@@ -1,0 +1,38 @@
+{
+  "dossier_id": "DOSSIER-1777571990812-80TOHPD51",
+  "route_id": "ROUTE_PHASE1_STANDARD",
+  "current_workflow": "WF-001",
+  "created_at": "2026-04-30T17:59:50.834Z",
+  "last_updated": "2026-04-30T17:59:50.834Z",
+  "status": "INTAKE_INITIALIZED",
+  "namespaces": {
+    "system": {
+      "dossier_id": "DOSSIER-1777571990812-80TOHPD51",
+      "route_id": "ROUTE_PHASE1_STANDARD",
+      "owner_workflow": "WF-001",
+      "created_at": "2026-04-30T17:59:50.834Z",
+      "version": 1
+    },
+    "intake": {
+      "topic": "Final Test - Complete Deployment",
+      "intake_timestamp": "2026-04-30T17:59:50.834Z",
+      "intake_source": "manual_user_input",
+      "intake_metadata": {
+        "user_mode": "creator",
+        "selected_route": "ROUTE_PHASE1_STANDARD"
+      },
+      "version": 1
+    }
+  },
+  "_version": 1,
+  "_created_at": "2026-04-30T17:59:50.834Z",
+  "_last_updated_at": "2026-04-30T17:59:50.878Z",
+  "_audit_trail": [
+    {
+      "timestamp": "2026-04-30T17:59:50.878Z",
+      "workflow_id": "WF-001",
+      "operation": "DOSSIER_CREATE",
+      "notes": "Initial dossier created by WF-001"
+    }
+  ]
+}
