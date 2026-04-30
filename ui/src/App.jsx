@@ -4,7 +4,7 @@ import Layout from './components/Layout';
 // Screen components (18 total)
 import Dashboard from './screens/Dashboard';
 import Overview from './screens/Overview';
-import Routes from './screens/Routes';
+import RoutesScreen from './screens/Routes';
 import Dossiers from './screens/Dossiers';
 import Approvals from './screens/Approvals';
 import Errors from './screens/Errors';
@@ -46,7 +46,7 @@ function App() {
 
           {/* Core Screens - Phase 2 */}
           <Route path="/overview" element={<Overview />} />
-          <Route path="/routes" element={<Routes />} />
+          <Route path="/routes" element={<RoutesScreen />} />
           <Route path="/dossiers" element={<Dossiers />} />
           <Route path="/approvals" element={<Approvals />} />
           <Route path="/errors" element={<Errors />} />
