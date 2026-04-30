@@ -1,0 +1,69 @@
+version: 1
+registry_id: task_intent_registry
+description: Intent mapping used by chat orchestration.
+
+intents:
+  new_content_job:
+    label: Create New Content
+    entry_workflow: WF-010
+    child_workflows: [WF-100, WF-200, WF-300, WF-400, WF-500, WF-020]
+    allowed_modes: [founder, creator, operator]
+    approval_required: true
+    replay_eligible: true
+
+  generate_topic_ideas:
+    label: Generate Topic Ideas
+    entry_workflow: WF-100
+    child_workflows: [CWF-110, CWF-120, CWF-130, CWF-140]
+    allowed_modes: [founder, creator]
+    approval_required: false
+    replay_eligible: true
+
+  generate_script:
+    label: Generate Script
+    entry_workflow: WF-200
+    child_workflows: [CWF-210, CWF-220, CWF-230, CWF-240]
+    allowed_modes: [founder, creator]
+    approval_required: false
+    replay_eligible: true
+
+  generate_thumbnail_concept:
+    label: Generate Thumbnail Concept
+    entry_workflow: WF-400
+    child_workflows: [CWF-410]
+    allowed_modes: [founder, creator]
+    approval_required: false
+    replay_eligible: false
+
+  generate_metadata:
+    label: Generate Metadata
+    entry_workflow: WF-500
+    child_workflows: [CWF-510, CWF-520, CWF-530]
+    allowed_modes: [founder, creator]
+    approval_required: false
+    replay_eligible: false
+
+  approve_output:
+    label: Approve Output
+    entry_workflow: WF-020
+    child_workflows: []
+    allowed_modes: [founder]
+    approval_required: false
+    replay_eligible: false
+
+  reject_and_remodify:
+    label: Reject and Remodify
+    entry_workflow: WF-021
+    child_workflows: []
+    allowed_modes: [founder]
+    approval_required: false
+    replay_eligible: true
+
+  troubleshoot_error:
+    label: Troubleshoot Error
+    entry_workflow: WF-900
+    child_workflows: []
+    allowed_modes: [founder, builder, operator]
+    approval_required: false
+    replay_eligible: true
+

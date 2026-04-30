@@ -1,0 +1,132 @@
+version: 1
+registry_id: n8n_webhook_registry
+description: Exact webhook contracts used by GUI/chat runtime.
+
+webhooks:
+  WF-000:
+    name: health_check
+    method: POST
+    webhook_path: /webhook/2XbiFukLUjedBnOo/trigger%2520node/wf-000-health-check
+    production_enabled: true
+    trigger_mode: ingress
+    required_payload_fields: []
+    expected_response_fields: []
+    notes: Direct ingress webhook.
+
+  WF-001:
+    name: dossier_create
+    method: POST
+    webhook_path: /webhook/msf8SHcqYEdSdi7S/trigger%2520node/wf-001-dossier-create
+    production_enabled: true
+    trigger_mode: ingress
+    required_payload_fields:
+      - topic
+      - context
+      - mode
+    expected_response_fields:
+      - dossier_id
+    notes: Live n8n uses workflow-id scoped production webhook path.
+
+  WF-010:
+    name: parent_orchestrator
+    method: POST
+    webhook_path: /webhook/FTodwkmEuTFeIWRd/trigger%2520node/wf-010-parent-orchestrator
+    production_enabled: true
+    trigger_mode: ingress
+    required_payload_fields:
+      - dossier_id
+      - route_id
+      - user_mode
+      - intent_id
+    expected_response_fields:
+      - execution_status
+
+  WF-020:
+    name: final_approval
+    method: POST
+    webhook_path: /webhook/xOeKLfjudlc8OFiB/trigger%2520node/wf-020-final-approval
+    production_enabled: true
+    trigger_mode: ingress
+    required_payload_fields:
+      - dossier_id
+      - decision
+    expected_response_fields:
+      - approval_decision
+      - execution_status
+
+  WF-021:
+    name: replay_remodify
+    method: POST
+    webhook_path: /webhook/5fG18tfg8QkVJa4I/trigger%2520node/wf-021-replay-remodify
+    production_enabled: true
+    trigger_mode: ingress
+    required_payload_fields:
+      - dossier_id
+      - stage
+      - checkpoint
+    expected_response_fields:
+      - execution_status
+
+  WF-100:
+    name: topic_intelligence_pack
+    method: INTERNAL
+    trigger_mode: child_via_parent_orchestrator
+    production_enabled: true
+    required_payload_fields: []
+    expected_response_fields: []
+    notes: Called via WF-010 executeWorkflow.
+
+  WF-200:
+    name: script_intelligence_pack
+    method: INTERNAL
+    trigger_mode: child_via_parent_orchestrator
+    production_enabled: true
+    required_payload_fields: []
+    expected_response_fields: []
+
+  WF-300:
+    name: context_engineering_pack
+    method: INTERNAL
+    trigger_mode: child_via_parent_orchestrator
+    production_enabled: true
+    required_payload_fields: []
+    expected_response_fields: []
+
+  WF-400:
+    name: media_production_pack
+    method: INTERNAL
+    trigger_mode: child_via_parent_orchestrator
+    production_enabled: true
+    required_payload_fields: []
+    expected_response_fields: []
+
+  WF-500:
+    name: publishing_distribution_pack
+    method: POST
+    webhook_path: /webhook/e48l3HifOTrE59Hf/trigger%2520node/wf-500-publishing-distribution
+    production_enabled: true
+    trigger_mode: ingress_or_internal
+    required_payload_fields:
+      - dossier_id
+    expected_response_fields:
+      - execution_status
+
+  WF-600:
+    name: analytics_pack
+    method: INTERNAL
+    trigger_mode: child_via_parent_orchestrator
+    production_enabled: true
+    required_payload_fields: []
+    expected_response_fields: []
+
+  WF-900:
+    name: error_handler
+    method: INTERNAL
+    trigger_mode: error_handler_only
+    production_enabled: true
+    required_payload_fields:
+      - error_type
+      - dossier_id
+    expected_response_fields:
+      - recovery_plan
+      - next_action
