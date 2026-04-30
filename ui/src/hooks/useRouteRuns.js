@@ -12,7 +12,7 @@ export const useRouteRuns = (autoRefresh = false) => {
       const response = await fetch('/data/se_route_runs.json');
       if (!response.ok) throw new Error(`Failed to load route runs (${response.status})`);
       const json = await response.json();
-      setData(json.route_runs || []);
+      setData(json.records || json.route_runs || []);
     } catch (err) {
       setError(err.message);
       console.error('Error loading route runs:', err);

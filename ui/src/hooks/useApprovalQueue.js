@@ -12,7 +12,7 @@ export const useApprovalQueue = (autoRefresh = false) => {
       const response = await fetch('/data/se_approval_queue.json');
       if (!response.ok) throw new Error(`Failed to load approval queue (${response.status})`);
       const json = await response.json();
-      setData(json.approval_queue || []);
+      setData(json.entries || json.approval_queue || []);
     } catch (err) {
       setError(err.message);
       console.error('Error loading approval queue:', err);

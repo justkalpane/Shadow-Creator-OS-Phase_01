@@ -12,7 +12,7 @@ export const useDossierData = (autoRefresh = false) => {
       const response = await fetch('/data/se_dossier_index.json');
       if (!response.ok) throw new Error(`Failed to load dossiers (${response.status})`);
       const json = await response.json();
-      setData(json.dossiers || []);
+      setData(json.records || json.dossiers || []);
     } catch (err) {
       setError(err.message);
       console.error('Error loading dossiers:', err);
