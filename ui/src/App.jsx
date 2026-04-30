@@ -3,6 +3,11 @@ import Layout from './components/Layout';
 
 // Screen components (18 total)
 import Dashboard from './screens/Dashboard';
+import Overview from './screens/Overview';
+import Routes from './screens/Routes';
+import Dossiers from './screens/Dossiers';
+import Approvals from './screens/Approvals';
+import Errors from './screens/Errors';
 import MissionControl from './screens/MissionControl';
 import WorkflowMonitor from './screens/WorkflowMonitor';
 import DossierViewer from './screens/DossierViewer';
@@ -35,12 +40,21 @@ function App() {
     <Router>
       <Layout>
         <Routes>
+          {/* Primary Dashboard */}
           <Route path="/" element={<Dashboard />} />
           <Route path="/dashboard" element={<Dashboard />} />
+
+          {/* Core Screens - Phase 2 */}
+          <Route path="/overview" element={<Overview />} />
+          <Route path="/routes" element={<Routes />} />
+          <Route path="/dossiers" element={<Dossiers />} />
+          <Route path="/approvals" element={<Approvals />} />
+          <Route path="/errors" element={<Errors />} />
+
+          {/* Existing/Advanced Screens */}
           <Route path="/mission-control" element={<MissionControl />} />
           <Route path="/workflows" element={<PlaceholderScreen title="Workflows" description="List and monitor all workflows" />} />
           <Route path="/workflows/:workflowId/monitor" element={<WorkflowMonitor />} />
-          <Route path="/dossiers" element={<PlaceholderScreen title="Dossiers" description="Browse all dossiers and their history" />} />
           <Route path="/dossiers/:dossierId/inspector" element={<DossierViewer />} />
           <Route path="/pipelines/topic-intelligence" element={<TopicPipeline />} />
           <Route path="/research" element={<PlaceholderScreen title="Research" description="View research outputs and evidence" />} />
