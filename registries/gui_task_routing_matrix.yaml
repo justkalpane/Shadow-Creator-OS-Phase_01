@@ -1,0 +1,196 @@
+---
+# GUI Task Routing Matrix
+# Maps every GUI option to its complete execution chain
+# Source of truth for GUI → Workflow mapping
+
+gui_tasks:
+  universal_author_window:
+    id: universal_author_window
+    label: "Universal Author Window"
+    description: "Natural language command orchestration"
+    is_main_interface: true
+    accepts_freeform_input: true
+    task_intent_resolver: "smart_intent_resolver"
+
+  new_content_job:
+    id: new_content_job
+    label: "Create New Content"
+    user_input:
+      - topic
+      - audience
+      - platform
+      - duration
+      - style
+    entry_workflow: "WF-001"
+    workflow_chain: ["WF-001", "WF-010", "WF-100", "WF-200", "WF-300", "WF-400", "WF-500", "WF-020"]
+    primary_director: "Krishna"
+    supporting_directors: ["Narada", "Chanakya", "Vyasa", "Saraswati", "Durga", "Yama", "Kubera"]
+    agent_layer: ["Wf001SubAgent", "WF010SubAgent", "WF100SubAgent", "WF200SubAgent", "WF300SubAgent", "WF400SubAgent", "WF500SubAgent", "WF020SubAgent"]
+    allowed_modes: ["founder", "creator"]
+    outputs: ["dossier", "topic_packet", "script_packet", "context_packet", "media_packet", "metadata_packet"]
+    approval_required: true
+    replay_supported: true
+    visible_progress_tree: true
+
+  generate_topic_ideas:
+    id: generate_topic_ideas
+    label: "Generate Topic Ideas"
+    entry_workflow: "WF-100"
+    workflow_chain: ["WF-100"]
+    child_workflows: ["CWF-110", "CWF-120", "CWF-130"]
+    primary_director: "Narada"
+    supporting_directors: ["Chanakya", "Krishna", "Chandra"]
+    allowed_modes: ["founder", "creator"]
+    outputs: ["topic_candidate_board", "topic_scorecard"]
+    approval_required: false
+    visible_progress_tree: true
+
+  debate_script:
+    id: debate_script
+    label: "Debate Script Quality"
+    requires_prior_output: ["script_packet"]
+    entry_workflow: "WF-200"
+    child_workflows: ["CWF-220"]
+    primary_director: "Krishna"
+    supporting_directors: ["Durga", "Yama", "Saraswati", "Ravana"]
+    allowed_modes: ["founder", "creator", "builder"]
+    outputs: ["script_debate_packet", "critique_list", "repair_instructions"]
+    approval_required: false
+    visible_progress_tree: true
+
+  generate_thumbnail_concept:
+    id: generate_thumbnail_concept
+    label: "Generate Thumbnail Concept"
+    requires_prior_output: ["script_packet"]
+    entry_workflow: "WF-400"
+    child_workflows: ["CWF-410"]
+    primary_director: "Durga"
+    supporting_directors: ["Saraswati", "Maya", "Krishna"]
+    allowed_modes: ["founder", "creator"]
+    outputs: ["thumbnail_concept_packet"]
+    provider_required: false
+    provider_boundary: "Concept only - actual image generation requires provider"
+    approval_required: false
+    visible_progress_tree: true
+
+  generate_metadata:
+    id: generate_metadata
+    label: "Generate Metadata"
+    requires_prior_output: ["script_packet"]
+    entry_workflow: "WF-500"
+    child_workflows: ["CWF-510", "CWF-520", "CWF-530"]
+    primary_director: "Chanakya"
+    supporting_directors: ["Krishna", "Saraswati", "Yama"]
+    allowed_modes: ["founder", "creator"]
+    outputs: ["platform_metadata_packet", "distribution_plan_packet"]
+    approval_required: false
+    visible_progress_tree: true
+
+  approve_output:
+    id: approve_output
+    label: "Approve & Publish"
+    requires_prior_output: ["dossier"]
+    entry_workflow: "WF-020"
+    primary_director: "Yama"
+    supporting_directors: ["Kubera", "Krishna"]
+    allowed_modes: ["founder"]
+    outputs: ["approval_record"]
+    approval_required: false
+    triggers_next: ["WF-600"]
+    visible_progress_tree: true
+
+  reject_and_remodify:
+    id: reject_and_remodify
+    label: "Reject & Request Changes"
+    requires_prior_output: ["dossier"]
+    requires_input: ["rejection_reason", "target_workflow"]
+    entry_workflow: "WF-021"
+    primary_director: "Krishna"
+    supporting_directors: ["Saraswati", "Durga", "Yama"]
+    allowed_modes: ["founder"]
+    outputs: ["replay_plan", "remodified_packet"]
+    replay_supported: true
+    visible_progress_tree: true
+
+  troubleshoot_error:
+    id: troubleshoot_error
+    label: "Troubleshoot Error"
+    requires_prior_output: ["dossier"]
+    entry_workflow: "WF-900"
+    primary_director: "Yama"
+    supporting_directors: ["Krishna", "Chitragupta", "Vayu"]
+    allowed_modes: ["founder", "builder", "operator"]
+    outputs: ["error_trace", "recovery_plan"]
+    visible_progress_tree: true
+
+# Workflow definitions with director assignments
+workflows:
+  WF-001:
+    name: "Dossier Creation"
+    primary_director: "Krishna"
+    sub_agents: ["Wf001SubAgent"]
+    skills: ["dossier_initialization", "metadata_setup"]
+    duration_estimate_ms: 500
+
+  WF-010:
+    name: "Parent Orchestration"
+    primary_director: "Krishna"
+    sub_agents: ["WF010SubAgent"]
+    child_workflows: ["WF-100", "WF-200", "WF-300", "WF-400", "WF-500"]
+    duration_estimate_ms: 30000
+
+  WF-100:
+    name: "Topic Intelligence"
+    primary_director: "Narada"
+    sub_agents: ["WF100SubAgent"]
+    child_workflows: ["CWF-110", "CWF-120", "CWF-130", "CWF-140"]
+    duration_estimate_ms: 5000
+
+  WF-200:
+    name: "Script Intelligence"
+    primary_director: "Vyasa"
+    sub_agents: ["WF200SubAgent"]
+    child_workflows: ["CWF-210", "CWF-220", "CWF-230", "CWF-240"]
+    duration_estimate_ms: 8000
+
+  WF-300:
+    name: "Context Engineering"
+    primary_director: "Krishna"
+    sub_agents: ["WF300SubAgent"]
+    child_workflows: ["CWF-310", "CWF-320", "CWF-330", "CWF-340"]
+    duration_estimate_ms: 3000
+
+  WF-400:
+    name: "Media Production Planning"
+    primary_director: "Durga"
+    sub_agents: ["WF400SubAgent"]
+    child_workflows: ["CWF-410", "CWF-420", "CWF-430", "CWF-440"]
+    duration_estimate_ms: 4000
+
+  WF-500:
+    name: "Publishing Distribution"
+    primary_director: "Chanakya"
+    sub_agents: ["WF500SubAgent"]
+    child_workflows: ["CWF-510", "CWF-520", "CWF-530"]
+    duration_estimate_ms: 2000
+
+  WF-020:
+    name: "Final Approval"
+    primary_director: "Yama"
+    sub_agents: ["WF020SubAgent"]
+    skills: ["policy_check", "cost_check", "quality_check"]
+    duration_estimate_ms: 1000
+
+  WF-021:
+    name: "Replay / Remodify"
+    primary_director: "Krishna"
+    sub_agents: ["WF021SubAgent"]
+    skills: ["checkpoint_selection", "safe_replay"]
+    duration_estimate_ms: 5000
+
+  WF-900:
+    name: "Error Handler"
+    primary_director: "Yama"
+    sub_agents: ["WF900SubAgent"]
+    skills: ["error_classification", "recovery_routing"]
+    duration_estimate_ms: 1000
