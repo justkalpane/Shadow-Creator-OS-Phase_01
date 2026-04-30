@@ -69,21 +69,39 @@ export default function Sidebar({ isOpen, onToggle }) {
         </button>
 
         {/* Mode-specific screens */}
-        {sidebarItems.map((item) => (
-          <button
-            key={item.screenId}
-            onClick={() => navigate(item.screenId === 'SCR-003' ? '/dossiers' : '/' + item.screenId.toLowerCase())}
-            className={`w-full flex items-center gap-3 px-4 py-2 rounded transition-colors ${
-              isActive(item.screenId.toLowerCase())
-                ? 'bg-shadow-accent text-white'
-                : 'text-gray-300 hover:bg-gray-700'
-            }`}
-            title={item.label}
-          >
-            <span className="text-lg">{item.icon}</span>
-            {isOpen && <span className="text-sm">{item.label}</span>}
-          </button>
-        ))}
+        {sidebarItems.map((item) => {
+          const screenRoutes = {
+            'SCR-001': '/overview',
+            'SCR-002': '/routes',
+            'SCR-003': '/dossiers',
+            'SCR-004': '/approvals',
+            'SCR-005': '/errors',
+            'SCR-006': '/mission-control',
+            'SCR-008': '/workflows',
+            'SCR-014': '/alerts',
+            'SCR-015': '/troubleshoot',
+            'SCR-016': '/replay',
+            'SCR-017': '/analytics',
+            'SCR-018': '/learning',
+          };
+          const route = screenRoutes[item.screenId] || '/' + item.screenId.toLowerCase();
+
+          return (
+            <button
+              key={item.screenId}
+              onClick={() => navigate(route)}
+              className={`w-full flex items-center gap-3 px-4 py-2 rounded transition-colors ${
+                location.pathname === route
+                  ? 'bg-shadow-accent text-white'
+                  : 'text-gray-300 hover:bg-gray-700'
+              }`}
+              title={item.label}
+            >
+              <span className="text-lg">{item.icon}</span>
+              {isOpen && <span className="text-sm">{item.label}</span>}
+            </button>
+          );
+        })}
       </nav>
 
       {/* Operational Modes Toggle */}
