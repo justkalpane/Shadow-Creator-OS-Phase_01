@@ -1,4 +1,6 @@
 const TaskRouter = require('./task_router');
+const axios = require('axios');
+const readline = require('readline');
 
 class OllamaToolRunner {
   constructor(modeManager, n8nClient) {
@@ -50,3 +52,42 @@ class OllamaToolRunner {
 
 module.exports = OllamaToolRunner;
 
+async function runCli() {
+  const argMessage = process.argv.slice(2).join(' ').trim();
+  const askMessage = () => new Promise((resolve) => {
+    const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
+    rl.question('Enter command for Shadow Operator: ', (answer) => {
+      rl.close();
+      resolve(answer.trim());
+    });
+  });
+
+  const message = argMessage || await askMessage();
+  if (!message) {
+    console.error('[ERROR] No command provided.');
+    process.exit(1);
+  }
+
+  try {
+    const response = await axios.post('http://localhost:5050/operator/new-content-job', {
+      topic: message,
+      context: 'YouTube video',
+      mode: 'creator',
+      route_id: 'ROUTE_PHASE1_STANDARD',
+    }, { timeout: 45000 });
+
+    console.log(JSON.stringify(response.data, null, 2));
+  } catch (err) {
+    const details = err.response?.data || { message: err.message };
+    console.error(JSON.stringify({
+      status: 'failed',
+      error: err.message,
+      details,
+    }, null, 2));
+    process.exit(1);
+  }
+}
+
+if (require.main === module) {
+  runCli();
+}

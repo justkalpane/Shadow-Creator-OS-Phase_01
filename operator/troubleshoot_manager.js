@@ -1,6 +1,19 @@
 const { readJsonSafe, nowIso } = require('./_shared');
 
 class TroubleshootManager {
+  listErrors() {
+    const errorEvents = readJsonSafe('data/se_error_events.json', { records: [] });
+    const records = Array.isArray(errorEvents.records)
+      ? errorEvents.records
+      : (Array.isArray(errorEvents) ? errorEvents : []);
+
+    return {
+      errors: records,
+      total_errors: records.length,
+      inspected_at: nowIso(),
+    };
+  }
+
   traceDossier(dossierId) {
     const dossierIndex = readJsonSafe('data/se_dossier_index.json', { dossiers: [] });
     const dossiers = Array.isArray(dossierIndex.dossiers) ? dossierIndex.dossiers : [];
@@ -47,4 +60,3 @@ class TroubleshootManager {
 }
 
 module.exports = TroubleshootManager;
-

@@ -183,7 +183,7 @@ function createOperatorRouter() {
 
     while (Date.now() < timeoutAt) {
       try {
-        const dossierPath = path.join(__dirname, '../data/se_dossier_index.json');
+        const dossierPath = path.join(__dirname, '../../data/se_dossier_index.json');
         if (fs.existsSync(dossierPath)) {
           const data = JSON.parse(fs.readFileSync(dossierPath, 'utf8'));
           const dossiers = data.records || data.dossiers || [];
@@ -272,6 +272,10 @@ function createOperatorRouter() {
 
   router.get('/troubleshoot/packet/:id', (req, res) => {
     res.json(troubleshoot.tracePacket(req.params.id));
+  });
+
+  router.get('/errors', (req, res) => {
+    res.json(troubleshoot.listErrors());
   });
 
   router.get('/providers', (req, res) => {
