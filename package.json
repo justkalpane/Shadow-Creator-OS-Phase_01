@@ -44,7 +44,6 @@
     "n8n:start:bg": "n8n start --tunnel &",
     "n8n:stop": "node scripts/cli/n8n_stop.cjs",
     "n8n:status": "node scripts/cli/n8n_status.cjs",
-    "operator:ollama": "node operator/ollama_tool_runner.js",
     "webui:setup": "powershell -ExecutionPolicy Bypass -File scripts/windows/start_open_webui.ps1",
     "webui:setup:docker": "powershell -ExecutionPolicy Bypass -File scripts/windows/start_open_webui.ps1",
     "deploy:live-sync-enforcer": "node scripts/cli/deploy_live_sync_enforcer.cjs",

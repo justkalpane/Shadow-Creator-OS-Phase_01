@@ -1,53 +1,53 @@
-﻿# OPERATOR PHASE CHECKPOINT - 2026-05-01
+﻿# OPERATOR PHASE CHECKPOINT - 2026-05-01 (Updated)
 
-## Baseline
+## Current Repo
 - Branch: `main`
-- HEAD: `315b9d260739eb1c2cc865b555f8bab2fb03793e`
-- Remote: `origin https://github.com/justkalpane/Shadow-Creator-OS-Phase_01.git`
-- Validation: `npm.cmd run validate:all` -> PASS (`0 errors`, `1 warning`)
-- Health: `npm.cmd run health:check` -> HEALTHY
-- n8n status: `npm.cmd run n8n:status` -> 200 `{ "status": "ok" }`
+- Previous checkpoint base: `8e40a63`
+- Runtime profile now restarted with: `scripts/windows/start_n8n_shadow_phase1.ps1`
 
-## Package/Script Verification
-- Operator scripts in `package.json` verified:
-  - `operator:start`, `operator:health`, `operator:ollama`, `operator:mcp`, `operator:test`
-- Open WebUI scripts verified:
-  - `webui:setup`, `webui:setup:docker`
-  - `webui:start` intentionally not defined (runtime not installed path not guaranteed)
+## Fast-Close Actions Completed
+1. Re-activated/re-published runtime profile by restarting n8n with canonical Phase-1 launcher.
+2. Confirmed live WF-010 production webhook callable URL format.
+3. Patched stale WF-001 webhook id in `registries/n8n_webhook_registry.yaml`.
+4. Restarted Operator API and reran Stage 2.
+5. Implemented real MCP stdio runtime server wiring and smoke-tested it.
+6. Re-verified Open WebUI connector contract against Operator API.
 
-## Runtime Services
-- Operator API: `http://localhost:5050` -> UP
-- n8n: `http://localhost:5678` -> UP
-- Ollama: `http://localhost:11434/api/tags` -> UP
+## Live Webhook Confirmation
+- WF-010 callable URL (production):
+  - `http://localhost:5678/webhook/FTodwkmEuTFeIWRd/trigger%2520node/wf-010-parent-orchestrator`
+- Manual probe result: `HTTP 200` (`{"message":"Workflow was started"}`)
 
-## Stage Results
-1. Stage 1 Health (Operator API): PASS
-2. Stage 2 New Content Job: PARTIAL
-   - WF-001 webhook call succeeds (HTTP 200, queued)
-   - WF-010 webhook call fails (HTTP 404, webhook not registered/active)
-3. Stage 3 Dossier Inspect: PASS (dossier readable)
-4. Stage 4 Outputs Inspect: PASS (packets count shown; currently 0)
-5. Stage 5 PowerShell scripts: PARTIAL
-   - Fixed encoding/base URL corruption in scripts
-   - `new-content-job.ps1` now executes and returns truthful WF-010 failure details
-   - `inspect-output.ps1` executes successfully
-6. Stage 6 Ollama Tool Runner: PARTIAL
-   - Runner now invokes Operator API endpoint
-   - Fails for same WF-010 404 blocker
-7. Stage 7 MCP: FAIL (current file is facade module, not a running MCP server)
-8. Stage 8 Open WebUI: PARTIAL
-   - Tool config points to Operator API (`localhost:5050`)
-   - Runtime not installed/proven (Docker not installed)
+## Stage 2 Retest (Operator API)
+- `POST /operator/new-content-job` => **accepted**
+- Evidence:
+  - `wf001.status = queued, http_status = 200`
+  - `wf010.status = queued, http_status = 200`
+  - Dossier created: `DOSSIER-1777584892804-GL2GDU7OH`
 
-## Primary Blocker
-- WF-010 production webhook URL in `registries/n8n_webhook_registry.yaml` is not currently registered in live n8n:
-  - `POST /webhook/FTodwkmEuTFeIWRd/trigger%2520node/wf-010-parent-orchestrator` -> 404
+## PowerShell Script Retest
+- `scripts/operator/new-content-job.ps1` => PASS (accepted)
+- `scripts/operator/inspect-output.ps1` => PASS (truthful output + provider boundary note)
 
-## Current Verdict
-- **PARTIAL PASS**
+## Ollama Tool Runner Retest
+- `npm.cmd run operator:ollama -- "Quick health ping"` => PASS (accepted)
+- Includes live WF-001 + WF-010 queued evidence.
 
-## Required Next Fixes
-1. Re-activate/re-publish WF-010 in live n8n and confirm its production URL.
-2. Update `registries/n8n_webhook_registry.yaml` if WF-010 URL changed.
-3. Implement a real MCP server process in `operator/mcp/shadow_operator_mcp_server.js` (not just exported facade).
-4. Re-run Stage 2, Stage 5, Stage 6, Stage 7, Stage 8.
+## MCP Runtime Wiring Proof
+- `operator/mcp/shadow_operator_mcp_server.js` now runs as a stdio MCP server.
+- Smoke-tested methods:
+  - `initialize` => PASS
+  - `tools/list` => PASS (11 tools exposed)
+  - `tools/call` (`health_check`) => PASS (`operator/health` returned healthy)
+
+## Open WebUI Proof Status
+- Connector contract: PASS
+  - All tools in `config/open_webui_tools.json` target `http://localhost:5050/operator/...`
+  - Sample `create_content_job` through connector endpoint path => PASS (accepted)
+- Runtime launch on this machine: PARTIAL
+  - Docker not installed
+  - Python not installed
+  - Therefore WebUI runtime cannot be started locally yet
+
+## Final Phase 9.5 Verdict
+- **PARTIAL PASS - OPERATOR CORE + POWERSHELL + OLLAMA + MCP PROVEN; OPEN WEBUI CONNECTOR PROVEN; OPEN WEBUI RUNTIME NOT INSTALLED**

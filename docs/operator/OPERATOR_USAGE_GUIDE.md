@@ -1,46 +1,46 @@
-﻿# Operator Usage Guide (Current Verified State)
+﻿# Operator Usage Guide (Verified)
 
-## 1. Start Services
-1. Start n8n:
-   - `npm.cmd run n8n:start`
-2. Start Operator API:
-   - `npm.cmd run operator:start`
-3. Verify status:
+## Start Order
+1. `npm.cmd run n8n:start` (or `scripts/windows/start_n8n_shadow_phase1.ps1`)
+2. `npm.cmd run operator:start`
+3. Check:
    - `npm.cmd run n8n:status`
    - `npm.cmd run operator:health`
 
-## 2. Run a Content Job
+## Run Jobs
 - PowerShell:
-  - `powershell -ExecutionPolicy Bypass -File scripts/operator/new-content-job.ps1 "Create a YouTube script about procrastination and give thumbnail ideas"`
-- Direct API:
+  - `powershell -ExecutionPolicy Bypass -File scripts/operator/new-content-job.ps1 "Create a YouTube script about procrastination"`
+- API:
   - `POST http://localhost:5050/operator/new-content-job`
 
-## 3. Inspect Dossier + Outputs
+## Inspect Results
 - `powershell -ExecutionPolicy Bypass -File scripts/operator/inspect-output.ps1 DOSSIER_ID`
 - `GET http://localhost:5050/operator/dossier/DOSSIER_ID`
 - `GET http://localhost:5050/operator/outputs/DOSSIER_ID`
 
-## 4. Review / Approval / Replay
-- Approve:
-  - `POST http://localhost:5050/operator/approve/DOSSIER_ID`
-- Request changes:
-  - `POST http://localhost:5050/operator/remodify/DOSSIER_ID`
-- Replay:
-  - `POST http://localhost:5050/operator/replay/DOSSIER_ID`
-
-## 5. Ollama Tool Runner
+## Ollama Tool Runner
 - `npm.cmd run operator:ollama -- "Create a YouTube script about AI tools"`
 
-## 6. MCP
-- Current file is facade-only and not a runnable MCP server.
-- `npm.cmd run operator:mcp` exits immediately.
+## MCP Server
+- Start: `npm.cmd run operator:mcp`
+- Exposed tools:
+  - `create_content_job`
+  - `inspect_dossier`
+  - `list_outputs`
+  - `approve_output`
+  - `request_changes`
+  - `replay_stage`
+  - `check_errors`
+  - `health_check`
+  - `set_mode`
+  - `enable_operational_mode`
+  - `disable_operational_mode`
 
-## 7. Open WebUI
-- Connector config file exists: `config/open_webui_tools.json`
-- Preflight helper:
-  - `powershell -ExecutionPolicy Bypass -File scripts/windows/start_open_webui.ps1 -SkipDocker`
-- Runtime not installed/proven in this environment.
+## Open WebUI
+- Connector config: `config/open_webui_tools.json`
+- Setup preflight: `powershell -ExecutionPolicy Bypass -File scripts/windows/start_open_webui.ps1 -SkipDocker`
+- Runtime note: Open WebUI app requires Docker or Python runtime installation on this machine.
 
-## Known Runtime Blocker
-- WF-010 webhook currently returns n8n 404 webhook-not-registered.
-- Until WF-010 is re-activated/republished and registry path re-verified, end-to-end orchestration will remain blocked after WF-001.
+## Truth Rules
+- Provider-backed media remains deferred unless provider bridge is enabled.
+- No fake success states: always use Operator API response and packet/dossier evidence.
