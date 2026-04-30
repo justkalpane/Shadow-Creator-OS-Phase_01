@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAppStore } from '../store/useAppStore';
 
 const contentModes = [
@@ -9,6 +10,7 @@ const contentModes = [
     workflow: 'WF-400',
     subWorkflow: 'CWF-410',
     icon: '📸',
+    route: '/content/photo-gen',
   },
   {
     id: 'script_gen',
@@ -17,6 +19,7 @@ const contentModes = [
     workflow: 'WF-200',
     subWorkflow: 'CWF-210',
     icon: '🎬',
+    route: '/content/script-gen',
   },
   {
     id: 'debate_mode',
@@ -25,6 +28,7 @@ const contentModes = [
     workflow: 'WF-200',
     subWorkflow: 'CWF-220',
     icon: '🤝',
+    route: '/content/debate',
   },
   {
     id: 'video_creator',
@@ -33,6 +37,7 @@ const contentModes = [
     workflow: 'WF-400',
     subWorkflow: 'CWF-430',
     icon: '🎥',
+    route: '/content/video-creator',
   },
   {
     id: 'avatar_creator',
@@ -41,6 +46,7 @@ const contentModes = [
     workflow: 'WF-400',
     subWorkflow: 'CWF-440',
     icon: '👤',
+    route: '/content/avatar-creator',
   },
   {
     id: 'music_gen',
@@ -49,6 +55,7 @@ const contentModes = [
     workflow: 'WF-400',
     subWorkflow: 'CWF-450',
     icon: '🎵',
+    route: '/content/music',
   },
   {
     id: 'song_gen',
@@ -57,6 +64,7 @@ const contentModes = [
     workflow: 'WF-400',
     subWorkflow: 'CWF-460',
     icon: '🎤',
+    route: '/content/songs',
   },
   {
     id: 'poetry_gen',
@@ -65,19 +73,22 @@ const contentModes = [
     workflow: 'WF-200',
     subWorkflow: 'CWF-270',
     icon: '📝',
+    route: '/content/poetry',
   },
 ];
 
 export default function ContentModeSelector({ currentContentMode }) {
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
   const { setSelectedContentMode } = useAppStore();
 
   const current = contentModes.find((m) => m.id === currentContentMode);
 
-  const handleContentModeChange = (modeId) => {
-    setSelectedContentMode(modeId);
-    localStorage.setItem('selectedContentMode', modeId);
-    console.log(`✅ Content mode changed to: ${modeId}`);
+  const handleContentModeChange = (mode) => {
+    setSelectedContentMode(mode.id);
+    localStorage.setItem('selectedContentMode', mode.id);
+    console.log(`✅ Content mode changed to: ${mode.id}`);
+    navigate(mode.route);
     setOpen(false);
   };
 
@@ -102,7 +113,7 @@ export default function ContentModeSelector({ currentContentMode }) {
           {contentModes.map((mode) => (
             <button
               key={mode.id}
-              onClick={() => handleContentModeChange(mode.id)}
+              onClick={() => handleContentModeChange(mode)}
               className={`w-full text-left px-4 py-3 flex items-center gap-3 transition-colors border-b border-gray-700 last:border-b-0 ${
                 currentContentMode === mode.id ? 'bg-purple-900 border-purple-500' : 'hover:bg-gray-700'
               }`}

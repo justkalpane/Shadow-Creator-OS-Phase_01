@@ -1,9 +1,11 @@
 import { useAppStore } from '../store/useAppStore';
 import ModeSelector from './ModeSelector';
 import ModelSelector from './ModelSelector';
+import ModuleSelector from './ModuleSelector';
+import ContentModeSelector from './ContentModeSelector';
 
 export default function TopBar({ onMenuClick }) {
-  const { selectedMode, selectedModel } = useAppStore();
+  const { selectedMode, selectedModel, selectedModule, selectedContentMode } = useAppStore();
 
   return (
     <header className="bg-shadow-card border-b border-gray-700 px-6 py-4">
@@ -23,6 +25,8 @@ export default function TopBar({ onMenuClick }) {
         <div className="flex items-center gap-6">
           <ModeSelector currentMode={selectedMode} />
           <ModelSelector currentModel={selectedModel} />
+          <ModuleSelector />
+          {selectedContentMode && <ContentModeSelector currentContentMode={selectedContentMode} />}
         </div>
 
         {/* Right */}

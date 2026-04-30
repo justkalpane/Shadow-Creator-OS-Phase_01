@@ -1,4 +1,6 @@
-export default function PieChart({ title, data, loading, error }) {
+import { memo, useMemo } from 'react';
+
+const PieChart = memo(function PieChart({ title, data, loading, error }) {
   if (loading) {
     return (
       <div className="bg-shadow-card p-6 rounded border border-gray-700">
@@ -28,47 +30,48 @@ export default function PieChart({ title, data, loading, error }) {
     );
   }
 
-  const colors = [
-    '#3b82f6', // blue
-    '#10b981', // green
-    '#f59e0b', // amber
-    '#ef4444', // red
-    '#8b5cf6', // purple
-    '#ec4899', // pink
-    '#14b8a6', // teal
-    '#f97316', // orange
-  ];
+  const pathData = useMemo(() => {
+    const colors = [
+      '#3b82f6', // blue
+      '#10b981', // green
+      '#f59e0b', // amber
+      '#ef4444', // red
+      '#8b5cf6', // purple
+      '#ec4899', // pink
+      '#14b8a6', // teal
+      '#f97316', // orange
+    ];
 
-  const entries = Object.entries(data);
-  const segments = entries.map(([label, value], idx) => ({
-    label,
-    value,
-    percentage: (value / total) * 100,
-    color: colors[idx % colors.length],
-  }));
+    const entries = Object.entries(data);
+    const segments = entries.map(([label, value], idx) => ({
+      label,
+      value,
+      percentage: (value / total) * 100,
+      color: colors[idx % colors.length],
+    }));
 
-  // Simple SVG pie chart
-  let currentAngle = 0;
-  const pathData = segments.map((segment) => {
-    const sliceAngle = (segment.percentage / 100) * 360;
-    const startAngle = currentAngle;
-    const endAngle = currentAngle + sliceAngle;
+    let currentAngle = 0;
+    return segments.map((segment) => {
+      const sliceAngle = (segment.percentage / 100) * 360;
+      const startAngle = currentAngle;
+      const endAngle = currentAngle + sliceAngle;
 
-    const start = polarToCartesian(100, 100, 80, endAngle);
-    const end = polarToCartesian(100, 100, 80, startAngle);
-    const largeArc = sliceAngle > 180 ? 1 : 0;
+      const start = polarToCartesian(100, 100, 80, endAngle);
+      const end = polarToCartesian(100, 100, 80, startAngle);
+      const largeArc = sliceAngle > 180 ? 1 : 0;
 
-    const path = `
-      M 100 100
-      L ${end.x} ${end.y}
-      A 80 80 0 ${largeArc} 1 ${start.x} ${start.y}
-      Z
-    `;
+      const path = `
+        M 100 100
+        L ${end.x} ${end.y}
+        A 80 80 0 ${largeArc} 1 ${start.x} ${start.y}
+        Z
+      `;
 
-    currentAngle += sliceAngle;
+      currentAngle += sliceAngle;
 
-    return { ...segment, path };
-  });
+      return { ...segment, path };
+    });
+  }, [data, total]);
 
   return (
     <div className="bg-shadow-card p-6 rounded border border-gray-700">
@@ -109,7 +112,9 @@ export default function PieChart({ title, data, loading, error }) {
       </div>
     </div>
   );
-}
+});
+
+export default PieChart;
 
 function polarToCartesian(centerX, centerY, radius, angleInDegrees) {
   const angleInRadians = ((angleInDegrees - 90) * Math.PI) / 180.0;

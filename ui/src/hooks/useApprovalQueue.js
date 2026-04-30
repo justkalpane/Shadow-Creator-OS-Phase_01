@@ -1,11 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 export const useApprovalQueue = (autoRefresh = false) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [retryCount, setRetryCount] = useState(0);
 
-  const loadApprovalQueue = async () => {
+  const loadApprovalQueue = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
@@ -13,13 +14,19 @@ export const useApprovalQueue = (autoRefresh = false) => {
       if (!response.ok) throw new Error(`Failed to load approval queue (${response.status})`);
       const json = await response.json();
       setData(json.entries || json.approval_queue || []);
+      setRetryCount(0);
     } catch (err) {
       setError(err.message);
       console.error('Error loading approval queue:', err);
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
+
+  const retry = useCallback(() => {
+    setRetryCount(prev => prev + 1);
+    loadApprovalQueue();
+  }, [loadApprovalQueue]);
 
   useEffect(() => {
     loadApprovalQueue();
@@ -28,7 +35,7 @@ export const useApprovalQueue = (autoRefresh = false) => {
       const interval = setInterval(loadApprovalQueue, 5000);
       return () => clearInterval(interval);
     }
-  }, [autoRefresh]);
+  }, [autoRefresh, loadApprovalQueue]);
 
   const getByStatus = (status) => data.filter(a => a.status === status);
   const getById = (queueId) => data.find(a => a.queue_entry_id === queueId);
@@ -50,7 +57,9 @@ export const useApprovalQueue = (autoRefresh = false) => {
     data,
     loading,
     error,
+    retryCount,
     refresh: loadApprovalQueue,
+    retry,
     getByStatus,
     getById,
     getByDossier,

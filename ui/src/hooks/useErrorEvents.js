@@ -1,11 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 export const useErrorEvents = (autoRefresh = false) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [retryCount, setRetryCount] = useState(0);
 
-  const loadErrorEvents = async () => {
+  const loadErrorEvents = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
@@ -13,13 +14,19 @@ export const useErrorEvents = (autoRefresh = false) => {
       if (!response.ok) throw new Error(`Failed to load error events (${response.status})`);
       const json = await response.json();
       setData(json.records || json.error_events || []);
+      setRetryCount(0);
     } catch (err) {
       setError(err.message);
       console.error('Error loading error events:', err);
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
+
+  const retry = useCallback(() => {
+    setRetryCount(prev => prev + 1);
+    loadErrorEvents();
+  }, [loadErrorEvents]);
 
   useEffect(() => {
     loadErrorEvents();
@@ -28,7 +35,7 @@ export const useErrorEvents = (autoRefresh = false) => {
       const interval = setInterval(loadErrorEvents, 5000);
       return () => clearInterval(interval);
     }
-  }, [autoRefresh]);
+  }, [autoRefresh, loadErrorEvents]);
 
   const getByStatus = (status) => data.filter(e => e.status === status);
   const getById = (errorId) => data.find(e => e.error_id === errorId);
@@ -63,7 +70,9 @@ export const useErrorEvents = (autoRefresh = false) => {
     data,
     loading,
     error,
+    retryCount,
     refresh: loadErrorEvents,
+    retry,
     getByStatus,
     getById,
     getByDossier,

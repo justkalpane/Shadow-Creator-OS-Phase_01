@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useState, memo, useMemo } from 'react';
 import StatusBadge from './StatusBadge';
 
-export default function DataTable({ title, columns, data, loading, error, onRowClick, actions }) {
+const DataTable = memo(function DataTable({ title, columns, data, loading, error, onRowClick, actions }) {
   const [sortBy, setSortBy] = useState(null);
   const [sortDir, setSortDir] = useState('asc');
   const [searchTerm, setSearchTerm] = useState('');
@@ -15,26 +15,30 @@ export default function DataTable({ title, columns, data, loading, error, onRowC
     }
   };
 
-  let displayData = data;
+  const displayData = useMemo(() => {
+    let result = data;
 
-  // Filter
-  if (searchTerm) {
-    displayData = displayData.filter(row =>
-      Object.values(row).some(val =>
-        val && val.toString().toLowerCase().includes(searchTerm.toLowerCase())
-      )
-    );
-  }
+    // Filter
+    if (searchTerm) {
+      result = result.filter(row =>
+        Object.values(row).some(val =>
+          val && val.toString().toLowerCase().includes(searchTerm.toLowerCase())
+        )
+      );
+    }
 
-  // Sort
-  if (sortBy) {
-    displayData = [...displayData].sort((a, b) => {
-      const aVal = a[sortBy];
-      const bVal = b[sortBy];
-      const comparison = aVal < bVal ? -1 : aVal > bVal ? 1 : 0;
-      return sortDir === 'asc' ? comparison : -comparison;
-    });
-  }
+    // Sort
+    if (sortBy) {
+      result = [...result].sort((a, b) => {
+        const aVal = a[sortBy];
+        const bVal = b[sortBy];
+        const comparison = aVal < bVal ? -1 : aVal > bVal ? 1 : 0;
+        return sortDir === 'asc' ? comparison : -comparison;
+      });
+    }
+
+    return result;
+  }, [data, searchTerm, sortBy, sortDir]);
 
   return (
     <div className="bg-shadow-card p-6 rounded border border-gray-700">
@@ -126,7 +130,7 @@ export default function DataTable({ title, columns, data, loading, error, onRowC
       )}
     </div>
   );
-}
+});
 
 function renderCell(value) {
   if (value === null || value === undefined) return '—';
@@ -134,3 +138,5 @@ function renderCell(value) {
   if (typeof value === 'object') return JSON.stringify(value);
   return String(value);
 }
+
+export default DataTable;

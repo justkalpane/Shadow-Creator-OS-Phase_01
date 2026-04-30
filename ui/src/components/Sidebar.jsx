@@ -77,6 +77,7 @@ export default function Sidebar({ isOpen, onToggle }) {
             'SCR-004': '/approvals',
             'SCR-005': '/errors',
             'SCR-006': '/mission-control',
+            'SCR-007': '/founder-governance',
             'SCR-008': '/workflows',
             'SCR-014': '/alerts',
             'SCR-015': '/troubleshoot',

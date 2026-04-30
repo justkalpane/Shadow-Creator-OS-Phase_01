@@ -1,6 +1,7 @@
+import { memo, useMemo } from 'react';
 import StatusBadge from './StatusBadge';
 
-export default function DAGVisualization({ title, nodes = [], edges = [], loading, error, onNodeClick }) {
+const DAGVisualization = memo(function DAGVisualization({ title, nodes = [], edges = [], loading, error, onNodeClick }) {
   if (loading) {
     return (
       <div className="bg-shadow-card p-6 rounded border border-gray-700">
@@ -28,55 +29,54 @@ export default function DAGVisualization({ title, nodes = [], edges = [], loadin
     );
   }
 
-  // Calculate node positions in a simple left-to-right flow
-  const nodeWidth = 140;
-  const nodeHeight = 80;
-  const horizontalGap = 200;
-  const verticalGap = 120;
+  const { positions, totalWidth, totalHeight } = useMemo(() => {
+    const nodeWidth = 140;
+    const nodeHeight = 80;
+    const horizontalGap = 200;
+    const verticalGap = 120;
 
-  // Group nodes by level (distance from start)
-  const levels = {};
-  const visited = new Set();
+    const levels = {};
+    const visited = new Set();
 
-  function calculateLevel(nodeId, level = 0) {
-    if (visited.has(nodeId)) return;
-    visited.add(nodeId);
+    function calculateLevel(nodeId, level = 0) {
+      if (visited.has(nodeId)) return;
+      visited.add(nodeId);
 
-    if (!levels[level]) levels[level] = [];
-    levels[level].push(nodeId);
+      if (!levels[level]) levels[level] = [];
+      levels[level].push(nodeId);
 
-    // Find children
-    const children = edges
-      .filter(e => e.source === nodeId)
-      .map(e => e.target);
+      const children = edges
+        .filter(e => e.source === nodeId)
+        .map(e => e.target);
 
-    children.forEach(childId => calculateLevel(childId, level + 1));
-  }
-
-  // Start from nodes with no incoming edges
-  const nodesWithIncoming = new Set(edges.map(e => e.target));
-  nodes.forEach(node => {
-    if (!nodesWithIncoming.has(node.id)) {
-      calculateLevel(node.id);
+      children.forEach(childId => calculateLevel(childId, level + 1));
     }
-  });
 
-  // Position nodes
-  const positions = {};
-  let maxPerLevel = 0;
-
-  Object.entries(levels).forEach(([level, nodeIds]) => {
-    const count = nodeIds.length;
-    maxPerLevel = Math.max(maxPerLevel, count);
-    nodeIds.forEach((nodeId, idx) => {
-      const x = parseInt(level) * horizontalGap + 50;
-      const y = (idx - (count - 1) / 2) * verticalGap + 150;
-      positions[nodeId] = { x, y };
+    const nodesWithIncoming = new Set(edges.map(e => e.target));
+    nodes.forEach(node => {
+      if (!nodesWithIncoming.has(node.id)) {
+        calculateLevel(node.id);
+      }
     });
-  });
 
-  const totalWidth = Object.keys(levels).length * horizontalGap + 200;
-  const totalHeight = maxPerLevel * verticalGap + 300;
+    const positions = {};
+    let maxPerLevel = 0;
+
+    Object.entries(levels).forEach(([level, nodeIds]) => {
+      const count = nodeIds.length;
+      maxPerLevel = Math.max(maxPerLevel, count);
+      nodeIds.forEach((nodeId, idx) => {
+        const x = parseInt(level) * horizontalGap + 50;
+        const y = (idx - (count - 1) / 2) * verticalGap + 150;
+        positions[nodeId] = { x, y };
+      });
+    });
+
+    const totalWidth = Object.keys(levels).length * horizontalGap + 200;
+    const totalHeight = maxPerLevel * verticalGap + 300;
+
+    return { positions, totalWidth, totalHeight };
+  }, [nodes, edges]);
 
   return (
     <div className="bg-shadow-card p-6 rounded border border-gray-700">
@@ -193,4 +193,6 @@ export default function DAGVisualization({ title, nodes = [], edges = [], loadin
       )}
     </div>
   );
-}
+});
+
+export default DAGVisualization;

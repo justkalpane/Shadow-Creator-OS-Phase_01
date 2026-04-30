@@ -1,11 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 export const usePacketIndex = (autoRefresh = false) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [retryCount, setRetryCount] = useState(0);
 
-  const loadPacketIndex = async () => {
+  const loadPacketIndex = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
@@ -13,13 +14,19 @@ export const usePacketIndex = (autoRefresh = false) => {
       if (!response.ok) throw new Error(`Failed to load packet index (${response.status})`);
       const json = await response.json();
       setData(json.records || json.packets || []);
+      setRetryCount(0);
     } catch (err) {
       setError(err.message);
       console.error('Error loading packet index:', err);
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
+
+  const retry = useCallback(() => {
+    setRetryCount(prev => prev + 1);
+    loadPacketIndex();
+  }, [loadPacketIndex]);
 
   useEffect(() => {
     loadPacketIndex();
@@ -28,7 +35,7 @@ export const usePacketIndex = (autoRefresh = false) => {
       const interval = setInterval(loadPacketIndex, 5000);
       return () => clearInterval(interval);
     }
-  }, [autoRefresh]);
+  }, [autoRefresh, loadPacketIndex]);
 
   const getByDossier = (dossierId) => data.filter(p => p.dossier_ref === dossierId);
   const getById = (packetId) => data.find(p => p.instance_id === packetId);
@@ -80,7 +87,9 @@ export const usePacketIndex = (autoRefresh = false) => {
     data,
     loading,
     error,
+    retryCount,
     refresh: loadPacketIndex,
+    retry,
     getByDossier,
     getById,
     getByStatus,

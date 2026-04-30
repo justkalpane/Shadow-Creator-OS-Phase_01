@@ -1,6 +1,7 @@
+import { memo } from 'react';
 import StatusBadge from './StatusBadge';
 
-export default function HistoryPanel({ title, items, loading, error, onItemClick }) {
+const HistoryPanel = memo(function HistoryPanel({ title, items, loading, error, onItemClick }) {
   if (loading) {
     return (
       <div className="bg-shadow-card p-6 rounded border border-gray-700">
@@ -71,4 +72,6 @@ export default function HistoryPanel({ title, items, loading, error, onItemClick
       )}
     </div>
   );
-}
+});
+
+export default HistoryPanel;

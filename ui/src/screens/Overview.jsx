@@ -3,6 +3,8 @@ import ScreenGate from '../components/ScreenGate';
 import StatCard from '../components/widgets/StatCard';
 import DataTable from '../components/widgets/DataTable';
 import StatusBadge from '../components/widgets/StatusBadge';
+import DataLoadingError from '../components/DataLoadingError';
+import LoadingSpinner from '../components/LoadingSpinner';
 import { useDossierData } from '../hooks/useDossierData';
 import { useErrorEvents } from '../hooks/useErrorEvents';
 import { useApprovalQueue } from '../hooks/useApprovalQueue';
@@ -87,11 +89,34 @@ export default function Overview() {
           />
         </div>
 
-        {/* Error message if any */}
-        {error && (
-          <div className="bg-red-900 border border-red-500 text-red-200 px-4 py-3 rounded">
-            ⚠️ Error loading data: {error}
-          </div>
+        {/* Error states with retry */}
+        {dossiers.error && (
+          <DataLoadingError
+            error={dossiers.error}
+            onRetry={dossiers.retry}
+            title="Failed to Load Dossiers"
+          />
+        )}
+        {errors.error && (
+          <DataLoadingError
+            error={errors.error}
+            onRetry={errors.retry}
+            title="Failed to Load Error Events"
+          />
+        )}
+        {approvals.error && (
+          <DataLoadingError
+            error={approvals.error}
+            onRetry={approvals.retry}
+            title="Failed to Load Approvals"
+          />
+        )}
+        {routes.error && (
+          <DataLoadingError
+            error={routes.error}
+            onRetry={routes.retry}
+            title="Failed to Load Route Runs"
+          />
         )}
 
         {/* Recent Failures */}

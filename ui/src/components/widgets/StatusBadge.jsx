@@ -1,4 +1,6 @@
-export default function StatusBadge({ status, label = null, size = 'sm' }) {
+import { memo } from 'react';
+
+const StatusBadge = memo(function StatusBadge({ status, label = null, size = 'sm' }) {
   const statusStyles = {
     APPROVED: { bg: 'bg-green-900', text: 'text-green-300', dot: 'bg-green-400' },
     approved: { bg: 'bg-green-900', text: 'text-green-300', dot: 'bg-green-400' },
@@ -31,4 +33,6 @@ export default function StatusBadge({ status, label = null, size = 'sm' }) {
       {label || status}
     </span>
   );
-}
+});
+
+export default StatusBadge;

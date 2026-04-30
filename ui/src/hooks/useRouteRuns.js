@@ -1,11 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 export const useRouteRuns = (autoRefresh = false) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [retryCount, setRetryCount] = useState(0);
 
-  const loadRouteRuns = async () => {
+  const loadRouteRuns = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
@@ -13,13 +14,19 @@ export const useRouteRuns = (autoRefresh = false) => {
       if (!response.ok) throw new Error(`Failed to load route runs (${response.status})`);
       const json = await response.json();
       setData(json.records || json.route_runs || []);
+      setRetryCount(0);
     } catch (err) {
       setError(err.message);
       console.error('Error loading route runs:', err);
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
+
+  const retry = useCallback(() => {
+    setRetryCount(prev => prev + 1);
+    loadRouteRuns();
+  }, [loadRouteRuns]);
 
   useEffect(() => {
     loadRouteRuns();
@@ -28,7 +35,7 @@ export const useRouteRuns = (autoRefresh = false) => {
       const interval = setInterval(loadRouteRuns, 5000);
       return () => clearInterval(interval);
     }
-  }, [autoRefresh]);
+  }, [autoRefresh, loadRouteRuns]);
 
   const getByStatus = (status) => data.filter(r => r.status === status);
   const getByWorkflow = (workflowId) => data.filter(r => r.workflow_id === workflowId);
@@ -74,7 +81,9 @@ export const useRouteRuns = (autoRefresh = false) => {
     data,
     loading,
     error,
+    retryCount,
     refresh: loadRouteRuns,
+    retry,
     getByStatus,
     getByWorkflow,
     getById,

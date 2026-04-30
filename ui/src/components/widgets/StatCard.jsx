@@ -1,10 +1,13 @@
-export default function StatCard({ title, value, subtext, color = 'gray', icon, onClick, loading }) {
+import { memo } from 'react';
+
+const StatCard = memo(function StatCard({ title, value, subtext, color = 'gray', icon, onClick, loading }) {
   const borderColorClass = {
     gray: 'border-gray-700 hover:border-shadow-accent',
     green: 'border-gray-700 hover:border-green-400',
     red: 'border-gray-700 hover:border-red-400',
     yellow: 'border-gray-700 hover:border-yellow-400',
     blue: 'border-gray-700 hover:border-shadow-accent',
+    purple: 'border-gray-700 hover:border-purple-400',
   }[color];
 
   const textColorClass = {
@@ -13,6 +16,7 @@ export default function StatCard({ title, value, subtext, color = 'gray', icon, 
     red: 'text-red-400',
     yellow: 'text-yellow-400',
     blue: 'text-shadow-accent',
+    purple: 'text-purple-400',
   }[color];
 
   return (
@@ -30,4 +34,6 @@ export default function StatCard({ title, value, subtext, color = 'gray', icon, 
       {subtext && <div className="text-xs text-gray-500">{subtext}</div>}
     </div>
   );
-}
+});
+
+export default StatCard;

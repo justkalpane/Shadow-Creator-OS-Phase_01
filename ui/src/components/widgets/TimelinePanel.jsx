@@ -1,6 +1,7 @@
+import { memo, useMemo } from 'react';
 import StatusBadge from './StatusBadge';
 
-export default function TimelinePanel({ title, events, loading, error }) {
+const TimelinePanel = memo(function TimelinePanel({ title, events, loading, error }) {
   if (loading) {
     return (
       <div className="bg-shadow-card p-6 rounded border border-gray-700">
@@ -19,11 +20,13 @@ export default function TimelinePanel({ title, events, loading, error }) {
     );
   }
 
-  const sortedEvents = [...events].sort((a, b) => {
-    const timeA = new Date(a.timestamp);
-    const timeB = new Date(b.timestamp);
-    return timeB - timeA;
-  });
+  const sortedEvents = useMemo(() => {
+    return [...events].sort((a, b) => {
+      const timeA = new Date(a.timestamp);
+      const timeB = new Date(b.timestamp);
+      return timeB - timeA;
+    });
+  }, [events]);
 
   return (
     <div className="bg-shadow-card p-6 rounded border border-gray-700">
@@ -70,4 +73,6 @@ export default function TimelinePanel({ title, events, loading, error }) {
       )}
     </div>
   );
-}
+});
+
+export default TimelinePanel;
