@@ -1,31 +1,35 @@
+import { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAppStore } from '../store/useAppStore';
+import { useModeRouter } from '../hooks/useModeRouter';
 
-const menuItems = [
-  { label: 'Dashboard', url: '/dashboard', icon: '🏠', role: 'all' },
-  { label: 'Mission Control', url: '/mission-control', icon: '🎮', role: 'builder' },
-  { label: 'Workflow Monitor', url: '/workflows', icon: '⚙️', role: 'all' },
-  { label: 'Dossiers', url: '/dossiers', icon: '📁', role: 'all' },
-  { label: 'Topics', url: '/pipelines/topic-intelligence', icon: '🔍', role: 'all' },
-  { label: 'Research', url: '/research', icon: '📚', role: 'all' },
-  { label: 'Scripts', url: '/script', icon: '📄', role: 'all' },
-  { label: 'Context', url: '/context', icon: '🧩', role: 'all' },
-  { label: 'Media', url: '/media', icon: '🖼️', role: 'all' },
-  { label: 'Publishing', url: '/publishing', icon: '📤', role: 'all' },
-  { label: 'Analytics', url: '/analytics', icon: '📊', role: 'all' },
-  { label: 'Alerts', url: '/alerts', icon: '🔔', role: 'all' },
-  { label: 'Troubleshoot', url: '/troubleshoot', icon: '🔧', role: 'builder' },
-  { label: 'Replay', url: '/replay', icon: '🔄', role: 'operator' },
-  { label: 'Learning', url: '/learning', icon: '🧠', role: 'founder' },
-  { label: 'Settings', url: '/settings', icon: '⚙️', role: 'founder' },
+const operationalModes = [
+  { id: 'alert', label: 'Alert Mode', icon: '🚨', minRole: 'operator', requiresConsent: true },
+  { id: 'troubleshoot', label: 'Troubleshoot', icon: '🔧', minRole: 'builder', requiresConsent: true },
+  { id: 'analysis', label: 'Analysis', icon: '📊', minRole: 'operator', requiresConsent: false },
+  { id: 'self_learning', label: 'Self-Learning', icon: '🧠', minRole: 'founder', requiresConsent: true },
+  { id: 'replay', label: 'Replay Mode', icon: '🔄', minRole: 'operator', requiresConsent: true },
+  { id: 'safe', label: 'Safe Mode', icon: '✓', minRole: 'creator', requiresConsent: false },
+  { id: 'debug', label: 'Debug Mode', icon: '🐛', minRole: 'builder', requiresConsent: false },
+  { id: 'context_engineering', label: 'Context Eng.', icon: '🧩', minRole: 'founder', requiresConsent: false },
 ];
 
 export default function Sidebar({ isOpen, onToggle }) {
   const navigate = useNavigate();
   const location = useLocation();
-  const { selectedMode } = useAppStore();
+  const { selectedMode, enabledOperationalModes, toggleOperationalMode } = useAppStore();
+  const { getVisibleSidebarItems } = useModeRouter();
+  const [showOperationalModes, setShowOperationalModes] = useState(false);
 
+  const sidebarItems = getVisibleSidebarItems(selectedMode);
   const isActive = (url) => location.pathname.startsWith(url.split('/')[1]);
+
+  const canEnableOperationalMode = (minRole) => {
+    const modeHierarchy = { creator: 0, operator: 1, builder: 2, founder: 3 };
+    const minRequired = modeHierarchy[minRole] || 0;
+    const currentLevel = modeHierarchy[selectedMode] || 0;
+    return currentLevel >= minRequired;
+  };
 
   return (
     <aside
@@ -50,12 +54,27 @@ export default function Sidebar({ isOpen, onToggle }) {
 
       {/* Navigation */}
       <nav className="flex-1 p-4 space-y-2">
-        {menuItems.map((item) => (
+        {/* Dashboard link */}
+        <button
+          onClick={() => navigate('/')}
+          className={`w-full flex items-center gap-3 px-4 py-2 rounded transition-colors ${
+            location.pathname === '/' || location.pathname === '/dashboard'
+              ? 'bg-shadow-accent text-white'
+              : 'text-gray-300 hover:bg-gray-700'
+          }`}
+          title="Dashboard"
+        >
+          <span className="text-lg">🏠</span>
+          {isOpen && <span className="text-sm">Dashboard</span>}
+        </button>
+
+        {/* Mode-specific screens */}
+        {sidebarItems.map((item) => (
           <button
-            key={item.url}
-            onClick={() => navigate(item.url)}
+            key={item.screenId}
+            onClick={() => navigate(item.screenId === 'SCR-003' ? '/dossiers' : '/' + item.screenId.toLowerCase())}
             className={`w-full flex items-center gap-3 px-4 py-2 rounded transition-colors ${
-              isActive(item.url)
+              isActive(item.screenId.toLowerCase())
                 ? 'bg-shadow-accent text-white'
                 : 'text-gray-300 hover:bg-gray-700'
             }`}
@@ -66,6 +85,48 @@ export default function Sidebar({ isOpen, onToggle }) {
           </button>
         ))}
       </nav>
+
+      {/* Operational Modes Toggle */}
+      <div className="border-t border-gray-700 p-4">
+        <button
+          onClick={() => setShowOperationalModes(!showOperationalModes)}
+          className="w-full flex items-center gap-2 px-2 py-2 text-xs text-gray-400 hover:text-gray-200 transition-colors"
+        >
+          <span>⚡ Operational Modes</span>
+          <span className="ml-auto text-xs">{showOperationalModes ? '▲' : '▼'}</span>
+        </button>
+
+        {showOperationalModes && isOpen && (
+          <div className="mt-3 space-y-2 text-xs">
+            {operationalModes.map((mode) => {
+              const isEnabled = enabledOperationalModes.includes(mode.id);
+              const canEnable = canEnableOperationalMode(mode.minRole);
+
+              return (
+                <label
+                  key={mode.id}
+                  className={`flex items-center gap-2 p-2 rounded cursor-pointer transition-colors ${
+                    canEnable
+                      ? 'hover:bg-gray-700 text-gray-300'
+                      : 'text-gray-600 cursor-not-allowed'
+                  }`}
+                  title={!canEnable ? `Requires ${mode.minRole} mode` : ''}
+                >
+                  <input
+                    type="checkbox"
+                    checked={isEnabled}
+                    onChange={() => canEnable && toggleOperationalMode(mode.id)}
+                    disabled={!canEnable}
+                    className="rounded"
+                  />
+                  <span>{mode.icon}</span>
+                  <span className="flex-1">{mode.label}</span>
+                </label>
+              );
+            })}
+          </div>
+        )}
+      </div>
 
       {/* Footer */}
       <div className="p-4 border-t border-gray-700 text-xs text-gray-500">

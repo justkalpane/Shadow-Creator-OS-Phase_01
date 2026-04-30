@@ -1,4 +1,4 @@
-const N8N_BASE_URL = process.env.REACT_APP_N8N_URL || 'http://localhost:5678';
+const N8N_BASE_URL = 'http://localhost:5678';
 
 const workflowWebhooks = {
   'WF-001': '/webhook/dossier-create',
