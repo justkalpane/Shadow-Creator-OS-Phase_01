@@ -20,7 +20,7 @@
     },
     {
       "parameters": {
-        "jsCode": "return [{ json: { ...$json, dossier_context: { dossier_id: $json.dossier_id || 'DOSSIER-UNSPECIFIED', route_id: $json.route_id || 'ROUTE_PHASE1_STANDARD', loaded_at: new Date().toISOString() } } }];"
+        "jsCode": "const raw = $json || {};\nconst input = (raw.body && typeof raw.body === 'object') ? raw.body : raw;\nconst dossier_id = input.dossier_id || input.dossierId || input.dossier_context?.dossier_id || 'DOSSIER-UNSPECIFIED';\nconst route_id = input.route_id || input.routeId || 'ROUTE_PHASE1_STANDARD';\nconst user_mode = input.user_mode || input.userMode || 'operator';\nconst intent_id = input.intent_id || input.intentId || 'unknown';\nconst user_message = input.user_message || input.userMessage || '';\nreturn [{ json: { ...input, ...$json, dossier_id, route_id, user_mode, intent_id, user_message, dossier_context: { dossier_id, route_id, loaded_at: new Date().toISOString() } } }];"
       },
       "id": "wf010_dossier_load_node",
       "name": "Dossier Load Node",
